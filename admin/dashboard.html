@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard — Franjo Nutrición</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+
+<div class="admin-layout">
+
+  <!-- SIDEBAR OVERLAY (mobile) -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <div class="brand">
+        <div class="brand-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2L3 7l9 5 9-5-9-5zM3 17l9 5 9-5M3 12l9 5 9-5"/>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-text">Franjo</div>
+          <div class="brand-sub">Nutrición Deportiva</div>
+        </div>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Principal</div>
+
+      <a href="dashboard.html" class="nav-item active">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        Dashboard
+      </a>
+
+      <a href="clientes.html" class="nav-item">
+        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Clientes
+      </a>
+
+      <div class="nav-section-label">Contenido</div>
+
+      <a href="#" class="nav-item" id="navPlanes">
+        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        Planes Nutricionales
+      </a>
+
+      <a href="#" class="nav-item" id="navEntrenamiento">
+        <svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+        Planes Entrenamiento
+      </a>
+
+      <div class="nav-section-label">Ajustes</div>
+
+      <a href="#" class="nav-item">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+        Configuración
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-chip" onclick="logout()">
+        <div class="user-avatar" id="sidebarAvatar">F</div>
+        <div class="user-info">
+          <div class="user-name" id="sidebarName">Franjo Torres</div>
+          <div class="user-role">Administrador</div>
+        </div>
+        <svg class="logout-icon" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main-area">
+    <header class="topbar">
+      <button class="burger-btn" id="burgerBtn">
+        <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <div class="topbar-title">Dashboard</div>
+      <div class="topbar-actions">
+        <a href="clientes.html">
+          <button class="btn-sm">
+            <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Nuevo cliente
+          </button>
+        </a>
+      </div>
+    </header>
+
+    <main class="page-content">
+
+      <!-- STATS -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <div class="stat-value" id="statClientes">—</div>
+          <div class="stat-label">Clientes activos</div>
+          <div class="stat-delta" id="statClientesDelta"></div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon">
+            <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          </div>
+          <div class="stat-value" id="statPlanes">—</div>
+          <div class="stat-label">Planes activos</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon">
+            <svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+          </div>
+          <div class="stat-value" id="statEndurance">—</div>
+          <div class="stat-label">Endurance</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+          </div>
+          <div class="stat-value" id="statMMA">—</div>
+          <div class="stat-label">MMA / Combate</div>
+        </div>
+      </div>
+
+      <!-- CLIENTES RECIENTES -->
+      <div class="panel">
+        <div class="panel-header">
+          <div>
+            <div class="panel-title">Clientes recientes</div>
+            <div class="panel-subtitle">Últimas incorporaciones</div>
+          </div>
+          <a href="clientes.html"><button class="btn-ghost">Ver todos</button></a>
+        </div>
+
+        <div id="recentClientsWrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Cliente</th>
+                <th>Especialidad</th>
+                <th>Estado</th>
+                <th>Registro</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="recentClientsTbody">
+              <tr><td colspan="5" style="text-align:center;padding:32px;color:var(--cream-3)"><span class="spinner"></span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- PRÓXIMOS — placeholder -->
+      <div class="panel">
+        <div class="panel-header">
+          <div>
+            <div class="panel-title">Próximas funciones</div>
+            <div class="panel-subtitle">En desarrollo</div>
+          </div>
+        </div>
+        <div class="panel-body">
+          <div style="display:flex;gap:12px;flex-wrap:wrap;">
+            <div style="background:var(--bg-3);border:1px solid var(--border);border-radius:var(--r);padding:14px 18px;flex:1;min-width:160px;">
+              <div style="font-size:12px;color:var(--cream-3);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px;">Próximamente</div>
+              <div style="font-size:14px;font-weight:600;color:var(--cream);">Planes Nutricionales</div>
+              <div style="font-size:12px;color:var(--cream-3);margin-top:4px;">Crea y asigna planes a cada cliente</div>
+            </div>
+            <div style="background:var(--bg-3);border:1px solid var(--border);border-radius:var(--r);padding:14px 18px;flex:1;min-width:160px;">
+              <div style="font-size:12px;color:var(--cream-3);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px;">Próximamente</div>
+              <div style="font-size:14px;font-weight:600;color:var(--cream);">Planes de Entrenamiento</div>
+              <div style="font-size:12px;color:var(--cream-3);margin-top:4px;">Periodización y seguimiento</div>
+            </div>
+            <div style="background:var(--bg-3);border:1px solid var(--border);border-radius:var(--r);padding:14px 18px;flex:1;min-width:160px;">
+              <div style="font-size:12px;color:var(--cream-3);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px;">Próximamente</div>
+              <div style="font-size:14px;font-weight:600;color:var(--cream);">Seguimiento & Métricas</div>
+              <div style="font-size:12px;color:var(--cream-3);margin-top:4px;">Peso, composición corporal, RPE</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<div class="toast-container" id="toastContainer"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="admin.js"></script>
+<script>
+(async () => {
+  const session = await requireAuth();
+  if (!session) return;
+
+  // Mostrar usuario en sidebar
+  const email = session.user.email || '';
+  const name  = session.user.user_metadata?.full_name || email.split('@')[0];
+  document.getElementById('sidebarName').textContent = name;
+  document.getElementById('sidebarAvatar').textContent = getInitials(name);
+
+  initSidebar();
+
+  // Cargar stats
+  await loadStats();
+  await loadRecentClients();
+})();
+
+async function loadStats() {
+  const { count: total }     = await _supabase.from('clientes').select('*', { count: 'exact', head: true });
+  const { count: activos }   = await _supabase.from('clientes').select('*', { count: 'exact', head: true }).eq('estado', 'activo');
+  const { count: endurance } = await _supabase.from('clientes').select('*', { count: 'exact', head: true }).eq('especialidad', 'endurance');
+  const { count: mma }       = await _supabase.from('clientes').select('*', { count: 'exact', head: true }).eq('especialidad', 'mma');
+  const { count: planes }    = await _supabase.from('clientes').select('*', { count: 'exact', head: true }).eq('estado', 'activo');
+
+  document.getElementById('statClientes').textContent   = activos ?? 0;
+  document.getElementById('statPlanes').textContent     = planes ?? 0;
+  document.getElementById('statEndurance').textContent  = endurance ?? 0;
+  document.getElementById('statMMA').textContent        = mma ?? 0;
+}
+
+async function loadRecentClients() {
+  const tbody = document.getElementById('recentClientsTbody');
+  const { data, error } = await _supabase
+    .from('clientes')
+    .select('*')
+    .order('created_at', { ascending: false })
+    .limit(6);
+
+  if (error || !data?.length) {
+    tbody.innerHTML = `<tr><td colspan="5">
+      <div class="empty-state">
+        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+        <h3>Sin clientes aún</h3>
+        <p>Agrega tu primer cliente desde la sección Clientes.</p>
+      </div>
+    </td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = data.map(c => `
+    <tr>
+      <td>
+        <div class="table-avatar">
+          <div class="mini-avatar">${getInitials(c.nombre)}</div>
+          <div>
+            <div class="cell-name">${c.nombre}</div>
+            <div class="cell-meta">${c.email || '—'}</div>
+          </div>
+        </div>
+      </td>
+      <td>${badgeEspecialidad(c.especialidad)}</td>
+      <td>${badgeEstado(c.estado)}</td>
+      <td style="color:var(--cream-3);font-size:13px">${formatDate(c.created_at)}</td>
+      <td><a href="clientes.html"><button class="action-btn">Ver</button></a></td>
+    </tr>
+  `).join('');
+}
+
+function badgeEstado(estado) {
+  const map = { activo: 'badge-active', pendiente: 'badge-pending', inactivo: 'badge-inactive' };
+  const labels = { activo: 'Activo', pendiente: 'Pendiente', inactivo: 'Inactivo' };
+  return `<span class="badge ${map[estado] || 'badge-inactive'}">${labels[estado] || estado || '—'}</span>`;
+}
+
+function badgeEspecialidad(esp) {
+  const map = { endurance: 'badge-endurance', mma: 'badge-mma', general: 'badge-general' };
+  const labels = { endurance: 'Endurance', mma: 'MMA', general: 'General' };
+  return `<span class="badge ${map[esp] || 'badge-general'}">${labels[esp] || esp || '—'}</span>`;
+}
+</script>
+</body>
+</html>

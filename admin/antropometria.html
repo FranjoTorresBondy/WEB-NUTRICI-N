@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Antropometría — Franjo Nutrición</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="admin.css" />
+  <style>
+    .section-title {
+      font-family: var(--serif);
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--cream);
+      margin-bottom: 14px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    .section-block {
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 20px;
+      margin-bottom: 14px;
+    }
+
+    /* SESIONES LISTA */
+    .sesion-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .sesion-item:last-child { border-bottom: none; }
+    .sesion-item:hover { background: var(--gold-pale); }
+    .sesion-item.selected { background: var(--gold-pale); border-left: 3px solid var(--gold); }
+
+    .sesion-fecha { font-size: 14px; font-weight: 600; color: var(--cream); }
+    .sesion-meta  { font-size: 12px; color: var(--cream-3); margin-top: 2px; }
+
+    /* RESULTADOS */
+    .result-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .result-card {
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 12px 14px;
+      text-align: center;
+    }
+    .result-card.highlight {
+      background: var(--gold-pale);
+      border-color: var(--border-l);
+    }
+    .result-label { font-size: 10.5px; color: var(--cream-3); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 5px; }
+    .result-value { font-size: 22px; font-weight: 700; font-family: var(--serif); color: var(--cream); line-height: 1; }
+    .result-value.gold { color: var(--gold); }
+    .result-unit  { font-size: 11px; color: var(--cream-3); margin-top: 3px; }
+
+    /* PLIEGUES GRID */
+    .pliegues-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 12px;
+    }
+
+    .pliegue-input {
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 12px 14px;
+      position: relative;
+      transition: border-color 0.15s;
+    }
+    .pliegue-input:focus-within { border-color: var(--gold); }
+
+    .pliegue-input label {
+      display: block;
+      font-size: 11px;
+      color: var(--cream-3);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      margin-bottom: 6px;
+    }
+    .pliegue-input .yuhasz-mark {
+      display: inline-block;
+      background: var(--gold-pale);
+      color: var(--gold);
+      border: 1px solid var(--border-l);
+      border-radius: 4px;
+      font-size: 9px;
+      padding: 1px 5px;
+      margin-left: 4px;
+      vertical-align: middle;
+      font-weight: 600;
+    }
+    .pliegue-input input {
+      width: 100%;
+      background: transparent;
+      border: none;
+      outline: none;
+      font-family: var(--serif);
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--cream);
+      padding: 0;
+    }
+    .pliegue-input .unit {
+      position: absolute;
+      right: 12px;
+      bottom: 12px;
+      font-size: 11px;
+      color: var(--cream-3);
+    }
+
+    /* PERIMETROS / DIAMETROS */
+    .medidas-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 10px;
+    }
+
+    .medida-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 9px 12px;
+    }
+    .medida-row label { flex: 1; font-size: 12.5px; color: var(--cream-2); }
+    .medida-row input {
+      width: 70px;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid var(--border-l);
+      outline: none;
+      color: var(--cream);
+      font-size: 14px;
+      font-weight: 600;
+      text-align: right;
+      padding: 2px 4px;
+    }
+    .medida-row .munit { font-size: 11px; color: var(--cream-3); min-width: 20px; }
+
+    /* BARRA COMPARATIVA % GRASA */
+    .fat-bar-wrap {
+      margin-top: 12px;
+    }
+    .fat-bar-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 10px;
+      color: var(--cream-3);
+      margin-bottom: 4px;
+    }
+    .fat-bar-bg {
+      height: 10px;
+      background: var(--bg-4);
+      border-radius: 5px;
+      position: relative;
+      overflow: visible;
+    }
+    .fat-bar-fill {
+      height: 100%;
+      border-radius: 5px;
+      background: linear-gradient(90deg, #4ade80, #facc15, #f87171);
+      transition: width 0.4s ease;
+      max-width: 100%;
+    }
+    .fat-bar-marker {
+      position: absolute;
+      top: -4px;
+      width: 2px;
+      height: 18px;
+      background: var(--gold);
+      border-radius: 1px;
+      transform: translateX(-50%);
+    }
+    .fat-range-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 9.5px;
+      margin-top: 5px;
+    }
+    .fat-range-labels span { color: var(--cream-4); }
+    .fat-range-labels .active-range { color: var(--gold); font-weight: 600; }
+
+    /* LAYOUT 2 COL */
+    .two-col {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 16px;
+      align-items: start;
+    }
+
+    .sesiones-panel {
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      position: sticky;
+      top: 76px;
+    }
+
+    .sesiones-panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .sesiones-panel-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--cream);
+    }
+
+    /* TABS DENTRO DE SESIÓN */
+    .inner-tabs { display: flex; gap: 4px; margin-bottom: 14px; }
+    .inner-tab {
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 5px 12px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--cream-3);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .inner-tab:hover { color: var(--cream); }
+    .inner-tab.active { background: var(--gold-pale); color: var(--gold); border-color: var(--border-l); }
+
+    .inner-pane { display: none; }
+    .inner-pane.active { display: block; }
+
+    @media (max-width: 800px) {
+      .two-col { grid-template-columns: 1fr; }
+      .sesiones-panel { position: static; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="admin-layout">
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <div class="brand">
+        <div class="brand-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="var(--gold)">
+            <path d="M12 2L3 7l9 5 9-5-9-5zM3 17l9 5 9-5M3 12l9 5 9-5"/>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-text">Franjo</div>
+          <div class="brand-sub">Nutrición Deportiva</div>
+        </div>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Principal</div>
+      <a href="dashboard.html" class="nav-item">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        Dashboard
+      </a>
+      <a href="clientes.html" class="nav-item active">
+        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+        Clientes
+      </a>
+      <div class="nav-section-label">Ajustes</div>
+      <a href="#" class="nav-item">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+        Configuración
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="user-chip" onclick="logout()">
+        <div class="user-avatar" id="sidebarAvatar">F</div>
+        <div class="user-info">
+          <div class="user-name" id="sidebarName">Franjo Torres</div>
+          <div class="user-role">Administrador</div>
+        </div>
+        <svg class="logout-icon" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      </div>
+    </div>
+  </aside>
+
+  <div class="main-area">
+    <header class="topbar">
+      <button class="burger-btn" id="burgerBtn">
+        <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <div class="topbar-title" id="topbarTitle">Antropometría ISAK</div>
+      <div class="topbar-actions">
+        <a href="historia.html" id="linkHistoria"><button class="btn-ghost">Historia clínica</button></a>
+        <a href="clientes.html"><button class="btn-ghost">← Volver</button></a>
+        <button class="btn-sm" onclick="nuevaSesion()">
+          <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Nueva sesión
+        </button>
+      </div>
+    </header>
+
+    <main class="page-content">
+
+      <!-- CLIENTE INFO -->
+      <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px;padding:12px 18px;background:var(--bg-2);border:1px solid var(--border);border-radius:var(--r-lg)">
+        <div class="user-avatar" id="clienteAvatar" style="width:40px;height:40px;font-size:15px">?</div>
+        <div style="flex:1">
+          <div style="font-size:15px;font-weight:600;color:var(--cream)" id="clienteNombreDisplay">Cargando…</div>
+          <div style="font-size:12px;color:var(--cream-3)" id="clienteMetaDisplay"></div>
+        </div>
+        <div id="ultimaActualizacion" style="font-size:12px;color:var(--cream-3)"></div>
+      </div>
+
+      <div class="two-col">
+
+        <!-- PANEL IZQUIERDO — SESIONES -->
+        <div class="sesiones-panel">
+          <div class="sesiones-panel-header">
+            <div class="sesiones-panel-title">Sesiones ISAK</div>
+          </div>
+          <div id="sesionesList">
+            <div style="padding:20px;text-align:center;color:var(--cream-3);font-size:13px">
+              <span class="spinner"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- PANEL DERECHO — FORMULARIO SESIÓN -->
+        <div id="sesionForm" style="display:none">
+
+          <!-- RESULTADOS CALCULADOS (sticky arriba) -->
+          <div class="section-block" style="border-left:3px solid var(--gold)">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+              <div class="section-title" style="margin-bottom:0;border:none;padding:0">Resultados calculados</div>
+              <div style="font-size:12px;color:var(--cream-3)">Protocolo ISAK · Fórmula Yuhasz</div>
+            </div>
+
+            <div class="result-grid" id="resultGrid">
+              <div class="result-card"><div class="result-label">IMC</div><div class="result-value" id="res-imc">—</div><div class="result-unit">kg/m²</div></div>
+              <div class="result-card highlight"><div class="result-label">Σ 6 pliegues (Yuhasz)</div><div class="result-value gold" id="res-s6">—</div><div class="result-unit">mm</div></div>
+              <div class="result-card highlight"><div class="result-label">Σ 8 pliegues (ISAK)</div><div class="result-value gold" id="res-s8">—</div><div class="result-unit">mm</div></div>
+              <div class="result-card highlight"><div class="result-label">% Grasa (Yuhasz)</div><div class="result-value gold" id="res-pct">—</div><div class="result-unit">%</div></div>
+              <div class="result-card"><div class="result-label">Masa grasa</div><div class="result-value" id="res-mg">—</div><div class="result-unit">kg</div></div>
+              <div class="result-card highlight"><div class="result-label">Masa magra (LBM)</div><div class="result-value gold" id="res-mm">—</div><div class="result-unit">kg</div></div>
+            </div>
+
+            <!-- BARRA % GRASA -->
+            <div class="fat-bar-wrap" id="fatBarWrap" style="display:none">
+              <div class="fat-bar-labels">
+                <span>Clasificación % grasa</span>
+                <span id="fat-categoria" style="color:var(--gold);font-weight:600"></span>
+              </div>
+              <div class="fat-bar-bg">
+                <div class="fat-bar-fill" id="fatBarFill" style="width:0%"></div>
+                <div class="fat-bar-marker" id="fatBarMarker" style="left:0%"></div>
+              </div>
+              <div class="fat-range-labels" id="fatRangeLabels"></div>
+            </div>
+
+            <div style="margin-top:14px;padding:10px 14px;background:var(--bg-3);border-radius:8px;font-size:12.5px;color:var(--cream-2);line-height:1.7" id="resumen-texto"></div>
+          </div>
+
+          <!-- TABS INTERNOS -->
+          <div class="inner-tabs">
+            <button class="inner-tab active" onclick="innerTab('basicos')">Básicos</button>
+            <button class="inner-tab" onclick="innerTab('pliegues')">Pliegues</button>
+            <button class="inner-tab" onclick="innerTab('perimetros')">Perímetros</button>
+            <button class="inner-tab" onclick="innerTab('diametros')">Diámetros</button>
+          </div>
+
+          <!-- TAB BÁSICOS -->
+          <div class="inner-pane active" id="inner-basicos">
+            <div class="section-block">
+              <div class="section-title">Datos básicos</div>
+              <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px">
+                <div class="form-group">
+                  <label>Fecha de medición</label>
+                  <input type="date" id="s-fecha" onchange="recalcular()" />
+                </div>
+                <div class="form-group">
+                  <label>Talla (cm)</label>
+                  <input type="number" id="s-talla" step="0.1" min="100" max="230" placeholder="175.0" oninput="recalcular()" />
+                </div>
+                <div class="form-group">
+                  <label>Peso (kg)</label>
+                  <input type="number" id="s-peso" step="0.05" min="30" max="250" placeholder="72.0" oninput="recalcular()" />
+                </div>
+                <div class="form-group">
+                  <label>Género</label>
+                  <select id="s-genero" onchange="recalcular()">
+                    <option value="masculino">Masculino</option>
+                    <option value="femenino">Femenino</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Edad (años)</label>
+                  <input type="number" id="s-edad" min="10" max="90" placeholder="28" oninput="recalcular()" />
+                </div>
+              </div>
+              <div class="form-group" style="margin-top:14px;margin-bottom:0">
+                <label>Notas de sesión</label>
+                <input type="text" id="s-notas" placeholder="Condiciones de medición, observaciones…" />
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB PLIEGUES -->
+          <div class="inner-pane" id="inner-pliegues">
+            <div class="section-block">
+              <div class="section-title">Pliegues cutáneos (mm) — Protocolo ISAK</div>
+              <p style="font-size:12px;color:var(--cream-3);margin-bottom:16px">Los 6 marcados con <span style="background:var(--gold-pale);color:var(--gold);border:1px solid var(--border-l);border-radius:3px;font-size:10px;padding:1px 5px;font-weight:600">Y6</span> entran en la fórmula Yuhasz. Los 8 forman la sumatoria ISAK estándar.</p>
+              <div class="pliegues-grid">
+
+                <div class="pliegue-input">
+                  <label>Tríceps <span class="yuhasz-mark">Y6</span></label>
+                  <input type="number" id="p-triceps" step="0.1" min="0" placeholder="—" oninput="recalcular()" />
+                  <span class="unit">mm</span>
+                </div>
+
+                <div class="pliegue-input">
+                  <label>Subescapular <span class="yuhasz-mark">Y6</span></label>
+                  <input type="number" id="p-subescapular" step="0.1" min="0" placeholder="—" oninput="recalcular()" />
+                  <span class="unit">mm</span>
+                </div>
+
+                <div class="pliegue-input">
+                  <label>Bíceps <span style="background:var(--bg-4);color:var(--cream-3);border:1px solid var(--border);border-radius:3px;font-size:9px;padding:1px 5px;font-weight:600">Σ8</span></label>
+                  <input type="number" id="p-biceps" step="0.1" min="0" placeholder="—" oninput="recalcular()" />
+                  <span class="unit">mm</span>
+                </div>
+
+                <div class="pliegue-input">
+                  <label>Cresta ilíaca <span style="background:var(--bg-4);color:var(--cream-3);border:1px solid var(--border);border-radius:3px;font-size:9px;padding:1px 5px;font-weight:600">Σ8</span></label>
+                  <input type="number" id="p-cresta-iliaca" step="0.1" min="0" placeholder="—" oninput="recalcular()" />
+                  <span class="unit">mm</span>
+                </div>
+
+                <div class="pliegue-input">
+                  <label>Supraespinal <span class="yuhasz-mark">Y6</span></label>
+                  <input type="number" id="p-supraespinal" step="0.1" min="0" placeholder="—" oninput="recalcular()" />
+                  <span class="unit">mm</span>
+                </div>
+
+                <div class="pliegue-input">
+                  <label>Abdominal <span class="yuhasz-mark">Y6</span></label>
+                  <input type="number" id="p-abdominal" step="0.1" min="0" placeholder="—" oninput="recalcular()" />
+                  <span class="unit">mm</span>
+                </div>
+
+                <div class="pliegue-input">
+                  <label>Muslo anterior <span class="yuhasz-mark">Y6</span></label>
+                  <input type="number" id="p-muslo" step="0.1" min="0" placeholder="—" oninput="recalcular()" />
+                  <span class="unit">mm</span>
+                </div>
+
+                <div class="pliegue-input">
+                  <label>Pierna medial <span class="yuhasz-mark">Y6</span></label>
+                  <input type="number" id="p-pierna" step="0.1" min="0" placeholder="—" oninput="recalcular()" />
+                  <span class="unit">mm</span>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB PERÍMETROS -->
+          <div class="inner-pane" id="inner-perimetros">
+            <div class="section-block">
+              <div class="section-title">Perímetros (cm)</div>
+              <div class="medidas-grid">
+                <div class="medida-row"><label>Brazo relajado</label><input type="number" id="per-brazo-rel" step="0.1" placeholder="—"/><span class="munit">cm</span></div>
+                <div class="medida-row"><label>Brazo flexionado</label><input type="number" id="per-brazo-flex" step="0.1" placeholder="—"/><span class="munit">cm</span></div>
+                <div class="medida-row"><label>Cintura (mínima)</label><input type="number" id="per-cintura" step="0.1" placeholder="—" oninput="recalcular()"/><span class="munit">cm</span></div>
+                <div class="medida-row"><label>Cadera (máxima)</label><input type="number" id="per-cadera" step="0.1" placeholder="—" oninput="recalcular()"/><span class="munit">cm</span></div>
+                <div class="medida-row"><label>Muslo medio</label><input type="number" id="per-muslo" step="0.1" placeholder="—"/><span class="munit">cm</span></div>
+                <div class="medida-row"><label>Pierna máxima</label><input type="number" id="per-pierna" step="0.1" placeholder="—"/><span class="munit">cm</span></div>
+                <div class="medida-row"><label>Tórax (mesosternal)</label><input type="number" id="per-torax" step="0.1" placeholder="—"/><span class="munit">cm</span></div>
+                <div class="medida-row"><label>Pecho (máximo)</label><input type="number" id="per-pecho" step="0.1" placeholder="—"/><span class="munit">cm</span></div>
+                <div class="medida-row"><label>Hombros (perímetro)</label><input type="number" id="per-hombros" step="0.1" placeholder="—"/><span class="munit">cm</span></div>
+              </div>
+
+              <!-- ICC -->
+              <div style="margin-top:14px;padding:12px 16px;background:var(--bg-3);border-radius:var(--r);border:1px solid var(--border)" id="icc-block" style="display:none">
+                <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+                  <div>
+                    <div style="font-size:10.5px;color:var(--cream-3);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:2px">ICC (cintura/cadera)</div>
+                    <div style="font-size:24px;font-weight:700;font-family:var(--serif);color:var(--cream)" id="res-icc">—</div>
+                  </div>
+                  <div id="icc-interpretacion" style="font-size:13px;color:var(--cream-2)"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB DIÁMETROS -->
+          <div class="inner-pane" id="inner-diametros">
+            <div class="section-block">
+              <div class="section-title">Diámetros óseos (cm)</div>
+              <p style="font-size:12px;color:var(--cream-3);margin-bottom:14px">Usados para somatotipo de Heath-Carter y estimación de masa ósea.</p>
+              <div class="medidas-grid">
+                <div class="medida-row"><label>Biestiloideo (muñeca)</label><input type="number" id="dia-muneca" step="0.1" placeholder="—"/><span class="munit">cm</span></div>
+                <div class="medida-row"><label>Biepicondíleo fémur</label><input type="number" id="dia-femur" step="0.1" placeholder="—"/><span class="munit">cm</span></div>
+                <div class="medida-row"><label>Biepicondíleo húmero</label><input type="number" id="dia-humero" step="0.1" placeholder="—"/><span class="munit">cm</span></div>
+                <div class="medida-row"><label>Biacromial</label><input type="number" id="dia-biacromial" step="0.1" placeholder="—"/><span class="munit">cm</span></div>
+                <div class="medida-row"><label>Biiliocrestal</label><input type="number" id="dia-biiliocrestal" step="0.1" placeholder="—"/><span class="munit">cm</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- BOTONES GUARDAR -->
+          <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:4px">
+            <button class="btn-ghost" onclick="cancelarSesion()">Cancelar</button>
+            <button class="btn-sm" onclick="guardarSesion()" id="btnGuardarSesion">
+              <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+              Guardar sesión
+            </button>
+          </div>
+
+        </div><!-- /sesionForm -->
+
+        <!-- EMPTY STATE -->
+        <div id="emptyState" style="text-align:center;padding:60px 20px;color:var(--cream-3)">
+          <svg viewBox="0 0 24 24" width="48" height="48" stroke="var(--cream-4)" fill="none" stroke-width="1.5" stroke-linecap="round" style="margin:0 auto 16px"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></svg>
+          <h3 style="font-size:15px;color:var(--cream-2);margin-bottom:6px">Sin sesiones registradas</h3>
+          <p style="font-size:13px">Crea la primera sesión de antropometría con el botón de arriba.</p>
+        </div>
+
+      </div>
+    </main>
+  </div>
+</div>
+
+<div class="toast-container" id="toastContainer"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="admin.js"></script>
+<script>
+// ══════════════════════════════════════════
+//  CONFIG % GRASA POR GÉNERO
+// ══════════════════════════════════════════
+const FAT_RANGES = {
+  masculino: [
+    { label: 'Atlético', max: 10,  color: '#4ade80' },
+    { label: 'Óptimo',   max: 15,  color: '#a3e635' },
+    { label: 'Aceptable',max: 20,  color: '#facc15' },
+    { label: 'Sobrepeso',max: 25,  color: '#fb923c' },
+    { label: 'Obesidad', max: 100, color: '#f87171' },
+  ],
+  femenino: [
+    { label: 'Atlético', max: 17,  color: '#4ade80' },
+    { label: 'Óptimo',   max: 22,  color: '#a3e635' },
+    { label: 'Aceptable',max: 28,  color: '#facc15' },
+    { label: 'Sobrepeso',max: 33,  color: '#fb923c' },
+    { label: 'Obesidad', max: 100, color: '#f87171' },
+  ],
+};
+
+let clienteId = null;
+let sesionActualId = null;
+let todasLasSesiones = [];
+let generoCliente = 'masculino';
+
+// ══════════════════════════════════════════
+//  INIT
+// ══════════════════════════════════════════
+(async () => {
+  const session = await requireAuth();
+  if (!session) return;
+
+  const email = session.user.email || '';
+  const name  = session.user.user_metadata?.full_name || email.split('@')[0];
+  document.getElementById('sidebarName').textContent = name;
+  document.getElementById('sidebarAvatar').textContent = getInitials(name);
+  initSidebar();
+
+  const params = new URLSearchParams(window.location.search);
+  clienteId = params.get('cliente');
+  if (!clienteId) { showToast('No se especificó cliente', 'error'); return; }
+
+  await cargarCliente();
+  await cargarSesiones();
+})();
+
+async function cargarCliente() {
+  const { data } = await _supabase.from('clientes').select('*').eq('id', clienteId).single();
+  if (!data) return;
+  document.getElementById('clienteNombreDisplay').textContent = data.nombre;
+  document.getElementById('clienteAvatar').textContent = getInitials(data.nombre);
+  document.getElementById('clienteMetaDisplay').textContent = [data.especialidad, data.estado].filter(Boolean).join(' · ');
+  document.getElementById('topbarTitle').textContent = `Antropometría — ${data.nombre}`;
+  document.getElementById('linkHistoria').href = `historia.html?cliente=${clienteId}`;
+
+  // Obtener género de la historia clínica
+  const { data: hist } = await _supabase.from('historias_clinicas').select('genero').eq('cliente_id', clienteId).single();
+  if (hist?.genero) generoCliente = hist.genero;
+  const sel = document.getElementById('s-genero');
+  if (sel) sel.value = generoCliente;
+}
+
+// ══════════════════════════════════════════
+//  SESIONES
+// ══════════════════════════════════════════
+async function cargarSesiones() {
+  const { data } = await _supabase
+    .from('sesiones_antropometricas')
+    .select('*')
+    .eq('cliente_id', clienteId)
+    .order('fecha', { ascending: false });
+
+  todasLasSesiones = data || [];
+  renderSesionesList();
+
+  if (todasLasSesiones.length > 0) {
+    abrirSesion(todasLasSesiones[0]);
+  }
+}
+
+function renderSesionesList() {
+  const list = document.getElementById('sesionesList');
+
+  if (!todasLasSesiones.length) {
+    list.innerHTML = `<div style="padding:16px;text-align:center;font-size:12.5px;color:var(--cream-3)">Sin sesiones aún</div>`;
+    return;
+  }
+
+  list.innerHTML = todasLasSesiones.map((s, i) => `
+    <div class="sesion-item ${i === 0 ? 'selected' : ''}" id="sesion-li-${s.id}" onclick="abrirSesion(${JSON.stringify(s).replace(/"/g,'&quot;')})">
+      <div>
+        <div class="sesion-fecha">${formatDate(s.fecha)}</div>
+        <div class="sesion-meta">
+          ${s.peso ? `${s.peso} kg` : ''}
+          ${s.pct_grasa_yuhasz ? ` · ${s.pct_grasa_yuhasz}% grasa` : ''}
+          ${s.masa_magra ? ` · ${s.masa_magra} kg LBM` : ''}
+        </div>
+      </div>
+      <button class="action-btn action-btn-danger" style="font-size:11px;padding:3px 8px" onclick="event.stopPropagation();eliminarSesion('${s.id}')">×</button>
+    </div>
+  `).join('');
+}
+
+function nuevaSesion() {
+  sesionActualId = null;
+  limpiarFormulario();
+  document.getElementById('s-fecha').value = new Date().toISOString().split('T')[0];
+  document.getElementById('s-genero').value = generoCliente;
+  document.getElementById('sesionForm').style.display = 'block';
+  document.getElementById('emptyState').style.display = 'none';
+  document.querySelectorAll('.sesion-item').forEach(el => el.classList.remove('selected'));
+  innerTab('basicos');
+}
+
+function abrirSesion(sesion) {
+  sesionActualId = sesion.id;
+  limpiarFormulario();
+
+  // Campos básicos
+  sv('s-fecha',  sesion.fecha || '');
+  sv('s-talla',  sesion.talla || '');
+  sv('s-peso',   sesion.peso  || '');
+  sv('s-genero', sesion.genero || generoCliente);
+  sv('s-edad',   sesion.edad  || '');
+  sv('s-notas',  sesion.notas || '');
+
+  // Pliegues
+  sv('p-triceps',      sesion.triceps      || '');
+  sv('p-subescapular', sesion.subescapular  || '');
+  sv('p-biceps',       sesion.biceps        || '');
+  sv('p-cresta-iliaca',sesion.cresta_iliaca || '');
+  sv('p-supraespinal', sesion.supraespinal  || '');
+  sv('p-abdominal',    sesion.abdominal     || '');
+  sv('p-muslo',        sesion.muslo         || '');
+  sv('p-pierna',       sesion.pierna        || '');
+
+  // Perímetros
+  sv('per-brazo-rel',  sesion.per_brazo_rel  || '');
+  sv('per-brazo-flex', sesion.per_brazo_flex || '');
+  sv('per-cintura',    sesion.per_cintura    || '');
+  sv('per-cadera',     sesion.per_cadera     || '');
+  sv('per-muslo',      sesion.per_muslo      || '');
+  sv('per-pierna',     sesion.per_pierna     || '');
+  sv('per-torax',      sesion.per_torax      || '');
+  sv('per-pecho',      sesion.per_pecho      || '');
+  sv('per-hombros',    sesion.per_hombros    || '');
+
+  // Diámetros
+  sv('dia-muneca',       sesion.dia_muneca       || '');
+  sv('dia-femur',        sesion.dia_femur        || '');
+  sv('dia-humero',       sesion.dia_humero       || '');
+  sv('dia-biacromial',   sesion.dia_biacromial   || '');
+  sv('dia-biiliocrestal',sesion.dia_biiliocrestal|| '');
+
+  document.getElementById('sesionForm').style.display = 'block';
+  document.getElementById('emptyState').style.display = 'none';
+
+  document.querySelectorAll('.sesion-item').forEach(el => el.classList.remove('selected'));
+  document.getElementById(`sesion-li-${sesion.id}`)?.classList.add('selected');
+
+  recalcular();
+}
+
+function cancelarSesion() {
+  if (todasLasSesiones.length) {
+    document.getElementById('emptyState').style.display = 'none';
+  } else {
+    document.getElementById('sesionForm').style.display = 'none';
+    document.getElementById('emptyState').style.display = 'block';
+  }
+  sesionActualId = null;
+}
+
+// ══════════════════════════════════════════
+//  CÁLCULOS ISAK + YUHASZ
+// ══════════════════════════════════════════
+function recalcular() {
+  const peso   = parseFloat(gv('s-peso'))   || 0;
+  const talla  = parseFloat(gv('s-talla'))  || 0;
+  const genero = gv('s-genero') || 'masculino';
+
+  // Pliegues
+  const triceps      = parseFloat(gv('p-triceps'))       || 0;
+  const subescapular = parseFloat(gv('p-subescapular'))  || 0;
+  const biceps       = parseFloat(gv('p-biceps'))        || 0;
+  const crestaIliaca = parseFloat(gv('p-cresta-iliaca')) || 0;
+  const supraespinal = parseFloat(gv('p-supraespinal'))  || 0;
+  const abdominal    = parseFloat(gv('p-abdominal'))     || 0;
+  const muslo        = parseFloat(gv('p-muslo'))         || 0;
+  const pierna       = parseFloat(gv('p-pierna'))        || 0;
+
+  // Σ6 (Yuhasz): tríceps + subescapular + supraespinal + abdominal + muslo + pierna
+  const sigma6 = triceps + subescapular + supraespinal + abdominal + muslo + pierna;
+  // Σ8 (ISAK): + bíceps + cresta ilíaca
+  const sigma8 = sigma6 + biceps + crestaIliaca;
+
+  // % Grasa Yuhasz
+  let pctGrasa = 0;
+  if (sigma6 > 0) {
+    if (genero === 'femenino') {
+      pctGrasa = +(sigma6 * 0.1429 + 4.56).toFixed(1);
+    } else {
+      pctGrasa = +(sigma6 * 0.097 + 3.64).toFixed(1);
+    }
+  }
+
+  // Masas
+  const masaGrasa = peso > 0 && pctGrasa > 0 ? +(peso * pctGrasa / 100).toFixed(1) : 0;
+  const masaMagra = peso > 0 && masaGrasa > 0 ? +(peso - masaGrasa).toFixed(1) : 0;
+
+  // IMC
+  const imc = peso > 0 && talla > 0 ? +(peso / Math.pow(talla / 100, 2)).toFixed(1) : 0;
+
+  // ICC
+  const cintura = parseFloat(gv('per-cintura')) || 0;
+  const cadera  = parseFloat(gv('per-cadera'))  || 0;
+  const icc     = cintura > 0 && cadera > 0 ? +(cintura / cadera).toFixed(3) : 0;
+
+  // Actualizar UI
+  setText('res-imc',  imc  > 0 ? imc.toFixed(1) : '—');
+  setText('res-s6',   sigma6 > 0 ? sigma6.toFixed(1) : '—');
+  setText('res-s8',   sigma8 > 0 ? sigma8.toFixed(1) : '—');
+  setText('res-pct',  pctGrasa > 0 ? pctGrasa.toFixed(1) : '—');
+  setText('res-mg',   masaGrasa > 0 ? masaGrasa.toFixed(1) : '—');
+  setText('res-mm',   masaMagra > 0 ? masaMagra.toFixed(1) : '—');
+
+  // ICC
+  if (icc > 0) {
+    document.getElementById('icc-block').style.display = 'block';
+    setText('res-icc', icc.toFixed(3));
+    const iccRiesgo = genero === 'femenino'
+      ? (icc < 0.80 ? 'Sin riesgo' : icc < 0.86 ? 'Riesgo moderado' : 'Riesgo alto')
+      : (icc < 0.95 ? 'Sin riesgo' : icc < 1.00 ? 'Riesgo moderado' : 'Riesgo alto');
+    document.getElementById('icc-interpretacion').textContent = `${iccRiesgo} cardiovascular`;
+  }
+
+  // Barra % grasa
+  if (pctGrasa > 0) {
+    actualizarBarraGrasa(pctGrasa, genero);
+  }
+
+  // Resumen texto
+  if (peso > 0 && masaMagra > 0) {
+    document.getElementById('resumen-texto').innerHTML =
+      `Peso total: <strong>${peso} kg</strong> &nbsp;·&nbsp; ` +
+      `Masa grasa: <strong>${masaGrasa} kg (${pctGrasa}%)</strong> &nbsp;·&nbsp; ` +
+      `<strong style="color:var(--gold)">Masa magra: ${masaMagra} kg</strong> &nbsp;·&nbsp; ` +
+      `Σ6 Yuhasz: <strong>${sigma6.toFixed(1)} mm</strong> &nbsp;·&nbsp; ` +
+      `Σ8 ISAK: <strong>${sigma8.toFixed(1)} mm</strong>`;
+  } else {
+    document.getElementById('resumen-texto').textContent = 'Completa peso, talla y pliegues para ver los resultados calculados.';
+  }
+}
+
+function actualizarBarraGrasa(pct, genero) {
+  const wrap = document.getElementById('fatBarWrap');
+  wrap.style.display = 'block';
+
+  const ranges = FAT_RANGES[genero] || FAT_RANGES.masculino;
+  const maxPct = 40;
+  const posPct = Math.min(pct / maxPct * 100, 100);
+
+  document.getElementById('fatBarFill').style.width = posPct + '%';
+  document.getElementById('fatBarMarker').style.left  = posPct + '%';
+
+  let categoria = ranges[ranges.length - 1].label;
+  let catColor  = ranges[ranges.length - 1].color;
+  for (const r of ranges) {
+    if (pct <= r.max) { categoria = r.label; catColor = r.color; break; }
+  }
+
+  document.getElementById('fat-categoria').textContent = categoria;
+  document.getElementById('fat-categoria').style.color  = catColor;
+
+  document.getElementById('fatRangeLabels').innerHTML = ranges.map(r =>
+    `<span class="${pct <= r.max && !document.querySelector('.active-range') ? 'active-range' : ''}" style="color:${r.color}">${r.label} (&lt;${r.max}%)</span>`
+  ).join('');
+}
+
+// ══════════════════════════════════════════
+//  GUARDAR SESIÓN
+// ══════════════════════════════════════════
+async function guardarSesion() {
+  const btn = document.getElementById('btnGuardarSesion');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>';
+
+  const peso   = parseFloat(gv('s-peso'))  || null;
+  const talla  = parseFloat(gv('s-talla')) || null;
+  const sigma6 = calcSigma6();
+  const sigma8 = calcSigma8();
+  const genero = gv('s-genero') || 'masculino';
+
+  let pctGrasa = null, masaGrasa = null, masaMagra = null;
+  if (sigma6 > 0) {
+    pctGrasa = genero === 'femenino'
+      ? +(sigma6 * 0.1429 + 4.56).toFixed(1)
+      : +(sigma6 * 0.097 + 3.64).toFixed(1);
+  }
+  if (peso && pctGrasa) {
+    masaGrasa = +(peso * pctGrasa / 100).toFixed(1);
+    masaMagra = +(peso - masaGrasa).toFixed(1);
+  }
+
+  const payload = {
+    cliente_id: clienteId,
+    fecha:        gv('s-fecha') || new Date().toISOString().split('T')[0],
+    talla, peso,
+    genero,
+    edad:         parseInt(gv('s-edad'))  || null,
+    notas:        gv('s-notas') || null,
+    // Pliegues
+    triceps:      parseFloat(gv('p-triceps'))       || null,
+    subescapular: parseFloat(gv('p-subescapular'))  || null,
+    biceps:       parseFloat(gv('p-biceps'))        || null,
+    cresta_iliaca:parseFloat(gv('p-cresta-iliaca')) || null,
+    supraespinal: parseFloat(gv('p-supraespinal'))  || null,
+    abdominal:    parseFloat(gv('p-abdominal'))     || null,
+    muslo:        parseFloat(gv('p-muslo'))         || null,
+    pierna:       parseFloat(gv('p-pierna'))        || null,
+    // Cálculos guardados
+    sigma6_yuhasz:    sigma6 > 0 ? +sigma6.toFixed(1) : null,
+    sigma8_isak:      sigma8 > 0 ? +sigma8.toFixed(1) : null,
+    pct_grasa_yuhasz: pctGrasa,
+    masa_grasa:       masaGrasa,
+    masa_magra:       masaMagra,
+    imc:              talla && peso ? +(peso / Math.pow(talla/100,2)).toFixed(1) : null,
+    // Perímetros
+    per_brazo_rel:  parseFloat(gv('per-brazo-rel'))  || null,
+    per_brazo_flex: parseFloat(gv('per-brazo-flex')) || null,
+    per_cintura:    parseFloat(gv('per-cintura'))    || null,
+    per_cadera:     parseFloat(gv('per-cadera'))     || null,
+    per_muslo:      parseFloat(gv('per-muslo'))      || null,
+    per_pierna:     parseFloat(gv('per-pierna'))     || null,
+    per_torax:      parseFloat(gv('per-torax'))      || null,
+    per_pecho:      parseFloat(gv('per-pecho'))      || null,
+    per_hombros:    parseFloat(gv('per-hombros'))    || null,
+    // Diámetros
+    dia_muneca:        parseFloat(gv('dia-muneca'))        || null,
+    dia_femur:         parseFloat(gv('dia-femur'))         || null,
+    dia_humero:        parseFloat(gv('dia-humero'))        || null,
+    dia_biacromial:    parseFloat(gv('dia-biacromial'))    || null,
+    dia_biiliocrestal: parseFloat(gv('dia-biiliocrestal')) || null,
+  };
+
+  let error;
+  if (sesionActualId) {
+    ({ error } = await _supabase.from('sesiones_antropometricas').update(payload).eq('id', sesionActualId));
+  } else {
+    const { data, error: e } = await _supabase.from('sesiones_antropometricas').insert(payload).select().single();
+    error = e;
+    if (data) sesionActualId = data.id;
+  }
+
+  if (error) {
+    showToast('Error al guardar: ' + error.message, 'error');
+  } else {
+    showToast('Sesión guardada', 'success');
+    await cargarSesiones();
+  }
+
+  btn.disabled = false;
+  btn.innerHTML = `<svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg> Guardar sesión`;
+}
+
+async function eliminarSesion(id) {
+  if (!confirm('¿Eliminar esta sesión?')) return;
+  const { error } = await _supabase.from('sesiones_antropometricas').delete().eq('id', id);
+  if (error) { showToast('Error al eliminar', 'error'); return; }
+  showToast('Sesión eliminada', 'success');
+  sesionActualId = null;
+  await cargarSesiones();
+  if (todasLasSesiones.length === 0) {
+    document.getElementById('sesionForm').style.display = 'none';
+    document.getElementById('emptyState').style.display = 'block';
+  }
+}
+
+// ══════════════════════════════════════════
+//  HELPERS
+// ══════════════════════════════════════════
+function calcSigma6() {
+  return (parseFloat(gv('p-triceps'))      || 0) +
+         (parseFloat(gv('p-subescapular')) || 0) +
+         (parseFloat(gv('p-supraespinal')) || 0) +
+         (parseFloat(gv('p-abdominal'))    || 0) +
+         (parseFloat(gv('p-muslo'))        || 0) +
+         (parseFloat(gv('p-pierna'))       || 0);
+}
+
+function calcSigma8() {
+  return calcSigma6() +
+         (parseFloat(gv('p-biceps'))        || 0) +
+         (parseFloat(gv('p-cresta-iliaca')) || 0);
+}
+
+function limpiarFormulario() {
+  ['s-fecha','s-talla','s-peso','s-edad','s-notas',
+   'p-triceps','p-subescapular','p-biceps','p-cresta-iliaca','p-supraespinal','p-abdominal','p-muslo','p-pierna',
+   'per-brazo-rel','per-brazo-flex','per-cintura','per-cadera','per-muslo','per-pierna','per-torax','per-pecho','per-hombros',
+   'dia-muneca','dia-femur','dia-humero','dia-biacromial','dia-biiliocrestal'
+  ].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+  ['res-imc','res-s6','res-s8','res-pct','res-mg','res-mm','res-icc'].forEach(id => setText(id, '—'));
+  document.getElementById('fatBarWrap').style.display = 'none';
+  document.getElementById('resumen-texto').textContent = 'Completa peso, talla y pliegues para ver los resultados calculados.';
+}
+
+function gv(id) { return document.getElementById(id)?.value || ''; }
+function sv(id, val) { const el = document.getElementById(id); if (el) el.value = val; }
+function setText(id, val) { const el = document.getElementById(id); if (el) el.textContent = val; }
+
+function innerTab(name) {
+  document.querySelectorAll('.inner-tab').forEach((b, i) => {
+    const names = ['basicos','pliegues','perimetros','diametros'];
+    b.classList.toggle('active', names[i] === name);
+  });
+  document.querySelectorAll('.inner-pane').forEach(p => p.classList.remove('active'));
+  document.getElementById(`inner-${name}`)?.classList.add('active');
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,1248 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mi Portal — Franjo Torres Nutrición</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="paciente.css" />
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+<div class="noise"></div>
+
+<div class="portal-layout">
+
+  <!-- ══ SIDEBAR ══ -->
+  <aside class="portal-sidebar" id="sidebar">
+
+    <div class="sidebar-brand">
+      <div class="sidebar-brand-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2L3 7l9 5 9-5-9-5zM3 17l9 5 9-5M3 12l9 5 9-5"/></svg>
+      </div>
+      <div class="sidebar-brand-text">
+        <strong>Franjo Torres</strong>
+        <span>Nutrición Deportiva</span>
+      </div>
+    </div>
+
+    <div class="sidebar-patient">
+      <div class="patient-avatar" id="patientAvatar">—</div>
+      <div class="patient-name" id="patientName">Cargando...</div>
+      <div class="patient-sport" id="patientSport">—</div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-label">Mi plan</div>
+      <button class="nav-item active" data-panel="plan" onclick="switchPanel('plan', this)">
+        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        Plan Nutricional
+      </button>
+      <button class="nav-item" data-panel="evolucion" onclick="switchPanel('evolucion', this)">
+        <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        Evolución
+      </button>
+      <div class="nav-label">Seguimiento</div>
+      <button class="nav-item" data-panel="registro" onclick="switchPanel('registro', this)">
+        <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        Registro Diario
+      </button>
+      <button class="nav-item" data-panel="entrenamiento" onclick="switchPanel('entrenamiento', this)">
+        <svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+        Entrenamiento
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <button class="btn-logout" onclick="logout()">
+        <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        Cerrar sesión
+      </button>
+    </div>
+
+  </aside>
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- ══ MAIN ══ -->
+  <main class="portal-main">
+
+    <header class="portal-header">
+      <button class="burger-btn" id="burgerBtn" aria-label="Menú">
+        <span></span><span></span><span></span>
+      </button>
+      <span class="portal-header-title" id="headerTitle">Plan Nutricional</span>
+      <span class="portal-header-date" id="headerDate"></span>
+    </header>
+
+    <div class="portal-content">
+
+      <!-- ══ PANEL: PLAN NUTRICIONAL ══ -->
+      <div class="panel active" id="panel-plan">
+
+        <div class="section-head">
+          <span class="section-tag">—Plan activo</span>
+          <h2 class="section-title">Plan <em>Nutricional</em></h2>
+          <p class="section-sub" id="planSubtitle">Cargando tu plan...</p>
+        </div>
+
+        <!-- Stats: macros totales -->
+        <div class="stat-grid" id="planStats">
+          <div class="stat-card gold">
+            <div class="stat-label">Calorías</div>
+            <div class="stat-value" id="statKcal">—</div>
+            <div class="stat-unit">kcal / día</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Proteína</div>
+            <div class="stat-value" id="statProt">—</div>
+            <div class="stat-unit">g / día</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Carbohidratos</div>
+            <div class="stat-value" id="statCarbs">—</div>
+            <div class="stat-unit">g / día</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Grasas</div>
+            <div class="stat-value" id="statFat">—</div>
+            <div class="stat-unit">g / día</div>
+          </div>
+        </div>
+
+        <!-- Macros bars -->
+        <div class="macro-bar-grid">
+          <div class="macro-bar-card">
+            <div class="label">Proteína</div>
+            <div class="value" id="barProtVal">—<small style="font-size:14px;color:var(--cream-3)">g</small></div>
+            <div class="sub">4 kcal/g</div>
+            <div class="macro-bar"><div class="macro-bar-fill" id="barProt" style="width:0%"></div></div>
+          </div>
+          <div class="macro-bar-card">
+            <div class="label">Carbohidratos</div>
+            <div class="value" id="barCarbsVal">—<small style="font-size:14px;color:var(--cream-3)">g</small></div>
+            <div class="sub">4 kcal/g</div>
+            <div class="macro-bar"><div class="macro-bar-fill carbs" id="barCarbs" style="width:0%"></div></div>
+          </div>
+          <div class="macro-bar-card">
+            <div class="label">Grasas</div>
+            <div class="value" id="barFatVal">—<small style="font-size:14px;color:var(--cream-3)">g</small></div>
+            <div class="sub">9 kcal/g</div>
+            <div class="macro-bar"><div class="macro-bar-fill fat" id="barFat" style="width:0%"></div></div>
+          </div>
+        </div>
+
+        <!-- Plan header card -->
+        <div class="plan-header-card" id="planHeaderCard" style="display:none">
+          <div class="plan-info">
+            <h3 id="planTipoDieta">—</h3>
+            <p id="planFecha">—</p>
+          </div>
+          <span class="plan-badge" id="planBadge">Plan activo</span>
+        </div>
+
+        <!-- Comidas -->
+        <div class="comidas-list" id="comidasList">
+          <div class="empty-state">
+            <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            <p>Tu plan nutricional aparecerá aquí<br/>cuando Franjo lo active.</p>
+          </div>
+        </div>
+
+        <!-- Guías -->
+        <div class="guias-card" id="guiasCard" style="display:none">
+          <h3>Indicaciones generales</h3>
+          <div class="guias-list" id="guiasList"></div>
+        </div>
+
+      </div>
+
+      <!-- ══ PANEL: EVOLUCIÓN ══ -->
+      <div class="panel" id="panel-evolucion">
+
+        <div class="section-head">
+          <span class="section-tag">—Seguimiento</span>
+          <h2 class="section-title">Tu <em>Evolución</em></h2>
+          <p class="section-sub">Progreso real, medido con precisión.</p>
+        </div>
+
+        <!-- Stats resumen -->
+        <div class="stat-grid">
+          <div class="stat-card gold">
+            <div class="stat-label">Peso actual</div>
+            <div class="stat-value" id="evoWeight">—</div>
+            <div class="stat-unit">kg</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Peso inicial</div>
+            <div class="stat-value" id="evoWeightInit">—</div>
+            <div class="stat-unit">kg</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Cambio</div>
+            <div class="stat-value" id="evoDelta">—</div>
+            <div class="stat-unit">kg</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Registros</div>
+            <div class="stat-value" id="evoCount">—</div>
+            <div class="stat-unit">días</div>
+          </div>
+        </div>
+
+        <!-- Charts -->
+        <div class="charts-grid">
+          <div class="chart-card">
+            <div class="chart-card-head">
+              <span class="chart-title">Peso corporal</span>
+              <span class="chart-trend" id="weightTrend">—</span>
+            </div>
+            <div class="chart-wrap"><canvas id="chartPeso"></canvas></div>
+          </div>
+          <div class="chart-card">
+            <div class="chart-card-head">
+              <span class="chart-title">Grasa subcutánea</span>
+              <span class="chart-trend" id="grasaTrend">—</span>
+            </div>
+            <div class="chart-wrap"><canvas id="chartGrasa"></canvas></div>
+          </div>
+          <div class="chart-card">
+            <div class="chart-card-head">
+              <span class="chart-title">Circunferencia muscular</span>
+              <span class="chart-trend" id="muscTrend">—</span>
+            </div>
+            <div class="chart-wrap"><canvas id="chartMusculo"></canvas></div>
+          </div>
+          <div class="chart-card">
+            <div class="chart-card-head">
+              <span class="chart-title">Perímetro cintura</span>
+              <span class="chart-trend" id="cinturaTrend">—</span>
+            </div>
+            <div class="chart-wrap"><canvas id="chartCintura"></canvas></div>
+          </div>
+        </div>
+
+        <!-- Tabla historial de mediciones -->
+        <div class="evo-table-wrap" id="evoTableWrap" style="display:none; margin-top:24px;">
+          <table class="evo-table">
+            <thead>
+              <tr>
+                <th>Fecha</th>
+                <th>Peso (kg)</th>
+                <th>Σ8 pliegues</th>
+                <th>% Grasa est.</th>
+                <th>Cintura (cm)</th>
+                <th>Muslo (cm)</th>
+              </tr>
+            </thead>
+            <tbody id="evoTableBody"></tbody>
+          </table>
+        </div>
+
+      </div>
+
+      <!-- ══ PANEL: REGISTRO DIARIO ══ -->
+      <div class="panel" id="panel-registro">
+
+        <div class="section-head">
+          <span class="section-tag">—Hoy</span>
+          <h2 class="section-title">Registro <em>Diario</em></h2>
+          <p class="section-sub">Registra tu peso y cómo te sentiste hoy.</p>
+        </div>
+
+        <div class="registro-form-card">
+          <h3>Registro de hoy</h3>
+          <div class="registro-fields">
+            <div class="field-group">
+              <label for="regFecha">Fecha</label>
+              <input type="date" id="regFecha" />
+            </div>
+            <div class="field-group">
+              <label for="regPeso">Peso (kg)</label>
+              <input type="number" id="regPeso" step="0.1" min="30" max="200" placeholder="70.5" />
+            </div>
+            <div class="field-group">
+              <label for="regEnergia">Energía</label>
+              <select id="regEnergia">
+                <option value="">—</option>
+                <option value="5">Excelente ⚡</option>
+                <option value="4">Buena 💪</option>
+                <option value="3">Normal 😐</option>
+                <option value="2">Baja 😴</option>
+                <option value="1">Muy baja 😩</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label for="regSueno">Horas de sueño</label>
+              <input type="number" id="regSueno" step="0.5" min="0" max="24" placeholder="7.5" />
+            </div>
+          </div>
+          <div class="field-group" style="margin-bottom:20px;">
+            <label for="regNotas">Notas del día</label>
+            <textarea id="regNotas" placeholder="¿Cómo te sentiste? ¿Tuviste algún entrenamiento? ¿Algo especial hoy?"></textarea>
+          </div>
+          <button class="btn-save" id="btnGuardarReg" onclick="guardarRegistro()">
+            <svg viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+            Guardar registro
+          </button>
+        </div>
+
+        <div class="registro-history">
+          <h3>Historial reciente</h3>
+          <div id="registroList">
+            <div class="empty-state">
+              <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+              <p>Aún no tienes registros.<br/>¡Empieza hoy!</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ══ PANEL: ENTRENAMIENTO ══ -->
+      <div class="panel" id="panel-entrenamiento">
+
+        <div class="section-head">
+          <span class="section-tag">—Mesociclo activo</span>
+          <h2 class="section-title">Plan de <em>Entrenamiento</em></h2>
+          <p class="section-sub">Registra tu peso y reps en cada serie. Franjo ve tu progreso.</p>
+        </div>
+
+        <!-- Cargando -->
+        <div id="entLoading" class="empty-state">
+          <p style="color:var(--cream-3);">Cargando tu plan...</p>
+        </div>
+
+        <!-- Sin plan -->
+        <div id="entEmpty" style="display:none;" class="empty-state">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:38px;height:38px;color:var(--cream-4)">
+            <path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/>
+            <line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/>
+          </svg>
+          <p>Tu plan de entrenamiento aparecerá<br/>cuando Franjo lo configure.</p>
+        </div>
+
+        <!-- Contenido completo -->
+        <div id="entContent" style="display:none;">
+
+          <!-- Header del plan -->
+          <div class="ent-plan-header">
+            <div>
+              <div class="ent-plan-name" id="entPlanName">—</div>
+              <div class="ent-plan-meta" id="entPlanMeta">—</div>
+            </div>
+            <span class="ent-plan-badge">Activo</span>
+          </div>
+
+          <!-- Selector de microciclo -->
+          <div class="ent-tabs-bar" id="entTabs"></div>
+
+          <!-- Fecha de la sesión -->
+          <div class="ent-date-row">
+            <label>Fecha de la sesión:</label>
+            <input type="date" id="entSessionDate" />
+          </div>
+
+          <!-- Sesiones (dinámicas) -->
+          <div id="entSessions"></div>
+
+          <!-- Gráficas de progreso -->
+          <div id="entCharts"></div>
+
+        </div>
+
+      </div>
+
+    </div><!-- /portal-content -->
+  </main>
+
+</div>
+
+<div class="toast-container" id="toastContainer"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="paciente.js"></script>
+<script>
+// ══════════════════════════════════════════
+//  INIT
+// ══════════════════════════════════════════
+let currentUser   = null;
+let pacienteData  = null;
+let chartsCreated = false;
+let _entLoaded    = false;
+
+document.addEventListener('DOMContentLoaded', async () => {
+  // Date header
+  document.getElementById('headerDate').textContent =
+    new Date().toLocaleDateString('es-PE', { weekday:'long', day:'numeric', month:'long' });
+
+  // Default date in registro
+  document.getElementById('regFecha').value = new Date().toISOString().split('T')[0];
+
+  // Auth guard
+  const session = await requirePacienteAuth();
+  if (!session) return;
+  currentUser = session.user;
+
+  // Mobile sidebar
+  document.getElementById('burgerBtn').addEventListener('click', () => {
+    document.getElementById('sidebar').classList.toggle('open');
+    document.getElementById('sidebarOverlay').classList.toggle('show');
+  });
+  document.getElementById('sidebarOverlay').addEventListener('click', () => {
+    document.getElementById('sidebar').classList.remove('open');
+    document.getElementById('sidebarOverlay').classList.remove('show');
+  });
+
+  await loadPacienteData();
+});
+
+// ══════════════════════════════════════════
+//  NAV
+// ══════════════════════════════════════════
+const panelTitles = {
+  plan:          'Plan Nutricional',
+  evolucion:     'Evolución',
+  registro:      'Registro Diario',
+  entrenamiento: 'Entrenamiento',
+};
+
+function switchPanel(id, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('panel-' + id).classList.add('active');
+  if (btn) btn.classList.add('active');
+  document.getElementById('headerTitle').textContent = panelTitles[id] || id;
+
+  if (id === 'evolucion' && !chartsCreated) {
+    loadEvolucion();
+    chartsCreated = true;
+  }
+  if (id === 'registro') loadRegistros();
+  if (id === 'entrenamiento' && !_entLoaded) loadEntrenamiento();
+
+  // close mobile sidebar
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebarOverlay').classList.remove('show');
+}
+
+// ══════════════════════════════════════════
+//  LOAD PACIENTE DATA
+// ══════════════════════════════════════════
+async function loadPacienteData() {
+  await supabaseReady;
+
+  // Buscar perfil del paciente vinculado al auth user
+  const { data: paciente, error } = await _supabase
+    .from('pacientes')
+    .select('*')
+    .eq('user_id', currentUser.id)
+    .maybeSingle();
+
+  if (error) {
+    // Intentar por email como fallback
+    const { data: byEmail } = await _supabase
+      .from('pacientes')
+      .select('*')
+      .eq('email', currentUser.email)
+      .maybeSingle();
+    pacienteData = byEmail;
+  } else {
+    pacienteData = paciente;
+  }
+
+  renderPatientSidebar();
+  await loadPlanNutricional();
+}
+
+function renderPatientSidebar() {
+  if (!pacienteData) {
+    document.getElementById('patientName').textContent = currentUser.email;
+    document.getElementById('patientAvatar').textContent =
+      currentUser.email[0].toUpperCase();
+    return;
+  }
+  const name  = pacienteData.nombre || pacienteData.name || currentUser.email;
+  const sport = pacienteData.deporte || pacienteData.sport || '—';
+  const initials = name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0,2);
+
+  document.getElementById('patientName').textContent    = name;
+  document.getElementById('patientSport').textContent   = sport;
+  document.getElementById('patientAvatar').textContent  = initials;
+}
+
+// ══════════════════════════════════════════
+//  PLAN NUTRICIONAL
+// ══════════════════════════════════════════
+async function loadPlanNutricional() {
+  await supabaseReady;
+
+  // Buscar plan activo del paciente
+  let query = _supabase
+    .from('planes')
+    .select('*')
+    .eq('activo', true)
+    .order('fecha_inicio', { ascending: false })
+    .limit(1);
+
+  if (pacienteData?.id) {
+    query = query.eq('paciente_id', pacienteData.id);
+  } else {
+    query = query.eq('paciente_email', currentUser.email);
+  }
+
+  const { data: planes } = await query;
+  const plan = planes?.[0];
+
+  if (!plan) {
+    document.getElementById('planSubtitle').textContent =
+      'Tu plan estará disponible cuando Franjo lo active.';
+    return;
+  }
+
+  renderPlan(plan);
+}
+
+function renderPlan(plan) {
+  // Subtitle
+  const tipo = plan.tipo_dieta || plan.clasificacion || 'Plan personalizado';
+  document.getElementById('planSubtitle').textContent = tipo;
+  document.getElementById('planTipoDieta').textContent = tipo;
+
+  // Fecha
+  const fecha = plan.fecha_inicio
+    ? new Date(plan.fecha_inicio).toLocaleDateString('es-PE', { day:'numeric', month:'long', year:'numeric' })
+    : '—';
+  document.getElementById('planFecha').textContent = 'Inicio: ' + fecha;
+
+  // Header card
+  document.getElementById('planHeaderCard').style.display = 'flex';
+
+  // Stats
+  const kcal  = plan.calorias  || plan.kcal  || plan.energia   || 0;
+  const prot  = plan.proteinas || plan.prot   || plan.protein   || 0;
+  const carbs = plan.carbohidratos || plan.carbs || 0;
+  const fat   = plan.grasas    || plan.fat    || plan.lipidos   || 0;
+
+  document.getElementById('statKcal').textContent  = kcal  || '—';
+  document.getElementById('statProt').textContent  = prot  || '—';
+  document.getElementById('statCarbs').textContent = carbs || '—';
+  document.getElementById('statFat').textContent   = fat   || '—';
+
+  // Macro bars (% de calorías)
+  if (kcal > 0) {
+    const pProt  = Math.round((prot  * 4 / kcal) * 100);
+    const pCarbs = Math.round((carbs * 4 / kcal) * 100);
+    const pFat   = Math.round((fat   * 9 / kcal) * 100);
+
+    document.getElementById('barProtVal').innerHTML  = `${prot}<small style="font-size:14px;color:var(--cream-3)">g</small>`;
+    document.getElementById('barCarbsVal').innerHTML = `${carbs}<small style="font-size:14px;color:var(--cream-3)">g</small>`;
+    document.getElementById('barFatVal').innerHTML   = `${fat}<small style="font-size:14px;color:var(--cream-3)">g</small>`;
+    document.getElementById('barProt').style.width   = pProt  + '%';
+    document.getElementById('barCarbs').style.width  = pCarbs + '%';
+    document.getElementById('barFat').style.width    = pFat   + '%';
+  }
+
+  // Comidas
+  const dias = plan.dias || plan.contenido || plan.plan_json;
+  if (dias) {
+    const parsed = typeof dias === 'string' ? JSON.parse(dias) : dias;
+    renderComidas(parsed);
+  }
+
+  // Guías
+  const guias = plan.guias || plan.indicaciones || plan.guidelines;
+  if (guias) {
+    const arr = Array.isArray(guias) ? guias : guias.split('\n').filter(Boolean);
+    if (arr.length) {
+      document.getElementById('guiasCard').style.display = 'block';
+      document.getElementById('guiasList').innerHTML = arr
+        .map(g => `<div class="guia-item"><div class="guia-dot"></div><span>${g}</span></div>`)
+        .join('');
+    }
+  }
+}
+
+function renderComidas(dias) {
+  // dias puede ser array de días, o array de comidas, o un objeto
+  const lista = document.getElementById('comidasList');
+
+  // Intentamos extraer comidas del primer día (día de entrenamiento)
+  let comidas = [];
+  if (Array.isArray(dias)) {
+    // Si cada elemento tiene .comidas → es un array de días
+    if (dias[0]?.comidas) {
+      comidas = dias[0].comidas;
+    } else {
+      comidas = dias; // ya es un array de comidas
+    }
+  } else if (dias && typeof dias === 'object') {
+    comidas = Object.values(dias)[0]?.comidas || Object.values(dias) || [];
+  }
+
+  if (!comidas.length) return;
+
+  lista.innerHTML = comidas.map((c, i) => {
+    const nombre    = c.nombre || c.name || `Comida ${i + 1}`;
+    const kcal      = c.kcal || c.calorias || '';
+    const prot      = c.proteinas || c.prot || '';
+    const carbs     = c.carbohidratos || c.carbs || '';
+    const fat       = c.grasas || c.fat || '';
+    const instruc   = c.instruccion || c.instruccion_fija || '';
+    const opciones  = c.opciones || c.escoge || [];
+
+    const macroHtml = [kcal && `<span><strong>${kcal}</strong> kcal</span>`,
+                       prot  && `<span><strong>${prot}</strong>g P</span>`,
+                       carbs && `<span><strong>${carbs}</strong>g C</span>`,
+                       fat   && `<span><strong>${fat}</strong>g G</span>`]
+      .filter(Boolean).join('');
+
+    const instrucHtml = instruc
+      ? `<div class="instruccion-bloque">${instruc}</div>` : '';
+
+    const opcionesHtml = (Array.isArray(opciones) ? opciones : []).map((op, oi) => `
+      <div class="opciones-bloque">
+        <span class="opcion-tag">Escoge ${oi + 1}</span>
+        <div class="opcion-text">${typeof op === 'object' ? (op.texto || op.text || JSON.stringify(op)) : op}</div>
+      </div>
+    `).join('');
+
+    return `
+      <div class="comida-card" id="comida-${i}">
+        <div class="comida-card-head" onclick="toggleComida(${i})">
+          <span class="comida-num">0${i + 1}</span>
+          <span class="comida-name">${nombre}</span>
+          <div class="comida-macros">${macroHtml}</div>
+          <svg class="comida-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="comida-card-body">
+          ${instrucHtml}
+          ${opcionesHtml || '<p style="font-size:13px;color:var(--cream-3)">Sin opciones cargadas aún.</p>'}
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function toggleComida(i) {
+  document.getElementById('comida-' + i).classList.toggle('open');
+}
+
+// ══════════════════════════════════════════
+//  EVOLUCIÓN — CHARTS
+// ══════════════════════════════════════════
+async function loadEvolucion() {
+  await supabaseReady;
+
+  let query = _supabase
+    .from('mediciones')
+    .select('*')
+    .order('fecha', { ascending: true });
+
+  if (pacienteData?.id) {
+    query = query.eq('paciente_id', pacienteData.id);
+  } else {
+    query = query.eq('paciente_email', currentUser.email);
+  }
+
+  const { data: meds } = await query;
+
+  // También cargamos registros de peso del registro diario
+  let regQuery = _supabase
+    .from('registro_diario')
+    .select('fecha, peso')
+    .not('peso', 'is', null)
+    .order('fecha', { ascending: true });
+
+  if (pacienteData?.id) {
+    regQuery = regQuery.eq('paciente_id', pacienteData.id);
+  } else {
+    regQuery = regQuery.eq('user_id', currentUser.id);
+  }
+  const { data: regs } = await regQuery;
+
+  renderEvolucion(meds || [], regs || []);
+}
+
+function renderEvolucion(meds, regs) {
+  const chartDefaults = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: '#181818',
+        borderColor: 'rgba(196,151,58,0.3)',
+        borderWidth: 1,
+        titleColor: '#C4973A',
+        bodyColor: '#C0C0C0',
+        padding: 10,
+      }
+    },
+    scales: {
+      x: {
+        grid: { color: 'rgba(255,255,255,0.04)' },
+        ticks: { color: '#808080', font: { size: 11 } }
+      },
+      y: {
+        grid: { color: 'rgba(255,255,255,0.04)' },
+        ticks: { color: '#808080', font: { size: 11 } }
+      }
+    }
+  };
+
+  // Pesos (de registros diarios y mediciones)
+  const pesoData = mergeWeightData(regs, meds);
+  if (pesoData.labels.length) {
+    const first = pesoData.values[0];
+    const last  = pesoData.values[pesoData.values.length - 1];
+    const delta = (last - first).toFixed(1);
+    document.getElementById('evoWeight').textContent     = last;
+    document.getElementById('evoWeightInit').textContent = first;
+    document.getElementById('evoDelta').textContent      = (delta > 0 ? '+' : '') + delta;
+    document.getElementById('evoCount').textContent      = regs.length;
+
+    const trend = document.getElementById('weightTrend');
+    trend.textContent = `${delta > 0 ? '↑' : '↓'} ${Math.abs(delta)} kg`;
+    trend.className   = 'chart-trend ' + (delta > 0 ? 'up' : 'down');
+
+    new Chart(document.getElementById('chartPeso'), {
+      type: 'line',
+      data: {
+        labels: pesoData.labels,
+        datasets: [{
+          data: pesoData.values,
+          borderColor: '#C4973A', backgroundColor: 'rgba(196,151,58,0.08)',
+          borderWidth: 2, pointBackgroundColor: '#C4973A',
+          pointRadius: 3, pointHoverRadius: 5, fill: true, tension: 0.4
+        }]
+      },
+      options: chartDefaults
+    });
+  }
+
+  // Grasa — de mediciones ISAK
+  const grasaField = meds.map(m => ({ fecha: m.fecha, val: m.suma_8_pliegues || m.grasa_pct || m.porcentaje_grasa }))
+    .filter(m => m.val);
+  if (grasaField.length) {
+    const first = grasaField[0].val, last = grasaField[grasaField.length-1].val;
+    const delta = (last - first).toFixed(1);
+    const trend = document.getElementById('grasaTrend');
+    trend.textContent = `${delta > 0 ? '↑' : '↓'} ${Math.abs(delta)}`;
+    trend.className   = 'chart-trend ' + (delta > 0 ? 'down' : 'up');
+
+    new Chart(document.getElementById('chartGrasa'), {
+      type: 'line',
+      data: {
+        labels: grasaField.map(m => formatDate(m.fecha)),
+        datasets: [{
+          data: grasaField.map(m => m.val),
+          borderColor: '#E4946B', backgroundColor: 'rgba(228,148,107,0.08)',
+          borderWidth: 2, pointBackgroundColor: '#E4946B',
+          pointRadius: 3, fill: true, tension: 0.4
+        }]
+      },
+      options: chartDefaults
+    });
+  }
+
+  // Muslo / circunferencia
+  const muscField = meds.map(m => ({ fecha: m.fecha, val: m.muslo_der || m.circunferencia_muslo }))
+    .filter(m => m.val);
+  if (muscField.length) {
+    new Chart(document.getElementById('chartMusculo'), {
+      type: 'bar',
+      data: {
+        labels: muscField.map(m => formatDate(m.fecha)),
+        datasets: [{
+          data: muscField.map(m => m.val),
+          backgroundColor: 'rgba(107,159,228,0.5)',
+          borderColor: '#6B9FE4', borderWidth: 1, borderRadius: 4
+        }]
+      },
+      options: chartDefaults
+    });
+  }
+
+  // Cintura
+  const cinturaField = meds.map(m => ({ fecha: m.fecha, val: m.cintura || m.perimetro_cintura }))
+    .filter(m => m.val);
+  if (cinturaField.length) {
+    new Chart(document.getElementById('chartCintura'), {
+      type: 'line',
+      data: {
+        labels: cinturaField.map(m => formatDate(m.fecha)),
+        datasets: [{
+          data: cinturaField.map(m => m.val),
+          borderColor: '#6BCF7F', backgroundColor: 'rgba(107,207,127,0.08)',
+          borderWidth: 2, pointBackgroundColor: '#6BCF7F',
+          pointRadius: 3, fill: true, tension: 0.4
+        }]
+      },
+      options: chartDefaults
+    });
+  }
+
+  // Tabla historial mediciones
+  if (meds.length) {
+    document.getElementById('evoTableWrap').style.display = 'block';
+    const best = {};
+    ['peso','suma_8_pliegues','porcentaje_grasa','cintura','muslo_der'].forEach(k => {
+      const vals = meds.map(m => m[k]).filter(Boolean);
+      if (vals.length) best[k] = Math.min(...vals);
+    });
+
+    document.getElementById('evoTableBody').innerHTML = meds.map(m => `
+      <tr>
+        <td>${formatDate(m.fecha)}</td>
+        <td class="${m.peso === best.peso ? 'best' : ''}">${m.peso || '—'}</td>
+        <td class="${m.suma_8_pliegues === best.suma_8_pliegues ? 'best' : ''}">${m.suma_8_pliegues || '—'}</td>
+        <td class="${m.porcentaje_grasa === best.porcentaje_grasa ? 'best' : ''}">${m.porcentaje_grasa ? m.porcentaje_grasa + '%' : '—'}</td>
+        <td class="${m.cintura === best.cintura ? 'best' : ''}">${m.cintura || '—'}</td>
+        <td class="${m.muslo_der === best.muslo_der ? 'best' : ''}">${m.muslo_der || '—'}</td>
+      </tr>
+    `).join('');
+  }
+}
+
+function mergeWeightData(regs, meds) {
+  const all = [
+    ...regs.filter(r => r.peso).map(r => ({ fecha: r.fecha, val: r.peso })),
+    ...meds.filter(m => m.peso).map(m => ({ fecha: m.fecha, val: m.peso })),
+  ].sort((a, b) => new Date(a.fecha) - new Date(b.fecha));
+
+  const seen = new Set();
+  const deduped = all.filter(r => { if (seen.has(r.fecha)) return false; seen.add(r.fecha); return true; });
+  return { labels: deduped.map(r => formatDate(r.fecha)), values: deduped.map(r => r.val) };
+}
+
+function formatDate(str) {
+  if (!str) return '—';
+  const d = new Date(str + 'T00:00:00');
+  return d.toLocaleDateString('es-PE', { day:'2-digit', month:'short' });
+}
+
+// ══════════════════════════════════════════
+//  REGISTRO DIARIO
+// ══════════════════════════════════════════
+async function loadRegistros() {
+  await supabaseReady;
+
+  let query = _supabase
+    .from('registro_diario')
+    .select('*')
+    .order('fecha', { ascending: false })
+    .limit(30);
+
+  if (pacienteData?.id) {
+    query = query.eq('paciente_id', pacienteData.id);
+  } else {
+    query = query.eq('user_id', currentUser.id);
+  }
+
+  const { data } = await query;
+  renderRegistros(data || []);
+}
+
+function renderRegistros(regs) {
+  const list = document.getElementById('registroList');
+  if (!regs.length) {
+    list.innerHTML = `<div class="empty-state">
+      <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+      <p>Aún no tienes registros.<br/>¡Empieza hoy!</p>
+    </div>`;
+    return;
+  }
+
+  const energiaLabel = { '5':'⚡ Excelente', '4':'💪 Buena', '3':'😐 Normal', '2':'😴 Baja', '1':'😩 Muy baja' };
+
+  list.innerHTML = regs.map((r, i) => {
+    const fecha = r.fecha ? new Date(r.fecha + 'T00:00:00').toLocaleDateString('es-PE', { weekday:'long', day:'numeric', month:'long' }) : '—';
+    return `
+      <div class="registro-day" id="reg-${i}">
+        <div class="registro-day-head" onclick="document.getElementById('reg-${i}').classList.toggle('open')">
+          <span class="registro-day-date">${fecha}</span>
+          ${r.peso ? `<span class="registro-day-peso">${r.peso} kg</span>` : ''}
+        </div>
+        <div class="registro-day-body">
+          ${r.energia ? `<p class="reg-note">Energía: ${energiaLabel[r.energia] || r.energia}</p>` : ''}
+          ${r.horas_sueno ? `<p class="reg-note">Sueño: ${r.horas_sueno}h</p>` : ''}
+          ${r.notas ? `<p class="reg-note">${r.notas}</p>` : ''}
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+async function guardarRegistro() {
+  const btn = document.getElementById('btnGuardarReg');
+  btn.disabled = true; btn.textContent = 'Guardando...';
+
+  const payload = {
+    fecha:       document.getElementById('regFecha').value,
+    peso:        parseFloat(document.getElementById('regPeso').value) || null,
+    energia:     document.getElementById('regEnergia').value || null,
+    horas_sueno: parseFloat(document.getElementById('regSueno').value) || null,
+    notas:       document.getElementById('regNotas').value || null,
+    user_id:     currentUser.id,
+  };
+  if (pacienteData?.id) payload.paciente_id = pacienteData.id;
+
+  await supabaseReady;
+  const { error } = await _supabase.from('registro_diario').upsert(payload, { onConflict: 'user_id,fecha' });
+
+  if (error) {
+    showToast('Error al guardar: ' + error.message, 'error');
+  } else {
+    showToast('Registro guardado ✓', 'success');
+    document.getElementById('regPeso').value   = '';
+    document.getElementById('regEnergia').value = '';
+    document.getElementById('regSueno').value  = '';
+    document.getElementById('regNotas').value  = '';
+    loadRegistros();
+  }
+
+  btn.disabled = false;
+  btn.innerHTML = `<svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg> Guardar registro`;
+}
+
+// ══════════════════════════════════════════
+//  ENTRENAMIENTO — LOGS + GRÁFICAS
+// ══════════════════════════════════════════
+let _entPlan         = null;
+let _entLogs         = {};
+let _entCurrentMicro = 1;
+
+async function loadEntrenamiento() {
+  await supabaseReady;
+  _entLoaded = true;
+
+  document.getElementById('entLoading').style.display = 'block';
+  document.getElementById('entEmpty').style.display   = 'none';
+  document.getElementById('entContent').style.display = 'none';
+
+  let query = _supabase
+    .from('entrenamientos')
+    .select('*')
+    .eq('activo', true)
+    .order('created_at', { ascending: false })
+    .limit(1);
+
+  if (pacienteData?.id) {
+    query = query.eq('paciente_id', pacienteData.id);
+  } else {
+    query = query.eq('paciente_email', currentUser.email);
+  }
+
+  const { data: plans } = await query;
+  const plan = plans?.[0];
+
+  if (!plan || !plan.contenido?.sesiones) {
+    document.getElementById('entLoading').style.display = 'none';
+    document.getElementById('entEmpty').style.display   = 'block';
+    return;
+  }
+  _entPlan = plan;
+
+  const { data: logs } = await _supabase
+    .from('registros_entrenamiento')
+    .select('*')
+    .eq('user_id', currentUser.id)
+    .eq('entrenamiento_id', plan.id);
+
+  _entLogs = {};
+  (logs || []).forEach(r => {
+    const key = `${r.microciclo}-${r.sesion_id}-${r.ejercicio_idx}-s${r.serie}`;
+    _entLogs[key] = { peso: r.peso, reps: r.reps, fecha: r.fecha };
+  });
+
+  document.getElementById('entLoading').style.display = 'none';
+  document.getElementById('entContent').style.display = 'block';
+  renderEntPlan();
+}
+
+function renderEntPlan() {
+  const c         = _entPlan.contenido;
+  const numMicros = c.microciclos || 5;
+  const sesiones  = c.sesiones || [];
+
+  document.getElementById('entPlanName').textContent = _entPlan.nombre;
+  document.getElementById('entPlanMeta').textContent =
+    `${numMicros} microciclos · ${sesiones.length} sesiones / semana`;
+
+  if (!document.getElementById('entSessionDate').value) {
+    document.getElementById('entSessionDate').value = new Date().toISOString().split('T')[0];
+  }
+
+  const tabsBar = document.getElementById('entTabs');
+  tabsBar.innerHTML = '';
+  for (let m = 1; m <= numMicros; m++) {
+    const btn = document.createElement('button');
+    btn.className = 'ent-tab-btn' + (m === _entCurrentMicro ? ' active' : '');
+    btn.textContent = `Micro ${m}`;
+    btn.onclick = () => selectEntMicro(m);
+    tabsBar.appendChild(btn);
+  }
+
+  renderEntSessions();
+  renderEntCharts();
+}
+
+function selectEntMicro(m) {
+  _entCurrentMicro = m;
+  document.querySelectorAll('.ent-tab-btn').forEach((b, i) => b.classList.toggle('active', i + 1 === m));
+  renderEntSessions();
+}
+
+function getEntRir(tipo, micro) {
+  const arr = _entPlan.contenido?.rir_micro || [];
+  const rir = arr[micro - 1] || { compound: 2, accessory: 1, core: 0 };
+  return tipo === 'C' ? rir.compound : tipo === 'A' ? rir.accessory : rir.core;
+}
+
+function renderEntSessions() {
+  const micro    = _entCurrentMicro;
+  const c        = _entPlan.contenido;
+  const sesiones = c.sesiones || [];
+  const arr      = c.rir_micro || [];
+  const rir      = arr[micro - 1] || { compound: 2, accessory: 1, core: 0 };
+  const intens   = rir.compound <= 1;
+
+  const container = document.getElementById('entSessions');
+  container.innerHTML = '';
+
+  const banner = document.createElement('div');
+  banner.className = 'ent-rir-banner' + (intens ? ' intense' : '');
+  banner.innerHTML = `<div class="ent-rir-dot${intens ? ' intense' : ''}"></div>
+    Fase de <strong${intens ? ' class="intense"' : ''}>${intens ? 'Intensificación' : 'Acumulación'}</strong>
+    &nbsp;·&nbsp; RIR compuestos <strong>${rir.compound}</strong>
+    &nbsp;·&nbsp; accesorios <strong>${rir.accessory}</strong>
+    &nbsp;·&nbsp; core <strong>${rir.core}</strong>`;
+  container.appendChild(banner);
+
+  sesiones.forEach((ses, si) => {
+    const iconCls = si === 0 ? 'lower' : si === 1 ? 'upper' : 'full';
+    const blockId = `ent-block-${micro}-${ses.id}`;
+    const block   = document.createElement('div');
+    block.className = 'ent-session-block open';
+    block.id = blockId;
+
+    const rows = (ses.ejercicios || []).map((ex, ei) => {
+      const rirVal = getEntRir(ex.tipo, micro);
+      const cells  = Array.from({ length: ex.series }, (_, s2) => {
+        const key   = `${micro}-${ses.id}-${ei}-s${s2 + 1}`;
+        const saved = _entLogs[key] || {};
+        return `<div class="ent-track-pair">
+          <input class="ent-track-input ent-log" type="number" step="0.5" placeholder="kg"
+            data-micro="${micro}" data-ses="${ses.id}" data-ex="${ei}" data-serie="${s2+1}" data-field="peso"
+            value="${saved.peso || ''}" />
+          <span class="ent-track-x">×</span>
+          <input class="ent-track-input reps ent-log" type="number" placeholder="reps"
+            data-micro="${micro}" data-ses="${ses.id}" data-ex="${ei}" data-serie="${s2+1}" data-field="reps"
+            value="${saved.reps || ''}" />
+        </div>`;
+      }).join('');
+
+      return `<tr>
+        <td class="ent-ex-name">${ex.nombre}</td>
+        <td class="center"><span class="badge-series">${ex.series}</span></td>
+        <td class="center"><span class="badge-reps">${ex.reps}</span></td>
+        <td class="center"><span class="badge-rir">RIR ${rirVal}</span></td>
+        <td class="center"><span class="badge-rest">${ex.descanso}</span></td>
+        <td class="ent-track-col">${cells}</td>
+      </tr>`;
+    }).join('');
+
+    block.innerHTML = `
+      <div class="ent-session-header" onclick="toggleEntSession('${blockId}')">
+        <div class="ent-session-title">
+          <div class="ent-session-icon ${iconCls}">${ses.icono}</div>
+          <div>
+            <div class="ent-session-name">${ses.nombre}</div>
+            <div class="ent-session-tag">${ses.tag}</div>
+          </div>
+        </div>
+        <span class="ent-session-chevron">▲</span>
+      </div>
+      <div class="ent-ex-table-wrap">
+        <table class="ent-ex-table">
+          <thead><tr>
+            <th>Ejercicio</th>
+            <th class="center">Series</th>
+            <th class="center">Reps</th>
+            <th class="center">RIR</th>
+            <th class="center">Descanso</th>
+            <th>Registro por serie</th>
+          </tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+        <div class="ent-actions-bar">
+          <button class="ent-btn-clear" onclick="clearEntSession(${micro},'${ses.id}')">Limpiar</button>
+          <button class="ent-btn-save" id="entSave-${micro}-${ses.id}"
+            onclick="saveEntSession(${micro},'${ses.id}')">Guardar sesión ✓</button>
+        </div>
+      </div>`;
+    container.appendChild(block);
+  });
+}
+
+function toggleEntSession(id) {
+  document.getElementById(id)?.classList.toggle('open');
+}
+
+async function saveEntSession(micro, sesId) {
+  if (!pacienteData || !_entPlan) return;
+  const btn   = document.getElementById(`entSave-${micro}-${sesId}`);
+  const fecha = document.getElementById('entSessionDate')?.value
+    || new Date().toISOString().split('T')[0];
+
+  const inputs = document.querySelectorAll(`#ent-block-${micro}-${sesId} .ent-log`);
+  const byKey  = {};
+  inputs.forEach(inp => {
+    const k = `${inp.dataset.micro}-${inp.dataset.ses}-${inp.dataset.ex}-s${inp.dataset.serie}`;
+    if (!byKey[k]) byKey[k] = { micro: inp.dataset.micro, ses: inp.dataset.ses, ex: inp.dataset.ex, serie: inp.dataset.serie };
+    byKey[k][inp.dataset.field] = inp.value ? parseFloat(inp.value) : null;
+  });
+
+  const records = Object.values(byKey)
+    .filter(v => v.peso || v.reps)
+    .map(v => {
+      const ses = _entPlan.contenido.sesiones.find(s => s.id === v.ses);
+      const ex  = ses?.ejercicios[parseInt(v.ex)];
+      return {
+        user_id:          currentUser.id,
+        paciente_id:      pacienteData.id,
+        entrenamiento_id: _entPlan.id,
+        fecha,
+        microciclo:       parseInt(v.micro),
+        sesion_id:        v.ses,
+        ejercicio_idx:    parseInt(v.ex),
+        ejercicio_nombre: ex?.nombre || '',
+        serie:            parseInt(v.serie),
+        peso:             v.peso || null,
+        reps:             v.reps ? parseInt(v.reps) : null,
+      };
+    });
+
+  if (!records.length) { showToast('No hay datos para guardar', 'info'); return; }
+  if (btn) { btn.disabled = true; btn.textContent = 'Guardando...'; }
+
+  const { error } = await _supabase
+    .from('registros_entrenamiento')
+    .upsert(records, {
+      onConflict: 'user_id,entrenamiento_id,microciclo,sesion_id,ejercicio_idx,serie'
+    });
+
+  if (btn) { btn.disabled = false; btn.textContent = 'Guardar sesión ✓'; }
+
+  if (error) { showToast('Error: ' + error.message, 'error'); return; }
+
+  records.forEach(r => {
+    const key = `${r.microciclo}-${r.sesion_id}-${r.ejercicio_idx}-s${r.serie}`;
+    _entLogs[key] = { peso: r.peso, reps: r.reps, fecha: r.fecha };
+  });
+
+  showToast('Sesión guardada ✓', 'success');
+  renderEntCharts();
+}
+
+function clearEntSession(micro, sesId) {
+  document.querySelectorAll(`#ent-block-${micro}-${sesId} .ent-log`)
+    .forEach(inp => { inp.value = ''; });
+}
+
+function renderEntCharts() {
+  const container = document.getElementById('entCharts');
+  container.innerHTML = '';
+  if (!_entPlan?.contenido?.sesiones) return;
+
+  const c         = _entPlan.contenido;
+  const sesiones  = c.sesiones;
+  const numMicros = c.microciclos || 5;
+  const labels    = Array.from({ length: numMicros }, (_, i) => `Micro ${i + 1}`);
+
+  const compounds = [];
+  sesiones.forEach(ses => {
+    ses.ejercicios.forEach((ex, ei) => {
+      if (ex.tipo === 'C') compounds.push({ sesId: ses.id, exIdx: ei, nombre: ex.nombre, series: ex.series });
+    });
+  });
+  if (!compounds.length) return;
+
+  const section = document.createElement('div');
+  section.className = 'ent-charts-section';
+  section.innerHTML = `
+    <div class="section-head" style="margin-bottom:12px;">
+      <span class="section-tag">—Progreso</span>
+      <h2 class="section-title" style="font-size:16px;">Progreso por <em>ejercicio</em></h2>
+    </div>
+    <div class="ent-charts-grid" id="entChartsGrid"></div>`;
+  container.appendChild(section);
+
+  const grid = document.getElementById('entChartsGrid');
+
+  compounds.forEach((comp, ci) => {
+    const data = Array.from({ length: numMicros }, (_, mi) => {
+      let max = null;
+      for (let s = 1; s <= comp.series; s++) {
+        const log = _entLogs[`${mi + 1}-${comp.sesId}-${comp.exIdx}-s${s}`];
+        if (log?.peso) max = Math.max(max ?? 0, parseFloat(log.peso));
+      }
+      return max;
+    });
+
+    const maxVal = data.filter(Boolean).length ? Math.max(...data.filter(Boolean)) : null;
+
+    const card = document.createElement('div');
+    card.className = 'ent-chart-card';
+    card.innerHTML = `
+      <div class="ent-chart-head">
+        <span class="ent-chart-title">${comp.nombre}</span>
+        ${maxVal
+          ? `<span class="ent-chart-max">${maxVal} kg</span>`
+          : `<span style="font-size:11px;color:var(--cream-4)">Sin datos aún</span>`}
+      </div>
+      <div class="ent-chart-wrap"><canvas id="entChart-${ci}"></canvas></div>`;
+    grid.appendChild(card);
+
+    new Chart(document.getElementById(`entChart-${ci}`).getContext('2d'), {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [{
+          data,
+          borderColor: '#C4973A',
+          backgroundColor: 'rgba(196,151,58,0.1)',
+          borderWidth: 2.5,
+          pointRadius: 5,
+          pointBackgroundColor: '#C4973A',
+          tension: 0.3,
+          spanGaps: true,
+          fill: true,
+        }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            backgroundColor: '#181818', borderColor: 'rgba(196,151,58,0.3)',
+            borderWidth: 1, titleColor: '#C4973A', bodyColor: '#C0C0C0',
+            callbacks: { label: ctx => ctx.parsed.y != null ? `${ctx.parsed.y} kg` : 'Sin dato' }
+          }
+        },
+        scales: {
+          x: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { color: '#808080', font: { size: 10 } } },
+          y: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { color: '#808080', font: { size: 10 } }, suggestedMin: 0 }
+        }
+      }
+    });
+  });
+}
+</script>
+
+</body>
+</html>

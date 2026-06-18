@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clientes — Franjo Nutrición</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+
+<div class="admin-layout">
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <div class="brand">
+        <div class="brand-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="var(--gold)">
+            <path d="M12 2L3 7l9 5 9-5-9-5zM3 17l9 5 9-5M3 12l9 5 9-5"/>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-text">Franjo</div>
+          <div class="brand-sub">Nutrición Deportiva</div>
+        </div>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Principal</div>
+      <a href="dashboard.html" class="nav-item">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        Dashboard
+      </a>
+      <a href="clientes.html" class="nav-item active">
+        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Clientes
+      </a>
+      <div class="nav-section-label">Contenido</div>
+      <a href="#" class="nav-item">
+        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        Planes Nutricionales
+      </a>
+      <a href="#" class="nav-item">
+        <svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+        Planes Entrenamiento
+      </a>
+      <div class="nav-section-label">Ajustes</div>
+      <a href="#" class="nav-item">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+        Configuración
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-chip" onclick="logout()">
+        <div class="user-avatar" id="sidebarAvatar">F</div>
+        <div class="user-info">
+          <div class="user-name" id="sidebarName">Franjo Torres</div>
+          <div class="user-role">Administrador</div>
+        </div>
+        <svg class="logout-icon" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      </div>
+    </div>
+  </aside>
+
+  <div class="main-area">
+    <header class="topbar">
+      <button class="burger-btn" id="burgerBtn">
+        <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <div class="topbar-title">Clientes</div>
+      <div class="topbar-actions">
+        <button class="btn-sm" onclick="openModal('modalCliente')">
+          <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Nuevo cliente
+        </button>
+      </div>
+    </header>
+
+    <main class="page-content">
+
+      <!-- FILTROS -->
+      <div class="filter-bar">
+        <div class="search-wrap">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" id="searchInput" placeholder="Buscar cliente…" oninput="filterClientes()" />
+        </div>
+        <select class="filter-select" id="filterEsp" onchange="filterClientes()">
+          <option value="">Todas las especialidades</option>
+          <option value="endurance">Endurance</option>
+          <option value="mma">MMA / Combate</option>
+          <option value="general">General</option>
+        </select>
+        <select class="filter-select" id="filterEstado" onchange="filterClientes()">
+          <option value="">Todos los estados</option>
+          <option value="activo">Activo</option>
+          <option value="pendiente">Pendiente</option>
+          <option value="inactivo">Inactivo</option>
+        </select>
+      </div>
+
+      <!-- TABLA -->
+      <div class="panel">
+        <div class="panel-header">
+          <div>
+            <div class="panel-title">Todos los clientes</div>
+            <div class="panel-subtitle" id="clientesCount">Cargando…</div>
+          </div>
+        </div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Cliente</th>
+              <th>Teléfono</th>
+              <th>Especialidad</th>
+              <th>Objetivo</th>
+              <th>Estado</th>
+              <th>Registro</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="clientesTbody">
+            <tr><td colspan="7" style="text-align:center;padding:40px;color:var(--cream-3)"><span class="spinner"></span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<!-- MODAL NUEVO CLIENTE -->
+<div class="modal-overlay" id="modalCliente">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modalClienteTitle">Nuevo cliente</div>
+      <button class="modal-close" onclick="closeModal('modalCliente')">
+        <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="clienteId" />
+      <div class="form-row">
+        <div class="form-group">
+          <label>Nombre completo *</label>
+          <input type="text" id="clienteNombre" placeholder="Juan Pérez" required />
+        </div>
+        <div class="form-group">
+          <label>Correo electrónico</label>
+          <input type="email" id="clienteEmail" placeholder="juan@ejemplo.com" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Teléfono</label>
+          <input type="tel" id="clienteTelefono" placeholder="+51 999 000 000" />
+        </div>
+        <div class="form-group">
+          <label>Edad</label>
+          <input type="number" id="clienteEdad" placeholder="30" min="10" max="80" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Especialidad *</label>
+          <select id="clienteEspecialidad">
+            <option value="endurance">Endurance</option>
+            <option value="mma">MMA / Combate</option>
+            <option value="general">General</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Estado</label>
+          <select id="clienteEstado">
+            <option value="activo">Activo</option>
+            <option value="pendiente">Pendiente</option>
+            <option value="inactivo">Inactivo</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Objetivo principal</label>
+        <input type="text" id="clienteObjetivo" placeholder="Ej: Completar ultramaratón 50K, bajar al peso peleador…" />
+      </div>
+      <div class="form-group">
+        <label>Notas</label>
+        <textarea id="clienteNotas" placeholder="Alergias, condiciones médicas, preferencias alimenticias…"></textarea>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-ghost" onclick="closeModal('modalCliente')">Cancelar</button>
+        <button class="btn-sm" onclick="guardarCliente()" id="btnGuardar">Guardar cliente</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL CONFIRMAR ELIMINAR -->
+<div class="modal-overlay" id="modalEliminar">
+  <div class="modal" style="max-width:380px">
+    <div class="modal-header">
+      <div class="modal-title">Eliminar cliente</div>
+      <button class="modal-close" onclick="closeModal('modalEliminar')">
+        <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p style="color:var(--cream-2);margin-bottom:20px;">¿Estás seguro de que deseas eliminar a <strong id="eliminarNombre" style="color:var(--cream)"></strong>? Esta acción no se puede deshacer.</p>
+      <div class="modal-footer">
+        <button class="btn-ghost" onclick="closeModal('modalEliminar')">Cancelar</button>
+        <button class="btn-sm" style="background:#ef4444" onclick="confirmarEliminar()" id="btnEliminar">Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast-container" id="toastContainer"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="admin.js"></script>
+<script>
+let todosLosClientes = [];
+let clienteParaEliminar = null;
+
+(async () => {
+  const session = await requireAuth();
+  if (!session) return;
+
+  const email = session.user.email || '';
+  const name  = session.user.user_metadata?.full_name || email.split('@')[0];
+  document.getElementById('sidebarName').textContent = name;
+  document.getElementById('sidebarAvatar').textContent = getInitials(name);
+
+  initSidebar();
+  await cargarClientes();
+})();
+
+async function cargarClientes() {
+  const { data, error } = await _supabase
+    .from('clientes')
+    .select('*')
+    .order('created_at', { ascending: false });
+
+  if (error) {
+    showToast('Error al cargar clientes', 'error');
+    return;
+  }
+
+  todosLosClientes = data || [];
+  renderTabla(todosLosClientes);
+}
+
+function renderTabla(lista) {
+  const tbody = document.getElementById('clientesTbody');
+  const count = document.getElementById('clientesCount');
+  count.textContent = `${lista.length} cliente${lista.length !== 1 ? 's' : ''}`;
+
+  if (!lista.length) {
+    tbody.innerHTML = `<tr><td colspan="7">
+      <div class="empty-state">
+        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+        <h3>Sin clientes</h3>
+        <p>Agrega tu primer cliente con el botón de arriba.</p>
+      </div>
+    </td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = lista.map(c => `
+    <tr>
+      <td>
+        <div class="table-avatar">
+          <div class="mini-avatar">${getInitials(c.nombre)}</div>
+          <div>
+            <div class="cell-name">${c.nombre}</div>
+            <div class="cell-meta">${c.email || '—'}</div>
+          </div>
+        </div>
+      </td>
+      <td style="color:var(--cream-2);font-size:13px">${c.telefono || '—'}</td>
+      <td>${badgeEsp(c.especialidad)}</td>
+      <td style="color:var(--cream-3);font-size:13px;max-width:180px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${c.objetivo || '—'}</td>
+      <td>${badgeEstado(c.estado)}</td>
+      <td style="color:var(--cream-3);font-size:13px">${formatDate(c.created_at)}</td>
+      <td style="display:flex;gap:6px">
+        <a href="historia.html?cliente=${c.id}"><button class="action-btn">Historia</button></a>
+        <a href="antropometria.html?cliente=${c.id}"><button class="action-btn">ISAK</button></a>
+        <a href="plan.html?cliente=${c.id}"><button class="action-btn" style="background:rgba(196,151,58,.15);color:var(--gold);border-color:var(--gold)">Plan</button></a>
+        <button class="action-btn" onclick="editarCliente('${c.id}')">Editar</button>
+        <button class="action-btn action-btn-danger" onclick="pedirEliminar('${c.id}','${c.nombre.replace(/'/g,"\\'")}')">Eliminar</button>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function filterClientes() {
+  const q     = document.getElementById('searchInput').value.toLowerCase();
+  const esp   = document.getElementById('filterEsp').value;
+  const estado = document.getElementById('filterEstado').value;
+
+  const filtrados = todosLosClientes.filter(c => {
+    const matchQ   = !q || c.nombre?.toLowerCase().includes(q) || c.email?.toLowerCase().includes(q);
+    const matchEsp = !esp || c.especialidad === esp;
+    const matchEst = !estado || c.estado === estado;
+    return matchQ && matchEsp && matchEst;
+  });
+
+  renderTabla(filtrados);
+}
+
+function editarCliente(id) {
+  const c = todosLosClientes.find(x => x.id === id);
+  if (!c) return;
+  document.getElementById('clienteId').value          = c.id;
+  document.getElementById('clienteNombre').value      = c.nombre || '';
+  document.getElementById('clienteEmail').value       = c.email || '';
+  document.getElementById('clienteTelefono').value    = c.telefono || '';
+  document.getElementById('clienteEdad').value        = c.edad || '';
+  document.getElementById('clienteEspecialidad').value = c.especialidad || 'general';
+  document.getElementById('clienteEstado').value      = c.estado || 'activo';
+  document.getElementById('clienteObjetivo').value    = c.objetivo || '';
+  document.getElementById('clienteNotas').value       = c.notas || '';
+  document.getElementById('modalClienteTitle').textContent = 'Editar cliente';
+  openModal('modalCliente');
+}
+
+function pedirEliminar(id, nombre) {
+  clienteParaEliminar = id;
+  document.getElementById('eliminarNombre').textContent = nombre;
+  openModal('modalEliminar');
+}
+
+async function confirmarEliminar() {
+  if (!clienteParaEliminar) return;
+  const btn = document.getElementById('btnEliminar');
+  btn.disabled = true;
+  btn.textContent = 'Eliminando…';
+
+  const { error } = await _supabase.from('clientes').delete().eq('id', clienteParaEliminar);
+  if (error) {
+    showToast('Error al eliminar', 'error');
+  } else {
+    showToast('Cliente eliminado', 'success');
+    closeModal('modalEliminar');
+    await cargarClientes();
+  }
+  btn.disabled = false;
+  btn.textContent = 'Eliminar';
+  clienteParaEliminar = null;
+}
+
+async function guardarCliente() {
+  const id     = document.getElementById('clienteId').value;
+  const nombre = document.getElementById('clienteNombre').value.trim();
+  if (!nombre) { showToast('El nombre es obligatorio', 'error'); return; }
+
+  const payload = {
+    nombre,
+    email:        document.getElementById('clienteEmail').value.trim() || null,
+    telefono:     document.getElementById('clienteTelefono').value.trim() || null,
+    edad:         parseInt(document.getElementById('clienteEdad').value) || null,
+    especialidad: document.getElementById('clienteEspecialidad').value,
+    estado:       document.getElementById('clienteEstado').value,
+    objetivo:     document.getElementById('clienteObjetivo').value.trim() || null,
+    notas:        document.getElementById('clienteNotas').value.trim() || null,
+  };
+
+  const btn = document.getElementById('btnGuardar');
+  btn.disabled = true;
+  btn.textContent = 'Guardando…';
+
+  let error;
+  if (id) {
+    ({ error } = await _supabase.from('clientes').update(payload).eq('id', id));
+  } else {
+    ({ error } = await _supabase.from('clientes').insert(payload));
+  }
+
+  if (error) {
+    showToast('Error al guardar: ' + error.message, 'error');
+  } else {
+    showToast(id ? 'Cliente actualizado' : 'Cliente agregado', 'success');
+    closeModal('modalCliente');
+    resetForm();
+    await cargarClientes();
+  }
+  btn.disabled = false;
+  btn.textContent = 'Guardar cliente';
+}
+
+function resetForm() {
+  ['clienteId','clienteNombre','clienteEmail','clienteTelefono','clienteEdad','clienteObjetivo','clienteNotas']
+    .forEach(id => document.getElementById(id).value = '');
+  document.getElementById('clienteEspecialidad').value = 'endurance';
+  document.getElementById('clienteEstado').value = 'activo';
+  document.getElementById('modalClienteTitle').textContent = 'Nuevo cliente';
+}
+
+// Limpiar form al abrir para nuevo cliente
+document.querySelector('[onclick="openModal(\'modalCliente\')"]')?.addEventListener('click', resetForm);
+
+function badgeEstado(estado) {
+  const map = { activo: 'badge-active', pendiente: 'badge-pending', inactivo: 'badge-inactive' };
+  const lbl = { activo: 'Activo', pendiente: 'Pendiente', inactivo: 'Inactivo' };
+  return `<span class="badge ${map[estado]||'badge-inactive'}">${lbl[estado]||estado||'—'}</span>`;
+}
+
+function badgeEsp(esp) {
+  const map = { endurance: 'badge-endurance', mma: 'badge-mma', general: 'badge-general' };
+  const lbl = { endurance: 'Endurance', mma: 'MMA', general: 'General' };
+  return `<span class="badge ${map[esp]||'badge-general'}">${lbl[esp]||esp||'—'}</span>`;
+}
+</script>
+</body>
+</html>

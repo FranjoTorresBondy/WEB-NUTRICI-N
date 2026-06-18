@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Franjo Torres · Nutricionista Deportivo de Élite</title>
+  <meta name="description" content="Nutricionista deportivo de élite especializado en endurance y artes marciales mixtas. Lima, Perú. ISAK Nivel 2C." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,600;0,700;1,600;1,700&family=Cormorant+Garamond:wght@300;400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <div class="noise"></div>
+  <div class="cursor-aura" id="cursorAura"></div>
+
+  <!-- ══ NAVBAR ══ -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-wrap">
+      <a href="#hero" class="brand">
+        <!-- Brain + circuit logo mark — fiel al logo real -->
+        <svg class="brand-mark" viewBox="0 0 148 130" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+
+            <!-- ══ LEFT HEMISPHERE — organic brain ══ -->
+            <!-- Main outer contour -->
+            <path stroke-width="4" d="
+              M 72,6
+              C 63,5 53,8 44,15
+              C 34,22 25,33 20,46
+              C 15,59 15,72 19,84
+              C 23,96 32,106 44,112
+              C 54,118 64,121 72,121
+            "/>
+            <!-- Gyrus 1 — upper frontal fold -->
+            <path stroke-width="2.6" d="M 61,7 C 49,13 39,26 36,39 C 34,50 38,60 47,64"/>
+            <!-- Gyrus 2 — parietal fold -->
+            <path stroke-width="2.4" d="M 18,62 C 15,75 18,88 26,98 C 29,101 32,104 36,106"/>
+            <!-- Gyrus 3 — temporal/lower -->
+            <path stroke-width="2.4" d="M 46,113 C 55,120 64,122 71,122"/>
+            <!-- Gyrus 4 — small frontal -->
+            <path stroke-width="2" d="M 26,35 C 20,47 19,59 23,70"/>
+
+            <!-- ══ CENTER DIVIDE ══ -->
+            <line x1="72" y1="6" x2="72" y2="121" stroke-width="1" stroke-opacity=".18"/>
+
+            <!-- ══ RIGHT HEMISPHERE — circuit board ══ -->
+            <!-- Spine -->
+            <line stroke-width="3" x1="72" y1="6" x2="72" y2="121"/>
+            <!-- Branch 1 top -->
+            <polyline stroke-width="3" points="72,19 90,19 90,10"/>
+            <!-- Branch 2 -->
+            <polyline stroke-width="3" points="72,34 85,34 85,25"/>
+            <line stroke-width="3" x1="85" y1="34" x2="106" y2="34"/>
+            <!-- Branch 3 mid-upper -->
+            <polyline stroke-width="3" points="72,50 93,50 93,40 112,40"/>
+            <polyline stroke-width="3" points="93,50 93,62 116,62"/>
+            <!-- Branch 4 center -->
+            <line stroke-width="3" x1="72" y1="72" x2="118" y2="72"/>
+            <!-- Branch 5 mid-lower -->
+            <polyline stroke-width="3" points="72,84 90,84 90,76 108,76"/>
+            <polyline stroke-width="3" points="90,84 90,94 114,94"/>
+            <!-- Branch 6 lower -->
+            <polyline stroke-width="3" points="72,104 88,104 88,114 100,114"/>
+            <line stroke-width="3" x1="88" y1="104" x2="110" y2="104"/>
+            <!-- Branch 7 bottom -->
+            <line stroke-width="3" x1="72" y1="116" x2="88" y2="116"/>
+
+            <!-- Circuit nodes -->
+            <circle cx="90" cy="10"  r="4.5" fill="currentColor" stroke="none"/>
+            <circle cx="85" cy="25"  r="4.5" fill="currentColor" stroke="none"/>
+            <circle cx="106" cy="34" r="4.5" fill="currentColor" stroke="none"/>
+            <circle cx="112" cy="40" r="4.5" fill="currentColor" stroke="none"/>
+            <circle cx="116" cy="62" r="4.5" fill="currentColor" stroke="none"/>
+            <circle cx="118" cy="72" r="4.5" fill="currentColor" stroke="none"/>
+            <circle cx="108" cy="76" r="4.5" fill="currentColor" stroke="none"/>
+            <circle cx="114" cy="94" r="4.5" fill="currentColor" stroke="none"/>
+            <circle cx="100" cy="114" r="4.5" fill="currentColor" stroke="none"/>
+            <circle cx="110" cy="104" r="4.5" fill="currentColor" stroke="none"/>
+            <circle cx="88"  cy="116" r="4.5" fill="currentColor" stroke="none"/>
+
+          </g>
+        </svg>
+
+        <span class="brand-text">
+          <span class="brand-name">
+            <span>Franjo</span>
+            <span>Torres</span>
+            <span>Bondy</span>
+          </span>
+          <span class="brand-title">Sports Nutrition</span>
+        </span>
+      </a>
+      <ul class="nav-menu">
+        <li><a href="#sobre-mi">Sobre mí</a></li>
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#metodologia">Metodología</a></li>
+        <li><a href="#testimonios">Testimonios</a></li>
+        <li><a href="#contacto" class="nav-cta">Trabaja conmigo</a></li>
+      </ul>
+      <button class="burger" id="burger" aria-label="Menú">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="nav-drawer" id="navDrawer">
+      <a href="#sobre-mi">Sobre mí</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#metodologia">Metodología</a>
+      <a href="#testimonios">Testimonios</a>
+      <a href="#contacto">Trabaja conmigo</a>
+    </div>
+  </nav>
+
+  <!-- ══ HERO ══ -->
+  <section class="hero" id="hero">
+
+    <!-- Foto full-bleed de fondo -->
+    <div class="hero-bg">
+      <img src="../FOTOS WEB VARIADAS/IMG_9358.JPG.jpeg" alt="" aria-hidden="true" />
+    </div>
+
+    <div class="hero-orb hero-orb-1"></div>
+    <div class="hero-orb hero-orb-2"></div>
+
+    <!-- Geo decorativo -->
+    <svg class="hero-geo" viewBox="0 0 900 900" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <circle cx="450" cy="450" r="380" fill="none" stroke="rgba(196,151,58,0.05)" stroke-width="1"/>
+      <circle cx="450" cy="450" r="260" fill="none" stroke="rgba(196,151,58,0.04)" stroke-width="1"/>
+      <circle cx="450" cy="450" r="140" fill="none" stroke="rgba(196,151,58,0.06)" stroke-width="1"/>
+      <polygon points="450,80 760,590 140,590" fill="none" stroke="rgba(196,151,58,0.04)" stroke-width="1"/>
+      <polygon points="450,820 760,310 140,310" fill="none" stroke="rgba(196,151,58,0.03)" stroke-width="1"/>
+      <line x1="450" y1="70" x2="450" y2="830" stroke="rgba(196,151,58,0.025)" stroke-width="1"/>
+      <line x1="70" y1="450" x2="830" y2="450" stroke="rgba(196,151,58,0.025)" stroke-width="1"/>
+    </svg>
+
+    <div class="hero-layout">
+      <div class="hero-content">
+
+        <div class="hero-badges">
+          <div class="hero-badge">
+            <span class="hb-icon">🏅</span>
+            <div class="hb-text">
+              <strong>ISAK Nivel 2C</strong>
+              <small>Antropometría deportiva</small>
+            </div>
+          </div>
+          <div class="hero-badge">
+            <span class="hb-icon">⚡</span>
+            <div class="hb-text">
+              <strong>+8 años</strong>
+              <small>Experiencia clínica</small>
+            </div>
+          </div>
+        </div>
+
+        <h1 class="hero-headline">
+          <span class="hl-top">Food is fuel.</span>
+          <span class="hl-mid">Make every</span>
+          <span class="hl-bot">bite count.</span>
+        </h1>
+
+        <p class="hero-body">
+          Especialista en endurance y artes marciales. Diseño planes nutricionales que transforman atletas en campeones — con ciencia, precisión y estrategia real.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#contacto" class="btn-gold">
+            Comienza tu transformación
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="#servicios" class="btn-outline">Explorar servicios</a>
+        </div>
+
+        <div class="hero-credentials">
+          <div class="cred">
+            <strong>+200</strong>
+            <span>Atletas asesorados</span>
+          </div>
+          <div class="cred-divider"></div>
+          <div class="cred">
+            <strong>ISAK 2C</strong>
+            <span>Certificación internacional</span>
+          </div>
+          <div class="cred-divider"></div>
+          <div class="cred">
+            <strong>100K+</strong>
+            <span>Comunidad</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scroll-cue">
+      <div class="scroll-bar"><div class="scroll-fill"></div></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+  <!-- ══ TICKER ══ -->
+  <div class="ticker-band">
+    <div class="ticker-inner">
+      <span>Ultramaratón</span><em>▪</em>
+      <span>Triatlón</span><em>▪</em>
+      <span>MMA</span><em>▪</em>
+      <span>Corte de Peso</span><em>▪</em>
+      <span>Nutrición en Carrera</span><em>▪</em>
+      <span>Evaluación ISAK</span><em>▪</em>
+      <span>Rehidratación</span><em>▪</em>
+      <span>Ironman</span><em>▪</em>
+      <span>Composición Corporal</span><em>▪</em>
+      <span>Ultramaratón</span><em>▪</em>
+      <span>Triatlón</span><em>▪</em>
+      <span>MMA</span><em>▪</em>
+      <span>Corte de Peso</span><em>▪</em>
+      <span>Nutrición en Carrera</span><em>▪</em>
+      <span>Evaluación ISAK</span><em>▪</em>
+      <span>Rehidratación</span><em>▪</em>
+      <span>Ironman</span><em>▪</em>
+      <span>Composición Corporal</span><em>▪</em>
+    </div>
+  </div>
+
+  <!-- ══ SOBRE MÍ ══ -->
+  <section class="section sobre" id="sobre-mi">
+    <div class="section-orb s-orb-gold"></div>
+    <div class="container">
+      <div class="sobre-grid">
+
+        <div class="sobre-photos">
+          <div class="photo-main">
+            <img src="../FOTOS WEB VARIADAS/IMG_8048.PNG" alt="Franjo Torres en montaña" />
+          </div>
+          <div class="photo-secondary">
+            <img src="../FOTOS WEB VARIADAS/IMG_2208.PNG" alt="Franjo Torres en carrera trail" />
+          </div>
+          <div class="photo-stat-card">
+            <div class="psc-stat">
+              <strong>+200</strong>
+              <span>Atletas</span>
+            </div>
+            <div class="psc-divider"></div>
+            <div class="psc-stat">
+              <strong>+8 años</strong>
+              <span>Experiencia</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="sobre-copy">
+          <p class="sec-tag">—Sobre mí</p>
+          <h2 class="sec-heading">
+            Soy <em>Franjo.</em><br/>
+            Convierto atletas en<br/>
+            <span class="gold-text">versiones extraordinarias</span><br/>
+            de sí mismos.
+          </h2>
+          <p class="body-text">Nutricionista de carrera y atleta de distintos deportes en la vida real. Especializado en nutrición deportiva para deportistas de combate y de endurance.</p>
+
+          <p class="body-text">Mi metodología combina:</p>
+          <ul class="sobre-list">
+            <li>Evaluación antropométrica siguiendo los protocolos de ISAK</li>
+            <li>Análisis del caso y contexto particular</li>
+            <li>Creación de un plan personalizado</li>
+          </ul>
+
+          <div class="discipline-list">
+            <div class="discipline">
+              <div class="disc-icon">🏃</div>
+              <div class="disc-copy">
+                <strong>Endurance</strong>
+                <span>Ultramaratón · Triatlón · Ironman · Trail Running</span>
+              </div>
+            </div>
+            <div class="discipline">
+              <div class="disc-icon">🥊</div>
+              <div class="disc-copy">
+                <strong>Deportes de Combate</strong>
+                <span>MMA · Boxeo · Muay Thai · Lucha · BJJ</span>
+              </div>
+            </div>
+            <div class="discipline">
+              <div class="disc-icon">📐</div>
+              <div class="disc-copy">
+                <strong>Certificación ISAK 2C</strong>
+                <span>Antropometría internacional de precisión</span>
+              </div>
+            </div>
+          </div>
+
+          <a href="https://www.instagram.com/el_nutricionistafranjo" target="_blank" rel="noopener" class="insta-pill">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
+            @el_nutricionistafranjo
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ SERVICIOS ══ -->
+  <section class="section servicios" id="servicios">
+    <div class="section-orb s-orb-subtle"></div>
+    <div class="container">
+      <div class="sec-header center">
+        <p class="sec-tag">—Servicios</p>
+        <h2 class="sec-heading">
+          Sistemas de nutrición<br/>
+          <em>construidos para ganar.</em>
+        </h2>
+        <p class="sec-sub">Distintas disciplinas. Un mismo objetivo: tu máximo rendimiento.</p>
+      </div>
+
+      <div class="services-grid">
+
+        <!-- Endurance -->
+        <div class="serv-card" data-reveal>
+          <div class="serv-geo" aria-hidden="true">
+            <svg viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="200" cy="250" r="190" fill="none" stroke="rgba(196,151,58,0.06)" stroke-width="1"/>
+              <polygon points="200,60 345,310 55,310" fill="none" stroke="rgba(196,151,58,0.05)" stroke-width="1"/>
+              <polygon points="200,440 345,190 55,190" fill="none" stroke="rgba(196,151,58,0.04)" stroke-width="1"/>
+            </svg>
+          </div>
+          <div class="serv-top">
+            <span class="serv-number">01</span>
+            <span class="serv-emoji" aria-hidden="true">⚡</span>
+          </div>
+          <p class="serv-discipline">Endurance</p>
+          <h3>Ultramaratones<br/>& Triatlones</h3>
+          <p class="serv-desc">De la línea de salida al podio. Diseño la estrategia nutricional completa para que tu cuerpo rinda cuando más importa.</p>
+          <ul class="serv-features">
+            <li>Plan nutricional periodizado por mesociclo</li>
+            <li>Estrategia de nutrición pre, durante y post carrera</li>
+            <li>Geles, drinkmix, comida real y deshidratadas</li>
+            <li>Hidratación y electrolitos en competencia</li>
+            <li>Composición corporal para rendimiento</li>
+            <li>Preparación para Ironman y ultras extremos</li>
+          </ul>
+          <a href="#contacto" class="serv-link">Comenzar →</a>
+        </div>
+
+        <!-- MMA — destacado -->
+        <div class="serv-card serv-featured" data-reveal>
+          <div class="serv-glow" aria-hidden="true"></div>
+          <div class="serv-badge">Más solicitado</div>
+          <div class="serv-top">
+            <span class="serv-number">02</span>
+            <span class="serv-emoji" aria-hidden="true">🥊</span>
+          </div>
+          <p class="serv-discipline">Deportes de Combate</p>
+          <h3>MMA & Artes<br/>Marciales</h3>
+          <p class="serv-desc">Dentro y fuera del octágono, la nutrición es tu arma secreta. Desde el campamento hasta el día del pesaje — te acompaño en cada etapa.</p>
+          <ul class="serv-features">
+            <li>Plan nutricional para campamentos de pelea</li>
+            <li>Base alimenticia para recuperación y lesiones</li>
+            <li>Protocolo de corte de peso seguro y estructurado</li>
+            <li>Deshidratación controlada y rehidratación</li>
+            <li>Composición corporal y recomposición</li>
+            <li>Seguimiento diario hasta el pesaje</li>
+          </ul>
+          <a href="#contacto" class="serv-link serv-link-gold">Comenzar →</a>
+        </div>
+
+        <!-- Evaluación -->
+        <div class="serv-card" data-reveal>
+          <div class="serv-geo" aria-hidden="true">
+            <svg viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="200" cy="250" r="190" fill="none" stroke="rgba(196,151,58,0.06)" stroke-width="1"/>
+              <circle cx="200" cy="250" r="100" fill="none" stroke="rgba(196,151,58,0.04)" stroke-width="1"/>
+              <polygon points="200,60 345,310 55,310" fill="none" stroke="rgba(196,151,58,0.05)" stroke-width="1"/>
+            </svg>
+          </div>
+          <div class="serv-top">
+            <span class="serv-number">03</span>
+            <span class="serv-emoji" aria-hidden="true">📐</span>
+          </div>
+          <p class="serv-discipline">Evaluación</p>
+          <h3>Antropometría<br/>ISAK</h3>
+          <p class="serv-desc">Datos reales para decisiones reales. La evaluación más precisa disponible en Latinoamérica para atletas de élite.</p>
+          <ul class="serv-features">
+            <li>Protocolo completo de 8 pliegues cutáneos</li>
+            <li>Circunferencias y diámetros óseos</li>
+            <li>Análisis de masa muscular y grasa</li>
+            <li>Informe detallado de composición corporal</li>
+            <li>Seguimiento y evolución histórica</li>
+            <li>Base científica para tu plan personalizado</li>
+          </ul>
+          <a href="#contacto" class="serv-link">Comenzar →</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ QUOTE / FILOSOFÍA ══ -->
+  <section class="filosofia">
+    <div class="filo-glow" aria-hidden="true"></div>
+    <svg class="filo-geo" viewBox="0 0 1000 400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <circle cx="500" cy="200" r="260" fill="none" stroke="rgba(196,151,58,0.05)" stroke-width="1"/>
+      <polygon points="500,20 760,350 240,350" fill="none" stroke="rgba(196,151,58,0.04)" stroke-width="1"/>
+    </svg>
+    <div class="container filo-inner">
+      <p class="sec-tag center">—Filosofía</p>
+      <blockquote class="filo-quote">
+        "El entrenamiento te lleva al límite.<br/>
+        <em>La nutrición define si lo pasas o no.</em>"
+      </blockquote>
+      <cite class="filo-author">— Franjo Torres Bondy</cite>
+    </div>
+  </section>
+
+  <!-- ══ METODOLOGÍA ══ -->
+  <section class="section metodologia" id="metodologia">
+    <div class="section-orb s-orb-gold-r"></div>
+    <div class="container">
+      <div class="sec-header center">
+        <p class="sec-tag">—Metodología</p>
+        <h2 class="sec-heading">Un proceso<br/><em>probado en la élite.</em></h2>
+      </div>
+      <div class="steps-row">
+        <div class="step-item" data-reveal>
+          <div class="step-num">01</div>
+          <div class="step-icon-box" aria-hidden="true">🔍</div>
+          <h4>Evaluación inicial</h4>
+          <p>Anamnesis deportiva completa, historial clínico y evaluación antropométrica ISAK. Entiendo quién eres y qué exige tu deporte.</p>
+        </div>
+        <div class="step-arrow" aria-hidden="true">→</div>
+        <div class="step-item" data-reveal>
+          <div class="step-num">02</div>
+          <div class="step-icon-box" aria-hidden="true">📋</div>
+          <h4>Plan de élite</h4>
+          <p>Plan nutricional periodizado diseñado desde cero para ti. Sin plantillas. Sin suposiciones. Solo ciencia aplicada a tu realidad.</p>
+        </div>
+        <div class="step-arrow" aria-hidden="true">→</div>
+        <div class="step-item" data-reveal>
+          <div class="step-num">03</div>
+          <div class="step-icon-box" aria-hidden="true">📲</div>
+          <h4>Seguimiento activo</h4>
+          <p>Ajustes semanales, acceso a tu dashboard personal con evolución detallada, registro diario y plan de entrenamiento integrado.</p>
+        </div>
+        <div class="step-arrow" aria-hidden="true">→</div>
+        <div class="step-item" data-reveal>
+          <div class="step-num">04</div>
+          <div class="step-icon-box" aria-hidden="true">📈</div>
+          <h4>Resultados medibles</h4>
+          <p>Re-evaluaciones periódicas con datos reales. Ves exactamente cómo evoluciona tu composición corporal, rendimiento y bienestar.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ GALERÍA INSTAGRAM ══ -->
+  <section class="section galeria" id="galeria">
+    <div class="container">
+      <div class="sec-header center">
+        <p class="sec-tag">—Instagram</p>
+        <h2 class="sec-heading">Conoce el trabajo<br/><em>detrás de los resultados.</em></h2>
+      </div>
+      <div class="gallery-grid">
+        <!-- Reemplazar los divs por <img src="foto.jpg" alt="..."> cuando tengas las fotos -->
+        <div class="gal-cell gal-large">
+          <img src="../FOTOS WEB VARIADAS/IMG_0893.JPG.jpeg" alt="Franjo Torres en competencia Peru Muscle Show" />
+          <div class="gal-label">
+            <span class="gal-label-tag">Competencia · Lima</span>
+            <p class="gal-label-title">Rendimiento en el escenario.<br/><em>Donde la nutrición decide.</em></p>
+          </div>
+          <div class="gal-hover"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></div>
+        </div>
+        <div class="gal-cell">
+          <img src="../FOTOS WEB VARIADAS/IMG_9358.JPG.jpeg" alt="Franjo Torres escalando en Perú" />
+          <div class="gal-label">
+            <span class="gal-label-tag">Montaña · Perú</span>
+            <p class="gal-label-title">Resistencia al límite.</p>
+          </div>
+          <div class="gal-hover"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></div>
+        </div>
+        <div class="gal-cell">
+          <img src="../FOTOS WEB VARIADAS/IMG_2205.PNG" alt="Trail running en montaña" />
+          <div class="gal-label">
+            <span class="gal-label-tag">Trail Running</span>
+            <p class="gal-label-title">Combustible para cada kilómetro.</p>
+          </div>
+          <div class="gal-hover"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></div>
+        </div>
+        <div class="gal-cell">
+          <img src="../FOTOS WEB VARIADAS/IMG_3212.JPG.jpeg" alt="Atleta en competencia de lucha" />
+          <div class="gal-label">
+            <span class="gal-label-tag">Artes Marciales</span>
+            <p class="gal-label-title">Corte de peso. Sin perder potencia.</p>
+          </div>
+          <div class="gal-hover"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></div>
+        </div>
+        <div class="gal-cell">
+          <img src="../FOTOS WEB VARIADAS/IMG_0722.PNG" alt="Entrenamiento en gym" />
+          <div class="gal-label">
+            <span class="gal-label-tag">Fuerza & Masa</span>
+            <p class="gal-label-title">Masa muscular con precisión.</p>
+          </div>
+          <div class="gal-hover"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></div>
+        </div>
+
+        <!-- Fila 3 — nuevas fotos -->
+        <div class="gal-cell gal-wide">
+          <img src="../FOTOS WEB VARIADAS/IMG_3207.JPG.jpeg" alt="Victoria en competencia de lucha" />
+          <div class="gal-label">
+            <span class="gal-label-tag">Lucha · Lima</span>
+            <p class="gal-label-title">Victoria que se construye en la cocina.</p>
+          </div>
+          <div class="gal-hover"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></div>
+        </div>
+        <div class="gal-cell">
+          <img src="../FOTOS WEB VARIADAS/IMG_7723.JPG.jpeg" alt="Entrenamiento de fuerza con barra" />
+          <div class="gal-label">
+            <span class="gal-label-tag">Strength Training</span>
+            <p class="gal-label-title">Potencia sin límites.</p>
+          </div>
+          <div class="gal-hover"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></div>
+        </div>
+        <div class="gal-cell">
+          <img src="../FOTOS WEB VARIADAS/IMG_3111.JPG.jpeg" alt="Atletas posando tras entrenamiento" />
+          <div class="gal-label">
+            <span class="gal-label-tag">Rendimiento</span>
+            <p class="gal-label-title">Resultados que se ven.</p>
+          </div>
+          <div class="gal-hover"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></div>
+        </div>
+      </div>
+      <div class="gallery-cta">
+        <a href="https://www.instagram.com/el_nutricionistafranjo" target="_blank" rel="noopener" class="btn-outline">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
+          Ver más en @el_nutricionistafranjo
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ TESTIMONIOS ══ -->
+  <section class="section testimonios" id="testimonios">
+    <div class="section-orb s-orb-gold"></div>
+    <div class="container">
+      <div class="sec-header center">
+        <p class="sec-tag">—Testimonios</p>
+        <h2 class="sec-heading">Lo que dicen<br/><em>los que compiten.</em></h2>
+      </div>
+      <div class="testi-grid">
+
+        <div class="testi-card" data-reveal>
+          <div class="testi-stars" aria-label="5 estrellas">★★★★★</div>
+          <p>"Gracias a Franjo pude terminar mi primer ultramaratón de 100K sin colapsar. La estrategia de geles y comida real que diseñó fue determinante en los últimos 30 km cuando el cuerpo ya no da más."</p>
+          <div class="testi-footer">
+            <div class="testi-av">R</div>
+            <div class="testi-info">
+              <strong>Rodrigo S.</strong>
+              <span>Ultramaratonista · Lima</span>
+            </div>
+            <span class="testi-sport" aria-hidden="true">🏃</span>
+          </div>
+        </div>
+
+        <div class="testi-card testi-gold" data-reveal>
+          <div class="testi-quote-deco" aria-hidden="true">"</div>
+          <div class="testi-stars" aria-label="5 estrellas">★★★★★</div>
+          <p>"El protocolo de corte de peso que hice con Franjo fue lo más profesional que experimenté en mis 8 años peleando. Llegué al pesaje en mi mejor condición física y mental. Sin duda cambió mi carrera."</p>
+          <div class="testi-footer">
+            <div class="testi-av testi-av-gold">M</div>
+            <div class="testi-info">
+              <strong>Miguel A.</strong>
+              <span>Peleador MMA · Peso Welter</span>
+            </div>
+            <span class="testi-sport" aria-hidden="true">🥊</span>
+          </div>
+        </div>
+
+        <div class="testi-card" data-reveal>
+          <div class="testi-stars" aria-label="5 estrellas">★★★★★</div>
+          <p>"Nunca imaginé que ajustar mi alimentación transformaría tanto mi rendimiento en el Ironman. Franjo no solo me dio un plan — me educó para entender qué necesita mi cuerpo en cada fase del entrenamiento."</p>
+          <div class="testi-footer">
+            <div class="testi-av">C</div>
+            <div class="testi-info">
+              <strong>Carolina V.</strong>
+              <span>Triatleta · Ironman 70.3</span>
+            </div>
+            <span class="testi-sport" aria-hidden="true">🏊</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ CTA BANNER ══ -->
+  <section class="cta-section">
+    <div class="cta-glow-1" aria-hidden="true"></div>
+    <div class="cta-glow-2" aria-hidden="true"></div>
+    <svg class="cta-geo" viewBox="0 0 1200 500" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <circle cx="600" cy="250" r="320" fill="none" stroke="rgba(196,151,58,0.05)" stroke-width="1"/>
+      <polygon points="600,30 900,430 300,430" fill="none" stroke="rgba(196,151,58,0.04)" stroke-width="1"/>
+      <polygon points="600,470 900,70 300,70" fill="none" stroke="rgba(196,151,58,0.03)" stroke-width="1"/>
+    </svg>
+    <div class="container cta-inner">
+      <p class="sec-tag center">—¿Listo para el siguiente nivel?</p>
+      <h2 class="cta-headline">
+        Tu mejor versión<br/>
+        <em>comienza con una decisión.</em>
+      </h2>
+      <p class="cta-body">Los atletas que trabajan conmigo no solo mejoran su nutrición. Redefinen lo que creían posible.</p>
+      <a href="#contacto" class="btn-gold btn-lg">
+        Trabaja conmigo
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- ══ CONTACTO ══ -->
+  <section class="section contacto" id="contacto">
+    <div class="section-orb s-orb-gold"></div>
+    <div class="container">
+      <div class="contacto-grid">
+
+        <div class="contacto-left">
+          <p class="sec-tag">—Contacto</p>
+          <h2 class="sec-heading">
+            Hablemos sobre<br/>
+            <em>tu próximo nivel.</em>
+          </h2>
+          <p class="body-text">Cuéntame sobre ti, tu deporte y tus objetivos. Revisaré tu mensaje personalmente y te responderé en menos de 24 horas.</p>
+
+          <div class="contact-channels">
+            <a href="https://www.instagram.com/el_nutricionistafranjo" target="_blank" rel="noopener" class="channel-card">
+              <div class="channel-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
+              </div>
+              <div>
+                <strong>Instagram</strong>
+                <span>@el_nutricionistafranjo</span>
+              </div>
+            </a>
+          </div>
+
+          <div class="contacto-deco" aria-hidden="true">
+            <svg viewBox="0 0 280 280" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="140" cy="140" r="125" fill="none" stroke="rgba(196,151,58,0.07)" stroke-width="1"/>
+              <circle cx="140" cy="140" r="80" fill="none" stroke="rgba(196,151,58,0.05)" stroke-width="1"/>
+              <circle cx="140" cy="140" r="35" fill="none" stroke="rgba(196,151,58,0.09)" stroke-width="1"/>
+              <polygon points="140,25 236,195 44,195" fill="none" stroke="rgba(196,151,58,0.06)" stroke-width="1"/>
+              <polygon points="140,255 236,85 44,85" fill="none" stroke="rgba(196,151,58,0.06)" stroke-width="1"/>
+              <line x1="15" y1="140" x2="265" y2="140" stroke="rgba(196,151,58,0.04)" stroke-width="1"/>
+              <line x1="140" y1="15" x2="140" y2="265" stroke="rgba(196,151,58,0.04)" stroke-width="1"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="contacto-right">
+          <form class="contact-form" id="contactForm">
+            <div class="form-row-2">
+              <div class="form-field">
+                <label for="nombre">Nombre completo</label>
+                <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required />
+              </div>
+              <div class="form-field">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="tu@email.com" required />
+              </div>
+            </div>
+            <div class="form-field">
+              <label for="deporte">Tu deporte</label>
+              <select id="deporte" name="deporte" required>
+                <option value="" disabled selected>Selecciona tu disciplina</option>
+                <option value="ultramaraton">Ultramaratón</option>
+                <option value="triatlon">Triatlón / Ironman</option>
+                <option value="maraton">Maratón / Running</option>
+                <option value="trail">Trail Running</option>
+                <option value="mma">MMA</option>
+                <option value="boxeo">Boxeo / Muay Thai</option>
+                <option value="lucha">Lucha / BJJ / Grappling</option>
+                <option value="otro">Otro deporte</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label for="objetivo">Objetivo principal</label>
+              <select id="objetivo" name="objetivo" required>
+                <option value="" disabled selected>¿Qué quieres lograr?</option>
+                <option value="rendimiento">Mejorar rendimiento deportivo</option>
+                <option value="composicion">Mejorar composición corporal</option>
+                <option value="corte">Corte de peso / pesaje</option>
+                <option value="recuperacion">Recuperación de lesiones</option>
+                <option value="carrera">Estrategia de nutrición en carrera</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label for="mensaje">Cuéntame tu historia</label>
+              <textarea id="mensaje" name="mensaje" rows="4" placeholder="¿Qué eventos tienes próximamente? ¿Cuáles son tus mayores desafíos con la alimentación?" required></textarea>
+            </div>
+            <button type="submit" class="btn-gold full">
+              Enviar mensaje
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+            <p class="form-note">Respondo personalmente en menos de 24 horas.</p>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FOOTER ══ -->
+  <footer class="footer">
+    <div class="footer-geo" aria-hidden="true">
+      <svg viewBox="0 0 1200 280" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+        <circle cx="600" cy="140" r="200" fill="none" stroke="rgba(196,151,58,0.04)" stroke-width="1"/>
+        <polygon points="600,0 800,240 400,240" fill="none" stroke="rgba(196,151,58,0.03)" stroke-width="1"/>
+      </svg>
+    </div>
+    <div class="container footer-body">
+      <div class="footer-brand">
+        <div class="brand footer-brand-name">
+          <span class="brand-name">Franjo Torres</span>
+          <span class="brand-rule"></span>
+          <span class="brand-title">Nutricionista Deportivo</span>
+        </div>
+        <p>Especialista en endurance y artes marciales.<br/>Lima, Perú · ISAK Nivel 2C.</p>
+        <a href="https://www.instagram.com/el_nutricionistafranjo" target="_blank" rel="noopener" class="footer-ig">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
+          @el_nutricionistafranjo
+        </a>
+      </div>
+      <div class="footer-nav-group">
+        <strong>Página</strong>
+        <nav aria-label="Footer navigation">
+          <a href="#sobre-mi">Sobre mí</a>
+          <a href="#servicios">Servicios</a>
+          <a href="#metodologia">Metodología</a>
+          <a href="#testimonios">Testimonios</a>
+          <a href="#contacto">Contacto</a>
+        </nav>
+      </div>
+      <div class="footer-nav-group">
+        <strong>Especialidades</strong>
+        <nav aria-label="Specialties navigation">
+          <a href="#servicios">Endurance & Ultra</a>
+          <a href="#servicios">MMA & Combate</a>
+          <a href="#servicios">Evaluación ISAK</a>
+          <a href="#contacto">Trabaja conmigo</a>
+        </nav>
+      </div>
+    </div>
+    <div class="footer-copy">
+      <div class="container footer-copy-inner">
+        <span>© 2026 Franjo Torres Bondy · Lima, Perú</span>
+        <span>Nutricionista Deportivo · ISAK Nivel 2C</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

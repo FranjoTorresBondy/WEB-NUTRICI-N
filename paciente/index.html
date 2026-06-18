@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portal Paciente — Franjo Torres Nutrición</title>
+  <meta name="description" content="Accede a tu plan nutricional, evolución y registro diario." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="paciente.css" />
+</head>
+<body>
+
+<div class="noise"></div>
+<div class="login-bg"></div>
+
+<div class="login-page">
+  <div class="login-card">
+
+    <div class="login-brand">
+      <div class="login-logo-mark">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2L3 7l9 5 9-5-9-5zM3 17l9 5 9-5M3 12l9 5 9-5"/>
+        </svg>
+      </div>
+      <h1>Franjo Torres</h1>
+      <p>Portal del Paciente</p>
+    </div>
+
+    <div class="login-divider"></div>
+
+    <div id="loginError" class="login-error"></div>
+
+    <form id="loginForm">
+      <div class="form-group">
+        <label for="email">Correo electrónico</label>
+        <input type="email" id="email" placeholder="tu@correo.com" required autocomplete="email" />
+      </div>
+      <div class="form-group">
+        <label for="password">Contraseña</label>
+        <input type="password" id="password" placeholder="••••••••" required autocomplete="current-password" />
+      </div>
+      <button type="submit" class="btn-login" id="loginBtn">
+        Ingresar a mi portal
+      </button>
+    </form>
+
+    <div class="login-footer">
+      ¿Olvidaste tu contraseña? Escríbele a<br/>
+      <a href="https://www.instagram.com/el_nutricionistafranjo" target="_blank" rel="noopener" style="color:var(--gold);">@el_nutricionistafranjo</a>
+    </div>
+
+  </div>
+</div>
+
+<div class="toast-container" id="toastContainer"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="paciente.js"></script>
+<script>
+  const form      = document.getElementById('loginForm');
+  const errorBox  = document.getElementById('loginError');
+  const loginBtn  = document.getElementById('loginBtn');
+
+  // Si ya hay sesión activa → dashboard
+  (async () => {
+    await supabaseReady;
+    const { data: { session } } = await _supabase.auth.getSession();
+    if (session) window.location.href = 'dashboard.html';
+  })();
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    errorBox.classList.remove('visible');
+    loginBtn.disabled = true;
+    loginBtn.textContent = 'Verificando...';
+
+    const email    = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
+
+    await supabaseReady;
+    const { error } = await _supabase.auth.signInWithPassword({ email, password });
+
+    if (error) {
+      errorBox.textContent = error.message === 'Invalid login credentials'
+        ? 'Credenciales incorrectas. Verifica tu correo y contraseña.'
+        : error.message;
+      errorBox.classList.add('visible');
+      loginBtn.disabled = false;
+      loginBtn.textContent = 'Ingresar a mi portal';
+      return;
+    }
+
+    window.location.href = 'dashboard.html';
+  });
+</script>
+
+</body>
+</html>

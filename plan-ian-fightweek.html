@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plan Fight Week — Ian Escuza</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Chakra+Petch:wght@600;700&display=swap');
+  :root {
+    --bg:#080808; --bg2:#111111; --bg3:#1a1a1a; --bg4:#222;
+    --gold:#e8e8e8; --gold-dim:rgba(255,255,255,.05); --gold-border:rgba(255,255,255,.13);
+    --red:#ef5350; --red-dim:rgba(239,83,80,.12); --red-border:rgba(239,83,80,.28);
+    --blue:#4fc3f7; --blue-dim:rgba(79,195,247,.1);
+    --green:#a5d6a7; --green-dim:rgba(165,214,167,.1);
+    --purple:#ce93d8; --purple-dim:rgba(206,147,216,.1);
+    --orange:#ffb74d; --orange-dim:rgba(255,183,77,.1);
+    --text:#f0f0f0; --muted:#777; --border:#242424;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-size:13px;padding:32px 24px 80px;min-height:100vh}
+  a{color:inherit;text-decoration:none}
+
+  /* ── LAYOUT ── */
+  .wrap{max-width:1100px;margin:0 auto}
+
+  /* ── HEADER ── */
+  .header{display:flex;align-items:flex-end;justify-content:space-between;border-bottom:1px solid var(--gold-border);padding-bottom:20px;margin-bottom:28px;gap:16px;flex-wrap:wrap}
+  .hdr-left h1{font-family:'Chakra Petch',sans-serif;font-size:24px;color:var(--gold);letter-spacing:.05em;text-transform:uppercase;line-height:1.1}
+  .hdr-left .sub{color:var(--muted);font-size:11px;margin-top:5px;letter-spacing:.04em;text-transform:uppercase}
+  .hdr-right{display:flex;gap:24px;flex-wrap:wrap}
+  .stat .val{font-family:'Chakra Petch',sans-serif;font-size:20px;color:var(--gold);text-align:right;line-height:1}
+  .stat .val.red{color:var(--red)}
+  .stat .lbl{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;text-align:right;margin-top:3px}
+
+  /* ── PHASE HEADER ── */
+  .phase{margin:36px 0 18px}
+  .phase-hd{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+  .phase-badge{font-family:'Chakra Petch',sans-serif;font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:4px 12px;border-radius:4px;border:1px solid;white-space:nowrap}
+  .phase-badge.gold{background:var(--gold-dim);border-color:var(--gold-border);color:var(--gold)}
+  .phase-badge.red{background:var(--red-dim);border-color:var(--red-border);color:var(--red)}
+  .phase-title{font-family:'Chakra Petch',sans-serif;font-size:16px;color:var(--text);letter-spacing:.04em;text-transform:uppercase}
+  .phase-meta{font-size:11px;color:var(--muted);margin-top:2px}
+
+  /* ── MACRO BAR ── */
+  .macro-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+  .mac{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:10px 16px;display:flex;flex-direction:column;align-items:center;min-width:90px}
+  .mac .mv{font-family:'Chakra Petch',sans-serif;font-size:18px;font-weight:700;line-height:1}
+  .mac .ml{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-top:4px}
+  .mac.prot .mv{color:var(--green)}
+  .mac.carb .mv{color:var(--blue)}
+  .mac.fat  .mv{color:var(--orange)}
+  .mac.kcal .mv{color:var(--gold)}
+  .mac.na   .mv{color:#90caf9}
+  .mac.fib  .mv{color:#80cbc4}
+
+  /* ── COMIDA CARD ── */
+  .comidas{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;margin-bottom:20px}
+  .card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+  .card-hd{padding:10px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+  .card-hd .cn{font-family:'Chakra Petch',sans-serif;font-size:12px;color:var(--gold);letter-spacing:.06em;text-transform:uppercase}
+  .card-hd .ct{font-size:10px;color:var(--muted)}
+  .card-body{padding:12px 14px}
+  .ingr{list-style:none;display:flex;flex-direction:column;gap:5px}
+  .ingr li{font-size:12px;color:#ccc;line-height:1.4;padding-left:14px;position:relative}
+  .ingr li::before{content:'·';position:absolute;left:0;color:var(--gold);font-size:14px;line-height:1.1}
+  .ingr li strong{color:var(--text);font-weight:600}
+  .ingr li.note{color:var(--muted);font-size:11px;font-style:italic;padding-left:0}
+  .ingr li.note::before{display:none}
+  .card-macros{display:flex;gap:0;border-top:1px solid var(--border);margin-top:10px}
+  .cm{flex:1;padding:6px 4px;text-align:center;border-right:1px solid var(--border)}
+  .cm:last-child{border-right:none}
+  .cm .cv{font-family:'Chakra Petch',sans-serif;font-size:12px;font-weight:700}
+  .cm .cl{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+  .cm.p .cv{color:var(--green)}
+  .cm.c .cv{color:var(--blue)}
+  .cm.g .cv{color:var(--orange)}
+  .cm.k .cv{color:var(--gold)}
+
+  /* ── PERI SECTION ── */
+  .peri-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}
+  .peri-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+  .peri-hd{padding:9px 14px;border-bottom:1px solid var(--border)}
+  .peri-hd span{font-family:'Chakra Petch',sans-serif;font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+  .peri-hd .pre-tag{color:var(--purple)}
+  .peri-hd .intra-tag{color:var(--blue)}
+  .peri-hd .post-tag{color:var(--green)}
+  .peri-body{padding:10px 14px}
+
+  /* ── TABLA DETALLE MACROS ── */
+  .section-title{font-family:'Chakra Petch',sans-serif;font-size:13px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin:28px 0 12px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+  .tbl-wrap{background:var(--bg2);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:20px}
+  table{width:100%;border-collapse:collapse}
+  thead th{background:var(--bg3);color:var(--muted);font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;padding:9px 12px;border-bottom:1px solid var(--border);white-space:nowrap;text-align:right}
+  thead th:first-child{text-align:left}
+  tbody tr{border-bottom:1px solid var(--border)}
+  tbody tr:last-child{border-bottom:none}
+  tbody tr:hover{background:rgba(255,255,255,.02)}
+  tbody tr.total-row{background:var(--bg3)}
+  tbody tr.total-row td{font-weight:600}
+  td{padding:8px 12px;vertical-align:middle;text-align:right;font-size:12px;color:#ccc}
+  td:first-child{text-align:left;color:var(--text)}
+  .num{font-family:'Chakra Petch',sans-serif}
+  .g-prot{color:var(--green)}
+  .g-carb{color:var(--blue)}
+  .g-fat {color:var(--orange)}
+  .g-kcal{color:var(--gold)}
+  .g-na  {color:#90caf9}
+  .g-fib {color:#80cbc4}
+
+  /* ── HIDRATACION ── */
+  .hidro-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-bottom:20px}
+  .hidro-day{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px;text-align:center}
+  .hidro-day.active{border-color:var(--gold-border);background:var(--gold-dim)}
+  .hidro-day.restrict{border-color:var(--red-border);background:var(--red-dim)}
+  .hidro-day.zero{border-color:#333;background:#0d0d0d;opacity:.7}
+  .hd-date{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
+  .hd-vol{font-family:'Chakra Petch',sans-serif;font-size:22px;font-weight:700;line-height:1}
+  .hd-vol.big{color:var(--blue)}
+  .hd-vol.mid{color:var(--orange)}
+  .hd-vol.small{color:var(--red)}
+  .hd-vol.zero{color:#444}
+  .hd-note{font-size:10px;color:var(--muted);margin-top:5px;line-height:1.4}
+
+  /* ── ALERT ── */
+  .alert{border-radius:8px;padding:10px 14px;font-size:12px;line-height:1.5;margin-bottom:16px;border:1px solid}
+  .alert.warn{background:var(--red-dim);border-color:var(--red-border);color:#ef9a9a}
+  .alert.info{background:var(--blue-dim);border-color:rgba(79,195,247,.25);color:#b3e5fc}
+  .alert.gold{background:var(--gold-dim);border-color:var(--gold-border);color:#ffe082}
+  .alert strong{font-weight:600}
+
+  /* ── FOOTER ── */
+  .footer{margin-top:48px;padding-top:18px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+  .footer .logo{font-family:'Chakra Petch',sans-serif;font-size:12px;color:var(--gold);letter-spacing:.06em;text-transform:uppercase}
+  .footer .fc{font-size:11px;color:var(--muted)}
+
+  @media(max-width:640px){
+    .comidas{grid-template-columns:1fr}
+    .peri-grid{grid-template-columns:1fr}
+    .hdr-right{gap:14px}
+    .stat .val{font-size:16px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- ══ HEADER ══ -->
+<header class="header">
+  <div class="hdr-left">
+    <h1>Plan Nutricional<br>Fight Week</h1>
+    <p class="sub">Ian Escuza &nbsp;·&nbsp; 18 – 23 Junio 2026 &nbsp;·&nbsp; Hipocalórico · Hiperproteico</p>
+  </div>
+  <div class="hdr-right">
+    <div class="stat"><div class="val">73.8</div><div class="lbl">Peso actual (kg)</div></div>
+    <div class="stat"><div class="val red">68.0</div><div class="lbl">Objetivo pesaje (kg)</div></div>
+    <div class="stat"><div class="val">5.8</div><div class="lbl">A cortar (kg)</div></div>
+    <div class="stat"><div class="val">6</div><div class="lbl">Días</div></div>
+  </div>
+</header>
+
+<!-- ══ FASE 1: DÍAS 18-19-20 ══ -->
+<div class="phase">
+  <div class="phase-hd">
+    <div class="phase-badge gold">Fase 1</div>
+    <div>
+      <div class="phase-title">18 · 19 · 20 de Junio</div>
+      <div class="phase-meta">Carga hídrica 7.4 L/día &nbsp;·&nbsp; Sal: 2 g/día &nbsp;·&nbsp; Entrenamiento días 18–19</div>
+    </div>
+  </div>
+
+  <!-- macro bar fase 1 (sin entrenamiento) -->
+  <div class="macro-bar">
+    <div class="mac prot"><div class="mv">116</div><div class="ml">Prot (g)</div></div>
+    <div class="mac carb"><div class="mv">80.5</div><div class="ml">Carb (g)</div></div>
+    <div class="mac fat"><div class="mv">51.1</div><div class="ml">Grasa (g)</div></div>
+    <div class="mac kcal"><div class="mv">1.235</div><div class="ml">kcal</div></div>
+    <div class="mac na"><div class="mv">1.465</div><div class="ml">Na (mg)</div></div>
+    <div class="mac fib"><div class="mv">33.5</div><div class="ml">Fibra (g)</div></div>
+    <div class="mac kcal" style="border-color:rgba(165,214,167,.25);background:rgba(165,214,167,.06)"><div class="mv" style="color:var(--green)">+243</div><div class="ml">kcal c/entreno</div></div>
+  </div>
+
+  <!-- comidas -->
+  <div class="comidas">
+
+    <!-- C1 -->
+    <div class="card">
+      <div class="card-hd">
+        <span class="cn">Comida 1</span><span class="ct">~7:00 AM</span>
+      </div>
+      <div class="card-body">
+        <ul class="ingr">
+          <li><strong>100 g</strong> mix de berries (arándano, aguaymanto, fresa, frambuesa)</li>
+          <li><strong>2 huevos</strong> en omelette</li>
+          <li><strong>1 tomate</strong> pelado sin pepa</li>
+          <li><strong>1 puñado pequeño</strong> de espinaca (~15 g)</li>
+          <li><strong>40 g</strong> de palta</li>
+          <li class="note">⊕ Multivitamínico 2 pastillas · Creatina 8 g</li>
+        </ul>
+        <div class="card-macros">
+          <div class="cm p"><div class="cv">17.9</div><div class="cl">Prot</div></div>
+          <div class="cm c"><div class="cv">16.9</div><div class="cl">Carb</div></div>
+          <div class="cm g"><div class="cv">17.6</div><div class="cl">Gras</div></div>
+          <div class="cm k"><div class="cv">291</div><div class="cl">kcal</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- C2 -->
+    <div class="card">
+      <div class="card-hd">
+        <span class="cn">Comida 2</span><span class="ct">~12:30 PM</span>
+      </div>
+      <div class="card-body">
+        <ul class="ingr">
+          <li><strong>150 g</strong> bistec / carne molida / pechuga de pollo + 1 cdta aceite de oliva</li>
+          <li><strong>50 g</strong> espárragos</li>
+          <li><strong>100 g</strong> verduras cocidas mix</li>
+          <li><strong>200 g</strong> fideos de konjac</li>
+          <li><strong>100 g</strong> salsa de tomate casera*</li>
+          <li><strong>100 g</strong> papa o camote sin cáscara</li>
+          <li class="note">◆ Postre: 100 g gelatina s/a · 30 g quark · 10 g choc. oscuro</li>
+          <li class="note">* Preparar en casa con tomate pelado, sin sal comercial</li>
+        </ul>
+        <div class="card-macros">
+          <div class="cm p"><div class="cv">45.6</div><div class="cl">Prot</div></div>
+          <div class="cm c"><div class="cv">36.8</div><div class="cl">Carb</div></div>
+          <div class="cm g"><div class="cv">17.6</div><div class="cl">Gras</div></div>
+          <div class="cm k"><div class="cv">487</div><div class="cl">kcal</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- C3 -->
+    <div class="card">
+      <div class="card-hd">
+        <span class="cn">Comida 3</span><span class="ct">~4:00 PM</span>
+      </div>
+      <div class="card-body">
+        <ul class="ingr">
+          <li><strong>100 g</strong> quark (vainilla, fresa o natural)</li>
+          <li><strong>50 g</strong> fresas</li>
+          <li><strong>1 cdta</strong> mantequilla de frutos secos (~8 g)</li>
+          <li><strong>10 g</strong> chocolate oscuro sin azúcar</li>
+        </ul>
+        <div class="card-macros">
+          <div class="cm p"><div class="cv">14.3</div><div class="cl">Prot</div></div>
+          <div class="cm c"><div class="cv">11.7</div><div class="cl">Carb</div></div>
+          <div class="cm g"><div class="cv">9.3</div><div class="cl">Gras</div></div>
+          <div class="cm k"><div class="cv">185</div><div class="cl">kcal</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- C4 -->
+    <div class="card">
+      <div class="card-hd">
+        <span class="cn">Comida 4</span><span class="ct">~8:00 PM</span>
+      </div>
+      <div class="card-body">
+        <ul class="ingr">
+          <li><strong>150 g</strong> pechuga de pollo (peso crudo)</li>
+          <li><strong>5 g</strong> mantequilla</li>
+          <li><strong>100 g</strong> mix verduras cocidas</li>
+          <li><strong>200 g</strong> fideos de konjac</li>
+          <li><strong>100 g</strong> salsa de tomate casera*</li>
+          <li class="note">⊕ Omega 3 · Magnesio glicinato</li>
+          <li class="note">* Mantener ingesta de sal en <strong>2 g exactos</strong> en el día</li>
+        </ul>
+        <div class="card-macros">
+          <div class="cm p"><div class="cv">38.2</div><div class="cl">Prot</div></div>
+          <div class="cm c"><div class="cv">15.1</div><div class="cl">Carb</div></div>
+          <div class="cm g"><div class="cv">6.6</div><div class="cl">Gras</div></div>
+          <div class="cm k"><div class="cv">272</div><div class="cl">kcal</div></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /comidas -->
+</div><!-- /phase 1 -->
+
+
+<!-- ══ PERI-ENTRENAMIENTO 18-19 ══ -->
+<div class="section-title">Peri-Entrenamiento — Solo días 18 y 19</div>
+<div class="peri-grid">
+  <div class="peri-card">
+    <div class="peri-hd"><span class="pre-tag">▶ Pre-Entreno</span> <span style="font-size:10px;color:var(--muted);float:right">40–30 min antes</span></div>
+    <div class="peri-body">
+      <ul class="ingr">
+        <li><strong>100 ml</strong> jugo de naranja fresco o cold press</li>
+        <li><strong>2 betarragas</strong> (~100 g) — fuente de nitratos</li>
+        <li><strong>20 g</strong> gomitas Haribo</li>
+        <li><strong>6 g</strong> beta alanina (repartir en 2 tomas)</li>
+      </ul>
+      <div class="card-macros" style="margin-top:10px;border-top:1px solid var(--border)">
+        <div class="cm p"><div class="cv">3.7</div><div class="cl">Prot</div></div>
+        <div class="cm c"><div class="cv">35.5</div><div class="cl">Carb</div></div>
+        <div class="cm g"><div class="cv">0.4</div><div class="cl">Gras</div></div>
+        <div class="cm k"><div class="cv">156</div><div class="cl">kcal</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="peri-card">
+    <div class="peri-hd"><span class="intra-tag">◉ Intra-Entreno</span> <span style="font-size:10px;color:var(--muted);float:right">Si hay sudoración profusa</span></div>
+    <div class="peri-body">
+      <ul class="ingr">
+        <li><strong>1 litro</strong> de agua</li>
+        <li><strong>1 scoop</strong> de aminos (~10 g)</li>
+      </ul>
+      <div class="card-macros" style="margin-top:10px;border-top:1px solid var(--border)">
+        <div class="cm p"><div class="cv">8.0</div><div class="cl">Prot</div></div>
+        <div class="cm c"><div class="cv">0.5</div><div class="cl">Carb</div></div>
+        <div class="cm g"><div class="cv">0</div><div class="cl">Gras</div></div>
+        <div class="cm k"><div class="cv">34</div><div class="cl">kcal</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="peri-card">
+    <div class="peri-hd"><span class="post-tag">■ Post-Entreno</span></div>
+    <div class="peri-body">
+      <ul class="ingr">
+        <li><strong>½ scoop</strong> proteína aislada en polvo con agua (~15 g)</li>
+      </ul>
+      <div class="card-macros" style="margin-top:10px;border-top:1px solid var(--border)">
+        <div class="cm p"><div class="cv">12.5</div><div class="cl">Prot</div></div>
+        <div class="cm c"><div class="cv">0.5</div><div class="cl">Carb</div></div>
+        <div class="cm g"><div class="cv">0.2</div><div class="cl">Gras</div></div>
+        <div class="cm k"><div class="cv">53</div><div class="cl">kcal</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="alert info" style="margin-bottom:28px">
+  <strong>Total días 18–19 con peri-entrenamiento:</strong> &nbsp;Proteína 140 g &nbsp;·&nbsp; Carbos 117 g &nbsp;·&nbsp; Grasa 52 g &nbsp;·&nbsp; <strong>1.478 kcal</strong> &nbsp;·&nbsp; Na 1.689 mg &nbsp;·&nbsp; Fibra 36.5 g
+</div>
+
+
+<!-- ══ FASE 2: DÍAS 21-22 ══ -->
+<div class="phase">
+  <div class="phase-hd">
+    <div class="phase-badge red">Fase 2</div>
+    <div>
+      <div class="phase-title">21 · 22 de Junio</div>
+      <div class="phase-meta">Restricción hídrica 1.1 L → 500 ml &nbsp;·&nbsp; Sal: 1 g/día &nbsp;·&nbsp; Solo actividad LISS · Sin entrenamiento intenso</div>
+    </div>
+  </div>
+
+  <!-- macro bar fase 2 -->
+  <div class="macro-bar">
+    <div class="mac prot"><div class="mv">114.6</div><div class="ml">Prot (g)</div></div>
+    <div class="mac carb"><div class="mv">68.8</div><div class="ml">Carb (g)</div></div>
+    <div class="mac fat"><div class="mv">58.3</div><div class="ml">Grasa (g)</div></div>
+    <div class="mac kcal"><div class="mv">1.229</div><div class="ml">kcal</div></div>
+    <div class="mac na"><div class="mv">997</div><div class="ml">Na (mg)</div></div>
+    <div class="mac fib"><div class="mv">19.1</div><div class="ml">Fibra (g)</div></div>
+  </div>
+
+  <!-- comidas -->
+  <div class="comidas">
+
+    <!-- C1 -->
+    <div class="card">
+      <div class="card-hd">
+        <span class="cn">Comida 1</span><span class="ct">~7:00 AM</span>
+      </div>
+      <div class="card-body">
+        <ul class="ingr">
+          <li><strong>50 g</strong> de fresas</li>
+          <li><strong>2 huevos</strong> en omelette</li>
+          <li><strong>1 tomate</strong> pelado sin pepa</li>
+          <li><strong>100 g</strong> cebolla blanca</li>
+          <li><strong>40 g</strong> palta</li>
+          <li class="note">⊕ Multivitamínico 2 pastillas · Creatina 8 g</li>
+        </ul>
+        <div class="card-macros">
+          <div class="cm p"><div class="cv">17.9</div><div class="cl">Prot</div></div>
+          <div class="cm c"><div class="cv">19.5</div><div class="cl">Carb</div></div>
+          <div class="cm g"><div class="cv">17.2</div><div class="cl">Gras</div></div>
+          <div class="cm k"><div class="cv">295</div><div class="cl">kcal</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- C2 -->
+    <div class="card">
+      <div class="card-hd">
+        <span class="cn">Comida 2</span><span class="ct">~12:30 PM</span>
+      </div>
+      <div class="card-body">
+        <ul class="ingr">
+          <li><strong>150 g</strong> bistec / carne molida / pechuga + 1 cdta aceite de oliva</li>
+          <li><strong>100 g</strong> zapallito italiano (zucchini)</li>
+          <li><strong>100 g</strong> papa o camote sin cáscara</li>
+          <li class="note">◆ Postre: 100 g gelatina s/a · 30 g quark · 10 g choc. oscuro</li>
+        </ul>
+        <div class="card-macros">
+          <div class="cm p"><div class="cv">41.8</div><div class="cl">Prot</div></div>
+          <div class="cm c"><div class="cv">22.9</div><div class="cl">Carb</div></div>
+          <div class="cm g"><div class="cv">16.8</div><div class="cl">Gras</div></div>
+          <div class="cm k"><div class="cv">405</div><div class="cl">kcal</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- C3 -->
+    <div class="card">
+      <div class="card-hd">
+        <span class="cn">Comida 3</span><span class="ct">~4:00 PM</span>
+      </div>
+      <div class="card-body">
+        <ul class="ingr">
+          <li><strong>100 g</strong> quark (vainilla, fresa o natural)</li>
+          <li><strong>50 g</strong> fresas</li>
+          <li><strong>1 cdta</strong> mantequilla de frutos secos (~8 g)</li>
+          <li><strong>10 g</strong> cashews</li>
+          <li><strong>10 g</strong> chocolate oscuro sin azúcar</li>
+        </ul>
+        <div class="card-macros">
+          <div class="cm p"><div class="cv">16.1</div><div class="cl">Prot</div></div>
+          <div class="cm c"><div class="cv">14.7</div><div class="cl">Carb</div></div>
+          <div class="cm g"><div class="cv">13.7</div><div class="cl">Gras</div></div>
+          <div class="cm k"><div class="cv">240</div><div class="cl">kcal</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- C4 -->
+    <div class="card">
+      <div class="card-hd">
+        <span class="cn">Comida 4</span><span class="ct">~8:00 PM</span>
+      </div>
+      <div class="card-body">
+        <ul class="ingr">
+          <li><strong>150 g</strong> pechuga de pollo (peso crudo)</li>
+          <li><strong>10 g</strong> mantequilla</li>
+          <li><strong>100 g</strong> mix verduras cocidas</li>
+          <li><strong>200 g</strong> zucchini</li>
+          <li class="note">⊕ Omega 3 · Magnesio glicinato</li>
+          <li class="note">* Mantener ingesta de sal en <strong>1 g exacto</strong> en el día</li>
+        </ul>
+        <div class="card-macros">
+          <div class="cm p"><div class="cv">38.7</div><div class="cl">Prot</div></div>
+          <div class="cm c"><div class="cv">11.7</div><div class="cl">Carb</div></div>
+          <div class="cm g"><div class="cv">10.6</div><div class="cl">Gras</div></div>
+          <div class="cm k"><div class="cv">289</div><div class="cl">kcal</div></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /comidas fase 2 -->
+</div><!-- /phase 2 -->
+
+
+<!-- ══ TABLA DETALLE MACROS ══ -->
+<div class="section-title">Desglose Completo por Comida</div>
+
+<div class="tbl-wrap">
+<table>
+  <thead>
+    <tr>
+      <th>Comida</th>
+      <th>Prot (g)</th>
+      <th>Carb (g)</th>
+      <th>Grasa (g)</th>
+      <th>kcal</th>
+      <th>Na (mg)</th>
+      <th>Fibra (g)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td colspan="7" style="background:#0e0e0e;color:var(--gold);font-family:'Chakra Petch',sans-serif;font-size:10px;letter-spacing:.08em;padding:7px 12px;text-transform:uppercase">Días 18 · 19 · 20 — Plan base</td></tr>
+    <tr>
+      <td>Comida 1</td>
+      <td class="num g-prot">17.9</td><td class="num g-carb">16.9</td><td class="num g-fat">17.6</td><td class="num g-kcal">291</td><td class="num g-na">155</td><td class="num g-fib">6.6</td>
+    </tr>
+    <tr>
+      <td>Comida 2</td>
+      <td class="num g-prot">45.6</td><td class="num g-carb">36.8</td><td class="num g-fat">17.6</td><td class="num g-kcal">487</td><td class="num g-na">265</td><td class="num g-fib">14.3</td>
+    </tr>
+    <tr>
+      <td>Comida 3</td>
+      <td class="num g-prot">14.3</td><td class="num g-carb">11.7</td><td class="num g-fat">9.3</td><td class="num g-kcal">185</td><td class="num g-na">104</td><td class="num g-fib">3.1</td>
+    </tr>
+    <tr>
+      <td>Comida 4</td>
+      <td class="num g-prot">38.2</td><td class="num g-carb">15.1</td><td class="num g-fat">6.6</td><td class="num g-kcal">272</td><td class="num g-na">155</td><td class="num g-fib">9.5</td>
+    </tr>
+    <tr class="total-row">
+      <td>Subtotal sin entrenamiento (día 20)</td>
+      <td class="num g-prot">116.0</td><td class="num g-carb">80.5</td><td class="num g-fat">51.1</td><td class="num g-kcal">1.235</td><td class="num g-na">679 + 786*</td><td class="num g-fib">33.5</td>
+    </tr>
+    <tr><td colspan="7" style="background:#0e0e0e;color:var(--purple);font-family:'Chakra Petch',sans-serif;font-size:10px;letter-spacing:.08em;padding:7px 12px;text-transform:uppercase">Peri-entrenamiento — Solo días 18 · 19</td></tr>
+    <tr>
+      <td>Pre (naranja + betarraga + haribo)</td>
+      <td class="num g-prot">3.7</td><td class="num g-carb">35.5</td><td class="num g-fat">0.4</td><td class="num g-kcal">156</td><td class="num g-na">89</td><td class="num g-fib">3.0</td>
+    </tr>
+    <tr>
+      <td>Intra (aminos)</td>
+      <td class="num g-prot">8.0</td><td class="num g-carb">0.5</td><td class="num g-fat">0</td><td class="num g-kcal">34</td><td class="num g-na">70</td><td class="num g-fib">0</td>
+    </tr>
+    <tr>
+      <td>Post (proteína aislada ½ sc)</td>
+      <td class="num g-prot">12.5</td><td class="num g-carb">0.5</td><td class="num g-fat">0.2</td><td class="num g-kcal">53</td><td class="num g-na">65</td><td class="num g-fib">0</td>
+    </tr>
+    <tr class="total-row">
+      <td>Total días 18–19 con entrenamiento</td>
+      <td class="num g-prot">140.2</td><td class="num g-carb">117.0</td><td class="num g-fat">51.7</td><td class="num g-kcal">1.478</td><td class="num g-na">903 + 786*</td><td class="num g-fib">36.5</td>
+    </tr>
+
+    <tr><td colspan="7" style="background:#0e0e0e;color:var(--red);font-family:'Chakra Petch',sans-serif;font-size:10px;letter-spacing:.08em;padding:7px 12px;text-transform:uppercase">Días 21 · 22 — Restricción</td></tr>
+    <tr>
+      <td>Comida 1</td>
+      <td class="num g-prot">17.9</td><td class="num g-carb">19.5</td><td class="num g-fat">17.2</td><td class="num g-kcal">295</td><td class="num g-na">153</td><td class="num g-fib">6.5</td>
+    </tr>
+    <tr>
+      <td>Comida 2</td>
+      <td class="num g-prot">41.8</td><td class="num g-carb">22.9</td><td class="num g-fat">16.8</td><td class="num g-kcal">405</td><td class="num g-na">201</td><td class="num g-fib">4.7</td>
+    </tr>
+    <tr>
+      <td>Comida 3</td>
+      <td class="num g-prot">16.1</td><td class="num g-carb">14.7</td><td class="num g-fat">13.7</td><td class="num g-kcal">240</td><td class="num g-na">107</td><td class="num g-fib">3.4</td>
+    </tr>
+    <tr>
+      <td>Comida 4</td>
+      <td class="num g-prot">38.7</td><td class="num g-carb">11.7</td><td class="num g-fat">10.6</td><td class="num g-kcal">289</td><td class="num g-na">143</td><td class="num g-fib">4.5</td>
+    </tr>
+    <tr class="total-row">
+      <td>Total días 21–22</td>
+      <td class="num g-prot">114.6</td><td class="num g-carb">68.8</td><td class="num g-fat">58.3</td><td class="num g-kcal">1.229</td><td class="num g-na">604 + 393*</td><td class="num g-fib">19.1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<p style="font-size:11px;color:var(--muted);margin-top:-12px;margin-bottom:28px">* Na de sal añadida: 2 g NaCl = 786 mg Na (días 18–20) · 1 g NaCl = 393 mg Na (días 21–22). Contabilizar la sal usada en la salsa de tomate casera dentro del cupo diario.</p>
+
+
+<!-- ══ PROTOCOLO DE DESHIDRATACIÓN ══ -->
+<div class="section-title">Protocolo de Deshidratación</div>
+<div class="hidro-grid">
+  <div class="hidro-day active">
+    <div class="hd-date">Mié 18 Jun · Día 1</div>
+    <div class="hd-vol big">7.4 L</div>
+    <div class="hd-note">100 ml/kg · Carga hídrica. Dosificar durante el día.</div>
+  </div>
+  <div class="hidro-day active">
+    <div class="hd-date">Jue 19 Jun · Día 2</div>
+    <div class="hd-vol big">7.4 L</div>
+    <div class="hd-note">100 ml/kg · Carga hídrica. Dosificar durante el día.</div>
+  </div>
+  <div class="hidro-day active">
+    <div class="hd-date">Vie 20 Jun · Día 3</div>
+    <div class="hd-vol big">7.4 L</div>
+    <div class="hd-note">100 ml/kg · Carga hídrica. Tercer día de carga.</div>
+  </div>
+  <div class="hidro-day restrict">
+    <div class="hd-date">Sáb 21 Jun · Día 4</div>
+    <div class="hd-vol mid">1.1 L</div>
+    <div class="hd-note">15 ml/kg · Actividad física LISS. Mucho movimiento, baja intensidad.</div>
+  </div>
+  <div class="hidro-day restrict">
+    <div class="hd-date">Dom 22 Jun · Día 5</div>
+    <div class="hd-vol small">~500 ml</div>
+    <div class="hd-note">8 ml/kg · Ir monitoreando. Prendas térmicas desde la tarde.</div>
+  </div>
+  <div class="hidro-day zero">
+    <div class="hd-date">Lun 23 Jun · Pesaje 6 AM</div>
+    <div class="hd-vol zero">0</div>
+    <div class="hd-note">Puede tomarse un café tipo ristretto (mínimo agua). Ayuda a eliminar líquido restante.</div>
+  </div>
+</div>
+
+<div class="alert gold">
+  <strong>Lógica de carga hídrica:</strong> Al tomar 7.4 L/día los primeros 3 días el cuerpo suprime la hormona antidiurética (ADH). Al cortar bruscamente el día 4, el riñón sigue eliminando agua a ritmo elevado por inercia, amplificando el corte. La caída de sodio de ~1.465 mg (días 18–20) a ~997 mg (días 21–22) potencia adicionalmente la diuresis.
+</div>
+
+
+<!-- ══ MICRONUTRIENTES ══ -->
+<div class="section-title">Micronutrientes Destacados</div>
+<div class="tbl-wrap">
+<table>
+  <thead>
+    <tr>
+      <th>Micronutriente</th>
+      <th>Días 18–19 (c/entreno)</th>
+      <th>Día 20 (s/entreno)</th>
+      <th>Días 21–22</th>
+      <th>Ref. diaria</th>
+      <th>Estado</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Vitamina C (mg)</td><td class="num">~177</td><td class="num">~127</td><td class="num">~162</td><td class="num" style="color:var(--muted)">90</td><td style="color:var(--green);font-weight:600">✓ Cubierto</td></tr>
+    <tr><td>Hierro (mg)</td><td class="num">~13.5</td><td class="num">~12.2</td><td class="num">~11.5</td><td class="num" style="color:var(--muted)">8</td><td style="color:var(--green);font-weight:600">✓ Cubierto</td></tr>
+    <tr><td>Potasio (mg)</td><td class="num">~3.850</td><td class="num">~3.508</td><td class="num">~3.126</td><td class="num" style="color:var(--muted)">3.500–4.700</td><td style="color:var(--orange);font-weight:600">⚠ Límite</td></tr>
+    <tr><td>Magnesio (mg)</td><td class="num">~242</td><td class="num">~219</td><td class="num">~223</td><td class="num" style="color:var(--muted)">400–420</td><td style="color:var(--orange);font-weight:600">⚠ Suplementar</td></tr>
+    <tr><td>Calcio (mg)</td><td class="num">~355</td><td class="num">~317</td><td class="num">~309</td><td class="num" style="color:var(--muted)">1.000</td><td style="color:var(--red);font-weight:600">✗ Bajo</td></tr>
+    <tr><td>Zinc (mg)</td><td class="num">~10.5</td><td class="num">~9.0</td><td class="num">~8.5</td><td class="num" style="color:var(--muted)">11</td><td style="color:var(--green);font-weight:600">✓ Cubierto</td></tr>
+    <tr><td>Vitamina D (mcg)</td><td class="num">~2.2</td><td class="num">~2.2</td><td class="num">~2.2</td><td class="num" style="color:var(--muted)">15–20</td><td style="color:var(--red);font-weight:600">✗ Bajo</td></tr>
+    <tr><td>Nitratos — betarraga (mg)</td><td class="num">~280</td><td class="num">—</td><td class="num">—</td><td class="num" style="color:var(--muted)">Rendimiento</td><td style="color:var(--blue);font-weight:600">★ Óptimo</td></tr>
+    <tr><td>Sodio total (mg)</td><td class="num">~1.689</td><td class="num">~1.465</td><td class="num">~997</td><td class="num" style="color:var(--muted)">Protocolo</td><td style="color:var(--green);font-weight:600">✓ Según plan</td></tr>
+  </tbody>
+</table>
+</div>
+
+
+<!-- ══ FOOTER ══ -->
+<footer class="footer">
+  <div class="logo">@el_nutricionistafranjo</div>
+  <div class="fc">Lic. Franjo Torres Bondy &nbsp;·&nbsp; Nutricionista Deportivo &nbsp;·&nbsp; franjo.torres.b@gmail.com &nbsp;·&nbsp; +51 992 832 991</div>
+  <div class="fc">Elaborado: Jun 2026 &nbsp;·&nbsp; Paciente: Ian Escuza</div>
+</footer>
+
+</div><!-- /wrap -->
+</body>
+</html>

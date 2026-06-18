@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Plan de Entrenamiento — Stephan Breadt</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:      #080808;
+      --bg-2:    #101010;
+      --bg-3:    #181818;
+      --bg-4:    #222222;
+      --bg-5:    #2C2C2C;
+      --gold:       #C4973A;
+      --gold-light: #D4A94A;
+      --gold-dim:   #8A6820;
+      --gold-pale:  rgba(196,151,58,0.07);
+      --gold-glow:  rgba(196,151,58,0.15);
+      --cream:   #F5F5F5;
+      --cream-2: #C0C0C0;
+      --cream-3: #808080;
+      --cream-4: #484848;
+      --cream-5: #282828;
+      --border:   rgba(255,255,255,0.08);
+      --border-l: rgba(255,255,255,0.14);
+      --r:    10px;
+      --r-lg: 16px;
+      --r-xl: 22px;
+      --font:  'Inter', system-ui, sans-serif;
+      --serif: 'Chakra Petch', 'Inter', sans-serif;
+      --green:  #3ECF8E;
+      --red:    #F76060;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--cream);
+      font-family: var(--font);
+      font-size: 15px;
+      line-height: 1.65;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+    a { text-decoration: none; color: inherit; }
+
+    /* ── NOISE ── */
+    .noise {
+      position: fixed; inset: 0; z-index: 9999;
+      pointer-events: none; opacity: 0.025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 180px;
+    }
+
+    /* ── LAYOUT ── */
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+    /* ── HEADER ── */
+    .page-header {
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-2);
+      padding: 32px 0 28px;
+      position: sticky; top: 0; z-index: 100;
+      backdrop-filter: blur(14px);
+    }
+    .header-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 20px; flex-wrap: wrap;
+    }
+    .header-left {}
+    .header-label {
+      font-family: var(--serif);
+      font-size: 10px; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 6px;
+    }
+    .header-name {
+      font-family: var(--serif);
+      font-size: 26px; font-weight: 700;
+      color: var(--cream); letter-spacing: 0.02em;
+      line-height: 1.2;
+    }
+    .header-meta {
+      display: flex; gap: 20px; flex-wrap: wrap;
+      margin-top: 8px;
+    }
+    .header-meta span {
+      font-size: 12px; color: var(--cream-3);
+      display: flex; align-items: center; gap: 5px;
+    }
+    .header-meta span strong { color: var(--cream-2); }
+    .header-badge {
+      background: var(--gold-pale);
+      border: 1px solid rgba(196,151,58,0.25);
+      border-radius: 40px;
+      padding: 8px 18px;
+      font-size: 12px; font-weight: 600;
+      color: var(--gold-light);
+      font-family: var(--serif); letter-spacing: 0.06em;
+      white-space: nowrap;
+    }
+
+    /* ── MAIN ── */
+    main { padding: 48px 0 80px; }
+
+    /* ── SECTION TITLE ── */
+    .section-head {
+      display: flex; align-items: center; gap: 14px;
+      margin-bottom: 24px;
+    }
+    .section-head h2 {
+      font-family: var(--serif);
+      font-size: 13px; font-weight: 700;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--cream-2);
+    }
+    .section-head::after {
+      content: ''; flex: 1; height: 1px;
+      background: var(--border);
+    }
+    .section-num {
+      width: 22px; height: 22px; border-radius: 50%;
+      background: var(--gold-pale);
+      border: 1px solid rgba(196,151,58,0.3);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 10px; font-weight: 700; color: var(--gold);
+      font-family: var(--serif);
+      flex-shrink: 0;
+    }
+
+    /* ── STAT CARDS ── */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 14px;
+      margin-bottom: 48px;
+    }
+    .stat-card {
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 20px 20px 18px;
+      transition: border-color 0.2s;
+    }
+    .stat-card:hover { border-color: var(--border-l); }
+    .stat-card-label {
+      font-size: 10px; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--cream-3);
+      margin-bottom: 10px;
+    }
+    .stat-card-value {
+      font-family: var(--serif);
+      font-size: 28px; font-weight: 700;
+      color: var(--cream); line-height: 1;
+    }
+    .stat-card-value span { font-size: 13px; color: var(--cream-3); margin-left: 2px; }
+    .stat-card-delta {
+      margin-top: 8px; font-size: 11px; font-weight: 600;
+      display: flex; align-items: center; gap: 4px;
+    }
+    .delta-pos { color: var(--green); }
+    .delta-neg { color: var(--red); }
+    .delta-neu { color: var(--cream-3); }
+    .stat-card-sub {
+      font-size: 11px; color: var(--cream-4);
+      margin-top: 4px;
+    }
+
+    /* ── EVOLUTION TABLE ── */
+    .evo-wrap {
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: var(--r-xl);
+      overflow: hidden;
+      margin-bottom: 48px;
+    }
+    .evo-table {
+      width: 100%; border-collapse: collapse;
+    }
+    .evo-table th {
+      padding: 12px 16px;
+      font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--cream-3); font-weight: 600;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+    }
+    .evo-table th.gold { color: var(--gold); }
+    .evo-table td {
+      padding: 11px 16px;
+      font-size: 13px; color: var(--cream-2);
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .evo-table tr:last-child td { border-bottom: none; }
+    .evo-table tr:hover td { background: rgba(255,255,255,0.02); }
+    .evo-table td.metric-name {
+      color: var(--cream); font-weight: 500;
+      width: 180px;
+    }
+    .evo-table td.latest {
+      color: var(--gold-light); font-weight: 600;
+    }
+    .delta-cell { font-weight: 600; font-size: 12px; }
+    .up { color: var(--green); }
+    .down { color: var(--red); }
+    .same { color: var(--cream-4); }
+
+    /* ── TABS ── */
+    .tabs-wrap { margin-bottom: 40px; }
+    .tabs-bar {
+      display: flex; gap: 6px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 28px;
+      overflow-x: auto; padding-bottom: 1px;
+    }
+    .tab-btn {
+      background: none; border: none;
+      padding: 10px 18px; border-bottom: 2px solid transparent;
+      color: var(--cream-3); font-size: 12px; font-weight: 600;
+      font-family: var(--serif); letter-spacing: 0.1em; text-transform: uppercase;
+      cursor: pointer; transition: color 0.2s, border-color 0.2s;
+      white-space: nowrap; margin-bottom: -1px;
+    }
+    .tab-btn:hover { color: var(--cream-2); }
+    .tab-btn.active {
+      color: var(--gold); border-bottom-color: var(--gold);
+    }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ── RIR BADGE ── */
+    .rir-banner {
+      background: var(--gold-pale);
+      border: 1px solid rgba(196,151,58,0.2);
+      border-radius: var(--r);
+      padding: 10px 16px;
+      font-size: 12px; color: var(--cream-2);
+      margin-bottom: 24px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .rir-banner strong { color: var(--gold); }
+    .rir-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--gold); flex-shrink: 0;
+    }
+
+    /* ── SESSION ── */
+    .session-block {
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: var(--r-xl);
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+    .session-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 22px;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      user-select: none;
+    }
+    .session-header:hover { background: rgba(255,255,255,0.02); }
+    .session-title {
+      display: flex; align-items: center; gap: 12px;
+    }
+    .session-icon {
+      width: 32px; height: 32px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px;
+    }
+    .icon-lower { background: rgba(255,100,60,0.12); }
+    .icon-upper { background: rgba(60,150,255,0.12); }
+    .icon-full  { background: rgba(196,151,58,0.12); }
+    .session-name {
+      font-family: var(--serif);
+      font-size: 13px; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--cream);
+    }
+    .session-tag {
+      font-size: 10px; color: var(--cream-3);
+      letter-spacing: 0.08em; text-transform: uppercase;
+    }
+    .session-chevron {
+      color: var(--cream-4); transition: transform 0.25s;
+      font-size: 12px;
+    }
+    .session-block.open .session-chevron { transform: rotate(180deg); }
+
+    /* ── EXERCISE TABLE ── */
+    .ex-table-wrap {
+      overflow-x: auto;
+      display: none;
+    }
+    .session-block.open .ex-table-wrap { display: block; }
+    .ex-table {
+      width: 100%; border-collapse: collapse;
+      min-width: 700px;
+    }
+    .ex-table thead th {
+      padding: 10px 14px;
+      font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--cream-4); font-weight: 600;
+      background: var(--bg-3);
+      border-bottom: 1px solid var(--border);
+      text-align: left; white-space: nowrap;
+    }
+    .ex-table thead th.center { text-align: center; }
+    .ex-table tbody tr { border-bottom: 1px solid rgba(255,255,255,0.04); }
+    .ex-table tbody tr:last-child { border-bottom: none; }
+    .ex-table tbody tr:hover { background: rgba(255,255,255,0.02); }
+    .ex-table td {
+      padding: 12px 14px;
+      font-size: 13px; color: var(--cream-2);
+      vertical-align: middle;
+    }
+    .ex-table td.ex-name {
+      color: var(--cream); font-weight: 500;
+      min-width: 220px;
+    }
+    .ex-table td.center { text-align: center; }
+    .badge-series {
+      display: inline-flex; align-items: center; justify-content: center;
+      background: var(--bg-4);
+      border-radius: 6px;
+      padding: 3px 10px;
+      font-size: 12px; font-weight: 600; color: var(--cream-2);
+    }
+    .badge-reps {
+      display: inline-flex; align-items: center; justify-content: center;
+      background: var(--gold-pale);
+      border: 1px solid rgba(196,151,58,0.2);
+      border-radius: 6px;
+      padding: 3px 10px;
+      font-size: 12px; font-weight: 600; color: var(--gold-light);
+    }
+    .badge-rir {
+      display: inline-flex; align-items: center; justify-content: center;
+      background: rgba(60,207,142,0.08);
+      border-radius: 6px;
+      padding: 3px 9px;
+      font-size: 11px; font-weight: 600; color: var(--green);
+    }
+    .badge-rest {
+      font-size: 11px; color: var(--cream-3);
+      font-family: var(--serif);
+    }
+
+    /* tracker inputs */
+    .track-cell {
+      display: flex; gap: 6px; flex-wrap: nowrap;
+    }
+    .track-input {
+      width: 68px; padding: 5px 8px;
+      background: var(--bg-4);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--cream-2); font-size: 12px;
+      font-family: var(--font);
+      transition: border-color 0.2s;
+      text-align: center;
+    }
+    .track-input:focus {
+      outline: none;
+      border-color: rgba(196,151,58,0.4);
+    }
+    .track-input::placeholder { color: var(--cream-4); font-size: 10px; }
+
+    /* ── SAVE / RESET ── */
+    .actions-bar {
+      display: flex; gap: 10px; justify-content: flex-end;
+      padding: 16px 22px;
+      border-top: 1px solid var(--border);
+    }
+    .btn-save {
+      background: var(--gold);
+      color: #000; font-weight: 700; font-size: 12px;
+      border: none; border-radius: var(--r);
+      padding: 9px 22px;
+      font-family: var(--serif); letter-spacing: 0.08em;
+      text-transform: uppercase; cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-save:hover { background: var(--gold-light); }
+    .btn-clear {
+      background: transparent;
+      color: var(--cream-3); font-size: 12px;
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 9px 18px;
+      font-family: var(--font);
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-clear:hover { border-color: var(--border-l); color: var(--cream-2); }
+
+    /* ── TOAST ── */
+    .toast {
+      position: fixed; bottom: 28px; right: 28px; z-index: 10000;
+      background: var(--bg-3); border: 1px solid var(--border-l);
+      border-radius: var(--r-lg); padding: 12px 20px;
+      font-size: 13px; color: var(--cream-2);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.5);
+      transform: translateY(20px); opacity: 0;
+      transition: all 0.3s; pointer-events: none;
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 700px) {
+      .header-inner { flex-direction: column; align-items: flex-start; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 420px) {
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="noise"></div>
+
+<!-- ═══════════════════ HEADER ═══════════════════ -->
+<header class="page-header">
+  <div class="wrap">
+    <div class="header-inner">
+      <div class="header-left">
+        <div class="header-label">Plan de Entrenamiento · Mesociclo</div>
+        <div class="header-name">Stephan Breadt</div>
+        <div class="header-meta">
+          <span>Nutricionista: <strong>Franjo Torres Bondy</strong></span>
+          <span>ISAK <strong>2C</strong></span>
+          <span>Talla: <strong>184 cm</strong></span>
+          <span>Inicio: <strong>15 Jun 2026</strong></span>
+        </div>
+      </div>
+      <div class="header-badge">5 Microciclos · 3 Sesiones / semana</div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+
+    <!-- ═══════════════════ A · MÉTRICAS ACTUALES ═══════════════════ -->
+    <section style="margin-top: 40px;">
+      <div class="section-head">
+        <div class="section-num">A</div>
+        <h2>Métricas actuales <span style="color:var(--cream-4);font-size:10px;font-weight:400;letter-spacing:0.08em;text-transform:none;margin-left:6px;">última medición: 16 Jun 2026</span></h2>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-card-label">Peso corporal</div>
+          <div class="stat-card-value">99.4 <span>kg</span></div>
+          <div class="stat-card-delta delta-neg">▼ −1.1 kg desde inicio</div>
+          <div class="stat-card-sub">Inicio: 100.5 kg</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-label">Σ 8 pliegues</div>
+          <div class="stat-card-value">147 <span>mm</span></div>
+          <div class="stat-card-delta delta-neg">▼ −27 mm desde inicio</div>
+          <div class="stat-card-sub">Inicio: 174 mm</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-label">Cintura</div>
+          <div class="stat-card-value">95 <span>cm</span></div>
+          <div class="stat-card-delta delta-neg">▼ −6 cm desde inicio</div>
+          <div class="stat-card-sub">Inicio: 101 cm</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-label">Brazo flexionado</div>
+          <div class="stat-card-value">40.0 <span>cm</span></div>
+          <div class="stat-card-delta delta-neu">= Sin cambio</div>
+          <div class="stat-card-sub">Inicio: 40.0 cm</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-label">Muslo medio</div>
+          <div class="stat-card-value">61.0 <span>cm</span></div>
+          <div class="stat-card-delta delta-pos">▲ +0.5 cm desde inicio</div>
+          <div class="stat-card-sub">Inicio: 60.5 cm</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-label">Caderas</div>
+          <div class="stat-card-value">109 <span>cm</span></div>
+          <div class="stat-card-delta delta-neg">▼ −6 cm desde inicio</div>
+          <div class="stat-card-sub">Inicio: 115 cm</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════ B · EVOLUCIÓN ═══════════════════ -->
+    <section>
+      <div class="section-head">
+        <div class="section-num">B</div>
+        <h2>Evolución Antropométrica</h2>
+      </div>
+
+      <div class="evo-wrap" style="margin-bottom:48px;">
+        <table class="evo-table">
+          <thead>
+            <tr>
+              <th>Medida</th>
+              <th>05 Mar 2026</th>
+              <th>02 Jun 2026</th>
+              <th class="gold">16 Jun 2026</th>
+              <th>Cambio total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="metric-name">Peso (kg)</td>
+              <td>100.5</td>
+              <td>97.5</td>
+              <td class="latest">99.4</td>
+              <td class="delta-cell down">−1.1</td>
+            </tr>
+            <tr>
+              <td class="metric-name">Σ 8 pliegues (mm)</td>
+              <td>174</td>
+              <td>150</td>
+              <td class="latest">147</td>
+              <td class="delta-cell down">−27</td>
+            </tr>
+            <tr>
+              <td class="metric-name">Tríceps (mm)</td>
+              <td>12.0</td>
+              <td>12.0</td>
+              <td class="latest">12.0</td>
+              <td class="delta-cell same">0</td>
+            </tr>
+            <tr>
+              <td class="metric-name">Subescapular (mm)</td>
+              <td>20.0</td>
+              <td>18.0</td>
+              <td class="latest">18.0</td>
+              <td class="delta-cell down">−2</td>
+            </tr>
+            <tr>
+              <td class="metric-name">Bíceps (mm)</td>
+              <td>7.0</td>
+              <td>5.0</td>
+              <td class="latest">5.0</td>
+              <td class="delta-cell down">−2</td>
+            </tr>
+            <tr>
+              <td class="metric-name">Cresta ilíaca (mm)</td>
+              <td>43.0</td>
+              <td>35.0</td>
+              <td class="latest">35.0</td>
+              <td class="delta-cell down">−8</td>
+            </tr>
+            <tr>
+              <td class="metric-name">Supraespinal (mm)</td>
+              <td>20.0</td>
+              <td>17.0</td>
+              <td class="latest">16.0</td>
+              <td class="delta-cell down">−4</td>
+            </tr>
+            <tr>
+              <td class="metric-name">Abdominal (mm)</td>
+              <td>37.0</td>
+              <td>34.0</td>
+              <td class="latest">32.0</td>
+              <td class="delta-cell down">−5</td>
+            </tr>
+            <tr>
+              <td class="metric-name">Muslo (mm)</td>
+              <td>27.0</td>
+              <td>22.0</td>
+              <td class="latest">22.0</td>
+              <td class="delta-cell down">−5</td>
+            </tr>
+            <tr>
+              <td class="metric-name">Pantorrilla (mm)</td>
+              <td>8.0</td>
+              <td>7.0</td>
+              <td class="latest">7.0</td>
+              <td class="delta-cell down">−1</td>
+            </tr>
+            <tr>
+              <td class="metric-name">Cintura (cm)</td>
+              <td>101.0</td>
+              <td>96.0</td>
+              <td class="latest">95.0</td>
+              <td class="delta-cell down">−6</td>
+            </tr>
+            <tr>
+              <td class="metric-name">Caderas (cm)</td>
+              <td>115.0</td>
+              <td>110.0</td>
+              <td class="latest">109.0</td>
+              <td class="delta-cell down">−6</td>
+            </tr>
+            <tr>
+              <td class="metric-name">Brazo relajado (cm)</td>
+              <td>37.0</td>
+              <td>37.5</td>
+              <td class="latest">37.4</td>
+              <td class="delta-cell up">+0.4</td>
+            </tr>
+            <tr>
+              <td class="metric-name">Brazo flex. y tens. (cm)</td>
+              <td>40.0</td>
+              <td>40.2</td>
+              <td class="latest">40.0</td>
+              <td class="delta-cell same">0</td>
+            </tr>
+            <tr>
+              <td class="metric-name">Muslo medio (cm)</td>
+              <td>60.5</td>
+              <td>60.5</td>
+              <td class="latest">61.0</td>
+              <td class="delta-cell up">+0.5</td>
+            </tr>
+            <tr>
+              <td class="metric-name">Pantorrilla (cm)</td>
+              <td>41.5</td>
+              <td>41.2</td>
+              <td class="latest">41.0</td>
+              <td class="delta-cell down">−0.5</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ═══════════════════ C · PLAN DE ENTRENAMIENTO ═══════════════════ -->
+    <section>
+      <div class="section-head">
+        <div class="section-num">C</div>
+        <h2>Plan de Entrenamiento — Mesociclo</h2>
+      </div>
+
+      <div class="tabs-wrap">
+        <div class="tabs-bar">
+          <button class="tab-btn active" data-tab="m1">Micro 1</button>
+          <button class="tab-btn" data-tab="m2">Micro 2</button>
+          <button class="tab-btn" data-tab="m3">Micro 3</button>
+          <button class="tab-btn" data-tab="m4">Micro 4</button>
+          <button class="tab-btn" data-tab="m5">Micro 5</button>
+        </div>
+
+        <!-- ── MICRO 1 ── -->
+        <div class="tab-panel active" id="tab-m1">
+          <div class="rir-banner">
+            <div class="rir-dot"></div>
+            Fase de <strong>Acumulación</strong> · RIR: compuestos <strong>2</strong> · accesorios <strong>1</strong> · core/aislamiento <strong>0</strong>
+          </div>
+          <div id="sessions-m1"></div>
+        </div>
+
+        <!-- ── MICRO 2 ── -->
+        <div class="tab-panel" id="tab-m2">
+          <div class="rir-banner">
+            <div class="rir-dot"></div>
+            Fase de <strong>Acumulación</strong> · RIR: compuestos <strong>2</strong> · accesorios <strong>1</strong> · core/aislamiento <strong>0</strong>
+          </div>
+          <div id="sessions-m2"></div>
+        </div>
+
+        <!-- ── MICRO 3 ── -->
+        <div class="tab-panel" id="tab-m3">
+          <div class="rir-banner" style="background:rgba(248,100,100,0.06);border-color:rgba(248,100,100,0.2);">
+            <div class="rir-dot" style="background:var(--red);"></div>
+            Fase de <strong style="color:var(--red);">Intensificación</strong> · RIR: compuestos <strong>1</strong> · accesorios <strong>0</strong> · core <strong>0</strong>
+          </div>
+          <div id="sessions-m3"></div>
+        </div>
+
+        <!-- ── MICRO 4 ── -->
+        <div class="tab-panel" id="tab-m4">
+          <div class="rir-banner" style="background:rgba(248,100,100,0.06);border-color:rgba(248,100,100,0.2);">
+            <div class="rir-dot" style="background:var(--red);"></div>
+            Fase de <strong style="color:var(--red);">Intensificación</strong> · RIR: compuestos <strong>1</strong> · accesorios <strong>0</strong> · core <strong>0</strong>
+          </div>
+          <div id="sessions-m4"></div>
+        </div>
+
+        <!-- ── MICRO 5 ── -->
+        <div class="tab-panel" id="tab-m5">
+          <div class="rir-banner" style="background:rgba(248,100,100,0.06);border-color:rgba(248,100,100,0.2);">
+            <div class="rir-dot" style="background:var(--red);"></div>
+            Fase de <strong style="color:var(--red);">Intensificación máxima</strong> · RIR: compuestos <strong>0–1</strong> · accesorios <strong>0</strong>
+          </div>
+          <div id="sessions-m5"></div>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /wrap -->
+</main>
+
+<div id="toast" class="toast"></div>
+
+<script>
+// ══════════════════════════════════════════
+//  DATA
+// ══════════════════════════════════════════
+const MICROS = {
+  m1: { rir: { compound: 2, accessory: 1, core: 0 } },
+  m2: { rir: { compound: 2, accessory: 1, core: 0 } },
+  m3: { rir: { compound: 1, accessory: 0, core: 0 } },
+  m4: { rir: { compound: 1, accessory: 0, core: 0 } },
+  m5: { rir: { compound: 1, accessory: 0, core: 0 } },
+};
+
+// type: C = compound, A = accessory, X = core/isolation
+const SESSIONS = [
+  {
+    id: 'lower',
+    name: 'Sesión 1 — Lower',
+    tag: 'Tren inferior · Pierna + Core',
+    icon: '🦵',
+    iconClass: 'icon-lower',
+    exercises: [
+      { name: 'Hack squat',                                   sets: 2, reps: '6',  type: 'C', rest: '3:00' },
+      { name: 'Hip thrust',                                   sets: 2, reps: '8',  type: 'A', rest: '2:00' },
+      { name: 'Flexión de rodilla en máquina sentado (isquios)', sets: 2, reps: '10', type: 'A', rest: '2:00' },
+      { name: 'Búlgaras',                                     sets: 2, reps: '8',  type: 'A', rest: '2:00' },
+      { name: 'Leg raises en banco declinado',                sets: 2, reps: '10', type: 'X', rest: '1:00' },
+      { name: 'Pantorrilla en máquina o multipower',          sets: 2, reps: '10', type: 'X', rest: '1:00' },
+    ]
+  },
+  {
+    id: 'upper',
+    name: 'Sesión 2 — Upper',
+    tag: 'Tren superior · Empuje + Tirón',
+    icon: '💪',
+    iconClass: 'icon-upper',
+    exercises: [
+      { name: 'Barras con lastre (agarre prono)',             sets: 2, reps: '6',  type: 'C', rest: '2:30' },
+      { name: 'Máquina de pectoral convergente',             sets: 2, reps: '6',  type: 'C', rest: '2:30' },
+      { name: 'Remo con barra tipo Pendlay',                  sets: 2, reps: '6',  type: 'C', rest: '2:00' },
+      { name: 'Aducción de pecho en máquina',                sets: 2, reps: '10', type: 'A', rest: '2:00' },
+      { name: 'Jalón unilateral desde polea alta',           sets: 2, reps: '10', type: 'A', rest: '1:30' },
+      { name: 'Kaz press',                                   sets: 3, reps: '10', type: 'A', rest: '2:00' },
+      { name: 'Curl de bícep con mancuernas sentado',        sets: 3, reps: '10', type: 'A', rest: '2:00' },
+    ]
+  },
+  {
+    id: 'fullbody',
+    name: 'Sesión 3 — Full Body',
+    tag: 'Cuerpo completo · Fuerza + Hombros',
+    icon: '⚡',
+    iconClass: 'icon-full',
+    exercises: [
+      { name: 'Hack squat',                                   sets: 2, reps: '5',  type: 'C', rest: '3:30' },
+      { name: 'RDL',                                          sets: 2, reps: '5',  type: 'C', rest: '3:30' },
+      { name: 'Remo unilateral con polea',                   sets: 2, reps: '10', type: 'A', rest: '2:00' },
+      { name: 'Press con barra a 45°',                       sets: 2, reps: '5',  type: 'C', rest: '3:30' },
+      { name: 'Pantorrilla en multipower',                   sets: 3, reps: '10', type: 'X', rest: '2:00' },
+      { name: 'Deltoide posterior con mancuernas',           sets: 3, reps: '15', type: 'X', rest: '1:00' },
+      { name: 'Elevaciones laterales con mancuernas',        sets: 3, reps: '10', type: 'X', rest: '1:30' },
+      { name: 'Curl de antebrazos con barra (apoyo en banco)', sets: 3, reps: '10', type: 'X', rest: '2:00' },
+    ]
+  }
+];
+
+// ══════════════════════════════════════════
+//  RENDER
+// ══════════════════════════════════════════
+function getRir(type, micro) {
+  const r = MICROS[micro].rir;
+  if (type === 'C') return r.compound;
+  if (type === 'A') return r.accessory;
+  return r.core;
+}
+
+function buildSessionHTML(session, micro) {
+  const rows = session.exercises.map((ex, ei) => {
+    const rir = getRir(ex.type, micro);
+    const trackCells = Array.from({length: ex.sets}, (_, si) => {
+      const key = `${micro}-${session.id}-${ei}-s${si+1}`;
+      const saved = localStorage.getItem(key) || '';
+      return `<input class="track-input" placeholder="${si+1}ª" data-key="${key}" value="${saved}" />`;
+    });
+    return `
+      <tr>
+        <td class="ex-name">${ex.name}</td>
+        <td class="center"><span class="badge-series">${ex.sets}</span></td>
+        <td class="center"><span class="badge-reps">${ex.reps}</span></td>
+        <td class="center"><span class="badge-rir">RIR ${rir}</span></td>
+        <td class="center"><span class="badge-rest">${ex.rest}</span></td>
+        <td><div class="track-cell">${trackCells.join('')}</div></td>
+      </tr>`;
+  }).join('');
+
+  return `
+    <div class="session-block open" id="block-${micro}-${session.id}">
+      <div class="session-header" onclick="toggleSession('block-${micro}-${session.id}')">
+        <div class="session-title">
+          <div class="session-icon ${session.iconClass}">${session.icon}</div>
+          <div>
+            <div class="session-name">${session.name}</div>
+            <div class="session-tag">${session.tag}</div>
+          </div>
+        </div>
+        <span class="session-chevron">▲</span>
+      </div>
+      <div class="ex-table-wrap">
+        <table class="ex-table">
+          <thead>
+            <tr>
+              <th>Ejercicio</th>
+              <th class="center">Series</th>
+              <th class="center">Reps</th>
+              <th class="center">RIR</th>
+              <th class="center">Descanso</th>
+              <th>Registro (peso / reps)</th>
+            </tr>
+          </thead>
+          <tbody>${rows}</tbody>
+        </table>
+        <div class="actions-bar">
+          <button class="btn-clear" onclick="clearSession('${micro}','${session.id}')">Limpiar</button>
+          <button class="btn-save" onclick="saveSession('${micro}','${session.id}')">Guardar ✓</button>
+        </div>
+      </div>
+    </div>`;
+}
+
+function renderMicro(micro) {
+  const container = document.getElementById(`sessions-${micro}`);
+  container.innerHTML = SESSIONS.map(s => buildSessionHTML(s, micro)).join('');
+  // attach listeners
+  container.querySelectorAll('.track-input').forEach(inp => {
+    inp.addEventListener('change', () => {
+      localStorage.setItem(inp.dataset.key, inp.value);
+    });
+  });
+}
+
+// render all upfront so inputs are in DOM
+['m1','m2','m3','m4','m5'].forEach(renderMicro);
+
+// ── TABS ──
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+  });
+});
+
+// ── ACCORDION ──
+function toggleSession(id) {
+  document.getElementById(id).classList.toggle('open');
+}
+
+// ── SAVE ──
+function saveSession(micro, sessionId) {
+  const block = document.getElementById(`block-${micro}-${sessionId}`);
+  block.querySelectorAll('.track-input').forEach(inp => {
+    localStorage.setItem(inp.dataset.key, inp.value);
+  });
+  showToast('Guardado correctamente ✓');
+}
+
+function clearSession(micro, sessionId) {
+  const block = document.getElementById(`block-${micro}-${sessionId}`);
+  block.querySelectorAll('.track-input').forEach(inp => {
+    localStorage.removeItem(inp.dataset.key);
+    inp.value = '';
+  });
+  showToast('Registros limpiados');
+}
+
+// ── TOAST ──
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2400);
+}
+</script>
+</body>
+</html>

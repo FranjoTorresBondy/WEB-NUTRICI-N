@@ -1,0 +1,1196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Plan Nutricional — Franjo Nutrición</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="admin.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <style>
+    /* ── MOTOR CARDS ── */
+    .motor-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:12px; margin-bottom:24px; }
+    .motor-card { background:var(--bg-2); border:1px solid var(--border); border-radius:var(--r); padding:14px 16px; }
+    .motor-card .mc-label { font-size:11px; font-weight:600; letter-spacing:.06em; color:var(--cream-3); text-transform:uppercase; margin-bottom:6px; }
+    .motor-card .mc-val { font-size:22px; font-weight:700; color:var(--cream); font-family:var(--serif); }
+    .motor-card .mc-sub { font-size:11px; color:var(--cream-3); margin-top:3px; }
+    .motor-card.highlight { border-color:var(--gold); background:rgba(196,151,58,.07); }
+    .motor-card.highlight .mc-val { color:var(--gold); }
+
+    /* ── PARAMS ── */
+    .params-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:16px; }
+    .dist-grid { display:grid; gap:8px; }
+    .dist-row { display:flex; align-items:center; gap:10px; }
+    .dist-row label { font-size:12px; color:var(--cream-3); min-width:110px; }
+    .dist-row input[type=number] { width:68px; }
+    .dist-row .dist-kcal { font-size:12px; color:var(--gold); min-width:60px; }
+    #dist-suma { font-size:12px; margin-top:6px; }
+
+    /* ── PLAN EDITOR ── */
+    .plan-container { margin-top:8px; display:flex; flex-direction:column; gap:24px; }
+    .dia-card { background:var(--bg-2); border:1px solid var(--border); border-radius:var(--r); overflow:hidden; }
+    .dia-header { background:var(--bg-3); padding:14px 20px; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:12px; }
+    .dia-header h2 { font-family:var(--serif); font-size:16px; font-weight:700; color:var(--cream); text-transform:uppercase; letter-spacing:.04em; flex:1; }
+    .dia-badge { font-size:11px; font-weight:700; background:var(--gold); color:#000; padding:3px 10px; border-radius:20px; white-space:nowrap; }
+    .dia-badge.extra { background:rgba(196,151,58,.15); color:var(--gold); border:1px solid var(--gold); }
+
+    .comida-block { border-bottom:1px solid var(--border); padding:16px 20px; }
+    .comida-block:last-child { border-bottom:none; }
+    .comida-title { font-size:11px; font-weight:700; letter-spacing:.1em; color:var(--cream-3); text-transform:uppercase; margin-bottom:10px; background:var(--bg-3); padding:5px 10px; border-radius:4px; display:inline-block; }
+
+    .instruccion-fija { font-size:13px; color:var(--cream); margin-bottom:12px; line-height:1.6; padding:8px 10px; background:rgba(196,151,58,.06); border-left:3px solid var(--gold); border-radius:0 4px 4px 0; }
+    .instruccion-fija textarea { width:100%; background:transparent; border:none; color:var(--cream); font-family:var(--font); font-size:13px; line-height:1.6; resize:vertical; min-height:40px; outline:none; }
+
+    .escoge-group { margin-bottom:10px; }
+    .escoge-row { display:flex; align-items:center; gap:8px; margin-bottom:6px; }
+    .escoge-tag { font-size:11px; font-weight:700; letter-spacing:.06em; color:var(--gold); text-transform:uppercase; white-space:nowrap; }
+    .escoge-num { width:50px; padding:4px 8px; font-size:14px; font-weight:700; text-align:center; }
+    .escoge-cat-label { font-size:12px; color:var(--cream-3); }
+    .opciones-box { width:100%; min-height:36px; background:var(--bg-3); border:1px solid var(--border); border-radius:6px; padding:8px 10px; font-family:var(--font); font-size:13px; color:var(--cream); line-height:1.6; resize:vertical; }
+    .opciones-box:focus { border-color:var(--gold); outline:none; }
+
+    .opcion-bloque { margin-bottom:10px; }
+    .opcion-titulo { font-size:11px; font-weight:700; color:var(--gold); letter-spacing:.04em; margin-bottom:4px; }
+    .opcion-texto textarea { width:100%; background:var(--bg-3); border:1px solid var(--border); border-radius:6px; padding:8px 10px; font-family:var(--font); font-size:13px; color:var(--cream); resize:vertical; min-height:50px; }
+    .opcion-texto textarea:focus { border-color:var(--gold); outline:none; }
+
+    .nota-plan { font-size:12px; color:var(--cream-3); font-style:italic; margin-top:4px; padding:4px 8px; border-left:2px solid var(--border); }
+    .nota-plan textarea { width:100%; background:transparent; border:none; color:var(--cream-3); font-family:var(--font); font-size:12px; font-style:italic; resize:vertical; min-height:30px; outline:none; }
+
+    /* ── ACTION BAR ── */
+    .action-bar { position:sticky; bottom:0; background:var(--bg); border-top:1px solid var(--border); padding:12px 24px; display:flex; align-items:center; gap:12px; z-index:10; }
+    .estado-badge { font-size:12px; padding:4px 12px; border-radius:20px; font-weight:600; }
+    .estado-borrador { background:rgba(255,255,255,.08); color:var(--cream-3); }
+    .estado-publicado { background:rgba(46,200,100,.15); color:#2ec864; }
+    .action-bar .spacer { flex:1; }
+
+    /* ── EMPTY STATE ── */
+    .plan-empty { text-align:center; padding:60px 20px; color:var(--cream-3); }
+    .plan-empty svg { width:48px; height:48px; opacity:.3; margin-bottom:16px; }
+    .plan-empty p { font-size:14px; }
+
+    /* ── RESUMEN DATOS ── */
+    .resumen-chips { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px; }
+    .chip { font-size:12px; padding:4px 10px; border-radius:20px; background:var(--bg-3); border:1px solid var(--border); color:var(--cream-3); }
+    .chip.gold { border-color:var(--gold); color:var(--gold); }
+    .chip.red { border-color:#e05555; color:#e05555; }
+
+    /* ── SECTION CARD ── */
+    .section-card { background:var(--bg-2); border:1px solid var(--border); border-radius:var(--r); padding:20px 24px; margin-bottom:20px; }
+    .section-card h3 { font-family:var(--serif); font-size:16px; color:var(--cream); margin-bottom:16px; padding-bottom:10px; border-bottom:1px solid var(--border); }
+
+    .btn-generar { background:var(--gold); color:#000; border:none; padding:10px 24px; border-radius:var(--r); font-weight:700; font-size:14px; cursor:pointer; transition:opacity .15s; }
+    .btn-generar:hover { opacity:.88; }
+    .btn-generar:disabled { opacity:.4; cursor:not-allowed; }
+  </style>
+</head>
+<body>
+<div id="toastContainer" style="position:fixed;top:20px;right:20px;z-index:9999;display:flex;flex-direction:column;gap:8px;pointer-events:none"></div>
+
+<!-- SIDEBAR -->
+<div id="sidebarOverlay" class="sidebar-overlay"></div>
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-icon">FN</div>
+    <div><div class="logo-name">Franjo Nutrición</div><div class="logo-sub">PANEL DE ADMINISTRACIÓN</div></div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-section-label">PRINCIPAL</div>
+    <a href="dashboard.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Dashboard</a>
+    <a href="clientes.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Clientes</a>
+    <div class="nav-section-label">CONTENIDO</div>
+    <a href="#" class="nav-item active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>Planes Nutricionales</a>
+    <div class="nav-section-label">AJUSTES</div>
+    <a href="#" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>Configuración</a>
+  </nav>
+  <div class="sidebar-user">
+    <div class="user-avatar" id="sidebarAvatar">F</div>
+    <div class="user-info"><div class="user-name" id="sidebarName">Franjo</div><div class="user-role">Administrador</div></div>
+    <button class="logout-btn" onclick="logout()" title="Cerrar sesión"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
+  </div>
+</aside>
+
+<div class="layout">
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <button class="burger-btn" id="burgerBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+    <div style="display:flex;align-items:center;gap:12px;">
+      <a href="clientes.html" style="color:var(--cream-3);font-size:13px;text-decoration:none;">← Clientes</a>
+      <span style="color:var(--border)">/</span>
+      <span style="font-size:14px;color:var(--cream)" id="topbarClienteNombre">Plan Nutricional</span>
+    </div>
+    <div style="margin-left:auto;display:flex;align-items:center;gap:12px;">
+      <span class="estado-badge" id="estadoBadge" style="display:none"></span>
+      <div class="user-avatar" id="topbarAvatar" style="width:34px;height:34px;font-size:13px">F</div>
+    </div>
+  </header>
+
+  <main class="main-content" id="mainContent">
+    <!-- RESUMEN CLIENTE -->
+    <div id="resumenCliente" style="margin-bottom:20px;display:none">
+      <div class="resumen-chips" id="resumenChips"></div>
+    </div>
+
+    <!-- MOTOR CALÓRICO -->
+    <div class="section-card">
+      <h3>Motor calórico</h3>
+      <div class="motor-grid">
+        <div class="motor-card">
+          <div class="mc-label">LBM</div>
+          <div class="mc-val" id="mc-lbm">—</div>
+          <div class="mc-sub">kg masa magra</div>
+        </div>
+        <div class="motor-card">
+          <div class="mc-label">TMB</div>
+          <div class="mc-val" id="mc-tmb">—</div>
+          <div class="mc-sub">Katch-McArdle</div>
+        </div>
+        <div class="motor-card">
+          <div class="mc-label">GET basal</div>
+          <div class="mc-val" id="mc-get-basal">—</div>
+          <div class="mc-sub">TMB × factor actividad</div>
+        </div>
+        <div class="motor-card">
+          <div class="mc-label">GET entrenamiento</div>
+          <div class="mc-val" id="mc-get-train">—</div>
+          <div class="mc-sub">kcal/día promedio</div>
+        </div>
+        <div class="motor-card highlight">
+          <div class="mc-label">GET total</div>
+          <div class="mc-val" id="mc-get-total">—</div>
+          <div class="mc-sub">kcal/día sin ajuste</div>
+        </div>
+        <div class="motor-card highlight">
+          <div class="mc-label">Objetivo</div>
+          <div class="mc-val" id="mc-objetivo">—</div>
+          <div class="mc-sub" id="mc-objetivo-sub">kcal/día ajustadas</div>
+        </div>
+      </div>
+
+      <!-- Ajustes motor -->
+      <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:flex-end;">
+        <div class="form-group" style="margin:0;min-width:180px">
+          <label>Factor actividad general (NEAT)</label>
+          <select id="fa_base" onchange="calcularMotor()">
+            <option value="1.2">Sedentario (1.2)</option>
+            <option value="1.35" selected>Ligeramente activo (1.35)</option>
+            <option value="1.5">Moderadamente activo (1.5)</option>
+            <option value="1.65">Muy activo (1.65)</option>
+          </select>
+        </div>
+        <div class="form-group" style="margin:0;min-width:180px">
+          <label>Ajuste objetivo</label>
+          <select id="objetivo_ajuste" onchange="calcularMotor()">
+            <option value="-25">Déficit agresivo (−25%)</option>
+            <option value="-20">Déficit moderado (−20%)</option>
+            <option value="-15" selected>Déficit leve (−15%)</option>
+            <option value="-10">Déficit muy leve (−10%)</option>
+            <option value="0">Mantenimiento (0%)</option>
+            <option value="10">Superávit leve (+10%)</option>
+            <option value="20">Superávit moderado (+20%)</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- PARÁMETROS DEL PLAN -->
+    <div class="section-card">
+      <h3>Parámetros del plan</h3>
+      <div class="params-grid">
+        <!-- Número de comidas -->
+        <div class="form-group">
+          <label>Número de comidas</label>
+          <select id="n_comidas" onchange="actualizarDistribucion()">
+            <option value="4">4 comidas</option>
+            <option value="5" selected>5 comidas</option>
+            <option value="6">6 comidas</option>
+          </select>
+        </div>
+
+        <!-- Tipo de plan -->
+        <div class="form-group">
+          <label>Tipo de plan</label>
+          <select id="tipo_plan">
+            <option value="hipocalorico_hiperproteico">Hipocalórico, hiperproteico</option>
+            <option value="normocalorico_hiperproteico">Normocalórico, hiperproteico</option>
+            <option value="hipercalorico_hiperproteico">Hipercalórico, hiperproteico</option>
+            <option value="normocalorico_equilibrado">Normocalórico, equilibrado</option>
+            <option value="hipocalorico_equilibrado">Hipocalórico, equilibrado</option>
+            <option value="periodizacion_carbos">Periodización de carbohidratos</option>
+          </select>
+        </div>
+
+        <!-- Suplementación matutina -->
+        <div class="form-group" style="grid-column:1/-1">
+          <label>Suplementación matutina (aparece en el desayuno)</label>
+          <input type="text" id="suplementacion_text" placeholder="Ej: 5g de glutamina + 5g de creatina + 1 cápsula de multivitamínicos Centrum"/>
+        </div>
+
+        <!-- Objetivo texto -->
+        <div class="form-group" style="grid-column:1/-1">
+          <label>Objetivos del plan (aparecen en el plan)</label>
+          <textarea id="objetivo_texto" rows="3" placeholder="- Reducir sumatoria de 8 pliegues en 5-10mm&#10;- Llegar a 10.000 pasos diarios&#10;- Monitorear peso semanalmente"></textarea>
+        </div>
+      </div>
+
+      <!-- Distribución calórica -->
+      <div style="margin-top:16px">
+        <label style="display:block;font-size:12px;font-weight:600;color:var(--cream-3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">Distribución calórica por comida</label>
+        <div class="dist-grid" id="distGrid"></div>
+        <div id="dist-suma" style="margin-top:8px"></div>
+      </div>
+    </div>
+
+    <!-- BOTÓN GENERAR -->
+    <div style="text-align:center;margin-bottom:24px">
+      <button class="btn-generar" id="btnGenerar" onclick="generarPlan()">⚡ Generar plan nutricional</button>
+    </div>
+
+    <!-- PLAN GENERADO -->
+    <div class="plan-container" id="planContainer">
+      <div class="plan-empty" id="planEmpty">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
+        <p>Configura los parámetros y presiona "Generar plan"</p>
+      </div>
+    </div>
+
+    <div style="height:80px"></div>
+  </main>
+</div>
+
+<!-- ACTION BAR -->
+<div class="action-bar" id="actionBar" style="display:none">
+  <span style="font-size:13px;color:var(--cream-3)">Plan:</span>
+  <span class="estado-badge estado-borrador" id="actionEstado">Borrador</span>
+  <div class="spacer"></div>
+  <button class="btn btn-secondary" onclick="guardarPlan('borrador')">Guardar borrador</button>
+  <button class="btn btn-primary" onclick="confirmarPublicar()">✓ Aprobar y publicar</button>
+</div>
+
+<!-- MODAL CONFIRMAR PUBLICAR -->
+<div class="modal-overlay" id="modalPublicar">
+  <div class="modal" style="max-width:380px">
+    <div class="modal-header"><h3>Publicar plan</h3></div>
+    <div class="modal-body">
+      <p style="color:var(--cream-3);font-size:14px">El plan quedará visible para el cliente. ¿Confirmas?</p>
+    </div>
+    <div class="modal-footer" style="display:flex;gap:10px;justify-content:flex-end">
+      <button class="btn btn-secondary" onclick="closeModal('modalPublicar')">Cancelar</button>
+      <button class="btn btn-primary" onclick="guardarPlan('publicado')">Publicar</button>
+    </div>
+  </div>
+</div>
+
+<script src="admin.js"></script>
+<script>
+// ══════════════════════════════════════════
+//  BASE DE DATOS DE INTERCAMBIOS
+// ══════════════════════════════════════════
+const EXCHANGE_DB = {
+  cereal: {
+    nombre: 'Cereal / Pan / Grano',
+    kcal: 80, P: 2, C: 15, G: 0.5,
+    tags_excluir: [],
+    alimentos: [
+      { n: '1 rebanada de pan (30g) — puede ser francés, molde integral, masa madre, yema', tags: ['gluten'] },
+      { n: '20g de granola', tags: [] },
+      { n: '20g de cereales (Cornflakes, Mamalama, Dyfferent)', tags: [] },
+      { n: '20g de avena (peso crudo)', tags: ['gluten'] },
+      { n: '1/3 taza de arroz blanco o integral cocido (60g)', tags: [] },
+      { n: '1/3 taza de quinua cocida (60g)', tags: [] },
+      { n: '1/3 taza de pasta cocida (50g)', tags: ['gluten'] },
+      { n: '1 tortilla Rapidita 0', tags: ['gluten'] },
+      { n: '7 galletas de arroz Costeño', tags: [] },
+      { n: '20g de Nestum', tags: [] },
+      { n: '20g de crema de arroz', tags: [] },
+      { n: '1 rebanada de pan de molde integral (30g)', tags: ['gluten'] },
+    ]
+  },
+  tuberculo: {
+    nombre: 'Tubérculo / Legumbre',
+    kcal: 80, P: 2, C: 15, G: 0,
+    alimentos: [
+      { n: '90g de papa cocida', tags: [] },
+      { n: '90g de camote cocido', tags: [] },
+      { n: '90g de beterraga cocida', tags: [] },
+      { n: '½ taza de menestras (lentejas, frejoles, garbanzos)', tags: [] },
+      { n: '60g de choclo cocido', tags: [] },
+      { n: '½ taza de arvejas', tags: [] },
+      { n: '½ taza de yuca cocida', tags: [] },
+    ]
+  },
+  fruta: {
+    nombre: 'Fruta',
+    kcal: 60, P: 0.5, C: 15, G: 0,
+    alimentos: [
+      { n: '1 kiwi', tags: [] },
+      { n: '½ taza de mango picado (80g)', tags: [] },
+      { n: '1 manzana', tags: [] },
+      { n: '1 plátano pequeño (60g pelado) / ½ plátano grande', tags: [] },
+      { n: '1 taza de papaya picada (160g)', tags: [] },
+      { n: '150g de berries (arándano, fresa, aguaymanto, mora, frambuesa)', tags: [] },
+      { n: '1 granadilla', tags: [] },
+      { n: '1 mandarina mediana', tags: [] },
+      { n: '1 pera', tags: [] },
+      { n: '1 durazno', tags: [] },
+      { n: '10 uvas', tags: [] },
+      { n: '1 naranja mediana', tags: [] },
+      { n: '½ taza de piña picada (80g)', tags: [] },
+    ]
+  },
+  proteina_magra: {
+    nombre: 'Proteína magra',
+    kcal: 55, P: 7, C: 0, G: 3,
+    alimentos: [
+      { n: 'Pechuga de pollo', tags: [] },
+      { n: 'Pechuga de pavo', tags: [] },
+      { n: 'Pescado (merluza, tilapia, trucha, jurel, lenguado)', tags: ['pescado'] },
+      { n: '½ lata de atún en agua', tags: ['pescado'] },
+      { n: '1 lata de atún en agua', tags: ['pescado'] },
+      { n: '6 claras de huevo', tags: ['huevo'] },
+      { n: '1 milanesa de Avinka (freidora de aire)', tags: [] },
+      { n: '150g de Tarwi', tags: ['vegano'] },
+      { n: 'Bistec magro (tratar de evitar)', tags: ['res'] },
+    ]
+  },
+  proteina_media: {
+    nombre: 'Proteína (grasa media)',
+    kcal: 75, P: 7, C: 1, G: 5,
+    alimentos: [
+      { n: '1 huevo entero', tags: ['huevo'] },
+      { n: '30g de queso mozzarella descremado (Cuisine&Co)', tags: ['lacteo'] },
+      { n: '80g de queso fresco light (Sbelt)', tags: ['lacteo'] },
+      { n: '80g de queso cottage', tags: ['lacteo'] },
+      { n: '200g de yogurt Quark', tags: ['lacteo'] },
+      { n: '1 scoop de proteína whey', tags: ['lacteo'] },
+      { n: '50g de pechuga de pollo', tags: [] },
+      { n: '30g de jamón serrano magro', tags: ['cerdo'] },
+    ]
+  },
+  lacteo: {
+    nombre: 'Lácteo / Yogurt',
+    kcal: 90, P: 8, C: 12, G: 0,
+    alimentos: [
+      { n: '100g de yogurt Vakimú +Pro bebible', tags: ['lacteo'] },
+      { n: '200g de yogurt Vakimú Quark (del sabor que prefieras)', tags: ['lacteo'] },
+      { n: '1 taza de leche descremada (250ml)', tags: ['lacteo'] },
+    ]
+  },
+  grasa: {
+    nombre: 'Grasa saludable',
+    kcal: 45, P: 0, C: 0.5, G: 5,
+    alimentos: [
+      { n: '40g de palta', tags: [] },
+      { n: '5g de aceite de olivo (1 cdta)', tags: [] },
+      { n: '5g de aceite de ajonjolí (1 cdta)', tags: [] },
+      { n: '1 cdta de mayonesa light', tags: [] },
+      { n: '1 cdta de aceite de coco', tags: [] },
+    ]
+  },
+  frutos_secos: {
+    nombre: 'Frutos secos / Semillas',
+    kcal: 50, P: 2, C: 2, G: 4,
+    alimentos: [
+      { n: '6 cashews', tags: ['fruto_seco'] },
+      { n: '6 almendras', tags: ['fruto_seco'] },
+      { n: '4 pecanas', tags: ['fruto_seco'] },
+      { n: '4 nueces', tags: ['fruto_seco'] },
+      { n: '15 pistachios', tags: ['fruto_seco'] },
+      { n: '10 maníes', tags: ['fruto_seco', 'mani'] },
+      { n: '1 cdta de mantequilla de frutos secos (10g)', tags: ['fruto_seco'] },
+      { n: '1 cda de chía', tags: [] },
+      { n: '1 cda de linaza', tags: [] },
+      { n: '1 cda de semillas de girasol', tags: [] },
+      { n: '1 cda de semillas de calabaza', tags: [] },
+    ]
+  },
+  verdura: {
+    nombre: 'Verdura libre',
+    kcal: 25, P: 2, C: 5, G: 0,
+    alimentos: [
+      { n: '150g de verduras de tu preferencia (brócoli, coliflor, pepino, tomate, pimiento, zucchini, espinaca, lechuga, zanahoria)', tags: [] },
+      { n: '100g de verduras de tu preferencia', tags: [] },
+      { n: '100g de berries', tags: [] },
+    ]
+  },
+};
+
+// ══════════════════════════════════════════
+//  BASE DE DATOS PERI-ENTRENAMIENTO
+// ══════════════════════════════════════════
+const PERI_DB = {
+  'Running / Trail': {
+    label: 'Running / Trail',
+    kcal_extra: 176,
+    secciones: [
+      {
+        titulo: 'PRE ENTRENO (40-30 min antes)',
+        grupos: [
+          { tag: 'ESCOGE 1', opciones: '½ plátano + 1 cda de miel de abeja / 200ml de jugo de naranja / 1 Gatorade 500ml' },
+          { tag: 'FIJO', opciones: '1 pastilla de electrolitos (Salt Sticks / Nutremax)' },
+        ],
+        notas: '*Para días de fondo (90+ min): 60g de Nestum + 2 cdas de miel de abeja + 2 platanitos manzano\n*Para entrenamientos de calidad de 1h+ agregar 1L de Gatorade',
+      },
+      {
+        titulo: 'INTRA ENTRENO FONDOS (por hora)',
+        tipo: 'lista',
+        items: '1 scoop de Tailwind o Skratch drink mix en 500ml de agua / 1 Gatorade de 500ml\n1 gel energético (SIS Beta Fuel / Maurten 160 / 226ERS)\n1 pastilla de electrolitos Nutremax',
+      },
+    ]
+  },
+  'Triatlón': {
+    label: 'Triatlón',
+    kcal_extra: 250,
+    secciones: [
+      {
+        titulo: 'PRE ENTRENO (90-60 min antes)',
+        grupos: [
+          { tag: 'ESCOGE 1', opciones: '80g de arroz + 100g de pechuga de pollo / 2 tostadas con mermelada + 2 claras / 60g de avena + plátano + miel' },
+          { tag: 'FIJO', opciones: '500ml de bebida isotónica + 1 pastilla de electrolitos' },
+        ],
+        notas: '',
+      },
+      {
+        titulo: 'INTRA ENTRENO (por hora)',
+        tipo: 'lista',
+        items: '1 gel energético (SIS Beta Fuel / Maurten / 226ERS)\n500ml de isotónico (Tailwind / Gatorade)\n1 pastilla de electrolitos Nutremax',
+      },
+    ]
+  },
+  'Ciclismo': {
+    label: 'Ciclismo',
+    kcal_extra: 220,
+    secciones: [
+      {
+        titulo: 'PRE ENTRENO (60 min antes)',
+        grupos: [
+          { tag: 'ESCOGE 1', opciones: '1 plátano + 1 cda de miel / 2 tostadas con mermelada / 60g de avena + leche + miel' },
+          { tag: 'FIJO', opciones: '500ml de agua con electrolitos' },
+        ],
+        notas: '',
+      },
+      {
+        titulo: 'INTRA ENTRENO (por hora)',
+        tipo: 'lista',
+        items: '1 gel energético o 1 barra de dátiles\n500ml de isotónico\n1 pastilla de electrolitos Nutremax',
+      },
+    ]
+  },
+  'Natación': {
+    label: 'Natación',
+    kcal_extra: 150,
+    secciones: [
+      {
+        titulo: 'PRE ENTRENO (45-30 min antes)',
+        grupos: [
+          { tag: 'ESCOGE 1', opciones: '½ plátano + 1 cda de miel / 1 rebanada de pan con mermelada / 20g de avena con leche' },
+        ],
+        notas: '',
+      },
+    ]
+  },
+  'MMA': {
+    label: 'MMA / Combate',
+    kcal_extra: 180,
+    secciones: [
+      {
+        titulo: 'PRE ENTRENO (90-60 min antes)',
+        grupos: [
+          { tag: 'ESCOGE 1 carbohidrato', opciones: '1 rebanada de pan / ½ plátano / 60g de arroz cocido / 20g de avena' },
+          { tag: 'ESCOGE 1 proteína liviana', opciones: '3 claras de huevo / 30g de queso light / ½ scoop de proteína whey' },
+        ],
+        notas: '*Para días de protocolo de corte de peso: solo agua con electrolitos. Consultar individualmente.',
+      },
+      {
+        titulo: 'INTRA ENTRENO',
+        tipo: 'lista',
+        items: '500ml de agua con electrolitos por hora de entrenamiento',
+      },
+    ]
+  },
+  'Boxeo': {
+    label: 'Boxeo',
+    kcal_extra: 170,
+    secciones: [
+      {
+        titulo: 'PRE ENTRENO (60-45 min antes)',
+        grupos: [
+          { tag: 'ESCOGE 1', opciones: '½ plátano + miel / 1 rebanada de pan con mermelada / 20g de avena' },
+          { tag: 'FIJO', opciones: '500ml de agua' },
+        ],
+        notas: '',
+      },
+    ]
+  },
+  'Jiu-Jitsu': {
+    label: 'Jiu-Jitsu',
+    kcal_extra: 160,
+    secciones: [
+      {
+        titulo: 'PRE ENTRENO (60-45 min antes)',
+        grupos: [
+          { tag: 'ESCOGE 1', opciones: '½ plátano / 1 rebanada de pan / 20g de avena + miel' },
+        ],
+        notas: '',
+      },
+    ]
+  },
+  'Musculación': {
+    label: 'Musculación / Fuerza',
+    kcal_extra: 150,
+    secciones: [
+      {
+        titulo: 'PRE ENTRENO (40-30 min antes)',
+        grupos: [
+          { tag: 'ESCOGE 1 carbohidrato', opciones: '1 rebanada de pan blanco / ½ plátano o 1 platanito manzano / ½ taza de mango picado (80g) / 20g de Nestum / 20g de crema de arroz' },
+          { tag: 'ESCOGE 1 dulce/energético', opciones: '1 cda de mermelada / 1 cda de miel de abeja / 100ml de jugo de naranja / 1 dátil' },
+        ],
+        notas: '',
+      },
+    ]
+  },
+  'CrossFit': {
+    label: 'CrossFit',
+    kcal_extra: 190,
+    secciones: [
+      {
+        titulo: 'PRE ENTRENO (45-30 min antes)',
+        grupos: [
+          { tag: 'ESCOGE 1', opciones: '½ plátano + miel / 1 rebanada de pan con mermelada / 20g de avena' },
+          { tag: 'FIJO', opciones: '500ml de agua con electrolitos' },
+        ],
+        notas: '',
+      },
+    ]
+  },
+  'Fútbol': {
+    label: 'Fútbol',
+    kcal_extra: 200,
+    secciones: [
+      {
+        titulo: 'PRE PARTIDO / ENTRENO (90-60 min antes)',
+        grupos: [
+          { tag: 'ESCOGE 2 carbohidrato', opciones: 'Arroz (60g cocido) / Papa (90g) / Pan (30g) / Plátano / Pasta (50g cocida)' },
+          { tag: 'ESCOGE 1 proteína magra', opciones: '100g de pechuga de pollo / 2 huevos' },
+        ],
+        notas: '',
+      },
+      {
+        titulo: 'MEDIO TIEMPO / INTRA',
+        tipo: 'lista',
+        items: '1 plátano o naranja\n500ml de Gatorade o agua con electrolitos',
+      },
+    ]
+  },
+};
+
+// ══════════════════════════════════════════
+//  PLANTILLAS DE COMIDAS (base en 5 comidas)
+// ══════════════════════════════════════════
+const COMIDA_NAMES_5 = ['Desayuno','Media mañana','Almuerzo','Media tarde','Cena'];
+const COMIDA_NAMES_4 = ['Desayuno','Almuerzo','Media tarde','Cena'];
+const COMIDA_NAMES_6 = ['Desayuno','Media mañana','Almuerzo','Media tarde','Cena','Post cena / snack nocturno'];
+
+// Distribución por defecto %
+const DIST_DEFAULT = { 5: [28,13,30,10,19], 4: [30,35,15,20], 6: [25,12,28,10,18,7] };
+
+// ══════════════════════════════════════════
+//  STATE
+// ══════════════════════════════════════════
+let clienteId, clienteData, historiaData, isakData, actividadesData;
+let planActual = null, planId = null;
+
+// ══════════════════════════════════════════
+//  INIT
+// ══════════════════════════════════════════
+async function init() {
+  const session = await requireAuth();
+  if (!session) return;
+  initSidebar();
+
+  const params = new URLSearchParams(location.search);
+  clienteId = params.get('cliente');
+  planId     = params.get('plan') || null;
+  if (!clienteId) { window.location.href = 'clientes.html'; return; }
+
+  await cargarDatosCliente();
+  actualizarDistribucion();
+  calcularMotor();
+  if (planId) await cargarPlanExistente();
+
+  document.getElementById('btnGenerar').disabled = false;
+}
+
+// ══════════════════════════════════════════
+//  CARGAR DATOS
+// ══════════════════════════════════════════
+async function cargarDatosCliente() {
+  const [cRes, hRes, iRes] = await Promise.all([
+    _supabase.from('clientes').select('*').eq('id', clienteId).single(),
+    _supabase.from('historias_clinicas').select('*').eq('cliente_id', clienteId).maybeSingle(),
+    _supabase.from('sesiones_antropometricas').select('*').eq('cliente_id', clienteId).order('fecha', {ascending:false}).limit(1).maybeSingle(),
+  ]);
+  clienteData  = cRes.data;
+  historiaData = hRes.data;
+  isakData     = iRes.data;
+
+  // Load actividades by historia_id
+  if (historiaData?.id) {
+    const aRes = await _supabase.from('actividades_deportivas').select('*').eq('historia_id', historiaData.id);
+    actividadesData = aRes.data || [];
+  } else {
+    actividadesData = [];
+  }
+
+  // Update UI
+  const nombre = clienteData?.nombre || 'Cliente';
+  document.getElementById('topbarClienteNombre').textContent = `Plan — ${nombre}`;
+  document.getElementById('topbarAvatar').textContent = getInitials(nombre);
+  document.getElementById('sidebarAvatar').textContent = getInitials(nombre);
+  document.getElementById('sidebarName').textContent = nombre.split(' ')[0];
+
+  // Resumen chips
+  renderResumen();
+
+  // Auto-fill suplementación if saved in historia
+  if (historiaData?.objetivo_tratamiento) {
+    const el = document.getElementById('objetivo_texto');
+    if (!el.value) el.value = historiaData.objetivo_tratamiento;
+  }
+}
+
+function renderResumen() {
+  const chips = [];
+  const lbm = getLBM();
+  if (lbm) chips.push(`<span class="chip gold">LBM: ${lbm}kg</span>`);
+  const deporte = historiaData?.deporte_principal;
+  if (deporte) chips.push(`<span class="chip gold">${deporte}</span>`);
+  if (historiaData?.intolerancia_lactosa) chips.push(`<span class="chip red">Sin lactosa</span>`);
+  if (historiaData?.intolerancia_gluten)  chips.push(`<span class="chip red">Sin gluten</span>`);
+  if (historiaData?.otras_intolerancias)  chips.push(`<span class="chip red">Otras: ${historiaData.otras_intolerancias}</span>`);
+  if (isakData?.fecha) chips.push(`<span class="chip">ISAK: ${formatDate(isakData.fecha)}</span>`);
+  if (actividadesData.length) chips.push(`<span class="chip">${actividadesData.length} sesiones/sem</span>`);
+
+  const container = document.getElementById('resumenCliente');
+  document.getElementById('resumenChips').innerHTML = chips.join('');
+  container.style.display = chips.length ? 'block' : 'none';
+}
+
+// ══════════════════════════════════════════
+//  LBM HELPER
+// ══════════════════════════════════════════
+function getLBM() {
+  if (isakData?.masa_magra) return +isakData.masa_magra;
+  const p = parseFloat(historiaData?.peso_total || 0);
+  const g = parseFloat(historiaData?.pct_grasa  || 0);
+  if (p > 0 && g > 0) return +(p * (1 - g/100)).toFixed(1);
+  if (p > 0) return p;
+  return null;
+}
+
+// ══════════════════════════════════════════
+//  MOTOR CALÓRICO
+// ══════════════════════════════════════════
+function calcularMotor() {
+  const lbm = getLBM();
+  const tmb  = lbm ? Math.round(370 + 21.6 * lbm) : null;
+  const fa   = parseFloat(document.getElementById('fa_base').value);
+  const getBasal = tmb ? Math.round(tmb * fa) : null;
+
+  // GET entrenamiento promedio diario
+  let getTrainDiario = 0;
+  if (lbm && actividadesData.length) {
+    const kcalSemana = actividadesData.reduce((sum, a) => {
+      const met = parseFloat(a.met_valor || 5);
+      const dur = parseInt(a.duracion_min || 60);
+      return sum + Math.round(met * lbm * (dur / 60));
+    }, 0);
+    getTrainDiario = Math.round(kcalSemana / 7);
+  }
+
+  const getTotal = getBasal ? getBasal + getTrainDiario : null;
+  const obj = parseInt(document.getElementById('objetivo_ajuste').value);
+  const getObj = getTotal ? Math.round(getTotal * (1 + obj/100)) : null;
+
+  // Update UI
+  document.getElementById('mc-lbm').textContent       = lbm ? `${lbm}` : '—';
+  document.getElementById('mc-tmb').textContent       = tmb  ? `${tmb}` : '—';
+  document.getElementById('mc-get-basal').textContent  = getBasal ? `${getBasal}` : '—';
+  document.getElementById('mc-get-train').textContent  = `+${getTrainDiario}`;
+  document.getElementById('mc-get-total').textContent  = getTotal ? `${getTotal}` : '—';
+  document.getElementById('mc-objetivo').textContent   = getObj   ? `${getObj}`   : '—';
+  document.getElementById('mc-objetivo-sub').textContent = getObj ? `kcal/día (${obj >= 0 ? '+' : ''}${obj}%)` : 'kcal/día ajustadas';
+
+  // Update distribution kcal
+  actualizarDistribucionKcal(getObj);
+
+  return { lbm, tmb, getBasal, getTrainDiario, getTotal, getObj };
+}
+
+// ══════════════════════════════════════════
+//  DISTRIBUCIÓN CALÓRICA
+// ══════════════════════════════════════════
+function getNombreComidas() {
+  const n = parseInt(document.getElementById('n_comidas').value);
+  return n === 4 ? COMIDA_NAMES_4 : n === 6 ? COMIDA_NAMES_6 : COMIDA_NAMES_5;
+}
+
+function actualizarDistribucion() {
+  const n = parseInt(document.getElementById('n_comidas').value);
+  const nombres = getNombreComidas();
+  const dists = DIST_DEFAULT[n] || DIST_DEFAULT[5];
+  const grid = document.getElementById('distGrid');
+  grid.innerHTML = nombres.map((nombre, i) => `
+    <div class="dist-row">
+      <label>${nombre}</label>
+      <input type="number" class="dist-input" id="dist-${i}" value="${dists[i]}" min="5" max="60" step="1" oninput="validarDistribucion()"/>
+      <span style="color:var(--cream-3);font-size:12px">%</span>
+      <span class="dist-kcal" id="dkcal-${i}">— kcal</span>
+    </div>
+  `).join('');
+  validarDistribucion();
+}
+
+function validarDistribucion() {
+  const n = parseInt(document.getElementById('n_comidas').value);
+  let suma = 0;
+  for (let i = 0; i < n; i++) {
+    suma += parseInt(document.getElementById(`dist-${i}`)?.value || 0);
+  }
+  const el = document.getElementById('dist-suma');
+  const ok = suma === 100;
+  el.textContent = `Suma: ${suma}% ${ok ? '✓' : `(falta ${100-suma}%)`}`;
+  el.style.color = ok ? '#2ec864' : '#e05555';
+
+  // Update kcal
+  const motor = calcularMotor();
+  actualizarDistribucionKcal(motor.getObj);
+}
+
+function actualizarDistribucionKcal(totalKcal) {
+  if (!totalKcal) return;
+  const n = parseInt(document.getElementById('n_comidas').value);
+  for (let i = 0; i < n; i++) {
+    const pct = parseInt(document.getElementById(`dist-${i}`)?.value || 0);
+    const kcal = Math.round(totalKcal * pct / 100);
+    const el = document.getElementById(`dkcal-${i}`);
+    if (el) el.textContent = `${kcal} kcal`;
+  }
+}
+
+function getDistribucion() {
+  const n = parseInt(document.getElementById('n_comidas').value);
+  return Array.from({length:n}, (_,i) => parseInt(document.getElementById(`dist-${i}`)?.value || 0));
+}
+
+// ══════════════════════════════════════════
+//  FILTRADO DE ALIMENTOS
+// ══════════════════════════════════════════
+function getTagsExcluir() {
+  const tags = new Set();
+  if (historiaData?.intolerancia_lactosa) tags.add('lacteo');
+  if (historiaData?.intolerancia_gluten)  { tags.add('gluten'); }
+
+  const otras = (historiaData?.otras_intolerancias || '').toLowerCase();
+  if (otras.includes('mariscos') || otras.includes('marisco')) tags.add('mariscos');
+  if (otras.includes('frutos secos') || otras.includes('fruto seco')) tags.add('fruto_seco');
+  if (otras.includes('mani') || otras.includes('maní')) tags.add('mani');
+  if (otras.includes('huevo')) tags.add('huevo');
+  if (otras.includes('pescado')) tags.add('pescado');
+
+  const noGustan = (historiaData?.alimentos_no_gustan || '').toLowerCase();
+  if (noGustan.includes('cerdo')) tags.add('cerdo');
+  if (noGustan.includes('res') || noGustan.includes('vacuno')) tags.add('res');
+
+  return tags;
+}
+
+function filtrarAlimentos(categoria) {
+  const excluir = getTagsExcluir();
+  const db = EXCHANGE_DB[categoria];
+  if (!db) return [];
+  return db.alimentos
+    .filter(a => !a.tags.some(t => excluir.has(t)))
+    .map(a => a.n);
+}
+
+function opcToStr(opciones) {
+  return opciones.join(' / ');
+}
+
+// ══════════════════════════════════════════
+//  GENERADOR PRINCIPAL
+// ══════════════════════════════════════════
+function generarPlan() {
+  const motor = calcularMotor();
+  if (!motor.getObj) {
+    showToast('No hay datos suficientes para calcular. Completa la historia y/o ISAK primero.', 'error');
+    return;
+  }
+
+  const kcalTotal = motor.getObj;
+  const dist = getDistribucion();
+  const nombres = getNombreComidas();
+  const n = nombres.length;
+  const tipoPlan = document.getElementById('tipo_plan').value;
+  const suplemento = document.getElementById('suplementacion_text').value.trim();
+  const excluir = getTagsExcluir();
+
+  // Calcular kcal por comida
+  const kcalPorComida = dist.map(d => Math.round(kcalTotal * d / 100));
+
+  // Generar comidas
+  const comidas = nombres.map((nombre, i) => generarComida(nombre, i, n, kcalPorComida[i], tipoPlan, excluir, suplemento));
+
+  // Deportes activos del planner
+  const deportesActivos = [...new Set(actividadesData.map(a => a.deporte).filter(Boolean))];
+  const diasEntrenamiento = deportesActivos.map(d => ({
+    deporte: d,
+    peri: PERI_DB[d] || null,
+  })).filter(d => d.peri);
+
+  // Especificaciones
+  const especificaciones = generarEspecificaciones(excluir);
+
+  // Calcular macros objetivo
+  const lbm = motor.lbm;
+  const prot_g = lbm ? Math.round(lbm * (tipoPlan.includes('hiperproteico') ? 2.0 : 1.6)) : null;
+  const prot_kcal = prot_g ? prot_g * 4 : 0;
+  const grasa_pct = 0.28;
+  const grasa_kcal = Math.round(kcalTotal * grasa_pct);
+  const grasa_g = Math.round(grasa_kcal / 9);
+  const carb_kcal = kcalTotal - prot_kcal - grasa_kcal;
+  const carb_g = Math.round(carb_kcal / 4);
+
+  planActual = {
+    kcal_descanso: kcalTotal,
+    macros: { proteina_g: prot_g, carbos_g: carb_g, grasas_g: grasa_g },
+    tipo_plan: tipoPlan,
+    objetivo: document.getElementById('objetivo_texto').value,
+    comidas,
+    dias_entrenamiento: diasEntrenamiento,
+    especificaciones,
+    deporte_principal: historiaData?.deporte_principal,
+    lbm: motor.lbm,
+  };
+
+  renderPlan(planActual);
+  document.getElementById('planEmpty').style.display = 'none';
+  document.getElementById('actionBar').style.display = 'flex';
+  actualizarEstadoBadge('borrador');
+  showToast('Plan generado. Revisa y edita antes de publicar.', 'success');
+}
+
+function generarComida(nombre, idx, total, kcalTarget, tipoPlan, excluir, suplemento) {
+  const nombreLow = nombre.toLowerCase();
+  const grupos = [];
+  let instrFija = '';
+  let tipo = 'escoge'; // 'escoge' | 'opciones'
+
+  if (nombreLow.includes('desayuno')) {
+    if (suplemento) instrFija = suplemento + '.';
+
+    // Escala dinámica según kcal
+    const base_kcal = 80*2 + 60*2 + 75*2 + 90; // 520
+    const ratio = kcalTarget / base_kcal;
+    const nCereal   = Math.max(1, Math.round(2 * ratio));
+    const nFruta    = Math.max(1, Math.round(2 * ratio));
+    const nProt     = Math.max(1, Math.round(2 * ratio));
+    const showLacteo = kcalTarget > 350;
+
+    grupos.push({ tag: 'ESCOGE', cant: nCereal, cat: 'cereal',        label: 'Carbohidrato', opciones: opcToStr(filtrarAlimentos('cereal')) });
+    grupos.push({ tag: 'ESCOGE', cant: nFruta,  cat: 'fruta',         label: 'Fruta',        opciones: opcToStr(filtrarAlimentos('fruta')) });
+    grupos.push({ tag: 'ESCOGE', cant: nProt,   cat: 'proteina_media', label: 'Proteína',    opciones: opcToStr(filtrarAlimentos('proteina_media').concat(filtrarAlimentos('proteina_magra').map(x => `${x} + 40g de palta`))) });
+    if (showLacteo) grupos.push({ tag: 'ESCOGE', cant: 1, cat: 'lacteo', label: 'Lácteo / Yogurt', opciones: opcToStr(filtrarAlimentos('lacteo')) });
+
+    tipo = 'escoge';
+    instrFija = instrFija || null;
+
+  } else if (nombreLow.includes('media mañana') || nombreLow.includes('snack') || nombreLow.includes('colación')) {
+    tipo = 'opciones';
+    const opcs = [];
+
+    if (!excluir.has('lacteo')) {
+      opcs.push({
+        titulo: 'OPCIÓN 1',
+        texto: `${EXCHANGE_DB.lacteo.alimentos[0].n} + 1 porción de fruta (Ver especificaciones) + 1 porción de frutos secos (Ver especificaciones)`,
+      });
+      opcs.push({
+        titulo: 'OPCIÓN 2',
+        texto: `200g de yogurt Vakimú Quark + 1 porción de fruta (Ver especificaciones) + 10g de chocolate 70% cacao`,
+      });
+    }
+
+    const quesosOpc = filtrarAlimentos('proteina_media').filter(x => x.toLowerCase().includes('queso') || x.toLowerCase().includes('cottage'));
+    if (quesosOpc.length) {
+      opcs.push({
+        titulo: `OPCIÓN ${opcs.length + 1}`,
+        texto: `${quesosOpc[0]} + 30g de jamón serrano magro\n1 tortilla Rapidita 0 / 7 galletas de arroz Costeño / 1 rebanada de pan integral`,
+      });
+    }
+
+    // Fallback if everything excluded
+    if (!opcs.length) {
+      opcs.push({ titulo: 'OPCIÓN 1', texto: '1 porción de fruta + 1 porción de frutos secos' });
+    }
+
+    grupos.push({ tipo: 'opciones', opciones_bloque: opcs });
+
+  } else if (nombreLow.includes('almuerzo')) {
+    const base_kcal = 80*2 + 165 + 25 + 45*2; // 440
+    const ratio = kcalTarget / base_kcal;
+    const nCarb = Math.max(1, Math.round(2 * ratio));
+    const nGrasa = Math.max(1, Math.round(2 * ratio));
+
+    const carbOps = opcToStr([...filtrarAlimentos('cereal').filter(x => x.includes('arroz') || x.includes('quinua') || x.includes('pasta')), ...filtrarAlimentos('tuberculo')]);
+    const protOps = opcToStr(filtrarAlimentos('proteina_magra'));
+
+    grupos.push({ tag: 'ESCOGE', cant: nCarb, cat: 'carb', label: 'Carbohidrato', opciones: carbOps });
+    grupos.push({ tag: 'ESCOGE', cant: 1, cat: 'proteina_magra', label: 'Proteína (150g, peso crudo)', opciones: protOps });
+    grupos.push({ tag: 'ESCOGE', cant: 1, cat: 'verdura', label: 'Verdura', opciones: '150-170g de verduras de tu preferencia' });
+    grupos.push({ tag: 'ESCOGE', cant: nGrasa, cat: 'grasa', label: 'Grasa saludable', opciones: opcToStr(filtrarAlimentos('grasa')) });
+    instrFija = null;
+
+  } else if (nombreLow.includes('media tarde')) {
+    grupos.push({ tag: 'ESCOGE', cant: 1, cat: 'fruta',  label: 'Fruta',         opciones: opcToStr(filtrarAlimentos('fruta')) });
+    grupos.push({ tag: 'ESCOGE', cant: 1, cat: 'cereal', label: 'Carbohidrato',  opciones: '15g de granola / 20g de cereales (Cornflakes, Mamalama, Dyfferent) / 20g de avena' });
+
+  } else if (nombreLow.includes('cena')) {
+    const base_kcal = 80 + 130 + 30 + 45; // 285
+    const ratio = kcalTarget / base_kcal;
+    const nCarb = Math.max(1, Math.round(1 * ratio));
+    const nGrasa = Math.max(1, Math.round(1 * ratio));
+
+    instrFija = '1 cda de vinagre de manzana + 1 vaso de agua (500ml)';
+    const carbCena = opcToStr([...filtrarAlimentos('cereal').filter(x => x.includes('tortilla') || x.includes('pan') || x.includes('choclo') || x.includes('avena') || x.includes('cereales')), ...filtrarAlimentos('tuberculo').filter(x => x.includes('choclo'))]);
+    const protCena = opcToStr([...filtrarAlimentos('proteina_magra'), ...filtrarAlimentos('proteina_media').filter(x => x.includes('queso') || x.includes('quark'))]);
+
+    grupos.push({ tag: 'ESCOGE', cant: nCarb, cat: 'carb', label: 'Carbohidrato', opciones: carbCena });
+    grupos.push({ tag: 'ESCOGE', cant: 1, cat: 'proteina_magra', label: 'Proteína (120g, peso crudo)', opciones: protCena });
+    grupos.push({ tag: 'ESCOGE', cant: 1, cat: 'verdura', label: 'Verdura / Berries', opciones: '100g de verduras de tu preferencia / 100g de berries' });
+    grupos.push({ tag: 'ESCOGE', cant: nGrasa, cat: 'grasa', label: 'Grasa saludable', opciones: opcToStr(filtrarAlimentos('grasa')) });
+
+  } else {
+    // Snack genérico
+    grupos.push({ tag: 'ESCOGE', cant: 1, cat: 'fruta',       label: 'Fruta',        opciones: opcToStr(filtrarAlimentos('fruta')) });
+    grupos.push({ tag: 'ESCOGE', cant: 1, cat: 'frutos_secos', label: 'Frutos secos', opciones: opcToStr(filtrarAlimentos('frutos_secos')) });
+  }
+
+  return { nombre, kcal: kcalTarget, tipo, instrFija, grupos };
+}
+
+function generarEspecificaciones(excluir) {
+  return {
+    bebidas: 'Agua, infusiones (manzanilla, anís, té, muña, hierba luisa, flor de Jamaica), refrescos no azucarados (emoliente, agua de piña, agua de manzana). Puedes agregar edulcorantes no calóricos (Stevia, yacón, fruto del monje).',
+    porcion_fruta: 'Ver opciones de fruta en el desayuno o sección de intercambios.',
+    porcion_frutos_secos: '6 cashews / 6 almendras / 4 pecanas / 4 nueces / 15 pistachios / 10 maníes / 1 cdta de mantequilla de frutos secos (10g)',
+    opciones_fuera: '- Poke bowl (sin salsas acevichadas o dulces). Proteína + palta + arroz + verduras\n- Bowl (San Antonio, Don Mamino, Freshii): arroz + verduras + pollo + palta\n- Wrap saludable\n- Si comes pollo a la brasa: pechuga sin pellejo + ensalada + papa sancochada',
+    bebidas_low: '- Té negro o verde helado + limón + Stevia + agua con gas + hielo\n- Agua de flor de Jamaica + Stevia + agua con gas\n- Coldbrew: café pasado + zumo de media naranja + Stevia + hielo',
+    hidratacion: `Día de entrenamiento: 3.5L +\nDía de descanso: 2.0L +\n\n*Bebe líquido frecuentemente durante el día. Orina debe ser siempre clara. Llega bien hidratado/a a los entrenamientos.`,
+    recomendaciones: '● No consumir café ni cafeína después de las 3pm\n● Mantén las porciones lo más exactas posible\n● Intenta consumir los alimentos a la misma hora cada día',
+  };
+}
+
+// ══════════════════════════════════════════
+//  RENDERER
+// ══════════════════════════════════════════
+function renderPlan(plan) {
+  const container = document.getElementById('planContainer');
+  // Remove old rendered cards
+  container.querySelectorAll('.dia-card').forEach(el => el.remove());
+
+  // ── DÍA DE DESCANSO
+  const descansoCard = document.createElement('div');
+  descansoCard.className = 'dia-card';
+  descansoCard.innerHTML = `
+    <div class="dia-header">
+      <h2>Día de descanso — ${plan.kcal_descanso} kcal</h2>
+      ${plan.macros.proteina_g ? `<span class="dia-badge">P: ${plan.macros.proteina_g}g · C: ${plan.macros.carbos_g}g · G: ${plan.macros.grasas_g}g</span>` : ''}
+    </div>
+    ${plan.comidas.map((c, i) => renderComida(c, i)).join('')}
+  `;
+  container.appendChild(descansoCard);
+
+  // ── DÍAS DE ENTRENAMIENTO
+  plan.dias_entrenamiento.forEach(dia => {
+    if (!dia.peri) return;
+    const peri = dia.peri;
+    const card = document.createElement('div');
+    card.className = 'dia-card';
+    card.innerHTML = `
+      <div class="dia-header">
+        <h2>Día de entrenamiento ${peri.label}</h2>
+        <span class="dia-badge extra">Agregar a la dieta descanso (+${peri.kcal_extra} kcal aprox.)</span>
+      </div>
+      ${peri.secciones.map(sec => renderSeccionPeri(sec)).join('')}
+    `;
+    container.appendChild(card);
+  });
+
+  // ── ESPECIFICACIONES
+  const esp = plan.especificaciones;
+  const espCard = document.createElement('div');
+  espCard.className = 'dia-card';
+  espCard.innerHTML = `
+    <div class="dia-header"><h2>Especificaciones</h2></div>
+    ${renderEspBloque('Bebidas permitidas', esp.bebidas)}
+    ${renderEspBloque('Porción de fruta', 'Ver listado de frutas en el desayuno (una porción = cualquiera de esas opciones)')}
+    ${renderEspBloque('Porción de frutos secos', esp.porcion_frutos_secos)}
+    ${renderEspBloque('Opciones si comes fuera', esp.opciones_fuera)}
+    ${renderEspBloque('Bebidas bajas en calorías', esp.bebidas_low)}
+    ${renderEspBloque('Requerimientos hídricos', esp.hidratacion)}
+    ${renderEspBloque('Recomendaciones generales', esp.recomendaciones)}
+  `;
+  container.appendChild(espCard);
+}
+
+function renderComida(comida, idx) {
+  const tituloHtml = `<div class="comida-title">Comida ${idx+1}: ${comida.nombre}</div>`;
+  let contenido = tituloHtml;
+
+  if (comida.instrFija) {
+    contenido += `<div class="instruccion-fija"><textarea id="instr-${idx}" rows="2">${comida.instrFija}</textarea></div>`;
+  }
+
+  if (comida.tipo === 'opciones') {
+    const opc = comida.grupos[0]?.opciones_bloque || [];
+    contenido += opc.map((o, oi) => `
+      <div class="opcion-bloque">
+        <div class="opcion-titulo">${o.titulo}:</div>
+        <div class="opcion-texto"><textarea id="opc-${idx}-${oi}" rows="3">${o.texto}</textarea></div>
+      </div>
+    `).join('');
+  } else {
+    contenido += comida.grupos.map((g, gi) => `
+      <div class="escoge-group">
+        <div class="escoge-row">
+          <span class="escoge-tag">${g.tag}</span>
+          <input type="number" class="escoge-num" id="ecant-${idx}-${gi}" value="${g.cant}" min="1" max="6" oninput="actualizarKcalComida(${idx})"/>
+          <span class="escoge-cat-label">${g.label}:</span>
+        </div>
+        <textarea class="opciones-box" id="eopc-${idx}-${gi}" rows="3">${g.opciones}</textarea>
+      </div>
+    `).join('');
+  }
+
+  contenido += `<div class="nota-plan"><textarea id="nota-${idx}" rows="1" placeholder="Nota opcional para esta comida…"></textarea></div>`;
+
+  return `<div class="comida-block" id="comida-block-${idx}">${contenido}</div>`;
+}
+
+function renderSeccionPeri(sec) {
+  if (sec.tipo === 'lista') {
+    return `
+      <div class="comida-block">
+        <div class="comida-title">${sec.titulo}</div>
+        <textarea class="opciones-box" rows="4">${sec.items}</textarea>
+      </div>
+    `;
+  }
+
+  const grupos = sec.grupos.map((g, gi) => `
+    <div class="escoge-group">
+      <div class="escoge-row">
+        <span class="escoge-tag">${g.tag}</span>
+        <span class="escoge-cat-label" style="margin-left:4px">:</span>
+      </div>
+      <textarea class="opciones-box" rows="2">${g.opciones}</textarea>
+    </div>
+  `).join('');
+
+  const notas = sec.notas ? `<div class="nota-plan" style="margin-top:8px"><pre style="font-size:12px;font-family:var(--font);white-space:pre-wrap;color:var(--cream-3)">${sec.notas}</pre></div>` : '';
+
+  return `<div class="comida-block"><div class="comida-title">${sec.titulo}</div>${grupos}${notas}</div>`;
+}
+
+function renderEspBloque(titulo, texto) {
+  return `
+    <div class="comida-block">
+      <div class="comida-title">${titulo}</div>
+      <textarea class="opciones-box" rows="${Math.max(2, (texto.match(/\n/g)||[]).length + 2)}">${texto}</textarea>
+    </div>
+  `;
+}
+
+function actualizarKcalComida(idx) {
+  // Visual feedback only — full recalc not needed
+}
+
+// ══════════════════════════════════════════
+//  SAVE / PUBLISH
+// ══════════════════════════════════════════
+function confirmarPublicar() {
+  openModal('modalPublicar');
+}
+
+async function guardarPlan(estado) {
+  if (!planActual) { showToast('Genera el plan primero', 'error'); return; }
+  closeModal('modalPublicar');
+
+  // Collect edits from DOM back into planActual
+  const contenido = JSON.parse(JSON.stringify(planActual)); // deep copy
+  const btnSave = document.getElementById('actionBar').querySelector('button');
+
+  const payload = {
+    cliente_id:    clienteId,
+    fecha:         new Date().toISOString().split('T')[0],
+    estado,
+    tipo_plan:     document.getElementById('tipo_plan').value,
+    objetivo:      document.getElementById('objetivo_texto').value,
+    kcal_descanso: planActual.kcal_descanso,
+    contenido,
+    updated_at:    new Date().toISOString(),
+  };
+
+  let res;
+  if (planId) {
+    res = await _supabase.from('planes_nutricionales').update(payload).eq('id', planId);
+  } else {
+    res = await _supabase.from('planes_nutricionales').insert(payload).select('id').single();
+    if (res.data?.id) planId = res.data.id;
+  }
+
+  if (res.error) {
+    showToast('Error al guardar: ' + res.error.message, 'error');
+  } else {
+    actualizarEstadoBadge(estado);
+    showToast(estado === 'publicado' ? 'Plan publicado correctamente ✓' : 'Borrador guardado', 'success');
+  }
+}
+
+function actualizarEstadoBadge(estado) {
+  const el = document.getElementById('actionEstado');
+  el.textContent = estado === 'publicado' ? 'Publicado' : 'Borrador';
+  el.className = `estado-badge ${estado === 'publicado' ? 'estado-publicado' : 'estado-borrador'}`;
+
+  const topEl = document.getElementById('estadoBadge');
+  topEl.textContent = estado === 'publicado' ? 'Publicado' : 'Borrador';
+  topEl.className = `estado-badge ${estado === 'publicado' ? 'estado-publicado' : 'estado-borrador'}`;
+  topEl.style.display = 'inline-block';
+}
+
+async function cargarPlanExistente() {
+  const res = await _supabase.from('planes_nutricionales').select('*').eq('id', planId).single();
+  if (!res.data) return;
+
+  const plan = res.data;
+  document.getElementById('tipo_plan').value = plan.tipo_plan || 'hipocalorico_hiperproteico';
+  document.getElementById('objetivo_texto').value = plan.objetivo || '';
+
+  if (plan.contenido) {
+    planActual = plan.contenido;
+    renderPlan(planActual);
+    document.getElementById('planEmpty').style.display = 'none';
+    document.getElementById('actionBar').style.display = 'flex';
+    actualizarEstadoBadge(plan.estado);
+  }
+}
+
+// ══════════════════════════════════════════
+//  BOOT
+// ══════════════════════════════════════════
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>

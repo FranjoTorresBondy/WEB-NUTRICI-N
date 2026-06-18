@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plan de Entrenamiento — Stephan Breadt</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Chakra+Petch:wght@600;700&display=swap');
+
+  :root {
+    --bg: #080808;
+    --bg2: #111111;
+    --bg3: #1a1a1a;
+    --gold: #C4973A;
+    --gold-dim: rgba(196,151,58,0.15);
+    --gold-border: rgba(196,151,58,0.3);
+    --text: #f0f0f0;
+    --text-muted: #888;
+    --border: #2a2a2a;
+    --C: #4fc3f7;   /* compuesto */
+    --A: #a5d6a7;   /* accesorio */
+    --X: #ce93d8;   /* core/aislamiento */
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    padding: 32px 24px 60px;
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  .header {
+    max-width: 1100px;
+    margin: 0 auto 32px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--gold-border);
+    padding-bottom: 20px;
+    gap: 16px;
+  }
+  .header-left h1 {
+    font-family: 'Chakra Petch', sans-serif;
+    font-size: 22px;
+    color: var(--gold);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .header-left p {
+    color: var(--text-muted);
+    font-size: 12px;
+    margin-top: 4px;
+    letter-spacing: 0.03em;
+  }
+  .header-right {
+    display: flex;
+    gap: 20px;
+    text-align: right;
+  }
+  .header-stat { line-height: 1.4; }
+  .header-stat .val {
+    font-family: 'Chakra Petch', sans-serif;
+    font-size: 18px;
+    color: var(--gold);
+  }
+  .header-stat .lbl {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  /* LEYENDA */
+  .leyenda {
+    max-width: 1100px;
+    margin: 0 auto 20px;
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .ley-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .ley-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+  }
+  .ley-dot.C { background: var(--C); }
+  .ley-dot.A { background: var(--A); }
+  .ley-dot.X { background: var(--X); }
+
+  /* MICROCICLOS RIR */
+  .rir-table {
+    max-width: 1100px;
+    margin: 0 auto 28px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .rir-table table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .rir-table th {
+    background: var(--bg3);
+    color: var(--text-muted);
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 10px 14px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+  }
+  .rir-table th:first-child { text-align: left; }
+  .rir-table td {
+    padding: 9px 14px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px;
+  }
+  .rir-table tr:last-child td { border-bottom: none; }
+  .rir-table td:first-child {
+    text-align: left;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+  .badge-acum {
+    background: rgba(196,151,58,0.12);
+    color: var(--gold);
+    border: 1px solid var(--gold-border);
+    border-radius: 4px;
+    padding: 2px 8px;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .badge-int {
+    background: rgba(239,83,80,0.12);
+    color: #ef9a9a;
+    border: 1px solid rgba(239,83,80,0.3);
+    border-radius: 4px;
+    padding: 2px 8px;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .rir-num {
+    font-family: 'Chakra Petch', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  /* SESIONES */
+  .sesion-wrap {
+    max-width: 1100px;
+    margin: 0 auto 24px;
+  }
+  .sesion-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .sesion-label .icon {
+    width: 34px; height: 34px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+    background: var(--gold-dim);
+    border: 1px solid var(--gold-border);
+  }
+  .sesion-label h2 {
+    font-family: 'Chakra Petch', sans-serif;
+    font-size: 15px;
+    color: var(--gold);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .sesion-label .tag {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 1px;
+  }
+
+  /* TABLA EJERCICIOS */
+  .ex-table-wrap {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  table.ex-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  table.ex-table thead th {
+    background: var(--bg3);
+    color: var(--text-muted);
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+  }
+  table.ex-table thead th:first-child { text-align: left; }
+  table.ex-table thead th:not(:first-child) { text-align: center; }
+
+  table.ex-table tbody tr {
+    border-bottom: 1px solid var(--border);
+    transition: background 0.15s;
+  }
+  table.ex-table tbody tr:last-child { border-bottom: none; }
+  table.ex-table tbody tr:hover { background: rgba(255,255,255,0.03); }
+
+  table.ex-table td {
+    padding: 11px 14px;
+    vertical-align: middle;
+  }
+  table.ex-table td:not(:first-child) { text-align: center; }
+
+  .ex-name {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .tipo-badge {
+    width: 18px; height: 18px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    font-family: 'Chakra Petch', sans-serif;
+  }
+  .tipo-badge.C { background: rgba(79,195,247,0.15); color: var(--C); }
+  .tipo-badge.A { background: rgba(165,214,167,0.15); color: var(--A); }
+  .tipo-badge.X { background: rgba(206,147,216,0.15); color: var(--X); }
+
+  .ex-nombre-text { font-weight: 500; color: var(--text); }
+
+  /* columnas series/reps/descanso */
+  .num-cell {
+    font-family: 'Chakra Petch', sans-serif;
+    font-size: 13px;
+    color: var(--text);
+  }
+  .descanso-cell { color: var(--text-muted); font-size: 12px; }
+
+  /* RIR cells per micro */
+  .rir-cell {
+    font-family: 'Chakra Petch', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .rir-cell.rir-2 { color: #81d4fa; }
+  .rir-cell.rir-1 { color: #ffe082; }
+  .rir-cell.rir-0 { color: #ef9a9a; }
+
+  /* MICRO HEADER en tabla */
+  .micro-head-group th {
+    background: #141414;
+    padding: 6px 14px;
+    font-size: 9px;
+  }
+  .micro-sep {
+    border-left: 1px solid var(--border);
+  }
+
+  /* PRINT */
+  @media print {
+    body { background: #fff; color: #000; padding: 16px; }
+    .header-left h1, .sesion-label h2 { color: #000; }
+    .header-left p, .sesion-label .tag, .ex-nombre-text,
+    .descanso-cell, .text-muted { color: #333; }
+    .ex-table-wrap, .rir-table { border-color: #ccc; }
+    table.ex-table thead th, table.ex-table tbody tr:hover,
+    .rir-table th, .rir-table td { background: transparent; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-left">
+    <h1>Plan de Entrenamiento · Mesociclo</h1>
+    <p>Stephan Breadt &nbsp;·&nbsp; Inicio: 15.06.2026 &nbsp;·&nbsp; 3 sesiones / semana &nbsp;·&nbsp; Hipertrofia</p>
+  </div>
+  <div class="header-right">
+    <div class="header-stat">
+      <div class="val">5</div>
+      <div class="lbl">Microciclos</div>
+    </div>
+    <div class="header-stat">
+      <div class="val">3</div>
+      <div class="lbl">Sesiones</div>
+    </div>
+    <div class="header-stat">
+      <div class="val">17</div>
+      <div class="lbl">Ejercicios</div>
+    </div>
+  </div>
+</div>
+
+<!-- LEYENDA -->
+<div class="leyenda">
+  <div class="ley-item"><div class="ley-dot C"></div> C — Compuesto</div>
+  <div class="ley-item"><div class="ley-dot A"></div> A — Accesorio</div>
+  <div class="ley-item"><div class="ley-dot X"></div> X — Core / Aislamiento</div>
+</div>
+
+<!-- RIR POR MICROCICLO -->
+<div class="rir-table">
+  <table>
+    <thead>
+      <tr>
+        <th>Fase</th>
+        <th>Microciclo 1</th>
+        <th>Microciclo 2</th>
+        <th>Microciclo 3</th>
+        <th>Microciclo 4</th>
+        <th>Microciclo 5</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Tipo</td>
+        <td><span class="badge-acum">Acumulación</span></td>
+        <td><span class="badge-acum">Acumulación</span></td>
+        <td><span class="badge-int">Intensificación</span></td>
+        <td><span class="badge-int">Intensificación</span></td>
+        <td><span class="badge-int">Intensificación</span></td>
+      </tr>
+      <tr>
+        <td>RIR Compuesto (C)</td>
+        <td><span class="rir-num rir-cell rir-2">2</span></td>
+        <td><span class="rir-num rir-cell rir-2">2</span></td>
+        <td><span class="rir-num rir-cell rir-1">1</span></td>
+        <td><span class="rir-num rir-cell rir-1">1</span></td>
+        <td><span class="rir-num rir-cell rir-1">1</span></td>
+      </tr>
+      <tr>
+        <td>RIR Accesorio (A)</td>
+        <td><span class="rir-num rir-cell rir-1">1</span></td>
+        <td><span class="rir-num rir-cell rir-1">1</span></td>
+        <td><span class="rir-num rir-cell rir-0">0</span></td>
+        <td><span class="rir-num rir-cell rir-0">0</span></td>
+        <td><span class="rir-num rir-cell rir-0">0</span></td>
+      </tr>
+      <tr>
+        <td>RIR Core / Aislamiento (X)</td>
+        <td><span class="rir-num rir-cell rir-0">0</span></td>
+        <td><span class="rir-num rir-cell rir-0">0</span></td>
+        <td><span class="rir-num rir-cell rir-0">0</span></td>
+        <td><span class="rir-num rir-cell rir-0">0</span></td>
+        <td><span class="rir-num rir-cell rir-0">0</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- SESIÓN 1 — LOWER -->
+<div class="sesion-wrap">
+  <div class="sesion-label">
+    <div class="icon">🦵</div>
+    <div>
+      <h2>Sesión 1 — Lower</h2>
+      <div class="tag">Tren inferior · Pierna + Core</div>
+    </div>
+  </div>
+  <div class="ex-table-wrap">
+    <table class="ex-table">
+      <thead>
+        <tr>
+          <th style="width:38%">Ejercicio</th>
+          <th>Series</th>
+          <th>Reps</th>
+          <th>Descanso</th>
+          <th class="micro-sep">RIR M1</th>
+          <th>RIR M2</th>
+          <th>RIR M3</th>
+          <th>RIR M4</th>
+          <th>RIR M5</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><div class="ex-name"><span class="tipo-badge C">C</span><span class="ex-nombre-text">Hack squat</span></div></td>
+          <td class="num-cell">2</td><td class="num-cell">6</td><td class="descanso-cell">3:00</td>
+          <td class="rir-cell rir-2 micro-sep">2</td><td class="rir-cell rir-2">2</td><td class="rir-cell rir-1">1</td><td class="rir-cell rir-1">1</td><td class="rir-cell rir-1">1</td>
+        </tr>
+        <tr>
+          <td><div class="ex-name"><span class="tipo-badge A">A</span><span class="ex-nombre-text">Hip thrust</span></div></td>
+          <td class="num-cell">2</td><td class="num-cell">8</td><td class="descanso-cell">2:00</td>
+          <td class="rir-cell rir-1 micro-sep">1</td><td class="rir-cell rir-1">1</td><td class="rir-cell rir-0">0</td><td class="rir-cell rir-0">0</td><td class="rir-cell rir-0">0</td>
+        </tr>
+        <tr>
+          <td><div class="ex-name"><span class="tipo-badge A">A</span><span class="ex-nombre-text">Flexión de rodilla en máquina sentado</span></div></td>
+          <td class="num-cell">2</td><td class="num-cell">10</td><td class="descanso-cell">2:00</td>
+          <td class="rir-cell rir-1 micro-sep">1</td><td class="rir-cell rir-1">1</td><td class="rir-cell rir-0">0</td><td class="rir-cell rir-0">0</td><td class="rir-cell rir-0">0</td>
+        </tr>
+        <tr>
+          <td><div class="ex-name"><span class="tipo-badge A">A</span><span class="ex-nombre-text">Búlgaras</span></div></td>
+          <td class="num-cell">2</td><td class="num-cell">8</td><td class="descanso-cell">2:00</td>
+          <td class="rir-cell rir-1 micro-sep">1</td><td class="rir-cell rir-1">1</td><td class="rir-cell rir-0">0</td><td class="rir-cell rir-0">0</td><td class="rir-cell rir-0">0</td>
+        </tr>
+        <tr>
+          <td><div class="ex-name"><span class="tipo-badge X">X</span><span class="ex-nombre-text">Leg raises en banco declinado</span></div></td>
+          <td class="num-cell">2</td><td class="num-cell">10</td><td class="descanso-cell">1:00</td>
+          <td class="rir-cell rir-0 micro-sep">0</td><td class="rir-cell rir-0">0</td><td class="rir-cell rir-0">0</td><td class="rir-cell rir-0">0</td><td class="rir-cell rir-0">0</td>
+        </tr>
+        <tr>
+          <td><div class="ex-name"><span class="tipo-badge X">X</span><span class="ex-nombre-text">Pantorrilla en máquina o multipower</span></div></td>
+          <td class="num-cell">2</td><td class="num-cell">10</td><td class="descanso-cell">1:00</td>
+          <td class="rir-cell rir-0 micro-sep">0</td><td class="rir-cell rir-0">0</td><td class="rir-cell rir-0">0</td><td class="rir-cell rir-0">0</td><td class="rir-cell rir-0">0</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- SESIÓN 2 — UPPER -->
+<div class="sesion-wrap">
+  <div class="sesion-label">
+    <div class="icon">💪</div>
+    <div>
+      <h2>Sesión 2 — Upper</h2>
+      <div class="tag">Tren superior · Empuje + Tirón</div>
+    </div>
+  </div>
+  <div class="ex-table-wrap">
+    <table class="ex-table">
+      <thead>
+        <tr>
+          <th style="width:38%">Ejercicio</th>
+          <th>Series</th>
+          <th>Reps</th>
+          <th>Descanso</th>
+          <th class="micro-sep">RIR M1</th>
+          <th>RIR M2</th>
+          <th>RIR M3</th>
+          <th>RIR M4</th>
+          <th>RIR M5</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><div class="ex-name"><span class="tipo-badge C">C</span><span class="ex-nombre-text">Barras con lastre (agarre prono)</span></div></td>
+          <td class="num-cell">2</td><td class="num-cell">6</td><td class="descanso-cell">2:30</td>
+          <td class="rir-cell rir-2 micro-sep">2</td><td class="rir-cell rir-2">2</td><td class="rir-cell rir-1">1</td><td class="rir-cell rir-1">1</td><td class="rir-cell rir-1">1</td>
+        </tr>
+        <tr>
+          <td><div class="ex-name"><span class="tipo-badge C">C</span><span class="ex-nombre-text">Máquina de pectoral convergente</span></div></td>
+          <td class="num-cell">2</td><td class="num-cell">6</td><td class="descanso-cell">2:30</td>
+          <td class="rir-cell rir-2 micro-sep">2</td><td class="rir-cell rir-2">2</td><td class="rir-cell rir-1">1</td><td class="rir-cell rir-1">1</td><td class="rir-cell rir-1">1</td>
+        </tr>
+        <tr>
+          <td><div class="ex-name"><span class="tipo-badge C">C</span><span class="ex-nombre-text">Remo con barra tipo Pendlay</span></div></td>
+          <td class="num-cell">2</td><td class="num-cell">6</td><td class="descanso-cell">2:00</td>
+          <td class="rir-cell rir-2 micro-sep">2</td><td class="rir-cell rir-2">2</td><td class="rir-cell rir-1">1</td><td class="rir-cell rir-1">1</td><td class="rir-cell rir-1">1</td>
+        </tr>
+        <tr>
+          <td><div class="ex-name"><span class="tipo-badge A">A</span><span class="ex-nombre-text">Aducción de pecho en máquina</span></div></td>
+          <td class="num-cell">2</td><td class="num-cell">10</td><td class="descanso-cell">2:00</td>
+          <td class="rir-cell rir-1 micro-sep">1</td><td class="rir-cell rir-1">1</td><td class="rir-cell rir-0">0</td><td class="rir-cell rir-0">0</td><td class="rir-cell rir-0">0</td>
+        </tr>
+        <tr>
+          <td><div class="ex-name"><span class="tipo-badge A">A</span><span class="ex-nombre-text">Jalón unilateral desde polea alta</span></div></td>
+          <td class="num-cell">2</td><td class="num-cell">10</td><td class="descanso-cell">1:30</td>
+          <td class="rir-cell rir-1 micro-sep">1</td><td class="rir-cell rir-1">1</td><td class="rir-cell rir-0">0</td><td class="rir-cell rir-0">0</td><td class="rir-cell rir-0">0</td>
+        </tr>
+        <tr>
+          <td><div class="ex-name"><span class="tipo-badge A">A</span><span class="ex-nombre-text">Kaz press</span></div></td>
+          <td class="num-cell">3</td><td class="num-cell">10</td><td class="descanso-cell">2:00</td>
+          <td class="rir-cell rir-1 micro-sep">1</td><td class="rir-cell rir-1">1</td><td class="rir-cell rir-0">0</td><td class="rir-cell rir-0">0</td><td class="rir-cell rir-0">0</td>
+        </tr>
+        <tr>
+          <td><div class="ex-name"><span class="tipo-badge A">A</span><span class="ex-nombre-text">Curl de bícep con mancuernas sentado</span></div></td>
+          <td class="num-cell">3</td><td class="num-cell">10</td><td class="descanso-cell">2:00</td>
+          <td class="rir-cell rir-1 micro-sep">1</td><td class="rir-cell rir-1">1</td><td class="rir-cell rir-0">0</td><td class="rir-cell rir-0">0</td><td class="rir-cell rir-0">0</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- SESIÓN 3 — FULL BODY -->
+<div class="sesion-wrap">
+  <div class="sesion-label">
+    <div class="icon">⚡</div>
+    <div>
+      <h2>Sesión 3 — Full Body</h2>
+      <div class="tag">Cuerpo completo · Fuerza + Hombros</div>
+    </div>
+  </div>
+  <div class="ex-table-wrap">
+    <table class="ex-table">
+      <thead>
+        <tr>
+          <th style="width:38%">Ejercicio</th>
+          <th>Series</th>
+          <th>Reps</th>
+          <th>Descanso</th>
+          <th class="micro-sep">RIR M1</th>
+          <th>RIR M2</th>
+          <th>RIR M3</th>
+          <th>RIR M4</th>
+          <th>RIR M5</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><div class="ex-name"><span class="tipo-badge C">C</span><span class="ex-nombre-text">Hack squat</span></div></td>
+          <td class="num-cell">2</td><td class="num-cell">5</td><td class="descanso-cell">3:30</td>
+          <td class="rir-cell rir-2 micro-sep">2</td><td class="rir-cell rir-2">2</td><td class="rir-cell rir-1">1</td><td class="rir-cell rir-1">1</td><td class="rir-cell rir-1">1</td>
+        </tr>
+        <tr>
+          <td><div class="ex-name"><span class="tipo-badge C">C</span><span class="ex-nombre-text">RDL</span></div></td>
+          <td class="num-cell">2</td><td class="num-cell">5</td><td class="descanso-cell">3:30</td>
+          <td class="rir-cell rir-2 micro-sep">2</td><td class="rir-cell rir-2">2</td><td class="rir-cell rir-1">1</td><td class="rir-cell rir-1">1</td><td class="rir-cell rir-1">1</td>
+        </tr>
+        <tr>
+          <td><div class="ex-name"><span class="tipo-badge A">A</span><span class="ex-nombre-text">Remo unilateral con polea</span></div></td>
+          <td class="num-cell">2</td><td class="num-cell">10</td><td class="descanso-cell">2:00</td>
+          <td class="rir-cell rir-1 micro-sep">1</td><td class="rir-cell rir-1">1</td><td class="rir-cell rir-0">0</td><td class="rir-cell rir-0">0</td><td class="rir-cell rir-0">0</td>
+        </tr>
+        <tr>
+          <td><div class="ex-name"><span class="tipo-badge C">C</span><span class="ex-nombre-text">Press con barra a 45°</span></div></td>
+          <td class="num-cell">2</td><td class="num-cell">5</td><td class="descanso-cell">3:30</td>
+          <td class="rir-cell rir-2 micro-sep">2</td><td class="rir-cell rir-2">2</td><td class="rir-cell rir-1">1</td><td class="rir-cell rir-1">1</td><td class="rir-cell rir-1">1</td>
+        </tr>
+        <tr>
+          <td><div class="ex-name"><span class="tipo-badge X">X</span><span class="ex-nombre-text">Pantorrilla en multipower</span></div></td>
+          <td class="num-cell">3</td><td class="num-cell">10</td><td class="descanso-cell">2:00</td>
+          <td class="rir-cell rir-0 micro-sep">0</td><td class="rir-cell rir-0">0</td><td class="rir-cell rir-0">0</td><td class="rir-cell rir-0">0</td><td class="rir-cell rir-0">0</td>
+        </tr>
+        <tr>
+          <td><div class="ex-name"><span class="tipo-badge X">X</span><span class="ex-nombre-text">Deltoide posterior con mancuernas</span></div></td>
+          <td class="num-cell">3</td><td class="num-cell">15</td><td class="descanso-cell">1:00</td>
+          <td class="rir-cell rir-0 micro-sep">0</td><td class="rir-cell rir-0">0</td><td class="rir-cell rir-0">0</td><td class="rir-cell rir-0">0</td><td class="rir-cell rir-0">0</td>
+        </tr>
+        <tr>
+          <td><div class="ex-name"><span class="tipo-badge X">X</span><span class="ex-nombre-text">Elevaciones laterales con mancuernas</span></div></td>
+          <td class="num-cell">3</td><td class="num-cell">10</td><td class="descanso-cell">1:30</td>
+          <td class="rir-cell rir-0 micro-sep">0</td><td class="rir-cell rir-0">0</td><td class="rir-cell rir-0">0</td><td class="rir-cell rir-0">0</td><td class="rir-cell rir-0">0</td>
+        </tr>
+        <tr>
+          <td><div class="ex-name"><span class="tipo-badge X">X</span><span class="ex-nombre-text">Curl de antebrazos con barra (apoyo en banco)</span></div></td>
+          <td class="num-cell">3</td><td class="num-cell">10</td><td class="descanso-cell">2:00</td>
+          <td class="rir-cell rir-0 micro-sep">0</td><td class="rir-cell rir-0">0</td><td class="rir-cell rir-0">0</td><td class="rir-cell rir-0">0</td><td class="rir-cell rir-0">0</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</body>
+</html>

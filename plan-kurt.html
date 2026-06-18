@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plan de Entrenamiento — Kurt Schrader</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Chakra+Petch:wght@600;700&display=swap');
+  :root {
+    --bg:#080808; --bg2:#111111; --bg3:#1a1a1a; --bg4:#222;
+    --gold:#C4973A; --gold-dim:rgba(196,151,58,.15); --gold-border:rgba(196,151,58,.3);
+    --text:#f0f0f0; --muted:#888; --border:#2a2a2a;
+    --blue:#4fc3f7; --green:#a5d6a7; --purple:#ce93d8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-size:13px;padding:32px 24px 64px;min-height:100vh}
+
+  /* HEADER */
+  .header{max-width:1140px;margin:0 auto 28px;display:flex;align-items:flex-end;justify-content:space-between;border-bottom:1px solid var(--gold-border);padding-bottom:20px;gap:16px;flex-wrap:wrap}
+  .header h1{font-family:'Chakra Petch',sans-serif;font-size:22px;color:var(--gold);letter-spacing:.04em;text-transform:uppercase}
+  .header p{color:var(--muted);font-size:12px;margin-top:4px;letter-spacing:.03em}
+  .stats{display:flex;gap:20px}
+  .stat .val{font-family:'Chakra Petch',sans-serif;font-size:18px;color:var(--gold);text-align:right}
+  .stat .lbl{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+
+  /* LEYENDA */
+  .leyenda{max-width:1140px;margin:0 auto 20px;display:flex;gap:18px;flex-wrap:wrap}
+  .ley{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+  .dot{width:8px;height:8px;border-radius:50%}
+  .dot.C{background:var(--blue)} .dot.A{background:var(--green)} .dot.X{background:var(--purple)}
+
+  /* SESION */
+  .sesion{max-width:1140px;margin:0 auto 28px}
+  .ses-hd{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+  .ses-ico{width:38px;height:38px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;background:var(--gold-dim);border:1px solid var(--gold-border);flex-shrink:0}
+  .ses-hd h2{font-family:'Chakra Petch',sans-serif;font-size:15px;color:var(--gold);letter-spacing:.04em;text-transform:uppercase}
+  .ses-hd .tag{font-size:11px;color:var(--muted);margin-top:2px}
+
+  /* TABLE */
+  .tbl-wrap{background:var(--bg2);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+  table{width:100%;border-collapse:collapse}
+  thead th{background:var(--bg3);color:var(--muted);font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;padding:10px 12px;border-bottom:1px solid var(--border);white-space:nowrap;text-align:center}
+  thead th:first-child{text-align:left;width:52%}
+  tbody tr{border-bottom:1px solid var(--border)}
+  tbody tr:last-child{border-bottom:none}
+  tbody tr:hover{background:rgba(255,255,255,.025)}
+  td{padding:0 12px;vertical-align:middle;text-align:center}
+  td:first-child{text-align:left}
+
+  .ex-row{display:flex;align-items:center;gap:12px;padding:10px 0}
+  .ex-img{width:72px;height:72px;flex-shrink:0;border-radius:8px;background:var(--bg3);border:1px solid var(--border);overflow:hidden;display:flex;align-items:center;justify-content:center}
+  .ex-img svg{width:68px;height:68px}
+  .tipo{width:20px;height:20px;border-radius:4px;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;font-family:'Chakra Petch',sans-serif;flex-shrink:0}
+  .tipo.C{background:rgba(79,195,247,.15);color:var(--blue)}
+  .tipo.A{background:rgba(165,214,167,.15);color:var(--green)}
+  .tipo.X{background:rgba(206,147,216,.15);color:var(--purple)}
+  .ex-name{font-weight:500;font-size:12.5px;line-height:1.4}
+
+  .num{font-family:'Chakra Petch',sans-serif;font-size:13px;font-weight:700}
+  .rest{color:var(--muted);font-size:12px}
+  .rir0{color:#ef9a9a;font-family:'Chakra Petch',sans-serif;font-weight:700;font-size:14px}
+  .rir1{color:#ffe082;font-family:'Chakra Petch',sans-serif;font-weight:700;font-size:14px}
+  .rir2{color:var(--blue);font-family:'Chakra Petch',sans-serif;font-weight:700;font-size:14px}
+  .rpe{color:#ffcc80;font-family:'Chakra Petch',sans-serif;font-weight:700;font-size:11px}
+  .dash{color:var(--muted)}
+</style>
+</head>
+<body>
+
+<!-- SVG DEFS (reutilizables) -->
+<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+<defs>
+
+<!-- hamstring curl seated -->
+<symbol id="img-hamcurl" viewBox="0 0 68 68">
+  <rect width="68" height="68" rx="8" fill="#1a1a1a"/>
+  <!-- seat -->
+  <rect x="8" y="36" width="30" height="5" rx="2" fill="#444"/>
+  <rect x="36" y="36" width="5" height="18" rx="2" fill="#444"/>
+  <!-- back rest -->
+  <rect x="8" y="18" width="5" height="20" rx="2" fill="#444"/>
+  <!-- pad -->
+  <rect x="22" y="50" width="16" height="5" rx="2" fill="#555"/>
+  <!-- person: torso -->
+  <circle cx="20" cy="16" r="5" fill="none" stroke="#C4973A" stroke-width="1.8"/>
+  <line x1="20" y1="21" x2="20" y2="36" stroke="#C4973A" stroke-width="2"/>
+  <!-- upper legs -->
+  <line x1="20" y1="36" x2="33" y2="36" stroke="#C4973A" stroke-width="2"/>
+  <!-- lower legs curled -->
+  <path d="M33 36 Q42 42 38 54" fill="none" stroke="#4fc3f7" stroke-width="2.5"/>
+  <!-- arms -->
+  <line x1="20" y1="24" x2="13" y2="30" stroke="#C4973A" stroke-width="1.8"/>
+  <line x1="20" y1="24" x2="26" y2="30" stroke="#C4973A" stroke-width="1.8"/>
+</symbol>
+
+<!-- tibial raise with dumbbell -->
+<symbol id="img-tibial" viewBox="0 0 68 68">
+  <rect width="68" height="68" rx="8" fill="#1a1a1a"/>
+  <!-- wall/support -->
+  <rect x="8" y="8" width="4" height="52" rx="2" fill="#444"/>
+  <!-- person standing -->
+  <circle cx="32" cy="12" r="5" fill="none" stroke="#C4973A" stroke-width="1.8"/>
+  <line x1="32" y1="17" x2="32" y2="38" stroke="#C4973A" stroke-width="2"/>
+  <line x1="32" y1="22" x2="12" y2="28" stroke="#C4973A" stroke-width="1.8"/>
+  <line x1="32" y1="22" x2="36" y2="30" stroke="#C4973A" stroke-width="1.8"/>
+  <!-- right leg straight -->
+  <line x1="32" y1="38" x2="32" y2="60" stroke="#C4973A" stroke-width="2"/>
+  <!-- left leg (tibial raise - toes up) -->
+  <line x1="32" y1="38" x2="44" y2="58" stroke="#4fc3f7" stroke-width="2.5"/>
+  <path d="M44 58 Q48 60 50 56" fill="none" stroke="#4fc3f7" stroke-width="2.2"/>
+  <!-- dumbbell between feet -->
+  <rect x="28" y="60" width="10" height="3" rx="1.5" fill="#888"/>
+  <rect x="26" y="59" width="3" height="5" rx="1" fill="#666"/>
+  <rect x="37" y="59" width="3" height="5" rx="1" fill="#666"/>
+</symbol>
+
+<!-- box squat -->
+<symbol id="img-boxsquat" viewBox="0 0 68 68">
+  <rect width="68" height="68" rx="8" fill="#1a1a1a"/>
+  <!-- box -->
+  <rect x="16" y="48" width="36" height="14" rx="2" fill="#333" stroke="#555" stroke-width="1"/>
+  <!-- barbell -->
+  <line x1="4" y1="22" x2="64" y2="22" stroke="#666" stroke-width="3"/>
+  <rect x="4" y="18" width="6" height="8" rx="1" fill="#555"/>
+  <rect x="58" y="18" width="6" height="8" rx="1" fill="#555"/>
+  <!-- person squat position -->
+  <circle cx="34" cy="10" r="5" fill="none" stroke="#C4973A" stroke-width="1.8"/>
+  <!-- torso leaning fwd -->
+  <line x1="34" y1="15" x2="32" y2="30" stroke="#C4973A" stroke-width="2"/>
+  <!-- arms on bar -->
+  <line x1="32" y1="22" x2="22" y2="22" stroke="#C4973A" stroke-width="1.8"/>
+  <line x1="32" y1="22" x2="42" y2="22" stroke="#C4973A" stroke-width="1.8"/>
+  <!-- hips -->
+  <line x1="32" y1="30" x2="26" y2="36" stroke="#4fc3f7" stroke-width="2.5"/>
+  <line x1="32" y1="30" x2="38" y2="36" stroke="#4fc3f7" stroke-width="2.5"/>
+  <!-- lower legs -->
+  <line x1="26" y1="36" x2="24" y2="48" stroke="#4fc3f7" stroke-width="2.5"/>
+  <line x1="38" y1="36" x2="40" y2="48" stroke="#4fc3f7" stroke-width="2.5"/>
+  <!-- feet -->
+  <line x1="24" y1="48" x2="20" y2="50" stroke="#C4973A" stroke-width="1.8"/>
+  <line x1="40" y1="48" x2="44" y2="50" stroke="#C4973A" stroke-width="1.8"/>
+</symbol>
+
+<!-- pull-up / lat pulldown -->
+<symbol id="img-pullup" viewBox="0 0 68 68">
+  <rect width="68" height="68" rx="8" fill="#1a1a1a"/>
+  <!-- bar -->
+  <rect x="8" y="10" width="52" height="4" rx="2" fill="#555"/>
+  <rect x="6" y="4" width="4" height="10" rx="2" fill="#444"/>
+  <rect x="58" y="4" width="4" height="10" rx="2" fill="#444"/>
+  <!-- person hanging -->
+  <circle cx="34" cy="22" r="5" fill="none" stroke="#C4973A" stroke-width="1.8"/>
+  <!-- arms up -->
+  <line x1="34" y1="17" x2="22" y2="14" stroke="#4fc3f7" stroke-width="2.5"/>
+  <line x1="34" y1="17" x2="46" y2="14" stroke="#4fc3f7" stroke-width="2.5"/>
+  <!-- hands on bar -->
+  <circle cx="22" cy="13" r="2.5" fill="#C4973A"/>
+  <circle cx="46" cy="13" r="2.5" fill="#C4973A"/>
+  <!-- torso -->
+  <line x1="34" y1="27" x2="34" y2="46" stroke="#C4973A" stroke-width="2"/>
+  <!-- legs slightly bent -->
+  <line x1="34" y1="46" x2="28" y2="58" stroke="#C4973A" stroke-width="2"/>
+  <line x1="34" y1="46" x2="40" y2="56" stroke="#C4973A" stroke-width="2"/>
+  <!-- knees bent -->
+  <line x1="28" y1="58" x2="32" y2="62" stroke="#C4973A" stroke-width="1.8"/>
+  <line x1="40" y1="56" x2="36" y2="62" stroke="#C4973A" stroke-width="1.8"/>
+</symbol>
+
+<!-- military press -->
+<symbol id="img-milpress" viewBox="0 0 68 68">
+  <rect width="68" height="68" rx="8" fill="#1a1a1a"/>
+  <!-- barbell overhead -->
+  <line x1="8" y1="16" x2="60" y2="16" stroke="#666" stroke-width="3"/>
+  <rect x="6" y="12" width="6" height="8" rx="1" fill="#555"/>
+  <rect x="56" y="12" width="6" height="8" rx="1" fill="#555"/>
+  <!-- person standing -->
+  <circle cx="34" cy="28" r="5" fill="none" stroke="#C4973A" stroke-width="1.8"/>
+  <line x1="34" y1="33" x2="34" y2="52" stroke="#C4973A" stroke-width="2"/>
+  <!-- arms overhead -->
+  <line x1="34" y1="36" x2="20" y2="18" stroke="#4fc3f7" stroke-width="2.5"/>
+  <line x1="34" y1="36" x2="48" y2="18" stroke="#4fc3f7" stroke-width="2.5"/>
+  <!-- hands on bar -->
+  <circle cx="20" cy="17" r="2.5" fill="#C4973A"/>
+  <circle cx="48" cy="17" r="2.5" fill="#C4973A"/>
+  <!-- legs -->
+  <line x1="34" y1="52" x2="28" y2="64" stroke="#C4973A" stroke-width="2"/>
+  <line x1="34" y1="52" x2="40" y2="64" stroke="#C4973A" stroke-width="2"/>
+</symbol>
+
+<!-- single arm dumbbell row -->
+<symbol id="img-dbrow1" viewBox="0 0 68 68">
+  <rect width="68" height="68" rx="8" fill="#1a1a1a"/>
+  <!-- bench -->
+  <rect x="6" y="38" width="32" height="6" rx="3" fill="#333" stroke="#555" stroke-width="1"/>
+  <rect x="8" y="44" width="4" height="12" rx="2" fill="#444"/>
+  <rect x="28" y="44" width="4" height="12" rx="2" fill="#444"/>
+  <!-- person bent over -->
+  <circle cx="28" cy="22" r="5" fill="none" stroke="#C4973A" stroke-width="1.8"/>
+  <!-- torso horizontal -->
+  <line x1="28" y1="27" x2="14" y2="38" stroke="#C4973A" stroke-width="2"/>
+  <!-- supporting arm on bench -->
+  <line x1="22" y1="33" x2="16" y2="38" stroke="#C4973A" stroke-width="1.8"/>
+  <!-- rowing arm -->
+  <line x1="28" y1="27" x2="44" y2="32" stroke="#C4973A" stroke-width="1.8"/>
+  <line x1="44" y1="32" x2="46" y2="44" stroke="#4fc3f7" stroke-width="2.5"/>
+  <!-- dumbbell -->
+  <rect x="44" y="44" width="10" height="3" rx="1.5" fill="#888"/>
+  <rect x="42" y="43" width="3" height="5" rx="1" fill="#666"/>
+  <rect x="53" y="43" width="3" height="5" rx="1" fill="#666"/>
+  <!-- legs -->
+  <line x1="14" y1="38" x2="10" y2="56" stroke="#C4973A" stroke-width="2"/>
+  <line x1="14" y1="38" x2="18" y2="56" stroke="#C4973A" stroke-width="2"/>
+</symbol>
+
+<!-- ab crunch decline bench -->
+<symbol id="img-crunch" viewBox="0 0 68 68">
+  <rect width="68" height="68" rx="8" fill="#1a1a1a"/>
+  <!-- decline bench -->
+  <line x1="10" y1="52" x2="58" y2="36" stroke="#555" stroke-width="4"/>
+  <line x1="10" y1="52" x2="10" y2="62" stroke="#444" stroke-width="3"/>
+  <!-- ankle holder -->
+  <rect x="50" y="30" width="8" height="8" rx="2" fill="#444"/>
+  <!-- person on bench -->
+  <line x1="12" y1="50" x2="48" y2="38" stroke="#C4973A" stroke-width="2"/>
+  <!-- torso crunch up -->
+  <line x1="36" y1="42" x2="30" y2="34" stroke="#4fc3f7" stroke-width="2.5"/>
+  <circle cx="26" cy="30" r="5" fill="none" stroke="#C4973A" stroke-width="1.8"/>
+  <!-- arms behind head -->
+  <line x1="26" y1="25" x2="22" y2="32" stroke="#C4973A" stroke-width="1.8"/>
+  <line x1="26" y1="25" x2="34" y2="30" stroke="#C4973A" stroke-width="1.8"/>
+  <!-- feet at top -->
+  <line x1="48" y1="38" x2="54" y2="34" stroke="#C4973A" stroke-width="2"/>
+  <line x1="48" y1="38" x2="52" y2="40" stroke="#C4973A" stroke-width="2"/>
+</symbol>
+
+<!-- cable lateral raise -->
+<symbol id="img-cablateral" viewBox="0 0 68 68">
+  <rect width="68" height="68" rx="8" fill="#1a1a1a"/>
+  <!-- cable machine -->
+  <rect x="4" y="8" width="8" height="52" rx="2" fill="#333" stroke="#555" stroke-width="1"/>
+  <circle cx="8" cy="48" r="3" fill="#555"/>
+  <!-- cable line -->
+  <line x1="8" y1="48" x2="34" y2="38" stroke="#666" stroke-width="1" stroke-dasharray="3,2"/>
+  <!-- person standing -->
+  <circle cx="42" cy="16" r="5" fill="none" stroke="#C4973A" stroke-width="1.8"/>
+  <line x1="42" y1="21" x2="42" y2="42" stroke="#C4973A" stroke-width="2"/>
+  <!-- arms: one raised lateral -->
+  <line x1="42" y1="28" x2="58" y2="22" stroke="#4fc3f7" stroke-width="2.5"/>
+  <!-- other arm to cable -->
+  <line x1="42" y1="28" x2="34" y2="38" stroke="#C4973A" stroke-width="1.8"/>
+  <!-- legs -->
+  <line x1="42" y1="42" x2="36" y2="58" stroke="#C4973A" stroke-width="2"/>
+  <line x1="42" y1="42" x2="48" y2="58" stroke="#C4973A" stroke-width="2"/>
+  <!-- handle end -->
+  <circle cx="58" cy="22" r="2.5" fill="#C4973A"/>
+</symbol>
+
+<!-- RDL -->
+<symbol id="img-rdl" viewBox="0 0 68 68">
+  <rect width="68" height="68" rx="8" fill="#1a1a1a"/>
+  <!-- rack uprights -->
+  <rect x="6" y="28" width="4" height="28" rx="1" fill="#333"/>
+  <rect x="6" y="36" width="8" height="4" rx="1" fill="#444"/>
+  <!-- barbell -->
+  <line x1="10" y1="38" x2="62" y2="38" stroke="#666" stroke-width="3"/>
+  <rect x="56" y="34" width="8" height="8" rx="1" fill="#555"/>
+  <!-- person hip hinge -->
+  <circle cx="34" cy="18" r="5" fill="none" stroke="#C4973A" stroke-width="1.8"/>
+  <!-- torso hinge forward ~70deg -->
+  <line x1="34" y1="23" x2="22" y2="36" stroke="#C4973A" stroke-width="2"/>
+  <!-- arms down holding bar -->
+  <line x1="28" y1="30" x2="22" y2="38" stroke="#4fc3f7" stroke-width="2.2"/>
+  <line x1="28" y1="30" x2="36" y2="38" stroke="#4fc3f7" stroke-width="2.2"/>
+  <!-- hips -->
+  <circle cx="22" cy="36" r="2.5" fill="#C4973A"/>
+  <!-- legs mostly straight -->
+  <line x1="22" y1="36" x2="18" y2="58" stroke="#4fc3f7" stroke-width="2.5"/>
+  <line x1="22" y1="36" x2="30" y2="58" stroke="#4fc3f7" stroke-width="2.5"/>
+  <!-- slight knee bend -->
+  <line x1="18" y1="58" x2="16" y2="62" stroke="#C4973A" stroke-width="1.8"/>
+  <line x1="30" y1="58" x2="32" y2="62" stroke="#C4973A" stroke-width="1.8"/>
+</symbol>
+
+<!-- barbell bent-over row -->
+<symbol id="img-brow" viewBox="0 0 68 68">
+  <rect width="68" height="68" rx="8" fill="#1a1a1a"/>
+  <!-- barbell on floor -->
+  <line x1="6" y1="52" x2="62" y2="52" stroke="#666" stroke-width="3"/>
+  <rect x="4" y="48" width="7" height="8" rx="1" fill="#555"/>
+  <rect x="57" y="48" width="7" height="8" rx="1" fill="#555"/>
+  <!-- person bent over -->
+  <circle cx="34" cy="18" r="5" fill="none" stroke="#C4973A" stroke-width="1.8"/>
+  <!-- torso ~45deg -->
+  <line x1="34" y1="23" x2="28" y2="38" stroke="#C4973A" stroke-width="2"/>
+  <!-- arms pulling bar up -->
+  <line x1="28" y1="30" x2="20" y2="42" stroke="#4fc3f7" stroke-width="2.5"/>
+  <line x1="28" y1="30" x2="40" y2="42" stroke="#4fc3f7" stroke-width="2.5"/>
+  <!-- hands at bar (pulled up) -->
+  <line x1="20" y1="42" x2="20" y2="46" stroke="#C4973A" stroke-width="1.5"/>
+  <line x1="40" y1="42" x2="40" y2="46" stroke="#C4973A" stroke-width="1.5"/>
+  <!-- legs -->
+  <line x1="28" y1="38" x2="22" y2="58" stroke="#C4973A" stroke-width="2"/>
+  <line x1="28" y1="38" x2="36" y2="58" stroke="#C4973A" stroke-width="2"/>
+</symbol>
+
+<!-- bench press -->
+<symbol id="img-bench" viewBox="0 0 68 68">
+  <rect width="68" height="68" rx="8" fill="#1a1a1a"/>
+  <!-- bench -->
+  <rect x="14" y="40" width="40" height="6" rx="3" fill="#333" stroke="#555" stroke-width="1"/>
+  <rect x="16" y="46" width="4" height="14" rx="2" fill="#444"/>
+  <rect x="48" y="46" width="4" height="14" rx="2" fill="#444"/>
+  <!-- barbell -->
+  <line x1="4" y1="30" x2="64" y2="30" stroke="#666" stroke-width="3"/>
+  <rect x="2" y="26" width="8" height="8" rx="1" fill="#555"/>
+  <rect x="58" y="26" width="8" height="8" rx="1" fill="#555"/>
+  <!-- person lying -->
+  <circle cx="34" cy="36" r="5" fill="none" stroke="#C4973A" stroke-width="1.8"/>
+  <line x1="34" y1="41" x2="34" y2="54" stroke="#C4973A" stroke-width="2"/>
+  <!-- arms pressing -->
+  <line x1="34" y1="45" x2="20" y2="32" stroke="#4fc3f7" stroke-width="2.5"/>
+  <line x1="34" y1="45" x2="48" y2="32" stroke="#4fc3f7" stroke-width="2.5"/>
+  <!-- hands -->
+  <circle cx="20" cy="31" r="2.5" fill="#C4973A"/>
+  <circle cx="48" cy="31" r="2.5" fill="#C4973A"/>
+  <!-- legs -->
+  <line x1="34" y1="54" x2="24" y2="62" stroke="#C4973A" stroke-width="2"/>
+  <line x1="34" y1="54" x2="44" y2="62" stroke="#C4973A" stroke-width="2"/>
+</symbol>
+
+<!-- skull crusher / press francés -->
+<symbol id="img-skullcrusher" viewBox="0 0 68 68">
+  <rect width="68" height="68" rx="8" fill="#1a1a1a"/>
+  <!-- bench -->
+  <rect x="10" y="42" width="48" height="6" rx="3" fill="#333" stroke="#555" stroke-width="1"/>
+  <rect x="12" y="48" width="4" height="12" rx="2" fill="#444"/>
+  <rect x="52" y="48" width="4" height="12" rx="2" fill="#444"/>
+  <!-- person lying -->
+  <circle cx="34" cy="38" r="5" fill="none" stroke="#C4973A" stroke-width="1.8"/>
+  <line x1="34" y1="43" x2="34" y2="55" stroke="#C4973A" stroke-width="2"/>
+  <!-- upper arms vertical -->
+  <line x1="34" y1="46" x2="24" y2="30" stroke="#C4973A" stroke-width="1.8"/>
+  <line x1="34" y1="46" x2="44" y2="30" stroke="#C4973A" stroke-width="1.8"/>
+  <!-- forearms lowered toward forehead (skull crusher position) -->
+  <line x1="24" y1="30" x2="30" y2="26" stroke="#4fc3f7" stroke-width="2.5"/>
+  <line x1="44" y1="30" x2="38" y2="26" stroke="#4fc3f7" stroke-width="2.5"/>
+  <!-- dumbbell handles near head -->
+  <rect x="28" y="23" width="12" height="3" rx="1.5" fill="#888"/>
+  <rect x="26" y="22" width="3" height="5" rx="1" fill="#666"/>
+  <rect x="39" y="22" width="3" height="5" rx="1" fill="#666"/>
+  <!-- legs -->
+  <line x1="34" y1="55" x2="26" y2="64" stroke="#C4973A" stroke-width="2"/>
+  <line x1="34" y1="55" x2="42" y2="64" stroke="#C4973A" stroke-width="2"/>
+</symbol>
+
+<!-- incline dumbbell curl -->
+<symbol id="img-inclcurl" viewBox="0 0 68 68">
+  <rect width="68" height="68" rx="8" fill="#1a1a1a"/>
+  <!-- incline bench at 45° -->
+  <line x1="12" y1="58" x2="52" y2="28" stroke="#555" stroke-width="4"/>
+  <line x1="12" y1="58" x2="12" y2="66" stroke="#444" stroke-width="3"/>
+  <!-- person seated on incline -->
+  <circle cx="40" cy="20" r="5" fill="none" stroke="#C4973A" stroke-width="1.8"/>
+  <line x1="40" y1="25" x2="32" y2="40" stroke="#C4973A" stroke-width="2"/>
+  <!-- arms hanging down, curled up -->
+  <line x1="36" y1="32" x2="30" y2="44" stroke="#C4973A" stroke-width="1.8"/>
+  <line x1="36" y1="32" x2="44" y2="42" stroke="#C4973A" stroke-width="1.8"/>
+  <!-- forearms curled up -->
+  <line x1="30" y1="44" x2="26" y2="36" stroke="#4fc3f7" stroke-width="2.5"/>
+  <line x1="44" y1="42" x2="48" y2="34" stroke="#4fc3f7" stroke-width="2.5"/>
+  <!-- dumbbells -->
+  <rect x="22" y="32" width="6" height="3" rx="1.5" fill="#888"/>
+  <rect x="46" y="30" width="6" height="3" rx="1.5" fill="#888"/>
+  <!-- legs -->
+  <line x1="32" y1="40" x2="22" y2="56" stroke="#C4973A" stroke-width="2"/>
+  <line x1="32" y1="40" x2="40" y2="56" stroke="#C4973A" stroke-width="2"/>
+</symbol>
+
+<!-- single leg calf raise -->
+<symbol id="img-calf1" viewBox="0 0 68 68">
+  <rect width="68" height="68" rx="8" fill="#1a1a1a"/>
+  <!-- step/platform -->
+  <rect x="20" y="52" width="28" height="8" rx="2" fill="#333" stroke="#555" stroke-width="1"/>
+  <!-- wall for support -->
+  <rect x="4" y="8" width="4" height="52" rx="2" fill="#333"/>
+  <!-- person standing -->
+  <circle cx="34" cy="14" r="5" fill="none" stroke="#C4973A" stroke-width="1.8"/>
+  <line x1="34" y1="19" x2="34" y2="40" stroke="#C4973A" stroke-width="2"/>
+  <line x1="34" y1="24" x2="8" y2="30" stroke="#C4973A" stroke-width="1.8"/>
+  <line x1="34" y1="24" x2="40" y2="30" stroke="#C4973A" stroke-width="1.8"/>
+  <!-- standing leg on tip toe (heel raised) -->
+  <line x1="34" y1="40" x2="30" y2="52" stroke="#4fc3f7" stroke-width="2.5"/>
+  <line x1="30" y1="52" x2="28" y2="56" stroke="#4fc3f7" stroke-width="2.2"/>
+  <!-- lifted leg -->
+  <line x1="34" y1="40" x2="42" y2="52" stroke="#C4973A" stroke-width="2"/>
+  <line x1="42" y1="52" x2="42" y2="58" stroke="#C4973A" stroke-width="1.8"/>
+</symbol>
+
+<!-- trunk rotation cable -->
+<symbol id="img-cablerot" viewBox="0 0 68 68">
+  <rect width="68" height="68" rx="8" fill="#1a1a1a"/>
+  <!-- cable machine -->
+  <rect x="4" y="8" width="8" height="52" rx="2" fill="#333" stroke="#555" stroke-width="1"/>
+  <circle cx="8" cy="32" r="3" fill="#555"/>
+  <!-- cable -->
+  <line x1="8" y1="32" x2="34" y2="32" stroke="#666" stroke-width="1" stroke-dasharray="3,2"/>
+  <!-- person rotating -->
+  <circle cx="46" cy="16" r="5" fill="none" stroke="#C4973A" stroke-width="1.8"/>
+  <line x1="46" y1="21" x2="46" y2="44" stroke="#C4973A" stroke-width="2"/>
+  <!-- arms extended rotating -->
+  <line x1="46" y1="30" x2="34" y2="32" stroke="#C4973A" stroke-width="1.8"/>
+  <line x1="34" y1="32" x2="26" y2="28" stroke="#4fc3f7" stroke-width="2.5"/>
+  <!-- rotation arc indicator -->
+  <path d="M36 26 Q30 22 26 28" fill="none" stroke="#4fc3f7" stroke-width="1.5" stroke-dasharray="2,2"/>
+  <!-- legs -->
+  <line x1="46" y1="44" x2="40" y2="60" stroke="#C4973A" stroke-width="2"/>
+  <line x1="46" y1="44" x2="52" y2="60" stroke="#C4973A" stroke-width="2"/>
+</symbol>
+
+<!-- rear delt machine -->
+<symbol id="img-reardelt" viewBox="0 0 68 68">
+  <rect width="68" height="68" rx="8" fill="#1a1a1a"/>
+  <!-- machine seat -->
+  <rect x="20" y="40" width="28" height="6" rx="2" fill="#333" stroke="#555" stroke-width="1"/>
+  <rect x="22" y="46" width="6" height="14" rx="2" fill="#444"/>
+  <!-- machine back pad -->
+  <rect x="28" y="24" width="6" height="18" rx="2" fill="#333" stroke="#555" stroke-width="1"/>
+  <!-- handles -->
+  <line x1="6" y1="30" x2="28" y2="30" stroke="#555" stroke-width="2"/>
+  <line x1="40" y1="30" x2="62" y2="30" stroke="#555" stroke-width="2"/>
+  <!-- person seated -->
+  <circle cx="34" cy="22" r="5" fill="none" stroke="#C4973A" stroke-width="1.8"/>
+  <line x1="34" y1="27" x2="34" y2="40" stroke="#C4973A" stroke-width="2"/>
+  <!-- arms pulling back (rear delt) -->
+  <line x1="34" y1="32" x2="16" y2="30" stroke="#4fc3f7" stroke-width="2.5"/>
+  <line x1="34" y1="32" x2="52" y2="30" stroke="#4fc3f7" stroke-width="2.5"/>
+  <!-- legs -->
+  <line x1="34" y1="40" x2="26" y2="55" stroke="#C4973A" stroke-width="2"/>
+  <line x1="34" y1="40" x2="42" y2="55" stroke="#C4973A" stroke-width="2"/>
+</symbol>
+
+<!-- lateral raises dumbbell -->
+<symbol id="img-lateral" viewBox="0 0 68 68">
+  <rect width="68" height="68" rx="8" fill="#1a1a1a"/>
+  <!-- person standing -->
+  <circle cx="34" cy="14" r="5" fill="none" stroke="#C4973A" stroke-width="1.8"/>
+  <line x1="34" y1="19" x2="34" y2="44" stroke="#C4973A" stroke-width="2"/>
+  <!-- arms raised lateral (T pose) -->
+  <line x1="34" y1="26" x2="12" y2="24" stroke="#4fc3f7" stroke-width="2.5"/>
+  <line x1="34" y1="26" x2="56" y2="24" stroke="#4fc3f7" stroke-width="2.5"/>
+  <!-- dumbbells -->
+  <rect x="6" y="21" width="8" height="3" rx="1.5" fill="#888"/>
+  <rect x="54" y="21" width="8" height="3" rx="1.5" fill="#888"/>
+  <rect x="4" y="20" width="3" height="5" rx="1" fill="#666"/>
+  <rect x="14" y="20" width="3" height="5" rx="1" fill="#666"/>
+  <rect x="52" y="20" width="3" height="5" rx="1" fill="#666"/>
+  <rect x="62" y="20" width="3" height="5" rx="1" fill="#666"/>
+  <!-- legs -->
+  <line x1="34" y1="44" x2="26" y2="60" stroke="#C4973A" stroke-width="2"/>
+  <line x1="34" y1="44" x2="42" y2="60" stroke="#C4973A" stroke-width="2"/>
+</symbol>
+
+<!-- Bulgarian split squat isometric -->
+<symbol id="img-bulgara" viewBox="0 0 68 68">
+  <rect width="68" height="68" rx="8" fill="#1a1a1a"/>
+  <!-- bench for rear leg -->
+  <rect x="38" y="42" width="24" height="6" rx="2" fill="#333" stroke="#555" stroke-width="1"/>
+  <rect x="40" y="48" width="4" height="12" rx="2" fill="#444"/>
+  <rect x="56" y="48" width="4" height="12" rx="2" fill="#444"/>
+  <!-- person split squat -->
+  <circle cx="24" cy="14" r="5" fill="none" stroke="#C4973A" stroke-width="1.8"/>
+  <line x1="24" y1="19" x2="24" y2="34" stroke="#C4973A" stroke-width="2"/>
+  <!-- arms at sides -->
+  <line x1="24" y1="22" x2="16" y2="30" stroke="#C4973A" stroke-width="1.8"/>
+  <line x1="24" y1="22" x2="32" y2="30" stroke="#C4973A" stroke-width="1.8"/>
+  <!-- front leg bent 90° (isometric hold) -->
+  <line x1="24" y1="34" x2="20" y2="50" stroke="#4fc3f7" stroke-width="2.5"/>
+  <line x1="20" y1="50" x2="16" y2="62" stroke="#4fc3f7" stroke-width="2.2"/>
+  <!-- rear leg on bench -->
+  <line x1="24" y1="34" x2="44" y2="40" stroke="#C4973A" stroke-width="2"/>
+  <line x1="44" y1="40" x2="50" y2="42" stroke="#C4973A" stroke-width="1.8"/>
+  <!-- hold indicator -->
+  <text x="50" y="18" font-size="9" fill="#ffe082" font-family="monospace">HOLD</text>
+</symbol>
+
+<!-- hip abduction machine -->
+<symbol id="img-abduct" viewBox="0 0 68 68">
+  <rect width="68" height="68" rx="8" fill="#1a1a1a"/>
+  <!-- machine seat -->
+  <rect x="18" y="38" width="32" height="6" rx="2" fill="#333" stroke="#555" stroke-width="1"/>
+  <rect x="20" y="44" width="6" height="16" rx="2" fill="#444"/>
+  <rect x="42" y="44" width="6" height="16" rx="2" fill="#444"/>
+  <!-- pads -->
+  <rect x="8" y="48" width="12" height="6" rx="3" fill="#444"/>
+  <rect x="48" y="48" width="12" height="6" rx="3" fill="#444"/>
+  <!-- person seated -->
+  <circle cx="34" cy="26" r="5" fill="none" stroke="#C4973A" stroke-width="1.8"/>
+  <line x1="34" y1="31" x2="34" y2="44" stroke="#C4973A" stroke-width="2"/>
+  <!-- thighs spreading outward -->
+  <line x1="34" y1="44" x2="16" y2="52" stroke="#4fc3f7" stroke-width="2.5"/>
+  <line x1="34" y1="44" x2="52" y2="52" stroke="#4fc3f7" stroke-width="2.5"/>
+  <!-- lower legs down -->
+  <line x1="16" y1="52" x2="14" y2="64" stroke="#C4973A" stroke-width="2"/>
+  <line x1="52" y1="52" x2="54" y2="64" stroke="#C4973A" stroke-width="2"/>
+  <!-- arms -->
+  <line x1="34" y1="34" x2="26" y2="38" stroke="#C4973A" stroke-width="1.8"/>
+  <line x1="34" y1="34" x2="42" y2="38" stroke="#C4973A" stroke-width="1.8"/>
+</symbol>
+
+<!-- hip adduction machine -->
+<symbol id="img-adduct" viewBox="0 0 68 68">
+  <rect width="68" height="68" rx="8" fill="#1a1a1a"/>
+  <!-- machine seat -->
+  <rect x="18" y="38" width="32" height="6" rx="2" fill="#333" stroke="#555" stroke-width="1"/>
+  <rect x="20" y="44" width="6" height="16" rx="2" fill="#444"/>
+  <rect x="42" y="44" width="6" height="16" rx="2" fill="#444"/>
+  <!-- pads (legs pressing together) -->
+  <rect x="10" y="48" width="10" height="6" rx="3" fill="#444"/>
+  <rect x="48" y="48" width="10" height="6" rx="3" fill="#444"/>
+  <!-- person seated, legs being squeezed inward -->
+  <circle cx="34" cy="26" r="5" fill="none" stroke="#C4973A" stroke-width="1.8"/>
+  <line x1="34" y1="31" x2="34" y2="44" stroke="#C4973A" stroke-width="2"/>
+  <!-- thighs pressing inward -->
+  <line x1="34" y1="44" x2="20" y2="50" stroke="#4fc3f7" stroke-width="2.5"/>
+  <line x1="34" y1="44" x2="48" y2="50" stroke="#4fc3f7" stroke-width="2.5"/>
+  <!-- arrows indicating inward force -->
+  <line x1="16" y1="50" x2="22" y2="50" stroke="#4fc3f7" stroke-width="1.5"/>
+  <polygon points="22,48 22,52 26,50" fill="#4fc3f7"/>
+  <line x1="52" y1="50" x2="46" y2="50" stroke="#4fc3f7" stroke-width="1.5"/>
+  <polygon points="46,48 46,52 42,50" fill="#4fc3f7"/>
+  <!-- lower legs -->
+  <line x1="20" y1="50" x2="18" y2="64" stroke="#C4973A" stroke-width="2"/>
+  <line x1="48" y1="50" x2="50" y2="64" stroke="#C4973A" stroke-width="2"/>
+  <!-- arms -->
+  <line x1="34" y1="34" x2="26" y2="38" stroke="#C4973A" stroke-width="1.8"/>
+  <line x1="34" y1="34" x2="42" y2="38" stroke="#C4973A" stroke-width="1.8"/>
+</symbol>
+
+<!-- landing amortization from step -->
+<symbol id="img-landing" viewBox="0 0 68 68">
+  <rect width="68" height="68" rx="8" fill="#1a1a1a"/>
+  <!-- step -->
+  <rect x="4" y="52" width="28" height="12" rx="2" fill="#333" stroke="#555" stroke-width="1"/>
+  <!-- floor -->
+  <line x1="32" y1="62" x2="64" y2="62" stroke="#555" stroke-width="2"/>
+  <!-- person landing (absorbing impact) - deep knee bend -->
+  <circle cx="44" cy="16" r="5" fill="none" stroke="#C4973A" stroke-width="1.8"/>
+  <line x1="44" y1="21" x2="40" y2="38" stroke="#C4973A" stroke-width="2"/>
+  <!-- arms forward for balance -->
+  <line x1="40" y1="28" x2="28" y2="24" stroke="#C4973A" stroke-width="1.8"/>
+  <line x1="40" y1="28" x2="52" y2="26" stroke="#C4973A" stroke-width="1.8"/>
+  <!-- deep knee bend landing -->
+  <line x1="40" y1="38" x2="32" y2="50" stroke="#4fc3f7" stroke-width="2.5"/>
+  <line x1="40" y1="38" x2="50" y2="50" stroke="#4fc3f7" stroke-width="2.5"/>
+  <!-- lower legs absorbing -->
+  <line x1="32" y1="50" x2="28" y2="62" stroke="#4fc3f7" stroke-width="2.5"/>
+  <line x1="50" y1="50" x2="54" y2="62" stroke="#C4973A" stroke-width="2"/>
+  <!-- impact arrows -->
+  <line x1="44" y1="6" x2="44" y2="14" stroke="#ffe082" stroke-width="1.5"/>
+  <polygon points="40,12 48,12 44,16" fill="#ffe082"/>
+</symbol>
+
+<!-- lateral jumps -->
+<symbol id="img-lateraljump" viewBox="0 0 68 68">
+  <rect width="68" height="68" rx="8" fill="#1a1a1a"/>
+  <!-- floor -->
+  <line x1="4" y1="60" x2="64" y2="60" stroke="#555" stroke-width="2"/>
+  <!-- direction arrows on floor -->
+  <line x1="18" y1="58" x2="10" y2="58" stroke="#4fc3f7" stroke-width="1.5"/>
+  <polygon points="10,56 10,60 6,58" fill="#4fc3f7"/>
+  <line x1="50" y1="58" x2="58" y2="58" stroke="#4fc3f7" stroke-width="1.5"/>
+  <polygon points="58,56 58,60 62,58" fill="#4fc3f7"/>
+  <!-- person mid-jump sideways -->
+  <circle cx="34" cy="20" r="5" fill="none" stroke="#C4973A" stroke-width="1.8"/>
+  <line x1="34" y1="25" x2="34" y2="44" stroke="#C4973A" stroke-width="2"/>
+  <!-- arms out for balance -->
+  <line x1="34" y1="32" x2="20" y2="28" stroke="#C4973A" stroke-width="1.8"/>
+  <line x1="34" y1="32" x2="48" y2="28" stroke="#C4973A" stroke-width="1.8"/>
+  <!-- legs together in air -->
+  <line x1="34" y1="44" x2="28" y2="54" stroke="#4fc3f7" stroke-width="2.5"/>
+  <line x1="34" y1="44" x2="40" y2="54" stroke="#4fc3f7" stroke-width="2.5"/>
+  <!-- movement arc -->
+  <path d="M18 58 Q26 38 34 36" fill="none" stroke="#4fc3f7" stroke-width="1" stroke-dasharray="3,2"/>
+  <path d="M34 36 Q42 38 50 58" fill="none" stroke="#4fc3f7" stroke-width="1" stroke-dasharray="3,2"/>
+</symbol>
+
+</defs>
+</svg>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+
+<div class="header">
+  <div>
+    <h1>Plan de Entrenamiento · Mesociclo</h1>
+    <p>Kurt Schrader &nbsp;·&nbsp; Inicio: 16.06.2026 &nbsp;·&nbsp; 2–3 sesiones / semana &nbsp;·&nbsp; Fuerza + Hipertrofia</p>
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="val">3</div><div class="lbl">Sesiones</div></div>
+    <div class="stat"><div class="val">25</div><div class="lbl">Ejercicios</div></div>
+    <div class="stat"><div class="val">S/E/4</div><div class="lbl">Estructura</div></div>
+  </div>
+</div>
+
+<div class="leyenda">
+  <div class="ley"><div class="dot C"></div> C — Compuesto</div>
+  <div class="ley"><div class="dot A"></div> A — Accesorio</div>
+  <div class="ley"><div class="dot X"></div> X — Core / Aislamiento</div>
+</div>
+
+<!-- ══════ SESIÓN 1 ══════ -->
+<div class="sesion">
+  <div class="ses-hd">
+    <div class="ses-ico">🏋️</div>
+    <div>
+      <h2>Sesión 1 — Full Body 1</h2>
+      <div class="tag">Cuerpo completo · Fuerza base + Empuje + Jalón</div>
+    </div>
+  </div>
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Ejercicio</th>
+          <th>Series</th>
+          <th>Reps</th>
+          <th>RIR</th>
+          <th>Descanso</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><div class="ex-row"><div class="ex-img"><svg><use href="#img-hamcurl"/></svg></div><span class="tipo C">C</span><span class="ex-name">Flexión de rodilla en máquina sentado (isquios)</span></div></td>
+          <td><span class="num">2</span></td><td><span class="num">10 + 30″ hold</span></td><td><span class="rir2">2</span></td><td class="rest">2:00</td>
+        </tr>
+        <tr>
+          <td><div class="ex-row"><div class="ex-img"><svg><use href="#img-tibial"/></svg></div><span class="tipo X">X</span><span class="ex-name">Tibiales con mancuerna entre los dos pies (apoyo en banca)</span></div></td>
+          <td><span class="num">2</span></td><td><span class="num">15 + 30″ hold</span></td><td><span class="rir2">2</span></td><td class="rest">2:00</td>
+        </tr>
+        <tr>
+          <td><div class="ex-row"><div class="ex-img"><svg><use href="#img-boxsquat"/></svg></div><span class="tipo C">C</span><span class="ex-name">Boxsquats (altura rodilla)</span></div></td>
+          <td><span class="num">2</span></td><td><span class="num">5–7</span></td><td><span class="rir2">2</span></td><td class="rest">2:30</td>
+        </tr>
+        <tr>
+          <td><div class="ex-row"><div class="ex-img"><svg><use href="#img-pullup"/></svg></div><span class="tipo C">C</span><span class="ex-name">Barras / Jalón bilateral desde polea alta</span></div></td>
+          <td><span class="num">2</span></td><td><span class="num">5–7</span></td><td><span class="rir1">1</span></td><td class="rest">2:00</td>
+        </tr>
+        <tr>
+          <td><div class="ex-row"><div class="ex-img"><svg><use href="#img-milpress"/></svg></div><span class="tipo C">C</span><span class="ex-name">Press militar</span></div></td>
+          <td><span class="num">3</span></td><td><span class="num">5–7</span></td><td><span class="rir2">2</span></td><td class="rest">2:00</td>
+        </tr>
+        <tr>
+          <td><div class="ex-row"><div class="ex-img"><svg><use href="#img-dbrow1"/></svg></div><span class="tipo A">A</span><span class="ex-name">Remo unilateral con mancuerna</span></div></td>
+          <td><span class="num">2</span></td><td><span class="num">10</span></td><td><span class="rir1">1</span></td><td class="rest">2:00</td>
+        </tr>
+        <tr>
+          <td><div class="ex-row"><div class="ex-img"><svg><use href="#img-crunch"/></svg></div><span class="tipo X">X</span><span class="ex-name">Ab crunches en banco declinado</span></div></td>
+          <td><span class="num">4</span></td><td><span class="num">10</span></td><td><span class="rir2">2</span></td><td class="rest">2:00</td>
+        </tr>
+        <tr>
+          <td><div class="ex-row"><div class="ex-img"><svg><use href="#img-cablateral"/></svg></div><span class="tipo A">A</span><span class="ex-name">Deltoide lateral desde polea media</span></div></td>
+          <td><span class="num">4</span></td><td><span class="num">10</span></td><td><span class="rir2">2</span></td><td class="rest">1:30</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ══════ SESIÓN 2 ══════ -->
+<div class="sesion">
+  <div class="ses-hd">
+    <div class="ses-ico">⚡</div>
+    <div>
+      <h2>Sesión 2 — Full Body 2</h2>
+      <div class="tag">Cuerpo completo · Sentadilla + Bisagra + Press banca + Hombros</div>
+    </div>
+  </div>
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Ejercicio</th>
+          <th>Series</th>
+          <th>Reps</th>
+          <th>RIR</th>
+          <th>Descanso</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><div class="ex-row"><div class="ex-img"><svg><use href="#img-boxsquat"/></svg></div><span class="tipo C">C</span><span class="ex-name">Boxsquats (altura rodilla)</span></div></td>
+          <td><span class="num">2</span></td><td><span class="num">5–7</span></td><td><span class="rir2">2</span></td><td class="rest">3:00</td>
+        </tr>
+        <tr>
+          <td><div class="ex-row"><div class="ex-img"><svg><use href="#img-rdl"/></svg></div><span class="tipo C">C</span><span class="ex-name">RDL (desde rack altura rodilla)</span></div></td>
+          <td><span class="num">2</span></td><td><span class="num">5–7</span></td><td><span class="rir2">2</span></td><td class="rest">3:00</td>
+        </tr>
+        <tr>
+          <td><div class="ex-row"><div class="ex-img"><svg><use href="#img-brow"/></svg></div><span class="tipo C">C</span><span class="ex-name">Remo con barra</span></div></td>
+          <td><span class="num">2</span></td><td><span class="num">8–10</span></td><td><span class="dash">—</span></td><td class="rest dash">—</td>
+        </tr>
+        <tr>
+          <td><div class="ex-row"><div class="ex-img"><svg><use href="#img-bench"/></svg></div><span class="tipo C">C</span><span class="ex-name">Press banca plano con barra</span></div></td>
+          <td><span class="num">2</span></td><td><span class="num">5–7</span></td><td><span class="rir2">2</span></td><td class="rest">3:00</td>
+        </tr>
+        <tr>
+          <td><div class="ex-row"><div class="ex-img"><svg><use href="#img-skullcrusher"/></svg></div><span class="tipo A">A</span><span class="ex-name">Press francés con mancuernas en banco plano</span></div></td>
+          <td><span class="num">3</span></td><td><span class="num">10</span></td><td><span class="rir2">2</span></td><td class="rest">2:00</td>
+        </tr>
+        <tr>
+          <td><div class="ex-row"><div class="ex-img"><svg><use href="#img-inclcurl"/></svg></div><span class="tipo A">A</span><span class="ex-name">Curl de bícep con mancuernas en banco inclinado a 45°</span></div></td>
+          <td><span class="num">3</span></td><td><span class="num">10</span></td><td><span class="rir2">2</span></td><td class="rest">2:00</td>
+        </tr>
+        <tr>
+          <td><div class="ex-row"><div class="ex-img"><svg><use href="#img-calf1"/></svg></div><span class="tipo X">X</span><span class="ex-name">Pantorrilla unipodal en extensión</span></div></td>
+          <td><span class="num">4</span></td><td><span class="num">10</span></td><td><span class="rir1">1</span></td><td class="rest">2:00</td>
+        </tr>
+        <tr>
+          <td><div class="ex-row"><div class="ex-img"><svg><use href="#img-cablerot"/></svg></div><span class="tipo X">X</span><span class="ex-name">Rotaciones de tronco desde polea alta</span></div></td>
+          <td><span class="num">4</span></td><td><span class="num">10</span></td><td><span class="rir2">2</span></td><td class="rest">2:00</td>
+        </tr>
+        <tr>
+          <td><div class="ex-row"><div class="ex-img"><svg><use href="#img-reardelt"/></svg></div><span class="tipo A">A</span><span class="ex-name">Deltoide posterior en máquina</span></div></td>
+          <td><span class="num">3</span></td><td><span class="num">15</span></td><td><span class="rir1">1</span></td><td class="rest">1:30</td>
+        </tr>
+        <tr>
+          <td><div class="ex-row"><div class="ex-img"><svg><use href="#img-lateral"/></svg></div><span class="tipo A">A</span><span class="ex-name">Elevaciones laterales con mancuernas</span></div></td>
+          <td><span class="num">3</span></td><td><span class="num">10</span></td><td><span class="rir1">1</span></td><td class="rest">1:30</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ══════ SESIÓN 3 ══════ -->
+<div class="sesion">
+  <div class="ses-hd">
+    <div class="ses-ico">🎯</div>
+    <div>
+      <h2>Sesión 3 — Accesorios</h2>
+      <div class="tag">Complementario · Corrección postural + Estabilidad + Potencia</div>
+    </div>
+  </div>
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Ejercicio</th>
+          <th>Series</th>
+          <th>Reps</th>
+          <th>RIR / RPE</th>
+          <th>Descanso</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><div class="ex-row"><div class="ex-img"><svg><use href="#img-tibial"/></svg></div><span class="tipo X">X</span><span class="ex-name">Tibiales con mancuerna entre los dos pies (apoyo en banca)</span></div></td>
+          <td><span class="num">2</span></td><td><span class="num">15 + 30″ hold</span></td><td><span class="rir2">2</span></td><td class="rest">2:00</td>
+        </tr>
+        <tr>
+          <td><div class="ex-row"><div class="ex-img"><svg><use href="#img-bulgara"/></svg></div><span class="tipo C">C</span><span class="ex-name">Búlgara isométrica</span></div></td>
+          <td><span class="num">2</span></td><td><span class="num">60″ hold</span></td><td><span class="rpe">RPE 8</span></td><td class="rest">2:00</td>
+        </tr>
+        <tr>
+          <td><div class="ex-row"><div class="ex-img"><svg><use href="#img-abduct"/></svg></div><span class="tipo A">A</span><span class="ex-name">Abducciones de cadera en máquina</span></div></td>
+          <td><span class="num">2</span></td><td><span class="num">10–12</span></td><td><span class="rir1">1</span></td><td class="rest dash">—</td>
+        </tr>
+        <tr>
+          <td><div class="ex-row"><div class="ex-img"><svg><use href="#img-adduct"/></svg></div><span class="tipo A">A</span><span class="ex-name">Aducciones de cadera en máquina</span></div></td>
+          <td><span class="num">2</span></td><td><span class="num">10–12</span></td><td><span class="rir1">1</span></td><td class="rest">3:00</td>
+        </tr>
+        <tr>
+          <td><div class="ex-row"><div class="ex-img"><svg><use href="#img-landing"/></svg></div><span class="tipo X">X</span><span class="ex-name">Amortiguación de caída desde un step</span></div></td>
+          <td><span class="num">3</span></td><td><span class="num">5</span></td><td><span class="rir2">2</span></td><td class="rest">2:00</td>
+        </tr>
+        <tr>
+          <td><div class="ex-row"><div class="ex-img"><svg><use href="#img-lateraljump"/></svg></div><span class="tipo X">X</span><span class="ex-name">Saltos laterales cortos</span></div></td>
+          <td><span class="num">3</span></td><td><span class="num">5</span></td><td><span class="rir2">2</span></td><td class="rest">2:00</td>
+        </tr>
+        <tr>
+          <td><div class="ex-row"><div class="ex-img"><svg><use href="#img-crunch"/></svg></div><span class="tipo X">X</span><span class="ex-name">Ab crunches en banco declinado</span></div></td>
+          <td><span class="num">4</span></td><td><span class="num">10</span></td><td><span class="rir2">2</span></td><td class="rest">2:00</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- cleanup tmp files -->
+<script>
+// Cleanup note: kurt_xlsx_tmp folder can be deleted manually
+</script>
+</body>
+</html>
