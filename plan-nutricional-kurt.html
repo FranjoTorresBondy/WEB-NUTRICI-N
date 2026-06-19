@@ -105,12 +105,17 @@ section{padding:30px 0}
 .pick{margin:10px 0}
 .pick .k{font-family:'IBM Plex Mono';font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--navy);font-weight:600;margin-bottom:6px}
 .options{display:flex;flex-direction:column;gap:4px}
-.opt{display:flex;align-items:flex-start;gap:10px;padding:7px 10px;border-radius:9px;cursor:pointer;transition:.15s;border:1.5px solid transparent;font-size:12.5px;color:var(--muted);line-height:1.4;user-select:none}
+.opt{display:flex;align-items:center;gap:10px;padding:7px 10px;border-radius:9px;cursor:pointer;transition:.15s;border:1.5px solid transparent;font-size:12.5px;color:var(--muted);line-height:1.4;user-select:none}
 .opt:hover{background:var(--bg2)}
 .opt.selected{background:rgba(196,151,58,.1);border-color:rgba(196,151,58,.3);color:var(--ink)}
-.opt .cb{width:16px;height:16px;border-radius:5px;border:1.5px solid var(--line);flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;transition:.15s;background:var(--panel)}
+.opt .cb{width:20px;height:20px;border-radius:6px;border:1.5px solid var(--line);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:.15s;background:var(--panel);font-family:'IBM Plex Mono';font-size:11px;font-weight:700}
 .opt.selected .cb{background:var(--navy);border-color:var(--navy);color:#000}
-.opt.selected .cb::after{content:"✓";font-size:10px;color:#fff;font-weight:700;line-height:1}
+.opt-text{flex:1;min-width:0}
+.opt-ctrl{display:flex;align-items:center;gap:5px;margin-left:auto;flex-shrink:0}
+.opt-btn{width:26px;height:26px;border-radius:7px;border:1px solid var(--line);background:var(--panel2);color:var(--ink);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.15s;font-weight:600;line-height:1;padding:0}
+.opt-btn:hover{border-color:var(--navy);color:var(--navy)}
+.opt-btn:disabled{opacity:.25;cursor:default}
+.opt-cnt{font-family:'IBM Plex Mono';font-size:14px;font-weight:700;min-width:20px;text-align:center;color:var(--navy)}
 
 .meal .note2{font-size:11.5px;color:var(--faint);font-style:italic;margin-top:12px;border-top:1px dashed var(--line);padding-top:10px}
 
@@ -379,30 +384,30 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
           <div class="pick">
             <div class="k">Escoge 02 · Carbohidrato</div>
             <div class="options" data-group="des-carb" data-max="2">
-              <div class="opt" onclick="toggleOpt(this)"><span class="cb"></span>1 tortilla rapidita integral</div>
-              <div class="opt" onclick="toggleOpt(this)"><span class="cb"></span>1 rebanada pan de molde integral (30 g)</div>
-              <div class="opt" onclick="toggleOpt(this)"><span class="cb"></span>20 g de avena (peso crudo)</div>
-              <div class="opt" onclick="toggleOpt(this)"><span class="cb"></span>1 pan pita integral (30 g)</div>
-              <div class="opt" onclick="toggleOpt(this)"><span class="cb"></span>20 g de cereales Dyfferent o NutriCo</div>
-              <div class="opt" onclick="toggleOpt(this)"><span class="cb"></span>20 g de granola</div>
-              <div class="opt" onclick="toggleOpt(this)"><span class="cb"></span>3 unidades de salmas</div>
+              <div class="opt"><span class="cb"></span>1 tortilla rapidita integral</div>
+              <div class="opt"><span class="cb"></span>1 rebanada pan de molde integral (30 g)</div>
+              <div class="opt"><span class="cb"></span>20 g de avena (peso crudo)</div>
+              <div class="opt"><span class="cb"></span>1 pan pita integral (30 g)</div>
+              <div class="opt"><span class="cb"></span>20 g de cereales Dyfferent o NutriCo</div>
+              <div class="opt"><span class="cb"></span>20 g de granola</div>
+              <div class="opt"><span class="cb"></span>3 unidades de salmas</div>
             </div>
           </div>
           <div class="pick">
             <div class="k">Escoge 01 · Fruta</div>
             <div class="options" data-group="des-fruta" data-max="1">
-              <div class="opt" onclick="toggleOpt(this)"><span class="cb"></span>2 porciones de fruta + 2 cdas chía o linaza molida (obligatorio)</div>
+              <div class="opt"><span class="cb"></span>2 porciones de fruta + 2 cdas chía o linaza molida (obligatorio)</div>
             </div>
           </div>
           <div class="pick">
             <div class="k">Escoge 01 · Proteína + Grasa</div>
             <div class="options" data-group="des-prot" data-max="1">
-              <div class="opt" onclick="toggleOpt(this)"><span class="cb"></span>50 g pollo + 60 g palta</div>
-              <div class="opt" onclick="toggleOpt(this)"><span class="cb"></span>50 g queso mozzarella light (Cuisine&amp;Co) + 1 huevo</div>
-              <div class="opt" onclick="toggleOpt(this)"><span class="cb"></span>½ lata atún + 60 g palta</div>
-              <div class="opt" onclick="toggleOpt(this)"><span class="cb"></span>110 g Vakimu Quark + 1 porción frutos secos</div>
-              <div class="opt" onclick="toggleOpt(this)"><span class="cb"></span>70 g queso cottage + 1 huevo</div>
-              <div class="opt" onclick="toggleOpt(this)"><span class="cb"></span>2 huevos</div>
+              <div class="opt"><span class="cb"></span>50 g pollo + 60 g palta</div>
+              <div class="opt"><span class="cb"></span>50 g queso mozzarella light (Cuisine&amp;Co) + 1 huevo</div>
+              <div class="opt"><span class="cb"></span>½ lata atún + 60 g palta</div>
+              <div class="opt"><span class="cb"></span>110 g Vakimu Quark + 1 porción frutos secos</div>
+              <div class="opt"><span class="cb"></span>70 g queso cottage + 1 huevo</div>
+              <div class="opt"><span class="cb"></span>2 huevos</div>
             </div>
           </div>
         </div>
@@ -418,35 +423,35 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
           <div class="pick">
             <div class="k">Escoge 04 · Carbohidrato</div>
             <div class="options" data-group="alm-carb" data-max="4">
-              <div class="opt" onclick="toggleOpt(this)"><span class="cb"></span>60 g de arroz</div>
-              <div class="opt" onclick="toggleOpt(this)"><span class="cb"></span>90 g de papa, camote o betarraga</div>
-              <div class="opt" onclick="toggleOpt(this)"><span class="cb"></span>60 g de quinua</div>
-              <div class="opt" onclick="toggleOpt(this)"><span class="cb"></span>100 g de menestra</div>
-              <div class="opt" onclick="toggleOpt(this)"><span class="cb"></span>50 g de fideos</div>
+              <div class="opt"><span class="cb"></span>60 g de arroz</div>
+              <div class="opt"><span class="cb"></span>90 g de papa, camote o betarraga</div>
+              <div class="opt"><span class="cb"></span>60 g de quinua</div>
+              <div class="opt"><span class="cb"></span>100 g de menestra</div>
+              <div class="opt"><span class="cb"></span>50 g de fideos</div>
             </div>
           </div>
           <div class="pick">
             <div class="k">Escoge 01 · Proteína (200 g peso crudo)</div>
             <div class="options" data-group="alm-prot" data-max="1">
-              <div class="opt" onclick="toggleOpt(this)"><span class="cb"></span>Pechuga de pollo</div>
-              <div class="opt" onclick="toggleOpt(this)"><span class="cb"></span>Pechuga de pavo</div>
-              <div class="opt" onclick="toggleOpt(this)"><span class="cb"></span>Pescado</div>
-              <div class="opt" onclick="toggleOpt(this)"><span class="cb"></span>Bistec</div>
-              <div class="opt" onclick="toggleOpt(this)"><span class="cb"></span>Salmón <em style="color:var(--faint)">(eliminar 1 porción de grasa)</em></div>
+              <div class="opt"><span class="cb"></span>Pechuga de pollo</div>
+              <div class="opt"><span class="cb"></span>Pechuga de pavo</div>
+              <div class="opt"><span class="cb"></span>Pescado</div>
+              <div class="opt"><span class="cb"></span>Bistec</div>
+              <div class="opt"><span class="cb"></span>Salmón <em style="color:var(--faint)">(eliminar 1 porción de grasa)</em></div>
             </div>
           </div>
           <div class="pick">
             <div class="k">Escoge 01 · Verduras</div>
             <div class="options" data-group="alm-verd" data-max="1">
-              <div class="opt" onclick="toggleOpt(this)"><span class="cb"></span>150 g de verduras a tu preferencia (crudas o cocidas)</div>
+              <div class="opt"><span class="cb"></span>150 g de verduras a tu preferencia (crudas o cocidas)</div>
             </div>
           </div>
           <div class="pick">
             <div class="k">Escoge 02 · Grasa</div>
             <div class="options" data-group="alm-grasa" data-max="2">
-              <div class="opt" onclick="toggleOpt(this)"><span class="cb"></span>1 cda de aceite de oliva</div>
-              <div class="opt" onclick="toggleOpt(this)"><span class="cb"></span>40 g de palta</div>
-              <div class="opt" onclick="toggleOpt(this)"><span class="cb"></span>4 aceitunas</div>
+              <div class="opt"><span class="cb"></span>1 cda de aceite de oliva</div>
+              <div class="opt"><span class="cb"></span>40 g de palta</div>
+              <div class="opt"><span class="cb"></span>4 aceitunas</div>
             </div>
           </div>
         </div>
@@ -462,13 +467,13 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
           <div class="pick">
             <div class="k">Escoge 01 · Fruta</div>
             <div class="options" data-group="snk-fruta" data-max="1">
-              <div class="opt" onclick="toggleOpt(this)"><span class="cb"></span>1 porción de fruta (ver especificaciones)</div>
+              <div class="opt"><span class="cb"></span>1 porción de fruta (ver especificaciones)</div>
             </div>
           </div>
           <div class="pick">
             <div class="k">Escoge 01 · Frutos secos o semillas</div>
             <div class="options" data-group="snk-nuez" data-max="1">
-              <div class="opt" onclick="toggleOpt(this)"><span class="cb"></span>1 porción de frutos secos o semillas (ver especificaciones)</div>
+              <div class="opt"><span class="cb"></span>1 porción de frutos secos o semillas (ver especificaciones)</div>
             </div>
           </div>
           <div class="note2">*Si vas a comer pizza en la noche eliminas el snack y puedes comer 4 slice de pizza</div>
@@ -485,42 +490,42 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
           <div class="pick">
             <div class="k">Escoge 04 · Carbohidrato</div>
             <div class="options" data-group="cen-carb" data-max="4">
-              <div class="opt" onclick="toggleOpt(this)"><span class="cb"></span>90 g de papa o camote</div>
-              <div class="opt" onclick="toggleOpt(this)"><span class="cb"></span>60 g de arroz</div>
-              <div class="opt" onclick="toggleOpt(this)"><span class="cb"></span>60 g de quinua</div>
-              <div class="opt" onclick="toggleOpt(this)"><span class="cb"></span>1 rapidita integral</div>
-              <div class="opt" onclick="toggleOpt(this)"><span class="cb"></span>1 rebanada pan de molde integral (30 g)</div>
-              <div class="opt" onclick="toggleOpt(this)"><span class="cb"></span>20 g de avena (peso crudo)</div>
-              <div class="opt" onclick="toggleOpt(this)"><span class="cb"></span>20 g de cereales</div>
-              <div class="opt" onclick="toggleOpt(this)"><span class="cb"></span>20 g de granola</div>
+              <div class="opt"><span class="cb"></span>90 g de papa o camote</div>
+              <div class="opt"><span class="cb"></span>60 g de arroz</div>
+              <div class="opt"><span class="cb"></span>60 g de quinua</div>
+              <div class="opt"><span class="cb"></span>1 rapidita integral</div>
+              <div class="opt"><span class="cb"></span>1 rebanada pan de molde integral (30 g)</div>
+              <div class="opt"><span class="cb"></span>20 g de avena (peso crudo)</div>
+              <div class="opt"><span class="cb"></span>20 g de cereales</div>
+              <div class="opt"><span class="cb"></span>20 g de granola</div>
             </div>
           </div>
           <div class="pick">
             <div class="k">Escoge 01 · Proteína (200 g peso crudo)</div>
             <div class="options" data-group="cen-prot" data-max="1">
-              <div class="opt" onclick="toggleOpt(this)"><span class="cb"></span>Pechuga de pollo</div>
-              <div class="opt" onclick="toggleOpt(this)"><span class="cb"></span>Pechuga de pavo</div>
-              <div class="opt" onclick="toggleOpt(this)"><span class="cb"></span>Pescado</div>
-              <div class="opt" onclick="toggleOpt(this)"><span class="cb"></span>Bistec</div>
-              <div class="opt" onclick="toggleOpt(this)"><span class="cb"></span>200 g de Quark</div>
-              <div class="opt" onclick="toggleOpt(this)"><span class="cb"></span>80 g queso mozzarella light (Cuisine&amp;Co)</div>
-              <div class="opt" onclick="toggleOpt(this)"><span class="cb"></span>Salmón <em style="color:var(--faint)">(eliminar 1 porción de grasa)</em></div>
-              <div class="opt" onclick="toggleOpt(this)"><span class="cb"></span>1 huevo + 2 claras</div>
+              <div class="opt"><span class="cb"></span>Pechuga de pollo</div>
+              <div class="opt"><span class="cb"></span>Pechuga de pavo</div>
+              <div class="opt"><span class="cb"></span>Pescado</div>
+              <div class="opt"><span class="cb"></span>Bistec</div>
+              <div class="opt"><span class="cb"></span>200 g de Quark</div>
+              <div class="opt"><span class="cb"></span>80 g queso mozzarella light (Cuisine&amp;Co)</div>
+              <div class="opt"><span class="cb"></span>Salmón <em style="color:var(--faint)">(eliminar 1 porción de grasa)</em></div>
+              <div class="opt"><span class="cb"></span>1 huevo + 2 claras</div>
             </div>
           </div>
           <div class="pick">
             <div class="k">Escoge 02 · Grasa</div>
             <div class="options" data-group="cen-grasa" data-max="2">
-              <div class="opt" onclick="toggleOpt(this)"><span class="cb"></span>40 g de palta</div>
-              <div class="opt" onclick="toggleOpt(this)"><span class="cb"></span>4 aceitunas</div>
-              <div class="opt" onclick="toggleOpt(this)"><span class="cb"></span>1 porción de frutos secos</div>
+              <div class="opt"><span class="cb"></span>40 g de palta</div>
+              <div class="opt"><span class="cb"></span>4 aceitunas</div>
+              <div class="opt"><span class="cb"></span>1 porción de frutos secos</div>
             </div>
           </div>
           <div class="pick">
             <div class="k">Escoge 01 · Verduras / Postre</div>
             <div class="options" data-group="cen-verd" data-max="1">
-              <div class="opt" onclick="toggleOpt(this)"><span class="cb"></span>150 g de verduras cocidas</div>
-              <div class="opt" onclick="toggleOpt(this)"><span class="cb"></span>1 puñado de berries</div>
+              <div class="opt"><span class="cb"></span>150 g de verduras cocidas</div>
+              <div class="opt"><span class="cb"></span>1 puñado de berries</div>
             </div>
           </div>
           <div class="note2">*Fin de semana puedes comer ½ porción personal de postre (mitad/mitad) en reemplazo de la cena</div>
@@ -851,22 +856,62 @@ function setMicro(n, btn) {
   loadSelections();
 }
 
-// ── OPTIONS ──
-function toggleOpt(el) {
-  const group = el.closest('.options');
-  const max = parseInt(group.dataset.max) || 1;
-  const selected = group.querySelectorAll('.opt.selected');
+// ── OPTIONS (stepper) ──
+function initOpts() {
+  document.querySelectorAll('.opt').forEach(opt => {
+    opt.dataset.count = '0';
+    // Wrap text in span
+    const cb = opt.querySelector('.cb');
+    const text = Array.from(opt.childNodes).find(n => n.nodeType === 3 || (n.nodeType === 1 && !n.classList.contains('cb')));
+    // Move all non-cb children into .opt-text
+    const textSpan = document.createElement('span');
+    textSpan.className = 'opt-text';
+    Array.from(opt.childNodes).forEach(n => { if (n !== cb) textSpan.appendChild(n); });
+    opt.appendChild(textSpan);
+    // Add stepper
+    const ctrl = document.createElement('span');
+    ctrl.className = 'opt-ctrl';
+    ctrl.innerHTML = `<button class="opt-btn opt-dec" tabindex="-1">−</button><span class="opt-cnt">0</span><button class="opt-btn opt-inc" tabindex="-1">+</button>`;
+    opt.appendChild(ctrl);
+    ctrl.querySelector('.opt-dec').addEventListener('click', e => { e.stopPropagation(); decrOpt(opt); });
+    ctrl.querySelector('.opt-inc').addEventListener('click', e => { e.stopPropagation(); incrOpt(opt); });
+    opt.addEventListener('click', () => incrOpt(opt));
+    updateOpt(opt);
+  });
+}
 
-  if (el.classList.contains('selected')) {
-    el.classList.remove('selected');
-  } else {
-    if (selected.length >= max) {
-      // deselect oldest
-      selected[0].classList.remove('selected');
-    }
-    el.classList.add('selected');
-  }
+function groupTotal(group) {
+  let t = 0;
+  group.querySelectorAll('.opt').forEach(o => t += parseInt(o.dataset.count || 0));
+  return t;
+}
+
+function incrOpt(opt) {
+  const group = opt.closest('.options');
+  const max = parseInt(group.dataset.max) || 1;
+  if (groupTotal(group) >= max) return;
+  opt.dataset.count = parseInt(opt.dataset.count || 0) + 1;
+  updateOpt(opt);
   saveSelections();
+}
+
+function decrOpt(opt) {
+  const count = parseInt(opt.dataset.count || 0);
+  if (count <= 0) return;
+  opt.dataset.count = count - 1;
+  updateOpt(opt);
+  saveSelections();
+}
+
+function updateOpt(opt) {
+  const count = parseInt(opt.dataset.count || 0);
+  opt.classList.toggle('selected', count > 0);
+  const cb = opt.querySelector('.cb');
+  if (cb) cb.textContent = count > 0 ? count : '';
+  const cnt = opt.querySelector('.opt-cnt');
+  if (cnt) cnt.textContent = count;
+  const dec = opt.querySelector('.opt-dec');
+  if (dec) dec.disabled = count <= 0;
 }
 
 // ── STORAGE ──
@@ -876,9 +921,10 @@ function saveSelections() {
   const data = {};
   document.querySelectorAll('.options').forEach(group => {
     const gid = group.dataset.group;
-    data[gid] = [];
-    group.querySelectorAll('.opt.selected').forEach(o => {
-      data[gid].push(o.textContent.trim());
+    data[gid] = {};
+    group.querySelectorAll('.opt').forEach((o, i) => {
+      const c = parseInt(o.dataset.count || 0);
+      if (c > 0) data[gid][i] = c;
     });
   });
   localStorage.setItem(getKey(), JSON.stringify(data));
@@ -886,22 +932,23 @@ function saveSelections() {
 
 function loadSelections() {
   const raw = localStorage.getItem(getKey());
-  // Clear all
-  document.querySelectorAll('.opt').forEach(o => o.classList.remove('selected'));
+  document.querySelectorAll('.opt').forEach(o => { o.dataset.count = '0'; updateOpt(o); });
   if (!raw) return;
-  const data = JSON.parse(raw);
-  document.querySelectorAll('.options').forEach(group => {
-    const gid = group.dataset.group;
-    if (!data[gid]) return;
-    group.querySelectorAll('.opt').forEach(o => {
-      if (data[gid].includes(o.textContent.trim())) {
-        o.classList.add('selected');
-      }
+  try {
+    const data = JSON.parse(raw);
+    document.querySelectorAll('.options').forEach(group => {
+      const gid = group.dataset.group;
+      if (!data[gid]) return;
+      const opts = group.querySelectorAll('.opt');
+      Object.entries(data[gid]).forEach(([idx, count]) => {
+        if (opts[idx]) { opts[idx].dataset.count = count; updateOpt(opts[idx]); }
+      });
     });
-  });
+  } catch(e) {}
 }
 
 // Init
+initOpts();
 loadSelections();
 
 // ══════════════════════════════ ENTRENAMIENTO ══════════════════════════════
