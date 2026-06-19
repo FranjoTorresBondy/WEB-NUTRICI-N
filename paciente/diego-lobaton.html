@@ -3,11 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ricardo Acosta — Plan Nutricional</title>
+<title>Diego Lobatón — Plan Nutricional</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Libre+Franklin:wght@500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&family=Chakra+Petch:wght@600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
-/* ── VARIABLES ── */
 :root{
   --bg:#080808;--bg2:#111111;--panel:#141414;--panel2:#1c1c1c;
   --line:#2a2a2a;--ink:#f0f0f0;--muted:#888;--faint:#555;
@@ -22,16 +21,12 @@ body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;line-h
 body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.03;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 .wrap{max-width:1180px;margin:0 auto;padding:0 28px;position:relative;z-index:2}
-
-/* ── HERO ── */
 header.hero{padding:60px 0 22px}
 .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--navy);font-weight:600;display:flex;align-items:center;gap:12px}
 .eyebrow::before{content:"";width:30px;height:1px;background:var(--navy)}
 h1{font-family:'Chakra Petch',sans-serif;font-weight:700;line-height:1.02;font-size:clamp(40px,7vw,84px);margin:14px 0 6px;color:#fff;letter-spacing:.02em;text-transform:uppercase}
 .subhead{display:flex;flex-wrap:wrap;gap:8px 26px;color:var(--muted);font-size:14px;margin-top:14px}
 .subhead b{color:var(--ink);font-weight:600}
-
-/* ── TABS ── */
 .tabbar{position:sticky;top:0;z-index:20;background:rgba(8,8,8,.92);backdrop-filter:blur(12px);border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:24px}
 .tabbar .wrap{display:flex;gap:6px}
 .tab{appearance:none;background:none;border:none;cursor:pointer;font-family:'Inter';font-weight:600;font-size:14px;letter-spacing:.01em;color:var(--muted);padding:17px 22px;position:relative;transition:color .25s;display:flex;align-items:center;gap:10px;flex-shrink:0;white-space:nowrap}
@@ -42,22 +37,17 @@ h1{font-family:'Chakra Petch',sans-serif;font-weight:700;line-height:1.02;font-s
 .panel{display:none;animation:fade .5s ease}
 .panel.active{display:block}
 @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-
 section{padding:30px 0}
 .sec-h{display:flex;align-items:baseline;gap:16px;margin:8px 0 20px}
 .sec-h h2{font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:24px}
 .sec-h .ix{font-family:'IBM Plex Mono';color:var(--navy);font-size:13px;font-weight:600}
 .sec-h .rule{flex:1;height:1px;background:var(--line)}
-
-/* ── MICRO SELECTOR ── */
 .micro-bar{display:flex;align-items:center;gap:12px;margin:0 0 24px;flex-wrap:wrap}
 .micro-bar .mlabel{font-family:'IBM Plex Mono';font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
 .micro-btn{appearance:none;border:1.5px solid var(--line);background:var(--panel);border-radius:999px;padding:7px 16px;font-family:'IBM Plex Mono';font-size:12px;font-weight:600;color:var(--muted);cursor:pointer;transition:.2s}
 .micro-btn:hover{border-color:var(--navy);color:var(--navy)}
 .micro-btn.active{background:var(--navy);border-color:var(--navy);color:#000}
 .micro-note{font-size:12px;color:var(--faint);font-style:italic}
-
-/* ── MACROS ── */
 .macros{display:flex;flex-wrap:wrap;gap:14px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 22px;margin:6px 0 22px;box-shadow:var(--shadow)}
 .macros .kcal{font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:32px;color:var(--amber)}
 .macros .kcal small{font-size:14px;color:var(--muted);font-family:'Inter';font-weight:600}
@@ -65,8 +55,6 @@ section{padding:30px 0}
 .macros .mtag b{color:var(--navy)}
 .macros .sep{flex:1}
 .tag{display:inline-block;font-family:'IBM Plex Mono';font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#000;background:var(--navy);padding:5px 12px;border-radius:999px;font-weight:700}
-
-/* ── MEALS ── */
 .meals{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
 @media(max-width:760px){.meals{grid-template-columns:1fr}}
 .meal{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow)}
@@ -90,8 +78,6 @@ section{padding:30px 0}
 .opt-btn:disabled{opacity:.25;cursor:default}
 .opt-cnt{font-family:'IBM Plex Mono';font-size:14px;font-weight:700;min-width:20px;text-align:center;color:var(--navy)}
 .meal .note2{font-size:11.5px;color:var(--faint);font-style:italic;margin-top:12px;border-top:1px dashed var(--line);padding-top:10px}
-
-/* ── EVAL ── */
 .evalwrap{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 @media(max-width:760px){.evalwrap{grid-template-columns:1fr}}
 .evgroup{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow)}
@@ -104,8 +90,6 @@ section{padding:30px 0}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px 22px;box-shadow:var(--shadow)}
 .obj li{font-size:13.5px;color:var(--ink);margin:8px 0 8px 4px;list-style:none;padding-left:22px;position:relative}
 .obj li::before{content:"→";position:absolute;left:0;color:var(--navy);font-weight:800}
-
-/* ── SPECS ── */
 .specs{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
 @media(max-width:760px){.specs{grid-template-columns:1fr}}
 .spec{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 20px;box-shadow:var(--shadow)}
@@ -122,68 +106,14 @@ section{padding:30px 0}
 .vinag .vdesc{font-size:12.5px;color:var(--muted);line-height:1.5}
 .note{font-size:12px;color:var(--muted);background:var(--panel2);border:1px dashed var(--line);border-radius:12px;padding:14px 16px;margin:18px 0}
 .note b{color:var(--ink)}
-
-/* ── HYDRO ── */
 .hydro{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:6px}
 @media(max-width:520px){.hydro{grid-template-columns:1fr}}
 .hcard{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px 22px;text-align:center;box-shadow:var(--shadow)}
 .hcard .l{font-family:'IBM Plex Mono';font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
 .hcard .b{font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:38px;color:var(--cyan);margin-top:8px}
-
-/* ── ENTRENAMIENTO ── */
-.weeksel{display:flex;flex-wrap:wrap;gap:10px;margin:4px 0 8px}
-.wbtn{appearance:none;cursor:pointer;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px 14px;color:var(--muted);font-family:'Inter';text-align:left;transition:.2s;min-width:110px;position:relative;box-shadow:var(--shadow)}
-.wbtn:hover{border-color:var(--muted);color:var(--ink)}
-.wbtn.active{border-color:var(--navy);color:var(--ink);background:var(--panel2)}
-.wbtn .wn{font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:17px;line-height:1;display:block}
-.wbtn .wp{font-family:'IBM Plex Mono';font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;margin-top:6px;display:block}
-.wbtn.active .wn{color:var(--navy)}
-.wbtn .wdot{position:absolute;top:10px;right:10px;width:8px;height:8px;border-radius:50%}
-.ph-acu{color:var(--cyan)} .ph-int{color:var(--coral)} .ph-des{color:var(--green)}
-.train-head{display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin:18px 0 6px}
-.train-head .badge{font-family:'IBM Plex Mono';font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#000;padding:6px 13px;border-radius:999px;font-weight:700}
-.train-head .hint{font-size:12px;color:var(--faint)}
-.train-intro{font-size:13px;color:var(--muted);background:var(--panel2);border:1px dashed var(--line);border-radius:12px;padding:14px 16px;margin:6px 0 18px;line-height:1.6}
-.train-intro b{color:var(--ink)}
-.sess{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow);margin-bottom:16px}
-.sess .sh{display:flex;align-items:center;gap:12px;padding:14px 18px;background:var(--panel2);cursor:pointer;user-select:none;transition:background .15s}
-.sess .sh:hover{background:var(--bg2)}
-.sess.open .sh{border-bottom:1px solid var(--line)}
-.sess .sh .snum{font-family:'IBM Plex Mono';font-size:11px;color:var(--navy);font-weight:700;border:1px solid var(--line);border-radius:8px;padding:3px 8px}
-.sess .sh h3{font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:18px}
-.sess .sh .scount{margin-left:auto;font-family:'IBM Plex Mono';font-size:11px;color:var(--faint)}
-.sess .chev{color:var(--faint);font-size:13px;transition:transform .2s}
-.sess.open .chev{transform:rotate(90deg)}
-.sbody{display:none}
-.sess.open .sbody{display:block}
-.exq{display:flex;gap:14px;border-top:1px solid var(--line);padding:15px 18px}
-.exq:first-child{border-top:none}
-.exq .thumb{width:90px;height:90px;flex:0 0 90px;border-radius:10px;overflow:hidden;background:var(--panel2);border:1px solid var(--line)}
-.exq .thumb img{width:100%;height:100%;object-fit:cover;display:block}
-.exq .ebody{flex:1;min-width:0}
-@media(max-width:520px){.exq .thumb{width:66px;height:66px;flex-basis:66px}}
-.exq .nm{font-weight:600;font-size:14.5px;color:var(--ink);margin-bottom:9px}
-.exq .meta{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:12px}
-.mpill{font-family:'IBM Plex Mono';font-size:10.5px;border:1px solid var(--line);border-radius:7px;padding:4px 9px;color:var(--muted);background:var(--bg)}
-.mpill b{color:var(--ink);font-weight:600}
-.mpill.rir{border-color:rgba(239,154,154,.25)} .mpill.rir b{color:var(--coral)}
-.mpill.rpe{border-color:rgba(79,195,247,.25)} .mpill.rpe b{color:var(--cyan)}
-.mpill.rest b{color:var(--cyan)}
-.sets{display:grid;grid-template-columns:repeat(auto-fill,minmax(108px,1fr));gap:9px}
-.setbox{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:8px 10px}
-.setbox .sl{font-family:'IBM Plex Mono';font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin-bottom:4px}
-.setbox input{width:100%;background:transparent;border:none;color:var(--ink);font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:21px;padding:0;-moz-appearance:textfield}
-.setbox input::-webkit-outer-spin-button,.setbox input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
-.setbox input:focus{outline:none}
-.setbox input::placeholder{color:var(--faint);font-weight:400;opacity:.55}
-.setbox .un{font-family:'Inter';font-size:12px;color:var(--muted);font-weight:600}
-.setbox.filled{border-color:rgba(196,151,58,.4);background:var(--panel2)}
-.setbox.filled .sl{color:var(--navy)}
 .saveind{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(60px);background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:9px 18px;font-family:'IBM Plex Mono';font-size:12px;color:var(--ink);box-shadow:0 8px 30px rgba(0,0,0,.4);z-index:80;transition:transform .3s;display:flex;align-items:center;gap:8px}
 .saveind.show{transform:translateX(-50%) translateY(0)}
 .saveind .sdot{width:8px;height:8px;border-radius:50%;background:var(--green)}
-
-/* ── CHARTS ── */
 .chart-card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px 22px;box-shadow:var(--shadow);margin-bottom:16px}
 .chart-card h3{font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:16px;color:var(--ink);margin-bottom:4px}
 .chart-card .cap{font-size:12px;color:var(--faint);margin-bottom:16px}
@@ -211,23 +141,11 @@ section{padding:30px 0}
 .antro-table td:first-child{text-align:left;color:var(--muted)}
 .antro-table tr:last-child td{border-bottom:none;color:var(--navy);font-weight:700}
 .tbl-scroll{overflow-x:auto;border-radius:12px;border:1px solid var(--line)}
-.ex-sel{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 20px}
-.ex-pill{appearance:none;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:6px 12px;font-family:'IBM Plex Mono';font-size:10.5px;color:var(--muted);cursor:pointer;transition:.2s;white-space:nowrap}
-.ex-pill:hover{border-color:var(--muted);color:var(--ink)}
-.ex-pill.active{background:var(--navy);border-color:var(--navy);color:#000;font-weight:700}
-.sess-sel{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
-.sess-btn{appearance:none;background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:7px 14px;font-family:'IBM Plex Mono';font-size:10px;color:var(--muted);cursor:pointer;transition:.2s;text-transform:uppercase;letter-spacing:.06em}
-.sess-btn:hover{border-color:var(--muted);color:var(--ink)}
-.sess-btn.active{border-color:var(--navy);color:var(--navy)}
 .no-data{text-align:center;padding:48px 20px;color:var(--faint);font-size:13px;font-style:italic}
-
-/* ── FOOTER ── */
 footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 .foot-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
 .foot-brand{font-family:'IBM Plex Mono';font-size:11px;color:var(--faint);letter-spacing:.1em}
 .foot-contact{font-size:12px;color:var(--faint)}
-
-/* ── MÓVIL ── */
 @media(max-width:640px){
   .wrap{padding:0 16px}
   header.hero{padding:32px 0 16px}
@@ -242,15 +160,6 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
   .macros{flex-direction:column;align-items:flex-start;gap:10px;padding:14px 16px}
   .macros .sep{display:none}
   .macros .kcal{font-size:26px}
-  .sess .sh{padding:12px 14px;gap:8px}
-  .sess .sh h3{font-size:15px}
-  .sess .sh .scount{display:none}
-  .exq{padding:11px 14px;gap:10px}
-  .exq .nm{font-size:13px;margin-bottom:6px}
-  .sets{grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:7px}
-  .wbtn{min-width:80px;padding:8px 10px}
-  .wbtn .wn{font-size:14px}
-  .wbtn .wp{font-size:8.5px}
   .evalwrap,.specs,.vinag-grid{grid-template-columns:1fr}
   .foot-inner{flex-direction:column;align-items:flex-start;gap:6px}
 }
@@ -262,7 +171,6 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 </head>
 <body>
 
-<!-- ═══ SHELL — no editar ═══ -->
 <div class="wrap">
   <header class="hero">
     <div class="eyebrow" id="heroEyebrow"></div>
@@ -284,90 +192,83 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 //  ↓ Solo cambia este bloque para cada paciente ↓
 // ════════════════════════════════════════════════════════════════════════════
 const PATIENT = {
-  slug:      'ricardo-acosta',
-  nombre:    'Ricardo\nAcosta',
+  slug:      'diego-lobaton',
+  nombre:    'Diego\nLobatón',
   fecha:     '19.06.2026',
   tipoPlan:  'Hipocalórico · Hiperprotéico',
-  macros:    { kcal: 1678, p: 145, c: 165, g: 48 },
-  hidratacion: { entreno: '3.7', descanso: '2.8' },
+  macros:    { kcal: 1950, p: 170, c: 190, g: 57 },
+  hidratacion: { entreno: '4.0', descanso: '3.0' },
   semanas:   4,
 
-  // ── EVALUACIÓN ANTROPOMÉTRICA (inicial) ─────────────────────────────────
   antro: {
     fecha: '19.06.2026',
-    peso: 87.3, talla: 179.5, imc: 27.1,
-    tri: 9.0, bi: 3.0, sub: 12.0, cresta: 32.0, supra: 19.0, abd: 40.0, pierna: 18.0, pant: 9.0,
-    brazRelaj: 35.0, brazFlex: 37.0, abdom: 92.0, cadera: 105.0, muslo: 57.8, pantPer: 38.5,
+    peso: 88.5, talla: 168.0, imc: 31.8,
+    tri: 13.0, bi: 5.0, sub: 20.5, cresta: 28.0, supra: 20.0, abd: 27.0, pierna: 18.0, pant: 10.0,
+    brazRelaj: 35.5, brazFlex: 35.5, abdom: 101.0, cadera: 107.0, muslo: 58.5, pantPer: 40.2,
   },
 
   objetivos: [
-    'Disminución de Σ8 pliegues a 132.0 mm para la siguiente sesión',
-    'Disminución de peso graso',
-    'Objetivo mínimo de pasos: 5000 pasos diarios',
+    'Disminución de Σ8 pliegues a 125 mm para la próxima sesión',
+    'Objetivo de pasos mínimos: 6000 diarios',
+    'Los fines de semana, caminar más',
   ],
 
-  // ── COMIDAS ─────────────────────────────────────────────────────────────
   comidas: [
-    { id:'pre', nombre:'⚡ Pre Entreno', kcal:302, p:28, c:28, g:8, grupos:[
-        { label:'Escoge 01', max:1, ops:['1 Pro Day de Gloria 30 g + 1 porción de frutas (ver especificaciones)'] },
+    { id:'des', nombre:'🍳 Desayuno', kcal:491, p:35, c:45, g:18, grupos:[
+        { label:'Escoge 01 · Fruta', max:1, ops:['2 porciones de fruta (ver especificaciones) — puedes hacer jugo'] },
+        { label:'Escoge 02 · Carbohidrato', max:2, ops:['20 g avena','20 g cereales Dyfferent','1 rebanada pan de molde (30 g)','1 rapidita integral','1 rapidita cero'] },
+        { label:'Escoge 01 · Proteína', max:1, ops:['3 huevos','1 lata atún en agua + 60 g palta','60 g pechuga de pollo + 2 huevos','200 g yogurt Vakimu quark + 60 g palta','2 huevos + 40 g queso mozzarella light','100 g pollo + 60 g palta'] },
     ]},
-    { id:'des', nombre:'🍳 Desayuno', kcal:329, p:25, c:35, g:10, grupos:[
+    { id:'alm', nombre:'🥗 Almuerzo', kcal:659, p:60, c:65, g:15, grupos:[
+        { label:'Escoge 04 · Carbohidrato (peso cocido)', max:4, ops:['90 g papa','90 g camote','60 g arroz','60 g quinua','60 g choclo','50 g pasta'] },
+        { label:'Escoge 01 · Proteína (180 g peso crudo)', max:1, ops:['Pechuga de pollo','Pechuga de pavo','Pescado','Lomo de res','Lomo de cerdo','100 g carne molida de bistec <em style="opacity:.6">(usar mitad de porción de grasas)</em>'] },
+        { label:'Escoge 01 · Verduras', max:1, ops:['150–180 g verduras a tu preferencia'] },
+        { label:'Escoge 02 · Grasa', max:2, ops:['1 cdta aceite de oliva','40 g palta','1 cdta aceite de ajonjolí'] },
+    ], nota:'* Puedes cocinar la papa y el camote en el air fryer (sin aceite). Si comes fuera, revisar cuadro de especificaciones. Puedes consumir 2 cervezas zero (−1 porción carbo) o 1 cerveza normal 310–355 ml (−2 porciones carbo). No todos los días.' },
+    { id:'snk', nombre:'⚡ Snack', kcal:219, p:20, c:20, g:5, grupos:[
+        { label:'Escoge 01 · Carbohidrato', max:1, ops:['20 g avena','20 g cereales','15 g granola','1 rapidita cero o integral','3 unidades salmas horneadas (18 g)'] },
+        { label:'Escoge 01 · Proteína', max:1, ops:['150 g yogurt Vakimu quark','45 g queso mozzarella light Cuisine & Co','55 g queso fresco light'] },
         { label:'Escoge 01 · Fruta', max:1, ops:['1 porción de frutas (ver especificaciones)'] },
-        { label:'Escoge 02 · Carbohidrato', max:2, ops:['1 cda avena precocida Cuisine & Co (20 g, crudo)','1 rebanada pan de molde (30 g)','20 g cereales','15 g granola','1 rapidita cero','1 rapidita integral'] },
-        { label:'Escoge 01 · Proteína + Grasa', max:1, ops:['60 g queso mozzarella light','65 g queso fresco light','50 g pollo (crudo) + 40 g palta','½ lata atún en agua + 40 g palta','½ scoop proteína en polvo + 1 porción frutos secos (ver especificaciones)','150 g yogurt quark + 1 porción frutos secos (ver especificaciones)'] },
-    ]},
-    { id:'alm', nombre:'🥗 Almuerzo', kcal:545, p:48, c:55, g:16, grupos:[
-        { label:'Escoge 03 · Carbohidrato', max:3, ops:['⅓ taza arroz blanco o integral (60 g, cocido)','⅓ taza quinua (60 g, cocida)','⅓ taza pasta cocida sin relleno (50 g)','Papa, camote o beterraga (90 g, cocido)','½ taza menestras (70 g, cocidas)'] },
-        { label:'Escoge 01 · Proteína', max:1, ops:['150 g pechuga de pollo (crudo)','150 g pechuga de pavo','1½ lata atún en agua','120 g bistec','1 milanesa Avinka (cocinar en air fryer)','150 g pescado blanco'] },
+    ], nota:'* Puedes reemplazar todo el snack por 1 barrita Fitrex + 1 porción de frutas.' },
+    { id:'cen', nombre:'🍽️ Cena', kcal:581, p:55, c:60, g:14, grupos:[
+        { label:'Escoge 03 · Carbohidrato (peso cocido)', max:3, ops:['90 g papa','90 g camote','60 g arroz','60 g quinua','60 g choclo','1 rapidita cero','1 rapidita integral','1 rebanada pan de molde (30 g)'] },
+        { label:'Escoge 01 · Proteína (180 g peso crudo)', max:1, ops:['Pechuga de pollo','Pechuga de pavo','Pescado','Lomo de res','Lomo de cerdo','100 g carne molida de bistec <em style="opacity:.6">(usar mitad de porción de grasas)</em>','2 latas atún en agua'] },
+        { label:'Escoge 02 · Grasa', max:2, ops:['1 cdta aceite de oliva','40 g palta','1 cdta aceite de ajonjolí'] },
         { label:'Escoge 01 · Verduras', max:1, ops:['120–150 g verduras a tu preferencia'] },
-        { label:'Escoge 01 · Grasa', max:1, ops:['2 cdtas aceite de oliva','2 cdtas aceite de ajonjolí','80 g palta','2 cdas mayonesa light Alacena'] },
-    ], nota:'* Los fines de semana puedes reemplazar esta comida por una con la misma cantidad de calorías (verificar guía de restaurantes) — máx. una por día, solo fines de semana.' },
-    { id:'cen', nombre:'🍽️ Cena', kcal:502, p:44, c:47, g:14, grupos:[
-        { label:'Escoge 03 · Carbohidrato', max:3, ops:['⅓ taza arroz blanco o integral (60 g, cocido)','⅓ taza quinua (60 g, cocida)','⅓ taza pasta cocida sin relleno (50 g)','Papa, camote o beterraga (90 g, cocido)','½ taza menestras (70 g, cocidas)','1 tortilla rapidita pequeña o ½ grande','1 pan francés (20 g)'] },
-        { label:'Escoge 01 · Proteína', max:1, ops:['150 g pechuga de pollo (crudo)','150 g pechuga de pavo','1½ lata atún en agua','120 g bistec','1 milanesa Avinka (cocinar en air fryer)','150 g pescado blanco'] },
-        { label:'Escoge 02 · Verduras', max:2, ops:['120–150 g verduras a tu preferencia'] },
-        { label:'Escoge 01 · Grasa', max:1, ops:['1 cdta aceite de oliva','1 cdta aceite de ajonjolí','40 g palta','1 cda mayonesa light Alacena'] },
-    ], nota:'* Los fines de semana puedes reemplazar esta comida por una con la misma cantidad de calorías (verificar guía de restaurantes) — máx. una por día, solo fines de semana.' },
+    ], nota:'* Puedes cocinar la papa y el camote en el air fryer (sin aceite). Puedes consumir 2 cervezas zero (−1 porción carbo) o 1 cerveza normal 310–355 ml (−2 porciones carbo). No todos los días.' },
+    { id:'pre', nombre:'🏋️ Pre Entreno', kcal:120, p:1, c:27, g:0, grupos:[
+        { label:'Solo días de entrenamiento (+120 kcal)', max:1, ops:['1 plátano mediano'] },
+    ], nota:'* Agregar únicamente en días de entrenamiento de fuerza.' },
   ],
 
-  // ── ESPECIFICACIONES ────────────────────────────────────────────────────
   specs: [
     { titulo:'🥤 Bebidas', items:['Agua, infusiones (manzanilla, anís, té, muña, hierba luisa, flor de Jamaica)','Refrescos no azucarados (emoliente, agua de piña, agua de manzana)','Puedes agregar edulcorantes acalóricos: Stevia, yacón o fruto del monje'] },
-    { titulo:'🥝 Porción de fruta', items:['1 kiwi','½ taza mango picado (80 g)','1 manzana','1 plátano pequeño (60 g) / ½ grande (120 g)','1 taza papaya picada (160 g)','<b>Berries</b> (150 g): arándano, fresa, aguaymanto, moras, frambuesas','¾ taza piña picada (165 g)','1 granadilla / 1 mandarina / 1 pera / 1 durazno / 10 uvas / 1 pitahaya'] },
-    { titulo:'🫐 Alimentos especiales', items:['<b>Berries:</b> arándano, fresa, aguaymanto, moras, frambuesas','Para la opción de pan: agregar unión de semillas','No tomar café ni productos con cafeína luego de las 3 pm','Evitar el consumo de chicles'] },
-    { titulo:'💊 Suplementos', items:['<b>Multivitamínico Centrum:</b> 1 cápsula diaria','<b>Creatina:</b> 8 g diarios, preferentemente post entrenamiento'] },
-    { titulo:'🫙 Fermentados y descanso', items:['Interesante agregar <b>ashwaganda</b> y <b>treonato de magnesio</b> para mejorar el sueño','Puedes agregar alimentos fermentados: yogurt, vinagre de manzana (1 cda con las comidas, en ensaladas o con agua)','El yogurt siempre y cuando no genere malestar'] },
-    { titulo:'🍽️ Salidas y lifestyle', items:['Mantenerse lo más estricto posible con las porciones','Si vas a comer en restaurante, intentar que la comida se parezca a alguno de los intercambios del plan','Intentar consumir los alimentos a la misma hora en los respectivos tiempos de ingesta','Intentar disminuir lo máximo posible el consumo de alcohol','<b>Si vas a tomar:</b> agrega harto hielo al vaso y mezcla con agua o gaseosa zero para disminuir el alcohol por vaso','<b>Canchita:</b> puedes cambiar 20 g de canchita en crudo por 1 intercambio de carbos de la noche'] },
-    { titulo:'🧪 Salsas bajas en calorías', items:['<b>Mermelada:</b> 2 puñados berries + 1 cda monkfruit → microondas u olla','<b>Butterscotch:</b> 1 cda monkfruit + leche vegetal + 1 pizca sal + ¼ cdta mantequilla de frutos secos','<b>Mayonesa de yogurt:</b> 2 cdas yogurt descremado + sal/pimienta + 1 cdta vinagre blanco + 1 cdta mayonesa light','<b>Honey mustard:</b> 1 cda mostaza + 1 cda yogurt descremado + sal/pimienta + Stevia al gusto','Puedes usar salsas low calorie de las marcas <b>Delga-C</b> y <b>Servivita</b>','Puedes reemplazar monkfruit por Stevia o cualquier edulcorante acalórico; para más espesor agrega guargum, xanthan gum o 1 cdta maicena'] },
+    { titulo:'🥝 Porción de fruta', items:['1 kiwi','½ taza mango picado (80 g)','1 manzana','1 plátano pequeño (60 g) / ½ grande (120 g)','1 taza papaya picada (160 g)','<b>Berries</b> (150 g): arándano, fresa, aguaymanto, moras, frambuesas','¾ taza piña picada (165 g)','1 granadilla / 1 mandarina / 1 pera / 1 durazno / 10 uvas'] },
+    { titulo:'🥜 Porción de frutos secos', items:['6 cashews','6 almendras','4 pecanas','4 nueces','15 pistachos','10 maní','1 cdta mantequilla de frutos secos (10 g)'] },
+    { titulo:'💊 Suplementos', items:['<b>Multivitamínico Centrum / Thorne:</b> 1 cápsula diaria con el desayuno','<b>Creatina:</b> 10 g post entreno — tomar TODOS LOS DÍAS, entrenes o no'] },
+    { titulo:'🍽️ Opciones fuera de casa', items:['<b>Poke bowl:</b> sin salsas acevichadas/dulces (no taré, no anguila), solo soya. Proteína + palta + arroz + verduras + fruta','<b>Bowl:</b> San Antonio, Don Mamino, Delicass, Freshii — arroz, verduras, pollo y palta','<b>Wrap Insólito</b> siguiendo los lineamientos del plan','<b>Pollo a la brasa:</b> pechuga sin pellejo + ensalada + papa al horno o sancochada','<b>Ceviche o tiradito</b> con camote y choclo','<b>Sushi:</b> nigiris con salsa de soya'] },
+    { titulo:'🧊 Recomendaciones', items:['Evitar el consumo de chicles','Mantenerse lo más estricto posible con las porciones','Intentar consumir los alimentos a la misma hora','Evitar café y alcohol por dos semanas','Puedes hacer helados con fruta congelada + yogurt skyr/quark + Stevia. Si es de chocolate: cocoa + plátano congelado','##Bebidas bajas en calorías','Té negro o verde helado + limón + Stevia + agua con gas + hielo (puedes agregar berries)','Agua de flor de Jamaica + Stevia + agua con gas + hielo + berries','Matcha + 200 ml leche de almendra + Stevia + hielo'] },
   ],
 
-  // ── VINAGRETAS ──────────────────────────────────────────────────────────
   vinagretas: [
-    { nombre:'Clásica', desc:'2 cdtas aceite de oliva + 1 cdta vinagre + sal, pimienta y especias al gusto' },
-    { nombre:'Balsámica', desc:'1 cda skyr + 1 cdta vinagre balsámico + 2 cdtas aceite de oliva + sal y pimienta + 1 pizca stevia' },
-    { nombre:'Honey Mustard', desc:'2 cdtas aceite de oliva + 1 cdta skyr + 1 cdta vinagre blanco o de manzana + ½ cdta mostaza + ½ cdta miel de abeja + cúrcuma, sal y pimienta' },
-    { nombre:'De Limón', desc:'2 cdtas aceite de oliva + zumo de 1 limón + sal, pimienta y especias al gusto' },
-    { nombre:'Pollera', desc:'1 cdta aceite de oliva + 2 cdtas yogurt descremado sin lactosa (sabor natural, sin azúcar) + 1 cdta vinagre blanco + sal, pimienta, romero, orégano, tomillo, albahaca, perejil' },
-    { nombre:'Salsa verde', desc:'2 cdas rasas skyr + 1 cdta aceite de oliva + 1–2 puñados albahaca + 4 pecanas o 6 cashews + sal y pimienta al gusto' },
-    { nombre:'Salsa roja', desc:'Tomate, cebolla, ajo, albahaca, poro + opcional fruto del monje o Stevia, sal, pimienta y tomillo, 1 cdta aceite de oliva para el aderezo' },
-    { nombre:'Salsa oriental', desc:'Sillao + ½ cdta mantequilla + ajonjolí tostado + salsa de ostión + Lakanto o Stevia + agua con 1 cdta maicena para espesar. Puedes agregar holantao, brócoli, pimiento' },
-    { nombre:'Salsa bechamel', desc:'½ cdta mantequilla + 1 cdta harina (roux). Antes de que agarre color, agregar leche light fría + sal, nuez moscada y pimienta' },
-    { nombre:'Salsa de champiñones', desc:'Base bechamel + 1 taza champiñones + un poco de fondo oscuro (caldo de carne). Llevar a cocción lenta hasta agarrar punto' },
+    { nombre:'Mermelada de berries', desc:'200 g berries + 2 cdas chía + 4 cdas monkfruit → microondas u olla' },
+    { nombre:'Leche condensada light', desc:'Leche en polvo descremada + Stevia + leche evaporada descremada (ir echando en chorro pequeño hasta lograr textura)' },
+    { nombre:'Tzatziki', desc:'2 cdas yogurt descremado Vakimu natural + sal y pimienta + 1 diente ajo + pepino en trozos pequeños + 1 cdta aceite de oliva + eneldo, perejil, orégano y menta al gusto' },
+    { nombre:'Honey Mustard', desc:'1 cda mostaza + 1 cda yogurt descremado + sal y pimienta + Stevia al gusto' },
+    { nombre:'Salsa verde', desc:'1 molde queso fresco light + 1 atado albahaca (o espinaca) + 2 dientes ajo soazados + sal y pimienta + 1 cda aceite de oliva + leche evaporada light (100–150 ml) + leche Slim hasta lograr textura' },
+    { nombre:'Salsa roja', desc:'Tomate, cebolla, ajo, albahaca, poro + opcional Lakanto o Stevia + sal, pimienta y tomillo + 1 cda aceite de oliva. Puedes agregar cualquier verdura de tu preferencia' },
   ],
-  notaSpecs: 'Es mejor pesar los cárnicos en crudo. Puedes reemplazar el monkfruit por Stevia o cualquier edulcorante acalórico.',
+  notaSpecs: 'Mantenerse lo más estricto posible con las porciones. Plan base = días de descanso (1950 kcal). En días de entrenamiento de fuerza agregar el Pre Entreno (+120 kcal).',
 
-  // ── PLAN DE ENTRENAMIENTO ────────────────────────────────────────────────
   entrenamiento: null,
 };
 // ════════════════════════════════════════════════════════════════════════════
-//  FIN DATOS — todo lo de abajo es el motor de renderizado (no tocar)
+//  FIN DATOS — motor de renderizado (no tocar)
 // ════════════════════════════════════════════════════════════════════════════
 
-// ── helpers ──
 const BASE_IMG = 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/';
 const $ = id => document.getElementById(id);
 
-// ── RENDER HERO ──
 function renderHero() {
   $('heroEyebrow').innerHTML = `Plan Nutricional &nbsp;·&nbsp; ${PATIENT.fecha}`;
   $('heroNombre').innerHTML = PATIENT.nombre.replace('\n','<br>');
@@ -375,7 +276,6 @@ function renderHero() {
     <span><b>${PATIENT.macros.p}P</b> · <b>${PATIENT.macros.c}C</b> · <b>${PATIENT.macros.g}G</b></span>`;
 }
 
-// ── RENDER TABS ──
 function renderTabs() {
   const tabs = [
     {id:'plan',  label:'Plan Nutricional'},
@@ -387,7 +287,7 @@ function renderTabs() {
   if (PATIENT.entrenamiento) tabs.push({id:'evol-train', label:'Evolución Entreno'});
 
   $('tabNav').innerHTML = tabs.map((t,i) => {
-    const extra = t.id==='evol-antro' ? ";initAntro()" : t.id==='evol-train' ? ";initEvolTrain()" : "";
+    const extra = t.id==='evol-antro' ? ";initAntro()" : "";
     return `<button class="tab${i===0?' active':''}" onclick="showTab('${t.id}',this)${extra}">
       <span class="tnum">0${i+1}</span> ${t.label}
     </button>`;
@@ -398,7 +298,6 @@ function renderTabs() {
   ).join('');
 }
 
-// ── RENDER PLAN ──
 function renderPlan() {
   const el = $('tab-plan');
   const microBtns = Array.from({length:PATIENT.semanas},(_,i)=>
@@ -442,7 +341,6 @@ function renderPlan() {
   loadSelections();
 }
 
-// ── RENDER EVAL ──
 function renderEval() {
   const a = PATIENT.antro;
   const s6 = +(a.tri+a.sub+a.supra+a.abd+a.pierna+a.pant).toFixed(1);
@@ -481,7 +379,6 @@ function renderEval() {
   </section></div>`;
 }
 
-// ── RENDER SPECS ──
 function renderSpecs() {
   const specsHtml = PATIENT.specs.map(s => {
     const items = s.items.map(it => it.startsWith('##')
@@ -492,7 +389,7 @@ function renderSpecs() {
   }).join('');
 
   const vinagHtml = PATIENT.vinagretas?.length
-    ? `<div class="sec-h" style="margin-top:32px"><span class="ix">02</span><h2>Vinagretas y Salsas</h2><div class="rule"></div></div>
+    ? `<div class="sec-h" style="margin-top:32px"><span class="ix">02</span><h2>Salsas bajas en calorías</h2><div class="rule"></div></div>
        <div class="vinag-grid">${PATIENT.vinagretas.map(v=>`<div class="vinag"><div class="vname">${v.nombre}</div><div class="vdesc">${v.desc}</div></div>`).join('')}</div>` : '';
 
   const notaHtml = PATIENT.notaSpecs
@@ -505,136 +402,6 @@ function renderSpecs() {
   </section></div>`;
 }
 
-// ── RENDER ENTRENAMIENTO ──
-function buildWeeks() {
-  if (!PATIENT.entrenamiento) return [];
-  const weeks = [];
-  let n = 1;
-  PATIENT.entrenamiento.fases.forEach((fase, fi) => {
-    for (let i = 0; i < fase.semanas; i++) {
-      weeks.push({ n, label:`S${n}`, fase: fi, faseLabel: fase.label, color: fase.color, bg: fase.bg });
-      n++;
-    }
-  });
-  return weeks;
-}
-
-let WEEKS = [];
-let currentWeek = 1;
-let saveTimer = null;
-
-function renderTrain() {
-  if (!PATIENT.entrenamiento) return;
-  WEEKS = buildWeeks();
-  const fasesList = PATIENT.entrenamiento.fases.map((f,i) => {
-    const wk = WEEKS.filter(w=>w.fase===i).map(w=>w.label).join('–');
-    return `<b style="color:${f.color}">${wk} ${f.label}</b>`;
-  }).join(', ');
-  $('tab-train').innerHTML = `<div class="wrap">
-    <section style="padding-top:24px">
-      <div class="sec-h"><span class="ix">01</span><h2>Plan de Entrenamiento</h2><div class="rule"></div></div>
-      <p class="train-intro">Plan vigente: <b>${PATIENT.fecha}</b>. ${PATIENT.entrenamiento.sesiones.length} sesiones semanales — intensidad varía por microciclo: ${fasesList}. Anota el <b>peso de cada serie</b> — se guarda automáticamente.</p>
-      <div class="weeksel" id="weeksel"></div>
-    </section>
-    <section style="padding-top:6px">
-      <div class="train-head" id="trainHead"></div>
-      <div id="sessions"></div>
-    </section>
-  </div>`;
-  buildWeekSel();
-  buildTrainHead(WEEKS[0]);
-  $('sessions').innerHTML = buildSessions(0);
-  loadTrainValues();
-}
-
-function buildWeekSel() {
-  $('weeksel').innerHTML = WEEKS.map(w =>
-    `<button class="wbtn${w.n===1?' active':''}" onclick="setWeek(${w.n},this)">
-      <span class="wdot" style="background:${w.color}"></span>
-      <span class="wn">${w.label}</span>
-      <span class="wp" style="color:${w.color}">${w.faseLabel}</span>
-    </button>`
-  ).join('');
-}
-
-function buildTrainHead(w) {
-  const rir = PATIENT.entrenamiento.rir[w.fase];
-  $('trainHead').innerHTML = `<span class="badge" style="background:${w.bg}">${w.label} · ${w.faseLabel}</span>
-    <span class="hint">Compuestos: <b>${rir.C}</b> &nbsp;·&nbsp; Accesorios: <b>${rir.A}</b></span>`;
-}
-
-function setWeek(n, btn) {
-  currentWeek = n;
-  document.querySelectorAll('.wbtn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  const w = WEEKS.find(x=>x.n===n);
-  buildTrainHead(w);
-  $('sessions').innerHTML = buildSessions(w.fase);
-  loadTrainValues();
-}
-
-function buildThumb(ex) {
-  if (ex.img === 'anim') {
-    return `<div class="thumb" style="position:relative">
-      <img src="${BASE_IMG}${ex.s1}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .3s" onmouseover="this.style.opacity=0;this.nextElementSibling.style.opacity=1" onmouseout="this.style.opacity=1;this.nextElementSibling.style.opacity=0">
-      <img src="${BASE_IMG}${ex.s2}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .3s">
-    </div>`;
-  }
-  return `<div class="thumb"><img src="${ex.s1}" loading="lazy" style="width:100%;height:100%;object-fit:cover"></div>`;
-}
-
-function buildSessions(faseIdx) {
-  const rir = PATIENT.entrenamiento.rir[faseIdx];
-  return PATIENT.entrenamiento.sesiones.map((sess, si) => {
-    const exRows = sess.ejercicios.map((ex, ei) => {
-      const rirText = ex.rir || rir[ex.tipo];
-      const rirClass = ex.rir ? 'rpe' : 'rir';
-      const sets = Array.from({length:ex.series},(_,si2) => {
-        const k = trainKey(sess.id, ei, si2);
-        return `<div class="setbox"><div class="sl">Serie ${si2+1}</div>
-          <input type="number" inputmode="decimal" placeholder="—" data-key="${k}" oninput="saveTrainInput(this)">
-          <div class="un">kg</div></div>`;
-      }).join('');
-      return `<div class="exq">${buildThumb(ex)}
-        <div class="ebody">
-          <div class="nm">${ex.nombre}</div>
-          <div class="meta">
-            <span class="mpill"><b>${ex.series}×${ex.reps}</b></span>
-            <span class="mpill ${rirClass}"><b>${rirText}</b></span>
-            ${ex.descanso && ex.descanso!=='—'?`<span class="mpill rest">Descanso <b>${ex.descanso}</b></span>`:''}
-          </div>
-          <div class="sets">${sets}</div>
-        </div></div>`;
-    }).join('');
-    return `<div class="sess open">
-      <div class="sh" onclick="this.closest('.sess').classList.toggle('open')">
-        <span class="snum">0${si+1}</span><span style="font-size:20px">${sess.icon}</span>
-        <h3>${sess.label}</h3>
-        <span class="scount">${sess.ejercicios.length} ejercicios · ${sess.nota}</span>
-        <span class="chev">›</span>
-      </div>
-      <div class="sbody">${exRows}</div>
-    </div>`;
-  }).join('');
-}
-
-function trainKey(sessId, exIdx, setIdx) { return `${PATIENT.slug}-train-s${currentWeek}-${sessId}-${exIdx}-s${setIdx}`; }
-
-function saveTrainInput(input) {
-  localStorage.setItem(input.dataset.key, input.value);
-  input.closest('.setbox').classList.toggle('filled', input.value !== '');
-  flashSave();
-}
-
-function loadTrainValues() {
-  document.querySelectorAll('#sessions input[data-key]').forEach(inp => {
-    const val = localStorage.getItem(inp.dataset.key) || '';
-    inp.value = val;
-    inp.closest('.setbox').classList.toggle('filled', val !== '');
-  });
-}
-
-// ── RENDER EVOL FÍSICA ──
 const ANTRO_KEY = () => `${PATIENT.slug}-antro-v1`;
 function getAntroBase() {
   const a = PATIENT.antro;
@@ -748,68 +515,6 @@ function addAntroEntry() {
   flashSave();
 }
 
-// ── EVOLUCIÓN ENTRENAMIENTO ──
-let evolTrainInited=false,evolActiveSess='A',evolActiveEx=0,cTrainChart=null;
-function initEvolTrain(){if(evolTrainInited)return;evolTrainInited=true;renderEvolTrain();}
-function renderEvolTrain(){
-  const el=$('tab-evol-train'); if(!el)return;
-  el.innerHTML=`<div class="wrap"><section style="padding-top:24px">
-    <div class="sec-h"><span class="ix">01</span><h2>Evolución del Entrenamiento</h2><div class="rule"></div></div>
-    <p class="train-intro">Los pesos anotados en la pestaña <b>Entrenamiento</b> se grafican aquí automáticamente por semana.</p>
-    <div class="sess-sel" id="evolSessSel"></div>
-    <div class="ex-sel" id="evolExSel"></div>
-    <div class="chart-card" id="evolChartCard">
-      <h3 id="evolChartTitle">—</h3>
-      <div class="cap">Peso máximo registrado por semana (kg)</div>
-      <div class="chart-wrap"><canvas id="cTrain"></canvas></div>
-    </div>
-  </section></div>`;
-  buildEvolSessSel(); buildEvolExSel(); renderEvolChart();
-}
-function buildEvolSessSel(){
-  if(!PATIENT.entrenamiento)return;
-  $('evolSessSel').innerHTML=PATIENT.entrenamiento.sesiones.map(s=>
-    `<button class="sess-btn${s.id===evolActiveSess?' active':''}" onclick="setEvolSess('${s.id}',this)">${s.icon} ${s.label}</button>`
-  ).join('');
-}
-function setEvolSess(id,btn){evolActiveSess=id;evolActiveEx=0;document.querySelectorAll('.sess-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');buildEvolExSel();renderEvolChart();}
-function buildEvolExSel(){
-  if(!PATIENT.entrenamiento)return;
-  const sess=PATIENT.entrenamiento.sesiones.find(s=>s.id===evolActiveSess);
-  $('evolExSel').innerHTML=sess.ejercicios.map((ex,i)=>
-    `<button class="ex-pill${i===evolActiveEx?' active':''}" onclick="setEvolEx(${i},this)">${ex.nombre}</button>`
-  ).join('');
-}
-function setEvolEx(idx,btn){evolActiveEx=idx;document.querySelectorAll('.ex-pill').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderEvolChart();}
-function renderEvolChart(){
-  if(!PATIENT.entrenamiento)return;
-  const sess=PATIENT.entrenamiento.sesiones.find(s=>s.id===evolActiveSess);
-  const ex=sess.ejercicios[evolActiveEx];
-  if($('evolChartTitle'))$('evolChartTitle').textContent=ex.nombre;
-  const byWeek={};
-  for(let i=0;i<localStorage.length;i++){
-    const key=localStorage.key(i); if(!key)continue;
-    const pat=new RegExp(`^${PATIENT.slug}-train-s(\\d+)-${sess.id}-(\\d+)-s(\\d+)$`);
-    const m=key.match(pat); if(!m)continue;
-    if(parseInt(m[2])!==evolActiveEx)continue;
-    const val=parseFloat(localStorage.getItem(key)); if(!val||isNaN(val))continue;
-    if(!byWeek[m[1]])byWeek[m[1]]=[];
-    byWeek[m[1]].push(val);
-  }
-  const lbl=WEEKS.map(w=>w.label);
-  const maxW=WEEKS.map(w=>byWeek[w.n]?Math.max(...byWeek[w.n]):null);
-  const hasData=maxW.some(v=>v!==null);
-  if(cTrainChart){cTrainChart.destroy();cTrainChart=null;}
-  const ctx=$('cTrain'); if(!ctx)return;
-  const nd=$('#evolChartCard .no-data');if(nd)nd.remove();
-  if(!hasData){ctx.style.display='none';const d=document.createElement('div');d.className='no-data';d.textContent='Aún no hay pesos registrados. Anótalos en la pestaña Entrenamiento.';$('evolChartCard').appendChild(d);return;}
-  ctx.style.display='';
-  cTrainChart=new Chart(ctx,{type:'line',data:{labels:lbl,datasets:[{label:'Máximo kg',data:maxW,borderColor:CC.gold,pointBackgroundColor:CC.gold,tension:.35,pointRadius:5,borderWidth:2,fill:false,spanGaps:true}]},
-    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{boxWidth:12,padding:14,color:'#888'}}},
-    scales:{x:{grid:{color:'rgba(255,255,255,0.06)'},ticks:{color:'#666'}},y:{grid:{color:'rgba(255,255,255,0.06)'},ticks:{color:'#666'},title:{display:true,text:'kg',color:'#555'}}}}});
-}
-
-// ── TABS ──
 function showTab(id,btn) {
   document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
@@ -817,15 +522,13 @@ function showTab(id,btn) {
   btn.classList.add('active');
 }
 
-// ── MICROCICLO (plan nutricional) ──
-let currentMicro=1;
+let currentMicro=1, saveTimer=null;
 function setMicro(n,btn){
   saveSelections();currentMicro=n;
   document.querySelectorAll('.micro-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');loadSelections();
 }
 
-// ── OPCIONES (stepper) ──
 function initOpts(){
   document.querySelectorAll('.opt').forEach(opt=>{
     opt.dataset.count='0';
@@ -847,21 +550,17 @@ function incrOpt(opt){const g=opt.closest('.options');const max=parseInt(g.datas
 function decrOpt(opt){const c=parseInt(opt.dataset.count||0);if(c<=0)return;opt.dataset.count=c-1;updateOpt(opt);saveSelections();}
 function updateOpt(opt){const c=parseInt(opt.dataset.count||0);opt.classList.toggle('selected',c>0);const cb=opt.querySelector('.cb');if(cb)cb.textContent=c>0?c:'';const cnt=opt.querySelector('.opt-cnt');if(cnt)cnt.textContent=c;const dec=opt.querySelector('.opt-dec');if(dec)dec.disabled=c<=0;}
 
-// ── STORAGE (plan nutricional) ──
 function planKey(){return `${PATIENT.slug}-plan-s${currentMicro}`;}
 function saveSelections(){const data={};document.querySelectorAll('.options').forEach(g=>{const gid=g.dataset.group;data[gid]={};g.querySelectorAll('.opt').forEach((o,i)=>{const c=parseInt(o.dataset.count||0);if(c>0)data[gid][i]=c;});});localStorage.setItem(planKey(),JSON.stringify(data));}
 function loadSelections(){const raw=localStorage.getItem(planKey());document.querySelectorAll('.opt').forEach(o=>{o.dataset.count='0';updateOpt(o);});if(!raw)return;try{const data=JSON.parse(raw);document.querySelectorAll('.options').forEach(g=>{const gid=g.dataset.group;if(!data[gid])return;const opts=g.querySelectorAll('.opt');Object.entries(data[gid]).forEach(([idx,count])=>{if(opts[idx]){opts[idx].dataset.count=count;updateOpt(opts[idx]);}});});}catch(e){}}
 
-// ── SAVE INDICATOR ──
 function flashSave(){const ind=$('saveind');if(!ind)return;$('saveTxt').textContent='Guardado';ind.classList.add('show');clearTimeout(saveTimer);saveTimer=setTimeout(()=>ind.classList.remove('show'),1800);}
 
-// ── INIT ──
 renderHero();
 renderTabs();
 renderPlan();
 renderEval();
 renderSpecs();
-renderTrain();
 </script>
 </body>
 </html>
