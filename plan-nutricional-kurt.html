@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Libre+Franklin:wght@500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&family=Chakra+Petch:wght@600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
 :root{
   --bg:#080808; --bg2:#111111; --panel:#141414; --panel2:#1c1c1c;
@@ -200,6 +201,48 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 .foot-brand{font-family:'IBM Plex Mono';font-size:11px;color:var(--faint);letter-spacing:.1em}
 .foot-contact{font-size:12px;color:var(--faint)}
 
+/* ── EVOLUCIÓN CHARTS ── */
+.chart-card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px 22px;box-shadow:var(--shadow);margin-bottom:16px}
+.chart-card h3{font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:16px;color:var(--ink);margin-bottom:4px}
+.chart-card .cap{font-size:12px;color:var(--faint);margin-bottom:16px}
+.chart-wrap{position:relative;height:220px}
+.chart-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+@media(max-width:640px){.chart-grid{grid-template-columns:1fr}}
+.kpi-row{display:flex;flex-wrap:wrap;gap:12px;margin:16px 0}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 18px;flex:1;min-width:120px;box-shadow:var(--shadow)}
+.kpi .kv{font-family:'Chakra Petch',sans-serif;font-size:24px;font-weight:700;color:var(--navy)}
+.kpi .kl{font-family:'IBM Plex Mono';font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin-top:4px}
+.kpi .kd{font-size:12px;margin-top:4px}
+.kpi .kd.up{color:var(--green)} .kpi .kd.down{color:var(--coral)}
+
+/* Formulario nueva evaluación */
+.eval-form{background:var(--panel2);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin-top:20px}
+.eval-form h3{font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:16px;color:var(--ink);margin-bottom:16px}
+.form-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
+.form-field label{font-family:'IBM Plex Mono';font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);display:block;margin-bottom:5px}
+.form-field input{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px 10px;color:var(--ink);font-family:'Libre Franklin',sans-serif;font-size:15px;font-weight:600}
+.form-field input:focus{outline:none;border-color:var(--navy)}
+.btn-add{margin-top:16px;background:var(--navy);color:#000;border:none;border-radius:10px;padding:10px 22px;font-family:'IBM Plex Mono';font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:.2s}
+.btn-add:hover{opacity:.85}
+.antro-table{width:100%;border-collapse:collapse;font-size:12px;margin-top:16px}
+.antro-table th{background:var(--panel2);color:var(--faint);font-family:'IBM Plex Mono';font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;padding:8px 12px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+.antro-table th:first-child{text-align:left}
+.antro-table td{padding:8px 12px;border-bottom:1px solid var(--line);text-align:right;font-family:'IBM Plex Mono';color:var(--ink)}
+.antro-table td:first-child{text-align:left;color:var(--muted)}
+.antro-table tr:last-child td{border-bottom:none;color:var(--navy);font-weight:700}
+.tbl-scroll{overflow-x:auto;border-radius:12px;border:1px solid var(--line)}
+
+/* Evolución entreno */
+.ex-sel{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 20px}
+.ex-pill{appearance:none;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:6px 12px;font-family:'IBM Plex Mono';font-size:10.5px;color:var(--muted);cursor:pointer;transition:.2s;white-space:nowrap}
+.ex-pill:hover{border-color:var(--muted);color:var(--ink)}
+.ex-pill.active{background:var(--navy);border-color:var(--navy);color:#000;font-weight:700}
+.sess-sel{display:flex;gap:8px;margin-bottom:12px}
+.sess-btn{appearance:none;background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:7px 14px;font-family:'IBM Plex Mono';font-size:10px;color:var(--muted);cursor:pointer;transition:.2s;text-transform:uppercase;letter-spacing:.06em}
+.sess-btn:hover{border-color:var(--muted);color:var(--ink)}
+.sess-btn.active{border-color:var(--navy);color:var(--navy)}
+.no-data{text-align:center;padding:48px 20px;color:var(--faint);font-size:13px;font-style:italic}
+
 /* ── MÓVIL ── */
 @media(max-width:640px){
   /* Espaciado general */
@@ -288,6 +331,8 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
     <button class="tab" onclick="showTab('eval',this)"><span class="tnum">02</span> Evaluación</button>
     <button class="tab" onclick="showTab('specs',this)"><span class="tnum">03</span> Especificaciones</button>
     <button class="tab" onclick="showTab('train',this)"><span class="tnum">04</span> Entrenamiento</button>
+    <button class="tab" onclick="showTab('evol-antro',this);initAntro()"><span class="tnum">05</span> Evolución Física</button>
+    <button class="tab" onclick="showTab('evol-train',this);initEvolTrain()"><span class="tnum">06</span> Evolución Entreno</button>
   </div>
 </nav>
 
@@ -689,6 +734,93 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 </div>
 </div>
 
+<!-- ══════════════════════════════ EVOLUCIÓN FÍSICA ══════════════════════════════ -->
+<div id="tab-evol-antro" class="panel">
+<div class="wrap">
+  <section style="padding-top:24px">
+    <div class="sec-h"><span class="ix">01</span><h2>Evolución Antropométrica</h2><div class="rule"></div></div>
+    <div class="kpi-row" id="antroKpis"></div>
+  </section>
+  <section style="padding-top:0">
+    <div class="sec-h"><span class="ix">02</span><h2>Gráficos</h2><div class="rule"></div></div>
+    <div class="chart-card">
+      <h3>Peso corporal</h3>
+      <div class="cap">Kilogramos — objetivo: recomposición (peso estable, menos grasa)</div>
+      <div class="chart-wrap"><canvas id="cPeso"></canvas></div>
+    </div>
+    <div class="chart-grid">
+      <div class="chart-card">
+        <h3>Sumatoria de pliegues</h3>
+        <div class="cap">Σ6 y Σ8 — indicador directo de grasa subcutánea</div>
+        <div class="chart-wrap"><canvas id="cSigma"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <h3>Perímetros musculares</h3>
+        <div class="cap">Brazo flex, muslo y pantorrilla (cm)</div>
+        <div class="chart-wrap"><canvas id="cMusc"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <h3>Cintura y cadera</h3>
+        <div class="cap">Perímetros abdominales (cm)</div>
+        <div class="chart-wrap"><canvas id="cCint"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <h3>Pliegues individuales</h3>
+        <div class="cap">Abdominal, cresta ilíaca y subescapular (mm)</div>
+        <div class="chart-wrap"><canvas id="cPliegues"></canvas></div>
+      </div>
+    </div>
+  </section>
+  <section style="padding-top:0">
+    <div class="sec-h"><span class="ix">03</span><h2>Historial</h2><div class="rule"></div></div>
+    <div class="tbl-scroll"><table class="antro-table" id="antroTable"></table></div>
+  </section>
+  <section style="padding-top:0">
+    <div class="sec-h"><span class="ix">04</span><h2>Nueva medición</h2><div class="rule"></div></div>
+    <div class="eval-form">
+      <h3>Registrar evaluación</h3>
+      <div class="form-grid">
+        <div class="form-field"><label>Fecha</label><input type="date" id="f-fecha"></div>
+        <div class="form-field"><label>Peso (kg)</label><input type="number" step="0.1" id="f-peso" placeholder="81.0"></div>
+        <div class="form-field"><label>Tricipital (mm)</label><input type="number" step="0.5" id="f-tri" placeholder="5.5"></div>
+        <div class="form-field"><label>Bicipital (mm)</label><input type="number" step="0.5" id="f-bi" placeholder="3.5"></div>
+        <div class="form-field"><label>Subescapular (mm)</label><input type="number" step="0.5" id="f-sub" placeholder="15.0"></div>
+        <div class="form-field"><label>Cresta iliaca (mm)</label><input type="number" step="0.5" id="f-cresta" placeholder="20.0"></div>
+        <div class="form-field"><label>Supra espinal (mm)</label><input type="number" step="0.5" id="f-supra" placeholder="10.0"></div>
+        <div class="form-field"><label>Abdominal (mm)</label><input type="number" step="0.5" id="f-abd" placeholder="22.0"></div>
+        <div class="form-field"><label>Pierna media (mm)</label><input type="number" step="0.5" id="f-pierna" placeholder="7.0"></div>
+        <div class="form-field"><label>Pantorrilla pl. (mm)</label><input type="number" step="0.5" id="f-pant" placeholder="4.0"></div>
+        <div class="form-field"><label>Brazo relajado (cm)</label><input type="number" step="0.1" id="f-brazRelaj" placeholder="33.5"></div>
+        <div class="form-field"><label>Brazo flex. (cm)</label><input type="number" step="0.1" id="f-brazFlex" placeholder="34.2"></div>
+        <div class="form-field"><label>Abdominal per. (cm)</label><input type="number" step="0.1" id="f-abdom" placeholder="97.0"></div>
+        <div class="form-field"><label>Cadera (cm)</label><input type="number" step="0.1" id="f-cadera" placeholder="97.5"></div>
+        <div class="form-field"><label>Muslo medio (cm)</label><input type="number" step="0.1" id="f-muslo" placeholder="50.0"></div>
+        <div class="form-field"><label>Pantorrilla per. (cm)</label><input type="number" step="0.1" id="f-pantPer" placeholder="37.3"></div>
+      </div>
+      <button class="btn-add" onclick="addAntroEntry()">+ Guardar medición</button>
+    </div>
+  </section>
+</div>
+</div>
+
+<!-- ══════════════════════════════ EVOLUCIÓN ENTRENO ══════════════════════════════ -->
+<div id="tab-evol-train" class="panel">
+<div class="wrap">
+  <section style="padding-top:24px">
+    <div class="sec-h"><span class="ix">01</span><h2>Evolución del Entrenamiento</h2><div class="rule"></div></div>
+    <p class="train-intro">Los pesos que Kurt anota en la pestaña <b>Entrenamiento</b> se grafican aquí automáticamente por semana. Selecciona una sesión y un ejercicio para ver su progresión.</p>
+    <div class="sess-sel" id="evolSessSel"></div>
+    <div class="ex-sel" id="evolExSel"></div>
+    <div class="chart-card" id="evolChartCard">
+      <h3 id="evolChartTitle">—</h3>
+      <div class="cap">Peso máximo registrado por semana (kg)</div>
+      <div class="chart-wrap"><canvas id="cTrain"></canvas></div>
+    </div>
+    <div class="chart-grid" id="evolAllGrid"></div>
+  </section>
+</div>
+</div>
+
 <div class="saveind" id="saveind"><span class="sdot"></span><span id="saveTxt">Guardado</span></div>
 
 <footer>
@@ -941,6 +1073,242 @@ function initTrain() {
 }
 
 initTrain();
+
+// ══════════════════════════════ CHART DEFAULTS ══════════════════════════════
+Chart.defaults.color = '#666';
+Chart.defaults.borderColor = 'rgba(255,255,255,0.07)';
+Chart.defaults.font.family = "'IBM Plex Mono', monospace";
+Chart.defaults.font.size = 11;
+const CGOLD='#C4973A', CCYAN='#4fc3f7', CCORAL='#ef9a9a', CGREEN='#a5d6a7', CPURPLE='#ce93d8';
+
+function mkChart(id, labels, datasets, opts={}) {
+  const ctx = document.getElementById(id);
+  if (!ctx) return null;
+  if (ctx._chartInst) ctx._chartInst.destroy();
+  const chart = new Chart(ctx, {
+    type: 'line',
+    data: { labels, datasets: datasets.map(d => ({
+      tension: 0.35, pointRadius: 5, pointHoverRadius: 7,
+      borderWidth: 2, fill: false, ...d
+    }))},
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { labels: { boxWidth: 12, padding: 16, color: '#888' } }, tooltip: { mode: 'index', intersect: false } },
+      scales: {
+        x: { grid: { color: 'rgba(255,255,255,0.06)' }, ticks: { color: '#666' } },
+        y: { grid: { color: 'rgba(255,255,255,0.06)' }, ticks: { color: '#666' }, ...( opts.yAxis || {}) }
+      }
+    }
+  });
+  ctx._chartInst = chart;
+  return chart;
+}
+
+// ══════════════════════════════ EVOLUCIÓN ANTROPOMÉTRICA ══════════════════════════════
+const ANTRO_KEY = 'kurt-antro-v1';
+const ANTRO_INIT = [{
+  fecha:'15.06.2026', peso:81.0,
+  tri:5.5, bi:3.5, sub:15.0, cresta:20.0, supra:10.0, abd:22.0, pierna:7.0, pant:4.0,
+  brazRelaj:33.5, brazFlex:34.2, abdom:97.0, cadera:97.5, muslo:50.0, pantPer:37.3
+}];
+ANTRO_INIT.forEach(d => { d.s6=+(d.tri+d.sub+d.supra+d.abd+d.pierna+d.pant).toFixed(1); d.s8=+(d.s6+d.bi+d.cresta).toFixed(1); });
+
+function getAntroData() {
+  try { const r = localStorage.getItem(ANTRO_KEY); return r ? JSON.parse(r) : ANTRO_INIT; } catch { return ANTRO_INIT; }
+}
+function saveAntroData(data) { localStorage.setItem(ANTRO_KEY, JSON.stringify(data)); }
+
+let antroInited = false;
+function initAntro() {
+  if (antroInited) return;
+  antroInited = true;
+  renderAntro();
+}
+
+function renderAntro() {
+  const data = getAntroData();
+  const labels = data.map(d => d.fecha);
+
+  // KPIs
+  const first = data[0], last = data[data.length-1];
+  const kpis = [
+    { v: last.peso, u:'kg', l:'Peso actual', d: last.peso - first.peso, dSuf:'kg vs inicio', goodDown:true },
+    { v: last.s8,   u:'mm', l:'Σ8 pliegues', d: last.s8  - first.s8,   dSuf:'mm vs inicio', goodDown:true },
+    { v: last.brazFlex, u:'cm', l:'Brazo flex.', d: last.brazFlex - first.brazFlex, dSuf:'cm vs inicio', goodDown:false },
+    { v: last.abdom, u:'cm', l:'Cintura',    d: last.abdom - first.abdom, dSuf:'cm vs inicio', goodDown:true },
+  ];
+  document.getElementById('antroKpis').innerHTML = kpis.map(k => {
+    const diff = k.d.toFixed(1);
+    const sign = k.d > 0 ? '+' : '';
+    const cls = (k.goodDown ? k.d < 0 : k.d > 0) ? 'up' : (k.d === 0 ? '' : 'down');
+    const arrow = k.d > 0 ? '▲' : (k.d < 0 ? '▼' : '—');
+    return `<div class="kpi"><div class="kv">${k.v}<span style="font-size:14px;color:var(--faint)"> ${k.u}</span></div><div class="kl">${k.l}</div>${data.length>1?`<div class="kd ${cls}">${arrow} ${sign}${diff} ${k.dSuf}</div>`:''}</div>`;
+  }).join('');
+
+  // Charts
+  mkChart('cPeso', labels, [{ label:'Peso (kg)', data: data.map(d=>d.peso), borderColor:CGOLD, pointBackgroundColor:CGOLD }]);
+  mkChart('cSigma', labels, [
+    { label:'Σ6 (mm)', data: data.map(d=>d.s6), borderColor:CCORAL, pointBackgroundColor:CCORAL },
+    { label:'Σ8 (mm)', data: data.map(d=>d.s8), borderColor:CPURPLE, pointBackgroundColor:CPURPLE },
+  ]);
+  mkChart('cMusc', labels, [
+    { label:'Brazo flex (cm)', data: data.map(d=>d.brazFlex), borderColor:CGREEN, pointBackgroundColor:CGREEN },
+    { label:'Muslo (cm)',      data: data.map(d=>d.muslo),    borderColor:CCYAN,  pointBackgroundColor:CCYAN },
+    { label:'Pantorrilla (cm)',data: data.map(d=>d.pantPer),  borderColor:CGOLD,  pointBackgroundColor:CGOLD },
+  ]);
+  mkChart('cCint', labels, [
+    { label:'Cintura (cm)', data: data.map(d=>d.abdom),  borderColor:CCORAL, pointBackgroundColor:CCORAL },
+    { label:'Cadera (cm)',  data: data.map(d=>d.cadera), borderColor:CGOLD,  pointBackgroundColor:CGOLD },
+  ]);
+  mkChart('cPliegues', labels, [
+    { label:'Abdominal',     data: data.map(d=>d.abd),    borderColor:CCORAL,  pointBackgroundColor:CCORAL },
+    { label:'Cresta iliaca', data: data.map(d=>d.cresta), borderColor:CGOLD,   pointBackgroundColor:CGOLD },
+    { label:'Subescapular',  data: data.map(d=>d.sub),    borderColor:CCYAN,   pointBackgroundColor:CCYAN },
+  ]);
+
+  // Table
+  const cols = ['fecha','peso','s6','s8','brazFlex','muslo','abdom','cadera'];
+  const heads = ['Fecha','Peso kg','Σ6 mm','Σ8 mm','Brazo flex cm','Muslo cm','Cintura cm','Cadera cm'];
+  const tbl = document.getElementById('antroTable');
+  tbl.innerHTML = `<thead><tr>${heads.map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>` +
+    [...data].reverse().map((d,i) => `<tr>${cols.map(c=>`<td>${d[c]??'—'}</td>`).join('')}</tr>`).join('') +
+    '</tbody>';
+}
+
+function addAntroEntry() {
+  const g = id => { const el=document.getElementById(id); return el?parseFloat(el.value)||null:null; };
+  const gs = id => { const el=document.getElementById(id); return el?el.value||null:null; };
+  const fecha = gs('f-fecha');
+  if (!fecha) { alert('Ingresa la fecha de la medición'); return; }
+  const entry = {
+    fecha: fecha.split('-').reverse().join('.'),
+    peso:  g('f-peso'), tri:g('f-tri'), bi:g('f-bi'), sub:g('f-sub'),
+    cresta:g('f-cresta'), supra:g('f-supra'), abd:g('f-abd'),
+    pierna:g('f-pierna'), pant:g('f-pant'),
+    brazRelaj:g('f-brazRelaj'), brazFlex:g('f-brazFlex'),
+    abdom:g('f-abdom'), cadera:g('f-cadera'), muslo:g('f-muslo'), pantPer:g('f-pantPer'),
+  };
+  entry.s6 = [entry.tri,entry.sub,entry.supra,entry.abd,entry.pierna,entry.pant].filter(Boolean).reduce((a,b)=>a+b,0);
+  entry.s6 = +entry.s6.toFixed(1);
+  entry.s8 = +(entry.s6 + (entry.bi||0) + (entry.cresta||0)).toFixed(1);
+  const data = getAntroData();
+  data.push(entry);
+  saveAntroData(data);
+  antroInited = false;
+  initAntro();
+  // Clear form
+  ['fecha','peso','tri','bi','sub','cresta','supra','abd','pierna','pant','brazRelaj','brazFlex','abdom','cadera','muslo','pantPer'].forEach(f => { const el=document.getElementById('f-'+f); if(el) el.value=''; });
+  showSaveInd();
+}
+
+// ══════════════════════════════ EVOLUCIÓN ENTRENAMIENTO ══════════════════════════════
+let evolTrainInited = false;
+let evolActiveSess = 'A';
+let evolActiveEx = 0;
+let cTrainChart = null;
+
+function initEvolTrain() {
+  if (evolTrainInited) return;
+  evolTrainInited = true;
+  buildEvolSessSel();
+  buildEvolExSel();
+  renderEvolChart();
+}
+
+function buildEvolSessSel() {
+  const el = document.getElementById('evolSessSel');
+  if (!el) return;
+  el.innerHTML = SESSIONS.map(s =>
+    `<button class="sess-btn${s.id===evolActiveSess?' active':''}" onclick="setEvolSess('${s.id}',this)">${s.icon} ${s.label}</button>`
+  ).join('');
+}
+
+function setEvolSess(id, btn) {
+  evolActiveSess = id;
+  evolActiveEx = 0;
+  document.querySelectorAll('.sess-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  buildEvolExSel();
+  renderEvolChart();
+}
+
+function buildEvolExSel() {
+  const el = document.getElementById('evolExSel');
+  if (!el) return;
+  const sess = SESSIONS.find(s=>s.id===evolActiveSess);
+  el.innerHTML = sess.exercises.map((ex,i) =>
+    `<button class="ex-pill${i===evolActiveEx?' active':''}" onclick="setEvolEx(${i},this)">${ex.name}</button>`
+  ).join('');
+}
+
+function setEvolEx(idx, btn) {
+  evolActiveEx = idx;
+  document.querySelectorAll('.ex-pill').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderEvolChart();
+}
+
+function getEvolData(sessId, exIdx) {
+  const byWeek = {};
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+    if (!key) continue;
+    const m = key.match(/^kurt-train-s(\d+)-([ABC])-(\d+)-s(\d+)$/);
+    if (!m) continue;
+    const [, week, sess, exi] = m;
+    if (sess !== sessId || parseInt(exi) !== exIdx) continue;
+    const val = parseFloat(localStorage.getItem(key));
+    if (!val || isNaN(val)) continue;
+    if (!byWeek[week]) byWeek[week] = [];
+    byWeek[week].push(val);
+  }
+  return byWeek;
+}
+
+function renderEvolChart() {
+  const sess = SESSIONS.find(s=>s.id===evolActiveSess);
+  const ex = sess.exercises[evolActiveEx];
+  const byWeek = getEvolData(evolActiveSess, evolActiveEx);
+  const title = document.getElementById('evolChartTitle');
+  if (title) title.textContent = ex.name;
+
+  const weeks = WEEKS_TRAIN.map(w=>w.n);
+  const labels = WEEKS_TRAIN.map(w=>w.label);
+  const maxPerWeek = weeks.map(w => byWeek[w] ? Math.max(...byWeek[w]) : null);
+  const avgPerWeek = weeks.map(w => byWeek[w] ? +(byWeek[w].reduce((a,b)=>a+b,0)/byWeek[w].length).toFixed(1) : null);
+  const hasData = maxPerWeek.some(v=>v!==null);
+
+  if (cTrainChart) { cTrainChart.destroy(); cTrainChart = null; }
+  const ctx = document.getElementById('cTrain');
+  if (!ctx) return;
+
+  if (!hasData) {
+    ctx.style.display='none';
+    const card = document.getElementById('evolChartCard');
+    if (card && !card.querySelector('.no-data')) {
+      const nd = document.createElement('div');
+      nd.className='no-data';
+      nd.textContent='Aún no hay pesos registrados para este ejercicio. Abre la pestaña Entrenamiento y anota tus pesos.';
+      card.appendChild(nd);
+    }
+    return;
+  }
+  ctx.style.display='';
+  const nd = document.querySelector('#evolChartCard .no-data');
+  if (nd) nd.remove();
+
+  cTrainChart = new Chart(ctx, {
+    type:'line',
+    data:{ labels, datasets:[
+      { label:'Máximo (kg)', data:maxPerWeek, borderColor:CGOLD, pointBackgroundColor:CGOLD, tension:0.35, pointRadius:5, borderWidth:2, fill:false, spanGaps:true },
+      { label:'Promedio (kg)', data:avgPerWeek, borderColor:CCYAN, pointBackgroundColor:CCYAN, tension:0.35, pointRadius:4, borderWidth:1.5, borderDash:[4,4], fill:false, spanGaps:true },
+    ]},
+    options:{ responsive:true, maintainAspectRatio:false,
+      plugins:{ legend:{ labels:{ boxWidth:12, padding:16, color:'#888' } }, tooltip:{ mode:'index', intersect:false } },
+      scales:{ x:{ grid:{color:'rgba(255,255,255,0.06)'}, ticks:{color:'#666'} }, y:{ grid:{color:'rgba(255,255,255,0.06)'}, ticks:{color:'#666'}, title:{display:true,text:'kg',color:'#555'} } }
+    }
+  });
+}
 </script>
 </body>
 </html>
