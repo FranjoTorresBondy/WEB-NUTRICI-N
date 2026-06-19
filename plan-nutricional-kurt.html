@@ -199,6 +199,73 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 .foot-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
 .foot-brand{font-family:'IBM Plex Mono';font-size:11px;color:var(--faint);letter-spacing:.1em}
 .foot-contact{font-size:12px;color:var(--faint)}
+
+/* ── MÓVIL ── */
+@media(max-width:640px){
+  /* Espaciado general */
+  .wrap{padding:0 16px}
+  header.hero{padding:32px 0 16px}
+  section{padding:20px 0}
+
+  /* Tab bar scrollable horizontalmente */
+  .tabbar .wrap{overflow-x:auto;padding:0 4px;scrollbar-width:none;-ms-overflow-style:none;flex-wrap:nowrap}
+  .tabbar .wrap::-webkit-scrollbar{display:none}
+  .tab{padding:13px 14px;font-size:12px;gap:6px;flex-shrink:0;white-space:nowrap}
+  .tab.active::after{left:14px;right:14px}
+  .tab .tnum{font-size:10px}
+
+  /* Microciclo selector */
+  .micro-bar{gap:6px}
+  .micro-btn{padding:5px 11px;font-size:11px}
+  .micro-note{font-size:11px}
+
+  /* Macros banner */
+  .macros{flex-direction:column;align-items:flex-start;gap:10px;padding:14px 16px}
+  .macros .sep{display:none}
+  .macros .kcal{font-size:26px}
+
+  /* Comidas */
+  .meal .top .nm{font-size:16px}
+
+  /* Sesiones de entrenamiento */
+  .sess .sh{padding:12px 14px;gap:8px}
+  .sess .sh h3{font-size:15px}
+  .sess .sh .scount{display:none}
+  .exq{padding:11px 14px;gap:10px}
+  .exq .nm{font-size:13px;margin-bottom:6px}
+  .exq .meta{gap:5px;margin-bottom:8px}
+  .mpill{font-size:9.5px;padding:3px 7px}
+  .sets{grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:7px}
+  .setbox{padding:6px 8px}
+  .setbox input{font-size:18px}
+
+  /* Botones de semana */
+  .wbtn{min-width:80px;padding:8px 10px}
+  .wbtn .wn{font-size:14px}
+  .wbtn .wp{font-size:8.5px}
+
+  /* Train head */
+  .train-head{margin:12px 0 4px;gap:10px}
+  .train-head .badge{font-size:10px;padding:5px 10px}
+  .train-head .hint{font-size:11px}
+  .train-intro{font-size:12px;padding:11px 13px}
+
+  /* Evaluación */
+  .evalwrap{grid-template-columns:1fr}
+  .planmeta{grid-template-columns:1fr}
+  .specs{grid-template-columns:1fr}
+  .vinag-grid{grid-template-columns:1fr}
+  .hydro{grid-template-columns:1fr 1fr}
+
+  /* Footer */
+  .foot-inner{flex-direction:column;align-items:flex-start;gap:6px}
+}
+
+@media(max-width:400px){
+  h1{font-size:clamp(32px,10vw,56px)}
+  .tab{padding:12px 10px;font-size:11px}
+  .sets{grid-template-columns:repeat(auto-fill,minmax(80px,1fr))}
+}
 </style>
 </head>
 <body>
