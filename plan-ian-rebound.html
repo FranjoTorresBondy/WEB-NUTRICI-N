@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Protocolo Rebound — Ian Escuza</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Chakra+Petch:wght@600;700&display=swap');
+  :root {
+    --bg:#080808; --bg2:#111111; --bg3:#1a1a1a; --bg4:#222;
+    --accent:#e8e8e8; --accent-dim:rgba(255,255,255,.05); --accent-border:rgba(255,255,255,.13);
+    --red:#ef5350; --red-dim:rgba(239,83,80,.12); --red-border:rgba(239,83,80,.28);
+    --blue:#4fc3f7; --blue-dim:rgba(79,195,247,.1); --blue-border:rgba(79,195,247,.25);
+    --green:#a5d6a7; --green-dim:rgba(165,214,167,.1); --green-border:rgba(165,214,167,.25);
+    --purple:#ce93d8; --purple-dim:rgba(206,147,216,.1); --purple-border:rgba(206,147,216,.25);
+    --orange:#ffb74d; --orange-dim:rgba(255,183,77,.1); --orange-border:rgba(255,183,77,.25);
+    --teal:#4db6ac; --teal-dim:rgba(77,182,172,.1); --teal-border:rgba(77,182,172,.25);
+    --text:#f0f0f0; --muted:#666; --border:#222;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-size:13px;padding:32px 24px 80px;min-height:100vh}
+  .wrap{max-width:1100px;margin:0 auto}
+
+  /* HEADER */
+  .header{border-bottom:1px solid var(--accent-border);padding-bottom:22px;margin-bottom:28px}
+  h1{font-family:'Chakra Petch',sans-serif;font-size:24px;color:var(--accent);letter-spacing:.05em;text-transform:uppercase;line-height:1.1}
+  .sub{color:var(--muted);font-size:11px;margin-top:5px;letter-spacing:.06em;text-transform:uppercase}
+  .stats-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:20px}
+  .stat-box{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:10px 18px;text-align:center}
+  .stat-box .sv{font-family:'Chakra Petch',sans-serif;font-size:22px;line-height:1}
+  .stat-box .sl{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-top:4px}
+  .sv.grey{color:#aaa} .sv.green{color:var(--green)} .sv.blue{color:var(--blue)} .sv.orange{color:var(--orange)}
+
+  /* IV CARD */
+  .iv-card{background:var(--red-dim);border:1px solid var(--red-border);border-radius:10px;padding:16px 20px;margin-bottom:28px}
+  .iv-title{font-family:'Chakra Petch',sans-serif;font-size:13px;color:var(--red);text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+  .iv-title::before{content:'';display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--red);animation:pulse 1.5s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+  .iv-pills{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+  .iv-pill{background:rgba(239,83,80,.15);border:1px solid var(--red-border);border-radius:6px;padding:5px 12px;font-size:12px;color:#ef9a9a}
+  .iv-pill strong{color:var(--red);font-family:'Chakra Petch',sans-serif}
+  .iv-components{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:8px}
+  .iv-comp{border-radius:7px;padding:10px 13px;font-size:11px;color:#ccc;line-height:1.6}
+  .iv-comp .ic-title{font-family:'Chakra Petch',sans-serif;font-size:10px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px}
+  .iv-comp.nacl{background:rgba(239,83,80,.08);border:1px solid rgba(239,83,80,.2)} .iv-comp.nacl .ic-title{color:var(--red)}
+  .iv-comp.vitc{background:rgba(165,214,167,.07);border:1px solid rgba(165,214,167,.2)} .iv-comp.vitc .ic-title{color:var(--green)}
+  .iv-comp.vitb{background:rgba(206,147,216,.07);border:1px solid rgba(206,147,216,.2)} .iv-comp.vitb .ic-title{color:var(--purple)}
+  .iv-comp.ala{background:rgba(255,183,77,.07);border:1px solid rgba(255,183,77,.2)} .iv-comp.ala .ic-title{color:var(--orange)}
+
+  /* DIVIDER */
+  .section-title{font-family:'Chakra Petch',sans-serif;font-size:13px;color:var(--accent);text-transform:uppercase;letter-spacing:.08em;margin:28px 0 16px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+
+  /* INTAKE TIMELINE */
+  .intake{display:grid;grid-template-columns:80px 1fr;gap:0;margin-bottom:12px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+  .intake-time{background:var(--bg3);padding:16px 12px;display:flex;flex-direction:column;align-items:center;justify-content:center;border-right:1px solid var(--border);text-align:center}
+  .intake-num{font-family:'Chakra Petch',sans-serif;font-size:20px;color:var(--accent);line-height:1}
+  .intake-label{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-top:3px}
+  .intake-body{padding:14px 16px}
+  .intake-foods{list-style:none;display:flex;flex-direction:column;gap:5px;margin-bottom:12px}
+  .intake-foods li{font-size:12px;color:#ccc;padding-left:14px;position:relative;line-height:1.4}
+  .intake-foods li::before{content:'·';position:absolute;left:0;color:var(--muted);font-size:16px;line-height:.9}
+  .intake-foods li strong{color:var(--text);font-weight:600}
+  .intake-foods li.note{color:var(--muted);font-size:11px;font-style:italic;padding-left:0}
+  .intake-foods li.note::before{display:none}
+  .intake-foods li.alt{color:#9e9e9e;font-size:11px}
+  .intake-foods li.alt::before{content:'↳';color:var(--muted);font-size:11px;line-height:1.2}
+  .macro-row{display:flex;gap:0;border-top:1px solid var(--border);margin:0 -16px -14px;padding:0}
+  .mr{flex:1;padding:8px 4px;text-align:center;border-right:1px solid var(--border)}
+  .mr:last-child{border-right:none}
+  .mr .mv{font-family:'Chakra Petch',sans-serif;font-size:13px;font-weight:700}
+  .mr .ml{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-top:2px}
+  .mr.cho .mv{color:var(--orange)}
+  .mr.pro .mv{color:var(--green)}
+  .mr.fat .mv{color:#90caf9}
+  .mr.kca .mv{color:var(--accent)}
+
+  /* SUMMARY TABLE */
+  .tbl-wrap{background:var(--bg2);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:24px}
+  .tbl-title{padding:12px 16px;font-family:'Chakra Petch',sans-serif;font-size:12px;color:var(--accent);text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid var(--border)}
+  table{width:100%;border-collapse:collapse}
+  thead th{background:var(--bg3);padding:8px 12px;font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;text-align:left;border-bottom:1px solid var(--border)}
+  tbody td{padding:9px 12px;font-size:12px;border-bottom:1px solid var(--border)}
+  tbody tr:last-child td{border-bottom:none}
+  tbody tr:hover td{background:rgba(255,255,255,.02)}
+  .td-num{font-family:'Chakra Petch',sans-serif;font-size:12px}
+  .td-num.cho{color:var(--orange)} .td-num.pro{color:var(--green)} .td-num.kca{color:var(--accent)} .td-num.na{color:#90caf9}
+  .tr-total td{background:var(--bg3);font-weight:700}
+  .tr-total .td-num{font-size:13px}
+  .progress-bar{height:4px;background:var(--border);border-radius:2px;margin-top:4px;overflow:hidden}
+  .progress-fill{height:100%;border-radius:2px}
+  .progress-fill.cho{background:var(--orange)}
+  .progress-fill.pro{background:var(--green)}
+
+  /* FIGHT DAY */
+  .fight-tl{display:flex;flex-direction:column;gap:0}
+  .ft{display:flex;gap:16px;padding:14px 0;border-bottom:1px solid var(--border)}
+  .ft:last-child{border-bottom:none}
+  .ft-time{min-width:90px;font-family:'Chakra Petch',sans-serif;font-size:11px;color:var(--muted);padding-top:2px;text-align:right}
+  .ft-dot{width:12px;min-width:12px;display:flex;flex-direction:column;align-items:center;padding-top:4px}
+  .ft-dot .dot{width:8px;height:8px;border-radius:50%;border:2px solid}
+  .ft-dot .line{flex:1;width:1px;background:var(--border);margin-top:4px}
+  .ft:last-child .ft-dot .line{display:none}
+  .dot.orange{border-color:var(--orange);background:var(--orange-dim)}
+  .dot.green{border-color:var(--green);background:var(--green-dim)}
+  .dot.blue{border-color:var(--blue);background:var(--blue-dim)}
+  .dot.purple{border-color:var(--purple);background:var(--purple-dim)}
+  .dot.teal{border-color:var(--teal);background:var(--teal-dim)}
+  .ft-content .ft-label{font-family:'Chakra Petch',sans-serif;font-size:12px;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+  .ft-label.orange{color:var(--orange)} .ft-label.green{color:var(--green)}
+  .ft-label.blue{color:var(--blue)} .ft-label.purple{color:var(--purple)} .ft-label.teal{color:var(--teal)}
+  .ft-content .ft-desc{font-size:12px;color:#bbb;line-height:1.6}
+  .ft-content .ft-desc strong{color:var(--text)}
+  .ft-nums{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+  .ft-num{background:var(--bg2);border:1px solid var(--border);border-radius:5px;padding:4px 10px;font-size:11px;color:var(--muted)}
+  .ft-num span{font-family:'Chakra Petch',sans-serif;color:var(--text);font-size:12px;margin-right:3px}
+
+  /* FOOTER */
+  .footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+  .footer .logo{font-family:'Chakra Petch',sans-serif;font-size:14px;color:var(--accent);letter-spacing:.04em}
+  .footer .meta{font-size:10px;color:var(--muted);text-align:right;line-height:1.6}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HEADER -->
+  <div class="header">
+    <h1>PROTOCOLO REBOUND<br>POST PESAJE</h1>
+    <div class="sub">Ian Escuza &nbsp;·&nbsp; 23–24 Junio 2026 &nbsp;·&nbsp; Rehidratación + Carga de Glucógeno</div>
+    <div class="stats-row">
+      <div class="stat-box"><div class="sv grey">68.0</div><div class="sl">Peso pesaje (kg)</div></div>
+      <div class="stat-box"><div class="sv green">77–78</div><div class="sl">Objetivo pelea (kg)</div></div>
+      <div class="stat-box"><div class="sv blue">+10</div><div class="sl">Kg a recuperar</div></div>
+      <div class="stat-box"><div class="sv orange">~38h</div><div class="sl">Ventana disponible</div></div>
+      <div class="stat-box"><div class="sv orange">668g</div><div class="sl">CHO totales</div></div>
+      <div class="stat-box"><div class="sv green">151g</div><div class="sl">Proteína total</div></div>
+      <div class="stat-box"><div class="sv grey">3,757</div><div class="sl">kcal totales</div></div>
+    </div>
+  </div>
+
+  <!-- IV -->
+  <div class="iv-card">
+    <div class="iv-title">Cóctel IV — Iniciar simultáneamente con Ingesta 1</div>
+    <div class="iv-pills">
+      <div class="iv-pill"><strong>1 L</strong> NaCl 0.9%</div>
+      <div class="iv-pill"><strong>Vitamina C</strong> 15 g</div>
+      <div class="iv-pill"><strong>Complejo B</strong> B1→B12</div>
+      <div class="iv-pill"><strong>Ácido Alfa Lipoico</strong> 300 mg</div>
+      <div class="iv-pill"><strong>Velocidad:</strong> 500 ml/h</div>
+      <div class="iv-pill"><strong>Na aportado:</strong> 3,542 mg</div>
+    </div>
+    <div class="iv-components">
+      <div class="iv-comp nacl"><div class="ic-title">NaCl 0.9%</div>Restaura volumen plasmático · Retención hídrica inmediata · Evita hiponatremia dilucional</div>
+      <div class="iv-comp vitc"><div class="ic-title">Vitamina C 15 g</div>Antioxidante · Reduce daño oxidativo muscular post-corte · Síntesis de colágeno y recuperación tisular</div>
+      <div class="iv-comp vitb"><div class="ic-title">Complejo B (B1–B12)</div>B1 tiamina (metabolismo CHO) · B6 piridoxina (metabolismo proteico) · B12 cobalamina (función neurológica)</div>
+      <div class="iv-comp ala"><div class="ic-title">Ácido Alfa Lipoico 300 mg</div>Antioxidante universal · Mejora sensibilidad a insulina → maximiza carga de glucógeno · Reduce inflamación</div>
+    </div>
+  </div>
+
+  <!-- INGESTAS 23 JUN -->
+  <div class="section-title">23 Junio — Post Pesaje · Ingestas</div>
+
+  <!-- INGESTA 1 -->
+  <div class="intake">
+    <div class="intake-time">
+      <div class="intake-num">1</div>
+      <div class="intake-label">Post pesaje<br>~6:00 AM</div>
+    </div>
+    <div class="intake-body">
+      <ul class="intake-foods">
+        <li><strong>1 L</strong> Gatorade (sabor a elección)</li>
+        <li><strong>2</strong> plátanos maduros (240 g)</li>
+        <li><strong>2 sanguches</strong> de mermelada · 4 rebanadas pan blanco (30 g c/u) + 40 g mermelada</li>
+        <li class="note">→ Consumir junto al suero IV. Prioridad: CHO rápidos + sodio para retención hídrica inmediata.</li>
+      </ul>
+      <div class="macro-row">
+        <div class="mr cho"><div class="mv">203g</div><div class="ml">CHO</div></div>
+        <div class="mr pro"><div class="mv">14g</div><div class="ml">Prot</div></div>
+        <div class="mr fat"><div class="mv">3g</div><div class="ml">Grasa</div></div>
+        <div class="mr kca"><div class="mv">881</div><div class="ml">kcal</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INGESTA 2 -->
+  <div class="intake">
+    <div class="intake-time">
+      <div class="intake-num">2</div>
+      <div class="intake-label">~8:00 AM</div>
+    </div>
+    <div class="intake-body">
+      <ul class="intake-foods">
+        <li><strong>2</strong> plátanos maduros (240 g)</li>
+        <li><strong>1 scoop</strong> proteína aislada (30 g) con agua</li>
+        <li class="note">→ Mantener el flujo de CHO. Proteína para frenar catabolismo muscular post-corte.</li>
+      </ul>
+      <div class="macro-row">
+        <div class="mr cho"><div class="mv">56g</div><div class="ml">CHO</div></div>
+        <div class="mr pro"><div class="mv">30g</div><div class="ml">Prot</div></div>
+        <div class="mr fat"><div class="mv">1g</div><div class="ml">Grasa</div></div>
+        <div class="mr kca"><div class="mv">338</div><div class="ml">kcal</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INGESTA 3 -->
+  <div class="intake">
+    <div class="intake-time">
+      <div class="intake-num">3</div>
+      <div class="intake-label">Desayuno<br>~9:30 AM</div>
+    </div>
+    <div class="intake-body">
+      <ul class="intake-foods">
+        <li><strong>4 rebanadas</strong> pan blanco (30 g c/u) — tostadas francesas</li>
+        <li><strong>2 huevos</strong> enteros batidos</li>
+        <li><strong>50 ml</strong> leche (chorro para la mezcla)</li>
+        <li><strong>Canela</strong> al gusto</li>
+        <li class="note">→ Remojar el pan en la mezcla de huevo + leche + canela y cocinar a la plancha.</li>
+      </ul>
+      <div class="macro-row">
+        <div class="mr cho"><div class="mv">63g</div><div class="ml">CHO</div></div>
+        <div class="mr pro"><div class="mv">25g</div><div class="ml">Prot</div></div>
+        <div class="mr fat"><div class="mv">13g</div><div class="ml">Grasa</div></div>
+        <div class="mr kca"><div class="mv">475</div><div class="ml">kcal</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INGESTA 4 -->
+  <div class="intake">
+    <div class="intake-time">
+      <div class="intake-num">4</div>
+      <div class="intake-label">Almuerzo<br>~1:00 PM</div>
+    </div>
+    <div class="intake-body">
+      <ul class="intake-foods">
+        <li><strong>100 g</strong> pechuga de pollo (peso crudo) a la plancha</li>
+        <li><strong>400 g</strong> ravioles de espinaca con ricota (peso cocido)</li>
+        <li><strong>100 g</strong> salsa de tomate casera</li>
+        <li><strong>Jugo</strong> de 4 naranjas (~400 ml)</li>
+        <li class="note">→ Comida más completa del día: CHO + proteína + calcio de la ricota + vitamina C del jugo.</li>
+      </ul>
+      <div class="macro-row">
+        <div class="mr cho"><div class="mv">152g</div><div class="ml">CHO</div></div>
+        <div class="mr pro"><div class="mv">55g</div><div class="ml">Prot</div></div>
+        <div class="mr fat"><div class="mv">19g</div><div class="ml">Grasa</div></div>
+        <div class="mr kca"><div class="mv">997</div><div class="ml">kcal</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INGESTA 5 -->
+  <div class="intake">
+    <div class="intake-time">
+      <div class="intake-num">5</div>
+      <div class="intake-label">Snack<br>~4:30 PM</div>
+    </div>
+    <div class="intake-body">
+      <ul class="intake-foods">
+        <li><strong>Opción A:</strong> 120 g Trix + 300 ml leche descremada Slim</li>
+        <li class="alt">Opción B: 120 g Cap'n Crunch + 300 ml yogurt descremado Slim</li>
+        <li class="note">→ Elegir la opción contraria a la del desayuno para variar sabores y textura.</li>
+      </ul>
+      <div class="macro-row">
+        <div class="mr cho"><div class="mv">~116g</div><div class="ml">CHO</div></div>
+        <div class="mr pro"><div class="mv">~16–22g</div><div class="ml">Prot</div></div>
+        <div class="mr fat"><div class="mv">~4–6g</div><div class="ml">Grasa</div></div>
+        <div class="mr kca"><div class="mv">~574–606</div><div class="ml">kcal</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INGESTA 6 -->
+  <div class="intake">
+    <div class="intake-time">
+      <div class="intake-num">6</div>
+      <div class="intake-label">Cena<br>~8:00 PM</div>
+    </div>
+    <div class="intake-body">
+      <ul class="intake-foods">
+        <li><strong>350 g</strong> fideos (peso cocido)</li>
+        <li><strong>100 g</strong> salsa de tomate casera</li>
+        <li><strong>10 g</strong> mantequilla</li>
+        <li class="note">→ Cena ligera para facilitar el sueño. Sin proteína pesada para no dificultar la digestión nocturna.</li>
+      </ul>
+      <div class="macro-row">
+        <div class="mr cho"><div class="mv">78g</div><div class="ml">CHO</div></div>
+        <div class="mr pro"><div class="mv">14g</div><div class="ml">Prot</div></div>
+        <div class="mr fat"><div class="mv">10g</div><div class="ml">Grasa</div></div>
+        <div class="mr kca"><div class="mv">466</div><div class="ml">kcal</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TABLA RESUMEN -->
+  <div class="tbl-wrap" style="margin-top:24px">
+    <div class="tbl-title">Resumen 23 Junio — Post Pesaje</div>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Ingesta</th>
+          <th>CHO (g)</th>
+          <th>Prot (g)</th>
+          <th>Grasa (g)</th>
+          <th>kcal</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="color:var(--muted);font-family:'Chakra Petch',sans-serif">IV</td>
+          <td>Cóctel IV · NaCl 0.9% + Vit C + B + ALA</td>
+          <td class="td-num cho">—</td>
+          <td class="td-num pro">—</td>
+          <td>—</td>
+          <td class="td-num kca">—</td>
+        </tr>
+        <tr>
+          <td style="color:var(--muted);font-family:'Chakra Petch',sans-serif">1</td>
+          <td>Gatorade 1L + 2 plátanos + 2 sanguches mermelada</td>
+          <td class="td-num cho">203</td>
+          <td class="td-num pro">14</td>
+          <td>3</td>
+          <td class="td-num kca">881</td>
+        </tr>
+        <tr>
+          <td style="color:var(--muted);font-family:'Chakra Petch',sans-serif">2</td>
+          <td>2 plátanos + proteína aislada</td>
+          <td class="td-num cho">56</td>
+          <td class="td-num pro">30</td>
+          <td>1</td>
+          <td class="td-num kca">338</td>
+        </tr>
+        <tr>
+          <td style="color:var(--muted);font-family:'Chakra Petch',sans-serif">3</td>
+          <td>Tostadas francesas · 4 rebanadas pan + 2 huevos + leche + canela</td>
+          <td class="td-num cho">63</td>
+          <td class="td-num pro">25</td>
+          <td>13</td>
+          <td class="td-num kca">475</td>
+        </tr>
+        <tr>
+          <td style="color:var(--muted);font-family:'Chakra Petch',sans-serif">4</td>
+          <td>Pollo 100g + ravioles 400g + salsa tomate + jugo 4 naranjas</td>
+          <td class="td-num cho">152</td>
+          <td class="td-num pro">55</td>
+          <td>19</td>
+          <td class="td-num kca">997</td>
+        </tr>
+        <tr>
+          <td style="color:var(--muted);font-family:'Chakra Petch',sans-serif">5</td>
+          <td>Trix / Cap'n Crunch 120g + leche/yogurt Slim 300ml</td>
+          <td class="td-num cho">~116</td>
+          <td class="td-num pro">~16–22</td>
+          <td>~4–6</td>
+          <td class="td-num kca">~574–606</td>
+        </tr>
+        <tr>
+          <td style="color:var(--muted);font-family:'Chakra Petch',sans-serif">6</td>
+          <td>Fideos 350g + salsa tomate + mantequilla</td>
+          <td class="td-num cho">78</td>
+          <td class="td-num pro">14</td>
+          <td>10</td>
+          <td class="td-num kca">466</td>
+        </tr>
+        <tr class="tr-total">
+          <td colspan="2"><strong>TOTAL 23 JUN</strong></td>
+          <td class="td-num cho"><strong>~668g</strong>
+            <div class="progress-bar"><div class="progress-fill cho" style="width:97%"></div></div>
+          </td>
+          <td class="td-num pro"><strong>~148g</strong>
+            <div class="progress-bar"><div class="progress-fill pro" style="width:100%"></div></div>
+          </td>
+          <td><strong>~42g</strong></td>
+          <td class="td-num kca"><strong>~3,757</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- DÍA DE PELEA -->
+  <div class="section-title">24 Junio — Día de Pelea</div>
+
+  <div class="tbl-wrap">
+    <div class="fight-tl" style="padding:4px 16px">
+
+      <div class="ft">
+        <div class="ft-time">~7:00 AM</div>
+        <div class="ft-dot"><div class="dot orange"></div><div class="line"></div></div>
+        <div class="ft-content">
+          <div class="ft-label orange">Desayuno</div>
+          <div class="ft-desc"><strong>200g avena cocida</strong> + 1 plátano + 20g miel + <strong>1 scoop proteína</strong> + 300ml leche descremada</div>
+          <div class="ft-nums">
+            <div class="ft-num"><span>~85g</span>CHO</div>
+            <div class="ft-num"><span>~45g</span>Prot</div>
+            <div class="ft-num"><span>~650</span>kcal</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ft">
+        <div class="ft-time">~10:00 AM</div>
+        <div class="ft-dot"><div class="dot orange"></div><div class="line"></div></div>
+        <div class="ft-content">
+          <div class="ft-label orange">Snack mañana</div>
+          <div class="ft-desc"><strong>2 tostadas</strong> pan blanco + mermelada + <strong>1 plátano</strong> + 500ml bebida deportiva</div>
+          <div class="ft-nums">
+            <div class="ft-num"><span>~80g</span>CHO</div>
+            <div class="ft-num"><span>~6g</span>Prot</div>
+            <div class="ft-num"><span>~420</span>kcal</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ft">
+        <div class="ft-time">3–4h antes</div>
+        <div class="ft-dot"><div class="dot green"></div><div class="line"></div></div>
+        <div class="ft-content">
+          <div class="ft-label green">Comida pre-pelea</div>
+          <div class="ft-desc"><strong>250g arroz blanco</strong> + <strong>180g pollo</strong> a la plancha + <strong>150g papa sancochada</strong> + jugo 200ml · Poca grasa, poca fibra</div>
+          <div class="ft-nums">
+            <div class="ft-num"><span>~130g</span>CHO</div>
+            <div class="ft-num"><span>~50g</span>Prot</div>
+            <div class="ft-num"><span>~840</span>kcal</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ft">
+        <div class="ft-time">90 min antes</div>
+        <div class="ft-dot"><div class="dot blue"></div><div class="line"></div></div>
+        <div class="ft-content">
+          <div class="ft-label blue">Snack pre-pelea</div>
+          <div class="ft-desc"><strong>1 gel de carbohidratos</strong> o 1 plátano + <strong>500ml bebida deportiva</strong></div>
+          <div class="ft-nums">
+            <div class="ft-num"><span>~55g</span>CHO</div>
+            <div class="ft-num"><span>~230</span>kcal</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ft">
+        <div class="ft-time">30 min antes</div>
+        <div class="ft-dot"><div class="dot purple"></div><div class="line"></div></div>
+        <div class="ft-content">
+          <div class="ft-label purple">Calentamiento</div>
+          <div class="ft-desc"><strong>300ml bebida deportiva</strong> · Sips cada 10–15 min · <strong>Cafeína 200–400mg</strong> si hay tolerancia establecida</div>
+          <div class="ft-nums">
+            <div class="ft-num"><span>~20g</span>CHO</div>
+            <div class="ft-num"><span>200–400mg</span>Cafeína</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ft">
+        <div class="ft-time">Córner</div>
+        <div class="ft-dot"><div class="dot teal"></div><div class="line"></div></div>
+        <div class="ft-content">
+          <div class="ft-label teal">Entre rounds</div>
+          <div class="ft-desc"><strong>50–100ml bebida deportiva</strong> por pausa · Si hay round 3+: <strong>1 gel CHO</strong> · No tomar agua sola</div>
+          <div class="ft-nums">
+            <div class="ft-num"><span>30–60g</span>CHO/pelea</div>
+            <div class="ft-num"><span>300–500ml</span>Fluido</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="logo">Franjo Torres Bondy<br><span style="font-size:10px;color:var(--muted);font-family:'Inter',sans-serif;font-weight:400">Nutricionista Deportivo · @el_nutricionistafranjo</span></div>
+    <div class="meta">Ian Escuza · Protocolo Rebound Post Pesaje<br>23–24 Junio 2026 · Documento confidencial</div>
+  </div>
+
+</div>
+</body>
+</html>
