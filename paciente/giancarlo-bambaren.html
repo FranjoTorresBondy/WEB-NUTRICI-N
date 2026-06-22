@@ -197,7 +197,7 @@ const PATIENT = {
   tipoPlan:  'Hipocalórico · Hiperprotéico',
   macros:    { kcal: 1745, p: 110, c: 225, g: 48 },
   hidratacion: { entreno: '3.0', descanso: '2.0' },
-  semanas:   4,
+  semanas:   6,
 
   antro: {
     fecha: '19.06.2026',
@@ -267,7 +267,67 @@ const PATIENT = {
 
   notaSpecs: 'Plan base = días de descanso (1745 kcal). En días de entrenamiento agregar Pre Entreno al snack (+120 kcal). Opciones fuera de casa: máx. 1 vez por semana. Cortar ingesta de alcohol.',
 
-  entrenamiento: null,
+  entrenamiento: {
+    fases: [
+      { label:'Acumulación',     semanas:2, color:'var(--cyan)',  bg:'#246C86' },
+      { label:'Intensificación', semanas:2, color:'var(--coral)', bg:'#B0492F' },
+      { label:'Peak',            semanas:1, color:'#ef5350',      bg:'#8B1C1C' },
+      { label:'Descarga',        semanas:1, color:'var(--green)', bg:'#2E7D52' },
+    ],
+    rir: [
+      { C:'RIR 2', A:'RIR 1', X:'RIR 0' },
+      { C:'RIR 1', A:'RIR 0', X:'RIR 0' },
+      { C:'Fallo', A:'Fallo+P', X:'Fallo' },
+      { C:'RIR 3', A:'RIR 2', X:'RIR 2' },
+    ],
+    sesiones: [
+      { id:'L1', icon:'🦵', label:'Lower 1', nota:'Cuádriceps · Glúteos · Isquios · Core', ejercicios:[
+        { nombre:'Hack squat',                                      img:'gif',  s1:'https://cdn.jefit.com/assets/img/exercises/gifs/783.gif',                                                                                                     series:2, reps:'6',  tipo:'C', descanso:'3:00' },
+        { nombre:'Hip thrust con barra',                            img:'gif',  s1:'https://cdn.jefit.com/assets/img/exercises/gifs/946.gif',                                                                                                     series:2, reps:'8',  tipo:'C', descanso:'2:00' },
+        { nombre:'Flexión de rodilla en máquina (isquios)',         img:'anim', s1:'Seated_Leg_Curl/0.jpg',                                  s2:'Seated_Leg_Curl/1.jpg',                                  series:3, reps:'10', tipo:'A', descanso:'2:00' },
+        { nombre:'Búlgaras con mancuernas',                         img:'anim', s1:'Dumbbell_Bulgarian_Split_Squat/0.jpg',                   s2:'Dumbbell_Bulgarian_Split_Squat/1.jpg',                   series:4, reps:'8',  tipo:'C', descanso:'2:00' },
+        { nombre:'Aducción de cadera en máquina',                   img:'gif',  s1:'https://cdn.jefit.com/assets/img/exercises/gifs/217.gif',                                                                                                     series:2, reps:'10', tipo:'A', descanso:'2:00' },
+        { nombre:'Leg raises en banco declinado',                   img:'anim', s1:'Decline_Crunch/0.jpg',                                   s2:'Decline_Crunch/1.jpg',                                   series:4, reps:'10', tipo:'X', descanso:'1:00' },
+        { nombre:'Pantorrilla en máquina o multipower',             img:'gif',  s1:'https://cdn.jefit.com/assets/img/exercises/gifs/1234.gif',                                                                                                    series:4, reps:'10', tipo:'X', descanso:'1:00' },
+      ]},
+      { id:'U1', icon:'🏋️', label:'Upper 1', nota:'Espalda · Pecho · Trícep · Bícep', ejercicios:[
+        { nombre:'Reverse curl en banco scott con barra',           img:'gif',  s1:'https://cdn.jefit.com/assets/img/exercises/gifs/355.gif',                                                                                                     series:3, reps:'10', tipo:'X', descanso:'1:00' },
+        { nombre:'Barras con lastre (agarre prono)',                 img:'anim', s1:'Chin-Up/0.jpg',                                          s2:'Chin-Up/1.jpg',                                          series:3, reps:'6',  tipo:'C', descanso:'2:30' },
+        { nombre:'Máquina de pectoral convergente',                  img:'gif',  s1:'https://cdn.jefit.com/assets/img/exercises/gifs/118.gif',                                                                                                    series:2, reps:'6',  tipo:'C', descanso:'2:30' },
+        { nombre:'Remo con barra tipo Pendlay',                     img:'anim', s1:'Bent_Over_Barbell_Row/0.jpg',                            s2:'Bent_Over_Barbell_Row/1.jpg',                            series:2, reps:'6',  tipo:'C', descanso:'2:00' },
+        { nombre:'Aducción de pecho en máquina (pec deck)',         img:'gif',  s1:'https://cdn.jefit.com/assets/img/exercises/gifs/121.gif',                                                                                                    series:2, reps:'10', tipo:'A', descanso:'2:00' },
+        { nombre:'Jalón unilateral desde polea alta',               img:'gif',  s1:'https://cdn.jefit.com/assets/img/exercises/gifs/48.gif',                                                                                                     series:2, reps:'10', tipo:'A', descanso:'1:30' },
+        { nombre:'Press francés / Kaz press',                       img:'anim', s1:'EZ-Bar_Skullcrusher/0.jpg',                              s2:'EZ-Bar_Skullcrusher/1.jpg',                              series:5, reps:'10', tipo:'A', descanso:'2:00' },
+        { nombre:'Curl de bícep con mancuernas sentado',            img:'anim', s1:'Alternate_Incline_Dumbbell_Curl/0.jpg',                  s2:'Alternate_Incline_Dumbbell_Curl/1.jpg',                  series:5, reps:'10', tipo:'A', descanso:'2:00' },
+      ]},
+      { id:'FB', icon:'⚡', label:'Full Body', nota:'Compuestos · Hombros · Pantorrilla', ejercicios:[
+        { nombre:'Hack squat',                                      img:'gif',  s1:'https://cdn.jefit.com/assets/img/exercises/gifs/783.gif',                                                                                                     series:2, reps:'5',  tipo:'C', descanso:'3:00' },
+        { nombre:'RDL (peso muerto rumano)',                        img:'anim', s1:'Romanian_Deadlift/0.jpg',                                s2:'Romanian_Deadlift/1.jpg',                                series:2, reps:'5',  tipo:'C', descanso:'3:00' },
+        { nombre:'Press con barra a 45°',                           img:'anim', s1:'Incline_Barbell_Bench_Press/0.jpg',                     s2:'Incline_Barbell_Bench_Press/1.jpg',                      series:2, reps:'5',  tipo:'C', descanso:'3:00' },
+        { nombre:'Pantorrilla en multipower',                       img:'gif',  s1:'https://cdn.jefit.com/assets/img/exercises/gifs/1234.gif',                                                                                                    series:5, reps:'10', tipo:'X', descanso:'2:00' },
+        { nombre:'Abducciones de cadera en máquina',                img:'gif',  s1:'https://cdn.jefit.com/assets/img/exercises/gifs/216.gif',                                                                                                    series:3, reps:'10', tipo:'A', descanso:'2:00' },
+        { nombre:'Deltoide posterior con mancuernas',               img:'anim', s1:'Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench/0.jpg', s2:'Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench/1.jpg', series:4, reps:'15', tipo:'A', descanso:'1:00' },
+        { nombre:'Elevaciones laterales con mancuernas',            img:'anim', s1:'Side_Lateral_Raise/0.jpg',                              s2:'Side_Lateral_Raise/1.jpg',                              series:4, reps:'10', tipo:'A', descanso:'1:30' },
+        { nombre:'Curl de antebrazos con barra (apoyo en banco)',   img:'gif',  s1:'https://cdn.jefit.com/assets/img/exercises/gifs/271.gif',                                                                                                    series:4, reps:'10', tipo:'X', descanso:'2:00' },
+      ]},
+      { id:'BR', icon:'💪', label:'Brazo', nota:'Bícep · Trícep · Core · Tibiales', ejercicios:[
+        { nombre:'Extensión de trícep desde polea alta (prono)',    img:'gif',  s1:'https://cdn.jefit.com/assets/img/exercises/gifs/26.gif',                                                                                                     series:3, reps:'5',  tipo:'C', descanso:'3:30' },
+        { nombre:'Curl de bícep en banco scott',                    img:'anim', s1:'Preacher_Curl/0.jpg',                                   s2:'Preacher_Curl/1.jpg',                                   series:3, reps:'5',  tipo:'C', descanso:'3:30' },
+        { nombre:'Extensión de trícep katana a una mano',           img:'gif',  s1:'https://cdn.jefit.com/assets/img/exercises/gifs/200.gif',                                                                                                    series:3, reps:'5',  tipo:'A', descanso:'3:30' },
+        { nombre:'Curl de bícep Bayesian a una mano',               img:'gif',  s1:'https://cdn.jefit.com/assets/img/exercises/gifs/1199.gif',                                                                                                   series:4, reps:'10', tipo:'A', descanso:'1:00' },
+        { nombre:'Rotación de tronco desde polea alta (cadera 90°)',img:'anim', s1:'Russian_Twist/0.jpg',                                   s2:'Russian_Twist/1.jpg',                                   series:4, reps:'10', tipo:'X', descanso:'1:00' },
+        { nombre:'Tibiales con mancuerna en banco',                 img:'url',  s1:'https://images.squarespace-cdn.com/content/v1/5f5e8592d2b0854b18af6975/1625922334887-JITFI50VKCDEXUGWGZO6/Dumbbell%2BDorsiflexions.jpg',                   series:4, reps:'10', tipo:'X', descanso:'1:30' },
+        { nombre:'Reverse curl en banco scott con barra',           img:'gif',  s1:'https://cdn.jefit.com/assets/img/exercises/gifs/355.gif',                                                                                                    series:4, reps:'10', tipo:'X', descanso:'2:00' },
+      ]},
+      { id:'AC', icon:'🎯', label:'Accesorios', nota:'Hombro · Trapecio · Core', ejercicios:[
+        { nombre:'Remo al mentón (anchura biacromial)',              img:'anim', s1:'Upright_Row/0.jpg',                                     s2:'Upright_Row/1.jpg',                                     series:2, reps:'10', tipo:'C', descanso:'2:00' },
+        { nombre:'Encogimiento de trapecio en banca a 75°',         img:'anim', s1:'Barbell_Shrug/0.jpg',                                   s2:'Barbell_Shrug/1.jpg',                                   series:3, reps:'10', tipo:'A', descanso:'2:00' },
+        { nombre:'Crunches en banco declinado con peso',             img:'anim', s1:'Decline_Crunch/0.jpg',                                  s2:'Decline_Crunch/1.jpg',                                  series:4, reps:'10', tipo:'X', descanso:'1:00' },
+        { nombre:'Leg raises',                                       img:'gif',  s1:'https://cdn.jefit.com/assets/img/exercises/gifs/115.gif',                                                                                                    series:4, reps:'10', tipo:'X', descanso:'1:00' },
+        { nombre:'Deltoide lateral desde polea media con muñequera',img:'gif',  s1:'https://cdn.jefit.com/assets/img/exercises/gifs/19.gif',                                                                                                     series:4, reps:'10', tipo:'A', descanso:'1:00' },
+      ]},
+    ],
+  },
 };
 // ════════════════════════════════════════════════════════════════════════════
 //  FIN DATOS — motor de renderizado (no tocar)
