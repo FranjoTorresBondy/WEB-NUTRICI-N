@@ -444,38 +444,40 @@ const PATIENT = {
 const BASE_IMG = 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/';
 const $ = id => document.getElementById(id);
 
-const TABS = [
-  { id:'tab-nutr',  label:'Nutrición',       icon:'🥗' },
-  { id:'tab-specs', label:'Especificaciones', icon:'📋' },
-  { id:'tab-train', label:'Entrenamiento',    icon:'🏋️' },
-  { id:'tab-evol',  label:'Evolución física', icon:'📊' },
-];
-
-function init() {
-  const n = PATIENT.nombre.split('\n');
-  $('heroEyebrow').innerHTML = 'Plan Nutricional · ' + PATIENT.fecha;
-  $('heroNombre').innerHTML = n.map((l,i)=>`<span style="${i>0?'display:block;padding-left:0.06em':''}">${l}</span>`).join('');
-  $('heroSub').innerHTML = `<span>Tipo de plan: <b>${PATIENT.tipoPlan}</b></span>`;
-
-  $('tabNav').innerHTML = TABS.map((t,i)=>`<button class="tab${i===0?' active':''}" onclick="switchTab('${t.id}',this)" id="btn-${t.id}">${t.label} <span class="tnum">${String(i+1).padStart(2,'0')}</span></button>`).join('');
-
-  TABS.forEach((t,i)=>{
-    const div=document.createElement('div');
-    div.id=t.id; div.className='panel'+(i===0?' active':'');
-    $('tabPanels').appendChild(div);
-  });
-
-  renderNutr();
-  renderSpecs();
-  renderTrain();
+function renderHero() {
+  $('heroEyebrow').innerHTML = `Plan Nutricional &nbsp;·&nbsp; ${PATIENT.fecha}`;
+  $('heroNombre').innerHTML = PATIENT.nombre.replace('\n','<br>');
+  $('heroSub').innerHTML = `<span><b>${PATIENT.macros.kcal.toLocaleString('es')}</b> kcal &nbsp;·&nbsp; ${PATIENT.tipoPlan}</span>
+    <span><b>${PATIENT.macros.p}P</b> · <b>${PATIENT.macros.c}C</b> · <b>${PATIENT.macros.g}G</b></span>`;
 }
 
-function switchTab(id, btn) {
+function renderTabs() {
+  const tabs = [
+    {id:'plan',  label:'Plan Nutricional'},
+    {id:'eval',  label:'Evaluación'},
+    {id:'specs', label:'Especificaciones'},
+  ];
+  if (PATIENT.entrenamiento) tabs.push({id:'train', label:'Entrenamiento'});
+  tabs.push({id:'evol-antro', label:'Evolución Física'});
+  if (PATIENT.entrenamiento) tabs.push({id:'evol-train', label:'Evolución Entreno'});
+
+  $('tabNav').innerHTML = tabs.map((t,i) => {
+    const extra = t.id==='evol-antro' ? ";initAntro()" : t.id==='evol-train' ? ";initEvolTrain()" : "";
+    return `<button class="tab${i===0?' active':''}" onclick="showTab('${t.id}',this)${extra}">
+      <span class="tnum">0${i+1}</span> ${t.label}
+    </button>`;
+  }).join('');
+
+  $('tabPanels').innerHTML = tabs.map((t,i) =>
+    `<div id="tab-${t.id}" class="panel${i===0?' active':''}"></div>`
+  ).join('');
+}
+
+function showTab(id,btn) {
   document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
-  $(id).classList.add('active');
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  $('tab-'+id)?.classList.add('active');
   btn.classList.add('active');
-  if (id==='tab-evol') initAntro();
 }
 
 // ── Nutrición ──────────────────────────────────────────────────────────────
@@ -500,7 +502,7 @@ function renderNutr() {
   const hydroHtml = `<div class="sec-h" style="margin-top:32px"><span class="ix">02</span><h2>Hidratación</h2><div class="rule"></div></div>
     <div class="hydro">${PATIENT.hidratacion.map(h=>`<div class="hcard"><div class="l">${h.label}</div><div class="b">${h.valor} L</div></div>`).join('')}</div>`;
 
-  $('tab-nutr').innerHTML = `<div class="wrap"><section>
+  $('tab-plan').innerHTML = `<div class="wrap"><section>
     <div class="sec-h"><span class="ix">01</span><h2>Plan alimentario</h2><div class="rule"></div></div>
     ${macrosHtml}
     <div class="meals">${mealsHtml}</div>
@@ -735,55 +737,19 @@ function mkChart(id,labels,datasets) {
     scales:{x:{grid:{color:'rgba(255,255,255,0.06)'},ticks:{color:'#666'}},y:{grid:{color:'rgba(255,255,255,0.06)'},ticks:{color:'#666'}}}}});
 }
 
-function renderAntro() {
-  const data = getAntroData();
+function renderEval() {
   const a = PATIENT.antro;
   const s6 = +(a.tri+a.sub+a.supra+a.abd+a.pierna+a.pant).toFixed(1);
   const s8 = +(s6+a.bi+a.cresta).toFixed(1);
-
-  const latest = data[data.length-1];
-  const prev   = data.length>1 ? data[data.length-2] : null;
-  function diff(key) {
-    if(!prev) return '';
-    const d = (latest[key]-prev[key]).toFixed(1);
-    return `<div class="kd ${d>0?'up':'down'}">${d>0?'+':''}${d}</div>`;
-  }
-
-  const kpis = [
-    {v:`${latest.peso} kg`, l:'Peso',          d:diff('peso')},
-    {v:`${latest.s8} mm`,  l:'Σ8 pliegues',    d:diff('s8')},
-    {v:`${latest.abdom} cm`,l:'Perímetro abd.', d:diff('abdom')},
-  ];
-
-  const labels = data.map(d=>d.fecha);
-
-  $('tab-evol').innerHTML = `<div class="wrap"><section>
-    <div class="sec-h"><span class="ix">01</span><h2>Métricas actuales</h2><div class="rule"></div></div>
-    <div class="kpi-row">${kpis.map(k=>`<div class="kpi"><div class="kv">${k.v}</div><div class="kl">${k.l}</div>${k.d}</div>`).join('')}</div>
-
-    <div class="chart-card">
-      <h3>Peso corporal</h3><div class="cap">Evolución en el tiempo (kg)</div>
-      <div class="chart-wrap"><canvas id="chPeso"></canvas></div>
-    </div>
-    <div class="chart-grid">
-      <div class="chart-card">
-        <h3>Sumatoria de pliegues</h3><div class="cap">Σ6 y Σ8 (mm)</div>
-        <div class="chart-wrap"><canvas id="chPlie"></canvas></div>
-      </div>
-      <div class="chart-card">
-        <h3>Perímetros</h3><div class="cap">cm</div>
-        <div class="chart-wrap"><canvas id="chPeri"></canvas></div>
-      </div>
-    </div>
-
-    <div class="sec-h" style="margin-top:32px"><span class="ix">02</span><h2>Evaluación inicial</h2><div class="rule"></div></div>
+  $('tab-eval').innerHTML = `<div class="wrap"><section>
+    <div class="sec-h"><span class="ix">01</span><h2>Evaluación Nutricional</h2><div class="rule"></div></div>
     <div class="evalwrap">
-      <div class="evgroup"><div class="gh">Composición corporal</div>
+      <div class="evgroup"><div class="gh">Antropometría básica</div>
         <div class="row"><span>Peso</span><span>${a.peso} kg</span></div>
         <div class="row"><span>Talla</span><span>${a.talla} cm</span></div>
-        <div class="row"><span>IMC</span><span>${a.imc}</span></div>
+        <div class="row"><span>IMC</span><span>${a.imc} kg/m²</span></div>
       </div>
-      <div class="evgroup"><div class="gh">Pliegues cutáneos (mm)</div>
+      <div class="evgroup"><div class="gh">Pliegues (mm) · ISAK</div>
         <div class="row"><span>Tricipital</span><span>${a.tri}</span></div>
         <div class="row"><span>Bicipital</span><span>${a.bi}</span></div>
         <div class="row"><span>Subescapular</span><span>${a.sub}</span></div>
@@ -804,75 +770,175 @@ function renderAntro() {
         <div class="row"><span>Pantorrilla</span><span>${a.pantPer}</span></div>
       </div>
     </div>
-    <div class="sec-h" style="margin-top:32px"><span class="ix">03</span><h2>Objetivos</h2><div class="rule"></div></div>
+    <div class="sec-h" style="margin-top:32px"><span class="ix">02</span><h2>Objetivos</h2><div class="rule"></div></div>
     <div class="card" style="max-width:600px"><ul class="obj">${PATIENT.objetivos.map(o=>`<li>${o}</li>`).join('')}</ul></div>
-
-    <div class="eval-form">
-      <h3>Registrar nueva evaluación</h3>
-      <div class="form-grid">
-        <div class="form-field"><label>Fecha</label><input id="f-fecha" placeholder="DD.MM.AAAA"></div>
-        <div class="form-field"><label>Peso (kg)</label><input id="f-peso" type="number" step="0.1"></div>
-        <div class="form-field"><label>Tricipital</label><input id="f-tri" type="number" step="0.1"></div>
-        <div class="form-field"><label>Bicipital</label><input id="f-bi" type="number" step="0.1"></div>
-        <div class="form-field"><label>Subescapular</label><input id="f-sub" type="number" step="0.1"></div>
-        <div class="form-field"><label>Cresta iliaca</label><input id="f-cresta" type="number" step="0.1"></div>
-        <div class="form-field"><label>Supra espinal</label><input id="f-supra" type="number" step="0.1"></div>
-        <div class="form-field"><label>Abdominal</label><input id="f-abd" type="number" step="0.1"></div>
-        <div class="form-field"><label>Pierna media</label><input id="f-pierna" type="number" step="0.1"></div>
-        <div class="form-field"><label>Pantorrilla</label><input id="f-pant" type="number" step="0.1"></div>
-        <div class="form-field"><label>Braz. relajado</label><input id="f-brazRelaj" type="number" step="0.1"></div>
-        <div class="form-field"><label>Braz. flexionado</label><input id="f-brazFlex" type="number" step="0.1"></div>
-        <div class="form-field"><label>Abd. perímetro</label><input id="f-abdom" type="number" step="0.1"></div>
-        <div class="form-field"><label>Cadera</label><input id="f-cadera" type="number" step="0.1"></div>
-        <div class="form-field"><label>Muslo medio</label><input id="f-muslo" type="number" step="0.1"></div>
-        <div class="form-field"><label>Pantorrilla per.</label><input id="f-pantPer" type="number" step="0.1"></div>
-      </div>
-      <button class="btn-add" onclick="addEval()">Agregar evaluación</button>
-    </div>
-
-    <div class="sec-h" style="margin-top:32px"><span class="ix">04</span><h2>Historial de evaluaciones</h2><div class="rule"></div></div>
-    <div class="tbl-scroll">
-      <table class="antro-table">
-        <thead><tr>
-          <th>Parámetro</th>
-          ${data.map(d=>`<th>${d.fecha}</th>`).join('')}
-        </tr></thead>
-        <tbody>
-          ${['peso','tri','bi','sub','cresta','supra','abd','pierna','pant','s6','s8','brazRelaj','brazFlex','abdom','cadera','muslo','pantPer'].map(k=>
-            `<tr><td>${{peso:'Peso (kg)',tri:'Tricipital',bi:'Bicipital',sub:'Subescapular',cresta:'Cresta iliaca',supra:'Supra espinal',abd:'Abdominal',pierna:'Pierna media',pant:'Pantorrilla',s6:'Σ6 pliegues',s8:'Σ8 pliegues',brazRelaj:'Brazo relajado',brazFlex:'Brazo flex.',abdom:'Abd. perímetro',cadera:'Cadera',muslo:'Muslo medio',pantPer:'Pantorrilla per.'}[k]}</td>${data.map(d=>`<td>${d[k]??'—'}</td>`).join('')}</tr>`
-          ).join('')}
-        </tbody>
-      </table>
-    </div>
   </section></div>`;
-
-  setTimeout(()=>{
-    mkChart('chPeso', labels, [{label:'Peso (kg)',data:data.map(d=>d.peso),borderColor:CC.gold,backgroundColor:CC.gold}]);
-    mkChart('chPlie', labels, [
-      {label:'Σ6',data:data.map(d=>d.s6),borderColor:CC.cyan,backgroundColor:CC.cyan},
-      {label:'Σ8',data:data.map(d=>d.s8),borderColor:CC.coral,backgroundColor:CC.coral},
-    ]);
-    mkChart('chPeri', labels, [
-      {label:'Abdominal',data:data.map(d=>d.abdom),borderColor:CC.gold,backgroundColor:CC.gold},
-      {label:'Cadera',   data:data.map(d=>d.cadera),borderColor:CC.purple,backgroundColor:CC.purple},
-      {label:'Muslo',    data:data.map(d=>d.muslo),borderColor:CC.cyan,backgroundColor:CC.cyan},
-    ]);
-  },50);
 }
 
-function addEval() {
-  const get = id => parseFloat($('f-'+id)?.value)||null;
-  const fecha = $('f-fecha')?.value?.trim();
-  if (!fecha) { alert('Ingresa la fecha'); return; }
-  const tri=get('tri'), bi=get('bi'), sub=get('sub'), cresta=get('cresta'), supra=get('supra'), abd=get('abd'), pierna=get('pierna'), pant=get('pant');
-  const s6 = tri&&sub&&supra&&abd&&pierna&&pant ? +(tri+sub+supra+abd+pierna+pant).toFixed(1) : null;
-  const s8 = s6&&bi&&cresta ? +(s6+bi+cresta).toFixed(1) : null;
-  const entry = { fecha, peso:get('peso'), tri, bi, sub, cresta, supra, abd, pierna, pant, brazRelaj:get('brazRelaj'), brazFlex:get('brazFlex'), abdom:get('abdom'), cadera:get('cadera'), muslo:get('muslo'), pantPer:get('pantPer'), s6, s8 };
-  const data = getAntroData();
-  data.push(entry);
-  saveAntroData(data);
-  antroInited=false;
-  initAntro();
+function renderAntro() {
+  const el=$('tab-evol-antro'); if(!el)return;
+  el.innerHTML=`<div class="wrap">
+    <section style="padding-top:24px">
+      <div class="sec-h"><span class="ix">01</span><h2>Evolución Antropométrica</h2><div class="rule"></div></div>
+      <div class="kpi-row" id="antroKpis"></div>
+    </section>
+    <section style="padding-top:0">
+      <div class="sec-h"><span class="ix">02</span><h2>Gráficos</h2><div class="rule"></div></div>
+      <div class="chart-card"><h3>Peso corporal</h3><div class="cap">kg</div><div class="chart-wrap"><canvas id="cPeso"></canvas></div></div>
+      <div class="chart-grid">
+        <div class="chart-card"><h3>Sumatorias de pliegues</h3><div class="cap">Σ6 y Σ8 (mm)</div><div class="chart-wrap"><canvas id="cSigma"></canvas></div></div>
+        <div class="chart-card"><h3>Perímetros musculares</h3><div class="cap">Brazo flex, muslo, pantorrilla (cm)</div><div class="chart-wrap"><canvas id="cMusc"></canvas></div></div>
+        <div class="chart-card"><h3>Cintura y cadera</h3><div class="cap">Perímetros (cm)</div><div class="chart-wrap"><canvas id="cCint"></canvas></div></div>
+        <div class="chart-card"><h3>Pliegues individuales</h3><div class="cap">Abdominal, cresta, subescapular (mm)</div><div class="chart-wrap"><canvas id="cPl"></canvas></div></div>
+      </div>
+    </section>
+    <section style="padding-top:0">
+      <div class="sec-h"><span class="ix">03</span><h2>Historial</h2><div class="rule"></div></div>
+      <div class="tbl-scroll"><table class="antro-table" id="antroTable"></table></div>
+    </section>
+    <section style="padding-top:0">
+      <div class="sec-h"><span class="ix">04</span><h2>Nueva medición</h2><div class="rule"></div></div>
+      <div class="eval-form"><h3>Registrar evaluación</h3>
+        <div class="form-grid">
+          <div class="form-field"><label>Fecha</label><input type="date" id="f-fecha"></div>
+          <div class="form-field"><label>Peso (kg)</label><input type="number" step="0.1" id="f-peso" placeholder="—"></div>
+          <div class="form-field"><label>Tricipital (mm)</label><input type="number" step="0.5" id="f-tri"></div>
+          <div class="form-field"><label>Bicipital (mm)</label><input type="number" step="0.5" id="f-bi"></div>
+          <div class="form-field"><label>Subescapular</label><input type="number" step="0.5" id="f-sub"></div>
+          <div class="form-field"><label>Cresta iliaca</label><input type="number" step="0.5" id="f-cresta"></div>
+          <div class="form-field"><label>Supra espinal</label><input type="number" step="0.5" id="f-supra"></div>
+          <div class="form-field"><label>Abdominal (mm)</label><input type="number" step="0.5" id="f-abd"></div>
+          <div class="form-field"><label>Pierna media</label><input type="number" step="0.5" id="f-pierna"></div>
+          <div class="form-field"><label>Pantorrilla pl.</label><input type="number" step="0.5" id="f-pant"></div>
+          <div class="form-field"><label>Brazo relajado</label><input type="number" step="0.1" id="f-brazRelaj"></div>
+          <div class="form-field"><label>Brazo flex.</label><input type="number" step="0.1" id="f-brazFlex"></div>
+          <div class="form-field"><label>Cintura (cm)</label><input type="number" step="0.1" id="f-abdom"></div>
+          <div class="form-field"><label>Cadera (cm)</label><input type="number" step="0.1" id="f-cadera"></div>
+          <div class="form-field"><label>Muslo medio</label><input type="number" step="0.1" id="f-muslo"></div>
+          <div class="form-field"><label>Pantorrilla per.</label><input type="number" step="0.1" id="f-pantPer"></div>
+        </div>
+        <button class="btn-add" onclick="addAntroEntry()">+ Guardar medición</button>
+      </div>
+    </section>
+  </div>`;
+  drawAntroCharts();
+}
+
+function drawAntroCharts() {
+  const data=getAntroData(); const lbl=data.map(d=>d.fecha);
+  const first=data[0],last=data[data.length-1];
+  const kpis=[
+    {v:last.peso,u:'kg',l:'Peso actual',d:+(last.peso-first.peso).toFixed(1),good:'down'},
+    {v:last.s8,u:'mm',l:'Σ8 pliegues',d:+(last.s8-first.s8).toFixed(1),good:'down'},
+    {v:last.brazFlex,u:'cm',l:'Brazo flex.',d:+(last.brazFlex-first.brazFlex).toFixed(1),good:'up'},
+    {v:last.abdom,u:'cm',l:'Cintura',d:+(last.abdom-first.abdom).toFixed(1),good:'down'},
+  ];
+  $('antroKpis').innerHTML=kpis.map(k=>{
+    const sign=k.d>0?'+':''; const cls=(k.good==='down'?k.d<0:k.d>0)?'up':(k.d<0?'down':'');
+    const arr=k.d>0?'▲':(k.d<0?'▼':'—');
+    return `<div class="kpi"><div class="kv">${k.v}<span style="font-size:14px;opacity:.5"> ${k.u}</span></div><div class="kl">${k.l}</div>${data.length>1?`<div class="kd ${cls}">${arr} ${sign}${k.d} ${k.u}</div>`:''}</div>`;
+  }).join('');
+  mkChart('cPeso',lbl,[{label:'Peso kg',data:data.map(d=>d.peso),borderColor:CC.gold,pointBackgroundColor:CC.gold}]);
+  mkChart('cSigma',lbl,[{label:'Σ6',data:data.map(d=>d.s6),borderColor:CC.coral,pointBackgroundColor:CC.coral},{label:'Σ8',data:data.map(d=>d.s8),borderColor:CC.purple,pointBackgroundColor:CC.purple}]);
+  mkChart('cMusc',lbl,[{label:'Brazo flex',data:data.map(d=>d.brazFlex),borderColor:CC.green,pointBackgroundColor:CC.green},{label:'Muslo',data:data.map(d=>d.muslo),borderColor:CC.cyan,pointBackgroundColor:CC.cyan},{label:'Pantorrilla',data:data.map(d=>d.pantPer),borderColor:CC.gold,pointBackgroundColor:CC.gold}]);
+  mkChart('cCint',lbl,[{label:'Cintura',data:data.map(d=>d.abdom),borderColor:CC.coral,pointBackgroundColor:CC.coral},{label:'Cadera',data:data.map(d=>d.cadera),borderColor:CC.gold,pointBackgroundColor:CC.gold}]);
+  mkChart('cPl',lbl,[{label:'Abdominal',data:data.map(d=>d.abd),borderColor:CC.coral,pointBackgroundColor:CC.coral},{label:'Cresta',data:data.map(d=>d.cresta),borderColor:CC.gold,pointBackgroundColor:CC.gold},{label:'Subescapular',data:data.map(d=>d.sub),borderColor:CC.cyan,pointBackgroundColor:CC.cyan}]);
+  const cols=['fecha','peso','s6','s8','brazFlex','muslo','abdom','cadera'];
+  const heads=['Fecha','Peso kg','Σ6 mm','Σ8 mm','Brazo cm','Muslo cm','Cintura cm','Cadera cm'];
+  $('antroTable').innerHTML=`<thead><tr>${heads.map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>`+[...data].reverse().map(d=>`<tr>${cols.map(c=>`<td>${d[c]??'—'}</td>`).join('')}</tr>`).join('')+'</tbody>';
+}
+
+function addAntroEntry() {
+  const gf=id=>{const e=$(id);return e?e.value||null:null};
+  const gn=id=>{const e=$(id);return e?parseFloat(e.value)||null:null};
+  const fecha=gf('f-fecha'); if(!fecha){alert('Ingresa la fecha');return;}
+  const e={fecha:fecha.split('-').reverse().join('.'),peso:gn('f-peso'),tri:gn('f-tri'),bi:gn('f-bi'),sub:gn('f-sub'),cresta:gn('f-cresta'),supra:gn('f-supra'),abd:gn('f-abd'),pierna:gn('f-pierna'),pant:gn('f-pant'),brazRelaj:gn('f-brazRelaj'),brazFlex:gn('f-brazFlex'),abdom:gn('f-abdom'),cadera:gn('f-cadera'),muslo:gn('f-muslo'),pantPer:gn('f-pantPer')};
+  e.s6=+[e.tri,e.sub,e.supra,e.abd,e.pierna,e.pant].filter(Boolean).reduce((a,b)=>a+b,0).toFixed(1);
+  e.s8=+(e.s6+(e.bi||0)+(e.cresta||0)).toFixed(1);
+  const data=getAntroData(); data.push(e); saveAntroData(data);
+  antroInited=false; initAntro();
+  ['fecha','peso','tri','bi','sub','cresta','supra','abd','pierna','pant','brazRelaj','brazFlex','abdom','cadera','muslo','pantPer'].forEach(f=>{const el=$('f-'+f);if(el)el.value='';});
+  flashSave();
+}
+
+// ── Evolución Entrenamiento ────────────────────────────────────────────────
+let evolTrainInited=false, evolActiveSess='s1', evolActiveEx=0, cTrainChart=null;
+
+function initEvolTrain() { if(evolTrainInited)return; evolTrainInited=true; renderEvolTrain(); }
+
+function renderEvolTrain() {
+  const el=$('tab-evol-train'); if(!el)return;
+  el.innerHTML=`<div class="wrap"><section style="padding-top:24px">
+    <div class="sec-h"><span class="ix">01</span><h2>Evolución del Entrenamiento</h2><div class="rule"></div></div>
+    <p class="train-intro">Los pesos anotados en la pestaña <b>Entrenamiento</b> se grafican aquí automáticamente por semana.</p>
+    <div class="sess-sel" id="evolSessSel"></div>
+    <div class="ex-sel" id="evolExSel"></div>
+    <div class="chart-card" id="evolChartCard">
+      <h3 id="evolChartTitle">—</h3>
+      <div class="cap">Peso máximo registrado por semana (kg)</div>
+      <div class="chart-wrap"><canvas id="cTrain"></canvas></div>
+    </div>
+  </section></div>`;
+  buildEvolSessSel(); buildEvolExSel(); renderEvolChart();
+}
+
+function buildEvolSessSel() {
+  $('evolSessSel').innerHTML = PATIENT.entrenamiento.sesiones.map(s=>
+    `<button class="sess-btn${s.id===evolActiveSess?' active':''}" onclick="setEvolSess('${s.id}',this)">${s.icon} ${s.label}</button>`
+  ).join('');
+}
+
+function setEvolSess(id,btn) { evolActiveSess=id; evolActiveEx=0; document.querySelectorAll('.sess-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); buildEvolExSel(); renderEvolChart(); }
+
+function buildEvolExSel() {
+  const sess = PATIENT.entrenamiento.sesiones.find(s=>s.id===evolActiveSess);
+  $('evolExSel').innerHTML = sess.ejercicios.map((ex,i)=>
+    `<button class="ex-pill${i===evolActiveEx?' active':''}" onclick="setEvolEx(${i},this)">${ex.nombre}</button>`
+  ).join('');
+}
+
+function setEvolEx(idx,btn) { evolActiveEx=idx; document.querySelectorAll('.ex-pill').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); renderEvolChart(); }
+
+function renderEvolChart() {
+  if (!WEEKS.length) WEEKS = buildWeeks();
+  const sess = PATIENT.entrenamiento.sesiones.find(s=>s.id===evolActiveSess);
+  const ex = sess.ejercicios[evolActiveEx];
+  if ($('evolChartTitle')) $('evolChartTitle').textContent = ex.nombre;
+  const byWeek = {};
+  for (let i=0; i<localStorage.length; i++) {
+    const key = localStorage.key(i); if (!key) continue;
+    const pat = new RegExp(`^${PATIENT.slug}-train-s(\\d+)-${sess.id}-(\\d+)-s(\\d+)$`);
+    const m = key.match(pat); if (!m) continue;
+    if (parseInt(m[2]) !== evolActiveEx) continue;
+    const val = parseFloat(localStorage.getItem(key)); if (!val || isNaN(val)) continue;
+    if (!byWeek[m[1]]) byWeek[m[1]] = [];
+    byWeek[m[1]].push(val);
+  }
+  const lbl = WEEKS.map(w=>w.label);
+  const maxW = WEEKS.map(w=>byWeek[w.n] ? Math.max(...byWeek[w.n]) : null);
+  const hasData = maxW.some(v=>v!==null);
+  if (cTrainChart) { cTrainChart.destroy(); cTrainChart=null; }
+  const ctx = $('cTrain'); if (!ctx) return;
+  const nd = document.querySelector('#evolChartCard .no-data'); if (nd) nd.remove();
+  if (!hasData) {
+    ctx.style.display='none';
+    const d=document.createElement('div'); d.className='no-data';
+    d.textContent='Aún no hay pesos registrados. Anótalos en la pestaña Entrenamiento.';
+    $('evolChartCard').appendChild(d); return;
+  }
+  ctx.style.display='';
+  cTrainChart = new Chart(ctx, {type:'line',data:{labels:lbl,datasets:[{label:'Máximo kg',data:maxW,borderColor:CC.gold,pointBackgroundColor:CC.gold,tension:.35,pointRadius:5,borderWidth:2,fill:false,spanGaps:true}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{boxWidth:12,padding:14,color:'#888'}}},
+    scales:{x:{grid:{color:'rgba(255,255,255,0.06)'},ticks:{color:'#666'}},y:{grid:{color:'rgba(255,255,255,0.06)'},ticks:{color:'#666'},title:{display:true,text:'kg',color:'#555'}}}}});
+}
+
+function init() {
+  renderHero();
+  renderTabs();
+  renderNutr();
+  renderEval();
+  renderSpecs();
+  renderTrain();
 }
 
 // ── Utils ──────────────────────────────────────────────────────────────────
