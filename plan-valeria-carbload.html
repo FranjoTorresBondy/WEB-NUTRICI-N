@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carbload BJJ — Valeria</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Chakra+Petch:wght@600;700&display=swap');
+  :root {
+    --bg:#080808; --bg2:#111111; --bg3:#1a1a1a; --bg4:#222;
+    --accent:#e8e8e8; --accent-dim:rgba(255,255,255,.05); --accent-border:rgba(255,255,255,.13);
+    --red:#ef5350; --red-dim:rgba(239,83,80,.12); --red-border:rgba(239,83,80,.28);
+    --blue:#4fc3f7; --blue-dim:rgba(79,195,247,.1); --blue-border:rgba(79,195,247,.25);
+    --green:#a5d6a7; --green-dim:rgba(165,214,167,.1); --green-border:rgba(165,214,167,.25);
+    --purple:#ce93d8; --purple-dim:rgba(206,147,216,.1); --purple-border:rgba(206,147,216,.25);
+    --orange:#ffb74d; --orange-dim:rgba(255,183,77,.1); --orange-border:rgba(255,183,77,.25);
+    --teal:#4db6ac; --teal-dim:rgba(77,182,172,.1); --teal-border:rgba(77,182,172,.25);
+    --text:#f0f0f0; --muted:#666; --border:#222;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-size:13px;padding:32px 24px 80px;min-height:100vh}
+  .wrap{max-width:1100px;margin:0 auto}
+
+  /* HEADER */
+  .header{border-bottom:1px solid var(--accent-border);padding-bottom:22px;margin-bottom:28px}
+  h1{font-family:'Chakra Petch',sans-serif;font-size:24px;color:var(--accent);letter-spacing:.05em;text-transform:uppercase;line-height:1.1}
+  .sub{color:var(--muted);font-size:11px;margin-top:5px;letter-spacing:.06em;text-transform:uppercase}
+  .stats-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:20px}
+  .stat-box{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:10px 18px;text-align:center}
+  .stat-box .sv{font-family:'Chakra Petch',sans-serif;font-size:22px;line-height:1}
+  .stat-box .sl{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-top:4px}
+  .sv.grey{color:#aaa} .sv.green{color:var(--green)} .sv.blue{color:var(--blue)} .sv.orange{color:var(--orange)} .sv.purple{color:var(--purple)}
+
+  /* SECTION TITLE */
+  .section-title{font-family:'Chakra Petch',sans-serif;font-size:13px;color:var(--accent);text-transform:uppercase;letter-spacing:.08em;margin:28px 0 16px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+  .section-title.purple{color:var(--purple);border-color:rgba(206,147,216,.25)}
+  .section-title.teal{color:var(--teal);border-color:rgba(77,182,172,.25)}
+  .section-title.red{color:var(--red);border-color:rgba(239,83,80,.28)}
+
+  /* INTAKE TIMELINE */
+  .intake{display:grid;grid-template-columns:80px 1fr;gap:0;margin-bottom:12px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+  .intake-time{background:var(--bg3);padding:16px 12px;display:flex;flex-direction:column;align-items:center;justify-content:center;border-right:1px solid var(--border);text-align:center}
+  .intake-num{font-family:'Chakra Petch',sans-serif;font-size:20px;color:var(--accent);line-height:1}
+  .intake-label{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-top:3px}
+  .intake-body{padding:14px 16px}
+  .intake-foods{list-style:none;display:flex;flex-direction:column;gap:5px;margin-bottom:12px}
+  .intake-foods li{font-size:12px;color:#ccc;padding-left:14px;position:relative;line-height:1.4}
+  .intake-foods li::before{content:'·';position:absolute;left:0;color:var(--muted);font-size:16px;line-height:.9}
+  .intake-foods li strong{color:var(--text);font-weight:600}
+  .intake-foods li.note{color:var(--muted);font-size:11px;font-style:italic;padding-left:0}
+  .intake-foods li.note::before{display:none}
+  .intake-foods li.alt{color:#9e9e9e;font-size:11px}
+  .intake-foods li.alt::before{content:'↳';color:var(--muted);font-size:11px;line-height:1.2}
+  .macro-row{display:flex;gap:0;border-top:1px solid var(--border);margin:0 -16px -14px;padding:0}
+  .mr{flex:1;padding:8px 4px;text-align:center;border-right:1px solid var(--border)}
+  .mr:last-child{border-right:none}
+  .mr .mv{font-family:'Chakra Petch',sans-serif;font-size:13px;font-weight:700}
+  .mr .ml{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-top:2px}
+  .mr.cho .mv{color:var(--orange)}
+  .mr.pro .mv{color:var(--green)}
+  .mr.fat .mv{color:#90caf9}
+  .mr.kca .mv{color:var(--accent)}
+
+  /* FIGHT DAY TIMELINE */
+  .fight-tl{display:flex;flex-direction:column;gap:0}
+  .ft{display:flex;gap:16px;padding:14px 0;border-bottom:1px solid var(--border)}
+  .ft:last-child{border-bottom:none}
+  .ft-time{min-width:90px;font-family:'Chakra Petch',sans-serif;font-size:11px;color:var(--muted);padding-top:2px;text-align:right}
+  .ft-dot{width:12px;min-width:12px;display:flex;flex-direction:column;align-items:center;padding-top:4px}
+  .ft-dot .dot{width:8px;height:8px;border-radius:50%;border:2px solid}
+  .ft-dot .line{flex:1;width:1px;background:var(--border);margin-top:4px}
+  .ft:last-child .ft-dot .line{display:none}
+  .dot.orange{border-color:var(--orange);background:var(--orange-dim)}
+  .dot.green{border-color:var(--green);background:var(--green-dim)}
+  .dot.blue{border-color:var(--blue);background:var(--blue-dim)}
+  .dot.purple{border-color:var(--purple);background:var(--purple-dim)}
+  .dot.teal{border-color:var(--teal);background:var(--teal-dim)}
+  .dot.red{border-color:var(--red);background:var(--red-dim)}
+  .ft-content .ft-label{font-family:'Chakra Petch',sans-serif;font-size:12px;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+  .ft-label.orange{color:var(--orange)} .ft-label.green{color:var(--green)}
+  .ft-label.blue{color:var(--blue)} .ft-label.purple{color:var(--purple)} .ft-label.teal{color:var(--teal)} .ft-label.red{color:var(--red)}
+  .ft-content .ft-desc{font-size:12px;color:#bbb;line-height:1.6}
+  .ft-content .ft-desc strong{color:var(--text)}
+  .ft-nums{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+  .ft-num{background:var(--bg2);border:1px solid var(--border);border-radius:5px;padding:4px 10px;font-size:11px;color:var(--muted)}
+  .ft-num span{font-family:'Chakra Petch',sans-serif;color:var(--text);font-size:12px;margin-right:3px}
+
+  /* SUMMARY TABLE */
+  .tbl-wrap{background:var(--bg2);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:24px}
+  .tbl-title{padding:12px 16px;font-family:'Chakra Petch',sans-serif;font-size:12px;color:var(--accent);text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid var(--border)}
+  table{width:100%;border-collapse:collapse}
+  thead th{background:var(--bg3);padding:8px 12px;font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;text-align:left;border-bottom:1px solid var(--border)}
+  tbody td{padding:9px 12px;font-size:12px;border-bottom:1px solid var(--border)}
+  tbody tr:last-child td{border-bottom:none}
+  tbody tr:hover td{background:rgba(255,255,255,.02)}
+  .td-num{font-family:'Chakra Petch',sans-serif;font-size:12px}
+  .td-num.cho{color:var(--orange)} .td-num.pro{color:var(--green)} .td-num.kca{color:var(--accent)}
+  .tr-total td{background:var(--bg3);font-weight:700}
+  .tr-total .td-num{font-size:13px}
+  .progress-bar{height:4px;background:var(--border);border-radius:2px;margin-top:4px;overflow:hidden}
+  .progress-fill{height:100%;border-radius:2px}
+  .progress-fill.cho{background:var(--orange)}
+  .progress-fill.pro{background:var(--green)}
+
+  /* REVIEW CARDS */
+  .review-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:10px;margin-bottom:20px}
+  .review-card{border-radius:10px;padding:14px 16px}
+  .review-card.ok{background:var(--green-dim);border:1px solid var(--green-border)}
+  .review-card.warn{background:var(--orange-dim);border:1px solid var(--orange-border)}
+  .review-card.alert{background:var(--red-dim);border:1px solid var(--red-border)}
+  .review-card.info{background:var(--blue-dim);border:1px solid var(--blue-border)}
+  .review-card.tip{background:var(--purple-dim);border:1px solid var(--purple-border)}
+  .rv-header{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+  .rv-badge{font-family:'Chakra Petch',sans-serif;font-size:9px;text-transform:uppercase;letter-spacing:.07em;padding:3px 8px;border-radius:4px;font-weight:700}
+  .rv-badge.ok{background:rgba(165,214,167,.2);color:var(--green)}
+  .rv-badge.warn{background:rgba(255,183,77,.2);color:var(--orange)}
+  .rv-badge.alert{background:rgba(239,83,80,.2);color:var(--red)}
+  .rv-badge.info{background:rgba(79,195,247,.15);color:var(--blue)}
+  .rv-badge.tip{background:rgba(206,147,216,.15);color:var(--purple)}
+  .rv-title{font-family:'Chakra Petch',sans-serif;font-size:12px}
+  .rv-title.ok{color:var(--green)} .rv-title.warn{color:var(--orange)} .rv-title.alert{color:var(--red)} .rv-title.info{color:var(--blue)} .rv-title.tip{color:var(--purple)}
+  .rv-body{font-size:11px;color:#bbb;line-height:1.6}
+  .rv-body strong{color:var(--text)}
+  .rv-ref{font-size:10px;color:var(--muted);font-style:italic;margin-top:6px}
+
+  /* FOOTER */
+  .footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+  .footer .logo{font-family:'Chakra Petch',sans-serif;font-size:14px;color:var(--accent);letter-spacing:.04em}
+  .footer .meta{font-size:10px;color:var(--muted);text-align:right;line-height:1.6}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HEADER -->
+  <div class="header">
+    <h1>PROTOCOLO CARBLOAD<br>COMPETENCIA BJJ</h1>
+    <div class="sub">Valeria &nbsp;·&nbsp; Pesaje 24h antes de la pelea &nbsp;·&nbsp; Supercompensación de Glucógeno</div>
+    <div class="stats-row">
+      <div class="stat-box"><div class="sv grey">~54</div><div class="sl">Peso competencia (kg)</div></div>
+      <div class="stat-box"><div class="sv orange">497g</div><div class="sl">CHO día previo</div></div>
+      <div class="stat-box"><div class="sv orange">9.2</div><div class="sl">g CHO / kg</div></div>
+      <div class="stat-box"><div class="sv green">82g</div><div class="sl">Proteína total</div></div>
+      <div class="stat-box"><div class="sv grey">17g</div><div class="sl">Grasa total</div></div>
+      <div class="stat-box"><div class="sv grey">2,521</div><div class="sl">kcal día previo</div></div>
+      <div class="stat-box"><div class="sv purple">24h</div><div class="sl">Pesaje → pelea</div></div>
+    </div>
+  </div>
+
+  <!-- DÍA PREVIO -->
+  <div class="section-title">Día Previo al Pesaje — Carbload · 5 Ingestas</div>
+
+  <!-- INGESTA 1 -->
+  <div class="intake">
+    <div class="intake-time">
+      <div class="intake-num">1</div>
+      <div class="intake-label">Desayuno</div>
+    </div>
+    <div class="intake-body">
+      <ul class="intake-foods">
+        <li><strong>80g</strong> buttermilk pancake & waffle mix Hungry Jack</li>
+        <li><strong>100g</strong> berries (frutos rojos)</li>
+        <li><strong>40g</strong> miel de maple</li>
+        <li><strong>240ml</strong> jugo de naranja natural</li>
+        <li class="note">→ Desayuno rico en CHO de alto IG para iniciar la supercompensación de glucógeno hepático y muscular desde temprano.</li>
+      </ul>
+      <div class="macro-row">
+        <div class="mr cho"><div class="mv">119g</div><div class="ml">CHO</div></div>
+        <div class="mr pro"><div class="mv">10g</div><div class="ml">PROT</div></div>
+        <div class="mr fat"><div class="mv">2g</div><div class="ml">GRASA</div></div>
+        <div class="mr kca"><div class="mv">537</div><div class="ml">KCAL</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INGESTA 2 -->
+  <div class="intake">
+    <div class="intake-time">
+      <div class="intake-num">2</div>
+      <div class="intake-label">Snack 1</div>
+    </div>
+    <div class="intake-body">
+      <ul class="intake-foods">
+        <li><strong>75g</strong> cereal Chocapic</li>
+        <li><strong>300g</strong> yogurt slim fresa</li>
+        <li class="alt">↳ Opción B: 300ml leche slim zero</li>
+        <li class="note">→ Aporte sostenido de CHO entre comidas. El cereal de bajo contenido en fibra evita distensión abdominal antes del pesaje.</li>
+      </ul>
+      <div class="macro-row">
+        <div class="mr cho"><div class="mv">75g</div><div class="ml">CHO</div></div>
+        <div class="mr pro"><div class="mv">16g</div><div class="ml">PROT</div></div>
+        <div class="mr fat"><div class="mv">4g</div><div class="ml">GRASA</div></div>
+        <div class="mr kca"><div class="mv">412</div><div class="ml">KCAL</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INGESTA 3 -->
+  <div class="intake">
+    <div class="intake-time">
+      <div class="intake-num">3</div>
+      <div class="intake-label">Almuerzo</div>
+    </div>
+    <div class="intake-body">
+      <ul class="intake-foods">
+        <li><strong>300g</strong> spaghetti cocido</li>
+        <li><strong>50g</strong> salsa de tomate casera</li>
+        <li class="note">→ Pasta cocida = alta densidad glucídica + bajo índice glucémico → carga sostenida. Grasa mínima para no enlentecer vaciamiento gástrico.</li>
+      </ul>
+      <div class="macro-row">
+        <div class="mr cho"><div class="mv">94g</div><div class="ml">CHO</div></div>
+        <div class="mr pro"><div class="mv">18g</div><div class="ml">PROT</div></div>
+        <div class="mr fat"><div class="mv">3g</div><div class="ml">GRASA</div></div>
+        <div class="mr kca"><div class="mv">481</div><div class="ml">KCAL</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INGESTA 4 -->
+  <div class="intake">
+    <div class="intake-time">
+      <div class="intake-num">4</div>
+      <div class="intake-label">Snack 2</div>
+    </div>
+    <div class="intake-body">
+      <ul class="intake-foods">
+        <li><strong>2 rebanadas</strong> pan de molde blanco + <strong>20g</strong> mermelada de fresa</li>
+        <li><strong>75g</strong> cereal Chocapic + <strong>300g</strong> yogurt slim fresa</li>
+        <li class="alt">↳ Opción B (cereal): 300ml leche slim zero</li>
+        <li class="note">→ Snack más voluminoso del día. Pan blanco + mermelada = CHO de alto IG que maximiza insulina y captación muscular de glucosa.</li>
+      </ul>
+      <div class="macro-row">
+        <div class="mr cho"><div class="mv">115g</div><div class="ml">CHO</div></div>
+        <div class="mr pro"><div class="mv">20g</div><div class="ml">PROT</div></div>
+        <div class="mr fat"><div class="mv">5g</div><div class="ml">GRASA</div></div>
+        <div class="mr kca"><div class="mv">610</div><div class="ml">KCAL</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INGESTA 5 -->
+  <div class="intake">
+    <div class="intake-time">
+      <div class="intake-num">5</div>
+      <div class="intake-label">Cena</div>
+    </div>
+    <div class="intake-body">
+      <ul class="intake-foods">
+        <li><strong>1 cdta</strong> vinagre de manzana + <strong>500ml</strong> agua (consumir previo a la comida)</li>
+        <li><strong>300g</strong> spaghetti cocido</li>
+        <li><strong>50g</strong> salsa de tomate casera</li>
+        <li class="note">→ El vinagre de manzana pre-comida mejora la sensibilidad insulínica y reduce el pico glucémico post-prandial, optimizando la captación de glucógeno nocturno (Johnston et al., 2004).</li>
+      </ul>
+      <div class="macro-row">
+        <div class="mr cho"><div class="mv">94g</div><div class="ml">CHO</div></div>
+        <div class="mr pro"><div class="mv">18g</div><div class="ml">PROT</div></div>
+        <div class="mr fat"><div class="mv">3g</div><div class="ml">GRASA</div></div>
+        <div class="mr kca"><div class="mv">481</div><div class="ml">KCAL</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUMMARY TABLE DÍA PREVIO -->
+  <div class="tbl-wrap">
+    <div class="tbl-title">Resumen Día Previo — Carbload</div>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Ingesta</th>
+          <th>CHO (g)</th>
+          <th>PROT (g)</th>
+          <th>GRASA (g)</th>
+          <th>KCAL</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="font-family:'Chakra Petch',sans-serif;color:var(--muted)">1</td>
+          <td>Desayuno · Pancakes + berries + miel maple + jugo naranja</td>
+          <td class="td-num cho">119</td><td class="td-num pro">10</td><td>2</td><td class="td-num kca">537</td>
+        </tr>
+        <tr>
+          <td style="font-family:'Chakra Petch',sans-serif;color:var(--muted)">2</td>
+          <td>Snack 1 · Chocapic 75g + yogurt/leche slim</td>
+          <td class="td-num cho">75</td><td class="td-num pro">16</td><td>4</td><td class="td-num kca">412</td>
+        </tr>
+        <tr>
+          <td style="font-family:'Chakra Petch',sans-serif;color:var(--muted)">3</td>
+          <td>Almuerzo · Spaghetti 300g + salsa tomate</td>
+          <td class="td-num cho">94</td><td class="td-num pro">18</td><td>3</td><td class="td-num kca">481</td>
+        </tr>
+        <tr>
+          <td style="font-family:'Chakra Petch',sans-serif;color:var(--muted)">4</td>
+          <td>Snack 2 · Pan + mermelada + Chocapic + yogurt/leche slim</td>
+          <td class="td-num cho">115</td><td class="td-num pro">20</td><td>5</td><td class="td-num kca">610</td>
+        </tr>
+        <tr>
+          <td style="font-family:'Chakra Petch',sans-serif;color:var(--muted)">5</td>
+          <td>Cena · Vinagre ACV + Spaghetti 300g + salsa tomate</td>
+          <td class="td-num cho">94</td><td class="td-num pro">18</td><td>3</td><td class="td-num kca">481</td>
+        </tr>
+        <tr class="tr-total">
+          <td colspan="2"><strong>TOTAL DÍA PREVIO</strong></td>
+          <td class="td-num cho"><strong>497g</strong>
+            <div class="progress-bar"><div class="progress-fill cho" style="width:100%"></div></div>
+          </td>
+          <td class="td-num pro"><strong>82g</strong>
+            <div class="progress-bar"><div class="progress-fill pro" style="width:100%"></div></div>
+          </td>
+          <td><strong>17g</strong></td>
+          <td class="td-num kca"><strong>2,521</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- DÍA DE LUCHA -->
+  <div class="section-title purple">Día de Lucha — Nutrición Peri-Competencia</div>
+
+  <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:12px">
+    <div class="fight-tl" style="padding:0 20px">
+
+      <div class="ft">
+        <div class="ft-time">DESAYUNO<br>~3–4h pre</div>
+        <div class="ft-dot"><div class="dot orange"></div><div class="line"></div></div>
+        <div class="ft-content">
+          <div class="ft-label orange">Desayuno Pre-Competencia</div>
+          <div class="ft-desc">
+            <strong>Pancakes:</strong> 80g buttermilk pancake & waffle mix Hungry Jack + 100g berries + 40g miel de maple<br>
+            <strong>Extracto de betarraga con naranja:</strong> 240ml jugo de naranja + 2 betarragas medianas<br>
+            <span style="color:var(--muted);font-size:11px;font-style:italic">→ El jugo de betarraga aporta nitratos dietarios que el organismo convierte en NO (óxido nítrico), mejorando la eficiencia muscular y la oxigenación tisular. Consumir 2–3h antes de la primera lucha para efecto pico.</span>
+          </div>
+          <div class="ft-nums" style="margin-top:10px">
+            <div class="ft-num"><span style="color:var(--orange)">119g</span> CHO</div>
+            <div class="ft-num"><span style="color:var(--green)">10g</span> PROT</div>
+            <div class="ft-num"><span>537</span> kcal</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ft">
+        <div class="ft-time">ENTRE<br>LUCHAS</div>
+        <div class="ft-dot"><div class="dot teal"></div><div class="line"></div></div>
+        <div class="ft-content">
+          <div class="ft-label teal">Reposición Inter-Match</div>
+          <div class="ft-desc">
+            <strong>Pan blanco con mermelada</strong> — 1–2 rebanadas entre cada lucha<br>
+            <strong>Gomitas</strong> — puñado pequeño (glucosa de absorción rápida)<br>
+            <strong>Fruta:</strong> mandarina o plátano (fructosa + glucosa, doble vía de absorción intestinal)<br>
+            <span style="color:var(--muted);font-size:11px;font-style:italic">→ Objetivo: mantener glucemia estable. No exceder 30–40g CHO entre luchas si el intervalo es &lt;30 min para no generar molestia GI.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ft">
+        <div class="ft-time">5–10 MIN<br>ANTES</div>
+        <div class="ft-dot"><div class="dot green"></div><div class="line"></div></div>
+        <div class="ft-content">
+          <div class="ft-label green">Protocolo Pre-Lucha</div>
+          <div class="ft-desc">
+            <strong>1 cucharada de miel de abeja</strong> + <strong>1–2 sorbos de Gatorade</strong> + <strong>1 sorbo de agua pura</strong><br>
+            <span style="color:var(--muted);font-size:11px;font-style:italic">→ La miel aporta glucosa + fructosa (ratio 1:1) → doble vía de transporte intestinal → mayor disponibilidad de CHO para el músculo activo en los primeros minutos de la lucha.</span>
+          </div>
+          <div class="ft-nums" style="margin-top:10px">
+            <div class="ft-num"><span style="color:var(--orange)">~20g</span> CHO / lucha</div>
+            <div class="ft-num"><span style="color:var(--blue)">~100ml</span> fluido</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- REVISIÓN CLÍNICA -->
+  <div class="section-title red">Revisión Clínica Especializada · UFC PI + Evidencia Científica</div>
+
+  <div class="review-grid">
+
+    <div class="review-card ok">
+      <div class="rv-header">
+        <span class="rv-badge ok">✓ Validado</span>
+        <span class="rv-title ok">CHO target: 9.2 g/kg</span>
+      </div>
+      <div class="rv-body">
+        El rango recomendado para supercompensación de glucógeno es <strong>8–12 g/kg/día</strong>. Con 9.2 g/kg Valeria se ubica en el rango óptimo, maximizando la síntesis de glucógeno muscular (GS) sin exceder la capacidad de absorción intestinal (~60–90g CHO/h para mezcla glucosa+fructosa).
+      </div>
+      <div class="rv-ref">Burke et al. (2017) J Sports Sci · Thomas et al. (2016) ACSM</div>
+    </div>
+
+    <div class="review-card ok">
+      <div class="rv-header">
+        <span class="rv-badge ok">✓ Validado</span>
+        <span class="rv-title ok">Grasa muy baja (17g) — estrategia correcta</span>
+      </div>
+      <div class="rv-body">
+        Reducir grasa al mínimo en el día de carbload es <strong>una estrategia deliberada y correcta</strong>: maximiza la densidad calórica glucídica, acelera el vaciamiento gástrico y reduce la masa GI antes del pesaje. Los 17g son suficientes para absorción de vitaminas liposolubles.
+      </div>
+      <div class="rv-ref">Jeukendrup & Gleeson (2019) Sport Nutrition</div>
+    </div>
+
+    <div class="review-card ok">
+      <div class="rv-header">
+        <span class="rv-badge ok">✓ Validado</span>
+        <span class="rv-title ok">Vinagre de manzana pre-cena</span>
+      </div>
+      <div class="rv-body">
+        Evidencia moderada-fuerte: 15ml de ACV pre-comida <strong>reduce el pico glucémico postprandial en 20–30%</strong> y mejora la sensibilidad insulínica mediante inhibición de la alfa-glucosidasa. Esto optimiza la captación muscular de glucosa nocturna durante la fase más larga de ayuno (sueño).
+      </div>
+      <div class="rv-ref">Johnston et al. (2004) Diabetes Care · Petsiou et al. (2014) Nutr Rev</div>
+    </div>
+
+    <div class="review-card ok">
+      <div class="rv-header">
+        <span class="rv-badge ok">✓ Validado</span>
+        <span class="rv-title ok">Betarraga el día de la pelea</span>
+      </div>
+      <div class="rv-body">
+        Los nitratos dietarios de la betarraga (≈300–400mg NO₃⁻ en 2 betarragas + jugo) elevan el NO plasmático en <strong>2–3h post-ingesta</strong>, mejorando la eficiencia del O₂ muscular en ~3% y reduciendo el costo energético de ejercicios submáximos — muy relevante para BJJ (esfuerzos mixtos aeróbico-anaeróbicos).
+      </div>
+      <div class="rv-ref">Larsen et al. (2011) Acta Physiol · Jones (2014) Int J Sport Nutr</div>
+    </div>
+
+    <div class="review-card warn">
+      <div class="rv-header">
+        <span class="rv-badge warn">⚠ Revisar</span>
+        <span class="rv-title warn">Proteína baja: 82g (~1.5 g/kg)</span>
+      </div>
+      <div class="rv-body">
+        Las guías UFC PI recomiendan <strong>1.6–2.2 g/kg/día</strong> para atletas de combate. Con 82g ÷ 54kg = 1.52 g/kg estamos por debajo. Es intencional para no competir con el CHO por espacio calórico, pero considerar agregar <strong>1 scoop de proteína de suero con el snack 1 o 2</strong> para llegar a ~1.8 g/kg sin afectar la carga glucídica significativamente.
+      </div>
+      <div class="rv-ref">UFC PI Nutrition Framework (2020) · Stokes et al. (2018) Nutrients</div>
+    </div>
+
+    <div class="review-card warn">
+      <div class="rv-header">
+        <span class="rv-badge warn">⚠ Revisar</span>
+        <span class="rv-title warn">Timing betarraga — ajustar hora</span>
+      </div>
+      <div class="rv-body">
+        El efecto pico del NO post-ingesta de betarraga ocurre a las <strong>2–3 horas</strong>. Si el desayuno es 3–4h antes de la primera lucha, la betarraga debería consumirse <strong>2–2.5h antes</strong> (no en el desayuno sino como snack previo a llegar al lugar). Evaluar separar la betarraga del desayuno y consumirla en el traslado.
+      </div>
+      <div class="rv-ref">Wylie et al. (2013) J Appl Physiol</div>
+    </div>
+
+    <div class="review-card alert">
+      <div class="rv-header">
+        <span class="rv-badge alert">⚠ Gap crítico</span>
+        <span class="rv-title alert">Hidratación — no especificada en el plan</span>
+      </div>
+      <div class="rv-body">
+        El plan actual <strong>no incluye ninguna estrategia de hidratación</strong>. Para una pesaje 24h antes con BJJ, el protocolo UFC PI recomienda: día previo <strong>35–40ml/kg = 1.9–2.2L</strong> de agua distribuida (+ sodio 1,000–1,500mg) para maximizar la retención hídrica muscular. El día de la lucha: <strong>500ml/h</strong> durante el calentamiento y entre luchas.
+      </div>
+      <div class="rv-ref">Casa et al. (2019) J Athl Train · UFC PI Hydration Protocol</div>
+    </div>
+
+    <div class="review-card alert">
+      <div class="rv-header">
+        <span class="rv-badge alert">⚠ Gap crítico</span>
+        <span class="rv-title alert">Día de lucha incompleto</span>
+      </div>
+      <div class="rv-body">
+        El plan de día de lucha solo incluye el desayuno. Falta estructurar: <strong>almuerzo post-pesaje final</strong> (si hay segunda ronda de peleas), <strong>snack pre-calentamiento</strong> y la <strong>estrategia de recuperación si hay doble jornada</strong>. El BJJ competitivo puede tener 3–6 luchas en el día con intervalos variables.
+      </div>
+      <div class="rv-ref">Franchini et al. (2012) J Strength Cond Res</div>
+    </div>
+
+    <div class="review-card tip">
+      <div class="rv-header">
+        <span class="rv-badge tip">💡 Optimización</span>
+        <span class="rv-title tip">Agregar creatina 3–5g con el desayuno del día previo</span>
+      </div>
+      <div class="rv-body">
+        La creatina tomada junto a CHO de alto IG <strong>aumenta la captación muscular de fosfocreatina en ~60%</strong> vs. creatina sola. 3–5g con los pancakes del día previo (alto IG + insulina elevada) maximizaría las reservas de PCr para los esfuerzos anaeróbicos cortos de las luchas.
+      </div>
+      <div class="rv-ref">Green et al. (1996) Am J Physiol · Lemon (1998) Can J Appl Physiol</div>
+    </div>
+
+    <div class="review-card tip">
+      <div class="rv-header">
+        <span class="rv-badge tip">💡 Optimización</span>
+        <span class="rv-title tip">Cafeína pre-primera lucha</span>
+      </div>
+      <div class="rv-body">
+        <strong>3–6mg/kg de cafeína</strong> (160–320mg para 54kg) 45–60 min antes de la primera lucha tiene evidencia A1 en deportes de combate: mejora potencia anaeróbica, tiempo de reacción y agresividad táctica. Asegurar que no sea nueva el día de competencia — probar en entrenamiento antes.
+      </div>
+      <div class="rv-ref">Grgic et al. (2019) Br J Sports Med · ISSN Position Stand (2021)</div>
+    </div>
+
+    <div class="review-card info">
+      <div class="rv-header">
+        <span class="rv-badge info">ℹ Contexto</span>
+        <span class="rv-title info">Fibra reducida — correcto para pesaje</span>
+      </div>
+      <div class="rv-body">
+        Todos los alimentos elegidos son <strong>bajos en fibra</strong> (pasta blanca, pan de molde, cereales refinados, jugo de naranja vs. naranja entera). Esto es correcto: reduce la masa GI en ~0.5–1kg antes del pesaje y minimiza el riesgo de molestia digestiva durante la competencia.
+      </div>
+      <div class="rv-ref">Reale et al. (2017) Int J Sport Nutr Exerc Metab</div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="logo">Franjo Torres Bondy<br><span style="font-size:10px;color:var(--muted);font-family:'Inter',sans-serif;font-weight:400">Nutricionista Deportivo · @el_nutricionistafranjo</span></div>
+    <div class="meta">Valeria · Protocolo Carbload BJJ<br>Pesaje 24h antes · Documento confidencial</div>
+  </div>
+
+</div>
+</body>
+</html>
