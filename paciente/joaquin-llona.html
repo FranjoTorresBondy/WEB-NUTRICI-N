@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -514,35 +514,8 @@ function renderEval() {
   const s6 = +(a.tri+a.sub+a.supra+a.abd+a.pierna+a.pant).toFixed(1);
   const s8 = +(s6+a.bi+a.cresta).toFixed(1);
   $('tab-eval').innerHTML = `<div class="wrap"><section>
-    <div class="sec-h"><span class="ix">01</span><h2>Evaluación Nutricional</h2><div class="rule"></div></div>
-    <div class="evalwrap">
-      <div class="evgroup"><div class="gh">Antropometría básica</div>
-        <div class="row"><span>Peso</span><span>${a.peso} kg</span></div>
-        <div class="row"><span>Talla</span><span>${a.talla} cm</span></div>
-        <div class="row"><span>IMC</span><span>${a.imc} kg/m²</span></div>
-      </div>
-      <div class="evgroup"><div class="gh">Pliegues (mm) · ISAK</div>
-        <div class="row"><span>Tricipital</span><span>${a.tri}</span></div>
-        <div class="row"><span>Bicipital</span><span>${a.bi}</span></div>
-        <div class="row"><span>Subescapular</span><span>${a.sub}</span></div>
-        <div class="row"><span>Cresta iliaca</span><span>${a.cresta}</span></div>
-        <div class="row"><span>Supra espinal</span><span>${a.supra}</span></div>
-        <div class="row"><span>Abdominal</span><span>${a.abd}</span></div>
-        <div class="row"><span>Pierna media</span><span>${a.pierna}</span></div>
-        <div class="row"><span>Pantorrilla</span><span>${a.pant}</span></div>
-        <div class="row bold"><span>Σ6 pliegues</span><span>${s6} mm</span></div>
-        <div class="row bold"><span>Σ8 pliegues</span><span>${s8} mm</span></div>
-      </div>
-      <div class="evgroup"><div class="gh">Perímetros (cm)</div>
-        <div class="row"><span>Brazo relajado</span><span>${a.brazRelaj}</span></div>
-        <div class="row"><span>Brazo flexionado</span><span>${a.brazFlex}</span></div>
-        <div class="row"><span>Abdominal</span><span>${a.abdom}</span></div>
-        <div class="row"><span>Cadera</span><span>${a.cadera}</span></div>
-        <div class="row"><span>Muslo medio</span><span>${a.muslo}</span></div>
-        <div class="row"><span>Pantorrilla</span><span>${a.pantPer}</span></div>
-      </div>
-    </div>
-    <div class="sec-h" style="margin-top:32px"><span class="ix">02</span><h2>Objetivos</h2><div class="rule"></div></div>
+    <div class="sec-h"><span class="ix">01</span><h2>Objetivos</h2><div class="rule"></div></div>
+
     <div class="card" style="max-width:600px"><ul class="obj">${PATIENT.objetivos.map(o=>`<li>${o}</li>`).join('')}</ul></div>
   </section></div>`;
 }
