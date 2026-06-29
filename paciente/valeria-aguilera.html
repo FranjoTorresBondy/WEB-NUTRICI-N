@@ -255,7 +255,7 @@ const PATIENT = {
   nombre:    'Valeria\nAguilera',
   fecha:     '26.06.2026',
   tipoPlan:  'Hipocalórico · Hiperprotéico',
-  macros:    { kcal: 1879, p: 123, c: 206, g: 68 },
+  macros:    { kcal: 2230, p: 154, c: 241, g: 79 },
   hidratacion: [
     { label:'💧 Entrenamiento', valor:'2.5' },
     { label:'💧 Descanso',      valor:'2.2' },
@@ -273,12 +273,17 @@ const PATIENT = {
   ],
 
   comidas: [
-    { id:'c1', nombre:'☀️ Desayuno', kcal:494, p:25, c:58, g:21, grupos:[
+    { id:'c1', nombre:'☀️ Desayuno', kcal:635, p:39, c:60, g:30, grupos:[
       { label:'Escoge 03 · Carbohidrato', max:3, ops:['1 tortilla rapidita integral','1 rebanada de pan de molde integral (30 g)','20 g de avena (peso crudo)','20 g de cereales Dyfferent, Mamalama o NutriCo','20 g de granola'] },
       { label:'Escoge 01 · Fruta', max:1, ops:['1 porción de fruta (ver especificaciones) + 1 cda de chía o linaza molida'] },
-      { label:'Escoge 01 · Proteína', max:1, ops:['50 g de pollo + 40 g de palta','40 g de queso mozzarella light (Cuisine&Co) + 1 huevo','½ scoop de proteína + 10 g de mantequilla de maní','2 huevos','100 g de Vakimú Pro + 10 g de mantequilla de maní'] },
+      { label:'Escoge 02 · Proteína', max:2, ops:['50 g de pollo + 40 g de palta','40 g de queso mozzarella light (Cuisine&Co) + 1 huevo','½ scoop de proteína + 10 g de mantequilla de maní','2 huevos','100 g de Vakimú Pro + 10 g de mantequilla de maní'] },
       { label:'Escoge 01 · Grasa', max:1, ops:['40 g de palta','4 aceitunas','1 cda de aceite de oliva','1 porción de frutos secos (ver especificaciones)'] },
     ], nota:'💊 Suplementación: Creatina 7 g con esta comida (todos los días, entrenes o no).' },
+
+    { id:'mm', nombre:'🍎 Media Mañana', kcal:215, p:19, c:33, g:2, grupos:[
+      { label:'Escoge 01 · Fruta', max:1, ops:['1 porción de fruta (ver especificaciones)'] },
+      { label:'Lácteo proteico', max:1, ops:['150 g de yogurt Sbelt o Slim'] },
+    ]},
 
     { id:'c2', nombre:'🥗 Almuerzo', kcal:570, p:34, c:62, g:21, grupos:[
       { label:'Escoge 03 · Carbohidrato', max:3, ops:['60 g de arroz','90 g de papa, camote o betarraga (cocido)','60 g de quinua (cocida)','100 g de menestra (cocida)','60 g de puré'] },
