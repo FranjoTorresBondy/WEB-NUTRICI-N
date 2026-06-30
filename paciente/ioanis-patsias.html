@@ -281,13 +281,13 @@ const PATIENT = {
       { label:'Fijo', max:1, ops:[
         '500 ml agua natural (1 vaso grande) + 1 shot de suero de tocosh (50 ml)',
       ]},
-    ], nota:'* Todos los días al levantarse, antes de cualquier alimento. El suero de tocosh aporta probióticos naturales — beneficioso para SIBO controlado y microbiota intestinal. Tomar en ayunas para mejor absorción.' },
+    ], nota:'' },
 
     { id:'pre', nombre:'⚡ Pre Entreno · 5:00 am', kcal:160, p:14, c:27, g:1, grupos:[
       { label:'Fijo', max:1, ops:[
         '1 plátano biscocho pequeño (100 g) + 1 cda miel de abeja (7 g) + ½ scoop proteína aislada en agua (15 g)',
       ]},
-    ], nota:'* Solo días de pesas (lunes, martes, jueves, viernes). 160 kcal · P 14g · C 27g · G 1g. Plátano biscocho 100g: 77 kcal · C 20g · P 1g. Miel 7g: 21 kcal · C 5.5g. ½ scoop proteína 15g: 60 kcal · P 13.5g · C 1g. Sumar al total del día (+160 kcal).' },
+    ], nota:'* Solo días de pesas.' },
 
     { id:'c1', nombre:'☀️ Desayuno · 7:30 am', kcal:500, p:45, c:60, g:10, grupos:[
       { label:'Fijo · Proteína base', max:1, ops:[
@@ -306,7 +306,7 @@ const PATIENT = {
       { label:'Fijo · Fruta', max:1, ops:[
         '100 g de berries + 1 porción de fruta* (ver especificaciones) → ~110 kcal · C 27g',
       ]},
-    ], nota:'* Mayor concentración de carbohidratos del día — ventana post-entreno. Agregar canela en polvo para mejorar sensibilidad a la insulina. Escoge 02: las 3 opciones aportan ~87-121 kcal · P 10-12g · G 4-7g — equivalentes en proteína, variación en grasa es mínima. * Ver especificaciones para lista de frutos secos y frutas.' },
+    ], nota:'' },
 
     { id:'c2', nombre:'🍎 Media mañana · 10:00 am', kcal:340, p:14, c:29, g:21, grupos:[
       { label:'Fijo', max:1, ops:[
@@ -318,7 +318,7 @@ const PATIENT = {
       { label:'Fijo · Linaza', max:1, ops:[
         '1 cda linaza molida (7 g) — revolver en el yogurt',
       ]},
-    ], nota:'* La granola Kausana aporta principalmente grasa saludable (14g) + fibra — NO es intercambio de carbo. Sin gluten, endulzada con yacón y stevia.' },
+    ], nota:'' },
 
     { id:'c3', nombre:'🥗 Almuerzo · 1:00 pm', kcal:490, p:51, c:30, g:19, grupos:[
       { label:'Escoge 01 · Proteína (150 g cocido)', max:1, ops:[
@@ -345,7 +345,7 @@ const PATIENT = {
         '1 porción frutos secos (15 g)* → 85 kcal · G 8g',
         '5 g ghee + 40 g palta → 109 kcal · G 11g',
       ]},
-    ], nota:'* Bistec, salmón y carne molida tienen grasa propia — eliminar la porción de grasa si eliges alguno de estos. La quinua aporta menos kcal que el arroz/papa — preferir en días de menor actividad. Grasa equivalente: 85-128 kcal · G 8-12g. NO leguminosas (frijoles, lentejas, garbanzos, arvejas). Evitar pepino.' },
+    ], nota:'* Si eliges bistec, salmón o carne molida de bistec, eliminar la porción de grasa.' },
 
     { id:'c4', nombre:'🥜 Media tarde · 4:00 pm', kcal:265, p:11, c:37, g:8, grupos:[
       { label:'Fijo', max:1, ops:[
@@ -358,7 +358,7 @@ const PATIENT = {
       { label:'Fijo · Linaza', max:1, ops:[
         '1 cda linaza molida (7 g) — revolver en el yogurt → 37 kcal · P 1.3g · C 2g · G 2.7g',
       ]},
-    ], nota:'* Snack más bajo en grasa que la media mañana — el cereal Dyfferent o Nutri Co aporta carbo limpio sin la grasa de la granola. Las 2 opciones de cereal son equivalentes (~110-120 kcal · C 23-24g). Total linaza del día: 2 cdas (14 g).' },
+    ], nota:'' },
 
     { id:'c5', nombre:'🌙 Cena · 7:30 pm', kcal:320, p:33, c:23, g:9, grupos:[
       { label:'Escoge 01 · Proteína (100 g cocido)', max:1, ops:[
@@ -387,7 +387,7 @@ const PATIENT = {
         '40 g palta → 64 kcal · G 6g',
         '5 g ghee para cocinar → 45 kcal · G 5g',
       ]},
-    ], nota:'* Cena baja en carbohidratos — resistencia a la insulina. 100 g cocido de pechuga: ~165 kcal · P 31g · G 4g. Priorizar proteína + verduras + grasas saludables. Si eliges bistec o salmón, omitir la porción de grasa adicional.' },
+    ], nota:'* Si eliges bistec, salmón o carne molida de bistec, eliminar la porción de grasa.' },
 
     { id:'box', nombre:'🥊 Día de Box · Peri-entreno', kcal:200, p:14, c:35, g:2, grupos:[
       { label:'Pre-entreno box (30 min antes)', max:1, ops:[
@@ -401,7 +401,7 @@ const PATIENT = {
         '1 scoop proteína whey en agua + 1 banana mediana → ~197 kcal · P 27g · C 21g',
         '200 g yogurt Yoleit descremado + 1 fruta → ~130 kcal · P 12g · C 18g',
       ]},
-    ], nota:'* Peri-entreno box — sumar al plan base del día. Pre + post: ~200-335 kcal adicionales según opción elegida. Creatina 10 g post-entreno.' },
+    ], nota:'' },
   ],
 
   specs: [
