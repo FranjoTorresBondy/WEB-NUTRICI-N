@@ -255,7 +255,7 @@ const PATIENT = {
   nombre:    'Ioanis\nPatsias',
   fecha:     '29.06.2026',
   tipoPlan:  'Hipocalórico · Hiperprotéico',
-  macros:    { kcal: 2300, p: 159, c: 185, g: 104 },
+  macros:    { kcal: 2300, p: 159, c: 196, g: 95 },
   hidratacion: [
     { label:'💧 Día de box',        valor:'4.5' },
     { label:'💧 Día de pesas',      valor:'3.5' },
@@ -309,18 +309,18 @@ const PATIENT = {
     ], nota:'* Mayor concentración de carbohidratos del día — ventana post-entreno. Agregar canela en polvo para mejorar sensibilidad a la insulina. Las 3 opciones del Escoge 02 son equivalentes: ~100 kcal · P 10g · G 6-8g.' },
 
     { id:'c2', nombre:'🍎 Media mañana · 10:00 am', kcal:340, p:14, c:29, g:21, grupos:[
-      { label:'Snack fijo', max:1, ops:[
+      { label:'Fijo', max:1, ops:[
         '200 g yogurt Yoileicito banana split (1 vaso)',
       ]},
-      { label:'Granola', max:1, ops:[
+      { label:'Fijo · Grasa + Fibra', max:1, ops:[
         '40 g granola Kausana',
       ]},
-      { label:'Linaza', max:1, ops:[
+      { label:'Fijo · Linaza', max:1, ops:[
         '1 cda linaza molida (7 g) — revolver en el yogurt',
       ]},
-    ], nota:'* 340 kcal · P 14g · C 29g · G 21g. La granola Kausana es sin gluten, endulzada con yacón y stevia — apta para resistencia a la insulina.' },
+    ], nota:'* La granola Kausana aporta principalmente grasa saludable (14g) + fibra — NO es intercambio de carbo. Sin gluten, endulzada con yacón y stevia.' },
 
-    { id:'c3', nombre:'🥗 Almuerzo · 1:00 pm', kcal:780, p:54, c:65, g:30, grupos:[
+    { id:'c3', nombre:'🥗 Almuerzo · 1:00 pm', kcal:820, p:55, c:70, g:30, grupos:[
       { label:'Escoge 01 · Proteína (150 g cocido)', max:1, ops:[
         'Pechuga de pollo a la plancha',
         'Pechuga de pavo',
@@ -348,17 +348,18 @@ const PATIENT = {
       ]},
     ], nota:'* Bistec y salmón tienen grasa propia — eliminar la porción de grasa del almuerzo si eliges alguno de estos. NO leguminosas (frijoles, lentejas, garbanzos, arvejas). Evitar pepino.' },
 
-    { id:'c4', nombre:'🥜 Media tarde · 4:00 pm', kcal:340, p:14, c:29, g:21, grupos:[
-      { label:'Snack fijo', max:1, ops:[
+    { id:'c4', nombre:'🥜 Media tarde · 4:00 pm', kcal:300, p:12, c:36, g:10, grupos:[
+      { label:'Fijo', max:1, ops:[
         '200 g yogurt Yoileicito banana split (1 vaso)',
       ]},
-      { label:'Granola', max:1, ops:[
-        '40 g granola Kausana',
+      { label:'Escoge 01 · Cereal sin gluten', max:1, ops:[
+        '4 galletas Dyfferent sin azúcar',
+        '30 g cereal Nutri Co La Purita',
       ]},
-      { label:'Linaza', max:1, ops:[
+      { label:'Fijo · Linaza', max:1, ops:[
         '1 cda linaza molida (7 g) — revolver en el yogurt',
       ]},
-    ], nota:'* 340 kcal · P 14g · C 29g · G 21g. Total linaza del día: 2 cdas (14 g) — 1 en media mañana + 1 en media tarde.' },
+    ], nota:'* Snack más bajo en grasa que la media mañana — el cereal Dyfferent o Nutri Co aporta carbo limpio sin la grasa de la granola. Total linaza del día: 2 cdas (14 g).' },
 
     { id:'c5', nombre:'🌙 Cena · 7:30 pm', kcal:220, p:28, c:10, g:7, grupos:[
       { label:'Escoge 01 · Proteína (150 g cocido)', max:1, ops:[
