@@ -255,7 +255,7 @@ const PATIENT = {
   nombre:    'Ioanis\nPatsias',
   fecha:     '29.06.2026',
   tipoPlan:  'Hipocalórico · Hiperprotéico',
-  macros:    { kcal: 2300, p: 159, c: 196, g: 95 },
+  macros:    { kcal: 2100, p: 157, c: 191, g: 67 },
   hidratacion: [
     { label:'💧 Día de box',        valor:'4.5' },
     { label:'💧 Día de pesas',      valor:'3.5' },
@@ -283,30 +283,30 @@ const PATIENT = {
       ]},
     ], nota:'* Todos los días al levantarse, antes de cualquier alimento. El suero de tocosh aporta probióticos naturales — beneficioso para SIBO controlado y microbiota intestinal. Tomar en ayunas para mejor absorción.' },
 
-    { id:'pre', nombre:'⚡ Pre Entreno · 5:00 am', kcal:175, p:14, c:32, g:1, grupos:[
+    { id:'pre', nombre:'⚡ Pre Entreno · 5:00 am', kcal:160, p:14, c:27, g:1, grupos:[
       { label:'Fijo', max:1, ops:[
-        '1 plátano biscocho pequeño + 1 cda miel de abeja + ½ scoop proteína aislada en agua',
+        '1 plátano biscocho pequeño (100 g) + 1 cda miel de abeja (7 g) + ½ scoop proteína aislada en agua (15 g)',
       ]},
-    ], nota:'* Solo días de pesas (lunes, martes, jueves, viernes). 175 kcal · P 14g · C 32g · G 1g. Sumar al total del día (+175 kcal ≈ 2 475 kcal).' },
+    ], nota:'* Solo días de pesas (lunes, martes, jueves, viernes). 160 kcal · P 14g · C 27g · G 1g. Plátano biscocho 100g: 77 kcal · C 20g · P 1g. Miel 7g: 21 kcal · C 5.5g. ½ scoop proteína 15g: 60 kcal · P 13.5g · C 1g. Sumar al total del día (+160 kcal).' },
 
-    { id:'c1', nombre:'☀️ Desayuno · 7:30 am', kcal:620, p:50, c:52, g:25, grupos:[
+    { id:'c1', nombre:'☀️ Desayuno · 7:30 am', kcal:500, p:45, c:60, g:10, grupos:[
       { label:'Fijo · Proteína base', max:1, ops:[
-        '1 scoop proteína aislada en agua (30 g)',
+        '1 scoop proteína aislada en agua (30 g) → 120 kcal · P 27g · C 2g · G 1g',
       ]},
       { label:'Escoge 01 · Carbohidrato', max:1, ops:[
-        '60 g avena sin gluten cocida',
-        '2 rebanadas pan de masa madre (60 g)',
-        '200 g papa sancochada',
+        '50 g avena sin gluten (en crudo) → 188 kcal · C 31g · P 7g · G 3.5g',
+        '2 rebanadas pan de masa madre (60 g) → 160 kcal · C 30g · P 5g · G 2g',
+        '200 g papa sancochada → 154 kcal · C 34g · P 4g · G 0g',
       ]},
       { label:'Escoge 02 · Proteína + Grasa', max:1, ops:[
-        '1 huevo + 1 clara',
-        '50 g pechuga de pollo cocida + 40 g palta',
-        '75 g quark del sabor de tu preferencia + 1 porción de frutos secos* (ver especificaciones)',
+        '1 huevo entero + 1 clara → 87 kcal · P 10g · G 5g',
+        '50 g pechuga de pollo (cruda) + 40 g palta → 121 kcal · P 12g · G 7g',
+        '75 g quark + ½ porción frutos secos (7 g)* → 100 kcal · P 10g · G 4g',
       ]},
       { label:'Fijo · Fruta', max:1, ops:[
-        '100 g de berries + 1 porción de fruta* (ver especificaciones)',
+        '100 g de berries + 1 porción de fruta* (ver especificaciones) → ~110 kcal · C 27g',
       ]},
-    ], nota:'* Mayor concentración de carbohidratos del día — ventana post-entreno. Agregar canela en polvo para mejorar sensibilidad a la insulina. Las 3 opciones del Escoge 02 son equivalentes: ~100 kcal · P 10g · G 6-8g.' },
+    ], nota:'* Mayor concentración de carbohidratos del día — ventana post-entreno. Agregar canela en polvo para mejorar sensibilidad a la insulina. Escoge 02: las 3 opciones aportan ~87-121 kcal · P 10-12g · G 4-7g — equivalentes en proteína, variación en grasa es mínima. * Ver especificaciones para lista de frutos secos y frutas.' },
 
     { id:'c2', nombre:'🍎 Media mañana · 10:00 am', kcal:340, p:14, c:29, g:21, grupos:[
       { label:'Fijo', max:1, ops:[
@@ -320,56 +320,56 @@ const PATIENT = {
       ]},
     ], nota:'* La granola Kausana aporta principalmente grasa saludable (14g) + fibra — NO es intercambio de carbo. Sin gluten, endulzada con yacón y stevia.' },
 
-    { id:'c3', nombre:'🥗 Almuerzo · 1:00 pm', kcal:820, p:55, c:70, g:30, grupos:[
+    { id:'c3', nombre:'🥗 Almuerzo · 1:00 pm', kcal:620, p:54, c:58, g:19, grupos:[
       { label:'Escoge 01 · Proteína (150 g cocido)', max:1, ops:[
-        'Pechuga de pollo a la plancha',
-        'Pechuga de pavo',
-        'Bistec*',
-        'Salmón*',
-        'Pescado blanco (merluza, tilapia, bonito)',
-        'Carne molida de bistec',
-        '1 milanesa de pollo Avinka (al airfryer)*',
+        'Pechuga de pollo a la plancha → 248 kcal · P 47g · G 6g',
+        'Pechuga de pavo → 203 kcal · P 45g · G 2g',
+        'Bistec* → 285 kcal · P 42g · G 13g',
+        'Salmón* → 248 kcal · P 34g · G 12g',
+        'Pescado blanco (merluza, tilapia, bonito) → 165 kcal · P 36g · G 2g',
+        'Carne molida de bistec → 270 kcal · P 40g · G 12g',
+        '1 milanesa de pollo Avinka (al airfryer)* → 230 kcal · P 28g · G 8g',
       ]},
       { label:'Escoge 01 · Carbohidrato', max:1, ops:[
-        '160 g arroz blanco o integral cocido',
-        '220 g camote sancochado o al horno',
-        '260 g papa blanca o amarilla sancochada',
-        '130 g quinua cocida',
+        '160 g arroz blanco o integral cocido → 208 kcal · C 45g · P 4g',
+        '220 g camote sancochado o al horno → 189 kcal · C 44g · P 3.5g',
+        '260 g papa blanca o amarilla sancochada → 200 kcal · C 46g · P 5g',
+        '130 g quinua cocida → 156 kcal · C 28g · P 6g',
       ]},
       { label:'Escoge 01 · Verduras', max:1, ops:[
-        'Verduras de tu preferencia 150-200 g',
+        'Verduras de tu preferencia 150-200 g → ~35 kcal · C 7g',
       ]},
       { label:'Escoge 01 · Grasa', max:1, ops:[
-        '½ palta mediana (80 g)',
-        '10 g aceite de oliva extra virgen',
-        '10 g ghee',
-        '2 porciones de frutos secos* (ver especificaciones)',
-        '5 g ghee + 40 g palta',
+        '½ palta mediana (80 g) → 128 kcal · G 12g',
+        '10 g aceite de oliva extra virgen → 88 kcal · G 10g',
+        '10 g ghee → 90 kcal · G 10g',
+        '1 porción frutos secos (15 g)* → 85 kcal · G 8g',
+        '5 g ghee + 40 g palta → 109 kcal · G 11g',
       ]},
-    ], nota:'* Bistec y salmón tienen grasa propia — eliminar la porción de grasa del almuerzo si eliges alguno de estos. NO leguminosas (frijoles, lentejas, garbanzos, arvejas). Evitar pepino.' },
+    ], nota:'* Bistec, salmón y carne molida tienen grasa propia — eliminar la porción de grasa si eliges alguno de estos. La quinua aporta menos kcal que el arroz/papa — preferir en días de menor actividad. Grasa equivalente: 85-128 kcal · G 8-12g. NO leguminosas (frijoles, lentejas, garbanzos, arvejas). Evitar pepino.' },
 
-    { id:'c4', nombre:'🥜 Media tarde · 4:00 pm', kcal:300, p:12, c:36, g:10, grupos:[
+    { id:'c4', nombre:'🥜 Media tarde · 4:00 pm', kcal:265, p:11, c:37, g:8, grupos:[
       { label:'Fijo', max:1, ops:[
-        '200 g yogurt Yoileicito banana split (1 vaso)',
+        '200 g yogurt Yoileicito banana split (1 vaso) → 117 kcal · P 7.6g · C 12.2g · G 4.2g',
       ]},
       { label:'Escoge 01 · Cereal sin gluten', max:1, ops:[
-        '4 galletas Dyfferent sin azúcar',
-        '30 g cereal Nutri Co La Purita',
+        '4 galletas Dyfferent sin azúcar → ~110 kcal · C 23g · P 2g · G 1g',
+        '30 g cereal Nutri Co La Purita → 120 kcal · C 24g · P 3g · G 1.5g',
       ]},
       { label:'Fijo · Linaza', max:1, ops:[
-        '1 cda linaza molida (7 g) — revolver en el yogurt',
+        '1 cda linaza molida (7 g) — revolver en el yogurt → 37 kcal · P 1.3g · C 2g · G 2.7g',
       ]},
-    ], nota:'* Snack más bajo en grasa que la media mañana — el cereal Dyfferent o Nutri Co aporta carbo limpio sin la grasa de la granola. Total linaza del día: 2 cdas (14 g).' },
+    ], nota:'* Snack más bajo en grasa que la media mañana — el cereal Dyfferent o Nutri Co aporta carbo limpio sin la grasa de la granola. Las 2 opciones de cereal son equivalentes (~110-120 kcal · C 23-24g). Total linaza del día: 2 cdas (14 g).' },
 
-    { id:'c5', nombre:'🌙 Cena · 7:30 pm', kcal:220, p:28, c:10, g:7, grupos:[
-      { label:'Escoge 01 · Proteína (150 g cocido)', max:1, ops:[
-        'Pechuga de pollo a la plancha',
-        'Pechuga de pavo',
-        'Bistec*',
-        'Salmón*',
-        'Pescado blanco (merluza, tilapia, bonito)',
-        'Carne molida de bistec',
-        '1 milanesa de pollo Avinka (al airfryer)*',
+    { id:'c5', nombre:'🌙 Cena · 7:30 pm', kcal:245, p:33, c:6, g:9, grupos:[
+      { label:'Escoge 01 · Proteína (100 g cocido)', max:1, ops:[
+        'Pechuga de pollo a la plancha → 165 kcal · P 31g · G 4g',
+        'Pechuga de pavo → 135 kcal · P 30g · G 1g',
+        'Bistec* → 190 kcal · P 28g · G 9g',
+        'Salmón* → 208 kcal · P 22g · G 12g',
+        'Pescado blanco (merluza, tilapia, bonito) → 110 kcal · P 24g · G 1g',
+        'Carne molida de bistec → 180 kcal · P 27g · G 8g',
+        '1 milanesa de pollo Avinka (al airfryer)* → 150 kcal · P 18g · G 5g',
       ]},
       { label:'Escoge 01 · Verduras (libre)', max:1, ops:[
         'Verduras al vapor: brócoli, espinaca, coliflor, espárragos',
@@ -377,25 +377,25 @@ const PATIENT = {
         'Salteado de verduras con 1 cdta aceite oliva o ghee',
       ]},
       { label:'Escoge 01 · Grasa', max:1, ops:[
-        '1 cdta aceite de oliva extra virgen',
-        '40 g palta',
-        '1 cdta ghee para cocinar',
+        '5 ml aceite de oliva extra virgen (1 cdta) → 44 kcal · G 5g',
+        '40 g palta → 64 kcal · G 6g',
+        '5 g ghee para cocinar → 45 kcal · G 5g',
       ]},
-    ], nota:'* Cena baja en carbohidratos — resistencia a la insulina. Priorizar proteína + verduras + grasas saludables. Tomar medicamentos nocturnos (Metformina 1000 mg + GABA Daily Rest) con la cena.' },
+    ], nota:'* Cena baja en carbohidratos — resistencia a la insulina. 100 g cocido de pechuga: ~165 kcal · P 31g · G 4g. Priorizar proteína + verduras + grasas saludables. Si eliges bistec o salmón, omitir la porción de grasa adicional. Tomar medicamentos nocturnos (Metformina 1000 mg + GABA Daily Rest) con la cena.' },
 
-    { id:'box', nombre:'🥊 Día de Box · Peri-entreno', kcal:220, p:15, c:38, g:3, grupos:[
+    { id:'box', nombre:'🥊 Día de Box · Peri-entreno', kcal:200, p:14, c:35, g:2, grupos:[
       { label:'Pre-entreno box (30 min antes)', max:1, ops:[
-        '1 banana mediana (100 g) + ½ scoop proteína whey en agua',
-        '1 banana + 1 cda miel + 200 ml agua con sal y limón',
+        '1 banana mediana (100 g) + ½ scoop proteína whey en agua → ~137 kcal · P 14g · C 21g',
+        '1 banana (100 g) + 1 cda miel (7 g) + 200 ml agua con sal y limón → ~98 kcal · C 25.5g',
       ]},
       { label:'Intra-entreno', max:1, ops:[
-        'Electrolitos Ecoland 1 scoop en 1 litro de agua',
+        'Electrolitos Ecoland 1 scoop en 1 litro de agua → 0 kcal',
       ]},
       { label:'Post-entreno box', max:1, ops:[
-        '1 scoop proteína whey en agua + 1 banana mediana',
-        '200 g yogurt Yoleit descremado + 1 fruta',
+        '1 scoop proteína whey en agua + 1 banana mediana → ~197 kcal · P 27g · C 21g',
+        '200 g yogurt Yoleit descremado + 1 fruta → ~130 kcal · P 12g · C 18g',
       ]},
-    ], nota:'* Agregar al plan base del día de descanso (+220 kcal ≈ 3 020 kcal). Tomar creatina 5 g + HMB post-entreno si no se tomó en el pre-entreno.' },
+    ], nota:'* Peri-entreno box — sumar al plan base del día. Pre + post: ~200-335 kcal adicionales según opción elegida. Creatina 10 g post-entreno.' },
   ],
 
   specs: [
