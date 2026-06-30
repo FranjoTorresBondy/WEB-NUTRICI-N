@@ -255,7 +255,7 @@ const PATIENT = {
   nombre:    'Juan de\nDios',
   fecha:     '30.06.2026',
   tipoPlan:  'Superávit ligero · Hiperprotéico',
-  macros:    { kcal: 2900, p: 0, c: 0, g: 0 },
+  macros:    { kcal: 2900, p: 195, c: 363, g: 75 },
   hidratacion: [
     { label:'💧 Gym',      valor:'3.6' },
     { label:'💧 Descanso', valor:'2.8' },
@@ -273,20 +273,20 @@ const PATIENT = {
   ],
 
   comidas: [
-    { id:'c1', nombre:'☀️ Desayuno', kcal:0, p:0, c:0, g:0, grupos:[
+    { id:'c1', nombre:'☀️ Desayuno', kcal:590, p:29, c:73, g:20, grupos:[
       { label:'Escoge 01 · Fruta', max:1, ops:['1 porción de fruta (ver especificaciones) + 200 ml de leche de almendras'] },
       { label:'Escoge 04 · Carbohidrato', max:4, ops:['20 g de avena (peso crudo)','1 rebanada de pan de molde integral','1 rapidita cero','1 pan pita Bimbo'] },
       { label:'Escoge 02 · Proteína', max:2, ops:['1 huevo','50 g de pollo, carne o atún + 40 g de palta','60 g de queso mozzarella light Duman + 1 cdta de aceite de oliva + ½ tomate en rodajas'] },
     ], nota:'1 cápsula de multivitamínico Centrum + 7 g de creatina monohidratada.' },
 
-    { id:'c2', nombre:'🥗 Almuerzo', kcal:0, p:0, c:0, g:0, grupos:[
+    { id:'c2', nombre:'🥗 Almuerzo', kcal:1010, p:78, c:121, g:21, grupos:[
       { label:'Escoge 06 · Carbohidrato', max:6, ops:['60 g de arroz blanco o integral (cocido)','60 g de quinua (cocida)','50 g de pasta cocida sin relleno','90 g de papa o camote (cocido)','100 g de menestras (cocidas)'] },
       { label:'Escoge 01 · Proteína (200 g, peso crudo)', max:1, ops:['Pechuga de pollo','Pechuga de pavo','Pescado','Lomo de res','Lomo de cerdo'] },
       { label:'Escoge 01 · Verduras', max:1, ops:['150 g de verduras a tu preferencia'] },
       { label:'Escoge 01 · Grasa', max:1, ops:['10 g de aceite de oliva','80 g de palta','1 porción de frutos secos'] },
     ]},
 
-    { id:'c3', nombre:'🌿 Snack MT', kcal:0, p:0, c:0, g:0, grupos:[
+    { id:'c3', nombre:'🌿 Snack MT', kcal:505, p:23, c:69, g:16, grupos:[
       { label:'Escoge 02 · Carbohidrato', max:2, ops:['30 g de pan de molde integral','20 g de cereales Dyfferent, Mamalama o NutriCo','20 g de granola','20 g de avena (peso crudo)','1 pan pita Bimbo'] },
       { label:'Escoge 02 · Fruta', max:2, ops:['1 porción de fruta (ver especificaciones)'] },
       { label:'Escoge 01 · Proteína láctea', max:1, ops:['200 ml de leche de coco + ½ scoop de proteína aislada'] },
@@ -294,7 +294,7 @@ const PATIENT = {
       { label:'Escoge 01 · Queso', max:1, ops:['80 g de queso mozzarella light Duman + 1 cdta de aceite de oliva + ½ tomate en rodajas + 2 pan pita Bimbo'] },
     ]},
 
-    { id:'c4', nombre:'🌙 Cena', kcal:0, p:0, c:0, g:0, grupos:[
+    { id:'c4', nombre:'🌙 Cena', kcal:800, p:65, c:100, g:18, grupos:[
       { label:'Pre-comida', max:1, ops:['1 cda de vinagre de manzana + 500 ml de agua'] },
       { label:'Escoge 05 · Carbohidrato', max:5, ops:['60 g de arroz blanco o integral (cocido)','60 g de quinua (cocida)','50 g de pasta cocida sin relleno','90 g de papa o camote (cocido)','100 g de menestras (cocidas)'] },
       { label:'Escoge 01 · Proteína (180 g, peso crudo)', max:1, ops:['Lomo de res','Atún en agua','Langostinos','Pescado blanco','Pechuga de pollo'] },
