@@ -255,7 +255,7 @@ const PATIENT = {
   nombre:    'Ioanis\nPatsias',
   fecha:     '29.06.2026',
   tipoPlan:  'Hipocalórico · Hiperprotéico',
-  macros:    { kcal: 2100, p: 157, c: 191, g: 67 },
+  macros:    { kcal: 1990, p: 157, c: 172, g: 67 },
   hidratacion: [
     { label:'💧 Día de box',        valor:'4.5' },
     { label:'💧 Día de pesas',      valor:'3.5' },
@@ -320,7 +320,7 @@ const PATIENT = {
       ]},
     ], nota:'* La granola Kausana aporta principalmente grasa saludable (14g) + fibra — NO es intercambio de carbo. Sin gluten, endulzada con yacón y stevia.' },
 
-    { id:'c3', nombre:'🥗 Almuerzo · 1:00 pm', kcal:620, p:54, c:58, g:19, grupos:[
+    { id:'c3', nombre:'🥗 Almuerzo · 1:00 pm', kcal:490, p:51, c:30, g:19, grupos:[
       { label:'Escoge 01 · Proteína (150 g cocido)', max:1, ops:[
         'Pechuga de pollo a la plancha → 248 kcal · P 47g · G 6g',
         'Pechuga de pavo → 203 kcal · P 45g · G 2g',
@@ -330,11 +330,10 @@ const PATIENT = {
         'Carne molida de bistec → 270 kcal · P 40g · G 12g',
         '1 milanesa de pollo Avinka (al airfryer)* → 230 kcal · P 28g · G 8g',
       ]},
-      { label:'Escoge 01 · Carbohidrato', max:1, ops:[
-        '160 g arroz blanco o integral cocido → 208 kcal · C 45g · P 4g',
-        '220 g camote sancochado o al horno → 189 kcal · C 44g · P 3.5g',
-        '260 g papa blanca o amarilla sancochada → 200 kcal · C 46g · P 5g',
-        '130 g quinua cocida → 156 kcal · C 28g · P 6g',
+      { label:'Escoge 04 · Carbohidrato (1 intercambio ≈ 75 kcal · C 15g)', max:1, ops:[
+        '60 g arroz blanco o integral cocido → 78 kcal · C 17g · P 1.5g',
+        '60 g quinua cocida → 72 kcal · C 13g · P 2.6g',
+        '90 g papa blanca o camote sancochado → 77 kcal · C 17g · P 1.5g (si es al airfryer, pesar antes de meter)',
       ]},
       { label:'Escoge 01 · Verduras', max:1, ops:[
         'Verduras de tu preferencia 150-200 g → ~35 kcal · C 7g',
@@ -361,7 +360,7 @@ const PATIENT = {
       ]},
     ], nota:'* Snack más bajo en grasa que la media mañana — el cereal Dyfferent o Nutri Co aporta carbo limpio sin la grasa de la granola. Las 2 opciones de cereal son equivalentes (~110-120 kcal · C 23-24g). Total linaza del día: 2 cdas (14 g).' },
 
-    { id:'c5', nombre:'🌙 Cena · 7:30 pm', kcal:245, p:33, c:6, g:9, grupos:[
+    { id:'c5', nombre:'🌙 Cena · 7:30 pm', kcal:320, p:33, c:23, g:9, grupos:[
       { label:'Escoge 01 · Proteína (100 g cocido)', max:1, ops:[
         'Pechuga de pollo a la plancha → 165 kcal · P 31g · G 4g',
         'Pechuga de pavo → 135 kcal · P 30g · G 1g',
@@ -370,6 +369,11 @@ const PATIENT = {
         'Pescado blanco (merluza, tilapia, bonito) → 110 kcal · P 24g · G 1g',
         'Carne molida de bistec → 180 kcal · P 27g · G 8g',
         '1 milanesa de pollo Avinka (al airfryer)* → 150 kcal · P 18g · G 5g',
+      ]},
+      { label:'Escoge 04 · Carbohidrato (1 intercambio ≈ 75 kcal · C 15g)', max:1, ops:[
+        '60 g arroz blanco o integral cocido → 78 kcal · C 17g · P 1.5g',
+        '60 g quinua cocida → 72 kcal · C 13g · P 2.6g',
+        '90 g papa blanca o camote sancochado → 77 kcal · C 17g · P 1.5g (si es al airfryer, pesar antes de meter)',
       ]},
       { label:'Escoge 01 · Verduras (libre)', max:1, ops:[
         'Verduras al vapor: brócoli, espinaca, coliflor, espárragos',
