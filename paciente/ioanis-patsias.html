@@ -381,7 +381,7 @@ const PATIENT = {
         '40 g palta → 64 kcal · G 6g',
         '5 g ghee para cocinar → 45 kcal · G 5g',
       ]},
-    ], nota:'* Cena baja en carbohidratos — resistencia a la insulina. 100 g cocido de pechuga: ~165 kcal · P 31g · G 4g. Priorizar proteína + verduras + grasas saludables. Si eliges bistec o salmón, omitir la porción de grasa adicional. Tomar medicamentos nocturnos (Metformina 1000 mg + GABA Daily Rest) con la cena.' },
+    ], nota:'* Cena baja en carbohidratos — resistencia a la insulina. 100 g cocido de pechuga: ~165 kcal · P 31g · G 4g. Priorizar proteína + verduras + grasas saludables. Si eliges bistec o salmón, omitir la porción de grasa adicional.' },
 
     { id:'box', nombre:'🥊 Día de Box · Peri-entreno', kcal:200, p:14, c:35, g:2, grupos:[
       { label:'Pre-entreno box (30 min antes)', max:1, ops:[
@@ -404,7 +404,7 @@ const PATIENT = {
       'Infusiones sin azúcar: manzanilla, muña, hierba luisa, flor de Jamaica, jengibre',
       'Edulcorantes acalóricos permitidos: Stevia, yacón, fruto del monje',
       'Café permitido: 1-2 tazas por día, sin azúcar (puede afectar glucosa en ayunas — monitorear)',
-      'Evitar alcohol — interfiere con Metformina y control glucémico',
+      'Evitar alcohol — interfiere con el control glucémico',
       'Evitar bebidas azucaradas, jugos envasados, energizantes',
     ]},
     { titulo:'🍎 Porciones de fruta', items:[
@@ -437,7 +437,7 @@ const PATIENT = {
       '<b>Resistencia a la insulina:</b> timing de carbohidratos es clave — concentrarlos post-entreno y al mediodía',
       '<b>Hipoglicemia:</b> nunca entrenar en ayunas sin pre-entreno. Llevar snack rápido (banana)',
       '<b>SIBO controlado:</b> evitar alimentos fermentables en exceso (leguminosas, lácteos en grandes cantidades)',
-      '<b>Hipotiroidismo:</b> tomar Eutirox 30-60 min antes del desayuno, en ayunas',
+
       'Canela en polvo puede mejorar sensibilidad a la insulina — agregar en desayunos',
       'Aceite de coco o ghee como fuentes de grasa preferibles para cocinar',
     ]},
@@ -715,8 +715,7 @@ function renderEval() {
     <div class="sec-h" style="margin-top:32px"><span class="ix">02</span><h2>Objetivos</h2><div class="rule"></div></div>
     <div class="card" style="max-width:640px"><ul class="obj">${PATIENT.objetivos.map(o=>`<li>${o}</li>`).join('')}</ul></div>
     <div class="note" style="margin-top:20px;max-width:640px">
-      <b>Patologías activas:</b> Resistencia a la insulina · Hipoglicemia · Hipotiroidismo (regulado, Eutirox) · SIBO (controlado)<br>
-      <b>Medicación:</b> Metformina 1000 mg mañana + noche · Eutirox (en ayunas) · Suplementos nocturnos
+      <b>Patologías activas:</b> Resistencia a la insulina · Hipoglicemia · Hipotiroidismo (regulado) · SIBO (controlado)
     </div>
   </section></div>`;
 }
