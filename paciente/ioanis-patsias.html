@@ -255,7 +255,7 @@ const PATIENT = {
   nombre:    'Ioanis\nPatsias',
   fecha:     '29.06.2026',
   tipoPlan:  'Hipocalórico · Hiperprotéico',
-  macros:    { kcal: 2300, p: 158, c: 191, g: 97 },
+  macros:    { kcal: 2300, p: 159, c: 185, g: 104 },
   hidratacion: [
     { label:'💧 Día de box',        valor:'4.5' },
     { label:'💧 Día de pesas',      valor:'3.5' },
@@ -277,34 +277,32 @@ const PATIENT = {
   ],
 
   comidas: [
-    { id:'pre', nombre:'⚡ Pre Entreno · 5:00 am', kcal:150, p:12, c:22, g:2, grupos:[
+    { id:'pre', nombre:'⚡ Pre Entreno · 5:00 am', kcal:175, p:14, c:32, g:1, grupos:[
       { label:'Fijo', max:1, ops:[
         '1 plátano biscocho pequeño + 1 cda miel de abeja + ½ scoop proteína aislada en agua',
       ]},
-    ], nota:'* Solo días de pesas (lunes, martes, jueves, viernes). Agregar creatina 5 g + HMB disueltos en agua. Sumar al total del día descanso (+150 kcal ≈ 2 450 kcal).' },
+    ], nota:'* Solo días de pesas (lunes, martes, jueves, viernes). 175 kcal · P 14g · C 32g · G 1g. Sumar al total del día (+175 kcal ≈ 2 475 kcal).' },
 
-    { id:'c1', nombre:'☀️ Desayuno · 7:30 am', kcal:650, p:46, c:68, g:20, grupos:[
-      { label:'Escoge 01 · Proteína', max:1, ops:[
-        '1.5 scoops proteína whey en agua o leche sin lactosa',
-        '3 huevos enteros + 2 claras revueltos (1 cdta aceite de oliva)',
-        '2 huevos enteros + 1 scoop proteína whey',
+    { id:'c1', nombre:'☀️ Desayuno · 7:30 am', kcal:620, p:50, c:52, g:25, grupos:[
+      { label:'Fijo · Proteína base', max:1, ops:[
+        '1 scoop proteína aislada en agua (30 g)',
       ]},
-      { label:'Escoge 01 · Cereal sin gluten', max:1, ops:[
+      { label:'Escoge 01 · Cereal + Yogurt', max:1, ops:[
         '40 g granola Kausana + 200 g yogurt Yoileicito banana split',
         '60 g avena sin gluten cocida + 200 g yogurt Yoileicito banana split',
         '4 galletas Dyfferent sin azúcar + 200 g yogurt Yoileicito banana split',
+      ]},
+      { label:'Escoge 02 · Proteína + Grasa', max:1, ops:[
+        '1 huevo + 1 clara',
+        '50 g pechuga de pollo cocida + 40 g palta',
+        '75 g quark del sabor de tu preferencia + 1 porción de frutos secos* (ver especificaciones)',
       ]},
       { label:'Escoge 01 · Fruta', max:1, ops:[
         '1 banana mediana (100 g pelada)',
         '1 taza arándanos (150 g) + 1 manzana pequeña',
         '1 taza fresas (200 g) + 1 kiwi',
       ]},
-      { label:'Escoge 01 · Grasa', max:1, ops:[
-        '½ palta pequeña (60 g)',
-        '15 g almendras o nueces',
-        '1 cda mantequilla de maní natural (15 g)',
-      ]},
-    ], nota:'* Mayor concentración de carbohidratos del día — ventana post-entreno. Incluir creatina 5 g si no se tomó en el pre-entreno. Agregar canela en polvo para mejorar sensibilidad a la insulina.' },
+    ], nota:'* Mayor concentración de carbohidratos del día — ventana post-entreno. Agregar canela en polvo para mejorar sensibilidad a la insulina. Las 3 opciones del Escoge 02 son equivalentes: ~100 kcal · P 10g · G 6-8g.' },
 
     { id:'c2', nombre:'🍎 Media mañana · 10:00 am', kcal:340, p:14, c:29, g:21, grupos:[
       { label:'Snack fijo', max:1, ops:[
@@ -318,7 +316,7 @@ const PATIENT = {
       ]},
     ], nota:'* 340 kcal · P 14g · C 29g · G 21g. La granola Kausana es sin gluten, endulzada con yacón y stevia — apta para resistencia a la insulina.' },
 
-    { id:'c3', nombre:'🥗 Almuerzo · 1:00 pm', kcal:750, p:54, c:55, g:30, grupos:[
+    { id:'c3', nombre:'🥗 Almuerzo · 1:00 pm', kcal:780, p:54, c:65, g:30, grupos:[
       { label:'Escoge 01 · Proteína (180-200 g crudo)', max:1, ops:[
         'Pechuga de pollo a la plancha',
         'Pechuga de pavo',
@@ -437,20 +435,13 @@ const PATIENT = {
       'Aceite de coco o ghee como fuentes de grasa preferibles para cocinar',
     ]},
     { titulo:'💊 Suplementación', items:[
-      '##Con el desayuno',
-      'Metformina 1000 mg (dosis mañana)',
-      'Ubiquinol (CoQ10) — con alimento con grasa',
+      '##Post entreno (todos los días)',
+      'Creatina 10 g — incluso los días sin entrenamiento',
+      'CoQ10 (Ubiquinol) — con alimento con grasa',
+      '##3 veces por semana (lunes · miércoles · viernes)',
       'Vitamina D3 + K2 5000 UI — con alimento con grasa',
-      '##Pre o post entreno',
-      'Creatina 5 g + HMB — todos los días (incluso sin entrenamiento)',
-      'Proteína whey: pre y/o post entreno según necesidad',
-      '##Tarde (30-60 min antes)',
-      'L-Teanina 200-400 mg (manejo del estrés)',
-      'Ashwagandha — según indicación',
-      'Rhodiola — según indicación',
-      '##Con la cena / noche',
-      'Metformina 1000 mg (dosis noche)',
-      'GABA (Daily Rest Ecoland) — 30 min antes de dormir',
+      '##Antes de dormir',
+      'L-Teanina 200 mg',
     ]},
   ],
 
