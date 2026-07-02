@@ -313,14 +313,6 @@ const PATIENT = {
   ],
 
   specs: [
-    { titulo:'Días de entrenamiento', items:[
-      '## Pre entreno',
-      'Carbohidrato: 40 g de lucky charms / 40 g de crema de arroz / 40 g de nestum.',
-      'Proteína: 150 ml de yogurt slim o leche slim (si quieres hacerla chocolatada, mezclar con 1 cdta de cocoa en polvo y stevia).',
-      'Agregar como adicional al snack de MT para usarlo como pre entreno.',
-      '## Post entreno',
-      '1 porción de fruta.',
-    ]},
     { titulo:'Opciones si comes fuera (máx. 1 vez/semana)', items:[
       'Poke bowl: sin salsas acevichada/dulces (taré, anguila); solo con soya. Proteína + palta + mitad arroz o quinua o mix + verduras.',
       'Bowl de San Antonio, Don Mamino, Delicass, Freshii: con arroz, verduras, pollo y palta si es posible.',
@@ -417,7 +409,34 @@ function renderPlan() {
     <div class="meals" id="mealsGrid"></div>
   </section>
   <section style="padding-top:0">
-    <div class="sec-h"><span class="ix">03</span><h2>Hidratación</h2><div class="rule"></div></div>
+    <div class="sec-h"><span class="ix">03</span><h2>Días de entrenamiento</h2><div class="rule"></div></div>
+    <div class="meals">
+      <div class="meal">
+        <div class="top"><div class="nm">🏋️ Pre entreno</div></div>
+        <div class="body">
+          <div class="pick"><div class="k">Escoge 01 · Carbohidrato</div><div class="options" data-group="entreno-pre-carbo" data-max="1">
+            <div class="opt" data-count="0"><div class="cb"></div>40 g de lucky charms</div>
+            <div class="opt" data-count="0"><div class="cb"></div>40 g de crema de arroz</div>
+            <div class="opt" data-count="0"><div class="cb"></div>40 g de nestum</div>
+          </div></div>
+          <div class="pick"><div class="k">Proteína</div><div class="options" data-group="entreno-pre-prot" data-max="1">
+            <div class="opt" data-count="0"><div class="cb"></div>150 ml de yogurt slim o leche slim (si quieres hacerla chocolatada, mezclar con 1 cdta de cocoa en polvo y stevia)</div>
+          </div></div>
+          <div class="note2">Agregar como adicional al snack de MT para usarlo como pre entreno.</div>
+        </div>
+      </div>
+      <div class="meal">
+        <div class="top"><div class="nm">🍎 Post entreno</div></div>
+        <div class="body">
+          <div class="pick"><div class="k">Escoge 01</div><div class="options" data-group="entreno-post" data-max="1">
+            <div class="opt" data-count="0"><div class="cb"></div>1 porción de fruta</div>
+          </div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section style="padding-top:0">
+    <div class="sec-h"><span class="ix">04</span><h2>Hidratación</h2><div class="rule"></div></div>
     <div class="hydro">${PATIENT.hidratacion.map(h=>`<div class="hcard"><div class="l">${h.label}</div><div class="b">${h.valor}<span style="font-size:18px;opacity:.5"> L</span></div></div>`).join('')}</div>
   </section></div>`;
   $('tab-plan').innerHTML = html;
