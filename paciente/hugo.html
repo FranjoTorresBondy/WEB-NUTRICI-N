@@ -337,6 +337,135 @@ const PATIENT = {
   ],
 
   notaSpecs: 'Plan base = días de descanso (2 050 kcal). Días de entrenamiento de fuerza: agregar Pre Entreno (+220 kcal ≈ 2 270 kcal).',
+
+  entrenamiento: {
+    fases: [
+      { label:'Acumulación',      semanas:2, color:'var(--cyan)',  bg:'#0d3d50' },
+      { label:'Intensificación',  semanas:4, color:'var(--amber)', bg:'#3d2d0d' },
+      { label:'Deload',           semanas:1, color:'var(--green)', bg:'#1a3d1a' },
+    ],
+    sesiones: [
+      { id:'s1', icon:'🦵', label:'Sesión 1 — Lower 1', ejercicios:[
+        { nombre:'Hack squat', img:'anim', s1:'Barbell_Hack_Squat/0.jpg', s2:'Barbell_Hack_Squat/1.jpg',
+          reps:'6', descanso:'3:00',
+          prog:[[2,2],[2,2],[2,1],[2,1],[2,1],[2,1],[2,3]] },
+        { nombre:'Hip thrust', img:'anim', s1:'Barbell_Hip_Thrust/0.jpg', s2:'Barbell_Hip_Thrust/1.jpg',
+          reps:'8', descanso:'2:00',
+          prog:[[2,1],[2,1],[2,1],[2,1],[2,1],[2,1],[2,3]] },
+        { nombre:'Isquios (flex. rodilla)', img:'anim', s1:'Seated_Leg_Curl/0.jpg', s2:'Seated_Leg_Curl/1.jpg',
+          reps:'10', descanso:'2:00',
+          prog:[[3,1],[3,1],[3,0],[3,0],[3,0],[3,0],[3,3]] },
+        { nombre:'Búlgaras', img:'anim', s1:'Dumbbell_Bulgarian_Split_Squat/0.jpg', s2:'Dumbbell_Bulgarian_Split_Squat/1.jpg',
+          reps:'8', descanso:'2:00',
+          prog:[[2,1],[2,1],[4,1],[4,1],[4,1],[4,1],[4,3]] },
+        { nombre:'Aducción cadera', img:'anim', s1:'Hip_Adduction/0.jpg', s2:'Hip_Adduction/1.jpg',
+          reps:'10', descanso:'2:00',
+          prog:[[2,0],[2,0],[2,0],[2,0],[2,0],[2,0],[2,3]] },
+        { nombre:'Leg raises banco declinado', img:'anim', s1:'Decline_Crunch/0.jpg', s2:'Decline_Crunch/1.jpg',
+          reps:'10', descanso:'1:00',
+          prog:[[3,0],[3,0],[4,0],[4,0],[4,0],[4,0],[4,3]] },
+        { nombre:'Pantorrilla máquina', img:'anim', s1:'Donkey_Calf_Raises/0.jpg', s2:'Donkey_Calf_Raises/1.jpg',
+          reps:'10', descanso:'1:00',
+          prog:[[3,0],[3,0],[4,'Fallo'],[4,'Fallo'],[4,'Fallo'],[4,'Fallo'],[4,3]] },
+      ]},
+
+      { id:'s2', icon:'💪', label:'Sesión 2 — Upper 1', ejercicios:[
+        { nombre:'Reverse curl banco scott', img:'anim', s1:'Reverse_Barbell_Preacher_Curls/0.jpg', s2:'Reverse_Barbell_Preacher_Curls/1.jpg',
+          reps:'10', descanso:'1:00',
+          prog:[[3,0],[3,0],[3,0],[3,0],[3,0],[3,0],[3,3]] },
+        { nombre:'Barras agarre prono (lastre)', img:'anim', s1:'Pullups/0.jpg', s2:'Pullups/1.jpg',
+          reps:'6', descanso:'2:30',
+          prog:[[3,2],[3,2],[3,1],[3,1],[3,1],[3,1],[3,3]] },
+        { nombre:'Máquina pectoral convergente', img:'anim', s1:'Pec_Deck_Fly/0.jpg', s2:'Pec_Deck_Fly/1.jpg',
+          reps:'6', descanso:'2:30',
+          prog:[[2,2],[2,2],[2,1],[2,1],[2,1],[2,1],[2,3]] },
+        { nombre:'Remo Pendlay', img:'anim', s1:'Bent_Over_Barbell_Row/0.jpg', s2:'Bent_Over_Barbell_Row/1.jpg',
+          reps:'6', descanso:'2:00',
+          prog:[[2,2],[2,2],[2,1],[2,1],[2,1],[2,1],[2,3]] },
+        { nombre:'Aducción pecho máquina', img:'anim', s1:'Pec_Deck_Fly/0.jpg', s2:'Pec_Deck_Fly/1.jpg',
+          reps:'10', descanso:'2:00',
+          prog:[[2,1],[2,1],[2,1],[2,1],[2,1],[2,1],[2,3]] },
+        { nombre:'Jalón unilateral', img:'anim', s1:'Single_Arm_Lat_Pulldown/0.jpg', s2:'Single_Arm_Lat_Pulldown/1.jpg',
+          reps:'10', descanso:'1:30',
+          prog:[[2,1],[2,1],[2,0],[2,0],[2,0],[2,0],[2,3]] },
+        { nombre:'Press francés / Kaz press', img:'anim', s1:'Barbell_JM_Press/0.jpg', s2:'Barbell_JM_Press/1.jpg',
+          reps:'10', descanso:'2:00',
+          prog:[[5,1],[5,1],[5,1],[5,1],[5,1],[5,1],[5,3]] },
+        { nombre:'Curl bícep mancuernas sentado', img:'anim', s1:'Dumbbell_Bicep_Curl/0.jpg', s2:'Dumbbell_Bicep_Curl/1.jpg',
+          reps:'10', descanso:'2:00',
+          prog:[[5,1],[5,1],[5,0],[5,0],[5,0],[5,0],[5,3]] },
+      ]},
+
+      { id:'s3', icon:'🏋️', label:'Sesión 3 — Full Body', ejercicios:[
+        { nombre:'Hack squat', img:'anim', s1:'Barbell_Hack_Squat/0.jpg', s2:'Barbell_Hack_Squat/1.jpg',
+          reps:'5', descanso:'3:30',
+          prog:[[2,2],[2,2],[2,2],[2,2],[2,2],[2,2],[2,3]] },
+        { nombre:'RDL', img:'anim', s1:'Romanian_Deadlift/0.jpg', s2:'Romanian_Deadlift/1.jpg',
+          reps:'5', descanso:'3:30',
+          prog:[[2,2],[2,2],[2,2],[2,2],[2,2],[2,2],[2,3]] },
+        { nombre:'Press barra 45°', img:'anim', s1:'Barbell_Incline_Bench_Press_Medium_Grip/0.jpg', s2:'Barbell_Incline_Bench_Press_Medium_Grip/1.jpg',
+          reps:'5', descanso:'3:30',
+          prog:[[2,2],[2,2],[2,2],[2,2],[2,2],[2,2],[2,3]] },
+        { nombre:'Pantorrilla multipower', img:'anim', s1:'Standing_Calf_Raises/0.jpg', s2:'Standing_Calf_Raises/1.jpg',
+          reps:'10', descanso:'2:00',
+          prog:[[5,0],[5,0],[5,'Fallo'],[5,'Fallo'],[5,'Fallo'],[5,'Fallo'],[5,3]] },
+        { nombre:'Abducciones cadera', img:'anim', s1:'Hip_Abduction/0.jpg', s2:'Hip_Abduction/1.jpg',
+          reps:'10', descanso:'2:00',
+          prog:[[3,0],[3,0],[3,0],[3,0],[3,0],[3,0],[3,3]] },
+        { nombre:'Deltoide posterior', img:'anim', s1:'Bent_Over_Dumbbell_Rear_Delt_Raise/0.jpg', s2:'Bent_Over_Dumbbell_Rear_Delt_Raise/1.jpg',
+          reps:'15', descanso:'1:00',
+          prog:[[4,0],[4,0],[4,0],[4,0],[4,0],[4,0],[4,3]] },
+        { nombre:'Elevaciones laterales', img:'anim', s1:'Dumbbell_Lateral_Raise/0.jpg', s2:'Dumbbell_Lateral_Raise/1.jpg',
+          reps:'10', descanso:'1:30',
+          prog:[[4,0],[4,0],[4,0],[4,0],[4,0],[4,0],[4,3]] },
+        { nombre:'Curl antebrazos barra', img:'anim', s1:'Barbell_Wrist_Curl/0.jpg', s2:'Barbell_Wrist_Curl/1.jpg',
+          reps:'10', descanso:'2:00',
+          prog:[[4,0],[4,0],[4,0],[4,0],[4,0],[4,0],[4,3]] },
+      ]},
+
+      { id:'s4', icon:'🦾', label:'Sesión 4 — Brazo', ejercicios:[
+        { nombre:'Extensión trícep polea prono', img:'anim', s1:'Triceps_Pushdown/0.jpg', s2:'Triceps_Pushdown/1.jpg',
+          reps:'5', descanso:'3:30',
+          prog:[[3,1],[3,1],[3,0],[3,0],[3,0],[3,0],[3,3]] },
+        { nombre:'Curl bícep banco scott', img:'anim', s1:'Barbell_Preacher_Curl/0.jpg', s2:'Barbell_Preacher_Curl/1.jpg',
+          reps:'5', descanso:'3:30',
+          prog:[[3,1],[3,1],[3,0],[3,0],[3,0],[3,0],[3,3]] },
+        { nombre:'Extensión trícep katana', img:'anim', s1:'Dumbbell_Tricep_Kickback/0.jpg', s2:'Dumbbell_Tricep_Kickback/1.jpg',
+          reps:'5', descanso:'3:30',
+          prog:[[3,1],[3,1],[3,0],[3,0],[3,0],[3,0],[3,3]] },
+        { nombre:'Curl Bayesian', img:'anim', s1:'Cable_Bicep_Curl/0.jpg', s2:'Cable_Bicep_Curl/1.jpg',
+          reps:'10', descanso:'1:00',
+          prog:[[4,1],[4,1],[4,0],[4,0],[4,0],[4,0],[4,3]] },
+        { nombre:'Rotación tronco desde polea', img:'anim', s1:'Cable_Oblique_Crunch/0.jpg', s2:'Cable_Oblique_Crunch/1.jpg',
+          reps:'10', descanso:'1:00',
+          prog:[[4,1],[4,1],[4,0],[4,0],[4,0],[4,0],[4,3]] },
+        { nombre:'Tibiales con mancuerna', img:null,
+          reps:'10', descanso:'1:30',
+          prog:[[4,0],[4,0],[4,'Fallo'],[4,'Fallo'],[4,'Fallo'],[4,'Fallo'],[4,3]] },
+        { nombre:'Reverse curl banco scott', img:'anim', s1:'Reverse_Barbell_Preacher_Curls/0.jpg', s2:'Reverse_Barbell_Preacher_Curls/1.jpg',
+          reps:'10', descanso:'2:00',
+          prog:[[4,0],[4,0],[4,0],[4,0],[4,0],[4,0],[4,3]] },
+      ]},
+
+      { id:'s5', icon:'🎯', label:'Sesión 5 — Accesorios', ejercicios:[
+        { nombre:'Remo al mentón biacromial', img:'anim', s1:'Barbell_Upright_Row/0.jpg', s2:'Barbell_Upright_Row/1.jpg',
+          reps:'10', descanso:'2:00',
+          prog:[[2,2],[2,2],[2,0],[2,0],[2,0],[2,0],[2,3]] },
+        { nombre:'Encogimiento trapecio 75°', img:'anim', s1:'Dumbbell_Shrug/0.jpg', s2:'Dumbbell_Shrug/1.jpg',
+          reps:'10', descanso:'2:00',
+          prog:[[3,1],[3,1],[3,0],[3,0],[3,0],[3,0],[3,3]] },
+        { nombre:'Crunches banco declinado', img:'anim', s1:'Decline_Crunch/0.jpg', s2:'Decline_Crunch/1.jpg',
+          reps:'10', descanso:'1:00',
+          prog:[[4,1],[4,1],[4,0],[4,0],[4,0],[4,0],[4,3]] },
+        { nombre:'Leg raises', img:'anim', s1:'Hanging_Leg_Raise/0.jpg', s2:'Hanging_Leg_Raise/1.jpg',
+          reps:'10', descanso:'1:00',
+          prog:[[4,1],[4,1],[4,0],[4,0],[4,0],[4,0],[4,3]] },
+        { nombre:'Deltoide lateral polea media', img:'anim', s1:'Cable_Lateral_Raise/0.jpg', s2:'Cable_Lateral_Raise/1.jpg',
+          reps:'10', descanso:'1:00',
+          prog:[[4,1],[4,1],[4,0],[4,0],[4,0],[4,0],[4,3]] },
+      ]},
+    ],
+  },
 };
 
 // ════════════════════════════════════════════════════════════════════════════
@@ -503,8 +632,8 @@ function renderTrain() {
   WEEKS = buildWeeks();
   $('tab-train').innerHTML = `<div class="wrap">
     <section style="padding-top:24px">
-      <div class="sec-h"><span class="ix">01</span><h2>Mesociclo · 4 Semanas</h2><div class="rule"></div></div>
-      <p class="train-intro">Mesociclo de 4 semanas con progresión de intensidad y volumen enfocada en deltoides laterales (Deltoide lateral con mancuernas y Elevaciones laterales con mancuernas). El resto de ejercicios mantiene su carga estructural base. <b>Anota el peso de cada serie</b> — se guarda automáticamente.</p>
+      <div class="sec-h"><span class="ix">01</span><h2>Mesociclo · 7 Semanas</h2><div class="rule"></div></div>
+      <p class="train-intro">Mesociclo de 7 semanas: 2 de acumulación, 4 de intensificación y 1 de deload. 5 sesiones semanales con progresión de series y RIR. <b>Anota el peso de cada serie</b> — se guarda automáticamente.</p>
       <div class="weeksel" id="weeksel"></div>
     </section>
     <section style="padding-top:6px">
