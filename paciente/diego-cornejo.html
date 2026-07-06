@@ -134,6 +134,28 @@ section{padding:30px 0}
 .antro-table td:first-child{text-align:left;color:var(--muted)}
 .antro-table tr:last-child td{border-bottom:none;color:var(--navy);font-weight:700}
 .tbl-scroll{overflow-x:auto;border-radius:12px;border:1px solid var(--line)}
+.train-selector{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
+.micro-btn{appearance:none;background:var(--panel);border:1px solid var(--line);border-radius:10px;color:var(--muted);font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:9px 16px;cursor:pointer;transition:.2s}
+.micro-btn:hover{border-color:var(--navy);color:var(--ink)}
+.micro-btn.active{background:var(--navy);border-color:var(--navy);color:#000}
+.session-block{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:16px;box-shadow:var(--shadow)}
+.session-head{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;background:var(--panel2);border-bottom:1px solid var(--line);cursor:pointer;user-select:none}
+.session-head .sname{font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:17px}
+.session-head .stag{font-family:'IBM Plex Mono';font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--navy);border:1px solid rgba(196,151,58,.3);border-radius:6px;padding:3px 8px}
+.session-head .sarrow{font-size:12px;color:var(--faint);transition:.2s}
+.session-block.open .sarrow{transform:rotate(180deg)}
+.session-body{display:none;overflow-x:auto}
+.session-block.open .session-body{display:block}
+.train-table{width:100%;border-collapse:collapse;font-size:12px;min-width:600px}
+.train-table th{background:var(--panel2);color:var(--faint);font-family:'IBM Plex Mono';font-size:9px;letter-spacing:.08em;text-transform:uppercase;padding:8px 10px;border-bottom:1px solid var(--line);white-space:nowrap;text-align:center}
+.train-table th:first-child{text-align:left;min-width:220px}
+.train-table td{padding:8px 10px;border-bottom:1px solid var(--line);color:var(--ink);vertical-align:middle;text-align:center}
+.train-table td:first-child{text-align:left;color:var(--muted);font-size:12.5px}
+.train-table tr:last-child td{border-bottom:none}
+.train-table td.mono{font-family:'IBM Plex Mono';color:var(--navy);font-weight:600}
+.train-table td.rir{font-family:'IBM Plex Mono';font-size:11px;color:var(--cyan)}
+.log-input{width:72px;background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:5px 7px;color:var(--ink);font-family:'IBM Plex Mono';font-size:11px;text-align:center}
+.log-input:focus{outline:none;border-color:var(--navy)}
 footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 .foot-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
 .foot-brand{font-family:'IBM Plex Mono';font-size:11px;color:var(--faint);letter-spacing:.1em}
@@ -364,13 +386,14 @@ function renderHero() {
 
 function renderTabs() {
   const tabs = [
-    {id:'plan',       label:'Plan Nutricional'},
-    {id:'eval',       label:'Evaluación'},
-    {id:'specs',      label:'Especificaciones'},
-    {id:'evol-antro', label:'Evolución Física'},
+    {id:'plan',         label:'Plan Nutricional'},
+    {id:'eval',         label:'Evaluación'},
+    {id:'specs',        label:'Especificaciones'},
+    {id:'evol-antro',   label:'Evolución Física'},
+    {id:'entrenamiento',label:'Entrenamiento'},
   ];
   $('tabNav').innerHTML = tabs.map((t,i) => {
-    const extra = t.id==='evol-antro' ? ";initAntro()" : "";
+    const extra = t.id==='evol-antro' ? ";initAntro()" : t.id==='entrenamiento' ? ";initTrain()" : "";
     return `<button class="tab${i===0?' active':''}" onclick="showTab('${t.id}',this)${extra}">
       <span class="tnum">0${i+1}</span> ${t.label}
     </button>`;
@@ -683,6 +706,144 @@ function addAntroEntry() {
   const data=getAntroData(); data.push(e); saveAntroData(data);
   antroInited=false; initAntro();
   ['fecha','peso','tri','bi','sub','cresta','supra','abd','pierna','pant','brazRelaj','brazFlex','abdom','cadera','muslo','pantPer'].forEach(f=>{const el=$('f-'+f);if(el)el.value='';});
+  flashSave();
+}
+
+// ── Entrenamiento ──────────────────────────────────────────────────────────
+const TRAIN_KEY = () => `${PATIENT.slug}-train-v1`;
+function getTrainLog() { try { return JSON.parse(localStorage.getItem(TRAIN_KEY())||'{}'); } catch { return {}; } }
+function saveTrainLog(d) { localStorage.setItem(TRAIN_KEY(), JSON.stringify(d)); }
+
+// Ejercicios base por sesión (nombre, series, reps, descanso)
+// RIR cambia entre fase A (micros 1-2) y fase B (micros 3-5)
+function makeSesiones(fase) {
+  const A = fase === 'A';
+  return [
+    { id:'s1', nombre:'Sesión 1', tipo:'Lower 1', ejercicios:[
+      { n:'Hack squat',                                  s:2, r:'6',  rir: A?2:1,    desc:"7.5'" },
+      { n:'Hip thrust',                                  s:2, r:'8',  rir: A?1:null, desc:"5'"   },
+      { n:'Flexión de rodilla en máquina sentado',       s:2, r:'10', rir: A?1:null, desc:"5'"   },
+      { n:'Búlgaras',                                    s:2, r:'8',  rir: A?1:null, desc:"5'"   },
+      { n:'Leg raises en banco declinado',               s:2, r:'10', rir:null,      desc:"2.5'" },
+      { n:'Pantorrilla en máquina o multipower',         s:2, r:'10', rir:null,      desc:"2.5'" },
+    ]},
+    { id:'s2', nombre:'Sesión 2', tipo:'Upper 1', ejercicios:[
+      { n:'Barras con lastre con agarre prono',          s:2, r:'6',  rir: A?2:null, desc:"6'"   },
+      { n:'Máquina de pectoral convergente',             s:2, r:'6',  rir: A?2:null, desc:"6'"   },
+      { n:'Remo con barra tipo Pendlay',                 s:2, r:'6',  rir: A?2:null, desc:"5'"   },
+      { n:'Aducción de pecho en máquina',                s:2, r:'10', rir: A?1:null, desc:"5'"   },
+      { n:'Jalón unilateral desde polea alta',           s:2, r:'10', rir: A?1:null, desc:"4'"   },
+      { n:'Kaz press',                                   s:3, r:'10', rir: A?1:null, desc:"5'"   },
+      { n:'Curl de bícep con mancuernas sentado',        s:3, r:'10', rir: A?1:null, desc:"5'"   },
+    ]},
+    { id:'s3', nombre:'Sesión 3', tipo:'Full Body', ejercicios:[
+      { n:'Hack squat',                                  s:2, r:'5',  rir: A?2:1,    desc:"9'"   },
+      { n:'RDL',                                         s:2, r:'5',  rir: A?2:1,    desc:"9'"   },
+      { n:'Remo unilateral con polea',                   s:2, r:'10', rir: A?1:null, desc:"5'"   },
+      { n:'Press con barra a 45°',                       s:2, r:'5',  rir: A?2:1,    desc:"9'"   },
+      { n:'Pantorrilla en multipower',                   s:3, r:'10', rir:null,      desc:"5'"   },
+      { n:'Deltoide posterior con mancuernas',           s:3, r:'15', rir:null,      desc:"2.5'" },
+      { n:'Elevaciones lateral con mancuernas',          s:3, r:'10', rir:null,      desc:"4'"   },
+      { n:'Curl de antebrazos con barra, apoyo en banco',s:3, r:'10', rir:null,      desc:"5'"   },
+    ]},
+    { id:'s4', nombre:'Sesión 4', tipo:'Brazo', ejercicios:[
+      { n:'Extensión de trícep desde polea alta agarre prono', s:2, r:'5',  rir: A?1:null, desc:"9'"   },
+      { n:'Curl de bícep en banco Scott',                      s:2, r:'5',  rir: A?1:null, desc:"9'"   },
+      { n:'Extensión de trícep katana a una mano',             s:2, r:'5',  rir: A?1:null, desc:"9'"   },
+      { n:'Curl de bícep Bayesian a una mano',                 s:2, r:'10', rir: A?1:null, desc:"2.5'" },
+      { n:'Rotación de tronco desde polea alta (cadera 90°)',  s:2, r:'10', rir: A?1:null, desc:"2.5'" },
+      { n:'Tibiales con mancuerna en banco',                   s:2, r:'10', rir:null,      desc:"4'"   },
+      { n:'Reverse curl en banco Scott con barra',             s:4, r:'10', rir:null,      desc:"5'"   },
+    ]},
+  ];
+}
+
+const TRAINING = {
+  micros: [
+    { nombre:'Microciclo 1', fase:'A', sesiones: makeSesiones('A') },
+    { nombre:'Microciclo 2', fase:'A', sesiones: makeSesiones('A') },
+    { nombre:'Microciclo 3', fase:'B', sesiones: makeSesiones('B') },
+    { nombre:'Microciclo 4', fase:'B', sesiones: makeSesiones('B') },
+    { nombre:'Microciclo 5', fase:'B', sesiones: makeSesiones('B') },
+  ],
+};
+
+let trainInited = false;
+let activeMicro = 0;
+
+function initTrain() { if(trainInited)return; trainInited=true; renderTrain(); }
+
+function renderTrain() {
+  const el = $('tab-entrenamiento'); if(!el) return;
+  const micro = TRAINING.micros[activeMicro];
+  const microBtns = TRAINING.micros.map((m,i) =>
+    `<button class="micro-btn${i===activeMicro?' active':''}" onclick="selectMicro(${i})">${m.nombre}</button>`
+  ).join('');
+
+  const sessionsHtml = micro.sesiones.map((ses,si) => {
+    const log = getTrainLog();
+    const rows = ses.ejercicios.map((ex,ei) => {
+      const sets = Array.from({length:ex.s}, (_,k) => {
+        const key = `m${activeMicro}_${ses.id}_e${ei}_s${k}`;
+        const val = log[key]||'';
+        return `<td><input class="log-input" type="text" placeholder="—" value="${val}" oninput="saveLog('m${activeMicro}_${ses.id}_e${ei}_s${k}',this.value)" data-lk="m${activeMicro}_${ses.id}_e${ei}_s${k}"></td>`;
+      });
+      // Fill up to 4 columns
+      while(sets.length < 4) sets.push('<td style="color:var(--faint);font-family:\'IBM Plex Mono\';font-size:11px">—</td>');
+      const rirCell = ex.rir !== null && ex.rir !== undefined
+        ? `<td class="rir">RIR ${ex.rir}</td>`
+        : `<td style="color:var(--faint)">—</td>`;
+      return `<tr>
+        <td>${ex.n}</td>
+        <td class="mono">${ex.s}</td>
+        <td class="mono">${ex.r}</td>
+        ${rirCell}
+        <td class="mono">${ex.desc}</td>
+        ${sets.join('')}
+      </tr>`;
+    }).join('');
+    return `<div class="session-block open" id="sb-${si}">
+      <div class="session-head" onclick="toggleSession('sb-${si}')">
+        <span class="sname">${ses.nombre}</span>
+        <div style="display:flex;align-items:center;gap:10px">
+          <span class="stag">${ses.tipo}</span>
+          <span class="sarrow">▼</span>
+        </div>
+      </div>
+      <div class="session-body">
+        <table class="train-table">
+          <thead><tr>
+            <th>Ejercicio</th><th>Series</th><th>Reps</th><th>RIR</th><th>Desc.</th>
+            <th>Serie 1</th><th>Serie 2</th><th>Serie 3</th><th>Serie 4</th>
+          </tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>
+    </div>`;
+  }).join('');
+
+  el.innerHTML = `<div class="wrap"><section style="padding-top:24px">
+    <div class="sec-h"><span class="ix">01</span><h2>Plan de Entrenamiento · Mesociclo</h2><div class="rule"></div></div>
+    <div class="note" style="margin-top:0;margin-bottom:20px"><b>Formato de registro:</b> peso × reps &nbsp;·&nbsp; ej. <span style="font-family:'IBM Plex Mono';color:var(--navy)">60×6</span> &nbsp;·&nbsp; RIR = repeticiones en reserva (cuántas te quedan al terminar la serie)</div>
+    <div class="train-selector">${microBtns}</div>
+    ${sessionsHtml}
+  </section></div>`;
+}
+
+function selectMicro(idx) {
+  activeMicro = idx;
+  renderTrain();
+}
+
+function toggleSession(id) {
+  const block = document.getElementById(id);
+  if(block) block.classList.toggle('open');
+}
+
+function saveLog(key, val) {
+  const log = getTrainLog();
+  if(val) log[key] = val; else delete log[key];
+  saveTrainLog(log);
   flashSave();
 }
 
