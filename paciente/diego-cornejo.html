@@ -146,7 +146,7 @@ section{padding:30px 0}
 .wbtn.active .wn{color:var(--navy)}
 .wbtn .wdot{position:absolute;top:10px;right:10px;width:8px;height:8px;border-radius:50%}
 .train-head{display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin:18px 0 6px}
-.train-head .badge{font-family:'IBM Plex Mono';font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#fff;padding:6px 13px;border-radius:999px;font-weight:700}
+.train-head .badge{font-family:'IBM Plex Mono';font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#000;padding:6px 13px;border-radius:999px;font-weight:700}
 .train-head .hint{font-size:12px;color:var(--faint)}
 .sess{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow);margin-bottom:16px}
 .sess .sh{display:flex;align-items:center;gap:12px;padding:14px 18px;background:var(--panel2);cursor:pointer;user-select:none;transition:background .15s}
@@ -415,11 +415,14 @@ const PATIENT = {
 
   entrenamiento: {
     fases: [
-      {label:'Fase A', semanas:2, color:'#4fc3f7', bg:'#1a3a5c'},
-      {label:'Fase B', semanas:3, color:'#C4973A', bg:'#5c3a1a'},
+      { label:'Micro 1', semanas:1, color:'#4fc3f7',  bg:'#0d3d50' },
+      { label:'Micro 2', semanas:1, color:'#29b6f6',  bg:'#0d3d50' },
+      { label:'Micro 3', semanas:1, color:'#C4973A',  bg:'#4d3a0d' },
+      { label:'Micro 4', semanas:1, color:'#e0a93e',  bg:'#4d3a0d' },
+      { label:'Micro 5', semanas:1, color:'#ef9a9a',  bg:'#5c2020' },
     ],
     sesiones: [
-      { id:'s1', icon:'🦵', label:'Lower 1', nota:'Piernas · Glúteos · Core', ejercicios:[
+      { id:'s1', icon:'🦵', label:'Sesión 1 — Lower 1', nota:'Pierna · Glúteos · Core', ejercicios:[
         { nombre:'Hack squat',                            img:'anim', s1:'Leg_Press/0.jpg',                                                s2:'Leg_Press/1.jpg',                                                reps:'6',  prog:[[2,2],[2,2],[2,1],[2,1],[2,1]],       descanso:'7:30' },
         { nombre:'Hip thrust',                            img:'anim', s1:'Barbell_Hip_Thrust/0.jpg',                                      s2:'Barbell_Hip_Thrust/1.jpg',                                       reps:'8',  prog:[[2,1],[2,1],[2,null],[2,null],[2,null]], descanso:'5:00' },
         { nombre:'Flexión de rodilla en máquina sentado', img:'anim', s1:'Seated_Leg_Curl/0.jpg',                                         s2:'Seated_Leg_Curl/1.jpg',                                          reps:'10', prog:[[2,1],[2,1],[2,null],[2,null],[2,null]], descanso:'5:00' },
@@ -427,7 +430,7 @@ const PATIENT = {
         { nombre:'Leg raises en banco declinado',         img:'anim', s1:'Flat_Bench_Lying_Leg_Raise/0.jpg',                              s2:'Flat_Bench_Lying_Leg_Raise/1.jpg',                               reps:'10', prog:[[2,null],[2,null],[2,null],[2,null],[2,null]], descanso:'2:30' },
         { nombre:'Pantorrilla en máquina o multipower',   img:'anim', s1:'Standing_Calf_Raises/0.jpg',                                    s2:'Standing_Calf_Raises/1.jpg',                                     reps:'10', prog:[[2,null],[2,null],[2,null],[2,null],[2,null]], descanso:'2:30' },
       ]},
-      { id:'s2', icon:'💪', label:'Upper 1', nota:'Pecho · Espalda · Brazos', ejercicios:[
+      { id:'s2', icon:'💪', label:'Sesión 2 — Upper 1', nota:'Pecho · Espalda · Brazos', ejercicios:[
         { nombre:'Barras con lastre agarre prono',        img:'anim', s1:'Chin-Up/0.jpg',                                                 s2:'Chin-Up/1.jpg',                                                  reps:'6',  prog:[[2,2],[2,2],[2,null],[2,null],[2,null]], descanso:'6:00' },
         { nombre:'Máquina pectoral convergente',          img:'anim', s1:'Leverage_Chest_Press/0.jpg',                                    s2:'Leverage_Chest_Press/1.jpg',                                     reps:'6',  prog:[[2,2],[2,2],[2,null],[2,null],[2,null]], descanso:'6:00' },
         { nombre:'Remo con barra tipo Pendlay',           img:'anim', s1:'Bent_Over_Barbell_Row/0.jpg',                                   s2:'Bent_Over_Barbell_Row/1.jpg',                                    reps:'6',  prog:[[2,2],[2,2],[2,null],[2,null],[2,null]], descanso:'5:00' },
@@ -436,7 +439,7 @@ const PATIENT = {
         { nombre:'Kaz press',                             img:'anim', s1:'EZ-Bar_Skullcrusher/0.jpg',                                     s2:'EZ-Bar_Skullcrusher/1.jpg',                                      reps:'10', prog:[[3,1],[3,1],[3,null],[3,null],[3,null]], descanso:'5:00' },
         { nombre:'Curl de bícep con mancuernas sentado',  img:'anim', s1:'Seated_Dumbbell_Curl/0.jpg',                                    s2:'Seated_Dumbbell_Curl/1.jpg',                                     reps:'10', prog:[[3,1],[3,1],[3,null],[3,null],[3,null]], descanso:'5:00' },
       ]},
-      { id:'s3', icon:'⚡', label:'Full Body', nota:'Fuerza compuesta', ejercicios:[
+      { id:'s3', icon:'⚡', label:'Sesión 3 — Full Body', nota:'Fuerza compuesta · Cuerpo completo', ejercicios:[
         { nombre:'Hack squat',                                     img:'anim', s1:'Leg_Press/0.jpg',                                                      s2:'Leg_Press/1.jpg',                                                     reps:'5',  prog:[[2,2],[2,2],[2,1],[2,1],[2,1]],       descanso:'9:00' },
         { nombre:'RDL',                                            img:'anim', s1:'Romanian_Deadlift/0.jpg',                                              s2:'Romanian_Deadlift/1.jpg',                                             reps:'5',  prog:[[2,2],[2,2],[2,1],[2,1],[2,1]],       descanso:'9:00' },
         { nombre:'Remo unilateral con polea',                      img:'anim', s1:'Dumbbell_Incline_Row/0.jpg',                                           s2:'Dumbbell_Incline_Row/1.jpg',                                          reps:'10', prog:[[2,1],[2,1],[2,null],[2,null],[2,null]], descanso:'5:00' },
@@ -446,7 +449,7 @@ const PATIENT = {
         { nombre:'Elevaciones laterales con mancuernas',           img:'anim', s1:'Side_Lateral_Raise/0.jpg',                                             s2:'Side_Lateral_Raise/1.jpg',                                            reps:'10', prog:[[3,null],[3,null],[3,null],[3,null],[3,null]], descanso:'4:00' },
         { nombre:'Curl de antebrazos con barra, apoyo en banco',   img:'anim', s1:'Palms-Up_Barbell_Wrist_Curl_Over_A_Bench/0.jpg',                       s2:'Palms-Up_Barbell_Wrist_Curl_Over_A_Bench/1.jpg',                      reps:'10', prog:[[3,null],[3,null],[3,null],[3,null],[3,null]], descanso:'5:00' },
       ]},
-      { id:'s4', icon:'🔥', label:'Brazo', nota:'Bíceps · Tríceps · Antebrazos', ejercicios:[
+      { id:'s4', icon:'🔥', label:'Sesión 4 — Brazo', nota:'Bíceps · Tríceps · Antebrazos', ejercicios:[
         { nombre:'Extensión de trícep polea alta agarre prono',    img:'anim', s1:'Pushdown/0.jpg',                                                       s2:'Pushdown/1.jpg',                                                      reps:'5',  prog:[[2,1],[2,1],[2,null],[2,null],[2,null]], descanso:'9:00' },
         { nombre:'Curl de bícep en banco Scott',                   img:'anim', s1:'Barbell_Preacher_Curl/0.jpg',                                          s2:'Barbell_Preacher_Curl/1.jpg',                                         reps:'5',  prog:[[2,1],[2,1],[2,null],[2,null],[2,null]], descanso:'9:00' },
         { nombre:'Extensión de trícep katana a una mano',          img:'anim', s1:'Lying_Triceps_Press/0.jpg',                                            s2:'Lying_Triceps_Press/1.jpg',                                           reps:'5',  prog:[[2,1],[2,1],[2,null],[2,null],[2,null]], descanso:'9:00' },
@@ -474,13 +477,14 @@ function renderHero() {
 
 function renderTabs() {
   const tabs = [
-    {id:'plan',       label:'Plan Nutricional'},
-    {id:'eval',       label:'Evaluación'},
-    {id:'specs',      label:'Especificaciones'},
-    {id:'train',      label:'Entrenamiento'},
-    {id:'evol-antro', label:'Evolución Física'},
-    {id:'evol-train', label:'Evolución Entreno'},
+    {id:'plan',  label:'Plan Nutricional'},
+    {id:'eval',  label:'Evaluación'},
+    {id:'specs', label:'Especificaciones'},
   ];
+  if (PATIENT.entrenamiento) tabs.push({id:'train', label:'Entrenamiento'});
+  tabs.push({id:'evol-antro', label:'Evolución Física'});
+  if (PATIENT.entrenamiento) tabs.push({id:'evol-train', label:'Evolución Entreno'});
+
   $('tabNav').innerHTML = tabs.map((t,i) => {
     const extra = t.id==='evol-antro' ? ";initAntro()" : t.id==='evol-train' ? ";initEvolTrain()" : "";
     return `<button class="tab${i===0?' active':''}" onclick="showTab('${t.id}',this)${extra}">
@@ -846,8 +850,8 @@ function buildWeekSel() {
 }
 
 function buildTrainHead(w) {
-  $('trainHead').innerHTML = `<span class="badge" style="background:${w.bg}">${w.label} · ${w.faseLabel}</span>
-    <span class="hint">Progresión individual por ejercicio según RIR</span>`;
+  $('trainHead').innerHTML = `<span class="badge" style="background:${w.bg};color:#fff">${w.label} · ${w.faseLabel}</span>
+    <span class="hint" style="color:var(--muted)">Progresión individual por ejercicio según RIR</span>`;
 }
 
 function setWeek(n, btn) {
@@ -871,9 +875,9 @@ function buildThumb(ex) {
 }
 
 function rirLabel(rir) {
+  if (rir === null || rir === undefined) return { text:null, cls:'' };
   if (rir === 'F') return { text:'A fallo', cls:'rir-f' };
-  if (rir === 0)   return { text:'RIR 0',   cls:'rir' };
-  if (rir === null || rir === undefined) return { text:'—', cls:'' };
+  if (rir === 0)   return { text:'RIR 0', cls:'rir' };
   return { text:`RIR ${rir}`, cls:'' };
 }
 
@@ -894,7 +898,7 @@ function buildSessions(week) {
           <div class="nm">${ex.nombre}${notaHtml}</div>
           <div class="meta">
             <span class="mpill"><b>${series}×${ex.reps}</b></span>
-            ${rl.text !== '—' ? `<span class="mpill ${rl.cls}"><b>${rl.text}</b></span>` : ''}
+            ${rl.text ? `<span class="mpill ${rl.cls}"><b>${rl.text}</b></span>` : ''}
             <span class="mpill rest">Descanso <b>${ex.descanso}</b></span>
           </div>
           <div class="sets">${sets}</div>
