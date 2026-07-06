@@ -365,12 +365,6 @@ const PATIENT = {
       'Salsa verde: queso fresco light + albahaca + ajo soasado + aceite oliva + leche evaporada light',
       'Salsa roja: tomate + cebolla + ajo + albahaca + poro + aceite oliva (Stevia opcional)',
     ]},
-    { titulo:'Opciones fuera de casa', items:[
-      'Poke bowl: solo soya, proteína + palta + arroz + verduras (sin frituras)',
-      'Bowl de San Antonio, Don Mamino, Delicass o Freshii: arroz + verduras + pollo + palta',
-      'Bowl de Xipe / Wrap de Insólito',
-      'Pollo a la brasa: pechuga sin pellejo + ensalada + papa al horno o sancochada',
-    ]},
   ],
 };
 
@@ -526,9 +520,17 @@ function renderSpecs() {
     }).join('');
     return '<div class="spec"><h4>' + s.titulo + '</h4><ul>' + items + '</ul></div>';
   }).join('');
+  var guiaHtml = '<div style="margin-top:32px;background:var(--panel2);border:1px solid var(--line);border-radius:14px;padding:20px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">' +
+    '<div>' +
+    '<div style="font-family:\'IBM Plex Mono\',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);margin-bottom:6px;">Recurso adicional</div>' +
+    '<div style="font-family:\'Libre Franklin\',sans-serif;font-size:16px;font-weight:600;color:var(--ink);">Guia para comer fuera sin salirte del plan</div>' +
+    '<div style="font-size:12px;color:var(--muted);margin-top:4px;">10 categorias · 150+ opciones · 25+ restaurantes en Lima</div>' +
+    '</div>' +
+    '<a href="../guia-restaurante.html" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:var(--navy);color:#000;font-family:\'IBM Plex Mono\',monospace;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:10px 20px;border-radius:10px;text-decoration:none;flex-shrink:0;">Ver guia →</a>' +
+    '</div>';
   $('tab-specs').innerHTML = '<div class="wrap"><section>' +
     '<div class="sec-h"><span class="ix">01</span><h2>Especificaciones</h2><div class="rule"></div></div>' +
-    '<div class="specs">' + specsHtml + '</div></section></div>';
+    '<div class="specs">' + specsHtml + '</div>' + guiaHtml + '</section></div>';
 }
 
 var ANTRO_KEY = PATIENT.slug + '-antro-v1';
