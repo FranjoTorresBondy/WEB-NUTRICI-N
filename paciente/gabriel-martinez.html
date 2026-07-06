@@ -548,7 +548,12 @@ function getAntroBase() {
   var a = PATIENT.antro;
   var s6 = +(a.tri+a.sub+a.supra+a.abd+a.pierna+a.pant).toFixed(1);
   var s8 = +(s6+a.bi+a.cresta).toFixed(1);
-  return [{ fecha:a.fecha, peso:a.peso, tri:a.tri, bi:a.bi, sub:a.sub, cresta:a.cresta, supra:a.supra, abd:a.abd, pierna:a.pierna, pant:a.pant, brazRelaj:a.brazRelaj, brazFlex:a.brazFlex, abdom:a.abdom, cadera:a.cadera, muslo:a.muslo, pantPer:a.pantPer, s6:s6, s8:s8 }];
+  return [
+    { fecha:'19.06.2026', peso:97.5, tri:6.0, bi:5.0, sub:10.0, cresta:19.0, supra:9.0, abd:15.0, pierna:6.5, pant:6.0,
+      brazRelaj:38.5, brazFlex:39.5, abdom:95.5, cadera:122.0, muslo:60.3, pantPer:40.5,
+      s6:52.5, s8:76.5 },
+    { fecha:a.fecha, peso:a.peso, tri:a.tri, bi:a.bi, sub:a.sub, cresta:a.cresta, supra:a.supra, abd:a.abd, pierna:a.pierna, pant:a.pant, brazRelaj:a.brazRelaj, brazFlex:a.brazFlex, abdom:a.abdom, cadera:a.cadera, muslo:a.muslo, pantPer:a.pantPer, s6:s6, s8:s8 }
+  ];
 }
 function getAntroData() { try { var r=localStorage.getItem(ANTRO_KEY); return r?JSON.parse(r):getAntroBase(); } catch(e) { return getAntroBase(); } }
 function saveAntroData(d) { localStorage.setItem(ANTRO_KEY, JSON.stringify(d)); }
