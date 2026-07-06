@@ -42,12 +42,6 @@ section{padding:30px 0}
 .sec-h h2{font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:24px}
 .sec-h .ix{font-family:'IBM Plex Mono';color:var(--navy);font-size:13px;font-weight:600}
 .sec-h .rule{flex:1;height:1px;background:var(--line)}
-.micro-bar{display:flex;align-items:center;gap:12px;margin:0 0 24px;flex-wrap:wrap}
-.micro-bar .mlabel{font-family:'IBM Plex Mono';font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
-.micro-btn{appearance:none;border:1.5px solid var(--line);background:var(--panel);border-radius:999px;padding:7px 16px;font-family:'IBM Plex Mono';font-size:12px;font-weight:600;color:var(--muted);cursor:pointer;transition:.2s}
-.micro-btn:hover{border-color:var(--navy);color:var(--navy)}
-.micro-btn.active{background:var(--navy);border-color:var(--navy);color:#000}
-.micro-note{font-size:12px;color:var(--faint);font-style:italic}
 .macros{display:flex;flex-wrap:wrap;gap:14px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 22px;margin:6px 0 22px;box-shadow:var(--shadow)}
 .macros .kcal{font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:32px;color:var(--amber)}
 .macros .kcal small{font-size:14px;color:var(--muted);font-family:'Inter';font-weight:600}
@@ -106,8 +100,7 @@ section{padding:30px 0}
 .vinag .vdesc{font-size:12.5px;color:var(--muted);line-height:1.5}
 .note{font-size:12px;color:var(--muted);background:var(--panel2);border:1px dashed var(--line);border-radius:12px;padding:14px 16px;margin:18px 0}
 .note b{color:var(--ink)}
-.hydro{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:6px}
-@media(max-width:520px){.hydro{grid-template-columns:1fr}}
+.hydro{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-top:6px}
 .hcard{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px 22px;text-align:center;box-shadow:var(--shadow)}
 .hcard .l{font-family:'IBM Plex Mono';font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
 .hcard .b{font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:38px;color:var(--cyan);margin-top:8px}
@@ -141,7 +134,6 @@ section{padding:30px 0}
 .antro-table td:first-child{text-align:left;color:var(--muted)}
 .antro-table tr:last-child td{border-bottom:none;color:var(--navy);font-weight:700}
 .tbl-scroll{overflow-x:auto;border-radius:12px;border:1px solid var(--line)}
-.no-data{text-align:center;padding:48px 20px;color:var(--faint);font-size:13px;font-style:italic}
 footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 .foot-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
 .foot-brand{font-family:'IBM Plex Mono';font-size:11px;color:var(--faint);letter-spacing:.1em}
@@ -155,8 +147,6 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
   .tab{padding:13px 14px;font-size:12px;gap:6px}
   .tab.active::after{left:14px;right:14px}
   .tab .tnum{font-size:10px}
-  .micro-bar{gap:6px}
-  .micro-btn{padding:5px 11px;font-size:11px}
   .macros{flex-direction:column;align-items:flex-start;gap:10px;padding:14px 16px}
   .macros .sep{display:none}
   .macros .kcal{font-size:26px}
@@ -189,85 +179,169 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 <script>
 // ════════════════════════════════════════════════════════════════════════════
 //  DATOS DEL PACIENTE
-//  ↓ Solo cambia este bloque para cada paciente ↓
 // ════════════════════════════════════════════════════════════════════════════
 const PATIENT = {
-  slug:      'diego-lobaton',
-  nombre:    'Diego\nLobatón',
-  fecha:     '19.06.2026',
-  tipoPlan:  'Hipocalórico · Hiperprotéico',
-  macros:    { kcal: 1950, p: 170, c: 190, g: 57 },
-  hidratacion: { entreno: '4.0', descanso: '3.0' },
-  semanas:   4,
-
+  slug:     'diego-lobaton',
+  nombre:   'Diego\nLobatón',
+  fecha:    '02.07.2026',
+  tipoPlan: 'Hipocalórico · Hiperprotéico',
+  macros:   { kcal: 1810, p: 150, c: 200, g: 45 },
+  hidratacion: [
+    { label:'💧 Entrenamiento', valor:'4.0' },
+    { label:'💧 Descanso',      valor:'3.0' },
+  ],
+  semanas: 1,
   antro: {
-    fecha: '19.06.2026',
-    peso: 88.5, talla: 168.0, imc: 31.8,
-    tri: 13.0, bi: 5.0, sub: 20.5, cresta: 28.0, supra: 20.0, abd: 27.0, pierna: 18.0, pant: 10.0,
-    brazRelaj: 35.5, brazFlex: 35.5, abdom: 101.0, cadera: 107.0, muslo: 58.5, pantPer: 40.2,
+    fecha:'02.07.2026', peso:88.3, talla:168.0, imc:31.8,
+    tri:10.0, bi:4.0, sub:18.0, cresta:23.0, supra:20.0, abd:25.0, pierna:18.0, pant:10.0,
+    brazRelaj:36.0, brazFlex:35.3, abdom:100.0, cadera:105.0, muslo:57.5, pantPer:40.2,
   },
 
   objetivos: [
-    'Disminución de Σ8 pliegues a 125 mm para la próxima sesión',
-    'Objetivo de pasos mínimos: 6000 diarios',
-    'Los fines de semana, caminar más',
+    'Disminución de sumatoria de 8 pliegues a 120 mm para la próxima sesión',
+    'Objetivo de pasos mínimos 6000 diarios — los fines de semana caminar más',
   ],
 
   comidas: [
-    { id:'des', nombre:'🍳 Desayuno', kcal:491, p:35, c:45, g:18, grupos:[
-        { label:'Escoge 01 · Fruta', max:1, ops:['2 porciones de fruta (ver especificaciones) — puedes hacer jugo'] },
-        { label:'Escoge 02 · Carbohidrato', max:2, ops:['20 g avena','20 g cereales Dyfferent','1 rebanada pan de molde (30 g)','1 rapidita integral','1 rapidita cero'] },
-        { label:'Escoge 01 · Proteína', max:1, ops:['3 huevos','1 lata atún en agua + 60 g palta','60 g pechuga de pollo + 2 huevos','200 g yogurt Vakimu quark + 60 g palta','2 huevos + 40 g queso mozzarella light','100 g pollo + 60 g palta'] },
+    { id:'des', nombre:'☀️ Desayuno', kcal:420, p:28, c:50, g:12, grupos:[
+      { label:'Escoge 01 · Fruta', max:1, ops:[
+        '2 porciones de fruta (Ver especificaciones) — puedes hacer jugo',
+      ]},
+      { label:'Escoge 01 · Carbohidrato', max:1, ops:[
+        '20 g de avena',
+        '20 g de cereales Dyfferent',
+        '1 rebanada de pan de molde (30 g)',
+        '1 Rapidita integral',
+        '1 Rapidita cero',
+      ]},
+      { label:'Escoge 01 · Proteína', max:1, ops:[
+        '3 huevos',
+        '1 lata de atún en agua + 60 g de palta',
+        '60 g de pechuga de pollo + 2 huevos',
+        '200 g de yogurt Vakimú quark + 60 g de palta',
+        '2 huevos + 40 g de queso mozzarella light',
+        '100 g de pollo + 60 g de palta',
+      ]},
     ]},
-    { id:'alm', nombre:'🥗 Almuerzo', kcal:659, p:60, c:65, g:15, grupos:[
-        { label:'Escoge 04 · Carbohidrato (peso cocido)', max:4, ops:['90 g papa','90 g camote','60 g arroz','60 g quinua','60 g choclo','50 g pasta'] },
-        { label:'Escoge 01 · Proteína (180 g peso crudo)', max:1, ops:['Pechuga de pollo','Pechuga de pavo','Pescado','Lomo de res','Lomo de cerdo','100 g carne molida de bistec <em style="opacity:.6">(usar mitad de porción de grasas)</em>'] },
-        { label:'Escoge 01 · Verduras', max:1, ops:['150–180 g verduras a tu preferencia'] },
-        { label:'Escoge 02 · Grasa', max:2, ops:['1 cdta aceite de oliva','40 g palta','1 cdta aceite de ajonjolí'] },
-    ], nota:'* Puedes cocinar la papa y el camote en el air fryer (sin aceite). Si comes fuera, revisar cuadro de especificaciones. Puedes consumir 2 cervezas zero (−1 porción carbo) o 1 cerveza normal 310–355 ml (−2 porciones carbo). No todos los días.' },
-    { id:'snk', nombre:'⚡ Snack', kcal:219, p:20, c:20, g:5, grupos:[
-        { label:'Escoge 01 · Carbohidrato', max:1, ops:['20 g avena','20 g cereales','15 g granola','1 rapidita cero o integral','3 unidades salmas horneadas (18 g)'] },
-        { label:'Escoge 01 · Proteína', max:1, ops:['150 g yogurt Vakimu quark','45 g queso mozzarella light Cuisine & Co','55 g queso fresco light'] },
-        { label:'Escoge 01 · Fruta', max:1, ops:['1 porción de frutas (ver especificaciones)'] },
-    ], nota:'* Puedes reemplazar todo el snack por 1 barrita Fitrex + 1 porción de frutas.' },
-    { id:'cen', nombre:'🍽️ Cena', kcal:581, p:55, c:60, g:14, grupos:[
-        { label:'Escoge 03 · Carbohidrato (peso cocido)', max:3, ops:['90 g papa','90 g camote','60 g arroz','60 g quinua','60 g choclo','1 rapidita cero','1 rapidita integral','1 rebanada pan de molde (30 g)'] },
-        { label:'Escoge 01 · Proteína (180 g peso crudo)', max:1, ops:['Pechuga de pollo','Pechuga de pavo','Pescado','Lomo de res','Lomo de cerdo','100 g carne molida de bistec <em style="opacity:.6">(usar mitad de porción de grasas)</em>','2 latas atún en agua'] },
-        { label:'Escoge 02 · Grasa', max:2, ops:['1 cdta aceite de oliva','40 g palta','1 cdta aceite de ajonjolí'] },
-        { label:'Escoge 01 · Verduras', max:1, ops:['120–150 g verduras a tu preferencia'] },
-    ], nota:'* Puedes cocinar la papa y el camote en el air fryer (sin aceite). Puedes consumir 2 cervezas zero (−1 porción carbo) o 1 cerveza normal 310–355 ml (−2 porciones carbo). No todos los días.' },
-    { id:'pre', nombre:'🏋️ Pre Entreno', kcal:120, p:1, c:27, g:0, grupos:[
-        { label:'Solo días de entrenamiento (+120 kcal)', max:1, ops:['1 plátano mediano'] },
-    ], nota:'* Agregar únicamente en días de entrenamiento de fuerza.' },
+
+    { id:'alm', nombre:'🥗 Almuerzo', kcal:659, p:45, c:88, g:15, grupos:[
+      { label:'Escoge 04 · Carbohidrato (pesos cocidos)', max:4, ops:[
+        '90 g de papa',
+        '90 g de camote',
+        '60 g de arroz blanco o integral',
+        '60 g de quinua',
+        '60 g de choclo',
+        '50 g de pasta',
+      ]},
+      { label:'Escoge 01 · Proteína (180 g, peso crudo)', max:1, ops:[
+        'Pechuga de pollo','Pechuga de pavo','Pescado',
+        'Lomo de res','Lomo de cerdo',
+        '100 g de carne molida de bistec (consumir la mitad de la porción de grasas)',
+      ]},
+      { label:'Escoge 01 · Verduras', max:1, ops:['150 a 180 g de verduras de tu preferencia'] },
+      { label:'Escoge 02 · Grasa', max:2, ops:[
+        '1 cdta de aceite de oliva',
+        '40 g de palta',
+        '1 cdta de aceite de ajonjolí',
+      ]},
+    ], nota:'Puedes cocinar la papa y el camote en el airfryer (sin aceite). · Puedes consumir 2 cervezas zero (eliminar 01 porción de carbo) o 1 normal de 310-355 ml (eliminar 02 porciones de carbo) — no todos los días. · Si comes fuera, revisar especificaciones.' },
+
+    { id:'snk', nombre:'🥤 Snack', kcal:150, p:15, c:18, g:3, grupos:[
+      { label:'Escoge 01 · Lácteo / Queso', max:1, ops:[
+        '150 g de yogurt Vakimú quark',
+        '45 g de queso mozzarella light Cuisine &amp;Co',
+        '55 g de queso fresco light',
+      ]},
+      { label:'Escoge 01 · Fruta', max:1, ops:['1 porción de frutas (Ver especificaciones)'] },
+    ], nota:'Puedes reemplazar esta comida por 1 barrita Fitrex + 1 porción de frutas.' },
+
+    { id:'cen', nombre:'🌙 Cena', kcal:581, p:58, c:56, g:15, grupos:[
+      { label:'Escoge 03 · Carbohidrato (pesos cocidos)', max:3, ops:[
+        '90 g de papa',
+        '90 g de camote',
+        '60 g de arroz blanco o integral',
+        '60 g de quinua',
+        '60 g de choclo',
+        '1 Rapidita cero',
+        '1 Rapidita integral',
+        '1 rebanada de pan de molde (30 g)',
+      ]},
+      { label:'Escoge 01 · Proteína (180 g, peso crudo)', max:1, ops:[
+        'Pechuga de pollo','Pechuga de pavo','Pescado',
+        'Lomo de res','Lomo de cerdo',
+        '100 g de carne molida de bistec (consumir la mitad de la porción de grasas)',
+        '2 latas de atún en agua',
+      ]},
+      { label:'Escoge 02 · Grasa', max:2, ops:[
+        '1 cdta de aceite de oliva',
+        '40 g de palta',
+        '1 cdta de aceite de ajonjolí',
+      ]},
+      { label:'Escoge 01 · Verduras', max:1, ops:['120 a 150 g de verduras de tu preferencia'] },
+    ], nota:'Puedes cocinar la papa y el camote en el airfryer (sin aceite). · Puedes consumir 2 cervezas zero (eliminar 01 porción de carbo) o 1 normal de 310-355 ml (eliminar 02 porciones de carbo) — no todos los días. · Día de jarango: cortar el snack, solo comer 1 lata de atún o pechuga de pollo con rapidita (puedes agregar cebollita, tomate, etc.).' },
   ],
 
   specs: [
-    { titulo:'🥤 Bebidas', items:['Agua, infusiones (manzanilla, anís, té, muña, hierba luisa, flor de Jamaica)','Refrescos no azucarados (emoliente, agua de piña, agua de manzana)','Puedes agregar edulcorantes acalóricos: Stevia, yacón o fruto del monje'] },
-    { titulo:'🥝 Porción de fruta', items:['1 kiwi','½ taza mango picado (80 g)','1 manzana','1 plátano pequeño (60 g) / ½ grande (120 g)','1 taza papaya picada (160 g)','<b>Berries</b> (150 g): arándano, fresa, aguaymanto, moras, frambuesas','¾ taza piña picada (165 g)','1 granadilla / 1 mandarina / 1 pera / 1 durazno / 10 uvas'] },
-    { titulo:'🥜 Porción de frutos secos', items:['6 cashews','6 almendras','4 pecanas','4 nueces','15 pistachos','10 maní','1 cdta mantequilla de frutos secos (10 g)'] },
-    { titulo:'💊 Suplementos', items:['<b>Multivitamínico Centrum / Thorne:</b> 1 cápsula diaria con el desayuno','<b>Creatina:</b> 10 g post entreno — tomar TODOS LOS DÍAS, entrenes o no'] },
-    { titulo:'🍽️ Opciones fuera de casa', items:['<b>Poke bowl:</b> sin salsas acevichadas/dulces (no taré, no anguila), solo soya. Proteína + palta + arroz + verduras + fruta','<b>Bowl:</b> San Antonio, Don Mamino, Delicass, Freshii — arroz, verduras, pollo y palta','<b>Wrap Insólito</b> siguiendo los lineamientos del plan','<b>Pollo a la brasa:</b> pechuga sin pellejo + ensalada + papa al horno o sancochada','<b>Ceviche o tiradito</b> con camote y choclo','<b>Sushi:</b> nigiris con salsa de soya'] },
-    { titulo:'🧊 Recomendaciones', items:['Evitar el consumo de chicles','Mantenerse lo más estricto posible con las porciones','Intentar consumir los alimentos a la misma hora','Evitar café y alcohol por dos semanas','Puedes hacer helados con fruta congelada + yogurt skyr/quark + Stevia. Si es de chocolate: cocoa + plátano congelado','##Bebidas bajas en calorías','Té negro o verde helado + limón + Stevia + agua con gas + hielo (puedes agregar berries)','Agua de flor de Jamaica + Stevia + agua con gas + hielo + berries','Matcha + 200 ml leche de almendra + Stevia + hielo'] },
+    { titulo:'🥤 Bebidas', items:[
+      'Agua, infusiones (manzanilla, anís, té, muña, hierba luisa, flor de Jamaica)',
+      'Refrescos no azucarados (emoliente, agua de piña, agua de manzana)',
+      'Puedes agregar edulcorantes acalóricos: Stevia, yacón o fruto del monje',
+      'Evitar el consumo de chicles',
+      'Evitar café y alcohol por dos semanas',
+      '##Opciones de bebidas bajas en calorías',
+      'Té negro o verde helado + limón + Stevia + agua regular o con gas + hielo',
+      'Agua de flor de Jamaica + Stevia + agua regular o con gas + hielo',
+      'Matcha + 200 ml de leche de almendra + Stevia + hielo',
+    ]},
+    { titulo:'🥝 Porciones de fruta y berries', items:[
+      '1 kiwi','½ taza mango picado (80 g)','1 manzana',
+      '1 plátano pequeño (60 g pelado) / ½ grande (120 g pelado)',
+      '1 taza papaya picada (160 g)','Berries 150 g: arándano, fresa, aguaymanto, moras, frambuesas',
+      '¾ taza piña picada (165 g)','1 granadilla / 1 mandarina mediana / 1 pera / 1 durazno / 10 uvas',
+    ]},
+    { titulo:'🥜 Frutos secos', items:[
+      '6 cashews','6 almendras','4 pecanas','4 nueces','15 pistachos','10 maní',
+      '1 cdta de mantequilla de frutos secos (10 g)',
+    ]},
+    { titulo:'🍽️ Opciones fuera de casa', items:[
+      'Poke bowl (sin salsas acevichada/dulces como taré o anguila, solo soya). Proteína + palta + arroz + verduras + fruta si deseas',
+      'Bowl de San Antonio, Don Mamino, Delicass, Freshii: arroz + verduras + pollo + palta',
+      'Wrap de Insólito',
+      'Pollo a la brasa: pechuga sin pellejo + ensalada + papa al horno o sancochada',
+      'Ceviche o tiradito con camote y choclo',
+      'Sushi: nigiris con salsa de soya',
+    ]},
+    { titulo:'💊 Suplementación', items:[
+      'Multivitamínico Centrum / Thorne: 1 cápsula por día con el desayuno',
+      'Creatina monohidratada: 10 g POST entreno, todos los días (entrenes o no)',
+    ]},
+    { titulo:'📋 Lineamientos generales', items:[
+      'Mantenerse lo más estricto posible con las porciones',
+      'Intentar consumir los alimentos a la misma hora en cada tiempo de ingesta',
+      'Si vas a comer en restaurante, que la comida tenga alimentos parecidos a los intercambios del momento',
+      'Llegar bien hidratado a los entrenamientos. Que tus orinas sean siempre claras',
+      'Puedes hacerte helados con fruta congelada, yogurt skyr o quark y Stevia. Si es de chocolate usar cocoa y plátano congelado. Puedes usar esencia de vainilla, pizca de sal y canela',
+    ]},
   ],
 
   vinagretas: [
-    { nombre:'Mermelada de berries', desc:'200 g berries + 2 cdas chía + 4 cdas monkfruit → microondas u olla' },
-    { nombre:'Leche condensada light', desc:'Leche en polvo descremada + Stevia + leche evaporada descremada (ir echando en chorro pequeño hasta lograr textura)' },
-    { nombre:'Tzatziki', desc:'2 cdas yogurt descremado Vakimu natural + sal y pimienta + 1 diente ajo + pepino en trozos pequeños + 1 cdta aceite de oliva + eneldo, perejil, orégano y menta al gusto' },
-    { nombre:'Honey Mustard', desc:'1 cda mostaza + 1 cda yogurt descremado + sal y pimienta + Stevia al gusto' },
-    { nombre:'Salsa verde', desc:'1 molde queso fresco light + 1 atado albahaca (o espinaca) + 2 dientes ajo soazados + sal y pimienta + 1 cda aceite de oliva + leche evaporada light (100–150 ml) + leche Slim hasta lograr textura' },
-    { nombre:'Salsa roja', desc:'Tomate, cebolla, ajo, albahaca, poro + opcional Lakanto o Stevia + sal, pimienta y tomillo + 1 cda aceite de oliva. Puedes agregar cualquier verdura de tu preferencia' },
+    { nombre:'Mermelada de berries',   desc:'200 g berries + 2 cdas chía + 4 cdas monkfruit → microondas u olla' },
+    { nombre:'Leche condensada light', desc:'Leche en polvo descremada + Stevia + leche evaporada descremada (chorro pequeño hasta lograr textura)' },
+    { nombre:'Tzatziki',               desc:'2 cdas yogurt descremado + sal y pimienta + 1 diente ajo + pepino en trozos + 1 cdta aceite de oliva + eneldo, perejil, orégano y menta al gusto' },
+    { nombre:'Honey Mustard',          desc:'1 cda mostaza + 1 cda yogurt descremado + sal, pimienta + Stevia al gusto' },
+    { nombre:'Salsa verde',            desc:'1 molde queso fresco light + 1 atado albahaca + 2 dientes ajo soazados + sal, pimienta + 1 cda aceite de oliva + leche evaporada light 100-150 ml + leche fresca Slim hasta lograr textura' },
+    { nombre:'Salsa roja',             desc:'Tomate, cebolla, ajo, albahaca, poro + Lakanto o Stevia al gusto + sal, pimienta y tomillo + 1 cda aceite de oliva' },
   ],
-  notaSpecs: 'Mantenerse lo más estricto posible con las porciones. Plan base = días de descanso (1950 kcal). En días de entrenamiento de fuerza agregar el Pre Entreno (+120 kcal).',
 
+  notaSpecs: 'Plan base = días de descanso (1810 kcal). Días de entrenamiento de fuerza: agregar 1 plátano mediano pre entreno (+120 kcal).',
   entrenamiento: null,
 };
-// ════════════════════════════════════════════════════════════════════════════
-//  FIN DATOS — motor de renderizado (no tocar)
-// ════════════════════════════════════════════════════════════════════════════
 
-const BASE_IMG = 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/';
+// ════════════════════════════════════════════════════════════════════════════
+//  RENDER ENGINE
+// ════════════════════════════════════════════════════════════════════════════
 const $ = id => document.getElementById(id);
+let saveTimer = null;
 
 function renderHero() {
   $('heroEyebrow').innerHTML = `Plan Nutricional &nbsp;·&nbsp; ${PATIENT.fecha}`;
@@ -278,69 +352,133 @@ function renderHero() {
 
 function renderTabs() {
   const tabs = [
-    {id:'plan',  label:'Plan Nutricional'},
-    {id:'eval',  label:'Evaluación'},
-    {id:'specs', label:'Especificaciones'},
+    {id:'plan',       label:'Plan Nutricional'},
+    {id:'eval',       label:'Evaluación'},
+    {id:'specs',      label:'Especificaciones'},
+    {id:'evol-antro', label:'Evolución Física'},
   ];
-  if (PATIENT.entrenamiento) tabs.push({id:'train', label:'Entrenamiento'});
-  tabs.push({id:'evol-antro', label:'Evolución Física'});
-  if (PATIENT.entrenamiento) tabs.push({id:'evol-train', label:'Evolución Entreno'});
-
   $('tabNav').innerHTML = tabs.map((t,i) => {
     const extra = t.id==='evol-antro' ? ";initAntro()" : "";
     return `<button class="tab${i===0?' active':''}" onclick="showTab('${t.id}',this)${extra}">
       <span class="tnum">0${i+1}</span> ${t.label}
     </button>`;
   }).join('');
-
   $('tabPanels').innerHTML = tabs.map((t,i) =>
     `<div id="tab-${t.id}" class="panel${i===0?' active':''}"></div>`
   ).join('');
 }
 
-function renderPlan() {
-  const el = $('tab-plan');
-  const microBtns = Array.from({length:PATIENT.semanas},(_,i)=>
-    `<button class="micro-btn${i===0?' active':''}" onclick="setMicro(${i+1},this)">S${i+1}</button>`
-  ).join('');
-
-  const meals = PATIENT.comidas.map(m => {
-    const grupos = m.grupos.map((g,gi) => {
-      const ops = g.ops.map(o =>
-        `<div class="opt"><span class="cb"></span><span class="opt-text">${o}</span></div>`
-      ).join('');
-      return `<div class="pick"><div class="k">${g.label}</div>
-        <div class="options" data-group="${m.id}-${gi}" data-max="${g.max}">${ops}</div></div>`;
-    }).join('');
-    return `<div class="meal"><div class="top">
-        <div class="nm">${m.nombre}</div>
-        <div class="mac"><b>${m.kcal}</b> kcal<br>${m.p}P · ${m.c}C · ${m.g}G</div>
-      </div><div class="body">${grupos}${m.nota?`<div class="note2">${m.nota}</div>`:''}</div></div>`;
-  }).join('');
-
-  el.innerHTML = `<div class="wrap"><section>
-    <div class="sec-h"><span class="ix">01</span><h2>Microciclo activo</h2><div class="rule"></div></div>
-    <div class="micro-bar"><span class="mlabel">Semana</span>${microBtns}
-      <span class="micro-note">Tus selecciones se guardan automáticamente por semana</span></div>
-    <div class="macros">
-      <div class="kcal">${PATIENT.macros.kcal.toLocaleString('es')} <small>kcal / día</small></div>
-      <div class="mtag"><b>${PATIENT.macros.p}</b> g Proteína</div>
-      <div class="mtag"><b>${PATIENT.macros.c}</b> g Carbohidratos</div>
-      <div class="mtag"><b>${PATIENT.macros.g}</b> g Grasas</div>
-      <div class="sep"></div>
-      <span class="tag">${PATIENT.tipoPlan}</span>
-    </div>
-    <div class="meals">${meals}</div>
-    <div class="sec-h" style="margin-top:32px"><span class="ix">02</span><h2>Requerimientos hídricos</h2><div class="rule"></div></div>
-    <div class="hydro">
-      <div class="hcard"><div class="l">💧 Días de entrenamiento</div><div class="b">${PATIENT.hidratacion.entreno} L</div></div>
-      <div class="hcard"><div class="l">💧 Días de descanso</div><div class="b">${PATIENT.hidratacion.descanso} L</div></div>
-    </div>
-  </section></div>`;
-  initOpts();
-  loadSelections();
+function showTab(id,btn) {
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  $('tab-'+id)?.classList.add('active');
+  btn.classList.add('active');
 }
 
+// ── Nutrición ──────────────────────────────────────────────────────────────
+const MEAL_KEY = () => `${PATIENT.slug}-meals-v1`;
+function getMealState() { try { const r=localStorage.getItem(MEAL_KEY()); return r?JSON.parse(r):{}; } catch { return {}; } }
+function saveMealState(s) { localStorage.setItem(MEAL_KEY(), JSON.stringify(s)); flashSave(); }
+let mealState = getMealState();
+
+function renderNutr() {
+  const m = PATIENT.macros;
+  const macrosHtml = `<div class="macros">
+    <span class="kcal">${m.kcal}<small> kcal / día base</small></span>
+    <span class="mtag"><b>${m.p}g</b> Proteína</span>
+    <span class="mtag"><b>${m.c}g</b> Carbohidratos</span>
+    <span class="mtag"><b>${m.g}g</b> Grasas</span>
+    <span class="sep"></span>
+    <span class="tag">${PATIENT.tipoPlan}</span>
+  </div>`;
+
+  const mealsHtml = PATIENT.comidas.map(meal => buildMeal(meal)).join('');
+
+  const trainHtml = `
+  <section style="padding-top:0">
+    <div class="sec-h"><span class="ix">02</span><h2>Días de entrenamiento</h2><div class="rule"></div></div>
+    <div class="meals">
+      <div class="meal">
+        <div class="top">
+          <div class="nm">🏋️ Fuerza</div>
+          <div class="mac"><b>+120</b> kcal</div>
+        </div>
+        <div class="body">
+          <div class="pick"><div class="k">Pre entreno</div>
+            <div class="options" data-group="train-fuerza" data-max="1">
+              <div class="opt" onclick="toggleOpt(this)"><span class="cb"></span><span class="opt-text">1 plátano mediano</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>`;
+
+  const hydroHtml = `
+  <section style="padding-top:0">
+    <div class="sec-h"><span class="ix">03</span><h2>Requerimientos hídricos</h2><div class="rule"></div></div>
+    <div class="hydro">${PATIENT.hidratacion.map(h=>`<div class="hcard"><div class="l">${h.label}</div><div class="b">${h.valor} L</div></div>`).join('')}</div>
+  </section>`;
+
+  $('tab-plan').innerHTML = `<div class="wrap">
+    <section>
+      <div class="sec-h"><span class="ix">01</span><h2>Plan alimentario</h2><div class="rule"></div></div>
+      ${macrosHtml}
+      <div class="meals">${mealsHtml}</div>
+    </section>
+    ${trainHtml}
+    ${hydroHtml}
+  </div>`;
+
+  restoreMealUI();
+}
+
+function buildMeal(meal) {
+  const groups = meal.grupos.map((g,gi) => {
+    const opts = g.ops.map((op,oi) => {
+      const key = `${meal.id}-${gi}-${oi}`;
+      const cnt = (mealState[key]||0);
+      const sel = cnt > 0;
+      return `<div class="opt${sel?' selected':''}" data-key="${key}" data-max="${g.max}" data-gi="${gi}" data-mid="${meal.id}" onclick="toggleOpt(this)">
+        <div class="cb">${sel?'✓':''}</div>
+        <span class="opt-text">${op}</span>
+        ${g.max>1?`<div class="opt-ctrl">
+          <button class="opt-btn" onclick="event.stopPropagation();adjOpt(this,-1)" ${cnt<1?'disabled':''}>−</button>
+          <span class="opt-cnt">${cnt||0}</span>
+          <button class="opt-btn" onclick="event.stopPropagation();adjOpt(this,1)">+</button>
+        </div>`:''}
+      </div>`;
+    }).join('');
+    return `<div class="pick"><div class="k">${g.label}</div><div class="options">${opts}</div></div>`;
+  }).join('');
+  const nota = meal.nota ? `<div class="note2">${meal.nota}</div>` : '';
+  return `<div class="meal"><div class="top">
+    <span class="nm">${meal.nombre}</span>
+    <span class="mac"><b>${meal.kcal}</b> kcal · ${meal.p}P / ${meal.c}C / ${meal.g}G</span>
+  </div><div class="body">${groups}${nota}</div></div>`;
+}
+
+function toggleOpt(el) {
+  if (!el.dataset.key) return;
+  const key = el.dataset.key;
+  const cur = mealState[key]||0;
+  mealState[key] = cur>0 ? 0 : 1;
+  saveMealState(mealState);
+  renderNutr();
+}
+
+function adjOpt(btn, delta) {
+  const opt = btn.closest('.opt');
+  const key = opt.dataset.key;
+  const cur = mealState[key]||0;
+  mealState[key] = Math.max(0, cur+delta);
+  saveMealState(mealState);
+  renderNutr();
+}
+
+function restoreMealUI() {}
+
+// ── Evaluación ─────────────────────────────────────────────────────────────
 function renderEval() {
   const a = PATIENT.antro;
   const s6 = +(a.tri+a.sub+a.supra+a.abd+a.pierna+a.pant).toFixed(1);
@@ -375,10 +513,11 @@ function renderEval() {
       </div>
     </div>
     <div class="sec-h" style="margin-top:32px"><span class="ix">02</span><h2>Objetivos</h2><div class="rule"></div></div>
-    <div class="card" style="max-width:600px"><ul class="obj">${PATIENT.objetivos.map(o=>`<li>${o}</li>`).join('')}</ul></div>
+    <div class="card" style="max-width:640px"><ul class="obj">${PATIENT.objetivos.map(o=>`<li>${o}</li>`).join('')}</ul></div>
   </section></div>`;
 }
 
+// ── Especificaciones ───────────────────────────────────────────────────────
 function renderSpecs() {
   const specsHtml = PATIENT.specs.map(s => {
     const items = s.items.map(it => it.startsWith('##')
@@ -389,7 +528,7 @@ function renderSpecs() {
   }).join('');
 
   const vinagHtml = PATIENT.vinagretas?.length
-    ? `<div class="sec-h" style="margin-top:32px"><span class="ix">02</span><h2>Salsas bajas en calorías</h2><div class="rule"></div></div>
+    ? `<div class="sec-h" style="margin-top:32px"><span class="ix">02</span><h2>Salsas y Vinagretas</h2><div class="rule"></div></div>
        <div class="vinag-grid">${PATIENT.vinagretas.map(v=>`<div class="vinag"><div class="vname">${v.nombre}</div><div class="vdesc">${v.desc}</div></div>`).join('')}</div>` : '';
 
   const notaHtml = PATIENT.notaSpecs
@@ -402,15 +541,13 @@ function renderSpecs() {
   </section></div>`;
 }
 
+// ── Evolución Física ───────────────────────────────────────────────────────
 const ANTRO_KEY = () => `${PATIENT.slug}-antro-v1`;
 function getAntroBase() {
   const a = PATIENT.antro;
   const s6 = +(a.tri+a.sub+a.supra+a.abd+a.pierna+a.pant).toFixed(1);
   const s8 = +(s6+a.bi+a.cresta).toFixed(1);
-  return [
-    { fecha:'27.05.2026', peso:89.7, tri:14.0, bi:7.0, sub:23.0, cresta:32.0, supra:23.0, abd:37.0, pierna:19.0, pant:10.0, brazRelaj:36.0, brazFlex:35.5, abdom:105.0, cadera:107.0, muslo:57.0, pantPer:39.3, s6:126.0, s8:165.0 },
-    { fecha:a.fecha, peso:a.peso, tri:a.tri, bi:a.bi, sub:a.sub, cresta:a.cresta, supra:a.supra, abd:a.abd, pierna:a.pierna, pant:a.pant, brazRelaj:a.brazRelaj, brazFlex:a.brazFlex, abdom:a.abdom, cadera:a.cadera, muslo:a.muslo, pantPer:a.pantPer, s6, s8 },
-  ];
+  return [{ fecha:a.fecha, peso:a.peso, tri:a.tri, bi:a.bi, sub:a.sub, cresta:a.cresta, supra:a.supra, abd:a.abd, pierna:a.pierna, pant:a.pant, brazRelaj:a.brazRelaj, brazFlex:a.brazFlex, abdom:a.abdom, cadera:a.cadera, muslo:a.muslo, pantPer:a.pantPer, s6, s8 }];
 }
 function getAntroData() { try { const r=localStorage.getItem(ANTRO_KEY()); return r?JSON.parse(r):getAntroBase(); } catch { return getAntroBase(); } }
 function saveAntroData(d) { localStorage.setItem(ANTRO_KEY(), JSON.stringify(d)); }
@@ -441,7 +578,7 @@ function renderAntro() {
     </section>
     <section style="padding-top:0">
       <div class="sec-h"><span class="ix">02</span><h2>Gráficos</h2><div class="rule"></div></div>
-      <div class="chart-card"><h3>Peso corporal</h3><div class="cap">kg — objetivo: disminución de grasa</div><div class="chart-wrap"><canvas id="cPeso"></canvas></div></div>
+      <div class="chart-card"><h3>Peso corporal</h3><div class="cap">kg</div><div class="chart-wrap"><canvas id="cPeso"></canvas></div></div>
       <div class="chart-grid">
         <div class="chart-card"><h3>Sumatorias de pliegues</h3><div class="cap">Σ6 y Σ8 (mm)</div><div class="chart-wrap"><canvas id="cSigma"></canvas></div></div>
         <div class="chart-card"><h3>Perímetros musculares</h3><div class="cap">Brazo flex, muslo, pantorrilla (cm)</div><div class="chart-wrap"><canvas id="cMusc"></canvas></div></div>
@@ -458,7 +595,7 @@ function renderAntro() {
       <div class="eval-form"><h3>Registrar evaluación</h3>
         <div class="form-grid">
           <div class="form-field"><label>Fecha</label><input type="date" id="f-fecha"></div>
-          <div class="form-field"><label>Peso (kg)</label><input type="number" step="0.1" id="f-peso" placeholder="${PATIENT.antro.peso}"></div>
+          <div class="form-field"><label>Peso (kg)</label><input type="number" step="0.1" id="f-peso" placeholder="—"></div>
           <div class="form-field"><label>Tricipital (mm)</label><input type="number" step="0.5" id="f-tri"></div>
           <div class="form-field"><label>Bicipital (mm)</label><input type="number" step="0.5" id="f-bi"></div>
           <div class="form-field"><label>Subescapular</label><input type="number" step="0.5" id="f-sub"></div>
@@ -487,8 +624,8 @@ function drawAntroCharts() {
   const kpis=[
     {v:last.peso,u:'kg',l:'Peso actual',d:+(last.peso-first.peso).toFixed(1),good:'down'},
     {v:last.s8,u:'mm',l:'Σ8 pliegues',d:+(last.s8-first.s8).toFixed(1),good:'down'},
-    {v:last.brazFlex,u:'cm',l:'Brazo flex.',d:+(last.brazFlex-first.brazFlex).toFixed(1),good:'up'},
     {v:last.abdom,u:'cm',l:'Cintura',d:+(last.abdom-first.abdom).toFixed(1),good:'down'},
+    {v:last.brazFlex,u:'cm',l:'Brazo flex.',d:+(last.brazFlex-first.brazFlex).toFixed(1),good:'up'},
   ];
   $('antroKpis').innerHTML=kpis.map(k=>{
     const sign=k.d>0?'+':''; const cls=(k.good==='down'?k.d<0:k.d>0)?'up':(k.d<0?'down':'');
@@ -518,52 +655,22 @@ function addAntroEntry() {
   flashSave();
 }
 
-function showTab(id,btn) {
-  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  $('tab-'+id)?.classList.add('active');
-  btn.classList.add('active');
+// ── Utils ──────────────────────────────────────────────────────────────────
+function flashSave() {
+  clearTimeout(saveTimer);
+  const el=$('saveind'); el.classList.add('show'); $('saveTxt').textContent='Guardado';
+  saveTimer=setTimeout(()=>el.classList.remove('show'),1800);
 }
 
-let currentMicro=1, saveTimer=null;
-function setMicro(n,btn){
-  saveSelections();currentMicro=n;
-  document.querySelectorAll('.micro-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');loadSelections();
+function init() {
+  renderHero();
+  renderTabs();
+  renderNutr();
+  renderEval();
+  renderSpecs();
 }
 
-function initOpts(){
-  document.querySelectorAll('.opt').forEach(opt=>{
-    opt.dataset.count='0';
-    const cb=opt.querySelector('.cb');
-    const textSpan=document.createElement('span');textSpan.className='opt-text';
-    Array.from(opt.childNodes).forEach(n=>{if(n!==cb)textSpan.appendChild(n);});
-    opt.appendChild(textSpan);
-    const ctrl=document.createElement('span');ctrl.className='opt-ctrl';
-    ctrl.innerHTML=`<button class="opt-btn opt-dec" tabindex="-1">−</button><span class="opt-cnt">0</span><button class="opt-btn opt-inc" tabindex="-1">+</button>`;
-    opt.appendChild(ctrl);
-    ctrl.querySelector('.opt-dec').addEventListener('click',e=>{e.stopPropagation();decrOpt(opt);});
-    ctrl.querySelector('.opt-inc').addEventListener('click',e=>{e.stopPropagation();incrOpt(opt);});
-    opt.addEventListener('click',()=>incrOpt(opt));
-    updateOpt(opt);
-  });
-}
-function groupTotal(g){let t=0;g.querySelectorAll('.opt').forEach(o=>t+=parseInt(o.dataset.count||0));return t;}
-function incrOpt(opt){const g=opt.closest('.options');const max=parseInt(g.dataset.max)||1;if(groupTotal(g)>=max)return;opt.dataset.count=parseInt(opt.dataset.count||0)+1;updateOpt(opt);saveSelections();}
-function decrOpt(opt){const c=parseInt(opt.dataset.count||0);if(c<=0)return;opt.dataset.count=c-1;updateOpt(opt);saveSelections();}
-function updateOpt(opt){const c=parseInt(opt.dataset.count||0);opt.classList.toggle('selected',c>0);const cb=opt.querySelector('.cb');if(cb)cb.textContent=c>0?c:'';const cnt=opt.querySelector('.opt-cnt');if(cnt)cnt.textContent=c;const dec=opt.querySelector('.opt-dec');if(dec)dec.disabled=c<=0;}
-
-function planKey(){return `${PATIENT.slug}-plan-s${currentMicro}`;}
-function saveSelections(){const data={};document.querySelectorAll('.options').forEach(g=>{const gid=g.dataset.group;data[gid]={};g.querySelectorAll('.opt').forEach((o,i)=>{const c=parseInt(o.dataset.count||0);if(c>0)data[gid][i]=c;});});localStorage.setItem(planKey(),JSON.stringify(data));}
-function loadSelections(){const raw=localStorage.getItem(planKey());document.querySelectorAll('.opt').forEach(o=>{o.dataset.count='0';updateOpt(o);});if(!raw)return;try{const data=JSON.parse(raw);document.querySelectorAll('.options').forEach(g=>{const gid=g.dataset.group;if(!data[gid])return;const opts=g.querySelectorAll('.opt');Object.entries(data[gid]).forEach(([idx,count])=>{if(opts[idx]){opts[idx].dataset.count=count;updateOpt(opts[idx]);}});});}catch(e){}}
-
-function flashSave(){const ind=$('saveind');if(!ind)return;$('saveTxt').textContent='Guardado';ind.classList.add('show');clearTimeout(saveTimer);saveTimer=setTimeout(()=>ind.classList.remove('show'),1800);}
-
-renderHero();
-renderTabs();
-renderPlan();
-renderEval();
-renderSpecs();
+init();
 </script>
 </body>
 </html>
