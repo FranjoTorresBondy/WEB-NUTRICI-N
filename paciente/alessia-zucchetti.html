@@ -127,6 +127,37 @@ section{padding:30px 0}
 .antro-table td:first-child{text-align:left;color:var(--muted)}
 .antro-table tr:last-child td{border-bottom:none;color:var(--navy);font-weight:700}
 .tbl-scroll{overflow-x:auto;border-radius:12px;border:1px solid var(--line)}
+/* ── Seguimiento ── */
+.weight-form{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end;margin-bottom:20px}
+.weight-form .wf-field{display:flex;flex-direction:column;gap:5px}
+.weight-form .wf-field label{font-family:'IBM Plex Mono';font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
+.weight-form .wf-field input{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:9px 12px;color:var(--ink);font-family:'Libre Franklin';font-size:15px;font-weight:600;width:150px}
+.weight-form .wf-field input:focus{outline:none;border-color:var(--navy)}
+.weight-table{width:100%;border-collapse:collapse;font-size:12px}
+.weight-table th{background:var(--panel2);color:var(--faint);font-family:'IBM Plex Mono';font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;padding:8px 12px;border-bottom:1px solid var(--line);text-align:right}
+.weight-table th:first-child{text-align:left}
+.weight-table td{padding:8px 12px;border-bottom:1px solid var(--line);font-family:'IBM Plex Mono';font-size:12px;color:var(--ink);text-align:right}
+.weight-table td:first-child{text-align:left;color:var(--muted)}
+.weight-table td.pos{color:var(--coral)} .weight-table td.neg{color:var(--green)}
+.weight-table .del-btn{background:none;border:none;color:var(--faint);cursor:pointer;font-size:14px;padding:2px 6px;border-radius:4px;transition:.15s}
+.weight-table .del-btn:hover{color:var(--coral);background:rgba(239,154,154,.1)}
+.photo-upload-area{border:2px dashed var(--line);border-radius:14px;padding:32px;text-align:center;cursor:pointer;transition:.2s;background:var(--panel);margin-bottom:20px}
+.photo-upload-area:hover,.photo-upload-area.drag{border-color:var(--navy);background:rgba(196,151,58,.05)}
+.photo-upload-area .pu-icon{font-size:32px;margin-bottom:10px}
+.photo-upload-area .pu-label{font-family:'Libre Franklin';font-weight:600;font-size:15px;color:var(--ink)}
+.photo-upload-area .pu-sub{font-size:12px;color:var(--faint);margin-top:4px}
+.photo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+.photo-item{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:var(--shadow)}
+.photo-item img{width:100%;aspect-ratio:1;object-fit:cover;display:block}
+.photo-item .pi-foot{padding:8px 10px;display:flex;justify-content:space-between;align-items:center}
+.photo-item .pi-date{font-family:'IBM Plex Mono';font-size:10px;color:var(--muted)}
+.photo-item .pi-del{background:none;border:none;color:var(--faint);cursor:pointer;font-size:13px;padding:2px 4px;border-radius:4px;transition:.15s}
+.photo-item .pi-del:hover{color:var(--coral)}
+.photo-lightbox{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:100;display:flex;align-items:center;justify-content:center;cursor:zoom-out}
+.photo-lightbox img{max-width:90vw;max-height:90vh;border-radius:8px;box-shadow:0 0 60px rgba(0,0,0,.8)}
+.storage-bar{height:4px;background:var(--line);border-radius:4px;margin-top:8px;overflow:hidden}
+.storage-bar-fill{height:100%;background:var(--navy);border-radius:4px;transition:.3s}
+.storage-label{font-family:'IBM Plex Mono';font-size:10px;color:var(--faint);margin-top:4px}
 footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 .foot-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
 .foot-brand{font-family:'IBM Plex Mono';font-size:11px;color:var(--faint);letter-spacing:.1em}
@@ -357,9 +388,10 @@ function renderTabs() {
   const tabs = [
     {id:'plan',label:'Plan Nutricional'},{id:'eval',label:'Evaluación'},
     {id:'specs',label:'Especificaciones'},{id:'evol-antro',label:'Evolución Física'},
+    {id:'seguimiento',label:'Mi Progreso'},
   ];
   $('tabNav').innerHTML = tabs.map(function(t,i) {
-    var extra = t.id==='evol-antro' ? ";initAntro()" : "";
+    var extra = t.id==='evol-antro' ? ";initAntro()" : t.id==='seguimiento' ? ";initSeguimiento()" : "";
     return '<button class="tab' + (i===0?' active':'') + '" onclick="showTab(\'' + t.id + '\',this)' + extra + '">' +
       '<span class="tnum">0' + (i+1) + '</span> ' + t.label + '</button>';
   }).join('');
@@ -608,6 +640,234 @@ function flashSave() {
   var el=$('saveind'); el.classList.add('show'); $('saveTxt').textContent='Guardado';
   saveTimer=setTimeout(function(){el.classList.remove('show');},1800);
 }
+// ── SEGUIMIENTO ──────────────────────────────────────────────────────────────
+var WEIGHT_KEY = PATIENT.slug + '-weight-v1';
+var PHOTOS_KEY = PATIENT.slug + '-photos-v1';
+var seguimientoInited = false;
+
+function getWeightData() { try { var r=localStorage.getItem(WEIGHT_KEY); return r?JSON.parse(r):[]; } catch(e){return[];} }
+function saveWeightData(d) { localStorage.setItem(WEIGHT_KEY, JSON.stringify(d)); }
+function getPhotosData() { try { var r=localStorage.getItem(PHOTOS_KEY); return r?JSON.parse(r):[]; } catch(e){return[];} }
+function savePhotosData(d) { localStorage.setItem(PHOTOS_KEY, JSON.stringify(d)); }
+
+function initSeguimiento() { if(seguimientoInited)return; seguimientoInited=true; renderSeguimiento(); }
+
+function renderSeguimiento() {
+  var el=$('tab-seguimiento'); if(!el)return;
+  el.innerHTML='<div class="wrap">' +
+    '<section style="padding-top:24px">' +
+    '<div class="sec-h"><span class="ix">01</span><h2>Registro diario de peso</h2><div class="rule"></div></div>' +
+    '<div class="weight-form">' +
+    '<div class="wf-field"><label>Fecha</label><input type="date" id="w-fecha"></div>' +
+    '<div class="wf-field"><label>Peso (kg)</label><input type="number" step="0.1" id="w-peso" placeholder="59.0" style="width:120px"></div>' +
+    '<button class="btn-add" onclick="addWeight()" style="margin-top:0;align-self:flex-end">+ Agregar</button>' +
+    '</div>' +
+    '<div class="chart-card"><h3>Tendencia de peso</h3><div class="cap" id="weightCap">—</div><div class="chart-wrap" style="height:260px"><canvas id="cWeight"></canvas></div></div>' +
+    '<div class="tbl-scroll" style="margin-top:16px"><table class="weight-table" id="weightTable"></table></div>' +
+    '</section>' +
+    '<section style="padding-top:0">' +
+    '<div class="sec-h"><span class="ix">02</span><h2>Fotos de progreso</h2><div class="rule"></div></div>' +
+    '<div class="photo-upload-area" id="photoDropZone" onclick="$(\'photoInput\').click()" ondragover="event.preventDefault();this.classList.add(\'drag\')" ondragleave="this.classList.remove(\'drag\')" ondrop="handlePhotoDrop(event)">' +
+    '<div class="pu-icon">📷</div>' +
+    '<div class="pu-label">Subir foto de progreso</div>' +
+    '<div class="pu-sub">Haz clic o arrastra una imagen · JPG, PNG · se comprime automáticamente</div>' +
+    '</div>' +
+    '<input type="file" id="photoInput" accept="image/*" multiple style="display:none" onchange="handlePhotoFiles(this.files)">' +
+    '<div id="storageInfo"></div>' +
+    '<div class="photo-grid" id="photoGrid"></div>' +
+    '</section>' +
+    '</div>';
+  // set today as default date
+  var today = new Date(); var pad=function(n){return n<10?'0'+n:n;};
+  var todayStr = today.getFullYear()+'-'+pad(today.getMonth()+1)+'-'+pad(today.getDate());
+  $('w-fecha').value = todayStr;
+  drawWeightChart();
+  drawPhotoGrid();
+}
+
+function linReg(points) {
+  var n=points.length; if(n<2)return null;
+  var sx=0,sy=0,sxy=0,sx2=0;
+  points.forEach(function(p,i){sx+=i;sy+=p;sxy+=i*p;sx2+=i*i;});
+  var slope=(n*sxy-sx*sy)/(n*sx2-sx*sx);
+  var intercept=(sy-slope*sx)/n;
+  return {slope:slope,intercept:intercept};
+}
+
+function movingAvg(data, window) {
+  return data.map(function(d,i){
+    var start=Math.max(0,i-window+1);
+    var slice=data.slice(start,i+1);
+    return +(slice.reduce(function(a,b){return a+b;},0)/slice.length).toFixed(2);
+  });
+}
+
+function drawWeightChart() {
+  var data = getWeightData();
+  // sort by date
+  data.sort(function(a,b){return a.fecha.localeCompare(b.fecha);});
+  var labels = data.map(function(d){ return d.fecha.split('-').reverse().join('.'); });
+  var weights = data.map(function(d){ return d.peso; });
+  var ctx = $('cWeight'); if(!ctx)return;
+  if(ctx._ch)ctx._ch.destroy();
+
+  var datasets = [{
+    label:'Peso kg', data:weights, borderColor:CC.gold, pointBackgroundColor:CC.gold,
+    pointRadius:4, borderWidth:2, tension:.3, fill:false, spanGaps:true
+  }];
+
+  if(weights.length>=3){
+    var reg=linReg(weights);
+    var trendData=weights.map(function(d,i){return +(reg.intercept+reg.slope*i).toFixed(2);});
+    datasets.push({label:'Tendencia',data:trendData,borderColor:'rgba(196,151,58,.4)',
+      borderDash:[6,4],pointRadius:0,borderWidth:2,tension:0,fill:false});
+  }
+  if(weights.length>=7){
+    var ma=movingAvg(weights,7);
+    datasets.push({label:'Media 7d',data:ma,borderColor:CC.cyan,
+      pointRadius:0,borderWidth:1.5,tension:.4,fill:false});
+  }
+
+  ctx._ch=new Chart(ctx,{type:'line',
+    data:{labels:labels,datasets:datasets},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{labels:{boxWidth:12,padding:14,color:'#888'}},
+        tooltip:{mode:'index',intersect:false,callbacks:{label:function(c){return c.dataset.label+': '+c.parsed.y+' kg';}}}},
+      scales:{x:{grid:{color:'rgba(255,255,255,0.06)'},ticks:{color:'#666',maxTicksLimit:12}},
+        y:{grid:{color:'rgba(255,255,255,0.06)'},ticks:{color:'#666'},
+          suggestedMin:weights.length?Math.min.apply(null,weights)-1:55,
+          suggestedMax:weights.length?Math.max.apply(null,weights)+1:65}}}});
+
+  // caption
+  var cap=$('weightCap'); if(cap){
+    if(weights.length===0){cap.textContent='Sin registros aún';}
+    else if(weights.length===1){cap.textContent=weights[0]+' kg — agrega más días para ver tendencia';}
+    else{
+      var diff=+(weights[weights.length-1]-weights[0]).toFixed(1);
+      var sign=diff>0?'+':''; var days=data.length;
+      var reg2=linReg(weights);
+      var weekly=+(reg2.slope*7).toFixed(2);
+      cap.textContent=days+' registros · '+sign+diff+' kg total · tendencia '+( weekly>0?'+':'')+weekly+' kg/semana';
+    }
+  }
+
+  drawWeightTable(data);
+}
+
+function drawWeightTable(data) {
+  var tbl=$('weightTable'); if(!tbl)return;
+  var sorted=[].concat(data).reverse();
+  if(sorted.length===0){tbl.innerHTML='<tr><td style="color:var(--faint);padding:16px;font-size:13px">Sin registros todavía.</td></tr>';return;}
+  var rows=sorted.map(function(d,i){
+    var prev=sorted[i+1];
+    var diff=prev?+(d.peso-prev.peso).toFixed(1):null;
+    var diffCell=diff!=null?('<span class="'+(diff>0?'pos':'neg')+'">'+(diff>0?'+':'')+diff+'</span>'):'—';
+    return '<tr><td>'+d.fecha.split('-').reverse().join('.')+'</td><td>'+d.peso+' kg</td><td>'+diffCell+'</td>' +
+      '<td><button class="del-btn" onclick="deleteWeight(\''+d.fecha+'\')">✕</button></td></tr>';
+  }).join('');
+  tbl.innerHTML='<thead><tr><th style="text-align:left">Fecha</th><th>Peso</th><th>Cambio</th><th></th></tr></thead><tbody>'+rows+'</tbody>';
+}
+
+function addWeight() {
+  var fecha=$('w-fecha')?.value; var peso=parseFloat($('w-peso')?.value);
+  if(!fecha||isNaN(peso)){alert('Completa fecha y peso');return;}
+  var data=getWeightData();
+  var idx=data.findIndex(function(d){return d.fecha===fecha;});
+  if(idx>=0){data[idx].peso=peso;}else{data.push({fecha:fecha,peso:peso});}
+  saveWeightData(data); drawWeightChart(); flashSave();
+}
+
+function deleteWeight(fecha) {
+  var data=getWeightData().filter(function(d){return d.fecha!==fecha;});
+  saveWeightData(data); drawWeightChart(); flashSave();
+}
+
+function compressImage(file, callback) {
+  var reader=new FileReader();
+  reader.onload=function(e){
+    var img=new Image();
+    img.onload=function(){
+      var MAX=900; var w=img.width,h=img.height;
+      if(w>h){if(w>MAX){h=Math.round(h*MAX/w);w=MAX;}}
+      else{if(h>MAX){w=Math.round(w*MAX/h);h=MAX;}}
+      var canvas=document.createElement('canvas');
+      canvas.width=w;canvas.height=h;
+      canvas.getContext('2d').drawImage(img,0,0,w,h);
+      callback(canvas.toDataURL('image/jpeg',0.72));
+    };
+    img.src=e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+function handlePhotoFiles(files) {
+  Array.from(files).forEach(function(file){
+    compressImage(file,function(dataUrl){
+      var today=new Date(); var pad=function(n){return n<10?'0'+n:n;};
+      var label=today.getDate()+'.'+(today.getMonth()+1)+'.'+today.getFullYear();
+      var photos=getPhotosData();
+      photos.unshift({id:Date.now()+'_'+Math.random().toString(36).slice(2),src:dataUrl,fecha:label});
+      try{savePhotosData(photos);}catch(e){alert('Almacenamiento lleno. Borra algunas fotos antes de subir más.');return;}
+      drawPhotoGrid(); flashSave();
+    });
+  });
+  $('photoInput').value='';
+}
+
+function handlePhotoDrop(e) {
+  e.preventDefault(); $('photoDropZone').classList.remove('drag');
+  handlePhotoFiles(e.dataTransfer.files);
+}
+
+function deletePhoto(id) {
+  var photos=getPhotosData().filter(function(p){return p.id!==id;});
+  savePhotosData(photos); drawPhotoGrid(); flashSave();
+}
+
+function openLightbox(src) {
+  var lb=document.createElement('div');
+  lb.className='photo-lightbox';
+  lb.innerHTML='<img src="'+src+'">';
+  lb.onclick=function(){document.body.removeChild(lb);};
+  document.body.appendChild(lb);
+}
+
+function drawPhotoGrid() {
+  var grid=$('photoGrid'); if(!grid)return;
+  var photos=getPhotosData();
+  updateStorageInfo();
+  if(photos.length===0){
+    grid.innerHTML='<div style="color:var(--faint);font-size:13px;padding:16px 0">Aún no hay fotos. Sube tu primera foto de progreso.</div>';
+    return;
+  }
+  grid.innerHTML=photos.map(function(p){
+    return '<div class="photo-item">' +
+      '<img src="'+p.src+'" loading="lazy" onclick="openLightbox(\''+p.id+'\')" style="cursor:zoom-in">' +
+      '<div class="pi-foot"><span class="pi-date">'+p.fecha+'</span>' +
+      '<button class="pi-del" onclick="deletePhoto(\''+p.id+'\')">✕</button></div></div>';
+  }).join('');
+  // fix lightbox: store src by id
+  photos.forEach(function(p){
+    var imgs=grid.querySelectorAll('img');
+    imgs.forEach(function(img){
+      if(img.src===p.src){img.onclick=function(){openLightbox(p.src);};}
+    });
+  });
+}
+
+function updateStorageInfo() {
+  var info=$('storageInfo'); if(!info)return;
+  try{
+    var used=0;
+    [WEIGHT_KEY,PHOTOS_KEY,ANTRO_KEY,MEAL_KEY].forEach(function(k){
+      var v=localStorage.getItem(k); if(v)used+=v.length*2;
+    });
+    var pct=Math.min(100,Math.round(used/5e6*100));
+    info.innerHTML='<div class="storage-bar"><div class="storage-bar-fill" style="width:'+pct+'%"></div></div>' +
+      '<div class="storage-label">Almacenamiento usado: '+(used/1e6).toFixed(2)+' MB de ~5 MB · '+pct+'%</div>';
+  }catch(e){}
+}
+
 function init() { renderHero(); renderTabs(); renderNutr(); renderEval(); renderSpecs(); }
 init();
 </script>
