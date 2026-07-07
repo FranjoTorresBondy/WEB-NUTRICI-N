@@ -255,7 +255,7 @@ const PATIENT = {
   nombre:    'Hugo',
   fecha:     '03.07.2026',
   tipoPlan:  'Hipocalórico · Hiperprotéico',
-  macros:    { kcal: 2050, p: 160, c: 218, g: 60 },
+  macros:    { kcal: 1850, p: 160, c: 168, g: 60 },
   hidratacion: [
     { label:'💧 Entrenamiento', valor:'3.5' },
     { label:'💧 Descanso',      valor:'2.5' },
@@ -271,12 +271,13 @@ const PATIENT = {
     'Disminución de sumatoria de 8 pliegues en 5 a 10 mm',
     'Mínimo 10 000 pasos diarios (fines de semana 12 000)',
     '2×/semana bicicleta estática HIIT: 30 seg máxima intensidad × 60 seg baja × 4 series',
+    'Los días que no realices los intervalos de alta intensidad, caminar 15 a 20 min con inclinación',
   ],
 
   comidas: [
-    { id:'c1', nombre:'☀️ Desayuno', kcal:400, p:25, c:50, g:12, grupos:[
-      { label:'Escoge 03 · Carbohidrato', max:3, ops:['20 g de avena (peso crudo)','20 g de cereal','1 rebanada de pan de masa madre Vital','15 g de granola','1 rapidita integral o cero','1 pan pita Bimbo'] },
-      { label:'Escoge 01 · Fruta', max:1, ops:['1 porción de fruta (ver especificaciones)','150 g de berries'] },
+    { id:'c1', nombre:'☀️ Desayuno', kcal:300, p:25, c:30, g:12, grupos:[
+      { label:'Escoge 02 · Carbohidrato', max:2, ops:['20 g de avena (peso crudo)','20 g de cereal','1 rebanada de pan de masa madre Vital','15 g de granola','1 rapidita integral o cero','1 pan pita Bimbo'] },
+      { label:'Escoge 01 · Fruta', max:1, ops:['1 porción de fruta (ver especificaciones)','70 g de berries'] },
       { label:'Escoge 01 · Proteína', max:1, ops:['1 huevo + 10 g de mantequilla de maní + 150 g de yogurt Vakimú original','1 huevo + 60 g de queso mozzarella light Cuisine&Co','100 g de pollo + 150 g de yogurt Vakimú original','1 scoop de proteína + 1 porción de frutos secos','70 g de queso fresco light + 50 g de palta'] },
     ]},
 
@@ -302,8 +303,8 @@ const PATIENT = {
       ]},
     ], nota:'Si tienes hambre puedes consumir 1 taza (240 ml) de gelatina light del sabor de tu elección.' },
 
-    { id:'c5', nombre:'🌙 Cena', kcal:680, p:49, c:57, g:20, grupos:[
-      { label:'Escoge 04 · Carbohidrato', max:4, ops:['90 g de papa (cocida)','90 g de camote (cocido)','60 g de arroz (cocido)','50 g de pasta (cocida)','1 rebanada de pan de molde integral','1 rapidita cero'] },
+    { id:'c5', nombre:'🌙 Cena', kcal:580, p:49, c:27, g:20, grupos:[
+      { label:'Escoge 03 · Carbohidrato', max:3, ops:['90 g de papa (cocida)','90 g de camote (cocido)','60 g de arroz (cocido)','50 g de pasta (cocida)','1 rebanada de pan de molde integral','1 rapidita cero'] },
       { label:'Escoge 01 · Proteína (150 g, peso crudo)', max:1, ops:['Pechuga de pollo','Pechuga de pavo','Pescado','Lomo de res','Langostinos','Carne molida de bistec'] },
       { label:'Escoge 01 · Grasa', max:1, ops:['40 g de palta','1 porción de frutos secos'] },
       { label:'Escoge 01 · Verduras', max:1, ops:['120 a 150 g de verduras a tu preferencia'] },
@@ -315,7 +316,7 @@ const PATIENT = {
       { label:'Escoge 01 · Endulzante', max:1, ops:['1 cda de miel de abeja'] },
       { label:'½ scoop de proteína', max:1, ops:['½ scoop de proteína en polvo'] },
       { label:'Opcional', max:1, ops:['200 ml de bebida de almendras'] },
-    ], nota:'* Solo días de entrenamiento de fuerza. Suma al total del día (+220 kcal ≈ 2 270 kcal).' },
+    ], nota:'* Solo días de entrenamiento de fuerza. Suma al total del día (+220 kcal ≈ 2 070 kcal).' },
   ],
 
   specs: [
@@ -336,7 +337,7 @@ const PATIENT = {
     { nombre:'Salsa roja',             desc:'Tomate, cebolla, ajo, albahaca, poro + Lakanto o Stevia al gusto + sal, pimienta y tomillo + 1 cda aceite de oliva' },
   ],
 
-  notaSpecs: 'Plan base = días de descanso (2 050 kcal). Días de entrenamiento de fuerza: agregar Pre Entreno (+220 kcal ≈ 2 270 kcal).',
+  notaSpecs: 'Plan base = días de descanso (1 850 kcal). Días de entrenamiento de fuerza: agregar Pre Entreno (+220 kcal ≈ 2 070 kcal).',
 
   entrenamiento: {
     fases: [
