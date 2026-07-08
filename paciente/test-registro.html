@@ -115,5 +115,11 @@ render();
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="paciente.js"></script>
+<script>
+setTimeout(() => {
+  document.querySelectorAll('.meal[data-mealid]').forEach(injectMealLog);
+  document.querySelectorAll('.meals').forEach(injectGuardarBtn);
+}, 200);
+</script>
 </body>
 </html>
