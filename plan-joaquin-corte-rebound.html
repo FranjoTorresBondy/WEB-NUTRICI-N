@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Corte & Rebound — Joaquín Estrada</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Chakra+Petch:wght@600;700&display=swap');
+  :root {
+    --bg:#080808; --bg2:#111111; --bg3:#1a1a1a; --bg4:#222;
+    --accent:#e8e8e8; --accent-dim:rgba(255,255,255,.05); --accent-border:rgba(255,255,255,.13);
+    --red:#ef5350; --red-dim:rgba(239,83,80,.12); --red-border:rgba(239,83,80,.28);
+    --blue:#4fc3f7; --blue-dim:rgba(79,195,247,.1); --blue-border:rgba(79,195,247,.25);
+    --green:#a5d6a7; --green-dim:rgba(165,214,167,.1); --green-border:rgba(165,214,167,.25);
+    --purple:#ce93d8; --purple-dim:rgba(206,147,216,.1); --purple-border:rgba(206,147,216,.25);
+    --orange:#ffb74d; --orange-dim:rgba(255,183,77,.1); --orange-border:rgba(255,183,77,.25);
+    --teal:#4db6ac; --teal-dim:rgba(77,182,172,.1); --teal-border:rgba(77,182,172,.25);
+    --text:#f0f0f0; --muted:#666; --border:#222;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-size:13px;padding:32px 24px 80px;min-height:100vh}
+  .wrap{max-width:1100px;margin:0 auto}
+
+  /* HEADER */
+  .header{border-bottom:1px solid var(--accent-border);padding-bottom:22px;margin-bottom:28px}
+  h1{font-family:'Chakra Petch',sans-serif;font-size:24px;color:var(--accent);letter-spacing:.05em;text-transform:uppercase;line-height:1.1}
+  .sub{color:var(--muted);font-size:11px;margin-top:5px;letter-spacing:.06em;text-transform:uppercase}
+  .stats-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:20px}
+  .stat-box{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:10px 18px;text-align:center}
+  .stat-box .sv{font-family:'Chakra Petch',sans-serif;font-size:22px;line-height:1}
+  .stat-box .sl{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-top:4px}
+  .sv.grey{color:#aaa} .sv.green{color:var(--green)} .sv.blue{color:var(--blue)} .sv.orange{color:var(--orange)} .sv.red{color:var(--red)} .sv.purple{color:var(--purple)}
+
+  /* SECTION TITLE */
+  .section-title{font-family:'Chakra Petch',sans-serif;font-size:13px;color:var(--accent);text-transform:uppercase;letter-spacing:.08em;margin:28px 0 16px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+  .section-title.red{color:var(--red);border-color:rgba(239,83,80,.28)}
+  .section-title.green{color:var(--green);border-color:rgba(165,214,167,.25)}
+  .section-title.orange{color:var(--orange);border-color:rgba(255,183,77,.25)}
+  .section-title.blue{color:var(--blue);border-color:rgba(79,195,247,.25)}
+  .section-title.teal{color:var(--teal);border-color:rgba(77,182,172,.25)}
+
+  /* CUT TIMELINE */
+  .cut-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-bottom:24px}
+  .cut-day{border-radius:10px;padding:14px 16px;position:relative;overflow:hidden}
+  .cut-day.high{background:var(--blue-dim);border:1px solid var(--blue-border)}
+  .cut-day.mid{background:var(--orange-dim);border:1px solid var(--orange-border)}
+  .cut-day.low{background:var(--red-dim);border:1px solid var(--red-border)}
+  .cut-day.zero{background:rgba(239,83,80,.22);border:2px solid var(--red-border)}
+  .cd-label{font-family:'Chakra Petch',sans-serif;font-size:10px;text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px}
+  .cut-day.high .cd-label{color:var(--blue)} .cut-day.mid .cd-label{color:var(--orange)} .cut-day.low .cd-label, .cut-day.zero .cd-label{color:var(--red)}
+  .cd-vol{font-family:'Chakra Petch',sans-serif;font-size:28px;line-height:1;margin-bottom:4px}
+  .cut-day.high .cd-vol{color:var(--blue)} .cut-day.mid .cd-vol{color:var(--orange)} .cut-day.low .cd-vol, .cut-day.zero .cd-vol{color:var(--red)}
+  .cd-unit{font-size:10px;color:var(--muted);margin-bottom:8px}
+  .cd-salt{font-size:11px;color:#bbb;line-height:1.5}
+  .cd-salt strong{color:var(--text)}
+  .cd-bar{position:absolute;bottom:0;left:0;height:3px;border-radius:0 0 10px 10px}
+  .cut-day.high .cd-bar{background:var(--blue);width:100%}
+  .cut-day.mid .cd-bar{background:var(--orange);width:14%}
+  .cut-day.low .cd-bar{background:var(--red);width:8%}
+  .cut-day.zero .cd-bar{background:var(--red);width:0%}
+
+  /* INTAKE TIMELINE */
+  .intake{display:grid;grid-template-columns:80px 1fr;gap:0;margin-bottom:12px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+  .intake-time{background:var(--bg3);padding:16px 12px;display:flex;flex-direction:column;align-items:center;justify-content:center;border-right:1px solid var(--border);text-align:center}
+  .intake-num{font-family:'Chakra Petch',sans-serif;font-size:20px;color:var(--accent);line-height:1}
+  .intake-label{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-top:3px}
+  .intake-body{padding:14px 16px}
+  .intake-foods{list-style:none;display:flex;flex-direction:column;gap:5px;margin-bottom:12px}
+  .intake-foods li{font-size:12px;color:#ccc;padding-left:14px;position:relative;line-height:1.4}
+  .intake-foods li::before{content:'·';position:absolute;left:0;color:var(--muted);font-size:16px;line-height:.9}
+  .intake-foods li strong{color:var(--text);font-weight:600}
+  .intake-foods li.alt{color:#9e9e9e;font-size:11px}
+  .intake-foods li.alt::before{content:'↳';color:var(--muted);font-size:11px;line-height:1.2}
+  .macro-row{display:flex;gap:0;border-top:1px solid var(--border);margin:0 -16px -14px;padding:0}
+  .mr{flex:1;padding:8px 4px;text-align:center;border-right:1px solid var(--border)}
+  .mr:last-child{border-right:none}
+  .mr .mv{font-family:'Chakra Petch',sans-serif;font-size:13px;font-weight:700}
+  .mr .ml{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-top:2px}
+  .mr.cho .mv{color:var(--orange)} .mr.pro .mv{color:var(--green)} .mr.fat .mv{color:#90caf9} .mr.kca .mv{color:var(--accent)}
+
+  /* FIGHT DAY TIMELINE */
+  .fight-tl{display:flex;flex-direction:column;gap:0}
+  .ft{display:flex;gap:16px;padding:14px 0;border-bottom:1px solid var(--border)}
+  .ft:last-child{border-bottom:none}
+  .ft-time{min-width:90px;font-family:'Chakra Petch',sans-serif;font-size:11px;color:var(--muted);padding-top:2px;text-align:right}
+  .ft-dot{width:12px;min-width:12px;display:flex;flex-direction:column;align-items:center;padding-top:4px}
+  .ft-dot .dot{width:8px;height:8px;border-radius:50%;border:2px solid}
+  .ft-dot .line{flex:1;width:1px;background:var(--border);margin-top:4px}
+  .ft:last-child .ft-dot .line{display:none}
+  .dot.orange{border-color:var(--orange);background:var(--orange-dim)}
+  .dot.green{border-color:var(--green);background:var(--green-dim)}
+  .dot.blue{border-color:var(--blue);background:var(--blue-dim)}
+  .dot.teal{border-color:var(--teal);background:var(--teal-dim)}
+  .dot.red{border-color:var(--red);background:var(--red-dim)}
+  .ft-content .ft-label{font-family:'Chakra Petch',sans-serif;font-size:12px;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+  .ft-label.orange{color:var(--orange)} .ft-label.green{color:var(--green)} .ft-label.blue{color:var(--blue)} .ft-label.teal{color:var(--teal)} .ft-label.red{color:var(--red)}
+  .ft-content .ft-desc{font-size:12px;color:#bbb;line-height:1.6}
+  .ft-content .ft-desc strong{color:var(--text)}
+  .ft-nums{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+  .ft-num{background:var(--bg2);border:1px solid var(--border);border-radius:5px;padding:4px 10px;font-size:11px;color:var(--muted)}
+  .ft-num span{font-family:'Chakra Petch',sans-serif;color:var(--text);font-size:12px;margin-right:3px}
+
+  /* SUMMARY TABLE */
+  .tbl-wrap{background:var(--bg2);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:24px}
+  .tbl-title{padding:12px 16px;font-family:'Chakra Petch',sans-serif;font-size:12px;color:var(--accent);text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid var(--border)}
+  table{width:100%;border-collapse:collapse}
+  thead th{background:var(--bg3);padding:8px 12px;font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;text-align:left;border-bottom:1px solid var(--border)}
+  tbody td{padding:9px 12px;font-size:12px;border-bottom:1px solid var(--border)}
+  tbody tr:last-child td{border-bottom:none}
+  tbody tr:hover td{background:rgba(255,255,255,.02)}
+  .td-num{font-family:'Chakra Petch',sans-serif;font-size:12px}
+  .td-num.cho{color:var(--orange)} .td-num.pro{color:var(--green)} .td-num.kca{color:var(--accent)} .td-num.blue{color:var(--blue)}
+  .tr-total td{background:var(--bg3);font-weight:700}
+  .tr-total .td-num{font-size:13px}
+  .progress-bar{height:4px;background:var(--border);border-radius:2px;margin-top:4px;overflow:hidden}
+  .progress-fill{height:100%;border-radius:2px}
+  .progress-fill.cho{background:var(--orange)} .progress-fill.pro{background:var(--green)}
+
+  /* BODY COMP CARDS */
+  .comp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin-bottom:24px}
+  .comp-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:12px 14px;text-align:center}
+  .comp-card .cv{font-family:'Chakra Petch',sans-serif;font-size:20px;line-height:1;margin-bottom:4px}
+  .comp-card .cl{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+
+  /* FOOTER */
+  .footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+  .footer .logo{font-family:'Chakra Petch',sans-serif;font-size:14px;color:var(--accent);letter-spacing:.04em}
+  .footer .meta{font-size:10px;color:var(--muted);text-align:right;line-height:1.6}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HEADER -->
+  <div class="header">
+    <h1>PROTOCOLO CORTE<br>& REBOUND</h1>
+    <div class="sub">Joaquín Estrada &nbsp;·&nbsp; Corte Hídrico 6 Días + Rehidratación + Carga Glucídica</div>
+    <div class="stats-row">
+      <div class="stat-box"><div class="sv grey">72.0</div><div class="sl">Peso actual (kg)</div></div>
+      <div class="stat-box"><div class="sv red">68</div><div class="sl">Categoría (kg)</div></div>
+      <div class="stat-box"><div class="sv red">-4</div><div class="sl">Kg a perder</div></div>
+      <div class="stat-box"><div class="sv grey">179.5</div><div class="sl">Talla (cm)</div></div>
+      <div class="stat-box"><div class="sv grey">12.4%</div><div class="sl">% Grasa (Slaughter)</div></div>
+      <div class="stat-box"><div class="sv orange">723g</div><div class="sl">CHO rebound</div></div>
+      <div class="stat-box"><div class="sv green">163g</div><div class="sl">Proteína rebound</div></div>
+      <div class="stat-box"><div class="sv grey">3,908</div><div class="sl">kcal rebound</div></div>
+    </div>
+  </div>
+
+  <!-- COMPOSICIÓN CORPORAL -->
+  <div class="section-title">Composición Corporal · ISAK Restringido (Hoja 7 — más reciente)</div>
+  <div class="comp-grid">
+    <div class="comp-card"><div class="cv" style="color:var(--accent)">72.0 kg</div><div class="cl">Masa corporal</div></div>
+    <div class="comp-card"><div class="cv" style="color:var(--accent)">179.5 cm</div><div class="cl">Estatura</div></div>
+    <div class="comp-card"><div class="cv" style="color:var(--orange)">12.4%</div><div class="cl">Grasa (Slaughter)</div></div>
+    <div class="comp-card"><div class="cv" style="color:var(--green)">38.5%</div><div class="cl">Músculo (Lee)</div></div>
+    <div class="comp-card"><div class="cv" style="color:#90caf9">8.6%</div><div class="cl">Hueso (Rocha)</div></div>
+    <div class="comp-card"><div class="cv" style="color:var(--accent)">22.3</div><div class="cl">IMC (kg/m²)</div></div>
+    <div class="comp-card"><div class="cv" style="color:var(--muted)">48 mm</div><div class="cl">Suma 6 pliegues</div></div>
+    <div class="comp-card"><div class="cv" style="color:var(--muted)">67 mm</div><div class="cl">Suma 8 pliegues</div></div>
+    <div class="comp-card"><div class="cv" style="color:var(--purple)">1.7 · 4.0 · 3.0</div><div class="cl">Somatotipo (E·M·Ec)</div></div>
+  </div>
+
+  <!-- PROTOCOLO DE CORTE HÍDRICO -->
+  <div class="section-title red">Protocolo de Corte Hídrico · 6 Días</div>
+
+  <div class="cut-grid">
+    <div class="cut-day high">
+      <div class="cd-label">Día 1</div>
+      <div class="cd-vol">7.1</div>
+      <div class="cd-unit">litros de agua</div>
+      <div class="cd-salt"><strong>Sal:</strong> 2 g al día<br>Hidratación normal controlada</div>
+      <div class="cd-bar"></div>
+    </div>
+    <div class="cut-day high">
+      <div class="cd-label">Día 2</div>
+      <div class="cd-vol">7.1</div>
+      <div class="cd-unit">litros de agua</div>
+      <div class="cd-salt"><strong>Sal:</strong> 2 g al día<br>Hidratación normal controlada</div>
+      <div class="cd-bar"></div>
+    </div>
+    <div class="cut-day high">
+      <div class="cd-label">Día 3</div>
+      <div class="cd-vol">7.1</div>
+      <div class="cd-unit">litros de agua</div>
+      <div class="cd-salt"><strong>Sal:</strong> 2 g al día<br>Inicio del ciclo de carga</div>
+      <div class="cd-bar"></div>
+    </div>
+    <div class="cut-day mid">
+      <div class="cd-label">Día 4</div>
+      <div class="cd-vol">1.0</div>
+      <div class="cd-unit">litro de agua</div>
+      <div class="cd-salt"><strong>Sal:</strong> 1 g al día<br>Reducción drástica de fluido</div>
+      <div class="cd-bar"></div>
+    </div>
+    <div class="cut-day low">
+      <div class="cd-label">Día 5</div>
+      <div class="cd-vol">570</div>
+      <div class="cd-unit">ml de agua</div>
+      <div class="cd-salt"><strong>Sal:</strong> 1 g al día<br>Restricción severa. Sorbos pequeños</div>
+      <div class="cd-bar"></div>
+    </div>
+    <div class="cut-day zero">
+      <div class="cd-label">Día 6 · PESAJE</div>
+      <div class="cd-vol">0</div>
+      <div class="cd-unit">fluidos</div>
+      <div class="cd-salt">Sin líquidos desde la noche anterior hasta subir a la balanza</div>
+      <div class="cd-bar"></div>
+    </div>
+  </div>
+
+  <div style="background:var(--red-dim);border:1px solid var(--red-border);border-radius:10px;padding:14px 18px;margin-bottom:28px;font-size:12px;color:#bbb;line-height:1.7">
+    <span style="font-family:'Chakra Petch',sans-serif;font-size:10px;color:var(--red);text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:8px">Base del cálculo hídrico</span>
+    · Días 1–3: <strong style="color:var(--text)">100ml × 71 kg = 7.1L/día</strong> — carga hídrica máxima para activar supresión de ADH y maximizar excreción renal<br>
+    · Día 4: <strong style="color:var(--text)">15ml × 71 kg = 1.0L/día</strong> — inicio del déficit real<br>
+    · Día 5: <strong style="color:var(--text)">8ml × 71 kg = 570ml/día</strong> — solo para función vital mínima<br>
+    · Día 6: Sin líquidos. No hacer actividad física intensa para no generar sed extrema ni mareos
+  </div>
+
+  <!-- POST-PESAJE INMEDIATO -->
+  <div class="section-title green">Post-Pesaje Inmediato · Protocolo de Rehidratación 150%</div>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-bottom:20px">
+    <div style="background:var(--red-dim);border:1px solid var(--red-border);border-radius:10px;padding:14px 16px">
+      <div style="font-family:'Chakra Petch',sans-serif;font-size:10px;color:var(--red);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">Pérdida esperada</div>
+      <div style="font-family:'Chakra Petch',sans-serif;font-size:28px;color:var(--red);line-height:1">~3–4 kg</div>
+      <div style="font-size:11px;color:var(--muted);margin-top:5px">Pérdida hídrica por restricción días 4–6</div>
+    </div>
+    <div style="background:var(--blue-dim);border:1px solid var(--blue-border);border-radius:10px;padding:14px 16px">
+      <div style="font-family:'Chakra Petch',sans-serif;font-size:10px;color:var(--blue);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">Meta fluidos (150%)</div>
+      <div style="font-family:'Chakra Petch',sans-serif;font-size:28px;color:var(--blue);line-height:1">4.5 L</div>
+      <div style="font-size:11px;color:var(--muted);margin-top:5px">3 kg × 1.5 = 4.5L lo más pronto posible</div>
+    </div>
+    <div style="background:var(--orange-dim);border:1px solid var(--orange-border);border-radius:10px;padding:14px 16px">
+      <div style="font-family:'Chakra Petch',sans-serif;font-size:10px;color:var(--orange);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">Sodio objetivo</div>
+      <div style="font-family:'Chakra Petch',sans-serif;font-size:28px;color:var(--orange);line-height:1">1.1 g</div>
+      <div style="font-size:11px;color:var(--muted);margin-top:5px">50–60 mmol Na/L → 2.75g sal de mesa por litro</div>
+    </div>
+    <div style="background:var(--green-dim);border:1px solid var(--green-border);border-radius:10px;padding:14px 16px">
+      <div style="font-family:'Chakra Petch',sans-serif;font-size:10px;color:var(--green);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">CHO objetivo</div>
+      <div style="font-family:'Chakra Petch',sans-serif;font-size:28px;color:var(--green);line-height:1">1.2 g/kg/h</div>
+      <div style="font-size:11px;color:var(--muted);margin-top:5px">× 4 horas = ~85g CHO (aparte de comidas)</div>
+    </div>
+  </div>
+
+  <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:12px">
+    <div class="fight-tl" style="padding:0 20px">
+
+      <div class="ft">
+        <div class="ft-time">30 MIN<br>POST</div>
+        <div class="ft-dot"><div class="dot green"></div><div class="line"></div></div>
+        <div class="ft-content">
+          <div class="ft-label green">Primera Ventana</div>
+          <div class="ft-desc">
+            <strong>1L de agua</strong> + <strong>4g Salty Scoop</strong> (500mg sodio) + <strong>20g miel de abeja</strong> (16g CHO) — tomar en sorbos pequeños<br>
+            <strong>1 plátano maduro 120g</strong> (27g CHO)
+          </div>
+          <div class="ft-nums" style="margin-top:10px">
+            <div class="ft-num"><span style="color:var(--orange)">43g</span> CHO</div>
+            <div class="ft-num"><span style="color:var(--blue)">500mg</span> Na</div>
+            <div class="ft-num"><span style="color:var(--blue)">1,000ml</span> fluido</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ft">
+        <div class="ft-time">1H<br>POST</div>
+        <div class="ft-dot"><div class="dot teal"></div><div class="line"></div></div>
+        <div class="ft-content">
+          <div class="ft-label teal">Segunda Ventana</div>
+          <div class="ft-desc">
+            <strong>1 Gatorade 500ml</strong> (120mg Na + 30g CHO)<br>
+            <strong>1L de agua</strong> + <strong>4g Salty Scoop</strong> (500mg sodio)<br>
+            <strong>1 rebanada pan de molde</strong> + <strong>20g mermelada</strong> (27g CHO)
+          </div>
+          <div class="ft-nums" style="margin-top:10px">
+            <div class="ft-num"><span style="color:var(--orange)">57g</span> CHO</div>
+            <div class="ft-num"><span style="color:var(--blue)">620mg</span> Na</div>
+            <div class="ft-num"><span style="color:var(--blue)">1,500ml</span> fluido</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div style="background:var(--bg2);border:1px solid var(--green-border);border-radius:8px;padding:12px 16px;margin-bottom:28px;font-size:11px;color:#bbb;line-height:1.6">
+    <strong style="color:var(--green)">Total primeras 2 horas:</strong>&nbsp; 100g CHO &nbsp;·&nbsp; 1,120mg Na &nbsp;·&nbsp; 2,500ml fluido &nbsp;·&nbsp; 247 kcal (solo protocolo inmediato, sin comidas)
+  </div>
+
+  <!-- PLAN REBOUND — INGESTAS -->
+  <div class="section-title orange">Plan de Rebound · Día Post-Pesaje · 6 Ingestas</div>
+
+  <!-- INGESTA 1 -->
+  <div class="intake">
+    <div class="intake-time">
+      <div class="intake-num">1</div>
+      <div class="intake-label">Post pesaje<br>Inmediato</div>
+    </div>
+    <div class="intake-body">
+      <ul class="intake-foods">
+        <li><strong>1L agua</strong> + <strong>4g Salty Scoop</strong> (500mg Na) + <strong>20g miel de abeja</strong> — sorbos pequeños</li>
+        <li><strong>1 plátano maduro</strong> (120g)</li>
+      </ul>
+      <div class="macro-row">
+        <div class="mr cho"><div class="mv">56g</div><div class="ml">CHO</div></div>
+        <div class="mr pro"><div class="mv">3g</div><div class="ml">PROT</div></div>
+        <div class="mr fat"><div class="mv">1g</div><div class="ml">GRASA</div></div>
+        <div class="mr kca"><div class="mv">247</div><div class="ml">KCAL</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INGESTA 2 -->
+  <div class="intake">
+    <div class="intake-time">
+      <div class="intake-num">2</div>
+      <div class="intake-label">Desayuno<br>~1–2h post</div>
+    </div>
+    <div class="intake-body">
+      <ul class="intake-foods">
+        <li><strong>2 rebanadas</strong> pan de molde blanco + <strong>50g</strong> pechuga de pollo + <strong>60g</strong> palta</li>
+        <li><strong>2 rebanadas</strong> pan de molde blanco + <strong>30g</strong> mermelada</li>
+        <li><strong>250ml</strong> jugo de naranja natural</li>
+        <li><strong>1 Gatorade 500ml</strong> + <strong>4g Salty Scoop</strong> — continuar rehidratación</li>
+      </ul>
+      <div class="macro-row">
+        <div class="mr cho"><div class="mv">104g</div><div class="ml">CHO</div></div>
+        <div class="mr pro"><div class="mv">27g</div><div class="ml">PROT</div></div>
+        <div class="mr fat"><div class="mv">13g</div><div class="ml">GRASA</div></div>
+        <div class="mr kca"><div class="mv">637</div><div class="ml">KCAL</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INGESTA 3 -->
+  <div class="intake">
+    <div class="intake-time">
+      <div class="intake-num">3</div>
+      <div class="intake-label">Snack<br>~3–4h post</div>
+    </div>
+    <div class="intake-body">
+      <ul class="intake-foods">
+        <li><strong>300g</strong> yogurt Slim descremado</li>
+        <li><strong>80g</strong> corn flakes</li>
+        <li><strong>20g</strong> miel de abeja</li>
+        <li><strong>1 plátano maduro</strong> (120g)</li>
+      </ul>
+      <div class="macro-row">
+        <div class="mr cho"><div class="mv">135g</div><div class="ml">CHO</div></div>
+        <div class="mr pro"><div class="mv">17g</div><div class="ml">PROT</div></div>
+        <div class="mr fat"><div class="mv">1g</div><div class="ml">GRASA</div></div>
+        <div class="mr kca"><div class="mv">570</div><div class="ml">KCAL</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INGESTA 4 -->
+  <div class="intake">
+    <div class="intake-time">
+      <div class="intake-num">4</div>
+      <div class="intake-label">Almuerzo<br>~5–6h post</div>
+    </div>
+    <div class="intake-body">
+      <ul class="intake-foods">
+        <li><strong>350g</strong> fideos cocidos</li>
+        <li><strong>6 cdas</strong> salsa Pomarola</li>
+        <li><strong>100g</strong> pechuga de pollo (peso cocido)</li>
+        <li><strong>10g</strong> queso parmesano</li>
+        <li><strong>250ml</strong> jugo de naranja natural</li>
+      </ul>
+      <div class="macro-row">
+        <div class="mr cho"><div class="mv">127g</div><div class="ml">CHO</div></div>
+        <div class="mr pro"><div class="mv">48g</div><div class="ml">PROT</div></div>
+        <div class="mr fat"><div class="mv">11g</div><div class="ml">GRASA</div></div>
+        <div class="mr kca"><div class="mv">808</div><div class="ml">KCAL</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INGESTA 5 -->
+  <div class="intake">
+    <div class="intake-time">
+      <div class="intake-num">5</div>
+      <div class="intake-label">Snack 2<br>~8–9h post</div>
+    </div>
+    <div class="intake-body">
+      <ul class="intake-foods">
+        <li><strong>5 rebanadas</strong> pan de molde blanco (30g c/u)</li>
+        <li><strong>60g</strong> mermelada (fresa o frambuesa)</li>
+      </ul>
+      <div class="macro-row">
+        <div class="mr cho"><div class="mv">115g</div><div class="ml">CHO</div></div>
+        <div class="mr pro"><div class="mv">13g</div><div class="ml">PROT</div></div>
+        <div class="mr fat"><div class="mv">5g</div><div class="ml">GRASA</div></div>
+        <div class="mr kca"><div class="mv">566</div><div class="ml">KCAL</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INGESTA 6 -->
+  <div class="intake">
+    <div class="intake-time">
+      <div class="intake-num">6</div>
+      <div class="intake-label">Cena<br>~10–11h post</div>
+    </div>
+    <div class="intake-body">
+      <ul class="intake-foods">
+        <li><strong>350g</strong> fideos cocidos</li>
+        <li><strong>6 cdas</strong> salsa Pomarola</li>
+        <li><strong>100g</strong> pechuga de pollo (peso cocido)</li>
+        <li><strong>10g</strong> queso parmesano</li>
+        <li><strong>250ml</strong> jugo de naranja natural</li>
+      </ul>
+      <div class="macro-row">
+        <div class="mr cho"><div class="mv">127g</div><div class="ml">CHO</div></div>
+        <div class="mr pro"><div class="mv">48g</div><div class="ml">PROT</div></div>
+        <div class="mr fat"><div class="mv">11g</div><div class="ml">GRASA</div></div>
+        <div class="mr kca"><div class="mv">808</div><div class="ml">KCAL</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUMMARY TABLE -->
+  <div class="tbl-wrap">
+    <div class="tbl-title">Resumen Plan de Rebound · Día Post-Pesaje</div>
+    <table>
+      <thead>
+        <tr><th>#</th><th>Ingesta</th><th>CHO (g)</th><th>PROT (g)</th><th>GRASA (g)</th><th>KCAL</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="font-family:'Chakra Petch',sans-serif;color:var(--muted)">1</td>
+          <td>Post-pesaje inmediato · Agua + Salty + miel + plátano</td>
+          <td class="td-num cho">56</td><td class="td-num pro">3</td><td>1</td><td class="td-num kca">247</td>
+        </tr>
+        <tr>
+          <td style="font-family:'Chakra Petch',sans-serif;color:var(--muted)">2</td>
+          <td>Desayuno · Pan × 4 + pollo + palta + mermelada + jugo + Gatorade</td>
+          <td class="td-num cho">104</td><td class="td-num pro">27</td><td>13</td><td class="td-num kca">637</td>
+        </tr>
+        <tr>
+          <td style="font-family:'Chakra Petch',sans-serif;color:var(--muted)">3</td>
+          <td>Snack · Yogurt Slim + corn flakes + miel + plátano</td>
+          <td class="td-num cho">135</td><td class="td-num pro">17</td><td>1</td><td class="td-num kca">570</td>
+        </tr>
+        <tr>
+          <td style="font-family:'Chakra Petch',sans-serif;color:var(--muted)">4</td>
+          <td>Almuerzo · Fideos 350g + pollo + parmesano + jugo naranja</td>
+          <td class="td-num cho">127</td><td class="td-num pro">48</td><td>11</td><td class="td-num kca">808</td>
+        </tr>
+        <tr>
+          <td style="font-family:'Chakra Petch',sans-serif;color:var(--muted)">5</td>
+          <td>Snack 2 · 5 rebanadas pan + mermelada</td>
+          <td class="td-num cho">115</td><td class="td-num pro">13</td><td>5</td><td class="td-num kca">566</td>
+        </tr>
+        <tr>
+          <td style="font-family:'Chakra Petch',sans-serif;color:var(--muted)">6</td>
+          <td>Cena · Fideos 350g + pollo + parmesano + jugo naranja</td>
+          <td class="td-num cho">127</td><td class="td-num pro">48</td><td>11</td><td class="td-num kca">808</td>
+        </tr>
+        <tr class="tr-total">
+          <td colspan="2"><strong>TOTAL DÍA REBOUND</strong></td>
+          <td class="td-num cho"><strong>723g</strong>
+            <div class="progress-bar"><div class="progress-fill cho" style="width:100%"></div></div>
+          </td>
+          <td class="td-num pro"><strong>163g</strong>
+            <div class="progress-bar"><div class="progress-fill pro" style="width:100%"></div></div>
+          </td>
+          <td><strong>43g</strong></td>
+          <td class="td-num kca"><strong>3,908</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- HIDRATACIÓN REBOUND -->
+  <div class="section-title teal">Protocolo de Hidratación · Día de Rebound</div>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-bottom:20px">
+    <div style="background:var(--blue-dim);border:1px solid var(--blue-border);border-radius:10px;padding:14px 16px">
+      <div style="font-family:'Chakra Petch',sans-serif;font-size:10px;color:var(--blue);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">Meta total fluidos</div>
+      <div style="font-family:'Chakra Petch',sans-serif;font-size:26px;color:var(--blue);line-height:1">6–7 L</div>
+      <div style="font-size:11px;color:var(--muted);margin-top:5px;line-height:1.5">4.5L reposición + 1.5L mantenimiento + agua ligada al glucógeno</div>
+    </div>
+    <div style="background:var(--orange-dim);border:1px solid var(--orange-border);border-radius:10px;padding:14px 16px">
+      <div style="font-family:'Chakra Petch',sans-serif;font-size:10px;color:var(--orange);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">Sodio total</div>
+      <div style="font-family:'Chakra Petch',sans-serif;font-size:26px;color:var(--orange);line-height:1">~2,500 mg</div>
+      <div style="font-size:11px;color:var(--muted);margin-top:5px;line-height:1.5">Salty Scoop × 2 + Gatorade + sal en comidas</div>
+    </div>
+    <div style="background:var(--green-dim);border:1px solid var(--green-border);border-radius:10px;padding:14px 16px">
+      <div style="font-family:'Chakra Petch',sans-serif;font-size:10px;color:var(--green);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">Agua por glucógeno</div>
+      <div style="font-family:'Chakra Petch',sans-serif;font-size:26px;color:var(--green);line-height:1">~1.5 L</div>
+      <div style="font-size:11px;color:var(--muted);margin-top:5px;line-height:1.5">~430g glucógeno × 3.5g H₂O/g ya incluida en la meta</div>
+    </div>
+    <div style="background:var(--accent-dim);border:1px solid var(--accent-border);border-radius:10px;padding:14px 16px">
+      <div style="font-family:'Chakra Petch',sans-serif;font-size:10px;color:var(--accent);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">Ritmo sugerido</div>
+      <div style="font-family:'Chakra Petch',sans-serif;font-size:26px;color:var(--accent);line-height:1">500 ml/h</div>
+      <div style="font-size:11px;color:var(--muted);margin-top:5px;line-height:1.5">Máximo tolerable sin riesgo GI · Primeras 6h son críticas</div>
+    </div>
+  </div>
+
+  <div class="tbl-wrap">
+    <div class="tbl-title" style="color:var(--teal)">Distribución de Fluidos — Día Post-Pesaje</div>
+    <table>
+      <thead>
+        <tr><th>Momento</th><th>Fluido</th><th>Vol. (ml)</th><th>Na (mg)</th><th>Objetivo</th></tr>
+      </thead>
+      <tbody>
+        <tr><td style="font-family:'Chakra Petch',sans-serif;color:var(--muted)">Inmediato (0–30 min)</td><td>1L agua + 4g Salty Scoop</td><td class="td-num blue">1,000</td><td class="td-num" style="color:var(--orange)">500</td><td style="font-size:11px;color:var(--green)">Activar retención</td></tr>
+        <tr><td style="font-family:'Chakra Petch',sans-serif;color:var(--muted)">1h post</td><td>1 Gatorade 500ml + 1L agua + 4g Salty</td><td class="td-num blue">1,500</td><td class="td-num" style="color:var(--orange)">620</td><td style="font-size:11px;color:var(--green)">Sodio + CHO</td></tr>
+        <tr><td style="font-family:'Chakra Petch',sans-serif;color:var(--muted)">Con desayuno</td><td>250ml jugo naranja + 250ml agua</td><td class="td-num blue">500</td><td class="td-num" style="color:var(--muted)">—</td><td style="font-size:11px;color:var(--muted)">Con alimento</td></tr>
+        <tr><td style="font-family:'Chakra Petch',sans-serif;color:var(--muted)">Media mañana</td><td>Agua libre a sorbos</td><td class="td-num blue">500</td><td class="td-num" style="color:var(--muted)">—</td><td style="font-size:11px;color:var(--muted)">Libre</td></tr>
+        <tr><td style="font-family:'Chakra Petch',sans-serif;color:var(--muted)">Con snack</td><td>Yogurt 300ml + agua 200ml</td><td class="td-num blue">500</td><td class="td-num" style="color:var(--muted)">—</td><td style="font-size:11px;color:var(--muted)">Con alimento</td></tr>
+        <tr><td style="font-family:'Chakra Petch',sans-serif;color:var(--muted)">Con almuerzo</td><td>250ml jugo naranja + 500ml agua</td><td class="td-num blue">750</td><td class="td-num" style="color:var(--muted)">—</td><td style="font-size:11px;color:var(--muted)">Con alimento</td></tr>
+        <tr><td style="font-family:'Chakra Petch',sans-serif;color:var(--muted)">Tarde</td><td>Agua libre</td><td class="td-num blue">500</td><td class="td-num" style="color:var(--muted)">—</td><td style="font-size:11px;color:var(--muted)">Libre</td></tr>
+        <tr><td style="font-family:'Chakra Petch',sans-serif;color:var(--muted)">Con cena</td><td>250ml jugo naranja + 300ml agua</td><td class="td-num blue">550</td><td class="td-num" style="color:var(--muted)">—</td><td style="font-size:11px;color:var(--muted)">Con alimento</td></tr>
+        <tr class="tr-total">
+          <td colspan="2"><strong>TOTAL FLUIDOS</strong></td>
+          <td class="td-num blue" style="font-size:14px"><strong>~5,800 ml</strong></td>
+          <td class="td-num" style="color:var(--orange)"><strong>~1,120 mg</strong></td>
+          <td style="color:var(--green);font-size:11px">✓ Protocolo 150%</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div style="background:var(--bg2);border:1px solid var(--teal-border);border-radius:10px;padding:14px 18px;margin-bottom:28px;font-size:12px;color:#bbb;line-height:1.7">
+    <span style="font-family:'Chakra Petch',sans-serif;font-size:10px;color:var(--teal);text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:8px">Notas de rehidratación</span>
+    · Las <strong style="color:var(--text)">primeras 2 horas son las más críticas</strong> — el intestino está vacío y la absorción es máxima. No desperdiciar esa ventana<br>
+    · Tomar siempre en <strong style="color:var(--text)">sorbos pequeños</strong> — máximo 200ml cada 10–15 min para no generar molestia gástrica<br>
+    · El <strong style="color:var(--text)">sodio activa la retención</strong> de agua a nivel celular. Sin sodio, la rehidratación es hasta 40% menos eficiente<br>
+    · Orina oscura en las primeras horas = normal. Buscar amarillo claro a partir de las 3–4h post-pesaje<br>
+    · Si aparece náusea o sensación de llenado: pausar fluidos 10 min y comer algo sólido antes de continuar
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="logo">Franjo Torres Bondy<br><span style="font-size:10px;color:var(--muted);font-family:'Inter',sans-serif;font-weight:400">Nutricionista Deportivo · @el_nutricionistafranjo</span></div>
+    <div class="meta">Joaquín Estrada · Protocolo Corte & Rebound<br>Documento confidencial</div>
+  </div>
+
+</div>
+</body>
+</html>
