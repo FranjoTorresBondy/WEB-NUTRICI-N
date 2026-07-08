@@ -426,7 +426,7 @@ function renderPlan() {
       return `<div class="pick"><div class="k">${g.label}</div>
         <div class="options" data-group="${m.id}-${gi}" data-max="${g.max}">${ops}</div></div>`;
     }).join('');
-    return `<div class="meal"><div class="top">
+    return `<div class="meal" data-mealid="${meal.id}"><div class="top">
         <div class="nm">${m.nombre}</div>
         <div class="mac"><b>${m.kcal}</b> kcal<br>${m.p}P · ${m.c}C · ${m.g}G</div>
       </div><div class="body">${grupos}${m.nota?`<div class="note2">${m.nota}</div>`:''}</div></div>`;
@@ -952,3 +952,4 @@ renderTrain();
 </script>
 </body>
 </html>
+
