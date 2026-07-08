@@ -197,14 +197,21 @@ function injectGuardarBtn(mealsContainer) {
     if (node.nodeType !== 1) return;
     node.querySelectorAll('.meal[data-mealid]').forEach(injectMealLog);
     if (node.classList?.contains('meal') && node.dataset.mealid) injectMealLog(node);
-    // Inject guardar button after .meals container
     node.querySelectorAll('.meals').forEach(injectGuardarBtn);
     if (node.classList?.contains('meals')) injectGuardarBtn(node);
   }
   const obs = new MutationObserver(mutations => {
     mutations.forEach(m => m.addedNodes.forEach(processNode));
   });
-  document.addEventListener('DOMContentLoaded', () => {
+  function start() {
     obs.observe(document.body, { childList: true, subtree: true });
-  });
+    // Escanear lo que ya está en el DOM (init() corre antes que paciente.js)
+    document.querySelectorAll('.meal[data-mealid]').forEach(injectMealLog);
+    document.querySelectorAll('.meals').forEach(injectGuardarBtn);
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', start);
+  } else {
+    start();
+  }
 }());
