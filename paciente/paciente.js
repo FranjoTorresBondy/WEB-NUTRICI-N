@@ -172,8 +172,7 @@ async function guardarDia() {
     showToast('✅ Registro del día guardado', 'success');
 
     // Limpiar selecciones y notas del día
-    const slug = (typeof PATIENT !== 'undefined') ? PATIENT.slug : 'paciente';
-    localStorage.removeItem(MEAL_KEY ? MEAL_KEY() : `${slug}-meals-v1`);
+    localStorage.removeItem(typeof MEAL_KEY !== 'undefined' ? MEAL_KEY : `${slug}-meals-v1`);
     document.querySelectorAll('.meal[data-mealid]').forEach(mealEl => {
       const mid = mealEl.dataset.mealid;
       localStorage.removeItem(_noteKey(slug, mid));
