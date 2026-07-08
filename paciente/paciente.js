@@ -205,13 +205,13 @@ function injectGuardarBtn(mealsContainer) {
   });
   function start() {
     obs.observe(document.body, { childList: true, subtree: true });
-    // Escanear lo que ya está en el DOM (init() corre antes que paciente.js)
     document.querySelectorAll('.meal[data-mealid]').forEach(injectMealLog);
     document.querySelectorAll('.meals').forEach(injectGuardarBtn);
   }
+  // Usar setTimeout para correr después de que init() del paciente termine
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', start);
+    document.addEventListener('DOMContentLoaded', () => setTimeout(start, 0));
   } else {
-    start();
+    setTimeout(start, 0);
   }
 }());
