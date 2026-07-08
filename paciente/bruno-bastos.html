@@ -424,7 +424,7 @@ function renderPlan() {
       return `<div class="pick"><div class="k">${g.label}</div><div class="options" data-group="${gid}" data-max="${g.max}">${opts}</div></div>`;
     }).join('');
     const nota = meal.nota ? `<div class="note2">${meal.nota}</div>` : '';
-    return `<div class="meal">
+    return `<div class="meal" data-mealid="${meal.id}">
       <div class="top">
         <div class="nm">${meal.nombre}</div>
       </div>
@@ -666,5 +666,6 @@ renderSpecs();
 <script src="paciente.js"></script>
 </body>
 </html>
+
 
 

@@ -463,7 +463,7 @@ function buildMeal(meal) {
     return '<div class="pick"><div class="k">' + g.label + '</div><div class="options">' + opts + '</div></div>';
   }).join('');
   var nota = meal.nota ? '<div class="note2">' + meal.nota + '</div>' : '';
-  return '<div class="meal"><div class="top">' +
+  return '<div class="meal" data-mealid="' + meal.id + '"><div class="top">' +
     '<span class="nm">' + meal.nombre + '</span>' +
     '<span class="mac"><b>' + meal.kcal + '</b> kcal · ' + meal.p + 'P / ' + meal.c + 'C / ' + meal.g + 'G</span>' +
     '</div><div class="body">' + groups + nota + '</div></div>';
@@ -662,5 +662,6 @@ init();
 <script src="paciente.js"></script>
 </body>
 </html>
+
 
 
