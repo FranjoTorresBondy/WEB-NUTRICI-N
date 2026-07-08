@@ -5,13 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TEST — Registro Diario</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Libre+Franklin:wght@500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=Chakra+Petch:wght@600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="paciente.css">
 <style>
 :root{
-  --bg:#080808;--bg2:#111;--panel:#141414;--panel2:#1c1c1c;
+  --bg:#080808;--panel:#141414;--panel2:#1c1c1c;
   --line:#2a2a2a;--ink:#f0f0f0;--muted:#888;--faint:#555;
-  --navy:#C4973A;--amber:#C4973A;
-  --shadow:0 1px 4px rgba(0,0,0,.5);
+  --amber:#C4973A;--gold:#C4973A;--gold-dim:#8A6820;
+  --bg-3:#181818;--bg-4:#222;--border:rgba(255,255,255,.08);--border-l:rgba(255,255,255,.16);
+  --cream:#F5F5F5;--cream-2:#C0C0C0;--cream-3:#808080;--cream-4:#484848;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;line-height:1.55;padding:40px 20px}
@@ -26,43 +26,65 @@ h1{font-family:'Chakra Petch',sans-serif;font-size:32px;color:#fff;margin-bottom
 .meal .top .mac{font-family:'IBM Plex Mono';font-size:11px;color:var(--muted)}
 .meal .top .mac b{color:var(--amber)}
 .meal .body{padding:14px 20px 18px}
-.pick .k{font-family:'IBM Plex Mono';font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--navy);font-weight:600;margin-bottom:8px}
+.pick{margin-bottom:12px}
+.pick .k{font-family:'IBM Plex Mono';font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);font-weight:600;margin-bottom:8px}
 .opt{display:flex;align-items:center;gap:10px;padding:7px 10px;border-radius:9px;cursor:pointer;border:1.5px solid transparent;font-size:12.5px;color:var(--muted);user-select:none;transition:.15s}
 .opt:hover{background:rgba(196,151,58,.05)}
 .opt.selected{background:rgba(196,151,58,.1);border-color:rgba(196,151,58,.3);color:var(--ink)}
 .cb{width:18px;height:18px;border:2px solid var(--line);border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0}
-.opt.selected .cb{background:var(--navy);border-color:var(--navy);color:#000}
+.opt.selected .cb{background:var(--amber);border-color:var(--amber);color:#000}
+
+/* Daily log */
+.meal-log{margin-top:14px;border-top:1px dashed var(--border-l);padding-top:12px;display:flex;flex-direction:column;gap:10px}
+.meal-log-label{font-size:11px;font-weight:600;letter-spacing:.06em;color:var(--cream-3);text-transform:uppercase}
+.meal-note-input{width:100%;background:var(--bg-3);border:1px solid var(--border-l);border-radius:8px;color:var(--cream);font-size:13px;padding:10px 12px;resize:none;min-height:62px;font-family:inherit;outline:none}
+.meal-note-input::placeholder{color:var(--cream-4)}
+.meal-note-input:focus{border-color:var(--gold-dim)}
+.meal-photo-row{display:flex;align-items:center;gap:10px}
+.meal-photo-btn{display:flex;align-items:center;gap:6px;background:var(--bg-4);border:1px solid var(--border-l);border-radius:8px;color:var(--cream-2);font-size:12px;padding:7px 12px;cursor:pointer;white-space:nowrap}
+.meal-photo-preview{width:52px;height:52px;object-fit:cover;border-radius:8px;border:1px solid var(--border-l);display:none}
+.meal-photo-preview.visible{display:block}
+.meal-photo-remove{background:none;border:none;color:var(--cream-4);font-size:18px;cursor:pointer;display:none;padding:0 2px}
+.meal-photo-remove.visible{display:block}
+.guardar-dia-wrap{padding:20px 0 4px;display:flex;justify-content:center}
+.btn-guardar-dia{background:var(--amber);color:#000;border:none;border-radius:10px;padding:13px 32px;font-size:14px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:8px}
+.btn-guardar-dia:disabled{background:var(--cream-4);color:var(--cream-3);cursor:not-allowed}
 </style>
 </head>
 <body>
 <div class="wrap">
   <h1>🧪 Página de prueba</h1>
   <div class="badge">SOLO PARA TESTING — no es un paciente real</div>
-
   <div class="meals" id="meals-container"></div>
-  <div id="toast-container" style="position:fixed;bottom:24px;right:24px;z-index:999;display:flex;flex-direction:column;gap:8px"></div>
+  <div class="guardar-dia-wrap">
+    <button class="btn-guardar-dia" id="btn-guardar-dia" onclick="guardarDia()">
+      <span id="btn-label">💾 Guardar mi día</span>
+    </button>
+  </div>
+  <div id="toastContainer" style="position:fixed;bottom:24px;right:24px;z-index:999;display:flex;flex-direction:column;gap:8px"></div>
 </div>
 
 <script>
-const PATIENT = {
-  slug: 'test-registro',
-  nombre: 'Test Registro'
-};
+const SLUG = 'test-registro';
+const MEAL_KEY = `${SLUG}-meals-v1`;
+const _photoFiles = {};
 
-const MEAL_KEY = () => `test-registro-meals-v1`;
-function getMealState() { try { return JSON.parse(localStorage.getItem(MEAL_KEY())||'{}'); } catch { return {}; } }
-function saveMealState(s) { localStorage.setItem(MEAL_KEY(), JSON.stringify(s)); }
+function today() { return new Date().toISOString().slice(0,10); }
+function noteKey(mid) { return `${SLUG}-note-${today()}-${mid}`; }
+
+function getMealState() { try { return JSON.parse(localStorage.getItem(MEAL_KEY)||'{}'); } catch { return {}; } }
+function saveMealState(s) { localStorage.setItem(MEAL_KEY, JSON.stringify(s)); }
 let mealState = getMealState();
 
 const comidas = [
   { id:'des', nombre:'☀️ Desayuno', kcal:500, p:30, c:60, g:15, grupos:[
-    { label:'Escoge 01 · Carbohidrato', max:1, ops:['1 taza de avena con leche','2 tostadas integrales con palta','1 yogur griego con granola'] },
-    { label:'Escoge 01 · Proteína', max:1, ops:['3 huevos revueltos','1 scoop de proteína','100g de quesillo'] },
+    { label:'Escoge 01 · Carbohidrato', ops:['1 taza de avena con leche','2 tostadas con palta','1 yogur con granola'] },
+    { label:'Escoge 01 · Proteína', ops:['3 huevos revueltos','1 scoop de proteína','100g de quesillo'] },
   ]},
   { id:'alm', nombre:'🥗 Almuerzo', kcal:650, p:45, c:70, g:18, grupos:[
-    { label:'Escoge 01 · Carbohidrato', max:1, ops:['60g de arroz','1 papa mediana','50g de fideos'] },
-    { label:'Escoge 01 · Proteína (200g)', max:1, ops:['Pechuga de pollo','Filete de pescado','Carne molida magra'] },
-    { label:'Escoge 01 · Verduras', max:1, ops:['Ensalada mixta','Verduras salteadas','Brócoli al vapor'] },
+    { label:'Escoge 01 · Carbohidrato', ops:['60g de arroz','1 papa mediana','50g de fideos'] },
+    { label:'Escoge 01 · Proteína', ops:['Pechuga de pollo','Filete de pescado','Carne molida magra'] },
+    { label:'Escoge 01 · Verduras', ops:['Ensalada mixta','Verduras salteadas','Brócoli al vapor'] },
   ]},
 ];
 
@@ -71,19 +93,32 @@ function buildMeal(meal) {
     const opts = g.ops.map((op,oi) => {
       const key = `${meal.id}-${gi}-${oi}`;
       const sel = (mealState[key]||0) > 0;
-      return `<div class="opt${sel?' selected':''}" data-key="${key}" data-gi="${gi}" data-mid="${meal.id}" onclick="toggleOpt(this)">
-        <div class="cb">${sel?'✓':''}</div>
-        <span>${op}</span>
-      </div>`;
+      return `<div class="opt${sel?' selected':''}" data-key="${key}" onclick="toggleOpt(this)">
+        <div class="cb">${sel?'✓':''}</div><span>${op}</span></div>`;
     }).join('');
-    return `<div class="pick" style="margin-bottom:12px"><div class="k">${g.label}</div>${opts}</div>`;
+    return `<div class="pick"><div class="k">${g.label}</div>${opts}</div>`;
   }).join('');
+  const savedNote = localStorage.getItem(noteKey(meal.id)) || '';
   return `<div class="meal" data-mealid="${meal.id}">
     <div class="top">
       <span class="nm">${meal.nombre}</span>
       <span class="mac"><b>${meal.kcal}</b> kcal · ${meal.p}P/${meal.c}C/${meal.g}G</span>
     </div>
-    <div class="body">${groups}</div>
+    <div class="body">
+      ${groups}
+      <div class="meal-log">
+        <div class="meal-log-label">📋 ¿Comiste algo diferente hoy?</div>
+        <textarea class="meal-note-input" id="note-${meal.id}" placeholder="Ej: comí pizza, tomé jugo..." onchange="localStorage.setItem('${noteKey(meal.id)}',this.value)">${savedNote}</textarea>
+        <div class="meal-photo-row">
+          <button class="meal-photo-btn" onclick="document.getElementById('photo-${meal.id}').click()">
+            📷 Adjuntar foto
+          </button>
+          <input type="file" id="photo-${meal.id}" accept="image/*" style="display:none" onchange="onPhoto('${meal.id}',this)">
+          <img class="meal-photo-preview" id="prev-${meal.id}" src="" alt="">
+          <button class="meal-photo-remove" id="rem-${meal.id}" onclick="removePhoto('${meal.id}')">×</button>
+        </div>
+      </div>
+    </div>
   </div>`;
 }
 
@@ -91,35 +126,85 @@ function toggleOpt(el) {
   const key = el.dataset.key;
   mealState[key] = (mealState[key]||0) > 0 ? 0 : 1;
   saveMealState(mealState);
+  const mid = key.split('-')[0];
+  const note = document.getElementById(`note-${mid}`)?.value || '';
   render();
+  document.getElementById(`note-${mid}`).value = note;
+}
+
+function onPhoto(mid, input) {
+  const file = input.files[0]; if (!file) return;
+  _photoFiles[mid] = file;
+  const prev = document.getElementById(`prev-${mid}`);
+  prev.src = URL.createObjectURL(file);
+  prev.classList.add('visible');
+  document.getElementById(`rem-${mid}`).classList.add('visible');
+}
+
+function removePhoto(mid) {
+  delete _photoFiles[mid];
+  document.getElementById(`prev-${mid}`).classList.remove('visible');
+  document.getElementById(`rem-${mid}`).classList.remove('visible');
+  document.getElementById(`photo-${mid}`).value = '';
+}
+
+function showToast(msg, type) {
+  const c = document.getElementById('toastContainer');
+  const t = document.createElement('div');
+  t.style.cssText = `background:${type==='success'?'#1a3a1a':'#3a1a1a'};color:${type==='success'?'#4caf50':'#ef5350'};padding:12px 18px;border-radius:10px;font-size:13px;font-weight:600;border:1px solid ${type==='success'?'#2e5a2e':'#5a2e2e'}`;
+  t.textContent = msg; c.appendChild(t);
+  setTimeout(() => t.remove(), 3500);
 }
 
 function render() {
   document.getElementById('meals-container').innerHTML = comidas.map(buildMeal).join('');
-  if (typeof injectMealLog === 'function') {
-    document.querySelectorAll('.meal[data-mealid]').forEach(injectMealLog);
-    document.querySelectorAll('.meals').forEach(injectGuardarBtn);
-  }
-}
-
-function showToast(msg, type) {
-  const c = document.getElementById('toast-container');
-  const t = document.createElement('div');
-  t.style.cssText = `background:${type==='success'?'#1a3a1a':'#3a1a1a'};color:${type==='success'?'#4caf50':'#ef5350'};padding:12px 18px;border-radius:10px;font-size:13px;font-weight:600;border:1px solid ${type==='success'?'#2e5a2e':'#5a2e2e'}`;
-  t.textContent = msg;
-  c.appendChild(t);
-  setTimeout(() => t.remove(), 3500);
 }
 
 render();
 </script>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="paciente.js"></script>
 <script>
-setTimeout(() => {
-  document.querySelectorAll('.meal[data-mealid]').forEach(injectMealLog);
-  document.querySelectorAll('.meals').forEach(injectGuardarBtn);
-}, 200);
+const SUPABASE_URL = 'https://hmnjtbruliluctslkndq.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhtbmp0YnJ1bGlsdWN0c2xrbmRxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE0NjAxNjksImV4cCI6MjA5NzAzNjE2OX0.IYmCcvjdlbH1L0QoSoGIpwudRehSQINR1hNoWG02Cc4';
+let _sb;
+window.addEventListener('load', () => {
+  _sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+});
+
+async function guardarDia() {
+  const btn = document.getElementById('btn-guardar-dia');
+  const lbl = document.getElementById('btn-label');
+  btn.disabled = true; lbl.textContent = 'Guardando...';
+  try {
+    const datos = { selecciones: getMealState(), notas: {}, fotos: {} };
+    comidas.forEach(m => {
+      const ta = document.getElementById(`note-${m.id}`);
+      if (ta?.value.trim()) datos.notas[m.id] = ta.value.trim();
+    });
+    for (const [mid, file] of Object.entries(_photoFiles)) {
+      const ext = file.name.split('.').pop() || 'jpg';
+      const path = `${SLUG}/${today()}/${mid}.${ext}`;
+      const { error: upErr } = await _sb.storage.from('fotos-comidas').upload(path, file, { upsert:true, contentType:file.type });
+      if (!upErr) {
+        const { data } = _sb.storage.from('fotos-comidas').getPublicUrl(path);
+        datos.fotos[mid] = data.publicUrl;
+      }
+    }
+    const { error } = await _sb.from('registros_diarios').upsert({ paciente: SLUG, fecha: today(), datos }, { onConflict:'paciente,fecha' });
+    if (error) throw error;
+    showToast('✅ Registro del día guardado', 'success');
+    localStorage.removeItem(MEAL_KEY);
+    comidas.forEach(m => localStorage.removeItem(noteKey(m.id)));
+    mealState = {};
+    render();
+  } catch(e) {
+    console.error(e);
+    showToast('Error al guardar. Intenta de nuevo.', 'error');
+  } finally {
+    btn.disabled = false; lbl.textContent = '💾 Guardar mi día';
+  }
+}
 </script>
 </body>
 </html>
