@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -178,6 +178,7 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
   .foot-inner{flex-direction:column;align-items:flex-start;gap:6px}
 }
 </style>
+<link rel="stylesheet" href="paciente.css">
 </head>
 <body>
 
@@ -873,5 +874,9 @@ function updateStorageInfo() {
 function init() { renderHero(); renderTabs(); renderNutr(); renderEval(); renderSpecs(); }
 init();
 </script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="paciente.js"></script>
 </body>
 </html>
+
+
