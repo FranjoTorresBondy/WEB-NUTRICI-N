@@ -170,6 +170,20 @@ async function guardarDia() {
 
     if (error) throw error;
     showToast('✅ Registro del día guardado', 'success');
+
+    // Limpiar selecciones y notas del día
+    const slug = (typeof PATIENT !== 'undefined') ? PATIENT.slug : 'paciente';
+    localStorage.removeItem(MEAL_KEY ? MEAL_KEY() : `${slug}-meals-v1`);
+    document.querySelectorAll('.meal[data-mealid]').forEach(mealEl => {
+      const mid = mealEl.dataset.mealid;
+      localStorage.removeItem(_noteKey(slug, mid));
+      mealEl.querySelectorAll('.opt.selected').forEach(opt => opt.classList.remove('selected'));
+      mealEl.querySelectorAll('.cb').forEach(cb => cb.textContent = '');
+      mealEl.querySelectorAll('.opt-cnt').forEach(cnt => cnt.textContent = '0');
+      const ta = mealEl.querySelector('.meal-note-input');
+      if (ta) ta.value = '';
+      removePhoto(mid);
+    });
   } catch (e) {
     console.error(e);
     showToast('Error al guardar. Intenta de nuevo.', 'error');
