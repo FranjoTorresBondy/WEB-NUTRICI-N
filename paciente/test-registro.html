@@ -96,6 +96,10 @@ function toggleOpt(el) {
 
 function render() {
   document.getElementById('meals-container').innerHTML = comidas.map(buildMeal).join('');
+  if (typeof injectMealLog === 'function') {
+    document.querySelectorAll('.meal[data-mealid]').forEach(injectMealLog);
+    document.querySelectorAll('.meals').forEach(injectGuardarBtn);
+  }
 }
 
 function showToast(msg, type) {
