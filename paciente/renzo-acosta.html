@@ -152,40 +152,46 @@ const PATIENT = {
     'Mejorar el rendimiento deportivo y la recuperación.',
   ],
   comidas:[
-    {id:'des',nombre:'☀️ Desayuno',kcal:281,p:17,c:29,g:11,grupos:[
-      {label:'Escoge 01 · Carbohidrato',max:1,ops:['20 g de avena (peso crudo)','1 rebanada de pan de molde integral (30 g)','20 g de cereales Dyfferent, Mamalama o NutriCo','15 g de granola clásica','1 tortilla rapidita cero']},
-      {label:'Escoge 01 · Fruta',max:1,ops:['1 porción de fruta (ver especificaciones)']},
-      {label:'Escoge 01 · Proteína / Grasa',max:1,ops:['2 huevos (revueltos, sancochados o pochados)','60 g queso mozzarella CuisineCo + 1 huevo','50 g de pollo + 40 g de palta','½ lata de atún + 40 g de palta','30 g de Vakimu Pro + 10 g de almendras','1 scoop de proteína + 10 g de almendras']},
+    {id:'des',nombre:'☀️ Desayuno',kcal:281,p:17,c:29,g:11,
+     nota:'🥤 <b>Opción rápida:</b> Batido de 1 scoop proteína + 300 ml bebida de almendras + 1 porción de fruta + 40 g avena + 1 cda de linaza molida o chía.',
+     grupos:[
+      {label:'Escoge 01 · Carbohidrato',max:1,ops:['20 g de avena (peso crudo)','1 rebanada de pan de molde integral (30 g)','20 g de corn flakes Dyfferent o NutriCo','20 g de granola','1 rapidita integral o cero']},
+      {label:'Escoge 01 · Fruta',max:1,ops:['1 porción de fruta (ver especificaciones) + 1 cda de linaza molida o chía remojada desde la noche anterior']},
+      {label:'Escoge 01 · Proteína / Grasa',max:1,ops:['2 huevos enteros (fritos o revueltos, con poquito aceite pam)','40 g de queso mozzarella light CuisineCo + 1 huevo','50 g de pechuga de pollo + 40 g de palta','½ lata de atún + 40 g de palta','120 g de Vakimu Pro + 6 almendras','½ scoop de proteína + 6 almendras']},
     ]},
-    {id:'alm',nombre:'🥗 Almuerzo',kcal:647,p:43,c:82,g:17,grupos:[
-      {label:'Escoge 03 · Carbohidrato',max:3,ops:['⅓ taza de arroz blanco o integral (60 g, cocido)','⅓ taza de quinua (60 g, cocida)','⅓ taza de pasta cocida sin relleno (50 g)','90 g de papa o camote (cocido)','½ taza de menestras (100 g, cocido)','60 g de plátano (½ und)']},
-      {label:'Escoge 01 · Verduras',max:1,ops:['150–170 g de verduras de tu preferencia']},
-      {label:'Escoge 01 · Proteína (150 g crudo)',max:1,ops:['Pechuga de pollo','Pechuga de pavo','Pescado','Bistec (esporádico)','Carne molida de bistec','Lomo de res','Lomo de cerdo','1 lata de atún en agua + 1 huevo']},
-      {label:'Escoge 02 · Grasa',max:2,ops:['10 g de mantequilla de maní','40 g de palta','1 cdta de aceite de oliva','1 cdta de aceite de ajonjolí','1 porción de frutos secos (ver especificaciones)']},
+    {id:'alm',nombre:'🥗 Almuerzo',kcal:647,p:43,c:82,g:17,
+     nota:'*Puedes reemplazar la porción de fruta ocasionalmente por un Milky de La Ibérica pequeño (20 g).',
+     grupos:[
+      {label:'Escoge 03 · Carbohidrato',max:3,ops:['90 g de papa, camote o betarraga (cocido)','60 g de arroz (cocido)','60 g de menestras (cocidas)','50 g de pasta sin relleno (cocida)','60 g de quinua (cocida)','60 g de choclo','40 g de ravioles de verdura Don Italio (peso crudo)']},
+      {label:'Escoge 01 · Verduras',max:1,ops:['150 g de mix de verduras frescas o cocidas']},
+      {label:'Escoge 01 · Proteína (150 g crudo)',max:1,ops:['Pechuga de pollo','Pescado','Lomo o bistec (120 g, crudo)','Pavita','1 milanesa de Avinka (sin aceite, freidora de aire)']},
+      {label:'Escoge 02 · Grasa',max:2,ops:['40 g de palta','1 cdta de aceite de olivo','5 aceitunas']},
       {label:'Escoge 01 · Fruta de postre',max:1,ops:['1 porción de fruta (ver especificaciones)']},
     ]},
     {id:'snk',nombre:'🍎 Snack Media Tarde',kcal:255,p:26,c:17,g:9,grupos:[
-      {label:'Escoge 01 · Carbohidrato',max:1,ops:['1 rebanada de pan de molde integral (30 g)','1 tortilla rapidita cero','1 pita integral pequeña','½ pan francés']},
-      {label:'Escoge 01 · Proteína (100 g crudo)',max:1,ops:['Pechuga de pollo','Pechuga de pavo','Pescado','60 g de queso mozzarella light CuisineCo','80 g de queso fresco light','1 lata de atún en agua','Carne molida de bistec']},
-      {label:'Escoge 01 · Grasa',max:1,ops:['10 g de mantequilla de maní','40 g de palta','1 cdta de aceite de oliva','1 porción de frutos secos (ver especificaciones)']},
+      {label:'Escoge 01 · Carbohidrato',max:1,ops:['1 rebanada de pan de molde integral (30 g)','1 rapidita integral o cero','1 pan pita Bimbo integral','1 pan francés (30 g)']},
+      {label:'Escoge 01 · Proteína (100 g crudo)',max:1,ops:['Pechuga de pollo','Pescado','Lomo o bistec (80 g, crudo)','60 g de queso mozzarella light','65 g de queso fresco light']},
+      {label:'Escoge 01 · Grasa',max:1,ops:['40 g de palta','1 cdta de aceite de olivo','5 aceitunas']},
     ]},
-    {id:'cen',nombre:'🌙 Cena',kcal:647,p:43,c:82,g:17,grupos:[
-      {label:'Escoge 03 · Carbohidrato',max:3,ops:['⅓ taza de arroz blanco o integral (60 g, cocido)','⅓ taza de quinua (60 g, cocida)','⅓ taza de pasta cocida sin relleno (50 g)','90 g de papa o camote (cocido)','½ taza de menestras (100 g, cocido)','60 g de plátano (½ und)']},
-      {label:'Escoge 01 · Verduras',max:1,ops:['150–170 g de verduras de tu preferencia']},
-      {label:'Escoge 01 · Proteína (150 g crudo)',max:1,ops:['Pechuga de pollo','Pechuga de pavo','Pescado','Bistec (esporádico)','Carne molida de bistec','Lomo de res','Lomo de cerdo','1 lata de atún en agua + 1 huevo']},
-      {label:'Escoge 02 · Grasa',max:2,ops:['10 g de mantequilla de maní','40 g de palta','1 cdta de aceite de oliva','1 cdta de aceite de ajonjolí','1 porción de frutos secos (ver especificaciones)']},
+    {id:'cen',nombre:'🌙 Cena',kcal:647,p:43,c:82,g:17,
+     nota:'*2 deditos de pollo Avinka (solo fines de semana): eliminar 01 porción de carbohidrato y las 02 porciones de grasa, cocinar sin aceite en la freidora de aire.<br>*Atún en aceite: exprimir bien el aceite y eliminar 01 porción de grasa.<br>*Si vas a cocinar en la freidora de aire, usar aceite de oliva con pulverizador.<br>🥣 <b>Opción reemplazo completo:</b> 60 g cereales + 200 g yogurt Sbelt o Slim + 200 g yogurt Vakimu griego + 1 scoop proteína aislada + 2 porciones de frutos secos.',
+     grupos:[
+      {label:'Escoge 03 · Carbohidrato',max:3,ops:['60 g de arroz (cocido)','90 g de papa o camote (cocido)','60 g de quinua (cocida)','60 g de choclo','1 rebanada de pan de molde integral (30 g)','50 g de fideos (cocidos)','1 rapidita integral o cero','20 g de granola','20 g de cereales a tu elección','40 g de ravioles de verdura Don Italio (peso crudo)','1 pan pita Bimbo integral','1 pan francés (30 g)','2 galletas cream crackers doraditas']},
+      {label:'Escoge 01 · Verduras',max:1,ops:['150 g de mix de verduras frescas o cocidas']},
+      {label:'Escoge 01 · Proteína (150 g crudo)',max:1,ops:['Pechuga de pollo','Pescado','Lomo o bistec (120 g, crudo)','Pavita','90 g de mozzarella light + 1 huevo','1 milanesa de Avinka (sin aceite, freidora de aire)','2 deditos de pollo Avinka (solo fines de semana — ver nota)','1 lata de atún en aceite (exprimir aceite — ver nota)']},
+      {label:'Escoge 02 · Grasa',max:2,ops:['40 g de palta','1 cdta de aceite de olivo','5 aceitunas']},
     ]},
     {id:'pre',nombre:'🏃 Pre Entreno',kcal:null,p:null,c:null,g:null,nota:'Solo los días de entrenamiento.',grupos:[
       {label:'Escoge 01 · Opción',max:1,ops:['1 plátano + 1 cda de miel de abeja']},
     ]},
   ],
   specs:[
-    {titulo:'🥤 Bebidas',items:['Agua, infusiones (manzanilla, anís, té, muña, hierba luisa, flor de Jamaica).','Refrescos no azucarados (emoliente, agua de piña, agua de manzana).','Edulcorantes acalóricos: Stevia, yacón o fruto del monje.','##Bebidas especiales','Té negro o té verde helado + limón + Stevia + agua con gas.','Matcha + 200 ml de leche de almendra + Stevia + hielo.','Coldbrew: café pasado + zumo de media naranja + Stevia + hielo.']},
-    {titulo:'🥝 Porciones de fruta',items:['1 kiwi / ½ taza mango picado (80 g) / 1 manzana','1 plátano pequeño (60 g) / ½ grande (120 g) / 1 taza papaya (160 g)','Berries (150 g) / ¾ taza piña picada (165 g) / 1 granadilla / 1 mandarina','1 pera / 1 durazno / 10 uvas / 70 g pulpa de lúcuma / 200 g sandía']},
+    {titulo:'🥤 Bebidas',items:['Agua, infusiones (manzanilla, anís, té, muña, hierba luisa, flor de Jamaica).','Refrescos no azucarados (emoliente, agua de piña, agua de manzana).','Edulcorantes acalóricos: Stevia, yacón o fruto del monje.','##Bebidas especiales','Té negro o té verde helado + limón + Stevia + agua regular o con gas + hielo.','Agua de flor de Jamaica + Stevia + agua regular o con gas + hielo. Puedes agregarle berries.','Matcha + 200 ml de leche de almendra + Stevia + hielo.','Fuera de casa: freetea light.']},
+    {titulo:'🥝 Porciones de fruta',items:['1 kiwi / ½ taza mango picado (80 g) / 1 manzana','1 plátano pequeño (60 g, pelado) / ½ grande (120 g, pelado) / 1 taza papaya (160 g)','Berries (150 g) / ¾ taza piña picada (165 g) / 1 granadilla / 1 mandarina mediana','1 pera / 1 durazno / 10 uvas','##Berries: arándanos, fresas, aguaymanto, moras, frambuesas.']},
     {titulo:'🥜 Frutos secos (1 porción)',items:['6 cashews / 6 almendras / 4 pecanas / 4 nueces / 15 pistachos / 10 maní / 1 cdta de mantequilla de frutos secos (10 g).']},
-    {titulo:'🍽️ Opciones si comes fuera',items:['Poke bowl: sin salsas dulces, solo soya. Proteína + palta + arroz + verduras.','Bowl de San Antonio, Don Mamino, Delicass, Freshii.','Burrito o Bowl de Xipe.','Wrap de Insólito.','Pollo a la brasa: pechuga sin pellejo + ensalada + papa al horno.','Ceviche o tiradito con camote y choclo.']},
-    {titulo:'🍲 Salsas bajas en calorías',items:['Mermelada: 200 g berries + 2 cdas chía + 4 cdas monkfruit → microondas u olla.','Leche condensada light: leche en polvo descremada + Stevia + leche evaporada descremada.','Tzatziki: yogurt + sal y pimienta + ajo + pepino + aceite oliva + eneldo.','Honey mustard: 1 cda mostaza + 1 cda yogurt descremado + sal, pimienta + Stevia.']},
-    {titulo:'📋 Lineamientos generales',items:['Mantenerse lo más estricto posible con las porciones.','No tomar café o cafeína luego de las 3 pm.','Evitar el consumo de chicles.','Intentar consumir los alimentos a la misma hora cada día.','<a href="../guia-restaurante.html" target="_blank" style="color:var(--navy);text-decoration:none;font-weight:600">Ver guía de restaurantes →</a>']},
+    {titulo:'🍽️ Opciones si comes fuera',items:['Poke bowl: sin salsas acevichada o dulces (taré, anguila), solo soya. Proteína + palta + arroz + verduras + fruta (si deseas).','Bowl de San Antonio, Don Mamino, Delicass, Freshii — con arroz, verduras, pollo y palta si es posible.','Wrap de Insólito.','Pollo a la brasa: pechuga sin pellejo + ensalada + papa al horno o sancochada.','Ceviche o tiradito con camote y choclo.']},
+    {titulo:'🫙 Salsas bajas en calorías',items:['<b>Mermelada:</b> 200 g berries + 2 cdas chía + 4 cdas monkfruit → microondas u olla.','<b>Leche condensada light:</b> leche en polvo descremada + Stevia + leche evaporada descremada.','<b>Tzatziki:</b> 2 cdas yogurt descremado + sal y pimienta + 1 diente ajo + pepino en trozos + 1 cdta aceite oliva + eneldo, perejil, orégano y menta al gusto.','<b>Honey mustard:</b> 1 cda mostaza + 1 cda yogurt descremado + sal, pimienta + Stevia al gusto.','<b>Salsa verde:</b> queso fresco light + albahaca + 2 dientes ajo soazados + sal y pimienta + 1 cda aceite olivo + leche evaporada light (100–150 ml) + leche fresca Slim hasta lograr textura.','<b>Salsa roja:</b> tomate + cebolla + ajo + albahaca + poro + Stevia opcional + sal, pimienta y tomillo + 1 cda aceite olivo.']},
+    {titulo:'📋 Lineamientos generales',items:['Evitar café y alcohol por dos semanas.','Evitar el consumo de chicles.','Mantenerse lo más estricto posible con las porciones.','Intentar consumir los alimentos a la misma hora cada día.','Puedes hacerte helados con fruta congelada, yogurt skyr o quark y Stevia. Para chocolate: cocoa + plátano congelado + esencia de vainilla + canela.','<a href="../guia-restaurante.html" target="_blank" style="color:var(--navy);text-decoration:none;font-weight:600">Ver guía de restaurantes →</a>']},
   ],
 };
 const $ = id => document.getElementById(id);
