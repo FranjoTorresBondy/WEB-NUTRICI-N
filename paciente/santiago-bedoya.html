@@ -149,48 +149,51 @@ const PATIENT = {
   },
   objetivos:[
     'Recomposición corporal: aumentar masa muscular, mejorar rendimiento y recuperación.',
-    'Realizar 10.000 pasos diarios.',
+    'Realizar 10 000 pasos diarios.',
     'Agregar un día de accesorios: antebrazo, pantorrilla, core, deltoides laterales.',
-    '2 días de caminata en inclinación 40 min + 2 días de intervalos: 30" máxima intensidad × 3 series.',
+    '2 días de caminata en inclinación 40 min + 2 días de intervalos: 30" a máxima intensidad × 60" descanso activo, solo 3 series.',
     'Preferir pre entreno del plan, evitar el Monster.',
   ],
   comidas:[
-    {id:'com1',nombre:'☀️ Comida 1 · Desayuno',kcal:null,p:null,c:null,g:null,nota:'Al despertar: 500 ml de agua + 2.5 g de creatina + suero de tocosh.',grupos:[
-      {label:'Escoge 01 · Fruta',max:1,ops:['3 porciones de fruta (ver especificaciones)']},
-      {label:'Escoge 03 · Carbohidrato',max:3,ops:['20 g de avena (peso crudo)','1 rebanada de pan de molde integral (30 g)','20 g de cereales Dyfferent, Mamalama o NutriCo','1 tortilla rapidita cero']},
-      {label:'Escoge 01 · Proteína',max:1,ops:['2 huevos + 1 huevo adicional','50 g de pollo + 40 g de palta','60 g de queso mozzarella light CuisineCo','30 g Vakimu Pro + 1 scoop proteína','1 scoop de proteína + 200 ml leche descremada','1 shake Gloria Pro Day + leche descremada']},
+    {id:'com1',nombre:'☀️ Comida 1 · Desayuno',kcal:null,p:null,c:null,g:null,
+     nota:'Al despertar: 500 ml de agua + 10 g de creatina + 1 cda de suero de tocosh. Intentar tomar el café luego de comer.<br>🥞 <b>Panqueques:</b> 40 g avena + 2 huevos + 1 plátano + 100 g berries + 1 cdta mantequilla de maní de topping.<br>🌙 <b>Overnight oats:</b> 60 g avena + 100 g yogurt + ¾ scoop proteína + 200 ml leche de almendra + 2 porciones de fruta + 1 cda de chía molida.',
+     grupos:[
+      {label:'Escoge 01 · Fruta',max:1,ops:['3 porciones de fruta (ver especificaciones) + 1 cda de chía o linaza molida']},
+      {label:'Escoge 03 · Carbohidrato',max:3,ops:['20 g de avena (peso crudo)','1 rebanada de pan de molde integral (30 g)','20 g de corn flakes','30 g de pan francés','1 pan pita integral Bimbo','1 rapidita integral o cero']},
+      {label:'Escoge 01 · Proteína',max:1,ops:['2 huevos','100 g de pechuga de pollo o atún en agua + 80 g de palta','60 g de queso mozzarella light CuisineCo + 2 cdtas de aceite de oliva','100 g de yogurt griego Vakimu + ¾ scoop de proteína + 200 ml de leche de almendra + 1 porción de frutos secos','1 scoop de proteína + 200 ml de leche descremada','1 shake Pro Day de Gloria']},
     ]},
     {id:'com2',nombre:'🍎 Comida 2 · Snack Mañana',kcal:null,p:null,c:null,g:null,grupos:[
       {label:'Escoge 01 · Fruta',max:1,ops:['2 porciones de fruta (ver especificaciones)']},
       {label:'Escoge 01 · Berries',max:1,ops:['100 g de berries (arándanos, fresas, frambuesas, aguaymanto)']},
-      {label:'Escoge 01 · Proteína',max:1,ops:['1 scoop de proteína en polvo (shakear con agua)','1 yogurt bebible Gloria Pro Day']},
+      {label:'Escoge 01 · Proteína',max:1,ops:['1 scoop de proteína en polvo (shakear con agua)','1 yogurt bebible Pro Day de Gloria']},
     ]},
-    {id:'com3',nombre:'🥗 Comida 3 · Almuerzo',kcal:null,p:null,c:null,g:null,grupos:[
-      {label:'Escoge 05 · Carbohidrato',max:5,ops:['⅓ taza de arroz blanco o integral (60 g, cocido)','⅓ taza de quinua (60 g, cocida)','⅓ taza de pasta cocida sin relleno (50 g)','90 g de papa o camote (cocido)','½ taza de menestras (100 g, cocido)','60 g de plátano (½ und)']},
-      {label:'Escoge · Proteína (150 g crudo)',max:1,ops:['Pechuga de pollo','Pechuga de pavo','Pescado','Bistec (esporádico)','Carne molida de bistec','Lomo de res / lomo de cerdo','1 lata de atún en agua + 1 huevo']},
-      {label:'Escoge 02 · Grasa',max:2,ops:['10 g de mantequilla de maní','40 g de palta','1 cdta de aceite de oliva','1 cdta de aceite de ajonjolí','1 porción de frutos secos (ver especificaciones)']},
-      {label:'Escoge 01 · Verduras',max:1,ops:['150 g de verduras de tu preferencia']},
+    {id:'com3',nombre:'🥗 Comida 3 · Almuerzo',kcal:null,p:null,c:null,g:null,nota:'*Si comes salmón, cortar 2 porciones de grasa del día.',grupos:[
+      {label:'Escoge 05 · Carbohidrato',max:5,ops:['⅓ taza de arroz blanco o integral (60 g, cocido)','⅓ taza de quinua (60 g, cocida)','⅓ taza de pasta cocida sin relleno (50 g)','½ unidad mediana de papa o camote (90 g, cocido)','½ taza de menestras cocidas (100 g)']},
+      {label:'Escoge · Proteína (150 g crudo)',max:1,ops:['Pechuga de pollo','Pechuga de pavo','Pescado','Carne magra: lomo o bistec','Langostinos']},
+      {label:'Escoge 02 · Grasa',max:2,ops:['1 cdta de aceite de olivo','1 cdta de aceite de ajonjolí','40 g de palta']},
+      {label:'Escoge 01 · Verduras',max:1,ops:['150 g de verduras de tu elección']},
     ]},
-    {id:'com5',nombre:'🌙 Comida 5 · Cena',kcal:null,p:null,c:null,g:null,grupos:[
-      {label:'Escoge 05 · Carbohidrato',max:5,ops:['⅓ taza de arroz blanco o integral (60 g, cocido)','⅓ taza de quinua (60 g, cocida)','⅓ taza de pasta cocida sin relleno (50 g)','90 g de papa o camote (cocido)','½ taza de menestras (100 g, cocido)','60 g de plátano (½ und)']},
-      {label:'Escoge · Proteína (150 g crudo)',max:1,ops:['Pechuga de pollo','Pechuga de pavo','Pescado','60 g de queso mozzarella light CuisineCo','80 g de queso fresco light','1 lata de atún en agua','Carne molida de bistec']},
-      {label:'Escoge 01 · Grasa',max:1,ops:['10 g de mantequilla de maní','40 g de palta','1 cdta de aceite de oliva','1 porción de frutos secos (ver especificaciones)']},
-      {label:'Escoge 01 · Verduras',max:1,ops:['150 g de verduras de tu preferencia']},
+    {id:'com5',nombre:'🌙 Comida 5 · Cena',kcal:null,p:null,c:null,g:null,nota:'*Si comes salmón, cortar 2 porciones de grasa del día.',grupos:[
+      {label:'Escoge 05 · Carbohidrato',max:5,ops:['60 g de arroz (peso cocido)','90 g de papa (cocida)','100 g de menestras (cocidas)','20 g de avena (peso crudo)','1 tortilla tipo rapidita','20 g de cereales Dyfferent','15 g de granola Unión','100 g de papa congelada Greenfood (al airfryer)']},
+      {label:'Escoge · Proteína (150 g crudo)',max:1,ops:['Pechuga de pollo','Pechuga de pavo','Pescado','Carne magra: lomo o bistec','Langostinos','1 milanesa de Avinka (al airfryer)']},
+      {label:'Escoge 01 · Grasa',max:1,ops:['1 cdta de aceite de olivo','1 cdta de aceite de ajonjolí','40 g de palta','1 porción de frutos secos (ver especificaciones)']},
+      {label:'Escoge 01 · Verduras / Fruta',max:1,ops:['100 g de verduras de tu elección','100 g de arándanos']},
     ]},
-    {id:'pre',nombre:'🥊 Pre Entreno · Muay Thai / BJJ',kcal:330,p:null,c:null,g:null,nota:'Solo días de Muay Thai o BJJ. Intra: 1L agua + electrolitos SIS. Post: 1 scoop proteína / 150 g skyr + berries.',grupos:[
-      {label:'Escoge 01 · Opción Pre',max:1,ops:['1 plátano + 1 cda de miel + 30 g Vakimu Pro','30 g arroz inflado + 1 scoop proteína + 10 g miel','2 galletas de arroz costeño + mermelada casera + 1 scoop proteína']},
+    {id:'pre',nombre:'🥊 Pre Entreno · Muay Thai / BJJ',kcal:330,p:null,c:null,g:null,nota:'Solo días de Muay Thai o BJJ (+330 kcal). Intra: 1L agua + 1 tab electrolitos SIS. Post: ½ scoop proteína / 100 g skyr o quark + 100 g berries.',grupos:[
+      {label:'Escoge 01 · Opción Pre (40-30 min antes)',max:1,ops:['1 manzana o plátano pequeño + 2 rebanadas de pan (30 g) + 1 cda de manjarblanco (30 g)','1 manzana o plátano pequeño + 40 g de corn flakes tipo chocapic o copix + 200 ml leche slim','1 manzana o plátano pequeño + 2 rebanadas de pan Don Mamino + 1 cda de mantequilla de maní + 1 cdta de miel']},
     ]},
-    {id:'prepf',nombre:'💪 Pre Entreno · Gimnasio (PF)',kcal:null,p:null,c:null,g:null,nota:'Solo días de gimnasio. Intra: 1L agua. Post: 1 scoop proteína / 150 g skyr + berries.',grupos:[
-      {label:'Escoge 01 · Opción Pre',max:1,ops:['1 plátano + 1 cda de miel','30 g arroz inflado + 10 g miel','2 galletas de arroz costeño + mermelada casera']},
+    {id:'prepf',nombre:'💪 Pre Entreno · Gimnasio (PF)',kcal:400,p:null,c:null,g:null,nota:'Solo días de gimnasio (+400 kcal). Intra: 1L agua. Post: ½ scoop proteína / 100 g skyr o quark.',grupos:[
+      {label:'Escoge 01 · Opción Pre (40-30 min antes)',max:1,ops:['40 g de Nestum o crema de arroz + 1 plátano + 1 cda de miel de abeja','60 g de Chocapic (puedes usar 200 ml de leche de almendra) + 1 plátano','2 rebanadas de pan de molde blanco + 1 plátano pequeño + 1 cda de miel de abeja']},
     ]},
   ],
   specs:[
-    {titulo:'💊 Suplementación',items:['<b>VIT D3:</b> 5000 IU con el desayuno.','<b>VIT K2:</b> 3000 IU con el desayuno.','<b>Pre-X Nutricost:</b> días de entrenamiento, 30 min antes.','<b>Creatina:</b> 5 g post entreno (500 ml agua + tocosh al despertar en días de descanso).','<b>Magnesio:</b> 150 mg antes de dormir.']},
-    {titulo:'🥤 Bebidas',items:['Agua, infusiones (manzanilla, anís, té, muña, hierba luisa, flor de Jamaica).','Refrescos no azucarados (emoliente, agua de piña, agua de manzana).','Edulcorantes acalóricos: Stevia, yacón o fruto del monje.','##Bebidas especiales','Té negro o té verde helado + limón + Stevia + agua con gas.','Matcha + 200 ml de leche de almendra + Stevia + hielo.','Coldbrew: café pasado + zumo de media naranja + Stevia + hielo.']},
-    {titulo:'🥝 Porciones de fruta',items:['1 kiwi / ½ taza mango picado (80 g) / 1 manzana','1 plátano pequeño (60 g) / ½ grande (120 g) / 1 taza papaya (160 g)','Berries (150 g) / ¾ taza piña picada (165 g) / 1 granadilla / 1 mandarina','1 pera / 1 durazno / 10 uvas / 70 g pulpa de lúcuma / 200 g sandía']},
-    {titulo:'🥜 Frutos secos (1 porción)',items:['6 cashews / 6 almendras / 4 pecanas / 4 nueces / 15 pistachos / 10 maní / 1 cdta de mantequilla de frutos secos (10 g).']},
-    {titulo:'🍽️ Opciones si comes fuera',items:['Poke bowl: sin salsas dulces, solo soya. Proteína + palta + arroz + verduras.','Bowl de San Antonio, Don Mamino, Delicass, Freshii.','Burrito o Bowl de Xipe. Wrap de Insólito.','Pollo a la brasa: pechuga sin pellejo + ensalada + papa al horno.','Ceviche o tiradito con camote y choclo.']},
-    {titulo:'📋 Lineamientos generales',items:['Mantenerse lo más estricto posible con las porciones.','No tomar café o cafeína luego de las 3 pm.','Evitar el consumo de chicles.','Intentar consumir los alimentos a la misma hora cada día.','<a href="../guia-restaurante.html" target="_blank" style="color:var(--navy);text-decoration:none;font-weight:600">Ver guía de restaurantes →</a>']},
+    {titulo:'💊 Suplementación',items:['<b>VIT D3:</b> 5000 IU con el desayuno.','<b>VIT K2:</b> 3000 IU con el desayuno.','<b>Pre-X Nutricost:</b> días de entrenamiento, 30 min antes.','<b>Creatina:</b> 10 g al despertar (ritual matutino). En días de entrenamiento, 5 g adicionales post entreno. Tomar todos los días.','<b>L-Treonato de Magnesio:</b> 150 mg, 30-40 min antes de dormir.']},
+    {titulo:'🥤 Bebidas',items:['Agua, infusiones (manzanilla, anís, té, muña, hierba luisa, flor de Jamaica).','Refrescos no azucarados (emoliente, agua de piña, agua de manzana).','Edulcorantes acalóricos: Stevia, yacón o fruto del monje.','##Bebidas especiales','Té negro o té verde helado + limón + Stevia + agua regular o con gas + hielo.','Agua de flor de Jamaica + Stevia + agua con gas + hielo.','Coldbrew: café pasado + zumo de media naranja + Stevia + hielo.','Fuera de casa: freetea light.']},
+    {titulo:'🥝 Porciones de fruta',items:['1 kiwi / ½ taza mango picado (80 g) / 1 manzana','1 plátano pequeño (60 g) / ½ grande (120 g) / 1 taza papaya (160 g)','Berries (150 g) / ¾ taza piña picada (165 g) / 1 granadilla / 1 mandarina','1 pera / 1 durazno / 10 uvas / 70 g pulpa de lúcuma / 200 g sandía','##Berries: arándanos, fresas, aguaymanto, moras, frambuesas.']},
+    {titulo:'🥜 Frutos secos y semillas',items:['<b>Frutos secos (1 porción):</b> 6 cashews / 6 almendras / 4 pecanas / 4 nueces / 15 pistachos / 10 maní / 1 cdta mantequilla de frutos secos (10 g).','<b>Semillas (1 porción):</b> 1 cda de chía / 1 cda de linaza / 1 cda de ajonjolí / 1 cda de semillas de girasol / 1 cda de semillas de calabaza.']},
+    {titulo:'🍽️ Opciones si comes fuera',items:['Poke bowl: sin salsas dulces, solo soya. Proteína + palta + arroz + verduras + fruta.','Bowl de San Antonio, Don Mamino, Delicass, Freshii.','Burrito o Bowl de Xipe. Wrap de Insólito.','Pollo a la brasa: pechuga sin pellejo + ensalada + papa al horno o sancochada.','Ceviche o tiradito con camote y choclo.']},
+    {titulo:'🫙 Salsas bajas en calorías',items:['<b>Mermelada:</b> 200 g berries + 2 cdas chía + 4 cdas monkfruit → microondas u olla.','<b>Leche condensada light:</b> leche en polvo descremada + Stevia + leche evaporada descremada.','<b>Tzatziki:</b> 2 cdas yogurt descremado + sal + pimienta + ajo + pepino en trozos + aceite oliva + eneldo, perejil y menta.','<b>Honey mustard:</b> 2 cdas yogurt + sal + pimienta + 1 cda mostaza + 1 cdta miel + Stevia + 1 cda vinagre de manzana.','<b>Vinagreta Ranch:</b> 2 cdas yogurt descremado + sal + pimienta + 1 cda vinagre blanco + 1 cda agua + finas hierbas.','<b>Pico de gallo:</b> tomate + cebolla + culantro + ají o rocoto + limón + ajo opcional + sal y pimienta.','<b>Salsa verde:</b> queso fresco light + albahaca + ajo soazado + aceite oliva + leche evaporada light + leche fresca slim.','<b>Salsa roja:</b> tomate + cebolla + ajo + albahaca + poro + Stevia opcional + 1 cda aceite oliva.']},
+    {titulo:'📋 Lineamientos generales',items:['No tomar café o cafeína luego de las 3 pm.','Evitar el consumo de chicles.','Mantenerse lo más estricto posible con las porciones.','Intentar consumir los alimentos a la misma hora cada día.','<a href="../guia-restaurante.html" target="_blank" style="color:var(--navy);text-decoration:none;font-weight:600">Ver guía de restaurantes →</a>']},
   ],
 };
 const $ = id => document.getElementById(id);
