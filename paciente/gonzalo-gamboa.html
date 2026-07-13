@@ -260,6 +260,7 @@ const PATIENT = {
     tri:9.0, bi:7.0, sub:22.0, cresta:25.0, supra:20.0, abd:35.0, pierna:10.0, pant:7.0,
     brazRelaj:37.8, brazFlex:39.8, abdom:98.0, cadera:110.0, muslo:56.3, pantPer:40.0,
     diam:{ humero:6.8, biEstiloideo:6.0, femur:10.0 },
+    s6:101.0, s8:133.0,
   },
 
   objetivos: [
@@ -289,7 +290,9 @@ const PATIENT = {
       ]},
     ]},
 
-    { id:'c3', nombre:'🥗 Almuerzo', kcal:null, p:null, c:null, g:null, grupos:[
+    { id:'c3', nombre:'🥗 Almuerzo', kcal:null, p:null, c:null, g:null,
+      nota:'🥪 <b>Subway:</b> pechuga de pollo + verduras + 1 cdta de palta + poquito kétchup. 🍗 <b>Hooters (Cancún):</b> solo 10 piezas de alitas BBQ (≈900 kcal) + omitir snack + cena: shake de proteína con arándanos o 120 g de pechuga sin aceite con verduras.',
+      grupos:[
       { label:'Escoge 05 · Carbohidrato', max:5, ops:[
         '⅓ taza de arroz blanco o integral (60 g, cocido)',
         '⅓ taza de quinua (60 g, cocida)',
@@ -404,13 +407,17 @@ const PATIENT = {
       '##Snacks',
       'Fruta + 1 scoop proteína, barritas proteicas, YoPro drink / pudding + fruta.',
       '##Entrenamiento sin gym',
-      '100 planchas (10×10) · 4×10 elevaciones laterales con mochila · 100 abdominales · Correr 20–30 min.',
+      'Si tienes acceso a un gym, puedes seguir el plan.',
+      '100 planchas — 10 series de 10.',
+      '4 series de 10 elevaciones laterales con mochila o maleta.',
+      '100 abdominales (puedes hacer variaciones y rotaciones).',
+      'Correr 20–30 min.',
+      'Caminar al menos 10 000 pasos.',
     ]},
     { titulo:'📋 Lineamientos generales', items:[
       'Mantenerse lo más estricto posible con las porciones.',
-      'Intentar consumir los alimentos a la misma hora cada día.',
-      'Si vas a comer en un restaurante, elegir opciones similares a los intercambios del plan.',
-      'Evitar el consumo de chicles.',
+      'Si vas a comer en algún restaurante, intentar que la comida tenga alimentos parecidos a alguno de los intercambios de la comida que te toca en el momento.',
+      'Intentar consumir los alimentos a la misma hora en los respectivos tiempos de ingesta.',
     ]},
   ],
 
@@ -671,8 +678,8 @@ function restoreMealUI() {}
 // ── Evaluación ─────────────────────────────────────────────────────────────
 function renderEval() {
   const a = PATIENT.antro;
-  const s6 = +(a.tri+a.sub+a.supra+a.abd+a.pierna+a.pant).toFixed(1);
-  const s8 = +(s6+a.bi+a.cresta).toFixed(1);
+  const s6 = a.s6 ?? +(a.tri+a.sub+a.supra+a.abd+a.pierna+a.pant).toFixed(1);
+  const s8 = a.s8 ?? +(s6+a.bi+a.cresta).toFixed(1);
   const diamHtml = a.diam ? `<div class="evalwrap" style="margin-top:16px"><div class="evgroup">
     <div class="gh">Diámetros óseos (cm)</div>
     <div class="row"><span>Húmero</span><span>${a.diam.humero}</span></div>
