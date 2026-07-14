@@ -403,6 +403,11 @@ const PATIENT = {
 
   notaSpecs: 'Plan base = días de descanso (1975 kcal). Días de entrenamiento de fuerza: agregar Pre Entreno Fuerza (+120 kcal ≈ 2095 kcal total).',
 
+  antroHistorial: [
+    { fecha:'24.06.2026', peso:76.4, tri:5.5, bi:2.5, sub:10.5, cresta:17.0, supra:12.0, abd:13.0, pierna:12.0, pant:7.0,
+      brazRelaj:31.8, brazFlex:34.0, abdom:76.0, cadera:103.5, muslo:56.0, pantPer:36.8, s6:60.0, s8:79.5 },
+  ],
+
   entrenamiento: null,
 };
 // ════════════════════════════════════════════════════════════════════════════
@@ -560,12 +565,13 @@ function renderSpecs() {
   </section></div>`;
 }
 
-const ANTRO_KEY = () => `${PATIENT.slug}-antro-v1`;
+const ANTRO_KEY = () => `${PATIENT.slug}-antro-v2`;
 function getAntroBase() {
   const a = PATIENT.antro;
-  const s6 = +(a.tri+a.sub+a.supra+a.abd+a.pierna+a.pant).toFixed(1);
-  const s8 = +(s6+a.bi+a.cresta).toFixed(1);
-  return [{ fecha:a.fecha, peso:a.peso, tri:a.tri, bi:a.bi, sub:a.sub, cresta:a.cresta, supra:a.supra, abd:a.abd, pierna:a.pierna, pant:a.pant, brazRelaj:a.brazRelaj, brazFlex:a.brazFlex, abdom:a.abdom, cadera:a.cadera, muslo:a.muslo, pantPer:a.pantPer, s6, s8 }];
+  const s6 = a.s6 ?? +(a.tri+a.sub+a.supra+a.abd+a.pierna+a.pant).toFixed(1);
+  const s8 = a.s8 ?? +(s6+a.bi+a.cresta).toFixed(1);
+  const current = { fecha:a.fecha, peso:a.peso, tri:a.tri, bi:a.bi, sub:a.sub, cresta:a.cresta, supra:a.supra, abd:a.abd, pierna:a.pierna, pant:a.pant, brazRelaj:a.brazRelaj, brazFlex:a.brazFlex, abdom:a.abdom, cadera:a.cadera, muslo:a.muslo, pantPer:a.pantPer, s6, s8 };
+  return [...(PATIENT.antroHistorial || []), current];
 }
 function getAntroData() { try { const r=localStorage.getItem(ANTRO_KEY()); return r?JSON.parse(r):getAntroBase(); } catch { return getAntroBase(); } }
 function saveAntroData(d) { localStorage.setItem(ANTRO_KEY(), JSON.stringify(d)); }
