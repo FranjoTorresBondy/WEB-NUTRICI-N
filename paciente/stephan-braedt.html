@@ -254,62 +254,65 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 const PATIENT = {
   slug:      'stephan-braedt',
   nombre:    'Stephan\nBraedt',
-  fecha:     '30.06.2026',
+  fecha:     '15.07.2026',
   tipoPlan:  'Hipocalórico · Hiperprotéico',
   macros:    { kcal: 2180, p: 156, c: 263, g: 54 },
   hidratacion: [
-    { label:'💧 2 entrenamientos', valor:'5.0' },
+    { label:'💧 2 entrenamientos', valor:'5.5' },
     { label:'💧 1 entrenamiento',  valor:'4.5' },
     { label:'💧 Descanso',         valor:'3.5' },
   ],
   semanas: 1,
   antro: {
-    fecha:'30.06.2026', peso:98.4, talla:184.0, imc:29.4,
-    tri:12.0, bi:5.0, sub:18.0, cresta:34.0, supra:17.0, abd:31.0, pierna:22.0, pant:5.0,
-    brazRelaj:37.5, brazFlex:40.8, abdom:96.0, cadera:111.0, muslo:60.0, pantPer:41.0,
-    grasa: 24.5,
+    fecha:'15.07.2026', peso:97.5, talla:184.0, imc:28.8,
+    tri:9.0, bi:5.5, sub:10.0, cresta:29.0, supra:15.0, abd:28.0, pierna:20.0, pant:6.5,
+    s6:88.5, s8:123.0,
+    brazRelaj:39.5, brazFlex:41.8, abdom:88.0, cadera:109.0, muslo:60.0, pantPer:40.5,
+    grasa: 21.1,
+    diam:{ humero:7.2, biEstiloideo:5.8, femur:10.8 },
   },
 
+  antroHistorial: [
+    { fecha:'30.06.2026', peso:98.4, tri:12.0, bi:5.0, sub:18.0, cresta:34.0, supra:17.0, abd:31.0, pierna:22.0, pant:5.0,
+      brazRelaj:37.5, brazFlex:40.8, abdom:96.0, cadera:111.0, muslo:60.0, pantPer:41.0,
+      s6:+(12.0+18.0+17.0+31.0+22.0+5.0).toFixed(1), s8:+(12.0+18.0+17.0+31.0+22.0+5.0+5.0+34.0).toFixed(1) },
+  ],
+
   objetivos: [
-    'Disminución de sumatoria de 8 pliegues a 130 mm en 2 semanas',
+    'Disminución de sumatoria de 8 pliegues a 115 mm para siguiente sesión',
     '10 000 pasos diarios como mínimo',
+    'Alcohol: lo mínimo posible, siempre acompañado de bebida zero',
   ],
 
   comidas: [
     { id:'c1', nombre:'☀️ Desayuno', kcal:445, p:26, c:53, g:14, grupos:[
       { label:'Escoge 02 · Carbohidrato', max:2, ops:['20 g de avena (peso crudo)','20 g de cereal','1 rebanada de pan de molde integral (30 g)','90 g de papa cocida'] },
-      { label:'Escoge 01 · Fruta', max:1, ops:['1 porción de fruta (ver especificaciones) + 100 g de berries'] },
-      { label:'Escoge 01 · Proteína', max:1, ops:['2 huevos'] },
-      { label:'Escoge 01 · Lácteo', max:1, ops:['150 g de yogurt natural Vakimú o Danlac descremado / 150 ml de leche Slim (puedes usarlo para el café)'] },
+      { label:'Escoge 01 · Fruta', max:1, ops:['2 porciones de fruta (ver especificaciones) + 100 g de berries'] },
+      { label:'Escoge 01 · Proteína', max:1, ops:['3 huevos'] },
+      { label:'Escoge 01 · Lácteo', max:1, ops:['200 g de yogurt natural Vakimú o Danlac descremado / 200 ml de leche Slim'] },
     ], nota:'1 cápsula de multivitamínico Centrum / Thorne.' },
 
-    { id:'c2', nombre:'☕ Snack Mañana', kcal:300, p:16, c:52, g:4, grupos:[
-      { label:'Escoge 02 · Carbohidrato', max:2, ops:['1 rapidita cero','1 rebanada de pan de molde integral','20 g de granola','20 g de cereales','1 pan pita Bimbo'] },
-      { label:'Escoge 01 · Proteína láctea', max:1, ops:['200 g de yogurt Vakimú + Pro','50 g de queso mozzarella light'] },
-      { label:'Escoge 01 · Fruta', max:1, ops:['1 porción de fruta (ver especificaciones)'] },
-    ], nota:'Puedes reemplazar por: 1 chocolate de mantequilla de maní de La Purita + 1 plátano + 1 scoop de proteína con agua o leche de almendras.' },
-
-    { id:'c3', nombre:'🥗 Almuerzo', kcal:585, p:49, c:58, g:16, grupos:[
-      { label:'Escoge 03 · Carbohidrato', max:3, ops:['60 g de arroz blanco o integral (cocido)','60 g de quinua (cocida)','50 g de pasta cocida sin relleno','90 g de papa, camote o beterraga (cocido)','100 g de menestras (cocidas)'] },
-      { label:'Escoge 01 · Proteína (150 g, peso crudo)', max:1, ops:['Pechuga de pollo','Pechuga de pavo','Pescado','Lomo de res','Langostinos','Carne molida de bistec'] },
+    { id:'c3', nombre:'🥗 Almuerzo', kcal:635, p:49, c:68, g:16, grupos:[
+      { label:'Escoge 04 · Carbohidrato', max:4, ops:['60 g de arroz blanco o integral (cocido)','60 g de quinua (cocida)','50 g de pasta cocida sin relleno','90 g de papa, camote o beterraga (cocido)','100 g de menestras (cocidas)'] },
+      { label:'Proteína (150 g, peso crudo)', max:1, ops:['Pechuga de pollo','Pechuga de pavo','Pescado','Lomo de res','Langostinos','Carne molida de bistec'] },
       { label:'Escoge 01 · Verduras', max:1, ops:['150–180 g de verduras a tu preferencia'] },
       { label:'Escoge 01 · Grasa', max:1, ops:['80 g de palta','2 porciones de frutos secos','8 aceitunas'] },
     ]},
 
-    { id:'c4', nombre:'🌿 Snack Tarde', kcal:270, p:16, c:43, g:4, grupos:[
+    { id:'c4', nombre:'🌿 Snack', kcal:270, p:16, c:43, g:4, grupos:[
       { label:'Escoge 02 · Carbohidrato', max:2, ops:['1 rapidita cero','1 rebanada de pan de molde integral','20 g de granola'] },
       { label:'Escoge 01 · Proteína láctea', max:1, ops:['200 g de yogurt Vakimú + Pro','60 g de queso mozzarella light'] },
       { label:'Escoge 01 · Fruta', max:1, ops:['1 porción de fruta (ver especificaciones)'] },
     ], nota:'Puedes reemplazar por: 1 chocolate de mantequilla de maní de La Purita + 1 plátano + 1 scoop de proteína con agua o leche de almendras.' },
 
     { id:'c5', nombre:'🌙 Cena', kcal:580, p:49, c:57, g:16, grupos:[
-      { label:'Escoge 03 · Carbohidrato', max:3, ops:['90 g de papa (cocida)','90 g de camote (cocido)','90 g de beterraga (cocida)','60 g de arroz (cocido)','50 g de pasta (cocida)'] },
-      { label:'Escoge 01 · Proteína (150 g, peso crudo)', max:1, ops:['Pechuga de pollo','Pechuga de pavo','Pescado','Lomo de res','Langostinos','Carne molida de bistec'] },
+      { label:'Escoge 04 · Carbohidrato', max:4, ops:['90 g de papa (cocida)','90 g de camote (cocido)','90 g de beterraga (cocida)','60 g de arroz (cocido)','50 g de pasta (cocida)'] },
+      { label:'Proteína (150 g, peso crudo)', max:1, ops:['Pechuga de pollo','Pechuga de pavo','Pescado','Lomo de res','Langostinos','Carne molida de bistec'] },
       { label:'Escoge 01 · Grasa', max:1, ops:['80 g de palta','2 porciones de frutos secos','8 aceitunas','2 cuadraditos de Hersheys sin azúcar (16 g)'] },
       { label:'Escoge 01 · Verduras', max:1, ops:['120–150 g de verduras a tu preferencia'] },
     ], nota:'Puedes escoger cualquier salsa baja en calorías de la lista.' },
 
-    { id:'pre', nombre:'⚡ Pre Entreno', kcal:300, p:23, c:45, g:3, grupos:[
+    { id:'pre', nombre:'⚡ Pre Entreno Fuerza', kcal:300, p:23, c:45, g:3, grupos:[
       { label:'Opción A', max:1, ops:['1 plátano + 1 cda de miel de abeja + ½ scoop de proteína'] },
       { label:'Opción B', max:1, ops:['100 g de quark o skyr'] },
     ], nota:'* Solo días de entrenamiento de fuerza. Sumar al total del día (+300 kcal ≈ 2 480 kcal).' },
@@ -617,12 +620,13 @@ function loadTrainValues() {
 }
 
 // ── Evolución Física ───────────────────────────────────────────────────────
-const ANTRO_KEY = () => `${PATIENT.slug}-antro-v1`;
+const ANTRO_KEY = () => `${PATIENT.slug}-antro-v2`;
 function getAntroBase() {
   const a = PATIENT.antro;
-  const s6 = +(a.tri+a.sub+a.supra+a.abd+a.pierna+a.pant).toFixed(1);
-  const s8 = +(s6+a.bi+a.cresta).toFixed(1);
-  return [{ fecha:a.fecha, peso:a.peso, tri:a.tri, bi:a.bi, sub:a.sub, cresta:a.cresta, supra:a.supra, abd:a.abd, pierna:a.pierna, pant:a.pant, brazRelaj:a.brazRelaj, brazFlex:a.brazFlex, abdom:a.abdom, cadera:a.cadera, muslo:a.muslo, pantPer:a.pantPer, s6, s8 }];
+  const s6 = a.s6 ?? +(a.tri+a.sub+a.supra+a.abd+a.pierna+a.pant).toFixed(1);
+  const s8 = a.s8 ?? +(s6+a.bi+a.cresta).toFixed(1);
+  const current = { fecha:a.fecha, peso:a.peso, tri:a.tri, bi:a.bi, sub:a.sub, cresta:a.cresta, supra:a.supra, abd:a.abd, pierna:a.pierna, pant:a.pant, brazRelaj:a.brazRelaj, brazFlex:a.brazFlex, abdom:a.abdom, cadera:a.cadera, muslo:a.muslo, pantPer:a.pantPer, s6, s8 };
+  return [...(PATIENT.antroHistorial || []), current];
 }
 function getAntroData() { try { const r=localStorage.getItem(ANTRO_KEY()); return r?JSON.parse(r):getAntroBase(); } catch { return getAntroBase(); } }
 function saveAntroData(d) { localStorage.setItem(ANTRO_KEY(), JSON.stringify(d)); }
@@ -646,8 +650,8 @@ function mkChart(id,labels,datasets) {
 
 function renderEval() {
   const a = PATIENT.antro;
-  const s6 = +(a.tri+a.sub+a.supra+a.abd+a.pierna+a.pant).toFixed(1);
-  const s8 = +(s6+a.bi+a.cresta).toFixed(1);
+  const s6 = a.s6 ?? +(a.tri+a.sub+a.supra+a.abd+a.pierna+a.pant).toFixed(1);
+  const s8 = a.s8 ?? +(s6+a.bi+a.cresta).toFixed(1);
   $('tab-eval').innerHTML = `<div class="wrap"><section>
     <div class="sec-h"><span class="ix">01</span><h2>Evaluación Nutricional</h2><div class="rule"></div></div>
     <div class="evalwrap">
@@ -677,6 +681,11 @@ function renderEval() {
         <div class="row"><span>Muslo medio</span><span>${a.muslo}</span></div>
         <div class="row"><span>Pantorrilla</span><span>${a.pantPer}</span></div>
       </div>
+      ${a.diam ? `<div class="evgroup"><div class="gh">Diámetros (cm)</div>
+        <div class="row"><span>Húmero</span><span>${a.diam.humero}</span></div>
+        <div class="row"><span>Bi-estiloides</span><span>${a.diam.biEstiloideo}</span></div>
+        <div class="row"><span>Fémur</span><span>${a.diam.femur}</span></div>
+      </div>` : ''}
     </div>
     <div class="sec-h" style="margin-top:32px"><span class="ix">02</span><h2>Objetivos</h2><div class="rule"></div></div>
     <div class="card" style="max-width:600px"><ul class="obj">${PATIENT.objetivos.map(o=>`<li>${o}</li>`).join('')}</ul></div>
