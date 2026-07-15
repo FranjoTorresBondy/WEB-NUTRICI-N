@@ -251,7 +251,12 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 .ffilter.on .fmini i{transform:translateX(16px);background:var(--green)}
 .flist{border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow)}
 .fcat{font-family:'IBM Plex Mono';font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);padding:12px 16px 6px;background:var(--panel2)}
-.fopt{display:flex;align-items:center;gap:13px;padding:12px 16px;border-top:1px solid var(--line);transition:background .15s}
+.fopt{display:flex;align-items:center;gap:13px;padding:12px 16px;border-top:1px solid var(--line);transition:background .15s;cursor:pointer}
+.fopt.sel{background:rgba(196,151,58,.09)}
+.fcheck{width:23px;height:23px;border-radius:7px;border:1.5px solid var(--line);flex-shrink:0;display:flex;align-items:center;justify-content:center;background:var(--bg);color:#000;transition:.15s}
+.fopt.sel .fcheck{background:var(--navy);border-color:var(--navy)}
+.fcheck svg{width:13px;height:13px;opacity:0;transition:opacity .15s}
+.fopt.sel .fcheck svg{opacity:1}
 .flist .fcat + .fopt,.flist .fopt:first-child{border-top:none}
 .fopt:hover{background:var(--bg2)}
 .fopt .fbody{flex:1;min-width:0}
@@ -263,7 +268,22 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 .fbadge{font-family:'IBM Plex Mono';font-size:9.5px;font-weight:700;letter-spacing:.06em;margin-top:4px;display:block}
 .fbadge.in{color:var(--green)}
 .fbadge.out{color:#e0a537}
+.fbadge.done{color:#7bd88f}
+.fbadge.sel{color:var(--navy)}
 .fempty{padding:26px 16px;text-align:center;color:var(--faint);font-size:12.5px;font-style:italic}
+.fcart{position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--panel);border-top:1px solid var(--line);box-shadow:0 -6px 24px rgba(0,0,0,.55);padding:13px 20px calc(13px + env(safe-area-inset-bottom))}
+.fcart .fcin{max-width:1180px;margin:0 auto;display:flex;align-items:center;gap:16px}
+.fcart .fcleft{flex:1;min-width:0}
+.fcart .fck{font-family:'Chakra Petch',sans-serif;font-weight:700;font-size:23px;color:#fff;line-height:1}
+.fcart .fck small{font-family:'Inter';font-size:12px;color:var(--muted);font-weight:500}
+.fcart .fcst{font-size:12px;margin-top:5px}
+.fcart .fcst.ok{color:var(--green)}
+.fcart .fcst.low{color:var(--faint)}
+.fcart .fcst.over{color:var(--coral)}
+.fclear{background:none;border:none;color:var(--coral);font-size:11.5px;cursor:pointer;font-family:'Inter';padding:0;text-decoration:underline}
+.fcart .fcdiff{text-align:right;flex-shrink:0}
+.fcart .fcdiff .fcn{font-family:'Chakra Petch',sans-serif;font-weight:700;font-size:27px;line-height:1;color:var(--navy)}
+.fcart .fcdiff .fcl{font-family:'IBM Plex Mono';font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-top:3px}
 </style>
 <link rel="stylesheet" href="paciente.css">
 </head>
@@ -1293,7 +1313,8 @@ function renderEvolChart() {
 
 // ── Comer Fuera ────────────────────────────────────────────────────────────
 const CATALOG_FUERA = (typeof GUIA_CATALOG !== 'undefined') ? GUIA_CATALOG : [];
-const fState = { mealId:null, cat:'Todas', soloEntran:true };
+const fState = { mealId:null, cat:'Todas', soloEntran:true, picks:new Set() };
+const F_TOL = 50;
 function fueraMeals(){ return PATIENT.comidas.filter(m => m.kcal != null); }
 function fMealById(id){ return PATIENT.comidas.find(m => m.id === id); }
 function fCategorias(){ return ['Todas', ...new Set(CATALOG_FUERA.map(o => o.cat))]; }
@@ -1305,6 +1326,14 @@ function renderFuera(){
   const meal = fMealById(fState.mealId) || {};
   const budget = meal.kcal || 500;
 
+  // ── selección actual ──
+  const sel = [...fState.picks].map(i => CATALOG_FUERA[i]).filter(Boolean);
+  const S = sel.reduce((a,o)=>a+o.kcal,0);
+  const P = sel.reduce((a,o)=>a+o.p,0);
+  const diff = budget - S;
+
+  const CK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+
   const mealsHtml = meals.map(m =>
     `<button class="fmeal ${m.id===fState.mealId?'active':''}" data-mid="${m.id}">
        <span class="fmn">${m.nombre}</span><span class="fmk">~${m.kcal} kcal</span>
@@ -1313,44 +1342,77 @@ function renderFuera(){
   const chipsHtml = fCategorias().map(c =>
     `<button class="fchip ${fState.cat===c?'active':''}" data-cat="${c}">${c}</button>`).join('');
 
-  let opts = CATALOG_FUERA.slice();
+  let opts = CATALOG_FUERA.map((o,i)=>({...o,_i:i}));
   if(fState.cat !== 'Todas') opts = opts.filter(o => o.cat === fState.cat);
-  if(fState.soloEntran)      opts = opts.filter(o => o.kcal <= budget);
+  if(fState.soloEntran)      opts = opts.filter(o => fState.picks.has(o._i) || (S + o.kcal <= budget + F_TOL));
   opts.sort((a,b) => a.kcal - b.kcal);
 
   let listHtml;
   if(!CATALOG_FUERA.length){
     listHtml = `<div class="fempty">No se pudo cargar el catálogo (guia-data.js).</div>`;
   } else if(!opts.length){
-    listHtml = `<div class="fempty">Nada en este filtro. Prueba otra categoría o desactiva “solo las que entran”.</div>`;
+    listHtml = `<div class="fempty">Nada más entra en lo que te queda. Quita algo o desactiva “solo las que entran”.</div>`;
   } else {
     let last = null;
     listHtml = opts.map(o => {
-      const entra = o.kcal <= budget;
+      const on = fState.picks.has(o._i);
+      const total = on ? S : S + o.kcal;   // total si estuviera elegido
+      let bcls, btxt;
+      if(on){ bcls='sel'; btxt='ELEGIDO'; }
+      else if(Math.abs(budget-total)<=F_TOL){ bcls='done'; btxt='COMPLETA ✓'; }
+      else if(total<=budget+F_TOL){ bcls='in'; btxt='ENTRA'; }
+      else { bcls='out'; btxt='SE PASA'; }
       const lbl = (fState.cat==='Todas' && o.cat!==last) ? `<div class="fcat">${o.cat}</div>` : '';
       last = o.cat;
-      return `${lbl}<div class="fopt">
+      return `${lbl}<div class="fopt ${on?'sel':''}" data-i="${o._i}">
+        <div class="fcheck">${CK}</div>
         <div class="fbody"><div class="fdish">${o.dish}</div><div class="fplace">${o.rest}${o.qty?' · '+o.qty:''}</div></div>
         <div class="fmac"><span class="k">${o.kcal} kcal</span> · <span class="p">${o.p}g P</span>
-          <span class="fbadge ${entra?'in':'out'}">${entra?'ENTRA':'SE PASA'}</span></div>
+          <span class="fbadge ${bcls}">${btxt}</span></div>
       </div>`;
     }).join('');
   }
 
+  // ── barra resumen (carrito) ──
+  let stCls='low', stTxt='Elige lo que vas a comer y ve sumando.';
+  if(S>0){
+    if(Math.abs(diff)<=F_TOL){ stCls='ok'; stTxt='En objetivo (±50 kcal). ¡Listo!'; }
+    else if(diff>F_TOL){ stCls='low'; stTxt=`Te faltan ${diff} kcal — complementa con algo de la lista.`; }
+    else { stCls='over'; stTxt=`Te pasaste ${-diff} kcal del presupuesto.`; }
+  }
+  const diffLabel = diff>0 ? 'te faltan' : diff<0 ? 'te pasas' : 'exacto';
+  const clearBtn = sel.length ? ` · <button class="fclear" id="fClear">limpiar (${sel.length})</button>` : '';
+  const cartHtml = `<div class="fcart"><div class="fcin">
+    <div class="fcleft">
+      <div class="fck">${S} <small>/ ${budget} kcal · ${P}g P</small></div>
+      <div class="fcst ${stCls}">${stTxt}${clearBtn}</div>
+    </div>
+    <div class="fcdiff"><div class="fcn">${Math.abs(diff)}</div><div class="fcl">${diffLabel} kcal</div></div>
+  </div></div>`;
+
   panel.innerHTML = `<div class="wrap"><section>
     <div class="sec-h"><span class="ix">01</span><h2>Comer fuera sin salirte del plan</h2><div class="rule"></div></div>
-    <div class="fuera-intro">¿Vas a comer fuera? Elige <b>en qué comida</b> y te muestro qué pedir según las kcal de ese tiempo. En <b>verde</b> lo que <b>entra</b> en tu presupuesto; en ámbar lo que se pasa. Datos de tu guía de restaurantes (${CATALOG_FUERA.length} opciones).</div>
+    <div class="fuera-intro">Elige <b>en qué comida</b> vas a comer fuera y <b>toca lo que vas a pedir</b>. Abajo ves cuántas kcal llevas vs. las que tienes para esa comida. Puedes <b>combinar varias</b> para llegar al objetivo (±50 kcal). Badge <b style="color:var(--navy)">COMPLETA ✓</b> = te deja justo. Datos de tu guía (${CATALOG_FUERA.length} opciones).</div>
     <div class="fmeals">${mealsHtml}</div>
     <div class="fbudget">Presupuesto de <b>${meal.nombre||''}</b>: <b>~${budget} kcal</b></div>
     <div class="fchips">${chipsHtml}</div>
-    <div class="ffilter ${fState.soloEntran?'on':''}" id="fFilterToggle"><div class="fmini"><i></i></div><span>Solo las que entran (≤ ${budget} kcal)</span></div>
+    <div class="ffilter ${fState.soloEntran?'on':''}" id="fFilterToggle"><div class="fmini"><i></i></div><span>Solo las que entran en lo que te queda</span></div>
     <div class="flist">${listHtml}</div>
-  </section></div>`;
+    <div style="height:104px"></div>
+  </section></div>
+  ${cartHtml}`;
 
-  panel.querySelectorAll('.fmeal').forEach(b => b.onclick = () => { fState.mealId = b.dataset.mid; renderFuera(); });
+  panel.querySelectorAll('.fmeal').forEach(b => b.onclick = () => { fState.mealId = b.dataset.mid; fState.picks.clear(); renderFuera(); });
   panel.querySelectorAll('.fchip').forEach(b => b.onclick = () => { fState.cat = b.dataset.cat; renderFuera(); });
+  panel.querySelectorAll('.fopt').forEach(el => el.onclick = () => {
+    const i = +el.dataset.i;
+    fState.picks.has(i) ? fState.picks.delete(i) : fState.picks.add(i);
+    renderFuera();
+  });
   const ft = panel.querySelector('#fFilterToggle');
   if(ft) ft.onclick = () => { fState.soloEntran = !fState.soloEntran; renderFuera(); };
+  const cb = panel.querySelector('#fClear');
+  if(cb) cb.onclick = (e) => { e.stopPropagation(); fState.picks.clear(); renderFuera(); };
 }
 
 function init() {
