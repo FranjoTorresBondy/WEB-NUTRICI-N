@@ -226,6 +226,44 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
   h1{font-size:clamp(32px,10vw,56px)}
   .tab{padding:12px 10px;font-size:11px}
 }
+/* ── COMER FUERA ── */
+.fuera-intro{font-size:13px;color:var(--muted);background:var(--panel2);border:1px dashed var(--line);border-radius:12px;padding:14px 16px;margin:6px 0 18px;line-height:1.6}
+.fuera-intro b{color:var(--ink)}
+.fmeals{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px}
+.fmeal{appearance:none;cursor:pointer;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:11px 15px;color:var(--muted);font-family:'Inter';text-align:left;transition:.2s;box-shadow:var(--shadow)}
+.fmeal:hover{border-color:var(--muted);color:var(--ink)}
+.fmeal.active{border-color:var(--navy);background:var(--panel2)}
+.fmeal .fmn{font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:15px;display:block;line-height:1.1}
+.fmeal .fmk{font-family:'IBM Plex Mono';font-size:11px;margin-top:5px;display:block;color:var(--faint)}
+.fmeal.active .fmn{color:var(--navy)}
+.fmeal.active .fmk{color:var(--navy)}
+.fbudget{font-size:13px;color:var(--muted);margin:2px 0 16px}
+.fbudget b{color:var(--navy)}
+.fchips{display:flex;gap:8px;overflow-x:auto;padding-bottom:12px;scrollbar-width:none}
+.fchips::-webkit-scrollbar{display:none}
+.fchip{appearance:none;cursor:pointer;white-space:nowrap;background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:6px 13px;font-size:12px;color:var(--muted);transition:.15s;flex-shrink:0}
+.fchip:hover{border-color:var(--muted);color:var(--ink)}
+.fchip.active{background:var(--navy);border-color:var(--navy);color:#000;font-weight:600}
+.ffilter{display:flex;align-items:center;gap:9px;font-size:12.5px;color:var(--muted);cursor:pointer;user-select:none;margin-bottom:10px}
+.ffilter .fmini{width:38px;height:22px;border-radius:99px;background:var(--bg);border:1px solid var(--line);position:relative;transition:.2s;flex-shrink:0}
+.ffilter .fmini i{position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:var(--faint);transition:.2s}
+.ffilter.on .fmini{background:rgba(165,214,167,.18);border-color:var(--green)}
+.ffilter.on .fmini i{transform:translateX(16px);background:var(--green)}
+.flist{border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow)}
+.fcat{font-family:'IBM Plex Mono';font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);padding:12px 16px 6px;background:var(--panel2)}
+.fopt{display:flex;align-items:center;gap:13px;padding:12px 16px;border-top:1px solid var(--line);transition:background .15s}
+.flist .fcat + .fopt,.flist .fopt:first-child{border-top:none}
+.fopt:hover{background:var(--bg2)}
+.fopt .fbody{flex:1;min-width:0}
+.fopt .fdish{font-weight:600;font-size:14px;color:var(--ink);line-height:1.25}
+.fopt .fplace{font-size:11px;color:var(--faint);margin-top:1px;text-transform:uppercase;letter-spacing:.05em}
+.fopt .fmac{text-align:right;flex-shrink:0;font-family:'IBM Plex Mono';font-size:11.5px;color:var(--muted);line-height:1.5}
+.fopt .fmac .k{color:var(--ink);font-weight:600}
+.fopt .fmac .p{color:var(--green)}
+.fbadge{font-family:'IBM Plex Mono';font-size:9.5px;font-weight:700;letter-spacing:.06em;margin-top:4px;display:block}
+.fbadge.in{color:var(--green)}
+.fbadge.out{color:#e0a537}
+.fempty{padding:26px 16px;text-align:center;color:var(--faint);font-size:12.5px;font-style:italic}
 </style>
 <link rel="stylesheet" href="paciente.css">
 </head>
@@ -246,6 +284,7 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
   <div class="foot-contact">franjo.torres.b@gmail.com &nbsp;·&nbsp; +51 992 832 991</div>
 </div></div></footer>
 
+<script src="guia-data.js"></script>
 <script>
 // ════════════════════════════════════════════════════════════════════════════
 //  DATOS DEL PACIENTE
@@ -728,6 +767,7 @@ function renderTabs() {
     {id:'plan',  label:'Plan Nutricional'},
     {id:'eval',  label:'Evaluación'},
     {id:'specs', label:'Especificaciones'},
+    {id:'fuera', label:'Comer Fuera'},
   ];
   if (PATIENT.entrenamiento) tabs.push({id:'train', label:'Entrenamiento'});
   tabs.push({id:'evol-antro', label:'Evolución Física'});
@@ -1251,6 +1291,68 @@ function renderEvolChart() {
     scales:{x:{grid:{color:'rgba(255,255,255,0.06)'},ticks:{color:'#666'}},y:{grid:{color:'rgba(255,255,255,0.06)'},ticks:{color:'#666'},title:{display:true,text:'kg',color:'#555'}}}}});
 }
 
+// ── Comer Fuera ────────────────────────────────────────────────────────────
+const CATALOG_FUERA = (typeof GUIA_CATALOG !== 'undefined') ? GUIA_CATALOG : [];
+const fState = { mealId:null, cat:'Todas', soloEntran:true };
+function fueraMeals(){ return PATIENT.comidas.filter(m => m.kcal != null); }
+function fMealById(id){ return PATIENT.comidas.find(m => m.id === id); }
+function fCategorias(){ return ['Todas', ...new Set(CATALOG_FUERA.map(o => o.cat))]; }
+
+function renderFuera(){
+  const panel = $('tab-fuera'); if(!panel) return;
+  const meals = fueraMeals();
+  if(!fState.mealId && meals.length) fState.mealId = meals[0].id;
+  const meal = fMealById(fState.mealId) || {};
+  const budget = meal.kcal || 500;
+
+  const mealsHtml = meals.map(m =>
+    `<button class="fmeal ${m.id===fState.mealId?'active':''}" data-mid="${m.id}">
+       <span class="fmn">${m.nombre}</span><span class="fmk">~${m.kcal} kcal</span>
+     </button>`).join('');
+
+  const chipsHtml = fCategorias().map(c =>
+    `<button class="fchip ${fState.cat===c?'active':''}" data-cat="${c}">${c}</button>`).join('');
+
+  let opts = CATALOG_FUERA.slice();
+  if(fState.cat !== 'Todas') opts = opts.filter(o => o.cat === fState.cat);
+  if(fState.soloEntran)      opts = opts.filter(o => o.kcal <= budget);
+  opts.sort((a,b) => a.kcal - b.kcal);
+
+  let listHtml;
+  if(!CATALOG_FUERA.length){
+    listHtml = `<div class="fempty">No se pudo cargar el catálogo (guia-data.js).</div>`;
+  } else if(!opts.length){
+    listHtml = `<div class="fempty">Nada en este filtro. Prueba otra categoría o desactiva “solo las que entran”.</div>`;
+  } else {
+    let last = null;
+    listHtml = opts.map(o => {
+      const entra = o.kcal <= budget;
+      const lbl = (fState.cat==='Todas' && o.cat!==last) ? `<div class="fcat">${o.cat}</div>` : '';
+      last = o.cat;
+      return `${lbl}<div class="fopt">
+        <div class="fbody"><div class="fdish">${o.dish}</div><div class="fplace">${o.rest}${o.qty?' · '+o.qty:''}</div></div>
+        <div class="fmac"><span class="k">${o.kcal} kcal</span> · <span class="p">${o.p}g P</span>
+          <span class="fbadge ${entra?'in':'out'}">${entra?'ENTRA':'SE PASA'}</span></div>
+      </div>`;
+    }).join('');
+  }
+
+  panel.innerHTML = `<div class="wrap"><section>
+    <div class="sec-h"><span class="ix">01</span><h2>Comer fuera sin salirte del plan</h2><div class="rule"></div></div>
+    <div class="fuera-intro">¿Vas a comer fuera? Elige <b>en qué comida</b> y te muestro qué pedir según las kcal de ese tiempo. En <b>verde</b> lo que <b>entra</b> en tu presupuesto; en ámbar lo que se pasa. Datos de tu guía de restaurantes (${CATALOG_FUERA.length} opciones).</div>
+    <div class="fmeals">${mealsHtml}</div>
+    <div class="fbudget">Presupuesto de <b>${meal.nombre||''}</b>: <b>~${budget} kcal</b></div>
+    <div class="fchips">${chipsHtml}</div>
+    <div class="ffilter ${fState.soloEntran?'on':''}" id="fFilterToggle"><div class="fmini"><i></i></div><span>Solo las que entran (≤ ${budget} kcal)</span></div>
+    <div class="flist">${listHtml}</div>
+  </section></div>`;
+
+  panel.querySelectorAll('.fmeal').forEach(b => b.onclick = () => { fState.mealId = b.dataset.mid; renderFuera(); });
+  panel.querySelectorAll('.fchip').forEach(b => b.onclick = () => { fState.cat = b.dataset.cat; renderFuera(); });
+  const ft = panel.querySelector('#fFilterToggle');
+  if(ft) ft.onclick = () => { fState.soloEntran = !fState.soloEntran; renderFuera(); };
+}
+
 function init() {
   renderHero();
   renderTabs();
@@ -1258,6 +1360,7 @@ function init() {
   renderEval();
   renderSpecs();
   renderTrain();
+  renderFuera();
 }
 
 // ── Utils ──────────────────────────────────────────────────────────────────
