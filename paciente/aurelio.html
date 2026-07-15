@@ -470,8 +470,8 @@ const PATIENT = {
     ],
     sesiones: [
 
-      // ── EMPUJE A — Fuerza ─────────────────────────────────────────────────────
-      { id:'s1a', icon:'💪', label:'Empuje A', nota:'Fuerza · Pecho · Hombros · Tríceps', ejercicios:[
+      // ── SESIÓN 1 — EMPUJE ─────────────────────────────────────────────────────
+      { id:'s1', icon:'💪', label:'Sesión 1 — Empuje', nota:'Pecho · Tríceps · Hombros', ejercicios:[
         { nombre:'Elevación lateral de polea baja', img:'local',
           s1:'img/elevaciones-laterales-polea.jpg', s2:'img/elevaciones-laterales-polea.jpg',
           reps:'8–10', descanso:'2:00',
@@ -492,10 +492,6 @@ const PATIENT = {
           reps:'8–10', descanso:'2:30',
           nota:'Mantener húmero a 45° del torso aproximadamente.',
           prog:[[2,1],[2,1],[2,1],[2,1]] },
-      ]},
-
-      // ── EMPUJE B — Volumen ────────────────────────────────────────────────────
-      { id:'s1b', icon:'💪', label:'Empuje B', nota:'Volumen · Tríceps · Pecho', ejercicios:[
         { nombre:'Overhead tricep extension (barra V, polea alta)', img:'anim',
           s1:'Cable_Rope_Overhead_Triceps_Extension/0.jpg', s2:'Cable_Rope_Overhead_Triceps_Extension/1.jpg',
           reps:'10 + 60" hold', descanso:'2:30',
@@ -513,8 +509,8 @@ const PATIENT = {
           prog:[[3,0],[3,0],[3,0],[3,0]] },
       ]},
 
-      // ── JALÓN A — Espalda + Fisio Fuerza ─────────────────────────────────────
-      { id:'s2a', icon:'🏄', label:'Jalón A', nota:'Espalda · Fisio Fuerza · Tendón Braquial', ejercicios:[
+      // ── JALÓN — Espalda + Fisio Día 1 (Calentamiento · Fuerza) ───────────────
+      { id:'s2', icon:'🏄', label:'Jalón', nota:'Espalda · Fisio Día 1 · Tendón Braquial', ejercicios:[
         { nombre:'Barras con lastre con agarre prono', img:'anim',
           s1:'Pullups/0.jpg', s2:'Pullups/1.jpg',
           reps:'10 + 10" hold', descanso:'3:00',
@@ -564,90 +560,10 @@ const PATIENT = {
           s1:'Palms-Up_Barbell_Wrist_Curl_Over_A_Bench/0.jpg', s2:'Palms-Up_Barbell_Wrist_Curl_Over_A_Bench/1.jpg',
           reps:'8–10', descanso:'1:30',
           prog:[[4,0],[4,0],[4,0],[4,0]] },
-        { nombre:'Curl alterno con supinación', img:'anim',
-          s1:'Dumbbell_Alternate_Bicep_Curl/0.jpg', s2:'Dumbbell_Alternate_Bicep_Curl/1.jpg',
-          reps:'12', descanso:'1:30',
-          nota:'HIPERTROFIA',
-          prog:[[3,0],[3,0],[3,0],[3,0]] },
       ]},
 
-      // ── JALÓN B — Fisio Volumen ───────────────────────────────────────────────
-      { id:'s2b', icon:'🏄', label:'Jalón B', nota:'Fisio Hipertrofia · Isométricos · Estabilidad', ejercicios:[
-        // ── PROTOCOLO FISIO · Calentamiento ──────────────────────────────────
-        { nombre:'Círculos de hombros', img:'local', s1:'img/circulos-de-hombros.jpg', s2:'img/circulos-de-hombros.jpg',
-          reps:'15', descanso:'—',
-          nota:'CALENTAMIENTO · Movimiento controlado, sin dolor.',
-          prog:[[2,0],[2,0],[2,0],[2,0]] },
-        { nombre:'Flexo-extensión de codos sin peso', img:'none', icon:'🔥',
-          reps:'20', descanso:'—',
-          prog:[[2,0],[2,0],[2,0],[2,0]] },
-        { nombre:'Rotaciones de antebrazo (pronación/supinación)', img:'anim',
-          s1:'Dumbbell_Lying_Pronation/0.jpg', s2:'Dumbbell_Lying_Pronation/1.jpg',
-          reps:'15', descanso:'—',
-          prog:[[2,0],[2,0],[2,0],[2,0]] },
-        { nombre:'Plancha sobre BOSU', img:'local', s1:'img/planchas-sobre-bozu.jpg', s2:'img/planchas-sobre-bozu.jpg',
-          reps:'30 seg', descanso:'1:00',
-          prog:[[2,0],[2,0],[2,0],[2,0]] },
-        // ── PROTOCOLO FISIO · Hipertrofia ────────────────────────────────────
-        { nombre:'Patada de tríceps (Kickback)', img:'local',
-          s1:'img/tricep-kickback.avif', s2:'img/tricep-kickback.avif',
-          reps:'15', descanso:'1:30',
-          nota:'HIPERTROFIA',
-          prog:[[3,0],[3,0],[3,0],[3,0]] },
-        { nombre:'Curl concentrado', img:'anim',
-          s1:'Concentration_Curls/0.jpg', s2:'Concentration_Curls/1.jpg',
-          reps:'10 por brazo', descanso:'1:30',
-          prog:[[3,0],[3,0],[3,0],[3,0]] },
-        { nombre:'Curl inverso con barra (Reverse Curl)', img:'anim',
-          s1:'Reverse_Barbell_Curl/0.jpg', s2:'Reverse_Barbell_Curl/1.jpg',
-          reps:'12–15', descanso:'1:30',
-          prog:[[3,0],[3,0],[3,0],[3,0]] },
-        // ── PROTOCOLO FISIO · Isométricos ────────────────────────────────────
-        { nombre:'Curl isométrico a 90°', img:'local', s1:'img/curl-bicep-isometrico.jpg', s2:'img/curl-bicep-isometrico.jpg',
-          reps:'30 seg', descanso:'1:00',
-          nota:'ISOMÉTRICOS · Mantener la mancuerna a 90°. Sin movimiento.',
-          prog:[[3,0],[3,0],[3,0],[3,0]] },
-        { nombre:'Extensión isométrica de tríceps', img:'none', icon:'🧘',
-          reps:'30 seg', descanso:'1:00',
-          nota:'Mantener brazo casi extendido. Sin movimiento.',
-          prog:[[3,0],[3,0],[3,0],[3,0]] },
-        { nombre:'Farmer Hold con barra hexagonal (toallas en agarre)', img:'local',
-          s1:'img/farmer-holds-toalla.jpg', s2:'img/farmer-holds-toalla.jpg',
-          reps:'40 seg', descanso:'1:00',
-          nota:'Solo sostener el peso. Enrollar toallas en los agarres.',
-          prog:[[3,0],[3,0],[3,0],[3,0]] },
-        // ── PROTOCOLO FISIO · Estabilidad ────────────────────────────────────
-        { nombre:'Farmer Carry con barra hexagonal', img:'local',
-          s1:'img/farmer-carry.jpg', s2:'img/farmer-carry.jpg',
-          reps:'3 recorridos · 20–30 m', descanso:'2:00',
-          nota:'ESTABILIDAD',
-          prog:[[3,0],[3,0],[3,0],[3,0]] },
-        { nombre:'Plancha con manos sobre BOSU', img:'local', s1:'img/planchas-sobre-bozu.jpg', s2:'img/planchas-sobre-bozu.jpg',
-          reps:'30–45 seg', descanso:'1:00',
-          prog:[[3,0],[3,0],[3,0],[3,0]] },
-        { nombre:'Pronosupinación con mancuerna', img:'anim',
-          s1:'Dumbbell_Lying_Pronation/0.jpg', s2:'Dumbbell_Lying_Pronation/1.jpg',
-          reps:'10–12 por lado', descanso:'1:00',
-          nota:'Antebrazo · Sujetar mancuerna por un extremo, codo a 90°. Girar lentamente de pronación a supinación.',
-          prog:[[3,0],[3,0],[3,0],[3,0]] },
-        // ── PROTOCOLO FISIO · Remate ──────────────────────────────────────────
-        { nombre:'Curl martillo', img:'anim',
-          s1:'Hammer_Curls/0.jpg', s2:'Hammer_Curls/1.jpg',
-          reps:'12', descanso:'—',
-          nota:'REMATE · 3 rondas sin descanso entre ejercicios.',
-          prog:[[3,0],[3,0],[3,0],[3,0]] },
-        { nombre:'Extensión de tríceps', img:'anim',
-          s1:'Tricep_Dumbbell_Kickback/0.jpg', s2:'Tricep_Dumbbell_Kickback/1.jpg',
-          reps:'12', descanso:'—',
-          prog:[[3,0],[3,0],[3,0],[3,0]] },
-        { nombre:'Flexiones', img:'anim',
-          s1:'Pushups/0.jpg', s2:'Pushups/1.jpg',
-          reps:'10', descanso:'2:00',
-          prog:[[3,0],[3,0],[3,0],[3,0]] },
-      ]},
-
-      // ── PIERNA A — Fuerza ─────────────────────────────────────────────────────
-      { id:'s3a', icon:'🦵', label:'Pierna A', nota:'Fuerza · Pantorrilla · Hombros · Isquios · Quads', ejercicios:[
+      // ── SESIÓN 3 — PIERNA ─────────────────────────────────────────────────────
+      { id:'s3', icon:'🦵', label:'Sesión 3 — Pierna', nota:'Cuádriceps · Isquios · Pantorrilla · Deltoides', ejercicios:[
         { nombre:'Elevación de talón sentado en máquina', img:'anim',
           s1:'Seated_Calf_Raise/0.jpg', s2:'Seated_Calf_Raise/1.jpg',
           reps:'8–10', descanso:'2:00',
@@ -667,10 +583,6 @@ const PATIENT = {
           reps:'8–10', descanso:'2:30',
           nota:'Full rango. 1 seg en estiramiento y 1 seg en contracción.',
           prog:[[3,1],[3,1],[3,1],[3,1]] },
-      ]},
-
-      // ── PIERNA B — Volumen ────────────────────────────────────────────────────
-      { id:'s3b', icon:'🦵', label:'Pierna B', nota:'Volumen · Sentadilla · Búlgaras · Aducción · Deltoides', ejercicios:[
         { nombre:'Sentadilla libre desde rack medio', img:'anim',
           s1:'Barbell_Squat/0.jpg', s2:'Barbell_Squat/1.jpg',
           reps:'5–7', descanso:'3:30',
@@ -693,8 +605,8 @@ const PATIENT = {
           prog:[[4,'F'],[4,'F'],[4,'F'],[4,'F']] },
       ]},
 
-      // ── CORE + BRAZO A — Fuerza ───────────────────────────────────────────────
-      { id:'s4a', icon:'🧠', label:'Core + Brazo A', nota:'Core · Cuello · Calentamiento Fisio · Fuerza', ejercicios:[
+      // ── SESIÓN 4 — CORE + BRAZO — Fisio Día 2 (Hipertrofia · Isométricos · Estabilidad · Remate) ──
+      { id:'s4', icon:'🧠', label:'Sesión 4 — Core + Brazo', nota:'Core · Cuello · Fisio Día 2 · Tendón Braquial', ejercicios:[
         { nombre:'Ab crunches en banco declinado con peso', img:'anim',
           s1:'Decline_Crunch/0.jpg', s2:'Decline_Crunch/1.jpg',
           reps:'8–10', descanso:'2:00',
@@ -718,39 +630,6 @@ const PATIENT = {
           s1:'Lying_Face_Down_Plate_Neck_Resistance/0.jpg', s2:'Lying_Face_Down_Plate_Neck_Resistance/1.jpg',
           reps:'15', descanso:'1:30',
           prog:[[2,0],[2,0],[2,0],[2,0]] },
-        // ── PROTOCOLO FISIO · Calentamiento ──────────────────────────────────
-        { nombre:'Círculos de hombros', img:'local', s1:'img/circulos-de-hombros.jpg', s2:'img/circulos-de-hombros.jpg',
-          reps:'15', descanso:'—',
-          nota:'CALENTAMIENTO · Movimiento controlado, sin dolor.',
-          prog:[[2,0],[2,0],[2,0],[2,0]] },
-        { nombre:'Flexo-extensión de codos sin peso', img:'none', icon:'🔥',
-          reps:'20', descanso:'—',
-          prog:[[2,0],[2,0],[2,0],[2,0]] },
-        { nombre:'Rotaciones de antebrazo (pronación/supinación)', img:'anim',
-          s1:'Dumbbell_Lying_Pronation/0.jpg', s2:'Dumbbell_Lying_Pronation/1.jpg',
-          reps:'15', descanso:'—',
-          prog:[[2,0],[2,0],[2,0],[2,0]] },
-        { nombre:'Plancha sobre BOSU', img:'local', s1:'img/planchas-sobre-bozu.jpg', s2:'img/planchas-sobre-bozu.jpg',
-          reps:'30 seg', descanso:'1:00',
-          prog:[[2,0],[2,0],[2,0],[2,0]] },
-        // ── PROTOCOLO FISIO · Fuerza ─────────────────────────────────────────
-        { nombre:'Curl de bíceps con barra', img:'anim',
-          s1:'Barbell_Curl/0.jpg', s2:'Barbell_Curl/1.jpg',
-          reps:'8–10', descanso:'1:30',
-          nota:'FUERZA',
-          prog:[[4,1],[4,1],[4,1],[4,1]] },
-        { nombre:'Press cerrado con barra (énfasis tríceps)', img:'anim',
-          s1:'Close-Grip_Barbell_Bench_Press/0.jpg', s2:'Close-Grip_Barbell_Bench_Press/1.jpg',
-          reps:'8–10', descanso:'2:00',
-          prog:[[4,1],[4,1],[4,1],[4,1]] },
-        { nombre:'Curl de muñeca con barra (Wrist Curl)', img:'anim',
-          s1:'Palms-Up_Barbell_Wrist_Curl_Over_A_Bench/0.jpg', s2:'Palms-Up_Barbell_Wrist_Curl_Over_A_Bench/1.jpg',
-          reps:'8–10', descanso:'1:30',
-          prog:[[4,0],[4,0],[4,0],[4,0]] },
-      ]},
-
-      // ── CORE + BRAZO B — Volumen ──────────────────────────────────────────────
-      { id:'s4b', icon:'🧠', label:'Core + Brazo B', nota:'Hipertrofia · Isométricos · Estabilidad · Remate', ejercicios:[
         // ── PROTOCOLO FISIO · Calentamiento ──────────────────────────────────
         { nombre:'Círculos de hombros', img:'local', s1:'img/circulos-de-hombros.jpg', s2:'img/circulos-de-hombros.jpg',
           reps:'15', descanso:'—',
@@ -1072,7 +951,7 @@ function renderTrain() {
   $('tab-train').innerHTML = `<div class="wrap">
     <section style="padding-top:24px">
       <div class="sec-h"><span class="ix">01</span><h2>Mesociclo · 4 Semanas</h2><div class="rule"></div></div>
-      <p class="train-intro">Mesociclo DMS de 4 semanas: 8 sesiones semanales (Empuje A/B, Jalón A/B, Pierna A/B, Core+Brazo A/B). Cada sesión es la mitad del volumen — entrena cada grupo muscular dos veces por semana. Jalón y Core+Brazo incluyen <b>protocolo de rehabilitación del tendón braquial</b> indicado por el fisioterapeuta. <b>Anota el peso de cada serie</b> — se guarda automáticamente.</p>
+      <p class="train-intro">Mesociclo DMS de 4 semanas: 4 sesiones semanales (Empuje, Jalón, Pierna, Core+Brazo). El <b>protocolo de rehabilitación del tendón braquial</b> se divide en dos días: Jalón incluye Calentamiento + Fuerza, y Core+Brazo incluye Hipertrofia + Isométricos + Estabilidad + Remate. <b>Anota el peso de cada serie</b> — se guarda automáticamente.</p>
       <div class="weeksel" id="weeksel"></div>
     </section>
     <section style="padding-top:6px">
