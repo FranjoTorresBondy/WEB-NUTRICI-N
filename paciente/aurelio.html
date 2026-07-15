@@ -472,8 +472,8 @@ const PATIENT = {
 
       // ── SESIÓN 1 — EMPUJE ─────────────────────────────────────────────────────
       { id:'s1', icon:'💪', label:'Sesión 1 — Empuje', nota:'Pecho · Tríceps · Hombros', ejercicios:[
-        { nombre:'Elevación lateral de polea baja', img:'anim',
-          s1:'Cable_Seated_Lateral_Raise/0.jpg', s2:'Cable_Seated_Lateral_Raise/1.jpg',
+        { nombre:'Elevación lateral de polea baja', img:'local',
+          s1:'img/elevaciones-laterales-polea.jpg', s2:'img/elevaciones-laterales-polea.jpg',
           reps:'8–10', descanso:'2:00',
           nota:'Pensar en llevar la mano lo más distal posible del cuerpo, generando el movimiento desde el deltoides medio.',
           prog:[[3,'F'],[3,'F'],[3,'F'],[3,'F']] },
@@ -1069,6 +1069,12 @@ function buildThumb(ex) {
     return `<div class="thumb" style="position:relative">
       <img src="${BASE_IMG}${ex.s1}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .3s" onmouseover="this.style.opacity=0;this.nextElementSibling.style.opacity=1" onmouseout="this.style.opacity=1;this.nextElementSibling.style.opacity=0" loading="lazy">
       <img src="${BASE_IMG}${ex.s2}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .3s" loading="lazy">
+    </div>`;
+  }
+  if (ex.img === 'local') {
+    return `<div class="thumb" style="position:relative">
+      <img src="${ex.s1}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .3s" onmouseover="this.style.opacity=0;this.nextElementSibling.style.opacity=1" onmouseout="this.style.opacity=1;this.nextElementSibling.style.opacity=0" loading="lazy">
+      <img src="${ex.s2||ex.s1}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .3s" loading="lazy">
     </div>`;
   }
   if (ex.img === 'none') {
