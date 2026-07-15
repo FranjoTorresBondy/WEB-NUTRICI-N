@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Logo Preview — FTB Sports Nutrition</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Chakra+Petch:wght@400;600&display=swap" rel="stylesheet"/>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{
+      background:#0a0a0a;
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      gap:70px;
+      padding:60px 40px;
+    }
+    .label{color:#444;font-size:10px;letter-spacing:3px;text-transform:uppercase;margin-bottom:24px;text-align:center;font-family:sans-serif}
+    hr.sep{width:100%;max-width:900px;border:none;border-top:1px solid #1c1c1c}
+    .logo{display:flex;align-items:center;gap:36px}
+    .logo-text{display:flex;flex-direction:column}
+    .logo-name{
+      font-family:'Cormorant Garamond',Georgia,serif;
+      font-weight:300;color:#F0F0F0;line-height:.92;
+      display:flex;flex-direction:column;
+    }
+    .logo-name span{display:block}
+    .logo-divider{height:1px;background:rgba(255,255,255,0.14);margin:10px 0 8px}
+    .logo-sub{
+      font-family:'Chakra Petch',sans-serif;
+      font-weight:600;text-transform:uppercase;color:#777;letter-spacing:4px;
+    }
+    .on-white{background:#fff;padding:44px 56px;border-radius:4px}
+    .on-white .logo-name{color:#111}
+    .on-white .logo-divider{background:rgba(0,0,0,0.15)}
+    .on-white .logo-sub{color:#555}
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════
+     BRAIN SVG — gyri anidadas en C (patrón correcto)
+     ViewBox 0 0 340 220 | centro en x=130
+     ════════════════════════════════════════════ -->
+
+  <!-- ══ GRANDE ══ -->
+  <div>
+    <p class="label">Versión grande — fondo oscuro</p>
+    <div class="logo">
+      <svg width="190" height="auto" viewBox="0 0 340 220" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+
+        <!-- ═══ HEMISFERIO IZQUIERDO: gyri anidadas en C ═══ -->
+        <!-- Contorno exterior (el más grueso, define la silueta) -->
+        <path stroke-width="7" d="
+          M 130,12
+          C 112,10 92,15 74,26
+          C 54,38 38,58 28,82
+          C 18,106 18,130 28,154
+          C 40,178 60,196 84,206
+          C 100,213 115,216 130,215
+        "/>
+
+        <!-- Gyrus 1 — primera vuelta hacia adentro -->
+        <path stroke-width="5.5" d="
+          M 130,30
+          C 116,28 98,32 82,42
+          C 64,54 50,74 44,96
+          C 38,118 40,140 50,162
+          C 60,182 76,194 96,201
+          C 110,206 120,208 130,207
+        "/>
+
+        <!-- Gyrus 2 -->
+        <path stroke-width="5.5" d="
+          M 130,50
+          C 118,48 102,52 88,62
+          C 72,74 60,94 56,116
+          C 52,138 56,160 66,178
+          C 76,194 92,202 110,206
+          C 118,208 124,209 130,208
+        "/>
+
+        <!-- Gyrus 3 -->
+        <path stroke-width="5" d="
+          M 130,70
+          C 120,68 106,72 94,82
+          C 80,94 70,114 68,136
+          C 66,158 72,178 84,192
+          C 94,204 108,210 122,212
+          C 126,213 128,213 130,213
+        "/>
+
+        <!-- Gyrus 4 -->
+        <path stroke-width="5" d="
+          M 130,92
+          C 122,90 110,94 100,104
+          C 88,116 82,134 82,154
+          C 82,172 90,188 102,198
+          C 112,207 122,211 130,211
+        "/>
+
+        <!-- Gyrus 5 — la más interior -->
+        <path stroke-width="4.5" d="
+          M 130,114
+          C 124,112 114,116 106,126
+          C 96,138 92,156 96,174
+          C 100,188 110,198 122,204
+          C 126,206 128,207 130,207
+        "/>
+
+        <!-- ═══ LÍNEA DIVISORIA CENTRAL ═══ -->
+        <line x1="130" y1="12" x2="130" y2="215" stroke-width="1.5" stroke-opacity=".2"/>
+
+        <!-- ═══ HEMISFERIO DERECHO: circuito ═══ -->
+        <!-- Columna vertebral -->
+        <line stroke-width="6" x1="130" y1="12" x2="130" y2="215"/>
+
+        <!-- Rama 1 -->
+        <polyline stroke-width="6" points="130,30 158,30 158,16"/>
+        <!-- Rama 2 -->
+        <polyline stroke-width="6" points="130,50 150,50 150,36"/>
+        <line stroke-width="6" x1="150" y1="50" x2="180" y2="50"/>
+        <!-- Rama 3 -->
+        <polyline stroke-width="6" points="130,72 164,72 164,58 198,58"/>
+        <polyline stroke-width="6" points="164,72 164,86 210,86"/>
+        <!-- Rama 4 — larga central -->
+        <line stroke-width="6" x1="130" y1="104" x2="214" y2="104"/>
+        <!-- Rama 5 -->
+        <polyline stroke-width="6" points="130,122 160,122 160,110 194,110"/>
+        <polyline stroke-width="6" points="160,122 160,134 202,134"/>
+        <!-- Rama 6 -->
+        <polyline stroke-width="6" points="130,148 158,148 158,136 186,136"/>
+        <line stroke-width="6" x1="158" y1="148" x2="190" y2="148"/>
+        <!-- Rama 7 -->
+        <polyline stroke-width="6" points="130,168 156,168 156,180 174,180"/>
+        <line stroke-width="6" x1="156" y1="168" x2="182" y2="168"/>
+        <!-- Rama 8 bottom -->
+        <polyline stroke-width="6" points="130,190 150,190 150,202 166,202"/>
+        <line stroke-width="6" x1="130" y1="208" x2="150" y2="208"/>
+
+        <!-- ═══ NODOS ═══ -->
+        <circle cx="158" cy="16"  r="8.5" fill="#fff" stroke="none"/>
+        <circle cx="150" cy="36"  r="8.5" fill="#fff" stroke="none"/>
+        <circle cx="180" cy="50"  r="8.5" fill="#fff" stroke="none"/>
+        <circle cx="198" cy="58"  r="8.5" fill="#fff" stroke="none"/>
+        <circle cx="210" cy="86"  r="8.5" fill="#fff" stroke="none"/>
+        <circle cx="214" cy="104" r="8.5" fill="#fff" stroke="none"/>
+        <circle cx="194" cy="110" r="8.5" fill="#fff" stroke="none"/>
+        <circle cx="202" cy="134" r="8.5" fill="#fff" stroke="none"/>
+        <circle cx="186" cy="136" r="8.5" fill="#fff" stroke="none"/>
+        <circle cx="190" cy="148" r="8.5" fill="#fff" stroke="none"/>
+        <circle cx="174" cy="180" r="8.5" fill="#fff" stroke="none"/>
+        <circle cx="182" cy="168" r="8.5" fill="#fff" stroke="none"/>
+        <circle cx="166" cy="202" r="8.5" fill="#fff" stroke="none"/>
+        <circle cx="150" cy="208" r="8.5" fill="#fff" stroke="none"/>
+
+      </svg>
+
+      <div class="logo-text">
+        <div class="logo-name" style="font-size:56px">
+          <span>Franjo</span>
+          <span>Torres</span>
+          <span>Bondy</span>
+        </div>
+        <div class="logo-divider"></div>
+        <div class="logo-sub" style="font-size:13px">Sports Nutrition</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="sep"/>
+
+  <!-- ══ MEDIANO ══ -->
+  <div>
+    <p class="label">Tamaño mediano</p>
+    <div class="logo">
+      <svg width="110" viewBox="0 0 340 220" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-width="7" d="M130,12 C112,10 92,15 74,26 C54,38 38,58 28,82 C18,106 18,130 28,154 C40,178 60,196 84,206 C100,213 115,216 130,215"/>
+        <path stroke-width="5.5" d="M130,30 C116,28 98,32 82,42 C64,54 50,74 44,96 C38,118 40,140 50,162 C60,182 76,194 96,201 C110,206 120,208 130,207"/>
+        <path stroke-width="5.5" d="M130,50 C118,48 102,52 88,62 C72,74 60,94 56,116 C52,138 56,160 66,178 C76,194 92,202 110,206 C118,208 124,209 130,208"/>
+        <path stroke-width="5" d="M130,70 C120,68 106,72 94,82 C80,94 70,114 68,136 C66,158 72,178 84,192 C94,204 108,210 122,212 C126,213 128,213 130,213"/>
+        <path stroke-width="5" d="M130,92 C122,90 110,94 100,104 C88,116 82,134 82,154 C82,172 90,188 102,198 C112,207 122,211 130,211"/>
+        <path stroke-width="4.5" d="M130,114 C124,112 114,116 106,126 C96,138 92,156 96,174 C100,188 110,198 122,204 C126,206 128,207 130,207"/>
+        <line x1="130" y1="12" x2="130" y2="215" stroke-width="1.5" stroke-opacity=".2"/>
+        <line stroke-width="6" x1="130" y1="12" x2="130" y2="215"/>
+        <polyline stroke-width="6" points="130,30 158,30 158,16"/>
+        <polyline stroke-width="6" points="130,50 150,50 150,36"/>
+        <line stroke-width="6" x1="150" y1="50" x2="180" y2="50"/>
+        <polyline stroke-width="6" points="130,72 164,72 164,58 198,58"/>
+        <polyline stroke-width="6" points="164,72 164,86 210,86"/>
+        <line stroke-width="6" x1="130" y1="104" x2="214" y2="104"/>
+        <polyline stroke-width="6" points="130,122 160,122 160,110 194,110"/>
+        <polyline stroke-width="6" points="160,122 160,134 202,134"/>
+        <polyline stroke-width="6" points="130,148 158,148 158,136 186,136"/>
+        <line stroke-width="6" x1="158" y1="148" x2="190" y2="148"/>
+        <polyline stroke-width="6" points="130,168 156,168 156,180 174,180"/>
+        <line stroke-width="6" x1="156" y1="168" x2="182" y2="168"/>
+        <polyline stroke-width="6" points="130,190 150,190 150,202 166,202"/>
+        <line stroke-width="6" x1="130" y1="208" x2="150" y2="208"/>
+        <circle cx="158" cy="16"  r="8.5" fill="#fff" stroke="none"/>
+        <circle cx="150" cy="36"  r="8.5" fill="#fff" stroke="none"/>
+        <circle cx="180" cy="50"  r="8.5" fill="#fff" stroke="none"/>
+        <circle cx="198" cy="58"  r="8.5" fill="#fff" stroke="none"/>
+        <circle cx="210" cy="86"  r="8.5" fill="#fff" stroke="none"/>
+        <circle cx="214" cy="104" r="8.5" fill="#fff" stroke="none"/>
+        <circle cx="194" cy="110" r="8.5" fill="#fff" stroke="none"/>
+        <circle cx="202" cy="134" r="8.5" fill="#fff" stroke="none"/>
+        <circle cx="186" cy="136" r="8.5" fill="#fff" stroke="none"/>
+        <circle cx="190" cy="148" r="8.5" fill="#fff" stroke="none"/>
+        <circle cx="174" cy="180" r="8.5" fill="#fff" stroke="none"/>
+        <circle cx="182" cy="168" r="8.5" fill="#fff" stroke="none"/>
+        <circle cx="166" cy="202" r="8.5" fill="#fff" stroke="none"/>
+        <circle cx="150" cy="208" r="8.5" fill="#fff" stroke="none"/>
+      </svg>
+      <div class="logo-text">
+        <div class="logo-name" style="font-size:32px">
+          <span>Franjo</span>
+          <span>Torres</span>
+          <span>Bondy</span>
+        </div>
+        <div class="logo-divider"></div>
+        <div class="logo-sub" style="font-size:8px">Sports Nutrition</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="sep"/>
+
+  <!-- ══ FONDO BLANCO ══ -->
+  <div>
+    <p class="label">Sobre fondo blanco</p>
+    <div class="on-white">
+      <div class="logo">
+        <svg width="150" viewBox="0 0 340 220" fill="none" stroke="#111" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-width="7" d="M130,12 C112,10 92,15 74,26 C54,38 38,58 28,82 C18,106 18,130 28,154 C40,178 60,196 84,206 C100,213 115,216 130,215"/>
+          <path stroke-width="5.5" d="M130,30 C116,28 98,32 82,42 C64,54 50,74 44,96 C38,118 40,140 50,162 C60,182 76,194 96,201 C110,206 120,208 130,207"/>
+          <path stroke-width="5.5" d="M130,50 C118,48 102,52 88,62 C72,74 60,94 56,116 C52,138 56,160 66,178 C76,194 92,202 110,206 C118,208 124,209 130,208"/>
+          <path stroke-width="5" d="M130,70 C120,68 106,72 94,82 C80,94 70,114 68,136 C66,158 72,178 84,192 C94,204 108,210 122,212 C126,213 128,213 130,213"/>
+          <path stroke-width="5" d="M130,92 C122,90 110,94 100,104 C88,116 82,134 82,154 C82,172 90,188 102,198 C112,207 122,211 130,211"/>
+          <path stroke-width="4.5" d="M130,114 C124,112 114,116 106,126 C96,138 92,156 96,174 C100,188 110,198 122,204 C126,206 128,207 130,207"/>
+          <line x1="130" y1="12" x2="130" y2="215" stroke-width="1.5" stroke-opacity=".15"/>
+          <line stroke-width="6" x1="130" y1="12" x2="130" y2="215"/>
+          <polyline stroke-width="6" points="130,30 158,30 158,16"/>
+          <polyline stroke-width="6" points="130,50 150,50 150,36"/>
+          <line stroke-width="6" x1="150" y1="50" x2="180" y2="50"/>
+          <polyline stroke-width="6" points="130,72 164,72 164,58 198,58"/>
+          <polyline stroke-width="6" points="164,72 164,86 210,86"/>
+          <line stroke-width="6" x1="130" y1="104" x2="214" y2="104"/>
+          <polyline stroke-width="6" points="130,122 160,122 160,110 194,110"/>
+          <polyline stroke-width="6" points="160,122 160,134 202,134"/>
+          <polyline stroke-width="6" points="130,148 158,148 158,136 186,136"/>
+          <line stroke-width="6" x1="158" y1="148" x2="190" y2="148"/>
+          <polyline stroke-width="6" points="130,168 156,168 156,180 174,180"/>
+          <line stroke-width="6" x1="156" y1="168" x2="182" y2="168"/>
+          <polyline stroke-width="6" points="130,190 150,190 150,202 166,202"/>
+          <line stroke-width="6" x1="130" y1="208" x2="150" y2="208"/>
+          <circle cx="158" cy="16"  r="8.5" fill="#111" stroke="none"/>
+          <circle cx="150" cy="36"  r="8.5" fill="#111" stroke="none"/>
+          <circle cx="180" cy="50"  r="8.5" fill="#111" stroke="none"/>
+          <circle cx="198" cy="58"  r="8.5" fill="#111" stroke="none"/>
+          <circle cx="210" cy="86"  r="8.5" fill="#111" stroke="none"/>
+          <circle cx="214" cy="104" r="8.5" fill="#111" stroke="none"/>
+          <circle cx="194" cy="110" r="8.5" fill="#111" stroke="none"/>
+          <circle cx="202" cy="134" r="8.5" fill="#111" stroke="none"/>
+          <circle cx="186" cy="136" r="8.5" fill="#111" stroke="none"/>
+          <circle cx="190" cy="148" r="8.5" fill="#111" stroke="none"/>
+          <circle cx="174" cy="180" r="8.5" fill="#111" stroke="none"/>
+          <circle cx="182" cy="168" r="8.5" fill="#111" stroke="none"/>
+          <circle cx="166" cy="202" r="8.5" fill="#111" stroke="none"/>
+          <circle cx="150" cy="208" r="8.5" fill="#111" stroke="none"/>
+        </svg>
+        <div class="logo-text">
+          <div class="logo-name" style="font-size:44px;color:#111">
+            <span>Franjo</span>
+            <span>Torres</span>
+            <span>Bondy</span>
+          </div>
+          <div class="logo-divider" style="background:rgba(0,0,0,0.15)"></div>
+          <div class="logo-sub" style="font-size:11px;color:#555">Sports Nutrition</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

@@ -83,6 +83,60 @@ if (geo) {
   applyParallax();
 })();
 
+// ══ MODAL ELITE ══
+(function initEliteModal() {
+  const overlay = document.getElementById('eliteModal');
+  const closeBtn = document.getElementById('eliteModalClose');
+  const step1 = document.getElementById('eliteStep1');
+  const step2 = document.getElementById('eliteStep2');
+  const form  = document.getElementById('eliteForm');
+
+  function openModal() {
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    // Reset to step 1 if returning
+    step1.classList.add('active');
+    step2.classList.remove('active');
+    form.reset();
+    setTimeout(() => overlay.querySelector('input, select, textarea') &&
+      overlay.querySelector('input, select, textarea').focus(), 300);
+  }
+
+  function closeModal() {
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // Open: any btn-elite that links to #contacto or has data-elite-open
+  document.querySelectorAll('.btn-elite[href="#contacto"], [data-elite-open]').forEach(btn => {
+    btn.addEventListener('click', e => { e.preventDefault(); openModal(); });
+  });
+
+  // Close: overlay click or X button
+  closeBtn.addEventListener('click', closeModal);
+  overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
+
+  // ESC key
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && overlay.classList.contains('open')) closeModal(); });
+
+  // Form submit
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const submitBtn = form.querySelector('[type="submit"]');
+    const orig = submitBtn.innerHTML;
+    submitBtn.innerHTML = 'Enviando…';
+    submitBtn.disabled = true;
+
+    // Simulated send (replace with real endpoint if needed)
+    setTimeout(() => {
+      step1.classList.remove('active');
+      step2.classList.add('active');
+      submitBtn.innerHTML = orig;
+      submitBtn.disabled = false;
+    }, 1200);
+  });
+})();
+
 // Contact form
 document.getElementById('contactForm').addEventListener('submit', e => {
   e.preventDefault();

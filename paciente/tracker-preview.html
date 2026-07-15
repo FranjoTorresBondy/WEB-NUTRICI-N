@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tracker Diario — Marca lo que comes</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Libre+Franklin:wght@500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&family=Chakra+Petch:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#080808;--bg2:#111;--panel:#141414;--panel2:#1c1c1c;
+  --line:#2a2a2a;--ink:#f0f0f0;--muted:#888;--faint:#555;
+  --gold:#C4973A;--gold2:#E8B84B;
+  --green:#7bd88f;--green-dim:rgba(123,216,143,.14);
+  --amber:#e0a537;--amber-dim:rgba(224,165,55,.12);
+  --coral:#ef5350;
+  --shadow:0 1px 4px rgba(0,0,0,.5),0 1px 2px rgba(0,0,0,.4);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased;
+  background-image:radial-gradient(1100px 520px at 50% -12%,rgba(196,151,58,.06),transparent 62%);background-attachment:fixed;
+  padding-bottom:110px}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.03;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.wrap{max-width:720px;margin:0 auto;padding:0 20px;position:relative;z-index:2}
+
+header.hero{padding:48px 0 8px}
+.eyebrow{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);font-weight:600}
+h1{font-family:'Chakra Petch',sans-serif;font-weight:700;line-height:1.02;font-size:clamp(34px,8vw,52px);margin:10px 0 0;color:#fff;letter-spacing:.01em}
+h1 em{font-family:'Libre Franklin',serif;font-style:italic;font-weight:500;color:var(--gold)}
+.lead{font-size:13.5px;color:var(--muted);background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:15px 18px;margin:20px 0 12px;line-height:1.6}
+.lead b{color:var(--ink)}
+.lead .fijo-chip{display:inline-block;font-family:'IBM Plex Mono';font-size:9.5px;font-weight:700;letter-spacing:.08em;color:var(--gold);border:1px solid rgba(196,151,58,.4);border-radius:5px;padding:1px 6px;margin:0 2px}
+.subnote{font-size:12px;color:var(--faint);margin:0 2px 22px;line-height:1.5}
+.subnote b{color:var(--muted)}
+
+.days{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:22px}
+.day{appearance:none;cursor:pointer;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 12px;text-align:center;transition:.2s;box-shadow:var(--shadow)}
+.day:hover{border-color:var(--muted)}
+.day .dk{font-family:'IBM Plex Mono';font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);display:block;margin-bottom:7px}
+.day .dv{font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:17px;color:var(--muted);display:block;line-height:1.1}
+.day.active{border-color:var(--green);background:rgba(123,216,143,.06)}
+.day.active .dv{color:var(--green)}
+@media(max-width:520px){.days{gap:8px}.day{padding:13px 6px}.day .dv{font-size:14px}.day .dk{font-size:8.5px}}
+
+.totals{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:22px 24px;margin-bottom:22px;box-shadow:var(--shadow)}
+.totals .top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+.totals .kcal{font-family:'Chakra Petch',sans-serif;font-weight:700;font-size:44px;line-height:1;color:#fff}
+.totals .kcal small{font-family:'Inter';font-size:15px;font-weight:500;color:var(--muted)}
+.totals .rest{text-align:right}
+.totals .rest .rn{font-family:'Chakra Petch',sans-serif;font-weight:700;font-size:34px;line-height:1;color:var(--green)}
+.totals .rest .rn.over{color:var(--coral)}
+.totals .rest .rl{font-family:'IBM Plex Mono';font-size:10px;letter-spacing:.14em;color:var(--faint);text-transform:uppercase;margin-top:4px}
+.bar{height:9px;border-radius:99px;background:var(--bg);overflow:hidden;margin:18px 0 14px;border:1px solid var(--line)}
+.bar .fill{height:100%;background:linear-gradient(90deg,var(--green),#5fbf76);width:0;transition:width .4s ease,background .3s}
+.bar .fill.over{background:linear-gradient(90deg,var(--amber),var(--coral))}
+.macro-row{display:flex;gap:26px;font-size:14px;color:var(--muted)}
+.macro-row b{color:var(--ink);font-weight:700}
+.macro-row .mp b{color:var(--green)}
+.macro-row .mg b{color:var(--gold)}
+
+.meal{background:var(--panel);border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-bottom:16px;box-shadow:var(--shadow)}
+.meal .mhead{display:flex;align-items:center;gap:12px;padding:15px 18px;border-bottom:1px solid var(--line);background:var(--panel2)}
+.meal .time{font-family:'IBM Plex Mono';font-size:11px;font-weight:600;color:var(--muted);background:var(--bg);border:1px solid var(--line);border-radius:7px;padding:4px 8px;flex-shrink:0}
+.meal .mname{font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:17px;color:var(--ink)}
+.meal .mobj{margin-left:auto;font-size:11.5px;color:var(--faint);text-align:right;flex-shrink:0}
+.items{padding:6px 0}
+.item{display:flex;align-items:flex-start;gap:13px;padding:12px 18px;cursor:pointer;transition:background .15s}
+.item:hover{background:var(--bg2)}
+.item .cb{width:24px;height:24px;border-radius:7px;border:1.5px solid var(--line);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:.15s;background:var(--bg);color:#000;margin-top:1px}
+.item.on .cb{background:var(--green);border-color:var(--green)}
+.item .cb svg{width:14px;height:14px;opacity:0;transition:opacity .15s}
+.item.on .cb svg{opacity:1}
+.item .ibody{flex:1;min-width:0}
+.item .iname{font-weight:600;font-size:14.5px;color:var(--ink);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.item.on .iname{color:#fff}
+.item .fijo{font-family:'IBM Plex Mono';font-size:9px;font-weight:700;letter-spacing:.08em;color:var(--gold);border:1px solid rgba(196,151,58,.4);border-radius:5px;padding:1px 6px}
+.item .idesc{font-size:12px;color:var(--muted);margin-top:3px;line-height:1.45}
+.item .imac{text-align:right;flex-shrink:0;font-family:'IBM Plex Mono';font-size:11.5px;line-height:1.55;color:var(--muted)}
+.item .imac .p{color:var(--green);font-weight:600}
+.item .imac .k{color:var(--ink);font-weight:600}
+.item .imac .g{color:var(--gold)}
+
+.outbar{display:flex;align-items:center;gap:12px;padding:13px 18px;border-top:1px solid var(--line);background:var(--panel2)}
+.outbar .ol{font-size:13.5px;color:var(--muted);font-weight:500;display:flex;align-items:center;gap:8px}
+.switch{margin-left:auto;width:48px;height:27px;border-radius:99px;background:var(--bg);border:1px solid var(--line);position:relative;cursor:pointer;transition:.2s;flex-shrink:0}
+.switch .knob{position:absolute;top:2px;left:2px;width:21px;height:21px;border-radius:50%;background:var(--faint);transition:.22s}
+.switch.on{background:var(--amber-dim);border-color:var(--amber)}
+.switch.on .knob{transform:translateX(21px);background:var(--amber)}
+
+.guide{display:none;border-top:1px solid var(--line)}
+.guide.show{display:block;animation:fade .35s ease}
+@keyframes fade{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+.guide .warn{margin:16px 18px 14px;background:var(--amber-dim);border:1px solid rgba(224,165,55,.4);border-radius:12px;padding:13px 16px;font-size:12.5px;color:var(--amber);line-height:1.5}
+.guide .warn b{color:var(--gold2)}
+.gcontrols{padding:0 18px 4px}
+.gchips{display:flex;gap:7px;overflow-x:auto;padding-bottom:10px;scrollbar-width:none}
+.gchips::-webkit-scrollbar{display:none}
+.gchip{appearance:none;cursor:pointer;white-space:nowrap;background:var(--bg);border:1px solid var(--line);border-radius:99px;padding:6px 13px;font-size:12px;color:var(--muted);font-weight:500;transition:.15s;flex-shrink:0}
+.gchip:hover{border-color:var(--muted);color:var(--ink)}
+.gchip.active{background:var(--gold);border-color:var(--gold);color:#000;font-weight:600}
+.gfilter{display:flex;align-items:center;gap:9px;padding:2px 0 12px;font-size:12.5px;color:var(--muted);cursor:pointer;user-select:none}
+.gfilter .mini{width:38px;height:22px;border-radius:99px;background:var(--bg);border:1px solid var(--line);position:relative;transition:.2s;flex-shrink:0}
+.gfilter .mini i{position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:var(--faint);transition:.2s}
+.gfilter.on .mini{background:var(--green-dim);border-color:var(--green)}
+.gfilter.on .mini i{transform:translateX(16px);background:var(--green)}
+.glist{max-height:340px;overflow-y:auto;border-top:1px solid var(--line)}
+.gcatlabel{font-family:'IBM Plex Mono';font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);padding:11px 18px 5px;background:var(--bg)}
+.gopt{display:flex;align-items:center;gap:13px;padding:11px 18px;cursor:pointer;border-top:1px solid var(--line);transition:background .15s}
+.gopt:first-of-type{border-top:none}
+.gopt:hover{background:var(--bg2)}
+.gopt .radio{width:22px;height:22px;border-radius:50%;border:1.5px solid var(--line);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:.15s;background:var(--bg)}
+.gopt.on .radio{border-color:var(--green)}
+.gopt .radio i{width:11px;height:11px;border-radius:50%;background:var(--green);transform:scale(0);transition:transform .15s}
+.gopt.on .radio i{transform:scale(1)}
+.gopt .gbody{flex:1;min-width:0}
+.gopt .gname{font-weight:600;font-size:14px;color:var(--ink);line-height:1.25}
+.gopt .gplace{font-size:11px;color:var(--faint);margin-top:1px;text-transform:uppercase;letter-spacing:.05em}
+.gopt .gmac{text-align:right;flex-shrink:0;font-family:'IBM Plex Mono';font-size:11.5px;color:var(--muted);line-height:1.5}
+.gopt .gmac .k{color:var(--ink);font-weight:600}
+.gopt .gmac .p{color:var(--green)}
+.gopt .badge{font-family:'IBM Plex Mono';font-size:9.5px;font-weight:700;letter-spacing:.06em;margin-top:4px;display:block}
+.gopt .badge.in{color:var(--green)}
+.gopt .badge.out{color:var(--amber)}
+.gempty{padding:26px 18px;text-align:center;color:var(--faint);font-size:12.5px;font-style:italic}
+
+.resetbar{position:fixed;bottom:0;left:0;right:0;z-index:40;background:linear-gradient(180deg,transparent,var(--bg) 26%);padding:20px 20px calc(16px + env(safe-area-inset-bottom))}
+.resetbar .inner{max-width:720px;margin:0 auto}
+.btn-reset{width:100%;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:15px;font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:15px;color:var(--coral);cursor:pointer;transition:.2s;box-shadow:0 6px 24px rgba(0,0,0,.5)}
+.btn-reset:hover{border-color:var(--coral);background:rgba(239,83,80,.06)}
+.foot-note{text-align:center;font-size:11px;color:var(--faint);margin-top:10px;font-style:italic}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="hero">
+    <div class="eyebrow" id="eyebrow"></div>
+    <h1 id="title"></h1>
+  </header>
+
+  <div class="lead" id="lead"></div>
+  <p class="subnote" id="subnote"></p>
+
+  <div class="days" id="days"></div>
+
+  <div class="totals">
+    <div class="top">
+      <div class="kcal"><span id="tKcal">0</span> <small>/ <span id="tGoal">0</span> kcal</small></div>
+      <div class="rest"><div class="rn" id="tRest">0</div><div class="rl">restantes</div></div>
+    </div>
+    <div class="bar"><div class="fill" id="tFill"></div></div>
+    <div class="macro-row">
+      <span class="mp">Proteína <b id="tP">0</b>/<span id="tPGoal">0</span> g</span>
+      <span class="mg">Grasa <b id="tG">0</b> g</span>
+    </div>
+  </div>
+
+  <div id="meals"></div>
+</div>
+
+<div class="resetbar">
+  <div class="inner">
+    <button class="btn-reset" id="btnReset">Reiniciar día</button>
+    <p class="foot-note">Este dispositivo no guarda entre sesiones — no cierres la pestaña.</p>
+  </div>
+</div>
+
+<script src="guia-data.js"></script>
+<script>
+// ════════════════════════════════════════════════════════════════════════════
+//  DATOS DEL TRACKER  (por paciente)
+//  La guía "Comí fuera" se alimenta del catálogo real (guia-data.js).
+//  `catsFuera` limita qué categorías del catálogo aplican a este paciente.
+// ════════════════════════════════════════════════════════════════════════════
+const TRACKER = {
+  eyebrow: 'Tracker Diario · Recomposición',
+  paciente: 'Miguel',
+  fijos: 'scoop de proteína · 200 g cárnico · 1 Pro Day yogur · 1 Pro Day choco',
+
+  dias: [
+    { id:'pm',  k:'Mar · Jue',       v:'Pesas PM',  goalKcal:2500, goalP:150 },
+    { id:'am',  k:'Sáb · Dom',       v:'Pesas AM',  goalKcal:2500, goalP:150 },
+    { id:'nat', k:'Lun · Mié · Vie', v:'Natación',  goalKcal:2300, goalP:150 },
+  ],
+  diaDefault:'pm',
+
+  comidas: [
+    { time:'8:00', nombre:'Desayuno intocable', items:[
+      { nombre:'Desayuno intocable (todo)', fijo:true, kcal:760, p:39, g:20.5,
+        desc:'70 g avena cruda · 40 g miel · 1 scoop prot. vegetal Applied Nutrition · 25 g mant. maní · 200 g mix frutas congeladas · 1 g sal' },
+    ]},
+    { time:'12:30', nombre:'Almuerzo · cárnico', obj:'objetivo ~700 kcal', items:[
+      { nombre:'Cárnico', fijo:true, kcal:240, p:44, g:6,
+        desc:'200 g crudo · pollo molido magro (si es res, ~+90 kcal / +10 g grasa)' },
+      { nombre:'Arroz', kcal:260, p:5, g:1, desc:'150 g cocido (50 g crudo)' },
+      { nombre:'Palta', kcal:80, p:1, g:7, desc:'50 g' },
+      { nombre:'Ensalada libre', kcal:40, p:2, g:1, desc:'verduras a discreción + 5 g aceite oliva' },
+    ]},
+    { time:'16:00', nombre:'Snack', items:[
+      { nombre:'Pro Day yogur', fijo:true, kcal:150, p:15, g:3, desc:'1 unidad' },
+      { nombre:'Pro Day choco', fijo:true, kcal:170, p:12, g:5, desc:'1 unidad' },
+      { nombre:'Fruta', kcal:90, p:1, g:0, desc:'1 porción' },
+    ]},
+    { time:'17:30', nombre:'Post-entreno', obj:'objetivo ~535 kcal',
+      comerFuera:true, budget:535,
+      // Para este paciente sólo mostramos estas categorías de la guía.
+      // (déjalo vacío [] para mostrar todo el catálogo)
+      catsFuera:['Pollo & Fast Food','Wraps & Sándwiches','Sushi & Comida Japonesa','Pokes & Bowls','Ensaladas'],
+      items:[
+        { nombre:'Scoop de proteína', fijo:true, kcal:130, p:27, g:2, desc:'1 scoop aislada + agua' },
+        { nombre:'Plátano', kcal:105, p:1, g:0, desc:'1 unidad mediana' },
+      ]},
+  ],
+};
+
+// ════════════════════════════════════════════════════════════════════════════
+//  ESTADO + RENDER
+// ════════════════════════════════════════════════════════════════════════════
+const $ = id => document.getElementById(id);
+const CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+let diaActivo = TRACKER.diaDefault;
+
+const state = TRACKER.comidas.map(() => ({ checked:new Set(), fuera:false, fueraPick:null, cat:'Todas', soloEntran:true }));
+
+function dia(){ return TRACKER.dias.find(d => d.id === diaActivo); }
+
+// Catálogo filtrado por las categorías que aplican a la comida
+function catalogoDe(c){
+  const all = (typeof GUIA_CATALOG !== 'undefined') ? GUIA_CATALOG : [];
+  if(!c.catsFuera || !c.catsFuera.length) return all;
+  return all.filter(o => c.catsFuera.includes(o.cat));
+}
+function categoriasDe(c){
+  const set = [...new Set(catalogoDe(c).map(o => o.cat))];
+  return ['Todas', ...set];
+}
+
+function renderStatic(){
+  $('eyebrow').textContent = TRACKER.eyebrow.toUpperCase();
+  $('title').innerHTML = 'Marca lo que <em>comes.</em>';
+  $('lead').innerHTML = `Tus <b>fijos de cada día</b> (marcados <span class="fijo-chip">FIJO</span>): ${TRACKER.fijos}. Lo demás se suma alrededor.`;
+  $('subnote').innerHTML = `Pesos <b>en crudo</b> (con el cocido entre paréntesis). Grasas al gramo. Elige tu día y ve marcando.`;
+
+  $('days').innerHTML = TRACKER.dias.map(d =>
+    `<button class="day ${d.id===diaActivo?'active':''}" data-dia="${d.id}">
+       <span class="dk">${d.k}</span><span class="dv">${d.v}</span>
+     </button>`).join('');
+  $('days').querySelectorAll('.day').forEach(b =>
+    b.onclick = () => { diaActivo = b.dataset.dia; renderStatic(); recompute(); });
+
+  $('meals').innerHTML = TRACKER.comidas.map((c, ci) => {
+    const st = state[ci];
+    const itemsHtml = c.items.map((it, ii) => `
+      <div class="item ${st.checked.has(ii)?'on':''}" data-c="${ci}" data-i="${ii}">
+        <div class="cb">${CHECK}</div>
+        <div class="ibody">
+          <div class="iname">${it.nombre}${it.fijo?'<span class="fijo">FIJO</span>':''}</div>
+          ${it.desc?`<div class="idesc">${it.desc}</div>`:''}
+        </div>
+        <div class="imac"><span class="p">${it.p}g P</span><br><span class="k">${it.kcal} kcal</span><br><span class="g">${it.g}g G</span></div>
+      </div>`).join('');
+
+    let outHtml = '';
+    if(c.comerFuera){
+      outHtml = `
+        <div class="outbar">
+          <span class="ol">🍔 Comí fuera esta comida</span>
+          <div class="switch ${st.fuera?'on':''}" data-c="${ci}"><div class="knob"></div></div>
+        </div>
+        <div class="guide ${st.fuera?'show':''}">${st.fuera?renderGuide(c,ci):''}</div>`;
+    }
+
+    return `<div class="meal">
+      <div class="mhead">
+        <span class="time">${c.time}</span>
+        <span class="mname">${c.nombre}</span>
+        ${c.obj?`<span class="mobj">${c.obj}</span>`:''}
+      </div>
+      <div class="items" ${st.fuera?'style="display:none"':''}>${itemsHtml}</div>
+      ${outHtml}
+    </div>`;
+  }).join('');
+
+  bindMeals();
+}
+
+function renderGuide(c, ci){
+  const st = state[ci];
+  const b = c.budget || 500;
+  const cats = categoriasDe(c);
+  let opts = catalogoDe(c).map((o, idx) => ({...o, _id:idx}));
+  if(st.cat !== 'Todas') opts = opts.filter(o => o.cat === st.cat);
+  if(st.soloEntran) opts = opts.filter(o => o.kcal <= b);
+  opts.sort((a,z) => a.kcal - z.kcal);
+
+  const chips = cats.map(cat =>
+    `<button class="gchip ${st.cat===cat?'active':''}" data-c="${ci}" data-cat="${cat}">${cat}</button>`).join('');
+
+  let listHtml;
+  if(!opts.length){
+    listHtml = `<div class="gempty">Nada en este filtro. Prueba otra categoría o desactiva “solo las que entran”.</div>`;
+  } else {
+    let lastCat = null;
+    listHtml = opts.map(o => {
+      const entra = o.kcal <= b;
+      const label = (st.cat==='Todas' && o.cat!==lastCat) ? `<div class="gcatlabel">${o.cat}</div>` : '';
+      lastCat = o.cat;
+      return `${label}<div class="gopt ${st.fueraPick===o._id?'on':''}" data-c="${ci}" data-g="${o._id}">
+        <div class="radio"><i></i></div>
+        <div class="gbody"><div class="gname">${o.dish}</div><div class="gplace">${o.rest}${o.qty?' · '+o.qty:''}</div></div>
+        <div class="gmac"><span class="k">${o.kcal} kcal</span> · <span class="p">${o.p}g P</span>
+          <span class="badge ${entra?'in':'out'}">${entra?'ENTRA':'SE PASA'}</span></div>
+      </div>`;
+    }).join('');
+  }
+
+  return `
+    <div class="warn">OJO — esta comida debería quedarse en <b>~${b} kcal</b>. En verde las que <b>entran</b> en el presupuesto.</div>
+    <div class="gcontrols">
+      <div class="gchips">${chips}</div>
+      <div class="gfilter ${st.soloEntran?'on':''}" data-c="${ci}"><div class="mini"><i></i></div><span>Solo las que entran (≤ ${b} kcal)</span></div>
+    </div>
+    <div class="glist">${listHtml}</div>`;
+}
+
+function bindMeals(){
+  $('meals').querySelectorAll('.item').forEach(el => el.onclick = () => {
+    const ci=+el.dataset.c, ii=+el.dataset.i, s=state[ci].checked;
+    s.has(ii) ? s.delete(ii) : s.add(ii);
+    el.classList.toggle('on'); recompute();
+  });
+  $('meals').querySelectorAll('.switch').forEach(el => el.onclick = () => {
+    const ci=+el.dataset.c; state[ci].fuera = !state[ci].fuera;
+    if(!state[ci].fuera) state[ci].fueraPick = null;
+    renderStatic(); recompute();
+  });
+  $('meals').querySelectorAll('.gchip').forEach(el => el.onclick = () => {
+    state[+el.dataset.c].cat = el.dataset.cat; renderStatic(); recompute();
+  });
+  $('meals').querySelectorAll('.gfilter').forEach(el => el.onclick = () => {
+    const ci=+el.dataset.c; state[ci].soloEntran = !state[ci].soloEntran; renderStatic(); recompute();
+  });
+  $('meals').querySelectorAll('.gopt').forEach(el => el.onclick = () => {
+    const ci=+el.dataset.c, oi=+el.dataset.g;
+    state[ci].fueraPick = (state[ci].fueraPick===oi) ? null : oi;
+    renderStatic(); recompute();
+  });
+}
+
+function recompute(){
+  let kcal=0, p=0, g=0;
+  TRACKER.comidas.forEach((c, ci) => {
+    const st = state[ci];
+    if(st.fuera && c.comerFuera){
+      if(st.fueraPick!=null){ const o=catalogoDe(c)[st.fueraPick]; if(o){ kcal+=o.kcal; p+=o.p; g+=o.g; } }
+    } else {
+      st.checked.forEach(ii => { const it=c.items[ii]; kcal+=it.kcal; p+=it.p; g+=it.g; });
+    }
+  });
+  const d = dia();
+  const rest = d.goalKcal - kcal;
+  const pct = Math.min(100, Math.round(kcal / d.goalKcal * 100));
+  $('tKcal').textContent = Math.round(kcal).toLocaleString('es');
+  $('tGoal').textContent = d.goalKcal.toLocaleString('es');
+  $('tPGoal').textContent = d.goalP;
+  $('tRest').textContent = Math.round(Math.abs(rest)).toLocaleString('es');
+  $('tRest').classList.toggle('over', rest < 0);
+  $('tP').textContent = Math.round(p);
+  $('tG').textContent = Math.round(g);
+  const fill = $('tFill');
+  fill.style.width = pct + '%';
+  fill.classList.toggle('over', kcal > d.goalKcal);
+}
+
+$('btnReset').onclick = () => {
+  state.forEach(s => { s.checked.clear(); s.fuera=false; s.fueraPick=null; s.cat='Todas'; s.soloEntran=true; });
+  renderStatic(); recompute();
+};
+
+renderStatic();
+recompute();
+</script>
+</body>
+</html>

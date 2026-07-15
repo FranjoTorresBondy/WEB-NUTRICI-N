@@ -19,66 +19,57 @@
   <nav class="navbar" id="navbar">
     <div class="nav-wrap">
       <a href="#hero" class="brand">
-        <!-- Brain + circuit logo mark — fiel al logo real -->
-        <svg class="brand-mark" viewBox="0 0 148 130" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <!-- Brain + circuit logo mark -->
+        <svg class="brand-mark" viewBox="0 0 162 138" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
 
             <!-- ══ LEFT HEMISPHERE — organic brain ══ -->
-            <!-- Main outer contour -->
-            <path stroke-width="4" d="
-              M 72,6
-              C 63,5 53,8 44,15
-              C 34,22 25,33 20,46
-              C 15,59 15,72 19,84
-              C 23,96 32,106 44,112
-              C 54,118 64,121 72,121
-            "/>
-            <!-- Gyrus 1 — upper frontal fold -->
-            <path stroke-width="2.6" d="M 61,7 C 49,13 39,26 36,39 C 34,50 38,60 47,64"/>
-            <!-- Gyrus 2 — parietal fold -->
-            <path stroke-width="2.4" d="M 18,62 C 15,75 18,88 26,98 C 29,101 32,104 36,106"/>
-            <!-- Gyrus 3 — temporal/lower -->
-            <path stroke-width="2.4" d="M 46,113 C 55,120 64,122 71,122"/>
-            <!-- Gyrus 4 — small frontal -->
-            <path stroke-width="2" d="M 26,35 C 20,47 19,59 23,70"/>
+            <path stroke-width="6" d="M 73,7 C 62,6 50,9 40,17 C 28,25 18,39 14,55 C 10,71 12,87 20,101 C 28,115 42,124 58,129 C 65,132 70,133 73,132"/>
+            <!-- Gyrus 1 upper frontal -->
+            <path stroke-width="4.5" d="M 63,8 C 50,14 38,27 35,41 C 33,54 39,64 50,68"/>
+            <!-- Gyrus 2 parietal -->
+            <path stroke-width="4.5" d="M 16,59 C 13,73 16,87 24,98 C 27,102 31,106 35,108"/>
+            <!-- Gyrus 3 temporal -->
+            <path stroke-width="4.5" d="M 43,121 C 52,128 62,131 71,132"/>
+            <!-- Gyrus 4 inferior -->
+            <path stroke-width="4" d="M 20,76 C 16,86 18,96 26,104"/>
 
-            <!-- ══ CENTER DIVIDE ══ -->
-            <line x1="72" y1="6" x2="72" y2="121" stroke-width="1" stroke-opacity=".18"/>
+            <!-- CENTER DIVIDE -->
+            <line x1="73" y1="7" x2="73" y2="132" stroke-width="1.2" stroke-opacity=".2"/>
 
             <!-- ══ RIGHT HEMISPHERE — circuit board ══ -->
-            <!-- Spine -->
-            <line stroke-width="3" x1="72" y1="6" x2="72" y2="121"/>
-            <!-- Branch 1 top -->
-            <polyline stroke-width="3" points="72,19 90,19 90,10"/>
+            <line stroke-width="5" x1="73" y1="7" x2="73" y2="132"/>
+            <!-- Branch 1 -->
+            <polyline stroke-width="5" points="73,19 91,19 91,10"/>
             <!-- Branch 2 -->
-            <polyline stroke-width="3" points="72,34 85,34 85,25"/>
-            <line stroke-width="3" x1="85" y1="34" x2="106" y2="34"/>
-            <!-- Branch 3 mid-upper -->
-            <polyline stroke-width="3" points="72,50 93,50 93,40 112,40"/>
-            <polyline stroke-width="3" points="93,50 93,62 116,62"/>
+            <polyline stroke-width="5" points="73,34 85,34 85,24"/>
+            <line stroke-width="5" x1="85" y1="34" x2="108" y2="34"/>
+            <!-- Branch 3 -->
+            <polyline stroke-width="5" points="73,51 95,51 95,40 116,40"/>
+            <polyline stroke-width="5" points="95,51 95,63 120,63"/>
             <!-- Branch 4 center -->
-            <line stroke-width="3" x1="72" y1="72" x2="118" y2="72"/>
-            <!-- Branch 5 mid-lower -->
-            <polyline stroke-width="3" points="72,84 90,84 90,76 108,76"/>
-            <polyline stroke-width="3" points="90,84 90,94 114,94"/>
-            <!-- Branch 6 lower -->
-            <polyline stroke-width="3" points="72,104 88,104 88,114 100,114"/>
-            <line stroke-width="3" x1="88" y1="104" x2="110" y2="104"/>
+            <line stroke-width="5" x1="73" y1="75" x2="122" y2="75"/>
+            <!-- Branch 5 -->
+            <polyline stroke-width="5" points="73,88 91,88 91,79 112,79"/>
+            <polyline stroke-width="5" points="91,88 91,98 118,98"/>
+            <!-- Branch 6 -->
+            <polyline stroke-width="5" points="73,109 89,109 89,119 104,119"/>
+            <line stroke-width="5" x1="89" y1="109" x2="114" y2="109"/>
             <!-- Branch 7 bottom -->
-            <line stroke-width="3" x1="72" y1="116" x2="88" y2="116"/>
+            <line stroke-width="5" x1="73" y1="124" x2="91" y2="124"/>
 
-            <!-- Circuit nodes -->
-            <circle cx="90" cy="10"  r="4.5" fill="currentColor" stroke="none"/>
-            <circle cx="85" cy="25"  r="4.5" fill="currentColor" stroke="none"/>
-            <circle cx="106" cy="34" r="4.5" fill="currentColor" stroke="none"/>
-            <circle cx="112" cy="40" r="4.5" fill="currentColor" stroke="none"/>
-            <circle cx="116" cy="62" r="4.5" fill="currentColor" stroke="none"/>
-            <circle cx="118" cy="72" r="4.5" fill="currentColor" stroke="none"/>
-            <circle cx="108" cy="76" r="4.5" fill="currentColor" stroke="none"/>
-            <circle cx="114" cy="94" r="4.5" fill="currentColor" stroke="none"/>
-            <circle cx="100" cy="114" r="4.5" fill="currentColor" stroke="none"/>
-            <circle cx="110" cy="104" r="4.5" fill="currentColor" stroke="none"/>
-            <circle cx="88"  cy="116" r="4.5" fill="currentColor" stroke="none"/>
+            <!-- Nodes -->
+            <circle cx="91"  cy="10"  r="6.5" fill="currentColor" stroke="none"/>
+            <circle cx="85"  cy="24"  r="6.5" fill="currentColor" stroke="none"/>
+            <circle cx="108" cy="34"  r="6.5" fill="currentColor" stroke="none"/>
+            <circle cx="116" cy="40"  r="6.5" fill="currentColor" stroke="none"/>
+            <circle cx="120" cy="63"  r="6.5" fill="currentColor" stroke="none"/>
+            <circle cx="122" cy="75"  r="6.5" fill="currentColor" stroke="none"/>
+            <circle cx="112" cy="79"  r="6.5" fill="currentColor" stroke="none"/>
+            <circle cx="118" cy="98"  r="6.5" fill="currentColor" stroke="none"/>
+            <circle cx="104" cy="119" r="6.5" fill="currentColor" stroke="none"/>
+            <circle cx="114" cy="109" r="6.5" fill="currentColor" stroke="none"/>
+            <circle cx="91"  cy="124" r="6.5" fill="currentColor" stroke="none"/>
 
           </g>
         </svg>
@@ -106,6 +97,7 @@
     <div class="nav-drawer" id="navDrawer">
       <a href="#sobre-mi">Sobre mí</a>
       <a href="#servicios">Servicios</a>
+      <a href="#elite" class="nav-elite">Elite 1:1</a>
       <a href="#metodologia">Metodología</a>
       <a href="#testimonios">Testimonios</a>
       <a href="#contacto">Trabaja conmigo</a>
@@ -391,6 +383,124 @@
         </div>
 
       </div>
+    </div>
+  </section>
+
+  <!-- ══ ELITE 1:1 HIGH TICKET ══ -->
+  <section class="section elite-section" id="elite">
+    <div class="elite-grid-bg" aria-hidden="true"></div>
+    <div class="elite-orb-1" aria-hidden="true"></div>
+    <div class="elite-orb-2" aria-hidden="true"></div>
+
+    <div class="container">
+
+      <!-- Header -->
+      <div class="elite-header">
+        <div class="elite-badge-row">
+          <span class="elite-badge">
+            <span class="elite-badge-dot"></span>
+            Programa exclusivo · Solo 5 cupos al mes
+          </span>
+        </div>
+        <h2 class="elite-heading">
+          Transformación<br/>
+          <em>Total Elite</em>
+        </h2>
+        <p class="elite-sub">El programa más completo que ofrezco. Nutrición, entrenamiento, cuerpo y mente — todo bajo un mismo sistema diseñado para ti.</p>
+      </div>
+
+      <!-- Price + CTA -->
+      <div class="elite-price-bar">
+        <div class="elite-price-left">
+          <span class="elite-price-from">desde</span>
+          <span class="elite-price-amount">$800</span>
+          <span class="elite-price-per">USD / mes</span>
+        </div>
+        <button class="btn-elite" data-elite-open>
+          Quiero aplicar
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+
+      <!-- Pillars -->
+      <div class="elite-pillars">
+
+        <div class="elite-pillar" data-reveal>
+          <div class="elite-pillar-num">01</div>
+          <div class="elite-pillar-icon" aria-hidden="true">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 12h6M9 16h4"/></svg>
+          </div>
+          <h3 class="elite-pillar-title">Plan de Nutrición<br/>Personalizado</h3>
+          <p class="elite-pillar-desc">Plan 100% diseñado para tu cuerpo, tu deporte y tus objetivos. Periodización nutricional por mesociclos, estrategia de carrera o competencia y ajustes en tiempo real.</p>
+          <ul class="elite-pillar-list">
+            <li>Periodización nutricional completa</li>
+            <li>Macros y micros ajustados a tu fase</li>
+            <li>Estrategia pre/durante/post competencia</li>
+            <li>Suplementación basada en evidencia</li>
+          </ul>
+        </div>
+
+        <div class="elite-pillar" data-reveal>
+          <div class="elite-pillar-num">02</div>
+          <div class="elite-pillar-icon" aria-hidden="true">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 4v6a6 6 0 0012 0V4"/><path d="M4 20h16"/><path d="M12 16v4"/></svg>
+          </div>
+          <h3 class="elite-pillar-title">Plan de Entrenamiento<br/>Personalizado</h3>
+          <p class="elite-pillar-desc">Programa de fuerza y acondicionamiento diseñado para potenciar tu rendimiento deportivo. Integrado con tu nutrición para maximizar cada sesión.</p>
+          <ul class="elite-pillar-list">
+            <li>Mesociclos de fuerza e hipertrofia</li>
+            <li>Acondicionamiento específico por deporte</li>
+            <li>Periodización coordinada con nutrición</li>
+            <li>Progresión y ajuste mensual</li>
+          </ul>
+        </div>
+
+        <div class="elite-pillar" data-reveal>
+          <div class="elite-pillar-num">03</div>
+          <div class="elite-pillar-icon" aria-hidden="true">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          </div>
+          <h3 class="elite-pillar-title">Monitoreo &<br/>Seguimiento Diario</h3>
+          <p class="elite-pillar-desc">Acceso directo a mí todos los días. Respondo tus dudas, ajusto el plan según cómo responde tu cuerpo y te mantengo en el camino — sin esperar a la próxima consulta.</p>
+          <ul class="elite-pillar-list">
+            <li>Chat directo conmigo (WhatsApp)</li>
+            <li>Revisión de registros alimenticios y entrenos</li>
+            <li>Ajustes inmediatos cuando el plan lo necesita</li>
+            <li>Check-in semanal de progreso</li>
+          </ul>
+        </div>
+
+        <div class="elite-pillar elite-pillar-featured" data-reveal>
+          <div class="elite-pillar-num">04</div>
+          <div class="elite-pillar-icon" aria-hidden="true">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M6 20v-2a6 6 0 0112 0v2"/><path d="M17 11l2 2 4-4"/></svg>
+          </div>
+          <div class="elite-featured-badge">Incluido</div>
+          <h3 class="elite-pillar-title">Medición Antropométrica<br/>+ Sesión 1:1 en Gym</h3>
+          <p class="elite-pillar-desc">Una vez por semana nos vemos en persona. Tomamos medidas con protocolo ISAK, revisamos técnica de ejercicios y ajustamos el plan con datos reales de tu cuerpo.</p>
+          <ul class="elite-pillar-list">
+            <li>Protocolo ISAK de medición semanal</li>
+            <li>Seguimiento de composición corporal</li>
+            <li>Corrección técnica en tiempo real</li>
+            <li>Ajuste de plan basado en datos objetivos</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Bottom CTA -->
+      <div class="elite-bottom">
+        <div class="elite-guarantee">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>Compromiso total de mi parte — o no lo acepto como cliente.</span>
+        </div>
+        <button class="btn-elite btn-elite-lg" data-elite-open>
+          Aplicar al programa Elite
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+        <p class="elite-note">Solo acepto clientes con quienes puedo comprometer resultados reales. Cuéntame tu historia y evaluamos juntos si hay fit.</p>
+      </div>
+
     </div>
   </section>
 
@@ -704,6 +814,131 @@
       </div>
     </div>
   </section>
+
+  <!-- ══ MODAL APLICACIÓN ELITE ══ -->
+  <div class="elite-modal-overlay" id="eliteModal" role="dialog" aria-modal="true" aria-labelledby="eliteModalTitle">
+    <div class="elite-modal">
+      <button class="elite-modal-close" id="eliteModalClose" aria-label="Cerrar">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+
+      <!-- Step 1 -->
+      <div class="elite-modal-step active" id="eliteStep1">
+        <div class="elite-modal-badge">Programa Elite · Aplicación</div>
+        <h2 id="eliteModalTitle" class="elite-modal-heading">
+          Antes de empezar,<br/><em>cuéntame quién eres.</em>
+        </h2>
+        <p class="elite-modal-sub">No acepto a todos. Necesito saber que puedo comprometerte resultados reales.</p>
+
+        <form class="elite-form" id="eliteForm" novalidate>
+          <div class="elite-form-row">
+            <div class="form-field">
+              <label for="ef-nombre">Nombre completo</label>
+              <input type="text" id="ef-nombre" name="nombre" placeholder="Tu nombre" required />
+            </div>
+            <div class="form-field">
+              <label for="ef-email">Email</label>
+              <input type="email" id="ef-email" name="email" placeholder="tu@email.com" required />
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label for="ef-deporte">¿En qué deporte / disciplina estás enfocado?</label>
+            <select id="ef-deporte" name="deporte" required>
+              <option value="" disabled selected>Selecciona</option>
+              <option value="ultra">Ultramaratón / Trail</option>
+              <option value="triatlon">Triatlón / Ironman</option>
+              <option value="running">Running / Maratón</option>
+              <option value="mma">MMA</option>
+              <option value="boxeo">Boxeo / Muay Thai / Kick</option>
+              <option value="bjj">BJJ / Lucha / Grappling</option>
+              <option value="crossfit">CrossFit / Funcional</option>
+              <option value="gym">Gym / Fuerza / Estética</option>
+              <option value="otro">Otro</option>
+            </select>
+          </div>
+
+          <div class="form-field">
+            <label for="ef-nivel">¿Cuál es tu nivel actual?</label>
+            <select id="ef-nivel" name="nivel" required>
+              <option value="" disabled selected>Selecciona</option>
+              <option value="competitivo">Competitivo (compito regularmente)</option>
+              <option value="amateur-serio">Amateur serio (entreno 4+ días/semana)</option>
+              <option value="iniciando">Iniciando en el deporte</option>
+            </select>
+          </div>
+
+          <div class="form-field">
+            <label for="ef-objetivo">¿Cuál es tu objetivo principal en los próximos 3 meses?</label>
+            <textarea id="ef-objetivo" name="objetivo" rows="3"
+              placeholder="Ej: Completar mi primer Ironman 70.3 en agosto. Mi mayor problema es la nutrición en carrera — siempre colapso en el último tercio." required></textarea>
+          </div>
+
+          <div class="form-field">
+            <label for="ef-intentado">¿Qué has intentado antes con nutrición o entrenamiento?</label>
+            <textarea id="ef-intentado" name="intentado" rows="3"
+              placeholder="Ej: Trabajé con un nutricionista pero era muy genérico y no había seguimiento real. Seguí dietas de internet pero sin resultados consistentes." required></textarea>
+          </div>
+
+          <div class="form-field">
+            <label for="ef-inversion">¿Estás dispuesto a invertir $800 USD/mes por un mínimo de 3 meses?</label>
+            <select id="ef-inversion" name="inversion" required>
+              <option value="" disabled selected>Selecciona</option>
+              <option value="si">Sí, estoy listo para invertir</option>
+              <option value="necesito-info">Necesito más información primero</option>
+              <option value="no">No en este momento</option>
+            </select>
+          </div>
+
+          <div class="form-field">
+            <label for="ef-disponibilidad">¿Tienes disponibilidad para una sesión semanal presencial en gym (Lima)?</label>
+            <select id="ef-disponibilidad" name="disponibilidad" required>
+              <option value="" disabled selected>Selecciona</option>
+              <option value="si">Sí, estoy en Lima y puedo</option>
+              <option value="parcial">Estoy en Lima pero con horario limitado</option>
+              <option value="no">No estoy en Lima</option>
+            </select>
+          </div>
+
+          <button type="submit" class="btn-elite full" id="eliteFormSubmit">
+            Enviar aplicación
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+          <p class="elite-form-note">Revisaré tu aplicación personalmente y te respondo en menos de 24 horas.</p>
+        </form>
+      </div>
+
+      <!-- Step 2: Gracias -->
+      <div class="elite-modal-step" id="eliteStep2">
+        <div class="elite-thanks-icon" aria-hidden="true">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <h2 class="elite-modal-heading elite-thanks-heading">
+          Aplicación<br/><em>recibida.</em>
+        </h2>
+        <p class="elite-modal-sub elite-thanks-sub">Revisaré tu caso personalmente. Si hay fit, te escribo en menos de 24 horas para agendar el diagnóstico.</p>
+        <div class="elite-thanks-steps">
+          <div class="elite-thanks-step">
+            <span class="elite-thanks-num">01</span>
+            <p>Reviso tu aplicación y evalúo si hay fit para el programa</p>
+          </div>
+          <div class="elite-thanks-step">
+            <span class="elite-thanks-num">02</span>
+            <p>Te contacto para agendar una llamada de diagnóstico de 30 min</p>
+          </div>
+          <div class="elite-thanks-step">
+            <span class="elite-thanks-num">03</span>
+            <p>Si hay match, arrancamos esa misma semana</p>
+          </div>
+        </div>
+        <a href="https://www.instagram.com/el_nutricionistafranjo" target="_blank" rel="noopener" class="btn-elite">
+          Sígueme en Instagram
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
+        </a>
+      </div>
+
+    </div>
+  </div>
 
   <!-- ══ FOOTER ══ -->
   <footer class="footer">
