@@ -286,6 +286,8 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 .fcart .fcdiff{text-align:right;flex-shrink:0}
 .fcart .fcdiff .fcn{font-family:'Chakra Petch',sans-serif;font-weight:700;font-size:27px;line-height:1;color:var(--navy)}
 .fcart .fcdiff .fcl{font-family:'IBM Plex Mono';font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-top:3px}
+.pmac{font-family:'IBM Plex Mono';font-size:11.5px;margin-top:5px;color:var(--muted)}
+.pmac b{font-weight:700}
 </style>
 <link rel="stylesheet" href="paciente.css">
 </head>
@@ -820,6 +822,26 @@ function getMealState() { try { const r=localStorage.getItem(MEAL_KEY()); return
 function saveMealState(s) { localStorage.setItem(MEAL_KEY(), JSON.stringify(s)); flashSave(); }
 let mealState = getMealState();
 
+// Progreso del día: cada elección marcada aporta su fracción de los macros de su comida.
+// (Las opciones no tienen macros individuales; al marcar todo cuadra exacto con la meta diaria.)
+function planTotals() {
+  let kcal=0, p=0, c=0, g=0;
+  PATIENT.comidas.forEach(meal => {
+    if (meal.kcal == null) return;               // comidas de entrenamiento no suman
+    let tot=0, pick=0;
+    meal.grupos.forEach((grp, gi) => {
+      tot += grp.max;
+      let cnt = 0;
+      grp.ops.forEach((op, oi) => { cnt += mealState[`${meal.id}-${gi}-${oi}`] || 0; });
+      pick += Math.min(cnt, grp.max);            // no suma más allá de lo prescrito
+    });
+    if (!tot) return;
+    const f = pick / tot;
+    kcal += meal.kcal*f; p += (meal.p||0)*f; c += (meal.c||0)*f; g += (meal.g||0)*f;
+  });
+  return { kcal:Math.round(kcal), p:Math.round(p), c:Math.round(c), g:Math.round(g) };
+}
+
 function renderNutr() {
   const m = PATIENT.macros;
   const macrosHtml = `<div class="macros">
@@ -836,12 +858,30 @@ function renderNutr() {
   const hydroHtml = `<div class="sec-h" style="margin-top:32px"><span class="ix">02</span><h2>Hidratación</h2><div class="rule"></div></div>
     <div class="hydro">${PATIENT.hidratacion.map(h=>`<div class="hcard"><div class="l">${h.label}</div><div class="b">${h.valor} L</div></div>`).join('')}</div>`;
 
+  // ── barra de progreso del día (fija abajo) ──
+  const t = planTotals();
+  const rest = Math.max(0, m.kcal - t.kcal);
+  const done = rest === 0;
+  const stCls = done ? 'ok' : 'low';
+  const stTxt = done ? '¡Completaste tu día! 🎯'
+    : t.kcal > 0 ? `Te faltan ${rest} kcal por marcar.`
+    : 'Marca tus opciones y ve sumando.';
+  const barHtml = `<div class="fcart"><div class="fcin">
+    <div class="fcleft">
+      <div class="fck">${t.kcal} <small>/ ${m.kcal} kcal</small></div>
+      <div class="pmac">P <b style="color:var(--green)">${t.p}</b>/${m.p}g &nbsp;·&nbsp; C <b style="color:var(--cyan)">${t.c}</b>/${m.c}g &nbsp;·&nbsp; G <b style="color:var(--amber)">${t.g}</b>/${m.g}g</div>
+      <div class="fcst ${stCls}">${stTxt}</div>
+    </div>
+    <div class="fcdiff"><div class="fcn">${rest}</div><div class="fcl">restantes</div></div>
+  </div></div>`;
+
   $('tab-plan').innerHTML = `<div class="wrap"><section>
     <div class="sec-h"><span class="ix">01</span><h2>Plan alimentario diario</h2><div class="rule"></div></div>
     ${macrosHtml}
     <div class="meals">${mealsHtml}</div>
     ${hydroHtml}
-  </section></div>`;
+    <div style="height:104px"></div>
+  </section></div>${barHtml}`;
 
   restoreMealUI();
 }
