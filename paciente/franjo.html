@@ -251,12 +251,14 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 .ffilter.on .fmini i{transform:translateX(16px);background:var(--green)}
 .flist{border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow)}
 .fcat{font-family:'IBM Plex Mono';font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);padding:12px 16px 6px;background:var(--panel2)}
-.fopt{display:flex;align-items:center;gap:13px;padding:12px 16px;border-top:1px solid var(--line);transition:background .15s;cursor:pointer}
+.fopt{display:flex;align-items:center;gap:12px;padding:12px 16px;border-top:1px solid var(--line);transition:background .15s}
 .fopt.sel{background:rgba(196,151,58,.09)}
-.fcheck{width:23px;height:23px;border-radius:7px;border:1.5px solid var(--line);flex-shrink:0;display:flex;align-items:center;justify-content:center;background:var(--bg);color:#000;transition:.15s}
-.fopt.sel .fcheck{background:var(--navy);border-color:var(--navy)}
-.fcheck svg{width:13px;height:13px;opacity:0;transition:opacity .15s}
-.fopt.sel .fcheck svg{opacity:1}
+.fstep{display:flex;align-items:center;gap:5px;flex-shrink:0}
+.fqbtn{width:26px;height:26px;border-radius:7px;border:1px solid var(--line);background:var(--panel2);color:var(--ink);font-size:16px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;padding:0;transition:.15s}
+.fqbtn:hover:not(:disabled){border-color:var(--navy);color:var(--navy)}
+.fqbtn:disabled{opacity:.3;cursor:default}
+.fqn{font-family:'IBM Plex Mono';font-size:15px;font-weight:700;min-width:16px;text-align:center;color:var(--faint)}
+.fqn.on{color:var(--navy)}
 .flist .fcat + .fopt,.flist .fopt:first-child{border-top:none}
 .fopt:hover{background:var(--bg2)}
 .fopt .fbody{flex:1;min-width:0}
@@ -1313,7 +1315,7 @@ function renderEvolChart() {
 
 // ── Comer Fuera ────────────────────────────────────────────────────────────
 const CATALOG_FUERA = (typeof GUIA_CATALOG !== 'undefined') ? GUIA_CATALOG : [];
-const fState = { mealId:null, cat:'Todas', soloEntran:true, picks:new Set() };
+const fState = { mealId:null, cat:'Todas', soloEntran:true, qty:{} };
 const F_TOL = 50;
 function fueraMeals(){ return PATIENT.comidas.filter(m => m.kcal != null); }
 function fMealById(id){ return PATIENT.comidas.find(m => m.id === id); }
@@ -1326,13 +1328,13 @@ function renderFuera(){
   const meal = fMealById(fState.mealId) || {};
   const budget = meal.kcal || 500;
 
-  // ── selección actual ──
-  const sel = [...fState.picks].map(i => CATALOG_FUERA[i]).filter(Boolean);
-  const S = sel.reduce((a,o)=>a+o.kcal,0);
-  const P = sel.reduce((a,o)=>a+o.p,0);
+  // ── selección actual (mapa índice→cantidad) ──
+  const qty = fState.qty;
+  const chosen = Object.keys(qty).filter(i => qty[i] > 0);
+  const S = chosen.reduce((a,i) => a + (CATALOG_FUERA[i] ? CATALOG_FUERA[i].kcal * qty[i] : 0), 0);
+  const P = chosen.reduce((a,i) => a + (CATALOG_FUERA[i] ? CATALOG_FUERA[i].p    * qty[i] : 0), 0);
+  const nPort = chosen.reduce((a,i) => a + qty[i], 0);
   const diff = budget - S;
-
-  const CK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
 
   const mealsHtml = meals.map(m =>
     `<button class="fmeal ${m.id===fState.mealId?'active':''}" data-mid="${m.id}">
@@ -1344,28 +1346,31 @@ function renderFuera(){
 
   let opts = CATALOG_FUERA.map((o,i)=>({...o,_i:i}));
   if(fState.cat !== 'Todas') opts = opts.filter(o => o.cat === fState.cat);
-  if(fState.soloEntran)      opts = opts.filter(o => fState.picks.has(o._i) || (S + o.kcal <= budget + F_TOL));
+  if(fState.soloEntran)      opts = opts.filter(o => (qty[o._i]>0) || (S + o.kcal <= budget + F_TOL));
   opts.sort((a,b) => a.kcal - b.kcal);
 
   let listHtml;
   if(!CATALOG_FUERA.length){
     listHtml = `<div class="fempty">No se pudo cargar el catálogo (guia-data.js).</div>`;
   } else if(!opts.length){
-    listHtml = `<div class="fempty">Nada más entra en lo que te queda. Quita algo o desactiva “solo las que entran”.</div>`;
+    listHtml = `<div class="fempty">Nada más entra en lo que te queda. Quita una porción o desactiva “solo las que entran”.</div>`;
   } else {
     let last = null;
     listHtml = opts.map(o => {
-      const on = fState.picks.has(o._i);
-      const total = on ? S : S + o.kcal;   // total si estuviera elegido
+      const n = qty[o._i] || 0;
+      const tAdd = S + o.kcal;             // total si agregas una porción más
       let bcls, btxt;
-      if(on){ bcls='sel'; btxt='ELEGIDO'; }
-      else if(Math.abs(budget-total)<=F_TOL){ bcls='done'; btxt='COMPLETA ✓'; }
-      else if(total<=budget+F_TOL){ bcls='in'; btxt='ENTRA'; }
+      if(Math.abs(budget-tAdd)<=F_TOL){ bcls='done'; btxt='COMPLETA ✓'; }
+      else if(tAdd<=budget+F_TOL){ bcls='in'; btxt='ENTRA'; }
       else { bcls='out'; btxt='SE PASA'; }
       const lbl = (fState.cat==='Todas' && o.cat!==last) ? `<div class="fcat">${o.cat}</div>` : '';
       last = o.cat;
-      return `${lbl}<div class="fopt ${on?'sel':''}" data-i="${o._i}">
-        <div class="fcheck">${CK}</div>
+      return `${lbl}<div class="fopt ${n>0?'sel':''}">
+        <div class="fstep">
+          <button class="fqbtn" data-i="${o._i}" data-act="dec" ${n<1?'disabled':''}>−</button>
+          <span class="fqn ${n>0?'on':''}">${n}</span>
+          <button class="fqbtn" data-i="${o._i}" data-act="inc">+</button>
+        </div>
         <div class="fbody"><div class="fdish">${o.dish}</div><div class="fplace">${o.rest}${o.qty?' · '+o.qty:''}</div></div>
         <div class="fmac"><span class="k">${o.kcal} kcal</span> · <span class="p">${o.p}g P</span>
           <span class="fbadge ${bcls}">${btxt}</span></div>
@@ -1381,7 +1386,7 @@ function renderFuera(){
     else { stCls='over'; stTxt=`Te pasaste ${-diff} kcal del presupuesto.`; }
   }
   const diffLabel = diff>0 ? 'te faltan' : diff<0 ? 'te pasas' : 'exacto';
-  const clearBtn = sel.length ? ` · <button class="fclear" id="fClear">limpiar (${sel.length})</button>` : '';
+  const clearBtn = nPort ? ` · <button class="fclear" id="fClear">limpiar (${nPort})</button>` : '';
   const cartHtml = `<div class="fcart"><div class="fcin">
     <div class="fcleft">
       <div class="fck">${S} <small>/ ${budget} kcal · ${P}g P</small></div>
@@ -1392,7 +1397,7 @@ function renderFuera(){
 
   panel.innerHTML = `<div class="wrap"><section>
     <div class="sec-h"><span class="ix">01</span><h2>Comer fuera sin salirte del plan</h2><div class="rule"></div></div>
-    <div class="fuera-intro">Elige <b>en qué comida</b> vas a comer fuera y <b>toca lo que vas a pedir</b>. Abajo ves cuántas kcal llevas vs. las que tienes para esa comida. Puedes <b>combinar varias</b> para llegar al objetivo (±50 kcal). Badge <b style="color:var(--navy)">COMPLETA ✓</b> = te deja justo. Datos de tu guía (${CATALOG_FUERA.length} opciones).</div>
+    <div class="fuera-intro">Elige <b>en qué comida</b> vas a comer fuera y usa <b>− / +</b> para sumar porciones (puedes <b>repetir la misma</b>). Abajo ves cuántas kcal llevas vs. las que tienes para esa comida. Combina para llegar al objetivo (±50 kcal). Badge <b style="color:var(--navy)">COMPLETA ✓</b> = te deja justo. Datos de tu guía (${CATALOG_FUERA.length} opciones).</div>
     <div class="fmeals">${mealsHtml}</div>
     <div class="fbudget">Presupuesto de <b>${meal.nombre||''}</b>: <b>~${budget} kcal</b></div>
     <div class="fchips">${chipsHtml}</div>
@@ -1402,17 +1407,17 @@ function renderFuera(){
   </section></div>
   ${cartHtml}`;
 
-  panel.querySelectorAll('.fmeal').forEach(b => b.onclick = () => { fState.mealId = b.dataset.mid; fState.picks.clear(); renderFuera(); });
+  panel.querySelectorAll('.fmeal').forEach(b => b.onclick = () => { fState.mealId = b.dataset.mid; fState.qty = {}; renderFuera(); });
   panel.querySelectorAll('.fchip').forEach(b => b.onclick = () => { fState.cat = b.dataset.cat; renderFuera(); });
-  panel.querySelectorAll('.fopt').forEach(el => el.onclick = () => {
-    const i = +el.dataset.i;
-    fState.picks.has(i) ? fState.picks.delete(i) : fState.picks.add(i);
+  panel.querySelectorAll('.fqbtn').forEach(b => b.onclick = () => {
+    const i = b.dataset.i, cur = fState.qty[i] || 0;
+    fState.qty[i] = b.dataset.act === 'inc' ? cur + 1 : Math.max(0, cur - 1);
     renderFuera();
   });
   const ft = panel.querySelector('#fFilterToggle');
   if(ft) ft.onclick = () => { fState.soloEntran = !fState.soloEntran; renderFuera(); };
   const cb = panel.querySelector('#fClear');
-  if(cb) cb.onclick = (e) => { e.stopPropagation(); fState.picks.clear(); renderFuera(); };
+  if(cb) cb.onclick = () => { fState.qty = {}; renderFuera(); };
 }
 
 function init() {
