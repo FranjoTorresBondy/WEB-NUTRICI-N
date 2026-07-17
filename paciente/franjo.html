@@ -288,6 +288,8 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 .fcart .fcdiff .fcl{font-family:'IBM Plex Mono';font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-top:3px}
 .pmac{font-family:'IBM Plex Mono';font-size:11.5px;margin-top:5px;color:var(--muted)}
 .pmac b{font-weight:700}
+.gcount{font-family:'IBM Plex Mono';font-size:10px;font-weight:600;color:var(--faint);margin-left:4px}
+.gcount.full{color:var(--navy)}
 </style>
 <link rel="stylesheet" href="paciente.css">
 </head>
@@ -894,6 +896,8 @@ function buildMeal(meal) {
     : '';
 
   const groups = meal.grupos.map((g,gi) => {
+    const gc = g.ops.reduce((s,op,oi) => s + (mealState[`${meal.id}-${gi}-${oi}`]||0), 0);
+    const full = gc >= g.max;
     const opts = g.ops.map((op,oi) => {
       const key = `${meal.id}-${gi}-${oi}`;
       const cnt = (mealState[key]||0);
@@ -904,11 +908,11 @@ function buildMeal(meal) {
         ${g.max>1?`<div class="opt-ctrl">
           <button class="opt-btn" onclick="event.stopPropagation();adjOpt(this,-1)" ${cnt<1?'disabled':''}>−</button>
           <span class="opt-cnt">${cnt||0}</span>
-          <button class="opt-btn" onclick="event.stopPropagation();adjOpt(this,1)">+</button>
+          <button class="opt-btn" onclick="event.stopPropagation();adjOpt(this,1)" ${full?'disabled':''}>+</button>
         </div>`:''}
       </div>`;
     }).join('');
-    return `<div class="pick"><div class="k">${g.label}</div><div class="options">${opts}</div></div>`;
+    return `<div class="pick"><div class="k">${g.label} <span class="gcount${full?' full':''}">${gc}/${g.max}</span></div><div class="options">${opts}</div></div>`;
   }).join('');
 
   const nota = meal.nota ? `<div class="note2">${meal.nota}</div>` : '';
@@ -918,10 +922,26 @@ function buildMeal(meal) {
   </div><div class="body">${groups}${nota}</div></div>`;
 }
 
+function groupCount(mid, gi) {
+  const meal = PATIENT.comidas.find(m => m.id === mid);
+  if (!meal || !meal.grupos[gi]) return 0;
+  return meal.grupos[gi].ops.reduce((s,op,oi) => s + (mealState[`${mid}-${gi}-${oi}`]||0), 0);
+}
+
 function toggleOpt(el) {
   const key = el.dataset.key;
+  const mid = el.dataset.mid, gi = +el.dataset.gi, max = +el.dataset.max;
   const cur = mealState[key]||0;
-  mealState[key] = cur>0 ? 0 : 1;
+  if (cur > 0) {
+    mealState[key] = 0;                                   // desmarcar: siempre permitido
+  } else if (max === 1) {
+    const meal = PATIENT.comidas.find(m => m.id === mid); // "Escoge 01": reemplaza al resto del grupo
+    meal.grupos[gi].ops.forEach((op,oi) => { mealState[`${mid}-${gi}-${oi}`] = 0; });
+    mealState[key] = 1;
+  } else {
+    if (groupCount(mid, gi) >= max) return;               // ya marcó lo que le toca
+    mealState[key] = 1;
+  }
   saveMealState(mealState);
   renderNutr();
 }
@@ -929,7 +949,9 @@ function toggleOpt(el) {
 function adjOpt(btn, delta) {
   const opt = btn.closest('.opt');
   const key = opt.dataset.key;
+  const mid = opt.dataset.mid, gi = +opt.dataset.gi, max = +opt.dataset.max;
   const cur = mealState[key]||0;
+  if (delta > 0 && groupCount(mid, gi) >= max) return;    // tope del grupo alcanzado
   mealState[key] = Math.max(0, cur+delta);
   saveMealState(mealState);
   renderNutr();
