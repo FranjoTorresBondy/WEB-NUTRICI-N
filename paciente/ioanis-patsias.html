@@ -254,7 +254,7 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 const PATIENT = {
   slug:      'ioanis-patsias',
   nombre:    'Ioanis\nPatsias',
-  fecha:     '29.06.2026',
+  fecha:     '15.07.2026',
   tipoPlan:  'Hipocalórico · Hiperprotéico',
   macros:    { kcal: 1990, p: 157, c: 172, g: 67 },
   hidratacion: [
@@ -264,17 +264,18 @@ const PATIENT = {
   ],
   semanas: 1,
   antro: {
-    fecha:'29.06.2026', peso:107.3, talla:184, imc:31.7,
-    tri:9, bi:7, sub:30, cresta:29, supra:15, abd:31, pierna:12, pant:8,
-    brazRelaj:40.3, brazFlex:42.8, abdom:102, cadera:112, muslo:60, pantPer:40.2,
+    fecha:'15.07.2026', peso:105.5, talla:184, imc:31.2,
+    tri:8, bi:3, sub:26, cresta:26, supra:14, abd:25, pierna:12, pant:7,
+    brazRelaj:40.2, brazFlex:42.8, abdom:99, cadera:111.5, muslo:60.5, pantPer:40.2,
+    diam: { humero:7.2, biEstiloideo:6.0, femur:10.5 },
   },
 
   objetivos: [
-    'Reducir Σ8 de 141 mm → 126 mm en el próximo mesociclo (−15 mm)',
-    'Objetivo a largo plazo: Σ8 = 80 mm',
+    'Σ8: 141 mm → 121 mm (−20 mm en 2.5 semanas) ✓ · Peso: 107.3 kg → 105.5 kg (−1.8 kg)',
+    'Objetivo siguiente: Σ8 = 106 mm · Objetivo a largo plazo: Σ8 = 80 mm',
     'Mejorar sensibilidad a la insulina mediante timing de carbohidratos peri-entreno',
     'Aumentar masa muscular manteniendo déficit calórico controlado',
-    'Mejorar composición corporal: % grasa actual 15.5% → objetivo 10-11%',
+    '% grasa actual: 14.3% (Slaughter) · Objetivo: 10–11%',
   ],
 
   comidas: [
@@ -370,12 +371,13 @@ const PATIENT = {
         'Pescado blanco (lenguado, corvina, perico, mero, tilapia)',
         'Carne molida de bistec',
         '1 milanesa de pollo Avinka (al airfryer)',
+        '65 g queso mozzarella light CuisineCo 🍕 (para pizza: usar con 1 Rapidita de base + salsa de tomate + orégano)',
       ]},
       { label:'Escoge 04 · Carbohidrato (1 intercambio)', max:1, ops:[
         '60 g arroz blanco o integral cocido',
         '60 g quinua cocida',
         '90 g papa blanca o camote sancochado (si es al airfryer, pesar antes de meter)',
-        '1 Rapidita Cero',
+        '1 Rapidita Cero 🍕 (base de pizza casera)',
         '1 rebanada pan de masa madre (30 g)',
       ]},
       { label:'Escoge 01 · Verduras', max:1, ops:[
@@ -387,6 +389,18 @@ const PATIENT = {
         '5 g ghee para cocinar',
       ]},
     ], nota:'* Si eliges bistec, salmón o carne molida de bistec, eliminar la porción de grasa.' },
+
+    { id:'cine', nombre:'🍿 Noche de cine (1 vez/semana)', kcal:200, p:7, c:27, g:7, grupos:[
+      { label:'Opción 1 · Canchita casera', max:1, ops:[
+        '30 g maíz palomero + 1 cdta aceite de oliva (5 ml) + 1 cda nutritional yeast + sal al gusto → ~200 kcal / 7P / 27C / 7G',
+      ]},
+      { label:'Opción 2 · Canchita Cineplanet (pequeña, estimado)', max:1, ops:[
+        'Canchita pequeña Cineplanet (sin mantequilla extra) → ~330 kcal / 4P / 42C / 16G',
+      ]},
+      { label:'Sumar proteína si la necesitas', max:1, ops:[
+        '+ 1 scoop proteína aislada en agua → +~105 kcal / +25P (recomendado para Opción 2 de cine)',
+      ]},
+    ], nota:'Reemplaza la cena de ese día o ajusta las porciones de la cena según el horario. Canchita casera: preparar en olla con tapa a fuego medio-alto, sin aceite adicional al indicado. Nutritional yeast aporta sabor a queso y proteína extra.' },
 
     { id:'box', nombre:'🥊 Día de Box · Peri-entreno', kcal:200, p:14, c:35, g:2, grupos:[
       { label:'Pre-entreno box (30 min antes)', max:1, ops:[
