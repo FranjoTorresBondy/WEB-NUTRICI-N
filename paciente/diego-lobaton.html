@@ -184,7 +184,7 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 const PATIENT = {
   slug:     'diego-lobaton',
   nombre:   'Diego\nLobatón',
-  fecha:    '02.07.2026',
+  fecha:    '16.07.2026',
   tipoPlan: 'Hipocalórico · Hiperprotéico',
   macros:   { kcal: 1810, p: 150, c: 200, g: 45 },
   hidratacion: [
@@ -192,14 +192,22 @@ const PATIENT = {
     { label:'💧 Descanso',      valor:'3.0' },
   ],
   semanas: 1,
+  antroHistorial: [
+    { fecha:'02.07.2026', peso:88.3, talla:168.0, imc:31.8,
+      tri:10.0, bi:4.0, sub:18.0, cresta:23.0, supra:20.0, abd:25.0, pierna:18.0, pant:10.0,
+      s6:91.0, s8:118.0,
+      brazRelaj:36.0, brazFlex:35.3, abdom:100.0, cadera:105.0, muslo:57.5, pantPer:40.2 },
+  ],
   antro: {
-    fecha:'02.07.2026', peso:88.3, talla:168.0, imc:31.8,
-    tri:10.0, bi:4.0, sub:18.0, cresta:23.0, supra:20.0, abd:25.0, pierna:18.0, pant:10.0,
-    brazRelaj:36.0, brazFlex:35.3, abdom:100.0, cadera:105.0, muslo:57.5, pantPer:40.2,
+    fecha:'16.07.2026', peso:87.4, talla:168.0, imc:31.0,
+    tri:8.0, bi:2.0, sub:18.0, cresta:22.0, supra:16.0, abd:22.0, pierna:18.0, pant:10.0,
+    s6:92.0, s8:116.0,
+    brazRelaj:36.0, brazFlex:35.8, abdom:99.0, cadera:105.0, muslo:59.0, pantPer:40.2,
+    diam:{ humero:6.3, biEstiloideo:5.2, femur:9.5 },
   },
 
   objetivos: [
-    'Disminución de sumatoria de 8 pliegues a 120 mm para la próxima sesión',
+    'Disminución de sumatoria de 8 pliegues a 100 mm para la próxima sesión',
     'Objetivo de pasos mínimos 6000 diarios — los fines de semana caminar más',
   ],
 
@@ -266,6 +274,7 @@ const PATIENT = {
         '1 Rapidita cero',
         '1 Rapidita integral',
         '1 rebanada de pan de molde (30 g)',
+        '1 cup de pudín sabor chocolate Snack Pack sin azúcar',
       ]},
       { label:'Escoge 01 · Proteína (180 g, peso crudo)', max:1, ops:[
         'Pechuga de pollo','Pechuga de pavo','Pescado',
@@ -277,9 +286,10 @@ const PATIENT = {
         '1 cdta de aceite de oliva',
         '40 g de palta',
         '1 cdta de aceite de ajonjolí',
+        '1 cuadradito de chocolate oscuro (10 g) o 1 pastilla de chocolate La Ibérica',
       ]},
       { label:'Escoge 01 · Verduras', max:1, ops:['120 a 150 g de verduras de tu preferencia'] },
-    ], nota:'Puedes cocinar la papa y el camote en el airfryer (sin aceite). · Puedes consumir 2 cervezas zero (eliminar 01 porción de carbo) o 1 normal de 310-355 ml (eliminar 02 porciones de carbo) — no todos los días. · Día de jarango: cortar el snack, solo comer 1 lata de atún o pechuga de pollo con rapidita (puedes agregar cebollita, tomate, etc.).' },
+    ], nota:'Puedes cocinar la papa y el camote en el airfryer (sin aceite). · Puedes consumir 2 cervezas zero (eliminar 01 porción de carbo) o 1 normal de 310-355 ml (eliminar 02 porciones de carbo) — no todos los días. · Día de jarango: cortar el snack, solo comer 1 lata de atún o pechuga de pollo con rapidita (puedes agregar cebollita, tomate, etc.). · Puedes acompañar esta comida con un vaso de 240 ml de Coca-Cola Zero.' },
   ],
 
   specs: [
@@ -512,6 +522,11 @@ function renderEval() {
         <div class="row"><span>Muslo medio</span><span>${a.muslo}</span></div>
         <div class="row"><span>Pantorrilla</span><span>${a.pantPer}</span></div>
       </div>
+      ${a.diam ? `<div class="evgroup"><div class="gh">Diámetros óseos (cm)</div>
+        <div class="row"><span>Húmero</span><span>${a.diam.humero}</span></div>
+        <div class="row"><span>Biestiloideo</span><span>${a.diam.biEstiloideo}</span></div>
+        <div class="row"><span>Fémur</span><span>${a.diam.femur}</span></div>
+      </div>` : ''}
     </div>
     <div class="sec-h" style="margin-top:32px"><span class="ix">02</span><h2>Objetivos</h2><div class="rule"></div></div>
     <div class="card" style="max-width:640px"><ul class="obj">${PATIENT.objetivos.map(o=>`<li>${o}</li>`).join('')}</ul></div>
@@ -551,12 +566,13 @@ function renderSpecs() {
 }
 
 // ── Evolución Física ───────────────────────────────────────────────────────
-const ANTRO_KEY = () => `${PATIENT.slug}-antro-v1`;
+const ANTRO_KEY = () => `${PATIENT.slug}-antro-v2`;
 function getAntroBase() {
   const a = PATIENT.antro;
-  const s6 = +(a.tri+a.sub+a.supra+a.abd+a.pierna+a.pant).toFixed(1);
-  const s8 = +(s6+a.bi+a.cresta).toFixed(1);
-  return [{ fecha:a.fecha, peso:a.peso, tri:a.tri, bi:a.bi, sub:a.sub, cresta:a.cresta, supra:a.supra, abd:a.abd, pierna:a.pierna, pant:a.pant, brazRelaj:a.brazRelaj, brazFlex:a.brazFlex, abdom:a.abdom, cadera:a.cadera, muslo:a.muslo, pantPer:a.pantPer, s6, s8 }];
+  const s6 = a.s6 ?? +(a.tri+a.sub+a.supra+a.abd+a.pierna+a.pant).toFixed(1);
+  const s8 = a.s8 ?? +(s6+a.bi+a.cresta).toFixed(1);
+  const current = { fecha:a.fecha, peso:a.peso, tri:a.tri, bi:a.bi, sub:a.sub, cresta:a.cresta, supra:a.supra, abd:a.abd, pierna:a.pierna, pant:a.pant, brazRelaj:a.brazRelaj, brazFlex:a.brazFlex, abdom:a.abdom, cadera:a.cadera, muslo:a.muslo, pantPer:a.pantPer, s6, s8 };
+  return [...(PATIENT.antroHistorial||[]), current];
 }
 function getAntroData() { try { const r=localStorage.getItem(ANTRO_KEY()); return r?JSON.parse(r):getAntroBase(); } catch { return getAntroBase(); } }
 function saveAntroData(d) { localStorage.setItem(ANTRO_KEY(), JSON.stringify(d)); }
