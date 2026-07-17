@@ -254,22 +254,29 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 const PATIENT = {
   slug:      'javier-lazo',
   nombre:    'Javier\nLazo',
-  fecha:     '30.06.2026',
+  fecha:     '16.07.2026',
   tipoPlan:  'Hipocalórico · Hiperprotéico',
-  macros:    { kcal: 2100, p: 150, c: 215, g: 64 },
+  macros:    { kcal: 2100, p: 131, c: 230, g: 60 },
   hidratacion: [
     { label:'💧 Entrenamiento', valor:'3.5' },
     { label:'💧 Descanso',      valor:'3.0' },
   ],
   semanas: 1,
+  antroHistorial: [
+    { fecha:'30.06.2026', peso:92.0, talla:183.0, imc:27.5,
+      tri:12.0, bi:6.0, sub:17.0, cresta:27.0, supra:18.0, abd:28.0, pierna:16.0, pant:6.0,
+      brazRelaj:36.5, brazFlex:37.3, abdom:88.5, cadera:108.0, muslo:55.0, pantPer:39.5,
+      s6:97.0, s8:130.0 },
+  ],
   antro: {
-    fecha:'30.06.2026', peso:92.0, talla:183, imc:27.5,
-    tri:12.0, bi:6.0, sub:17.0, cresta:27.0, supra:18.0, abd:28.0, pierna:16.0, pant:6.0,
-    brazRelaj:36.5, brazFlex:37.3, abdom:88.5, cadera:108.0, muslo:55.0, pantPer:39.5,
+    fecha:'16.07.2026', peso:92.3, talla:182.0, imc:27.9,
+    tri:9.0, bi:3.0, sub:15.0, cresta:23.0, supra:15.0, abd:22.0, pierna:13.0, pant:5.0,
+    s6:79.0, s8:105.0,
+    brazRelaj:36.3, brazFlex:37.5, abdom:89.0, cadera:106.5, muslo:56.0, pantPer:40.0,
   },
 
   objetivos: [
-    'Disminuir sumatoria de 8 pliegues',
+    'Disminuir sumatoria de 8 pliegues a 95 mm para la siguiente sesión',
     'Aumentar intensidad en entrenamiento de fuerza',
     'Mantener cantidad de pasos al día',
   ],
@@ -286,7 +293,7 @@ const PATIENT = {
       { label:'Escoge 04 · Carbohidrato', max:4, ops:['60 g de arroz','90 g de papa, camote o betarraga','60 g de quinua','100 g de menestra','50 g de fideos'] },
       { label:'Escoge 01 · Proteína (200 g, peso crudo)', max:1, ops:['Pechuga de pollo','Pechuga de pavo','Pescado','Bistec','Salmón (elimina 1 porción de grasa)'] },
       { label:'Escoge 01 · Verduras', max:1, ops:['150 g de verduras a tu preferencia (crudas o cocidas)'] },
-      { label:'Escoge 02 · Grasa', max:2, ops:['1 cdta de aceite de oliva','40 g de palta','4 aceitunas'] },
+      { label:'Escoge 02 · Grasa', max:2, ops:['1 cdta de aceite de oliva','40 g de palta','4 aceitunas','1 cuadradito de chocolate oscuro (10 g)'] },
     ], nota:'Para fines de semana, sumamos el snack de media tarde: 960 kcal / 76 P / 110 C / 23 G.' },
 
     { id:'c3', nombre:'🌿 Snack MT', kcal:280, p:24, c:35, g:6, grupos:[
@@ -299,7 +306,7 @@ const PATIENT = {
     { id:'c4', nombre:'🌙 Cena', kcal:602, p:51, c:58, g:17, grupos:[
       { label:'Escoge 03 · Carbohidrato', max:3, ops:['90 g de papa o camote','60 g de arroz','60 g de quinua','1 rapidita integral','1 rebanada de pan de molde integral (30 g)','20 g de avena (peso crudo)','20 g de cereales','20 g de granola'] },
       { label:'Escoge 01 · Proteína (200 g, peso crudo)', max:1, ops:['Pechuga de pollo','Pechuga de pavo','Pescado','Bistec','200 g de Quark','80 g de queso mozzarella light Cuisine&Co','Salmón (elimina 1 porción de grasa)','1 huevo + 2 claras'] },
-      { label:'Escoge 02 · Grasa', max:2, ops:['40 g de palta','4 aceitunas','1 porción de frutos secos'] },
+      { label:'Escoge 02 · Grasa', max:2, ops:['40 g de palta','4 aceitunas','1 porción de frutos secos','1 cuadradito de chocolate oscuro (10 g)'] },
       { label:'Escoge 01 · Verduras', max:1, ops:['150 g verduras cocidas','1 puñado de berries'] },
     ]},
 
@@ -725,12 +732,13 @@ function loadTrainValues() {
 }
 
 // ── Evolución Física ───────────────────────────────────────────────────────
-const ANTRO_KEY = () => `${PATIENT.slug}-antro-v1`;
+const ANTRO_KEY = () => `${PATIENT.slug}-antro-v2`;
 function getAntroBase() {
   const a = PATIENT.antro;
-  const s6 = +(a.tri+a.sub+a.supra+a.abd+a.pierna+a.pant).toFixed(1);
-  const s8 = +(s6+a.bi+a.cresta).toFixed(1);
-  return [{ fecha:a.fecha, peso:a.peso, tri:a.tri, bi:a.bi, sub:a.sub, cresta:a.cresta, supra:a.supra, abd:a.abd, pierna:a.pierna, pant:a.pant, brazRelaj:a.brazRelaj, brazFlex:a.brazFlex, abdom:a.abdom, cadera:a.cadera, muslo:a.muslo, pantPer:a.pantPer, s6, s8 }];
+  const s6 = a.s6 ?? +(a.tri+a.sub+a.supra+a.abd+a.pierna+a.pant).toFixed(1);
+  const s8 = a.s8 ?? +(s6+a.bi+a.cresta).toFixed(1);
+  const current = { fecha:a.fecha, peso:a.peso, tri:a.tri, bi:a.bi, sub:a.sub, cresta:a.cresta, supra:a.supra, abd:a.abd, pierna:a.pierna, pant:a.pant, brazRelaj:a.brazRelaj, brazFlex:a.brazFlex, abdom:a.abdom, cadera:a.cadera, muslo:a.muslo, pantPer:a.pantPer, s6, s8 };
+  return [...(PATIENT.antroHistorial||[]), current];
 }
 function getAntroData() { try { const r=localStorage.getItem(ANTRO_KEY()); return r?JSON.parse(r):getAntroBase(); } catch { return getAntroBase(); } }
 function saveAntroData(d) { localStorage.setItem(ANTRO_KEY(), JSON.stringify(d)); }
