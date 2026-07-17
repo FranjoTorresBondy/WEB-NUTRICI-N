@@ -270,6 +270,17 @@ const PATIENT = {
     diam: { humero:7.2, biEstiloideo:6.0, femur:10.5 },
   },
 
+  antroHistorial: [
+    { fecha:'29.06.2026', peso:107.3,
+      tri:9, bi:7, sub:30, cresta:29, supra:15, abd:31, pierna:12, pant:8,
+      brazRelaj:40.3, brazFlex:42.8, abdom:102, cadera:112, muslo:60, pantPer:40.2,
+      s6:105, s8:141 },
+    { fecha:'15.07.2026', peso:105.5,
+      tri:8, bi:3, sub:26, cresta:26, supra:14, abd:25, pierna:12, pant:7,
+      brazRelaj:40.2, brazFlex:42.8, abdom:99, cadera:111.5, muslo:60.5, pantPer:40.2,
+      s6:92, s8:121 },
+  ],
+
   objetivos: [
     'Σ8: 141 mm → 121 mm (−20 mm en 2.5 semanas) ✓ · Peso: 107.3 kg → 105.5 kg (−1.8 kg)',
     'Objetivo siguiente: Σ8 = 106 mm · Objetivo a largo plazo: Σ8 = 80 mm',
@@ -879,6 +890,13 @@ function loadTrainValues() {
 // ── Evolución Física ───────────────────────────────────────────────────────
 const ANTRO_KEY = () => `${PATIENT.slug}-antro-v1`;
 function getAntroBase() {
+  if (PATIENT.antroHistorial && PATIENT.antroHistorial.length) {
+    return PATIENT.antroHistorial.map(a => {
+      const s6 = a.s6 ?? +(a.tri+a.sub+a.supra+a.abd+a.pierna+a.pant).toFixed(1);
+      const s8 = a.s8 ?? +(s6+a.bi+a.cresta).toFixed(1);
+      return { ...a, s6, s8 };
+    });
+  }
   const a = PATIENT.antro;
   const s6 = +(a.tri+a.sub+a.supra+a.abd+a.pierna+a.pant).toFixed(1);
   const s8 = +(s6+a.bi+a.cresta).toFixed(1);
