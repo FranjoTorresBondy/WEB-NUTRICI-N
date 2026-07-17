@@ -793,11 +793,11 @@ function renderTabs() {
     {id:'plan',  label:'Plan Nutricional'},
     {id:'eval',  label:'Evaluación'},
     {id:'specs', label:'Especificaciones'},
-    {id:'fuera', label:'Comer Fuera'},
   ];
   if (PATIENT.entrenamiento) tabs.push({id:'train', label:'Entrenamiento'});
   tabs.push({id:'evol-antro', label:'Evolución Física'});
   if (PATIENT.entrenamiento) tabs.push({id:'evol-train', label:'Evolución Entreno'});
+  tabs.push({id:'fuera', label:'Comer Fuera'});
 
   $('tabNav').innerHTML = tabs.map((t,i) => {
     const extra = t.id==='evol-antro' ? ";initAntro()" : t.id==='evol-train' ? ";initEvolTrain()" : "";
