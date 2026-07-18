@@ -193,9 +193,17 @@ const PATIENT = {
   ],
   semanas: 1,
   antroHistorial: [
-    { fecha:'02.07.2026', peso:88.3, talla:168.0, imc:31.8,
+    { fecha:'26.05.2026', peso:89.7, talla:168.0, imc:31.8,
+      tri:14.0, bi:7.0, sub:23.0, cresta:32.0, supra:23.0, abd:37.0, pierna:19.0, pant:10.0,
+      s6:126.0, s8:165.0,
+      brazRelaj:36.0, brazFlex:35.5, abdom:105.0, cadera:107.0, muslo:57.0, pantPer:39.3 },
+    { fecha:'18.06.2026', peso:88.5, talla:168.0, imc:31.4,
+      tri:13.0, bi:5.0, sub:20.5, cresta:28.0, supra:20.0, abd:27.0, pierna:18.0, pant:10.0,
+      s6:108.5, s8:141.5,
+      brazRelaj:35.5, brazFlex:35.5, abdom:101.0, cadera:107.0, muslo:58.5, pantPer:40.2 },
+    { fecha:'01.07.2026', peso:88.3, talla:168.0, imc:31.3,
       tri:10.0, bi:4.0, sub:18.0, cresta:23.0, supra:20.0, abd:25.0, pierna:18.0, pant:10.0,
-      s6:91.0, s8:118.0,
+      s6:101.0, s8:128.0,
       brazRelaj:36.0, brazFlex:35.3, abdom:100.0, cadera:105.0, muslo:57.5, pantPer:40.2 },
   ],
   antro: {
@@ -566,7 +574,7 @@ function renderSpecs() {
 }
 
 // ── Evolución Física ───────────────────────────────────────────────────────
-const ANTRO_KEY = () => `${PATIENT.slug}-antro-v2`;
+const ANTRO_KEY = () => `${PATIENT.slug}-antro-v3`;
 function getAntroBase() {
   const a = PATIENT.antro;
   const s6 = a.s6 ?? +(a.tri+a.sub+a.supra+a.abd+a.pierna+a.pant).toFixed(1);
