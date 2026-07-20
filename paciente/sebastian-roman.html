@@ -239,28 +239,28 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 //  DATOS DEL PACIENTE
 // ════════════════════════════════════════════════════════════════════════════
 const PATIENT = {
-  slug:     'estephano-vigil',
-  nombre:   'Estephano\nVigil',
-  fecha:    '16.07.2026',
+  slug:     'sebastian-roman',
+  nombre:   'Sebastián\nRomán',
+  fecha:    '15.07.2026',
   tipoPlan: 'Hipercalórico · Hiperprotéico',
   macros:   { kcal: 2450, p: 152, c: 305, g: 71 },
 
   hidratacion: [
-    { label: 'Entrenamiento', valor: '2.9' },
-    { label: 'Descanso',      valor: '2.6' },
+    { label: 'Entrenamiento', valor: '3.0' },
+    { label: 'Descanso',      valor: '2.5' },
   ],
 
   antro: {
-    fecha: '16.07.2026',
-    peso: 73.3, talla: 178.0, imc: 23.1,
-    tri: 4.5, bi: 2.0, sub: 7.0, cresta: 7.0, supra: 5.0,
-    abd: 8.0, pierna: 7.0, pant: 2.0,
-    brazRelaj: 36.0, brazFlex: 37.0, abdom: 78.5, cadera: 97.0, muslo: 52.5, pantPer: 37.0,
+    fecha: '15.07.2026',
+    peso: 80.4, talla: 182.3, imc: 24.2,
+    tri: 11.0, bi: 4.0, sub: 18.0, cresta: 28.0, supra: 13.0,
+    abd: 29.0, pierna: 10.5, pant: 8.0,
+    brazRelaj: 32.8, brazFlex: 35.3, abdom: 84.5, cadera: 101.5, muslo: 51.5, pantPer: 34.5,
   },
 
   objetivos: [
-    'Recomposición corporal.',
-    'Aumentar intensidad en entrenamientos de fuerza.',
+    'Reducir sumatoria de 8 pliegues a 50 mm.',
+    'Aumentar masa muscular en brazos, hombros y piernas.',
   ],
 
   comidas: [
@@ -371,12 +371,12 @@ const PATIENT = {
       ]},
     ]},
 
-    { id:'pre', nombre:'🏋️ Pre Entreno GYM / Hyrox (+221 kcal)', kcal:null, p:null, c:null, g:null, grupos:[
+    { id:'pre', nombre:'🏋️ Pre Entreno GYM (+221 kcal)', kcal:null, p:null, c:null, g:null, grupos:[
       { label:'Escoge 01', max:1, ops:[
         '1 plátano + 1 cda de miel de abeja',
         '1 rebanada de pan blanco + 1 cda de mermelada',
       ]},
-    ], nota:'Solo días de entrenamiento GYM o Hyrox. Sumar al plan base (+221 kcal ≈ 2 671 kcal total).' },
+    ], nota:'Solo días de entrenamiento GYM. Sumar al plan base (+221 kcal ≈ 2 671 kcal total).' },
   ],
 
   specs: [
@@ -449,7 +449,7 @@ const PATIENT = {
     { nombre:'Salsa roja',         desc:'Tomate, cebolla, ajo, albahaca, poro + Lakanto o Stevia al gusto + sal, pimienta y tomillo + 1 cda aceite oliva. Puedes agregar cualquier otra verdura.' },
   ],
 
-  notaSpecs: 'Plan base: 2 450 kcal/día. Días de entrenamiento GYM o Hyrox: adicionar Pre Entreno (+221 kcal ≈ 2 671 kcal total).',
+  notaSpecs: 'Plan base: 2 450 kcal/día. Días de entrenamiento GYM: adicionar Pre Entreno (+221 kcal ≈ 2 671 kcal total).',
 
   entrenamiento: {
     fases: [
