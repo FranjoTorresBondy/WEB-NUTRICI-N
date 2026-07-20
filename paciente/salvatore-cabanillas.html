@@ -243,7 +243,7 @@ const PATIENT = {
   nombre:   'Salvatore\nCabanillas',
   fecha:    '14.07.2026',
   tipoPlan: 'Hipocalórico · Normoprotéico',
-  macros:   { kcal: 1700, p: 70, c: 240, g: 51 },
+  macros:   { kcal: 1580, p: 70, c: 210, g: 51 },
 
   hidratacion: [
     { label: 'Colegio / Actividad', valor: '2.0' },
@@ -295,8 +295,8 @@ const PATIENT = {
       ]},
     ], nota:'Llevar siempre 500 ml de agua. Reemplaza las galletas Unión.' },
 
-    { id:'alm', nombre:'🍛 Almuerzo', kcal:530, p:24, c:75, g:15, grupos:[
-      { label:'Escoge 03 · Carbohidrato', max:3, ops:[
+    { id:'alm', nombre:'🍛 Almuerzo', kcal:470, p:24, c:60, g:15, grupos:[
+      { label:'Escoge 02 · Carbohidrato', max:2, ops:[
         '60 g arroz (cocido)',
         '90 g papa o camote (cocido)',
         '60 g quinua (cocida)',
@@ -318,16 +318,14 @@ const PATIENT = {
       ]},
     ]},
 
-    { id:'snk', nombre:'🧃 Snack tarde', kcal:220, p:8, c:30, g:8, grupos:[
+    { id:'snk', nombre:'🧃 Snack tarde', kcal:160, p:8, c:15, g:8, grupos:[
       { label:'Escoge 01 · Lácteo', max:1, ops:[
         '180 g yogurt sin lactosa + Stevia al gusto',
         '150 g Quark natural + Stevia al gusto',
         '200 ml leche Slim + Stevia',
       ]},
-      { label:'Escoge 01 · Carbohidrato o fruta', max:1, ops:[
+      { label:'Escoge 01 · Fruta', max:1, ops:[
         '1 porción de fruta (ver especificaciones)',
-        '20 g cereales Dyfferent o NutriCo',
-        '1 tortilla rapidita integral',
       ]},
       { label:'Escoge 01 · Frutos secos', max:1, ops:[
         '4 nueces',
@@ -404,7 +402,7 @@ const PATIENT = {
     { nombre:'Salsa de tomate casera', desc:'Tomate + cebolla + ajo + albahaca + 1 cda aceite de oliva + sal. Para acompañar proteínas o pastas integrales.' },
   ],
 
-  notaSpecs: 'Plan de 1 700 kcal/día distribuido en 5 comidas según el horario escolar. Los fines de semana mantener el mismo orden de comidas aunque cambien los alimentos.',
+  notaSpecs: 'Plan de 1 580 kcal/día distribuido en 5 comidas según el horario escolar. Los fines de semana mantener el mismo orden de comidas aunque cambien los alimentos.',
 
   entrenamiento: null,
 };
