@@ -243,7 +243,7 @@ const PATIENT = {
   nombre:   'Sebastián\nRomán',
   fecha:    '15.07.2026',
   tipoPlan: 'Hipercalórico · Hiperprotéico',
-  macros:   { kcal: 2450, p: 152, c: 305, g: 71 },
+  macros:   { kcal: 2000, p: 130, c: 240, g: 57 },
 
   hidratacion: [
     { label: 'Entrenamiento', valor: '3.0' },
@@ -264,7 +264,7 @@ const PATIENT = {
   ],
 
   comidas: [
-    { id:'des', nombre:'☀️ Desayuno', kcal:572, p:34, c:63, g:23, grupos:[
+    { id:'des', nombre:'☀️ Desayuno', kcal:480, p:28, c:50, g:18, grupos:[
       { label:'Escoge 02 · Carbohidrato', max:2, ops:[
         '1 tortilla rapidita integral',
         '25 g de pan de masa madre',
@@ -293,8 +293,8 @@ const PATIENT = {
       ]},
     ], nota:'Días de entrenamiento: adicionar 1 porción extra de carbohidrato.' },
 
-    { id:'alm', nombre:'🍛 Almuerzo', kcal:758, p:54, c:93, g:18, grupos:[
-      { label:'Escoge 05 · Carbohidrato', max:5, ops:[
+    { id:'alm', nombre:'🍛 Almuerzo', kcal:600, p:44, c:74, g:12, grupos:[
+      { label:'Escoge 04 · Carbohidrato', max:4, ops:[
         '60 g de arroz',
         '90 g de papa, camote o betarraga',
         '60 g de quinua',
@@ -311,15 +311,15 @@ const PATIENT = {
       { label:'Escoge 01 · Verduras', max:1, ops:[
         '150 g de verduras a tu preferencia (crudas o cocidas)',
       ]},
-      { label:'Escoge 02 · Grasa', max:2, ops:[
+      { label:'Escoge 01 · Grasa', max:1, ops:[
         '1 cdta de aceite de oliva',
         '40 g de palta',
         '1 porción de frutos secos (ver especificaciones)',
       ]},
     ]},
 
-    { id:'snk', nombre:'🥗 Snack', kcal:294, p:10, c:53, g:7, grupos:[
-      { label:'Escoge 02 · Carbohidrato', max:2, ops:[
+    { id:'snk', nombre:'🥗 Snack', kcal:230, p:8, c:38, g:6, grupos:[
+      { label:'Escoge 01 · Carbohidrato', max:1, ops:[
         '1 tortilla rapidita integral',
         '25 g de pan de masa madre',
         '1 rebanada de pan de molde integral (30 g)',
@@ -338,8 +338,8 @@ const PATIENT = {
       ]},
     ]},
 
-    { id:'cen', nombre:'🌙 Cena', kcal:822, p:55, c:96, g:23, grupos:[
-      { label:'Escoge 05 · Carbohidrato', max:5, ops:[
+    { id:'cen', nombre:'🌙 Cena', kcal:690, p:50, c:78, g:21, grupos:[
+      { label:'Escoge 04 · Carbohidrato', max:4, ops:[
         '90 g de papa, camote o betarraga',
         '60 g de arroz',
         '60 g de quinua',
@@ -376,7 +376,7 @@ const PATIENT = {
         '1 plátano + 1 cda de miel de abeja',
         '1 rebanada de pan blanco + 1 cda de mermelada',
       ]},
-    ], nota:'Solo días de entrenamiento GYM. Sumar al plan base (+221 kcal ≈ 2 671 kcal total).' },
+    ], nota:'Solo días de entrenamiento GYM. Sumar al plan base (+221 kcal ≈ 2 221 kcal total).' },
   ],
 
   specs: [
@@ -449,7 +449,7 @@ const PATIENT = {
     { nombre:'Salsa roja',         desc:'Tomate, cebolla, ajo, albahaca, poro + Lakanto o Stevia al gusto + sal, pimienta y tomillo + 1 cda aceite oliva. Puedes agregar cualquier otra verdura.' },
   ],
 
-  notaSpecs: 'Plan base: 2 450 kcal/día. Días de entrenamiento GYM: adicionar Pre Entreno (+221 kcal ≈ 2 671 kcal total).',
+  notaSpecs: 'Plan base: 2 000 kcal/día. Días de entrenamiento GYM: adicionar Pre Entreno (+221 kcal ≈ 2 221 kcal total).',
 
   entrenamiento: {
     fases: [
