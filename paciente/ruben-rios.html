@@ -182,7 +182,7 @@ const PATIENT = {
   nombre:    'Ruben\nRios',
   fecha:     '02.07.2026',
   tipoPlan:  'Hipocalórico · Hiperprotéico',
-  macros:    { kcal: 1900, p: 150, c: 201, g: 57 },
+  macros:    { kcal: 1800, p: 150, c: 140, g: 72 },
   hidratacion: [
     { label:'💧 Entrenamiento', valor:'3.5' },
     { label:'💧 Descanso',      valor:'3.0' },
@@ -216,8 +216,8 @@ const PATIENT = {
   ],
 
   comidas: [
-    { id:'des', nombre:'☀️ Desayuno', kcal:390, p:20, c:44, g:17, grupos:[
-        { label:'Escoge 02 · Carbohidrato', max:2, ops:[
+    { id:'des', nombre:'☀️ Desayuno', kcal:375, p:20, c:29, g:22, grupos:[
+        { label:'Escoge 01 · Carbohidrato', max:1, ops:[
           '1 tortilla rapidita integral',
           '1 rebanada de pan de molde integral (30 g)',
           '20 g de avena (peso crudo)',
@@ -237,15 +237,15 @@ const PATIENT = {
           '70 g de queso cottage + 1 huevo',
           '2 huevos',
         ]},
-        { label:'Escoge 01 · Grasa', max:1, ops:[
+        { label:'Escoge 02 · Grasa', max:2, ops:[
           '1 cdta de aceite de olivo',
           '4 aceitunas',
           '1 porción de frutos secos',
         ]},
       ], nota:null },
 
-    { id:'alm', nombre:'🥗 Almuerzo', kcal:578, p:46, c:58, g:17, grupos:[
-        { label:'Escoge 03 · Carbohidrato', max:3, ops:[
+    { id:'alm', nombre:'🥗 Almuerzo', kcal:563, p:46, c:43, g:22, grupos:[
+        { label:'Escoge 02 · Carbohidrato', max:2, ops:[
           '60 g de arroz',
           '90 g de papa, camote o betarraga',
           '60 g de quinua',
@@ -261,25 +261,16 @@ const PATIENT = {
         { label:'Escoge 01 · Verdura', max:1, ops:[
           '150 g de verduras a tu preferencia (crudas o cocidas)',
         ]},
-        { label:'Escoge 02 · Grasa', max:2, ops:[
+        { label:'Escoge 03 · Grasa', max:3, ops:[
           '1 cdta de aceite de olivo',
           '4 aceitunas',
           '1 porción de frutos secos',
         ]},
       ], nota:null },
 
-    { id:'snk', nombre:'🍎 Snack Tarde', kcal:355, p:37, c:40, g:6, grupos:[
+    { id:'snk', nombre:'🍎 Snack Tarde', kcal:295, p:37, c:25, g:6, grupos:[
         { label:'Escoge 01 · Fruta', max:1, ops:[
           '1 porción de fruta',
-        ]},
-        { label:'Escoge 01 · Carbohidrato', max:1, ops:[
-          '1 tortilla rapidita integral',
-          '1 rebanada de pan de molde integral (30 g)',
-          '20 g de avena (peso crudo)',
-          '1 pan pita integral (30 g)',
-          '20 g de cereales de Dyfferent o NutriCo',
-          '20 g de granola',
-          '3 unidades de salmas',
         ]},
         { label:'Escoge 01 · Frutos secos / semillas', max:1, ops:[
           '1 porción de frutos secos o semillas',
@@ -293,8 +284,8 @@ const PATIENT = {
         ]},
       ], nota:null },
 
-    { id:'cen', nombre:'🌙 Cena', kcal:578, p:46, c:58, g:17, grupos:[
-        { label:'Escoge 03 · Carbohidrato', max:3, ops:[
+    { id:'cen', nombre:'🌙 Cena', kcal:563, p:46, c:43, g:22, grupos:[
+        { label:'Escoge 02 · Carbohidrato', max:2, ops:[
           '90 g de papa o camote',
           '60 g de arroz',
           '60 g de quinua',
@@ -313,7 +304,7 @@ const PATIENT = {
           '80 g de queso mozzarella light (Cuisine&Co)',
           '1 huevo + 2 claras',
         ]},
-        { label:'Escoge 02 · Grasa', max:2, ops:[
+        { label:'Escoge 03 · Grasa', max:3, ops:[
           '1 cdta de aceite de olivo',
           '4 aceitunas',
           '1 porción de frutos secos',
