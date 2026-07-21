@@ -179,7 +179,7 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 const PATIENT = {
   slug:     'fabrizio-valderrama',
   nombre:   'Fabrizio\nValderrama',
-  fecha:    '02.07.2026',
+  fecha:    '19.07.2026',
   tipoPlan: 'Hipocalórico · Hiperproteico',
   macros:   { kcal: 2100, p: 195, c: 220, g: 49 },
   hidratacion: [
@@ -187,13 +187,20 @@ const PATIENT = {
     { label:'💧 Descanso',      valor:'2.9' },
   ],
   antro: {
-    fecha:'02.07.2026', peso:83.9, talla:180.0, imc:26.8,
-    tri:4.0, bi:1.5, sub:8.0, cresta:15.0, supra:8.0, abd:16.0, pierna:7.0, pant:6.0,
-    brazRelaj:37.3, brazFlex:40.9, abdom:85.0, cadera:102.0, muslo:55.3, pantPer:37.6,
+    fecha:'19.07.2026', peso:82.9, talla:180.0, imc:25.6,
+    tri:4.0, bi:1.0, sub:6.0, cresta:13.0, supra:8.0, abd:14.0, pierna:6.0, pant:5.5,
+    brazRelaj:37.3, brazFlex:41.0, abdom:84.0, cadera:101.0, muslo:55.5, pantPer:37.6,
     diam: { humero:7.0, biEstiloideo:6.0, femur:10.0 },
   },
+  antroHistorial: [
+    { fecha:'02.07.2026', peso:83.9, tri:4.0, bi:1.5, sub:8.0, cresta:15.0, supra:8.0, abd:16.0, pierna:7.0, pant:6.0,
+      brazRelaj:37.3, brazFlex:40.9, abdom:85.0, cadera:102.0, muslo:55.3, pantPer:37.6, s6:49.0, s8:65.5 },
+    { fecha:'19.07.2026', peso:82.9, tri:4.0, bi:1.0, sub:6.0, cresta:13.0, supra:8.0, abd:14.0, pierna:6.0, pant:5.5,
+      brazRelaj:37.3, brazFlex:41.0, abdom:84.0, cadera:101.0, muslo:55.5, pantPer:37.6, s6:43.5, s8:57.5 },
+  ],
 
   objetivos: [
+    'Disminución de sumatoria de 8 pliegues a 48 mm',
     'Educación nutricional',
     'Recomposición corporal',
     'Recuperación de lesión',
@@ -570,6 +577,13 @@ function renderSpecs() {
 // ── Evolución Física ───────────────────────────────────────────────────────
 const ANTRO_KEY = () => `${PATIENT.slug}-antro-v1`;
 function getAntroBase() {
+  if (PATIENT.antroHistorial && PATIENT.antroHistorial.length) {
+    return PATIENT.antroHistorial.map(a => {
+      const s6 = a.s6 ?? +(a.tri+a.sub+a.supra+a.abd+a.pierna+a.pant).toFixed(1);
+      const s8 = a.s8 ?? +(s6+a.bi+a.cresta).toFixed(1);
+      return { ...a, s6, s8 };
+    });
+  }
   const a = PATIENT.antro;
   const s6 = +(a.tri+a.sub+a.supra+a.abd+a.pierna+a.pant).toFixed(1);
   const s8 = +(s6+a.bi+a.cresta).toFixed(1);
