@@ -268,9 +268,19 @@ const PATIENT = {
         ]},
       ], nota:null },
 
-    { id:'snk', nombre:'🍎 Snack Tarde', kcal:295, p:37, c:25, g:6, grupos:[
+    { id:'snk', nombre:'🍎 Snack Tarde', kcal:355, p:37, c:40, g:6, grupos:[
         { label:'Escoge 01 · Fruta', max:1, ops:[
           '1 porción de fruta',
+        ]},
+        { label:'Escoge 01 · Carbohidrato', max:1, ops:[
+          '1 tortilla rapidita integral',
+          '1 rebanada de pan de molde integral (30 g)',
+          '20 g de avena (peso crudo)',
+          '1 pan pita integral (30 g)',
+          '20 g de cereales de Dyfferent o NutriCo',
+          '20 g de granola',
+          '3 unidades de salmas',
+          '30 g de trigo atómico',
         ]},
         { label:'Escoge 01 · Frutos secos / semillas', max:1, ops:[
           '1 porción de frutos secos o semillas',
@@ -282,10 +292,10 @@ const PATIENT = {
           '120 g de pollo',
           '1 lata de atún en agua',
         ]},
-      ], nota:null },
+      ], nota:'Opción reemplazo completo del snack: 150 g de keke de plátano casero ya cocinado (≈ 4 rebanadas) = 355 kcal. Ver receta en Especificaciones.' },
 
-    { id:'cen', nombre:'🌙 Cena', kcal:563, p:46, c:43, g:22, grupos:[
-        { label:'Escoge 02 · Carbohidrato', max:2, ops:[
+    { id:'cen', nombre:'🌙 Cena', kcal:503, p:46, c:28, g:22, grupos:[
+        { label:'Escoge 01 · Carbohidrato', max:1, ops:[
           '90 g de papa o camote',
           '60 g de arroz',
           '60 g de quinua',
@@ -317,6 +327,27 @@ const PATIENT = {
   ],
 
   specs: [
+    { titulo:'Receta · Keke de Plátano Saludable', items:[
+      '## Ingredientes (rinde ~8 rebanadas)',
+      '2 plátanos maduros (200 g pelados)',
+      '2 huevos',
+      '90 g de avena en hojuelas (1 taza)',
+      '1 cdta de aceite de coco o de oliva',
+      '1 cdta de polvo de hornear',
+      '1 cdta de canela en polvo',
+      'Stevia o yacón al gusto',
+      '1 cdta de esencia de vainilla',
+      '## Preparación',
+      '1. Precalienta el horno a 175 °C.',
+      '2. Aplasta los plátanos con un tenedor hasta obtener un puré.',
+      '3. Agrega los huevos, el aceite y la vainilla. Mezcla bien.',
+      '4. Incorpora la avena, el polvo de hornear, la canela y el endulzante. Integra sin batir de más.',
+      '5. Vierte en un molde de budín engrasado o con papel manteca.',
+      '6. Hornea 30–35 min o hasta que al insertar un palillo salga limpio.',
+      '7. Deja enfriar antes de desmoldar y cortar.',
+      '## Equivalencia para el snack',
+      '150 g de keke cocinado (≈ 4 rebanadas) reemplaza el snack completo de media tarde (355 kcal). Puedes acompañarlo con agua o infusión.',
+    ]},
     { titulo:'Opciones si comes fuera (máx. 1 vez/semana)', items:[
       'Poke bowl: sin salsas acevichada/dulces (taré, anguila); solo con soya. Proteína + palta + mitad arroz o quinua o mix + verduras.',
       'Bowl de San Antonio, Don Mamino, Delicass, Freshii: con arroz, verduras, pollo y palta si es posible.',
