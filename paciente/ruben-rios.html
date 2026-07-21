@@ -188,6 +188,12 @@ const PATIENT = {
     { label:'💧 Descanso',      valor:'3.0' },
   ],
   semanas: 1,
+  antroHistorial: [
+    { fecha:'02.07.2026', peso:80.4, talla:171.0, imc:27.2,
+      tri:5.0, bi:4.0, sub:10.0, cresta:18.0, supra:10.0, abd:23.0, pierna:9.0, pant:4.0,
+      brazRelaj:36.5, brazFlex:38.6, abdom:89.0, cadera:102.3, muslo:54.5, pantPer:37.0,
+      s6:61.0, s8:83.0 },
+  ],
   antro: {
     fecha:    '21.07.2026',
     peso:     80.1,
@@ -556,9 +562,10 @@ function renderSpecs() {
 const ANTRO_KEY = () => `${PATIENT.slug}-antro-v1`;
 function getAntroBase() {
   const a = PATIENT.antro;
-  const s6 = +(a.tri+a.sub+a.supra+a.abd+a.pierna+a.pant).toFixed(1);
-  const s8 = +(s6+a.bi+a.cresta).toFixed(1);
-  return [{ fecha:a.fecha, peso:a.peso, tri:a.tri, bi:a.bi, sub:a.sub, cresta:a.cresta, supra:a.supra, abd:a.abd, pierna:a.pierna, pant:a.pant, brazRelaj:a.brazRelaj, brazFlex:a.brazFlex, abdom:a.abdom, cadera:a.cadera, muslo:a.muslo, pantPer:a.pantPer, s6, s8 }];
+  const s6 = a.s6 ?? +(a.tri+a.sub+a.supra+a.abd+a.pierna+a.pant).toFixed(1);
+  const s8 = a.s8 ?? +(s6+a.bi+a.cresta).toFixed(1);
+  const current = { fecha:a.fecha, peso:a.peso, tri:a.tri, bi:a.bi, sub:a.sub, cresta:a.cresta, supra:a.supra, abd:a.abd, pierna:a.pierna, pant:a.pant, brazRelaj:a.brazRelaj, brazFlex:a.brazFlex, abdom:a.abdom, cadera:a.cadera, muslo:a.muslo, pantPer:a.pantPer, s6, s8 };
+  return [...(PATIENT.antroHistorial||[]), current];
 }
 function getAntroData() { try { const r=localStorage.getItem(ANTRO_KEY()); return r?JSON.parse(r):getAntroBase(); } catch { return getAntroBase(); } }
 function saveAntroData(d) { localStorage.setItem(ANTRO_KEY(), JSON.stringify(d)); }
