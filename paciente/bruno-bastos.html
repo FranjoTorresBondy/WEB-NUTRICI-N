@@ -180,7 +180,7 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 const PATIENT = {
   slug:      'bruno-bastos',
   nombre:    'Bruno\nBastos',
-  fecha:     '03.07.2026',
+  fecha:     '22.07.2026',
   tipoPlan:  'Hipocalórico · Hiperprotéico',
   macros:    { kcal: 1914, p: null, c: null, g: null },
   hidratacion: [
@@ -189,28 +189,34 @@ const PATIENT = {
   ],
   semanas: 1,
   antro: {
-    fecha:    '03.07.2026',
-    peso:     97.1,
+    fecha:    '22.07.2026',
+    peso:     95.0,
     talla:    175.0,
-    imc:      31.7,
+    imc:      31.0,
     tri:      11.0,
-    bi:       11.0,
+    bi:       10.0,
     sub:      16.0,
-    cresta:   35.0,
-    supra:    20.0,
-    abd:      32.0,
-    pierna:   22.0,
-    pant:     17.0,
-    brazRelaj: 40.6,
-    brazFlex:  42.8,
-    abdom:     97.0,
-    cadera:   110.0,
-    muslo:     60.5,
+    cresta:   28.0,
+    supra:    15.0,
+    abd:      25.0,
+    pierna:   20.0,
+    pant:     13.0,
+    brazRelaj: 40.3,
+    brazFlex:  42.5,
+    abdom:     94.0,
+    cadera:   108.8,
+    muslo:     60.0,
     pantPer:   41.0,
+    diam: { humero: 7.8, biEstiloideo: 5.5, femur: 10.6 },
   },
 
+  antroHistorial: [
+    { fecha:'03.07.2026', peso:97.1, tri:11, bi:11, sub:16, cresta:35, supra:20, abd:32, pierna:22, pant:17, brazRelaj:40.6, brazFlex:42.8, abdom:97.0, cadera:110.0, muslo:60.5, pantPer:41.0, s6:118.0, s8:164.0 },
+    { fecha:'22.07.2026', peso:95.0, tri:11, bi:10, sub:16, cresta:28, supra:15, abd:25, pierna:20, pant:13, brazRelaj:40.3, brazFlex:42.5, abdom:94.0, cadera:108.8, muslo:60.0, pantPer:41.0, s6:100.0, s8:138.0 },
+  ],
+
   objetivos: [
-    'Disminución de Σ8 pliegues a 150 mm para la próxima sesión',
+    'Disminución de Σ8 pliegues a 130 mm para la próxima sesión',
     'Pasos mínimos: 5,000 diarios (fines de semana llegar a 8,000)',
     'Por estas semanas: dejar snacks salados y dulces',
   ],
@@ -228,12 +234,12 @@ const PATIENT = {
           '1 Rapidita cero',
         ]},
         { label:'Escoge 01 · Proteína + Grasa', max:1, ops:[
-          '100 g de pollo + 40 g de palta',
-          '2 huevos + 15 g de mantequilla de maní',
-          '1 lata de atún en agua + 70 g de palta',
-          '60 g de pechuga de pollo + 1 huevo + 15 g de mantequilla de maní',
-          '200 g de yogurt Vakimú + 60 g de palta',
-          '2 huevos + 40 g de queso mozzarella light + 10 g de mantequilla de maní',
+          '100 g de pollo + 60 g de palta',
+          '80 g de queso mozzarella light (Cuisine&amp;Co) + 1 huevo',
+          '1 lata de atún en agua + 60 g de palta',
+          '200 g de Vakimú Quark + 1 porción de frutos secos',
+          '1 scoop de proteína + 1 porción de frutos secos',
+          '3 huevos',
         ]},
       ], nota:'Puedes agregar cebolla y tomate con tu atún. · Puedes reemplazar el desayuno por un pan con chicharrón: en ese caso no consumir las porciones de grasa del almuerzo ni de la cena, y solo consumir 03 porciones de carbohidratos en almuerzo y cena.' },
 
@@ -342,6 +348,19 @@ const PATIENT = {
     { nombre:'Salsa roja', desc:'Tomate, cebolla, ajo, albahaca, poro, Lakanto o Stevia (si falta dulzor), sal, pimienta y tomillo + 1 cda de aceite de olivo. Puedes agregar cualquier otra verdura de tu preferencia.' },
   ],
 
+  diasEspeciales: [
+    { nombre:'🎂 Día de cumpleaños', kcal:2400, comidas:[
+      { nombre:'Desayuno', desc:'2 porciones de fruta · 3 porciones de carbohidrato · 1 porción de proteína + grasa (igual al plan regular)' },
+      { nombre:'Almuerzo', desc:'20 alitas de pollo al horno o a la parrilla (sin salsas)' },
+      { nombre:'Cena', desc:'1 hamburguesa simple + ensalada' },
+    ]},
+    { nombre:'🏖️ Días de Cieneguilla', kcal:1900, comidas:[
+      { nombre:'Desayuno', desc:'2 porciones de fruta · 3 porciones de carbohidrato · 1 porción de proteína + grasa (igual al plan regular)' },
+      { nombre:'Almuerzo', desc:'500 g de carnes a la parrilla (sin salsas)' },
+      { nombre:'Cena', desc:'200 g de Vakimú Quark + berries' },
+    ]},
+  ],
+
   notaSpecs: null,
   entrenamiento: null,
 };
@@ -414,7 +433,15 @@ function renderPlan() {
   <section style="padding-top:0">
     <div class="sec-h"><span class="ix">04</span><h2>Hidratación</h2><div class="rule"></div></div>
     <div class="hydro">${PATIENT.hidratacion.map(h=>`<div class="hcard"><div class="l">${h.label}</div><div class="b">${h.valor}<span style="font-size:18px;opacity:.5"> L</span></div></div>`).join('')}</div>
-  </section></div>`;
+  </section>
+  ${PATIENT.diasEspeciales?.length ? `<section style="padding-top:0">
+    <div class="sec-h"><span class="ix">05</span><h2>Días especiales</h2><div class="rule"></div></div>
+    <div class="meals">${PATIENT.diasEspeciales.map(d=>`<div class="meal">
+      <div class="top"><div class="nm">${d.nombre}</div><div class="mac"><b>${d.kcal}</b> kcal</div></div>
+      <div class="body">${d.comidas.map(c=>`<div class="pick"><div class="k">${c.nombre}</div><div style="font-size:12.5px;color:var(--muted);padding:6px 10px">${c.desc}</div></div>`).join('')}</div>
+    </div>`).join('')}</div>
+  </section>` : ''}
+  </div>`;
   $('tab-plan').innerHTML = html;
 
   $('mealsGrid').innerHTML = PATIENT.comidas.map(meal => {
@@ -471,6 +498,12 @@ function renderEval() {
         <div class="row"><span>Muslo medio</span><span>${a.muslo}</span></div>
         <div class="row"><span>Pantorrilla</span><span>${a.pantPer}</span></div>
       </div>
+      ${a.diam ? `<div class="evgroup">
+        <div class="gh">Diámetros óseos (cm)</div>
+        <div class="row"><span>Húmero</span><span>${a.diam.humero}</span></div>
+        <div class="row"><span>Biestiloideo</span><span>${a.diam.biEstiloideo}</span></div>
+        <div class="row"><span>Fémur</span><span>${a.diam.femur}</span></div>
+      </div>` : ''}
     </div>
     <div class="sec-h" style="margin-top:30px"><span class="ix">02</span><h2>Objetivos</h2><div class="rule"></div></div>
     <div class="card"><ul class="obj">${PATIENT.objetivos.map(o=>`<li>${o}</li>`).join('')}</ul></div>
@@ -509,6 +542,7 @@ function renderSpecs() {
 
 const ANTRO_KEY = () => `${PATIENT.slug}-antro-v1`;
 function getAntroBase() {
+  if (PATIENT.antroHistorial?.length) return PATIENT.antroHistorial;
   const a = PATIENT.antro;
   const s6 = +(a.tri+a.sub+a.supra+a.abd+a.pierna+a.pant).toFixed(1);
   const s8 = +(s6+a.bi+a.cresta).toFixed(1);
