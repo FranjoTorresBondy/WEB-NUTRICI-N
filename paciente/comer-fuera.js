@@ -178,12 +178,15 @@
       bar = document.createElement('div'); bar.id = 'cfProgress'; bar.className = 'fcart';
       panel.appendChild(bar);
     }
+    var macroRow = (m.p != null)
+      ? '<div class="pmac">P <b style="color:var(--green)">' + t.p + '</b>/' + m.p + 'g &nbsp;·&nbsp; ' +
+        'C <b style="color:var(--cyan)">' + t.c + '</b>/' + m.c + 'g &nbsp;·&nbsp; ' +
+        'G <b style="color:var(--amber)">' + t.g + '</b>/' + m.g + 'g</div>'
+      : '';
     bar.innerHTML =
       '<div class="fcin"><div class="fcleft">' +
         '<div class="fck">' + t.kcal + ' <small>/ ' + m.kcal + ' kcal</small></div>' +
-        '<div class="pmac">P <b style="color:var(--green)">' + t.p + '</b>/' + m.p + 'g &nbsp;·&nbsp; ' +
-          'C <b style="color:var(--cyan)">' + t.c + '</b>/' + m.c + 'g &nbsp;·&nbsp; ' +
-          'G <b style="color:var(--amber)">' + t.g + '</b>/' + m.g + 'g</div>' +
+        macroRow +
         '<div class="fcst ' + (done ? 'ok' : 'low') + '">' + stTxt + '</div>' +
       '</div><div class="fcdiff"><div class="fcn">' + rest + '</div><div class="fcl">restantes</div></div></div>';
   }
