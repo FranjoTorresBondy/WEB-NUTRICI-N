@@ -192,7 +192,7 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 const PATIENT = {
   slug:      'marcelo-gago',
   nombre:    'Marcelo\nGago',
-  fecha:     '26.06.2026',
+  fecha:     '21.07.2026',
   tipoPlan:  'Normocalórico · Hiperprotéico',
   macros:    { kcal: 2400, p: 130, c: 332, g: 55 },
   hidratacion: [
@@ -201,25 +201,32 @@ const PATIENT = {
   ],
   semanas:   1,
   antro: {
-    fecha:    '26.06.2026',
+    fecha:    '21.07.2026',
     peso:     64.6,
     talla:    164.7,
     imc:      23.2,
-    tri:      6.0,
-    bi:       2.0,
-    sub:      9.0,
+    tri:      7.0,
+    bi:       1.5,
+    sub:      10.0,
     cresta:   12.0,
     supra:    6.0,
-    abd:      8.0,
-    pierna:   11.0,
-    pant:     5.0,
-    brazRelaj: 32.0,
-    brazFlex:  33.4,
+    abd:      11.0,
+    pierna:   10.5,
+    pant:     4.0,
+    brazRelaj: 32.5,
+    brazFlex:  34.0,
     abdom:     74.0,
-    cadera:   97.5,
-    muslo:     50.0,
-    pantPer:   34.0,
+    cadera:   99.0,
+    muslo:     50.5,
+    pantPer:   34.8,
+    diam: { humero:6.5, biEstiloideo:5.5, femur:9.2 },
   },
+  antroHistorial: [
+    { fecha:'26.06.2026', peso:64.6, tri:6.0, bi:2.0, sub:9.0, cresta:12.0, supra:6.0, abd:8.0, pierna:11.0, pant:5.0,
+      brazRelaj:32.0, brazFlex:33.4, abdom:74.0, cadera:97.5, muslo:50.0, pantPer:34.0, s6:45.0, s8:59.0 },
+    { fecha:'21.07.2026', peso:64.6, tri:7.0, bi:1.5, sub:10.0, cresta:12.0, supra:6.0, abd:11.0, pierna:10.5, pant:4.0,
+      brazRelaj:32.5, brazFlex:34.0, abdom:74.0, cadera:99.0, muslo:50.5, pantPer:34.8, s6:48.5, s8:62.0 },
+  ],
 
   objetivos: [
     'Recomposición corporal: mantener peso',
@@ -330,6 +337,7 @@ const PATIENT = {
         { label:'Escoge 01', max:1, ops:[
           '1 plátano',
           '1 cda de miel + 20 g de dátiles',
+          'Extracto de 2 betarragas + 1 cda de miel + ¼ cdta de sal',
         ]},
     ], nota:'* Solo días de entrenamiento. Suma +100 kcal al total del día (2,400 + 100 = 2,500 kcal aprox.).' },
   ],
@@ -560,6 +568,13 @@ function renderSpecs() {
 
 const ANTRO_KEY = () => `${PATIENT.slug}-antro-v1`;
 function getAntroBase() {
+  if (PATIENT.antroHistorial && PATIENT.antroHistorial.length) {
+    return PATIENT.antroHistorial.map(a => {
+      const s6 = a.s6 ?? +(a.tri+a.sub+a.supra+a.abd+a.pierna+a.pant).toFixed(1);
+      const s8 = a.s8 ?? +(s6+a.bi+a.cresta).toFixed(1);
+      return { ...a, s6, s8 };
+    });
+  }
   if (!PATIENT.antro) return [];
   const a = PATIENT.antro;
   const s6 = +(a.tri+a.sub+a.supra+a.abd+a.pierna+a.pant).toFixed(1);
