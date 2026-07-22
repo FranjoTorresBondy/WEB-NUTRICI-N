@@ -81,11 +81,11 @@
 
   /* ── Utilidades de grupo (leen el DOM, agnósticas del motor) ──────────── */
   function groupInfo(pick) {
+    var optsEl = pick.querySelector('.options');
+    var max = optsEl ? (parseInt(optsEl.getAttribute('data-max'), 10) || 1) : 1;
     var opts = pick.querySelectorAll('.opt');
-    var max = 1, count = 0;
+    var count = 0;
     for (var i = 0; i < opts.length; i++) {
-      var dm = parseInt(opts[i].getAttribute('data-max'), 10);
-      if (!isNaN(dm)) max = dm;
       var c = opts[i].querySelector('.opt-cnt');
       if (c) count += (parseInt(c.textContent, 10) || 0);
       else if (opts[i].classList.contains('selected')) count += 1;
@@ -109,6 +109,7 @@
         if (btn) increasing = (btn.textContent || '').trim().indexOf('+') === 0;
         else     increasing = !opt.classList.contains('selected');
         if (!increasing) return;                       // restar/desmarcar: permitido
+        if (!btn && gi.max === 1) return;              // radio switch: lo maneja toggleOpt
 
         e.preventDefault(); e.stopPropagation();
         if (e.stopImmediatePropagation) e.stopImmediatePropagation();
