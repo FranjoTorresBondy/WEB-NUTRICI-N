@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -42,12 +42,6 @@ section{padding:30px 0}
 .sec-h h2{font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:24px}
 .sec-h .ix{font-family:'IBM Plex Mono';color:var(--navy);font-size:13px;font-weight:600}
 .sec-h .rule{flex:1;height:1px;background:var(--line)}
-.micro-bar{display:flex;align-items:center;gap:12px;margin:0 0 24px;flex-wrap:wrap}
-.micro-bar .mlabel{font-family:'IBM Plex Mono';font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
-.micro-btn{appearance:none;border:1.5px solid var(--line);background:var(--panel);border-radius:999px;padding:7px 16px;font-family:'IBM Plex Mono';font-size:12px;font-weight:600;color:var(--muted);cursor:pointer;transition:.2s}
-.micro-btn:hover{border-color:var(--navy);color:var(--navy)}
-.micro-btn.active{background:var(--navy);border-color:var(--navy);color:#000}
-.micro-note{font-size:12px;color:var(--faint);font-style:italic}
 .macros{display:flex;flex-wrap:wrap;gap:14px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 22px;margin:6px 0 22px;box-shadow:var(--shadow)}
 .macros .kcal{font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:32px;color:var(--amber)}
 .macros .kcal small{font-size:14px;color:var(--muted);font-family:'Inter';font-weight:600}
@@ -55,14 +49,13 @@ section{padding:30px 0}
 .macros .mtag b{color:var(--navy)}
 .macros .sep{flex:1}
 .tag{display:inline-block;font-family:'IBM Plex Mono';font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#000;background:var(--navy);padding:5px 12px;border-radius:999px;font-weight:700}
-.day-badges{display:flex;gap:10px;margin:0 0 20px;flex-wrap:wrap}
-.day-badge{font-family:'IBM Plex Mono';font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border-radius:999px;padding:5px 14px;border:1.5px solid var(--line);color:var(--muted);cursor:pointer;transition:.2s}
-.day-badge:hover{border-color:var(--navy);color:var(--navy)}
-.day-badge.active{background:var(--navy);border-color:var(--navy);color:#000}
+.plan-sel{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px}
+.psel-btn{appearance:none;background:var(--panel);border:1.5px solid var(--line);border-radius:12px;padding:10px 18px;font-family:'Inter';font-size:13px;font-weight:600;color:var(--muted);cursor:pointer;transition:.2s}
+.psel-btn:hover{border-color:var(--muted);color:var(--ink)}
+.psel-btn.active{border-color:var(--navy);color:var(--navy);background:var(--panel2)}
 .meals{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
 @media(max-width:760px){.meals{grid-template-columns:1fr}}
-.meal{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow);transition:.2s}
-.meal.hidden{display:none}
+.meal{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow)}
 .meal .top{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:1px solid var(--line);background:var(--panel2)}
 .meal .top .nm{font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:19px}
 .meal .top .mac{font-family:'IBM Plex Mono';font-size:11px;color:var(--muted);text-align:right;line-height:1.5}
@@ -83,6 +76,16 @@ section{padding:30px 0}
 .opt-btn:disabled{opacity:.25;cursor:default}
 .opt-cnt{font-family:'IBM Plex Mono';font-size:14px;font-weight:700;min-width:20px;text-align:center;color:var(--navy)}
 .meal .note2{font-size:11.5px;color:var(--faint);font-style:italic;margin-top:12px;border-top:1px dashed var(--line);padding-top:10px}
+.pre-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:4px}
+@media(max-width:760px){.pre-grid{grid-template-columns:1fr}}
+.pre-card{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow)}
+.pre-card .ph{background:var(--panel2);padding:13px 18px;border-bottom:1px solid var(--line)}
+.pre-card .ph .pname{font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:16px}
+.pre-card .ph .pbadge{font-family:'IBM Plex Mono';font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--navy);margin-top:4px}
+.pre-card .pb{padding:14px 18px;font-size:12.5px;color:var(--muted);line-height:1.55}
+.pre-card .pb b{color:var(--ink)}
+.pre-card .pb .receta{margin-top:8px;padding:8px 10px;background:var(--bg);border-radius:8px;font-size:11.5px;color:var(--faint)}
+.pre-card .pb .intra{margin-top:10px;padding-top:10px;border-top:1px dashed var(--line);font-size:11.5px;color:var(--faint);font-style:italic}
 .evalwrap{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 @media(max-width:760px){.evalwrap{grid-template-columns:1fr}}
 .evgroup{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow)}
@@ -161,7 +164,7 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
   .macros{flex-direction:column;align-items:flex-start;gap:10px;padding:14px 16px}
   .macros .sep{display:none}
   .macros .kcal{font-size:26px}
-  .evalwrap,.specs,.vinag-grid{grid-template-columns:1fr}
+  .evalwrap,.specs,.vinag-grid,.pre-grid{grid-template-columns:1fr}
   .foot-inner{flex-direction:column;align-items:flex-start;gap:6px}
 }
 @media(max-width:400px){
@@ -189,237 +192,160 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 </div></div></footer>
 
 <script>
-// ════════════════════════════════════════════════════════════════════════════
-//  DATOS DEL PACIENTE
-// ════════════════════════════════════════════════════════════════════════════
 const PATIENT = {
-  slug:      'vasco-valera',
-  nombre:    'Vasco\nValera',
-  fecha:     '02.07.2026',
-  tipoPlan:  'Hipocalórico · Hiperprotéico',
-  macros:    { kcal: 1500, p: 120, c: 186, g: 32 },
+  slug:     'vasco-valera',
+  nombre:   'Vasco\nValera',
+  fecha:    '22.07.2026',
+  tipoPlan: 'Hipocalórico · Hiperprotéico',
   hidratacion: [
-    { label:'💧 Entrenamiento', valor:'3.5' },
     { label:'💧 Descanso',      valor:'2.5' },
+    { label:'💧 Entrenamiento', valor:'3.5' },
   ],
-  semanas:   1,
   antro: {
-    fecha:    '02.07.2026',
-    peso:     70.5,
-    talla:    166.0,
-    imc:      25.6,
-    tri:      16.0,
-    bi:       6.0,
-    sub:      15.0,
-    cresta:   30.0,
-    supra:    21.0,
-    abd:      24.0,
-    pierna:   15.0,
-    pant:     10.0,
-    brazRelaj: 32.8,
-    brazFlex:  34.0,
-    abdom:     79.5,
-    cadera:   105.0,
-    muslo:     54.5,
-    pantPer:   35.8,
+    fecha:'22.07.2026', peso:70.3, talla:166.0, imc:25.6,
+    tri:16.0, bi:6.0, sub:14.0, cresta:30.0, supra:17.0, abd:23.0, pierna:14.0, pant:8.0,
+    brazRelaj:32.0, brazFlex:35.0, abdom:78.0, cadera:105.0, muslo:55.5, pantPer:36.0,
+    diam: { humero:6.3, biEstiloideo:5.1, femur:9.2 },
   },
-
   objetivos: [
-    'Disminución de Σ8 pliegues a 135.0 mm',
-    'Mantener pasos diarios por encima de 8,000',
+    'Disminución de Σ8 pliegues a 120.0 mm',
+    'Mantener pasos diarios por encima de 8 000',
   ],
+  planes: [
+    {
+      id:'semana', label:'📅 Semana',
+      kcal:1500, p:123, c:182, g:32,
+      comidas: [
+        { id:'des', nombre:'☀️ Desayuno', kcal:243, p:16, c:29, g:8, grupos:[
+          { label:'Escoge 02 · Fruta', max:2, ops:['1 porción de fruta (ver especificaciones)'] },
+          { label:'Escoge 01 · Carbohidrato', max:1, ops:['20 g de avena','1 rebanada de pan de molde integral','20 g de cereales (Dyfferent, Enlinea)'] },
+          { label:'Escoge 01 · Proteína', max:1, ops:['2 huevos enteros','50 g de pollo o atún + 40 g de palta (¼ und)','30 g de queso mozzarella descremado CuisineCo + 1 cdta de aceite de olivo'] },
+        ], nota:'De tus carbos puedes comer 1 de pan y 1 de granola con la fruta. · Tomar creatina con el desayuno.' },
 
-  // day: 'semana' = lunes-viernes | 'finde' = sábado-domingo
-  comidas: [
-    { id:'des',   day:'all',    nombre:'☀️ Desayuno',                         kcal:243, p:16, c:29, g:8,  grupos:[
-        { label:'Escoge 02 · Fruta', max:2, ops:[
-          '1 porción de fruta* (Ver especificaciones)',
-        ]},
-        { label:'Escoge 01 · Carbohidrato', max:1, ops:[
-          '20 g de avena',
-          '1 rebanada de pan de molde integral',
-          '20 g de cereales (Dyfferent, Enlínea)',
-        ]},
-        { label:'Escoge 02 · Proteína', max:2, ops:[
-          '1 huevo entero',
-          '50 g de pollo o atún + ¼ palta (40 g)',
-          '30 g de queso mozzarella descremado CuisineCo + 1 cdta de aceite de olivo',
-        ]},
-    ], nota:'De tus porciones de carbohidratos, puedes comer 1 de pan y 1 de granola con la fruta. · Tomar creatina con el desayuno.' },
+        { id:'snk1', nombre:'🍎 Snack / Primer Recreo', kcal:237, p:17, c:43, g:1, grupos:[
+          { label:'Escoge 02 · Fruta', max:2, ops:['1 porción de fruta (ver especificaciones)'] },
+          { label:'Escoge 01 · Proteína', max:1, ops:['100 g de quark (el sabor que prefieras)','60 g de pollo','40 g de mozzarella light'] },
+          { label:'Escoge 01 · Carbohidrato', max:1, ops:['20 g de avena','1 rebanada de pan de molde integral','20 g de cereales (Dyfferent, Enlinea)','20 g de granola'] },
+        ], nota:null },
 
-    { id:'rec1',  day:'semana', nombre:'📚 Snack · Recreo 1 (días de semana)', kcal:117, p:13, c:18, g:0,  grupos:[
-        { label:'Escoge 01', max:1, ops:[
-          '1 porción de fruta* + 100 g de Quark del sabor que prefieras',
-        ]},
-    ], nota:'Puedes consumir esta comida en la movilidad, junto a la del segundo recreo, o después de entrenar.' },
+        { id:'alm', nombre:'🥗 Almuerzo', kcal:514, p:46, c:55, g:11, grupos:[
+          { label:'Escoge 03 · Carbohidrato', max:3, ops:['60 g de arroz blanco o integral (cocido)','50 g de pasta sin relleno (cocida)','90 g de papa (cocida)','100 g de menestras (cocidas)'] },
+          { label:'Escoge · Proteína (180 g, peso crudo)', max:1, ops:['Pechuga de pollo','Pechuga de pavo','Lomo de cerdo','Filete de pescado','Bistec','Lomo de res'] },
+          { label:'Escoge 01 · Verdura', max:1, ops:['120–150 g de verduras a tu preferencia'] },
+          { label:'Escoge 01 · Grasa', max:1, ops:['40 g de palta','1 cdta de aceite de olivo','1 cdta de aceite de ajonjolí','1 porción de frutos secos (ver especificaciones)'] },
+        ], nota:'Menú colegio: elige el menú saludable o una opción con kcal parecidas (±50 kcal). Postres: elegir fruta y gelatina. Días de keke/mousse/compota puedes reemplazarlo por el Snack/Primer Recreo.' },
 
-    { id:'rec2',  day:'semana', nombre:'📚 Snack · Recreo 2 (días de semana)', kcal:100, p:1,  c:25, g:0,  grupos:[
-        { label:'2 porciones de fruta', max:2, ops:[
-          '1 porción de fruta* (Ver especificaciones)',
-        ]},
-    ], nota:null },
+        { id:'snk2', nombre:'🍪 Snack Tarde', kcal:50, p:0, c:12, g:0, grupos:[
+          { label:'Escoge 01', max:1, ops:['25 g de cereales','25 g de granola','7 galletas de arroz costeño','1 porción de fruta (ver especificaciones)'] },
+        ], nota:'Puedes reemplazarlo ocasionalmente por: 20 g crunch garbanzo cheddar Dyfferent / 20 g sticks Dyfferent / 20 g chips Sumkha.' },
 
-    { id:'alm',   day:'semana', nombre:'🥗 Almuerzo · Días de semana',         kcal:514, p:46, c:55, g:11, grupos:[
-        { label:'Escoge 03 · Carbohidrato (peso cocido)', max:3, ops:[
-          '⅓ taza de arroz blanco o integral (60 g)',
-          '⅓ taza de pasta cocida sin relleno (50 g)',
-          '½ unidad de papa (90 g)',
-          '100 g de menestra',
-        ]},
-        { label:'Escoge 01 · Proteína (180 g peso crudo)', max:1, ops:[
-          'Pechuga de pollo',
-          'Pechuga de pavo',
-          'Lomo de cerdo',
-          'Filete de pescado',
-          'Bistec',
-          'Lomo de res',
-        ]},
-        { label:'Escoge 01 · Verdura', max:1, ops:[
-          '120 a 150 g de verduras',
-        ]},
-        { label:'Escoge 01 · Grasa', max:1, ops:[
-          '40 g de palta',
-          '1 cdta de aceite de olivo',
-          '1 cdta de aceite de ajonjolí',
-          '1 porción de frutos secos* (Ver especificaciones)',
-        ]},
-    ], nota:'Menú Colegio: elegir el menú saludable u opción con calorías parecidas (±50 kcal). Postres: elegir fruta y gelatina. Días de keke / mousse / compota: puedes reemplazarlo por el Snack Recreo 1.' },
+        { id:'cen', nombre:'🌙 Cena', kcal:480, p:49, c:51, g:6, grupos:[
+          { label:'Escoge 03 · Carbohidrato', max:3, ops:['60 g de arroz blanco o integral (cocido)','60 g de quinua (cocida)','50 g de pasta sin relleno (cocida)','90 g de papa o camote (cocido)','100 g de menestras (cocidas)','1 rebanada de pan de molde','1 pan francés','1 pan ciabatta pequeño','20 g de avena (¼ taza)','1 tortilla pequeña o ½ grande'] },
+          { label:'Escoge · Proteína (180 g, peso crudo)', max:1, ops:['Pechuga de pollo','Pechuga de pavo','Lomo de cerdo','Filete de pescado','Bistec','Lomo de res'] },
+          { label:'Escoge 01 · Verdura', max:1, ops:['120–150 g de verduras a tu preferencia'] },
+        ], nota:null },
+      ],
+    },
+    {
+      id:'finde', label:'🏖️ Fin de semana',
+      kcal:1500, p:120, c:186, g:32,
+      comidas: [
+        { id:'des', nombre:'☀️ Desayuno', kcal:291, p:17, c:41, g:8, grupos:[
+          { label:'Escoge 02 · Fruta', max:2, ops:['1 porción de fruta (ver especificaciones)'] },
+          { label:'Escoge 01 · Carbohidrato', max:1, ops:['20 g de avena','1 rebanada de pan de molde integral','20 g de cereales (Dyfferent, Enlinea)'] },
+          { label:'Escoge 01 · Proteína', max:1, ops:['2 huevos enteros','50 g de pollo o atún + 40 g de palta (¼ und)','30 g de queso mozzarella descremado CuisineCo + 1 cdta de aceite de olivo'] },
+        ], nota:'De tus carbos puedes comer 1 de pan y 1 de granola con la fruta. · Tomar creatina con el desayuno.' },
 
-    { id:'almfw', day:'finde',  nombre:'🥗 Almuerzo · Fin de semana',          kcal:514, p:46, c:55, g:11, grupos:[
-        { label:'Escoge 05 · Carbohidrato (peso cocido)', max:5, ops:[
-          '⅓ taza de arroz blanco o integral (60 g)',
-          '⅓ taza de pasta cocida sin relleno (50 g)',
-          '½ unidad de papa (90 g)',
-          '100 g de menestra',
-        ]},
-        { label:'Escoge 01 · Proteína (200 g peso crudo)', max:1, ops:[
-          'Pechuga de pollo',
-          'Pechuga de pavo',
-          'Lomo de cerdo',
-          'Filete de pescado',
-          'Bistec',
-          'Lomo de res',
-        ]},
-        { label:'Escoge 01 · Verdura', max:1, ops:[
-          '120 a 150 g de verduras',
-        ]},
-        { label:'Escoge 02 · Grasa', max:2, ops:[
-          '40 g de palta',
-          '1 cdta de aceite de olivo',
-          '1 cdta de aceite de ajonjolí',
-          '1 porción de frutos secos* (Ver especificaciones)',
-        ]},
-    ], nota:null },
+        { id:'alm', nombre:'🥗 Almuerzo', kcal:680, p:52, c:75, g:17, grupos:[
+          { label:'Escoge 04 · Carbohidrato', max:4, ops:['60 g de arroz blanco o integral (cocido)','50 g de pasta sin relleno (cocida)','90 g de papa (cocida)','100 g de menestras (cocidas)'] },
+          { label:'Escoge · Proteína (200 g, peso crudo)', max:1, ops:['Pechuga de pollo','Pechuga de pavo','Lomo de cerdo','Filete de pescado','Bistec','Lomo de res'] },
+          { label:'Escoge 01 · Verdura', max:1, ops:['120–150 g de verduras a tu preferencia'] },
+          { label:'Escoge 02 · Grasa', max:2, ops:['40 g de palta','1 cdta de aceite de olivo','1 cdta de aceite de ajonjolí','1 porción de frutos secos (ver especificaciones)'] },
+        ], nota:null },
 
-    { id:'snk',   day:'all',    nombre:'🍎 Snack Tarde',                       kcal:50,  p:0,  c:12, g:0,  grupos:[
-        { label:'Escoge 01', max:1, ops:[
-          '25 g de cereales',
-          '25 g de granola',
-          '7 galletas de arroz Costeño',
-          '1 porción de fruta* (Ver especificaciones)',
-        ]},
-    ], nota:'Reemplazo ocasional: 20 g Crunch de garbanzo cheddar Dyfferent / 20 g Sticks Dyfferent / 20 g Chips Sumkha del sabor de tu preferencia.' },
+        { id:'snk2', nombre:'🍪 Snack', kcal:70, p:0, c:15, g:0, grupos:[
+          { label:'Escoge 01', max:1, ops:['25 g de cereales','25 g de granola','7 galletas de arroz costeño','1 porción de fruta (ver especificaciones)'] },
+        ], nota:'Puedes reemplazarlo ocasionalmente por: 20 g crunch garbanzo cheddar Dyfferent / 20 g sticks Dyfferent / 20 g chips Sumkha.' },
 
-    { id:'cen',   day:'all',    nombre:'🌙 Cena',                              kcal:480, p:49, c:51, g:6,  grupos:[
-        { label:'Escoge 03 · Carbohidrato (peso cocido)', max:3, ops:[
-          '⅓ taza de arroz blanco o integral (60 g)',
-          '⅓ taza de quinua (60 g)',
-          '⅓ taza de pasta cocida sin relleno (50 g)',
-          '½ unidad mediana de papa o camote (90 g)',
-          '½ taza de menestras (100 g)',
-          '1 rebanada de pan de molde',
-          '1 pan francés',
-          '1 pan ciabatta pequeño',
-          '¼ taza de avena (20 g)',
-          '1 tortilla pequeña o ½ grande',
-        ]},
-        { label:'Escoge 01 · Proteína (180 g peso crudo)', max:1, ops:[
-          'Pechuga de pollo',
-          'Pechuga de pavo',
-          'Lomo de cerdo',
-          'Filete de pescado',
-          'Bistec',
-          'Lomo de res',
-        ]},
-        { label:'Escoge 01 · Verdura', max:1, ops:[
-          '120 a 150 g de verduras',
-        ]},
-    ], nota:null },
+        { id:'cen', nombre:'🌙 Cena', kcal:480, p:49, c:51, g:6, grupos:[
+          { label:'Escoge 03 · Carbohidrato', max:3, ops:['60 g de arroz blanco o integral (cocido)','60 g de quinua (cocida)','50 g de pasta sin relleno (cocida)','90 g de papa o camote (cocido)','100 g de menestras (cocidas)','1 rebanada de pan de molde','1 pan francés','1 pan ciabatta pequeño','20 g de avena (¼ taza)','1 tortilla pequeña o ½ grande'] },
+          { label:'Escoge · Proteína (180 g, peso crudo)', max:1, ops:['Pechuga de pollo','Pechuga de pavo','Lomo de cerdo','Filete de pescado','Bistec','Lomo de res'] },
+          { label:'Escoge 01 · Verdura', max:1, ops:['120–150 g de verduras a tu preferencia'] },
+        ], nota:null },
+      ],
+    },
   ],
-
+  preEntreno: [
+    { label:'🏀 Basket', extra:'+150 kcal',
+      pre:'1 bebida isotónica (solo entrenamientos intensos o partidos) + 1 plátano.',
+      receta:'Isotónica casera 500 ml: 300 ml zumo naranja · 200 ml agua · 15 g azúcar/miel/maltodextrina · 1 g sal.',
+      intra:'1 litro de agua + 1 tab de electrolitos SIS.' },
+    { label:'🏋️ Fuerza', extra:'+150 kcal',
+      pre:'1 plátano + 1 cda de miel de abeja.',
+      receta:null, intra:null },
+    { label:'🥋 BJJ / Surf', extra:'+280 kcal',
+      pre:'2 rebanadas de pan de molde blanco / 40 g de nestum + 1 plátano + 1 cda de miel o mermelada.',
+      receta:null,
+      intra:'1 litro de agua + limón al gusto + 1 cda miel + stevia (opcional) + ½ cdta sal.' },
+  ],
   specs: [
-    { titulo:'🏀 Basket (+150 kcal)', items:[
-      '##Pre entreno',
-      'Escoge 01: 1 bebida isotónica (solo entrenamientos intensos o partidos) + 1 plátano',
-      '##Bebida isotónica casera (500 ml)',
-      '300 ml de zumo de naranja + 200 ml de agua + 15 g de azúcar, miel o maltodextrina + 1 g de sal de mesa',
-      '##Intra entreno',
-      '1 litro de agua + 1 tab de electrolitos SIS',
-    ]},
-    { titulo:'🏋️ Fuerza (+150 kcal)', items:[
-      '##Pre entreno',
-      '1 plátano + 1 cda de miel de abeja',
-    ]},
-    { titulo:'🥋 BJJ / Surf (+280 kcal)', items:[
-      '##Pre entreno',
-      'Escoge 01: 2 rebanadas de pan de molde blanco / 40 g de Nestum + 1 plátano + 1 cda de miel de abeja o mermelada',
-      '##Intra entreno',
-      '1 litro de agua + 1 tab de electrolitos SIS',
-    ]},
-    { titulo:'💊 Suplementación', items:[
-      '##Con desayuno (todos los días, entrenes o no)',
-      'Creatina monohidratada — con el desayuno',
-    ]},
-    { titulo:'🥤 Bebidas permitidas', items:[
+    { titulo:'🥤 Bebidas', items:[
       'Agua, infusiones (manzanilla, anís, té, muña, hierba luisa, flor de Jamaica)',
       'Refrescos no azucarados: emoliente, agua de piña, agua de manzana',
-      'Bebidas gasificadas zero (máximo 1 vez por día)',
-      'Puedes usar edulcorantes acalóricos: Stevia, yacón o fruto del monje',
+      'Puedes agregar edulcorantes acalóricos: Stevia, yacón o fruto del monje',
+      'Bebidas gasificadas: solo versión zero, máximo 1 vez al día',
     ]},
-    { titulo:'🥝 Porciones de referencia', items:[
-      '##Porción de fruta',
-      '1 kiwi / ½ taza mango (80 g) / 1 manzana / 1 plátano pequeño (60 g) o ½ grande (120 g) / 1 taza papaya (160 g) / berries 150 g / ¾ taza piña (165 g) / 1 granadilla / 1 mandarina / 1 pera / 1 durazno / 10 uvas',
-      '##Berries',
-      'Arándano, fresa, aguaymanto, moras, frambuesas',
-      '##Porción de frutos secos',
-      '6 cashews / 6 almendras / 4 pecanas / 4 nueces / 15 pistachios / 10 maní / 1 cdta mantequilla de frutos secos (10 g)',
-      '##Verduras (referencia)',
-      'Brócoli, zapallo italiano, zanahoria, tomate, espinaca, cebolla, champiñones, coliflor, pimiento, choclo, pepino, acelga, vainitas, apio, berenjena, espárragos, jalapeños',
+    { titulo:'🥝 Porciones de fruta', items:[
+      '1 kiwi',
+      '½ taza mango picado (80 g)',
+      '1 manzana',
+      '1 plátano pequeño (60 g pelado) / ½ grande (120 g pelado)',
+      '1 taza papaya picada (160 g)',
+      'Berries 150 g: arándano, fresa, aguaymanto, moras, frambuesas',
+      '¾ taza piña picada (165 g)',
+      '1 granadilla / 1 mandarina mediana / 1 pera / 1 durazno / 10 uvas',
     ]},
-    { titulo:'📋 Indicaciones generales', items:[
+    { titulo:'🥦 Porciones de verdura', items:[
+      'Brócoli cocido · zapallo italiano · zanahoria · tomate',
+      'Espinaca cruda · cebolla · champiñones · coliflor',
+      'Pimiento · 1 choclo pequeño · pepino · acelga cruda',
+      'Vainitas · apio · berenjena · espárragos · jalapeños',
+    ]},
+    { titulo:'🥜 Frutos secos', items:[
+      '6 cashews / 6 almendras / 4 pecanas / 4 nueces',
+      '15 pistachos / 10 maní',
+      '1 cdta de mantequilla de frutos secos (10 g)',
+    ]},
+    { titulo:'📋 Lineamientos generales', items:[
       'Puedes consumir gelatina zero durante el día para saciarte',
-      'Evitar chicles',
+      'Evitar el consumo de chicles',
       'Mantenerse lo más estricto posible con las porciones',
-      'En restaurantes, elegir alimentos similares a los intercambios del momento',
-      'Intentar consumir los alimentos a la misma hora en cada tiempo de comida',
+      'Si comes en restaurante, elige alimentos parecidos a los intercambios del momento',
+      'Intentar consumir los alimentos a la misma hora en cada tiempo de ingesta',
     ]},
   ],
-
   vinagretas: [
-    { nombre:'Mermelada fit',          desc:'200 g de berries + 2 cdas de chía + 4 cdas de monkfruit → microondas u olla' },
-    { nombre:'Leche condensada light', desc:'Leche en polvo descremada + Stevia + leche evaporada descremada (ir echando en chorro pequeño hasta lograr textura)' },
-    { nombre:'Tzatziki',               desc:'2 cdas de yogurt descremado (Vakimú natural) + sal y pimienta + 1 diente de ajo + pepino en trozos pequeños + 1 cdta de aceite de oliva + eneldo, perejil, orégano y menta al gusto' },
-    { nombre:'Honey Mustard',          desc:'1 cda de mostaza + 1 cda de yogurt descremado + sal, pimienta + Stevia al gusto' },
-    { nombre:'Salsa verde',            desc:'1 molde de queso fresco light + 1 atado de albahaca (opcional: espinaca) + 2 dientes de ajo soazados + sal y pimienta + 1 cda de aceite de olivo + leche evaporada light (100–150 ml) + leche fresca Slim hasta lograr textura' },
-    { nombre:'Salsa roja',             desc:'Tomate, cebolla, ajo, albahaca, poro + Lakanto o Stevia al gusto + sal, pimienta y tomillo + 1 cda de aceite de olivo. Puedes agregar cualquier otra verdura de tu preferencia' },
+    { nombre:'Mermelada de berries',   desc:'200 g berries + 2 cdas de chía + 4 cdas de monkfruit → microondas u olla' },
+    { nombre:'Leche condensada light', desc:'Leche en polvo descremada + Stevia + leche evaporada descremada (chorro pequeño hasta lograr textura)' },
+    { nombre:'Tzatziki',               desc:'2 cdas yogurt descremado + sal y pimienta + 1 diente ajo + pepino en trozos + 1 cdta aceite oliva + eneldo, perejil, orégano y menta al gusto' },
+    { nombre:'Honey Mustard',          desc:'1 cda mostaza + 1 cda yogurt descremado + sal, pimienta + Stevia al gusto' },
+    { nombre:'Salsa verde',            desc:'1 molde queso fresco light + 1 atado albahaca + 2 dientes ajo soazados + sal y pimienta + 1 cda aceite oliva + leche evaporada light (100–150 ml) hasta lograr textura' },
+    { nombre:'Salsa roja',             desc:'Tomate, cebolla, ajo, albahaca, poro + Lakanto o Stevia + sal, pimienta y tomillo + 1 cda aceite oliva' },
   ],
-
-  notaSpecs: 'Plan base = 1,500 kcal / día (P120 / C186 / G32). Días de semana (colegio): 6 comidas incluyendo recreos. Fines de semana: 4 comidas (sin recreos; almuerzo con más porciones). Entrenamiento: agregar Basket o Fuerza (+150 kcal) o BJJ/Surf (+280 kcal) según el deporte del día.',
-
+  notaSpecs: 'Plan base = 1 500 kcal (semana y fin de semana). Días de entreno: sumar según deporte — Basket/Fuerza +150 kcal, BJJ/Surf +280 kcal. Hidratación descanso: 2.5 L · entreno: 3.5 L.',
   entrenamiento: null,
 };
-// ════════════════════════════════════════════════════════════════════════════
-//  FIN DATOS — motor de renderizado
-// ════════════════════════════════════════════════════════════════════════════
 
 const $ = id => document.getElementById(id);
-let currentDay = 'all'; // 'all' | 'semana' | 'finde'
+let saveTimer = null;
+let activePlanIdx = 0;
 
 function renderHero() {
   $('heroEyebrow').innerHTML = `Plan Nutricional &nbsp;·&nbsp; ${PATIENT.fecha}`;
   $('heroNombre').innerHTML = PATIENT.nombre.replace('\n','<br>');
-  $('heroSub').innerHTML = `<span><b>${PATIENT.macros.kcal.toLocaleString('es')}</b> kcal &nbsp;·&nbsp; ${PATIENT.tipoPlan}</span>
-    <span><b>${PATIENT.macros.p}P</b> · <b>${PATIENT.macros.c}C</b> · <b>${PATIENT.macros.g}G</b></span>`;
+  const m = PATIENT.planes[0];
+  $('heroSub').innerHTML = `<span><b>${m.kcal.toLocaleString('es')}</b> kcal &nbsp;·&nbsp; ${PATIENT.tipoPlan}</span>
+    <span><b>${m.p}P</b> · <b>${m.c}C</b> · <b>${m.g}G</b></span>`;
 }
 
 function renderTabs() {
@@ -427,73 +353,133 @@ function renderTabs() {
     {id:'plan',  label:'Plan Nutricional'},
     {id:'eval',  label:'Evaluación'},
     {id:'specs', label:'Especificaciones'},
+    {id:'evol-antro', label:'Evolución Física'},
   ];
-  tabs.push({id:'evol-antro', label:'Evolución Física'});
-
   $('tabNav').innerHTML = tabs.map((t,i) => {
     const extra = t.id==='evol-antro' ? ";initAntro()" : "";
     return `<button class="tab${i===0?' active':''}" onclick="showTab('${t.id}',this)${extra}">
       <span class="tnum">0${i+1}</span> ${t.label}
     </button>`;
   }).join('');
-
   $('tabPanels').innerHTML = tabs.map((t,i) =>
     `<div id="tab-${t.id}" class="panel${i===0?' active':''}"></div>`
   ).join('');
 }
 
-function filterMeals(day) {
-  currentDay = day;
-  document.querySelectorAll('.day-badge').forEach(b => b.classList.toggle('active', b.dataset.day === day));
-  document.querySelectorAll('.meal').forEach(el => {
-    const d = el.dataset.day;
-    el.classList.toggle('hidden', day !== 'all' && d !== 'all' && d !== day);
-  });
+function showTab(id,btn) {
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  $('tab-'+id)?.classList.add('active');
+  btn.classList.add('active');
 }
 
-function renderPlan() {
-  const el = $('tab-plan');
+const MEAL_KEY = () => `${PATIENT.slug}-meals-v1-p${activePlanIdx}`;
+function getMealState() { try { const r=localStorage.getItem(MEAL_KEY()); return r?JSON.parse(r):{}; } catch { return {}; } }
+function saveMealState(s) { localStorage.setItem(MEAL_KEY(), JSON.stringify(s)); flashSave(); }
+let mealState = getMealState();
 
-  const meals = PATIENT.comidas.map(m => {
-    const grupos = m.grupos.map((g,gi) => {
-      const ops = g.ops.map(o =>
-        `<div class="opt"><span class="cb"></span><span class="opt-text">${o}</span></div>`
-      ).join('');
-      return `<div class="pick"><div class="k">${g.label}</div>
-        <div class="options" data-group="${m.id}-${gi}" data-max="${g.max}">${ops}</div></div>`;
-    }).join('');
-    return `<div class="meal" data-day="${m.day}" data-mealid="${m.id || m.day}"><div class="top">
-        <div class="nm">${m.nombre}</div>
-        <div class="mac"><b>${m.kcal}</b> kcal<br>${m.p}P · ${m.c}C · ${m.g}G</div>
-      </div><div class="body">${grupos}${m.nota?`<div class="note2">${m.nota}</div>`:''}</div></div>`;
-  }).join('');
+function renderNutr() {
+  mealState = getMealState();
+  const plan = PATIENT.planes[activePlanIdx];
 
-  const hydroCards = PATIENT.hidratacion.map(h =>
-    `<div class="hcard"><div class="l">${h.label}</div><div class="b">${h.valor} L</div></div>`
-  ).join('');
+  const selHtml = `<div class="plan-sel">${PATIENT.planes.map((p,i)=>
+    `<button class="psel-btn${i===activePlanIdx?' active':''}" onclick="setPlan(${i})">${p.label}</button>`
+  ).join('')}</div>`;
 
-  el.innerHTML = `<div class="wrap"><section>
-    <div class="sec-h"><span class="ix">01</span><h2>Plan diario</h2><div class="rule"></div></div>
-    <div class="macros">
-      <div class="kcal">${PATIENT.macros.kcal.toLocaleString('es')} <small>kcal / día</small></div>
-      <div class="mtag"><b>${PATIENT.macros.p}</b> g Proteína</div>
-      <div class="mtag"><b>${PATIENT.macros.c}</b> g Carbohidratos</div>
-      <div class="mtag"><b>${PATIENT.macros.g}</b> g Grasas</div>
-      <div class="sep"></div>
-      <span class="tag">${PATIENT.tipoPlan}</span>
-    </div>
-    <div class="day-badges">
-      <span class="mlabel" style="font-family:'IBM Plex Mono';font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);align-self:center">Mostrar:</span>
-      <button class="day-badge active" data-day="all" onclick="filterMeals('all')">Todos</button>
-      <button class="day-badge" data-day="semana" onclick="filterMeals('semana')">Días de semana</button>
-      <button class="day-badge" data-day="finde" onclick="filterMeals('finde')">Fin de semana</button>
-    </div>
-    <div class="meals">${meals}</div>
-    <div class="sec-h" style="margin-top:32px"><span class="ix">02</span><h2>Requerimientos hídricos</h2><div class="rule"></div></div>
-    <div class="hydro">${hydroCards}</div>
+  const macrosHtml = `<div class="macros">
+    <span class="kcal">${plan.kcal}<small> kcal</small></span>
+    <span class="mtag"><b>${plan.p}g</b> Proteína</span>
+    <span class="mtag"><b>${plan.c}g</b> Carbohidratos</span>
+    <span class="mtag"><b>${plan.g}g</b> Grasas</span>
+    <span class="sep"></span>
+    <span class="tag">${PATIENT.tipoPlan}</span>
+  </div>`;
+
+  const mealsHtml = plan.comidas.map(meal => buildMeal(meal)).join('');
+
+  const preHtml = `<div class="sec-h" style="margin-top:32px"><span class="ix">02</span><h2>Pre Entrenamiento</h2><div class="rule"></div></div>
+    <div class="pre-grid">${PATIENT.preEntreno.map(p=>`<div class="pre-card">
+      <div class="ph"><div class="pname">${p.label}</div><div class="pbadge">Agregar ${p.extra}</div></div>
+      <div class="pb">
+        <b>Pre:</b> ${p.pre}
+        ${p.receta?`<div class="receta">${p.receta}</div>`:''}
+        ${p.intra?`<div class="intra"><b>Intra:</b> ${p.intra}</div>`:''}
+      </div>
+    </div>`).join('')}</div>`;
+
+  const hydroHtml = `<div class="sec-h" style="margin-top:32px"><span class="ix">03</span><h2>Hidratación</h2><div class="rule"></div></div>
+    <div class="hydro">${PATIENT.hidratacion.map(h=>`<div class="hcard"><div class="l">${h.label}</div><div class="b">${h.valor} L</div></div>`).join('')}</div>`;
+
+  $('tab-plan').innerHTML = `<div class="wrap"><section>
+    <div class="sec-h"><span class="ix">01</span><h2>Plan alimentario</h2><div class="rule"></div></div>
+    ${selHtml}${macrosHtml}
+    <div class="meals">${mealsHtml}</div>
+    ${preHtml}${hydroHtml}
   </section></div>`;
-  initOpts();
-  loadSelections();
+}
+
+function setPlan(idx) { activePlanIdx = idx; renderNutr(); }
+
+function buildMeal(meal) {
+  const groups = meal.grupos.map((g,gi) => {
+    const opts = g.ops.map((op,oi) => {
+      const key = `${meal.id}-${gi}-${oi}`;
+      const cnt = (mealState[key]||0);
+      const sel = cnt > 0;
+      return `<div class="opt${sel?' selected':''}" data-key="${key}" data-max="${g.max}" data-gi="${gi}" data-mid="${meal.id}" onclick="toggleOpt(this)">
+        <div class="cb">${sel?'✓':''}</div>
+        <span class="opt-text">${op}</span>
+        ${g.max>1?`<div class="opt-ctrl">
+          <button class="opt-btn" onclick="event.stopPropagation();adjOpt(this,-1)" ${cnt<1?'disabled':''}>−</button>
+          <span class="opt-cnt">${cnt||0}</span>
+          <button class="opt-btn" onclick="event.stopPropagation();adjOpt(this,1)">+</button>
+        </div>`:''}
+      </div>`;
+    }).join('');
+    return `<div class="pick"><div class="k">${g.label}</div><div class="options">${opts}</div></div>`;
+  }).join('');
+  const nota = meal.nota ? `<div class="note2">${meal.nota}</div>` : '';
+  return `<div class="meal" data-mealid="${meal.id}"><div class="top">
+    <span class="nm">${meal.nombre}</span>
+    <span class="mac"><b>${meal.kcal}</b> kcal · ${meal.p}P / ${meal.c}C / ${meal.g}G</span>
+  </div><div class="body">${groups}${nota}</div></div>`;
+}
+
+function toggleOpt(el) {
+  const key = el.dataset.key; const cur = mealState[key]||0;
+  mealState[key] = cur>0?0:1; saveMealState(mealState); renderNutr();
+}
+function adjOpt(btn, delta) {
+  const opt = btn.closest('.opt'); const key = opt.dataset.key; const cur = mealState[key]||0;
+  mealState[key] = Math.max(0, cur+delta); saveMealState(mealState); renderNutr();
+}
+
+function renderSpecs() {
+  const specsHtml = PATIENT.specs.map(s => {
+    const items = s.items.map(it => it.startsWith('##')
+      ? `<div class="sub-title">${it.slice(2)}</div>`
+      : `<li>${it}</li>`
+    ).join('');
+    return `<div class="spec"><h4>${s.titulo}</h4><ul>${items}</ul></div>`;
+  }).join('');
+  const vinagHtml = PATIENT.vinagretas?.length
+    ? `<div class="sec-h" style="margin-top:32px"><span class="ix">02</span><h2>Salsas bajas en calorías</h2><div class="rule"></div></div>
+       <div class="vinag-grid">${PATIENT.vinagretas.map(v=>`<div class="vinag"><div class="vname">${v.nombre}</div><div class="vdesc">${v.desc}</div></div>`).join('')}</div>` : '';
+  const notaHtml = PATIENT.notaSpecs
+    ? `<div class="note" style="margin-top:24px"><b>Importante:</b> ${PATIENT.notaSpecs}</div>` : '';
+  $('tab-specs').innerHTML = `<div class="wrap"><section>
+    <div class="sec-h"><span class="ix">01</span><h2>Especificaciones</h2><div class="rule"></div></div>
+    <div class="specs">${specsHtml}</div>
+    ${vinagHtml}${notaHtml}
+    <div style="margin-top:32px;background:var(--panel2);border:1px solid var(--line);border-radius:14px;padding:20px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);margin-bottom:6px;">Recurso adicional</div>
+        <div style="font-family:'Libre Franklin',sans-serif;font-size:16px;font-weight:600;color:var(--ink);">🍽️ Guía para comer fuera sin salirte del plan</div>
+        <div style="font-size:12px;color:var(--muted);margin-top:4px;">10 categorías · 150+ opciones · 25+ restaurantes en Lima</div>
+      </div>
+      <a href="../guia-restaurante.html" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:var(--navy);color:#000;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:10px 20px;border-radius:10px;text-decoration:none;flex-shrink:0;">Ver guía →</a>
+    </div>
+  </section></div>`;
 }
 
 function renderEval() {
@@ -534,37 +520,6 @@ function renderEval() {
   </section></div>`;
 }
 
-function renderSpecs() {
-  const specsHtml = PATIENT.specs.map(s => {
-    const items = s.items.map(it => it.startsWith('##')
-      ? `<div class="sub-title">${it.slice(2)}</div>`
-      : `<li>${it}</li>`
-    ).join('');
-    return `<div class="spec"><h4>${s.titulo}</h4><ul>${items}</ul></div>`;
-  }).join('');
-
-  const vinagHtml = PATIENT.vinagretas?.length
-    ? `<div class="sec-h" style="margin-top:32px"><span class="ix">02</span><h2>Salsas bajas en calorías</h2><div class="rule"></div></div>
-       <div class="vinag-grid">${PATIENT.vinagretas.map(v=>`<div class="vinag"><div class="vname">${v.nombre}</div><div class="vdesc">${v.desc}</div></div>`).join('')}</div>` : '';
-
-  const notaHtml = PATIENT.notaSpecs
-    ? `<div class="note" style="margin-top:24px"><b>Importante:</b> ${PATIENT.notaSpecs}</div>` : '';
-
-  $('tab-specs').innerHTML = `<div class="wrap"><section>
-    <div class="sec-h"><span class="ix">01</span><h2>Especificaciones</h2><div class="rule"></div></div>
-    <div class="specs">${specsHtml}</div>
-    ${vinagHtml}${notaHtml}
-    <div style="margin-top:32px;background:var(--panel2);border:1px solid var(--line);border-radius:14px;padding:20px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
-      <div>
-        <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);margin-bottom:6px;">Recurso adicional</div>
-        <div style="font-family:'Libre Franklin',sans-serif;font-size:16px;font-weight:600;color:var(--ink);">🍽️ Guía para comer fuera sin salirte del plan</div>
-        <div style="font-size:12px;color:var(--muted);margin-top:4px;">10 categorías · 150+ opciones · 25+ restaurantes en Lima</div>
-      </div>
-      <a href="../guia-restaurante.html" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:var(--navy);color:#000;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:10px 20px;border-radius:10px;text-decoration:none;flex-shrink:0;">Ver guía →</a>
-    </div>
-  </section></div>`;
-}
-
 const ANTRO_KEY = () => `${PATIENT.slug}-antro-v1`;
 function getAntroBase() {
   const a = PATIENT.antro;
@@ -576,10 +531,7 @@ function getAntroData() { try { const r=localStorage.getItem(ANTRO_KEY()); retur
 function saveAntroData(d) { localStorage.setItem(ANTRO_KEY(), JSON.stringify(d)); }
 
 let antroInited=false;
-function initAntro() {
-  if(antroInited)return; antroInited=true;
-  renderAntro();
-}
+function initAntro() { if(antroInited)return; antroInited=true; renderAntro(); }
 
 Chart.defaults.color='#666';
 Chart.defaults.borderColor='rgba(255,255,255,0.07)';
@@ -621,13 +573,13 @@ function renderAntro() {
       <div class="eval-form"><h3>Registrar evaluación</h3>
         <div class="form-grid">
           <div class="form-field"><label>Fecha</label><input type="date" id="f-fecha"></div>
-          <div class="form-field"><label>Peso (kg)</label><input type="number" step="0.1" id="f-peso" placeholder="—"></div>
-          <div class="form-field"><label>Tricipital (mm)</label><input type="number" step="0.5" id="f-tri"></div>
-          <div class="form-field"><label>Bicipital (mm)</label><input type="number" step="0.5" id="f-bi"></div>
+          <div class="form-field"><label>Peso (kg)</label><input type="number" step="0.1" id="f-peso"></div>
+          <div class="form-field"><label>Tricipital</label><input type="number" step="0.5" id="f-tri"></div>
+          <div class="form-field"><label>Bicipital</label><input type="number" step="0.5" id="f-bi"></div>
           <div class="form-field"><label>Subescapular</label><input type="number" step="0.5" id="f-sub"></div>
           <div class="form-field"><label>Cresta iliaca</label><input type="number" step="0.5" id="f-cresta"></div>
           <div class="form-field"><label>Supra espinal</label><input type="number" step="0.5" id="f-supra"></div>
-          <div class="form-field"><label>Abdominal (mm)</label><input type="number" step="0.5" id="f-abd"></div>
+          <div class="form-field"><label>Abdominal</label><input type="number" step="0.5" id="f-abd"></div>
           <div class="form-field"><label>Pierna media</label><input type="number" step="0.5" id="f-pierna"></div>
           <div class="form-field"><label>Pantorrilla pl.</label><input type="number" step="0.5" id="f-pant"></div>
           <div class="form-field"><label>Brazo relajado</label><input type="number" step="0.1" id="f-brazRelaj"></div>
@@ -651,7 +603,7 @@ function drawAntroCharts() {
     {v:last.peso,u:'kg',l:'Peso actual',d:+(last.peso-first.peso).toFixed(1),good:'down'},
     {v:last.s8,u:'mm',l:'Σ8 pliegues',d:+(last.s8-first.s8).toFixed(1),good:'down'},
     {v:last.brazFlex,u:'cm',l:'Brazo flex.',d:+(last.brazFlex-first.brazFlex).toFixed(1),good:'up'},
-    {v:last.muslo,u:'cm',l:'Muslo medio',d:+(last.muslo-first.muslo).toFixed(1),good:'up'},
+    {v:last.abdom,u:'cm',l:'Cintura',d:+(last.abdom-first.abdom).toFixed(1),good:'down'},
   ];
   $('antroKpis').innerHTML=kpis.map(k=>{
     const sign=k.d>0?'+':''; const cls=(k.good==='down'?k.d<0:k.d>0)?'up':(k.d<0?'down':'');
@@ -681,46 +633,16 @@ function addAntroEntry() {
   flashSave();
 }
 
-function showTab(id,btn) {
-  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  $('tab-'+id)?.classList.add('active');
-  btn.classList.add('active');
+function flashSave() {
+  clearTimeout(saveTimer);
+  const el=$('saveind'); el.classList.add('show'); $('saveTxt').textContent='Guardado';
+  saveTimer=setTimeout(()=>el.classList.remove('show'),1800);
 }
 
-let saveTimer=null;
-function initOpts(){
-  document.querySelectorAll('.opt').forEach(opt=>{
-    opt.dataset.count='0';
-    const cb=opt.querySelector('.cb');
-    const textSpan=document.createElement('span');textSpan.className='opt-text';
-    Array.from(opt.childNodes).forEach(n=>{if(n!==cb)textSpan.appendChild(n);});
-    opt.appendChild(textSpan);
-    const ctrl=document.createElement('span');ctrl.className='opt-ctrl';
-    ctrl.innerHTML=`<button class="opt-btn opt-dec" tabindex="-1">−</button><span class="opt-cnt">0</span><button class="opt-btn opt-inc" tabindex="-1">+</button>`;
-    opt.appendChild(ctrl);
-    ctrl.querySelector('.opt-dec').addEventListener('click',e=>{e.stopPropagation();decrOpt(opt);});
-    ctrl.querySelector('.opt-inc').addEventListener('click',e=>{e.stopPropagation();incrOpt(opt);});
-    opt.addEventListener('click',()=>incrOpt(opt));
-    updateOpt(opt);
-  });
+function init() {
+  renderHero(); renderTabs(); renderNutr(); renderEval(); renderSpecs();
 }
-function groupTotal(g){let t=0;g.querySelectorAll('.opt').forEach(o=>t+=parseInt(o.dataset.count||0));return t;}
-function incrOpt(opt){const g=opt.closest('.options');const max=parseInt(g.dataset.max)||1;if(groupTotal(g)>=max)return;opt.dataset.count=parseInt(opt.dataset.count||0)+1;updateOpt(opt);saveSelections();}
-function decrOpt(opt){const c=parseInt(opt.dataset.count||0);if(c<=0)return;opt.dataset.count=c-1;updateOpt(opt);saveSelections();}
-function updateOpt(opt){const c=parseInt(opt.dataset.count||0);opt.classList.toggle('selected',c>0);const cb=opt.querySelector('.cb');if(cb)cb.textContent=c>0?c:'';const cnt=opt.querySelector('.opt-cnt');if(cnt)cnt.textContent=c;const dec=opt.querySelector('.opt-dec');if(dec)dec.disabled=c<=0;}
-
-function planKey(){return `${PATIENT.slug}-plan-v1`;}
-function saveSelections(){const data={};document.querySelectorAll('.options').forEach(g=>{const gid=g.dataset.group;data[gid]={};g.querySelectorAll('.opt').forEach((o,i)=>{const c=parseInt(o.dataset.count||0);if(c>0)data[gid][i]=c;});});localStorage.setItem(planKey(),JSON.stringify(data));flashSave();}
-function loadSelections(){const raw=localStorage.getItem(planKey());document.querySelectorAll('.opt').forEach(o=>{o.dataset.count='0';updateOpt(o);});if(!raw)return;try{const data=JSON.parse(raw);document.querySelectorAll('.options').forEach(g=>{const gid=g.dataset.group;if(!data[gid])return;const opts=g.querySelectorAll('.opt');Object.entries(data[gid]).forEach(([idx,count])=>{if(opts[idx]){opts[idx].dataset.count=count;updateOpt(opts[idx]);}});});}catch(e){}}
-
-function flashSave(){const ind=$('saveind');if(!ind)return;$('saveTxt').textContent='Guardado';ind.classList.add('show');clearTimeout(saveTimer);saveTimer=setTimeout(()=>ind.classList.remove('show'),1800);}
-
-renderHero();
-renderTabs();
-renderPlan();
-renderEval();
-renderSpecs();
+init();
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="paciente.js"></script>
@@ -729,8 +651,3 @@ renderSpecs();
 <script src="comer-fuera.js"></script>
 </body>
 </html>
-
-
-
-
-
