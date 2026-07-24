@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Giancarlo Cassia — Plan Nutricional</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Libre+Franklin:wght@500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&family=Chakra+Petch:wght@600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+:root{
+  --bg:#080808;--bg2:#111111;--panel:#141414;--panel2:#1c1c1c;
+  --line:#2a2a2a;--ink:#f0f0f0;--muted:#888;--faint:#555;
+  --navy:#C4973A;--amber:#C4973A;--coral:#ef9a9a;--coral2:#ef5350;
+  --cyan:#4fc3f7;--green:#a5d6a7;
+  --shadow:0 1px 4px rgba(0,0,0,.5),0 1px 2px rgba(0,0,0,.4);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased;
+  background-image:radial-gradient(1100px 520px at 50% -12%,rgba(196,151,58,.06),transparent 62%);background-attachment:fixed}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.03;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px;position:relative;z-index:2}
+header.hero{padding:60px 0 22px}
+.eyebrow{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--navy);font-weight:600;display:flex;align-items:center;gap:12px}
+.eyebrow::before{content:"";width:30px;height:1px;background:var(--navy)}
+h1{font-family:'Chakra Petch',sans-serif;font-weight:700;line-height:1.02;font-size:clamp(40px,7vw,84px);margin:14px 0 6px;color:#fff;letter-spacing:.02em;text-transform:uppercase}
+.subhead{display:flex;flex-wrap:wrap;gap:8px 26px;color:var(--muted);font-size:14px;margin-top:14px}
+.subhead b{color:var(--ink);font-weight:600}
+.tabbar{position:sticky;top:0;z-index:20;background:rgba(8,8,8,.92);backdrop-filter:blur(12px);border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:24px}
+.tabbar .wrap{display:flex;gap:6px}
+.tab{appearance:none;background:none;border:none;cursor:pointer;font-family:'Inter';font-weight:600;font-size:14px;letter-spacing:.01em;color:var(--muted);padding:17px 22px;position:relative;transition:color .25s;display:flex;align-items:center;gap:10px;flex-shrink:0;white-space:nowrap}
+.tab .tnum{font-family:'IBM Plex Mono';font-size:11px;color:var(--faint)}
+.tab:hover{color:var(--ink)}
+.tab.active{color:var(--navy)}
+.tab.active::after{content:"";position:absolute;left:22px;right:22px;bottom:-1px;height:3px;background:var(--navy);border-radius:3px 3px 0 0}
+.panel{display:none;animation:fade .5s ease}
+.panel.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+section{padding:30px 0}
+.sec-h{display:flex;align-items:baseline;gap:16px;margin:8px 0 20px}
+.sec-h h2{font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:24px}
+.sec-h .ix{font-family:'IBM Plex Mono';color:var(--navy);font-size:13px;font-weight:600}
+.sec-h .rule{flex:1;height:1px;background:var(--line)}
+.macros{display:flex;flex-wrap:wrap;gap:14px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 22px;margin:6px 0 22px;box-shadow:var(--shadow)}
+.macros .kcal{font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:32px;color:var(--amber)}
+.macros .kcal small{font-size:14px;color:var(--muted);font-family:'Inter';font-weight:600}
+.macros .mtag{font-family:'IBM Plex Mono';font-size:12px;border:1px solid var(--line);border-radius:8px;padding:6px 11px;color:var(--ink)}
+.macros .mtag b{color:var(--navy)}
+.macros .sep{flex:1}
+.tag{display:inline-block;font-family:'IBM Plex Mono';font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#000;background:var(--navy);padding:5px 12px;border-radius:999px;font-weight:700}
+.meals{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+@media(max-width:760px){.meals{grid-template-columns:1fr}}
+.meal{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow)}
+.meal .top{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:1px solid var(--line);background:var(--panel2)}
+.meal .top .nm{font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:19px}
+.meal .top .mac{font-family:'IBM Plex Mono';font-size:11px;color:var(--muted);text-align:right;line-height:1.5}
+.meal .top .mac b{color:var(--amber)}
+.meal .body{padding:14px 20px 18px}
+.pick{margin:10px 0}
+.pick .k{font-family:'IBM Plex Mono';font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--navy);font-weight:600;margin-bottom:6px}
+.options{display:flex;flex-direction:column;gap:4px}
+.opt{display:flex;align-items:center;gap:10px;padding:7px 10px;border-radius:9px;cursor:pointer;transition:.15s;border:1.5px solid transparent;font-size:12.5px;color:var(--muted);line-height:1.4;user-select:none}
+.opt:hover{background:var(--bg2)}
+.opt.selected{background:rgba(196,151,58,.1);border-color:rgba(196,151,58,.3);color:var(--ink)}
+.opt .cb{width:20px;height:20px;border-radius:6px;border:1.5px solid var(--line);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:.15s;background:var(--panel);font-family:'IBM Plex Mono';font-size:11px;font-weight:700}
+.opt.selected .cb{background:var(--navy);border-color:var(--navy);color:#000}
+.opt-text{flex:1;min-width:0}
+.opt-ctrl{display:flex;align-items:center;gap:5px;margin-left:auto;flex-shrink:0}
+.opt-btn{width:26px;height:26px;border-radius:7px;border:1px solid var(--line);background:var(--panel2);color:var(--ink);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.15s;font-weight:600;line-height:1;padding:0}
+.opt-btn:hover{border-color:var(--navy);color:var(--navy)}
+.opt-btn:disabled{opacity:.25;cursor:default}
+.opt-cnt{font-family:'IBM Plex Mono';font-size:14px;font-weight:700;min-width:20px;text-align:center;color:var(--navy)}
+.meal .note2{font-size:11.5px;color:var(--faint);font-style:italic;margin-top:12px;border-top:1px dashed var(--line);padding-top:10px}
+.evalwrap{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:760px){.evalwrap{grid-template-columns:1fr}}
+.evgroup{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow)}
+.evgroup .gh{background:var(--panel2);padding:11px 16px;font-family:'IBM Plex Mono';font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--navy)}
+.evgroup .row{display:flex;justify-content:space-between;padding:9px 16px;font-size:13px;border-top:1px solid var(--line)}
+.evgroup .row span:first-child{color:var(--muted)}
+.evgroup .row span:last-child{font-family:'IBM Plex Mono';font-weight:600;color:var(--ink)}
+.evgroup .row.bold span{font-weight:700}
+.evgroup .row.bold span:last-child{color:var(--coral)}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px 22px;box-shadow:var(--shadow)}
+.obj li{font-size:13.5px;color:var(--ink);margin:8px 0 8px 4px;list-style:none;padding-left:22px;position:relative}
+.obj li::before{content:"→";position:absolute;left:0;color:var(--navy);font-weight:800}
+.specs{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+@media(max-width:760px){.specs{grid-template-columns:1fr}}
+.spec{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 20px;box-shadow:var(--shadow)}
+.spec h4{font-family:'Libre Franklin',sans-serif;font-size:15px;font-weight:600;color:var(--navy);margin-bottom:10px}
+.spec ul{list-style:none}
+.spec li{font-size:12.5px;color:var(--muted);margin:7px 0;padding-left:16px;position:relative}
+.spec li::before{content:"•";position:absolute;left:0;color:var(--faint)}
+.spec li b{color:var(--ink);font-weight:600}
+.vinag-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+@media(max-width:760px){.vinag-grid{grid-template-columns:1fr}}
+.vinag{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 20px;box-shadow:var(--shadow)}
+.vinag .vname{font-family:'Libre Franklin',sans-serif;font-size:14px;font-weight:600;color:var(--navy);margin-bottom:6px}
+.vinag .vdesc{font-size:12.5px;color:var(--muted);line-height:1.5}
+.note{font-size:12px;color:var(--muted);background:var(--panel2);border:1px dashed var(--line);border-radius:12px;padding:14px 16px;margin:18px 0}
+.note b{color:var(--ink)}
+.hydro{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-top:6px}
+.hcard{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px 22px;text-align:center;box-shadow:var(--shadow)}
+.hcard .l{font-family:'IBM Plex Mono';font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.hcard .b{font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:38px;color:var(--cyan);margin-top:8px}
+.supls{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-top:6px}
+.supl{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 20px;box-shadow:var(--shadow)}
+.supl .sn{font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:15px;color:var(--navy);margin-bottom:8px}
+.supl .sd{font-size:12.5px;color:var(--muted);line-height:1.6}
+.supl .sd b{color:var(--ink)}
+.pre-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:6px}
+@media(max-width:640px){.pre-grid{grid-template-columns:1fr}}
+.pre-card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 20px;box-shadow:var(--shadow)}
+.pre-card .pt{font-family:'IBM Plex Mono';font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--navy);margin-bottom:10px}
+.pre-card .po{font-size:12.5px;color:var(--muted);line-height:1.55}
+.saveind{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(60px);background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:9px 18px;font-family:'IBM Plex Mono';font-size:12px;color:var(--ink);box-shadow:0 8px 30px rgba(0,0,0,.4);z-index:80;transition:transform .3s;display:flex;align-items:center;gap:8px}
+.saveind.show{transform:translateX(-50%) translateY(0)}
+.saveind .sdot{width:8px;height:8px;border-radius:50%;background:var(--green)}
+.chart-card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px 22px;box-shadow:var(--shadow);margin-bottom:16px}
+.chart-card h3{font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:16px;color:var(--ink);margin-bottom:4px}
+.chart-card .cap{font-size:12px;color:var(--faint);margin-bottom:16px}
+.chart-wrap{position:relative;height:220px}
+.chart-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+@media(max-width:640px){.chart-grid{grid-template-columns:1fr}}
+.kpi-row{display:flex;flex-wrap:wrap;gap:12px;margin:16px 0}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 18px;flex:1;min-width:120px;box-shadow:var(--shadow)}
+.kpi .kv{font-family:'Chakra Petch',sans-serif;font-size:24px;font-weight:700;color:var(--navy)}
+.kpi .kl{font-family:'IBM Plex Mono';font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin-top:4px}
+.kpi .kd{font-size:12px;margin-top:4px}
+.kpi .kd.up{color:var(--green)} .kpi .kd.down{color:var(--coral)}
+.eval-form{background:var(--panel2);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin-top:20px}
+.eval-form h3{font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:16px;color:var(--ink);margin-bottom:16px}
+.form-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
+.form-field label{font-family:'IBM Plex Mono';font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);display:block;margin-bottom:5px}
+.form-field input{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px 10px;color:var(--ink);font-family:'Libre Franklin',sans-serif;font-size:15px;font-weight:600}
+.form-field input:focus{outline:none;border-color:var(--navy)}
+.btn-add{margin-top:16px;background:var(--navy);color:#000;border:none;border-radius:10px;padding:10px 22px;font-family:'IBM Plex Mono';font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:.2s}
+.btn-add:hover{opacity:.85}
+.antro-table{width:100%;border-collapse:collapse;font-size:12px;margin-top:16px}
+.antro-table th{background:var(--panel2);color:var(--faint);font-family:'IBM Plex Mono';font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;padding:8px 12px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+.antro-table th:first-child{text-align:left}
+.antro-table td{padding:8px 12px;border-bottom:1px solid var(--line);text-align:right;font-family:'IBM Plex Mono';color:var(--ink)}
+.antro-table td:first-child{text-align:left;color:var(--muted)}
+.antro-table tr:last-child td{border-bottom:none;color:var(--navy);font-weight:700}
+.tbl-scroll{overflow-x:auto;border-radius:12px;border:1px solid var(--line)}
+footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
+.foot-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.foot-brand{font-family:'IBM Plex Mono';font-size:11px;color:var(--faint);letter-spacing:.1em}
+.foot-contact{font-size:12px;color:var(--faint)}
+@media(max-width:640px){
+  .wrap{padding:0 16px}
+  header.hero{padding:32px 0 16px}
+  section{padding:20px 0}
+  .tabbar .wrap{overflow-x:auto;padding:0 4px;scrollbar-width:none;-ms-overflow-style:none;flex-wrap:nowrap}
+  .tabbar .wrap::-webkit-scrollbar{display:none}
+  .tab{padding:13px 14px;font-size:12px;gap:6px}
+  .tab.active::after{left:14px;right:14px}
+  .tab .tnum{font-size:10px}
+  .macros{flex-direction:column;align-items:flex-start;gap:10px;padding:14px 16px}
+  .macros .sep{display:none}
+  .macros .kcal{font-size:26px}
+  .evalwrap,.specs,.vinag-grid{grid-template-columns:1fr}
+  .foot-inner{flex-direction:column;align-items:flex-start;gap:6px}
+}
+@media(max-width:400px){
+  h1{font-size:clamp(32px,10vw,56px)}
+  .tab{padding:12px 10px;font-size:11px}
+}
+</style>
+<link rel="stylesheet" href="paciente.css">
+</head>
+<body>
+
+<div class="wrap">
+  <header class="hero">
+    <div class="eyebrow" id="heroEyebrow"></div>
+    <h1 id="heroNombre"></h1>
+    <div class="subhead" id="heroSub"></div>
+  </header>
+</div>
+<nav class="tabbar"><div class="wrap" id="tabNav"></div></nav>
+<div id="tabPanels"></div>
+<div class="saveind" id="saveind"><span class="sdot"></span><span id="saveTxt">Guardado</span></div>
+<footer><div class="wrap"><div class="foot-inner">
+  <div class="foot-brand">FRANJO TORRES BONDY · NUTRICIÓN</div>
+  <div class="foot-contact">franjo.torres.b@gmail.com &nbsp;·&nbsp; +51 992 832 991</div>
+</div></div></footer>
+
+<script>
+const PATIENT = {
+  slug:     'giancarlo-cassia',
+  nombre:   'Giancarlo\nCassia',
+  fecha:    '22.07.2026',
+  tipoPlan: 'Hipocalórico · Hiperprotéico',
+  macros:   { kcal: 2200, p: 140, c: 268, g: 66 },
+  hidratacion: [
+    { label:'💧 Entrenamiento', valor:'3.0' },
+    { label:'💧 Descanso',      valor:'2.5' },
+  ],
+  antro: {
+    fecha:'22.07.2026', peso:72.0, talla:182.0, imc:21.7,
+    tri:17.0, bi:3.5, sub:17.0, cresta:28.0, supra:11.0, abd:22.0, pierna:21.0, pant:7.0,
+    brazRelaj:30.9, brazFlex:32.1, abdom:76.5, cadera:98.0, muslo:51.8, pantPer:34.5,
+    diam: { humero:6.3, biEstiloideo:5.8, femur:9.8 },
+  },
+  objetivos: [
+    'Recomposición corporal: aumentar masa muscular.',
+    'Llegar bien hidratado a los entrenamientos.',
+    'Suplementación diaria: creatina todos los días, entrenes o no.',
+  ],
+  comidas: [
+    { id:'des', nombre:'☀️ Desayuno', kcal:411, p:20, c:47, g:18, grupos:[
+      { label:'Escoge 02 · Carbohidrato', max:2, ops:[
+        '1 tortilla rapidita integral',
+        '1 pan pita el Cedro',
+        '1 rebanada de pan de molde integral (30 g)',
+        '20 g de avena (peso crudo)',
+        '20 g de cereales Dyfferent o NutriCo',
+        '20 g de granola',
+      ]},
+      { label:'Escoge 01 · Fruta', max:1, ops:[
+        '1 porción de fruta (ver especificaciones)',
+      ]},
+      { label:'Escoge 01 · Proteína', max:1, ops:[
+        '50 g de pollo + 60 g de palta',
+        '50 g de queso mozzarella light (Cuisine&Co) + 1 huevo',
+        '½ lata de atún en agua + 60 g de palta',
+        '110 g de Vakimu Quark + 1 porción de frutos secos (ver especificaciones)',
+        '2 huevos enteros',
+      ]},
+      { label:'Escoge 01 · Grasa', max:1, ops:[
+        '40 g de palta',
+        '1 cdta de aceite de olivo o ajonjolí',
+        '1 porción de frutos secos (ver especificaciones)',
+        '4 aceitunas',
+      ]},
+    ], nota:'*Puedes tomar un vaso de 200 ml de leche fresca slim o sbelt.' },
+
+    { id:'snk1', nombre:'🍎 Snack Mañana', kcal:229, p:6, c:27, g:5, grupos:[
+      { label:'Escoge 01 · Fruta', max:1, ops:[
+        '2 porciones de fruta (ver especificaciones)',
+      ]},
+      { label:'Escoge 01 · Carbohidrato', max:1, ops:[
+        '1 tortilla rapidita integral',
+        '1 rebanada de pan de molde integral (30 g)',
+        '20 g de avena (peso crudo)',
+        '1 pan pita integral (30 g)',
+        '20 g de cereales Dyfferent o NutriCo',
+        '20 g de granola',
+        '8 galletas de arroz costeño',
+        '3 galletas de arroz (Cuisine&Co)',
+      ]},
+      { label:'Escoge 01 · Grasa', max:1, ops:[
+        '1 porción de frutos secos o mantequilla de frutos secos (ver especificaciones)',
+        '1 huevo entero',
+        '1 cdta de aceite de oliva',
+      ]},
+    ], nota:null },
+
+    { id:'alm', nombre:'🥗 Almuerzo', kcal:620, p:41, c:75, g:16, grupos:[
+      { label:'Escoge 04 · Carbohidrato', max:4, ops:[
+        '60 g de arroz',
+        '90 g de papa o camote',
+        '60 g de choclo',
+        '60 g de quinua',
+        '100 g de menestra',
+        '50 g de fideos',
+      ]},
+      { label:'Escoge · Proteína (150 g, peso crudo)', max:1, ops:[
+        'Pechuga de pollo',
+        'Pechuga de pavo',
+        'Pescado (filete)',
+        'Bistec',
+      ]},
+      { label:'Escoge 01 · Verdura', max:1, ops:[
+        '150 g de verduras a tu preferencia (crudas o cocidas)',
+      ]},
+      { label:'Escoge 02 · Grasa', max:2, ops:[
+        '40 g de palta',
+        '1 cdta de aceite de olivo',
+        '1 porción de frutos secos (ver especificaciones)',
+      ]},
+    ], nota:'*Puedes agregar las verduras a tus preparaciones. · Puedes acompañar tus comidas con refrescos naturales como jamaica, agua de piña o limonada con Stevia.' },
+
+    { id:'snk2', nombre:'🌿 Snack Tarde', kcal:170, p:6, c:27, g:5, grupos:[
+      { label:'Escoge 01 · Proteína', max:1, ops:[
+        '100 g de pollo',
+        '200 g de yogurt Vakimu Quark',
+        '1 lata de atún en agua',
+        '60 g de queso mozzarella light (Cuisine&Co)',
+      ]},
+      { label:'Escoge 02 · Carbohidrato', max:2, ops:[
+        '1 tortilla rapidita integral',
+        '1 rebanada de pan de molde integral (30 g)',
+        '20 g de avena (peso crudo)',
+        '1 pan pita integral (30 g)',
+        '20 g de cereales Dyfferent o NutriCo',
+        '20 g de granola',
+        '8 galletas de arroz costeño',
+        '3 galletas de arroz (Cuisine&Co)',
+      ]},
+      { label:'Escoge 01 · Grasa', max:1, ops:[
+        '1 porción de frutos secos (ver especificaciones)',
+        '1 huevo entero',
+      ]},
+    ], nota:null },
+
+    { id:'cen', nombre:'🌙 Cena', kcal:620, p:41, c:75, g:16, grupos:[
+      { label:'Escoge 04 · Carbohidrato', max:4, ops:[
+        '90 g de papa o camote',
+        '60 g de arroz',
+        '60 g de quinua',
+        '1 rapidita integral',
+        '1 rebanada de pan de molde integral (30 g)',
+        '20 g de avena (peso crudo)',
+        '20 g de cereales',
+        '20 g de granola',
+      ]},
+      { label:'Escoge · Proteína (150 g, peso crudo)', max:1, ops:[
+        'Pechuga de pollo',
+        'Pechuga de pavo',
+        'Pescado (filete)',
+        'Bistec',
+        '200 g de yogurt Vakimu Quark',
+        '80 g de queso mozzarella light (Cuisine&Co)',
+        '1 huevo + 2 claras',
+      ]},
+      { label:'Escoge 02 · Grasa', max:2, ops:[
+        '40 g de palta',
+        '1 cdta de aceite de olivo o ajonjolí',
+        '1 porción de frutos secos (ver especificaciones)',
+      ]},
+      { label:'Escoge 01 · Verdura', max:1, ops:[
+        '150 g de verduras cocidas',
+        '1 puñado de berries',
+      ]},
+    ], nota:null },
+  ],
+  preEntrenos: [
+    { tipo:'🏋️ Entrenamiento de fuerza', ops:[
+      '1 porción de fruta (ver especificaciones) + 1 cda de miel',
+    ]},
+    { tipo:'🏃 Entrenamiento de running', ops:[
+      '250 ml de jugo de naranja + 1 cda de miel',
+      '1 rebanada de pan de molde blanco + 1 cda de mermelada',
+    ]},
+  ],
+  suplementacion: [
+    { nombre:'Multivitamínico', detalle:'1 cápsula al día <b>con el desayuno</b>. Centrum / Thorne.' },
+    { nombre:'Creatina', detalle:'<b>7 g post entreno.</b> Tomar todos los días, entrenes o no.' },
+    { nombre:'L-Treonato de Magnesio', detalle:'<b>150 mg</b> · 30-40 min antes de acostarte.' },
+  ],
+  specs: [
+    { titulo:'🥤 Bebidas', items:[
+      'Agua, infusiones (manzanilla, anís, té, muña, hierba luisa, flor de Jamaica)',
+      'Refrescos no azucarados: emoliente, agua de piña, agua de manzana',
+      'Puedes agregar edulcorantes acalóricos: Stevia, yacón o fruto del monje',
+      'Evitar café y alcohol por dos semanas',
+    ]},
+    { titulo:'🥝 Porciones de fruta', items:[
+      '1 kiwi',
+      '½ taza mango picado (80 g)',
+      '1 manzana',
+      '1 plátano pequeño (60 g pelado) / ½ grande (120 g pelado)',
+      '1 taza papaya picada (160 g)',
+      'Berries 150 g: arándano, fresa, aguaymanto, moras, frambuesas',
+      '¾ taza piña picada (165 g)',
+      '1 granadilla / 1 mandarina mediana / 1 pera / 1 durazno / 10 uvas',
+    ]},
+    { titulo:'🥜 Frutos secos', items:[
+      '6 cashews / 6 almendras / 4 pecanas / 4 nueces',
+      '15 pistachos / 10 maní',
+      '1 cdta de mantequilla de frutos secos (10 g)',
+    ]},
+    { titulo:'📋 Lineamientos generales', items:[
+      'Evitar el consumo de chicles',
+      'Mantenerse lo más estricto posible con las porciones',
+      'Si comes en restaurante, elige alimentos parecidos a los intercambios del momento',
+      'Intentar consumir los alimentos a la misma hora en cada tiempo de ingesta',
+      'Puedes hacerte helados con fruta congelada, yogurt skyr o quark y Stevia',
+      'Si comes pollo a la brasa: pechuga sin pellejo, ensalada y papa al horno o sancochada',
+    ]},
+  ],
+  vinagretas: [
+    { nombre:'Mermelada de berries',   desc:'200 g berries + 2 cdas de chía + 4 cdas de monkfruit → microondas u olla' },
+    { nombre:'Leche condensada light', desc:'Leche en polvo descremada + Stevia + leche evaporada descremada (chorro pequeño hasta lograr textura)' },
+    { nombre:'Tzatziki',               desc:'2 cdas yogurt descremado + sal y pimienta + 1 diente ajo + pepino en trozos + 1 cdta aceite oliva + eneldo, perejil, orégano y menta al gusto' },
+    { nombre:'Honey Mustard',          desc:'1 cda mostaza + 1 cda yogurt descremado + sal, pimienta + Stevia al gusto' },
+    { nombre:'Salsa verde',            desc:'1 molde queso fresco light + 1 atado albahaca + 2 dientes ajo soazados + sal y pimienta + 1 cda aceite olivo + leche evaporada light (100–150 ml) hasta lograr textura' },
+    { nombre:'Salsa roja',             desc:'Tomate, cebolla, ajo, albahaca, poro + Lakanto o Stevia + sal, pimienta y tomillo + 1 cda aceite olivo' },
+  ],
+  notaSpecs: 'Plan base = 2 200 kcal. Hidratación entreno: 3.0 L · descanso: 2.5 L. Procura que tus orinas sean siempre claras y llega bien hidratado a los entrenamientos.',
+  entrenamiento: null,
+};
+
+const $ = id => document.getElementById(id);
+let saveTimer = null;
+
+function renderHero() {
+  $('heroEyebrow').innerHTML = `Plan Nutricional &nbsp;·&nbsp; ${PATIENT.fecha}`;
+  $('heroNombre').innerHTML = PATIENT.nombre.replace('\n','<br>');
+  $('heroSub').innerHTML = `<span><b>${PATIENT.macros.kcal.toLocaleString('es')}</b> kcal &nbsp;·&nbsp; ${PATIENT.tipoPlan}</span>
+    <span><b>${PATIENT.macros.p}P</b> · <b>${PATIENT.macros.c}C</b> · <b>${PATIENT.macros.g}G</b></span>`;
+}
+
+function renderTabs() {
+  const tabs = [
+    {id:'plan',       label:'Plan Nutricional'},
+    {id:'eval',       label:'Evaluación'},
+    {id:'specs',      label:'Especificaciones'},
+    {id:'evol-antro', label:'Evolución Física'},
+  ];
+  $('tabNav').innerHTML = tabs.map((t,i) => {
+    const extra = t.id==='evol-antro' ? ";initAntro()" : "";
+    return `<button class="tab${i===0?' active':''}" onclick="showTab('${t.id}',this)${extra}">
+      <span class="tnum">0${i+1}</span> ${t.label}
+    </button>`;
+  }).join('');
+  $('tabPanels').innerHTML = tabs.map((t,i) =>
+    `<div id="tab-${t.id}" class="panel${i===0?' active':''}"></div>`
+  ).join('');
+}
+
+function showTab(id,btn) {
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  $('tab-'+id)?.classList.add('active');
+  btn.classList.add('active');
+}
+
+function renderPlan() {
+  const meals = PATIENT.comidas.map(m => {
+    const grupos = m.grupos.map((g,gi) => {
+      const ops = g.ops.map(o =>
+        `<div class="opt"><span class="cb"></span><span class="opt-text">${o}</span></div>`
+      ).join('');
+      return `<div class="pick"><div class="k">${g.label}</div>
+        <div class="options" data-group="${m.id}-${gi}" data-max="${g.max}">${ops}</div></div>`;
+    }).join('');
+    return `<div class="meal" data-mealid="${m.id}"><div class="top">
+        <div class="nm">${m.nombre}</div>
+        <div class="mac"><b>${m.kcal}</b> kcal<br>${m.p}P · ${m.c}C · ${m.g}G</div>
+      </div><div class="body">${grupos}${m.nota?`<div class="note2">${m.nota}</div>`:''}</div></div>`;
+  }).join('');
+
+  const hydroCards = PATIENT.hidratacion.map(h =>
+    `<div class="hcard"><div class="l">${h.label}</div><div class="b">${h.valor} L</div></div>`
+  ).join('');
+
+  const preHtml = PATIENT.preEntrenos.map(p => {
+    const ops = p.ops.map(o=>`<div style="padding:5px 0;border-top:1px solid var(--line);font-size:12.5px;color:var(--muted);">${o}</div>`).join('');
+    return `<div class="pre-card"><div class="pt">${p.tipo}</div><div class="po">${ops}</div></div>`;
+  }).join('');
+
+  const suplHtml = PATIENT.suplementacion.map(s =>
+    `<div class="supl"><div class="sn">${s.nombre}</div><div class="sd">${s.detalle}</div></div>`
+  ).join('');
+
+  $('tab-plan').innerHTML = `<div class="wrap"><section>
+    <div class="sec-h"><span class="ix">01</span><h2>Plan diario</h2><div class="rule"></div></div>
+    <div class="macros">
+      <div class="kcal">${PATIENT.macros.kcal.toLocaleString('es')} <small>kcal / día</small></div>
+      <div class="mtag"><b>${PATIENT.macros.p}</b> g Proteína</div>
+      <div class="mtag"><b>${PATIENT.macros.c}</b> g Carbohidratos</div>
+      <div class="mtag"><b>${PATIENT.macros.g}</b> g Grasas</div>
+      <div class="sep"></div>
+      <span class="tag">${PATIENT.tipoPlan}</span>
+    </div>
+    <div class="meals">${meals}</div>
+    <div class="sec-h" style="margin-top:32px"><span class="ix">02</span><h2>Pre Entrenamiento</h2><div class="rule"></div></div>
+    <div class="pre-grid">${preHtml}</div>
+    <div class="sec-h" style="margin-top:32px"><span class="ix">03</span><h2>Hidratación</h2><div class="rule"></div></div>
+    <div class="hydro">${hydroCards}</div>
+    <div class="sec-h" style="margin-top:32px"><span class="ix">04</span><h2>Suplementación</h2><div class="rule"></div></div>
+    <div class="supls">${suplHtml}</div>
+  </section></div>`;
+  initOpts();
+  loadSelections();
+}
+
+function renderEval() {
+  const a = PATIENT.antro;
+  const s6 = +(a.tri+a.sub+a.supra+a.abd+a.pierna+a.pant).toFixed(1);
+  const s8 = +(s6+a.bi+a.cresta).toFixed(1);
+  $('tab-eval').innerHTML = `<div class="wrap"><section>
+    <div class="sec-h"><span class="ix">01</span><h2>Evaluación Nutricional</h2><div class="rule"></div></div>
+    <div class="evalwrap">
+      <div class="evgroup"><div class="gh">Antropometría básica</div>
+        <div class="row"><span>Peso</span><span>${a.peso} kg</span></div>
+        <div class="row"><span>Talla</span><span>${a.talla} cm</span></div>
+        <div class="row"><span>IMC</span><span>${a.imc} kg/m²</span></div>
+      </div>
+      <div class="evgroup"><div class="gh">Pliegues (mm) · ISAK</div>
+        <div class="row"><span>Tricipital</span><span>${a.tri}</span></div>
+        <div class="row"><span>Bicipital</span><span>${a.bi}</span></div>
+        <div class="row"><span>Subescapular</span><span>${a.sub}</span></div>
+        <div class="row"><span>Cresta iliaca</span><span>${a.cresta}</span></div>
+        <div class="row"><span>Supra espinal</span><span>${a.supra}</span></div>
+        <div class="row"><span>Abdominal</span><span>${a.abd}</span></div>
+        <div class="row"><span>Pierna media</span><span>${a.pierna}</span></div>
+        <div class="row"><span>Pantorrilla</span><span>${a.pant}</span></div>
+        <div class="row bold"><span>Σ6 pliegues</span><span>${s6} mm</span></div>
+        <div class="row bold"><span>Σ8 pliegues</span><span>${s8} mm</span></div>
+      </div>
+      <div class="evgroup"><div class="gh">Perímetros (cm)</div>
+        <div class="row"><span>Brazo relajado</span><span>${a.brazRelaj}</span></div>
+        <div class="row"><span>Brazo flexionado</span><span>${a.brazFlex}</span></div>
+        <div class="row"><span>Abdominal</span><span>${a.abdom}</span></div>
+        <div class="row"><span>Cadera</span><span>${a.cadera}</span></div>
+        <div class="row"><span>Muslo medio</span><span>${a.muslo}</span></div>
+        <div class="row"><span>Pantorrilla</span><span>${a.pantPer}</span></div>
+      </div>
+    </div>
+    <div class="sec-h" style="margin-top:32px"><span class="ix">02</span><h2>Objetivos</h2><div class="rule"></div></div>
+    <div class="card" style="max-width:600px"><ul class="obj">${PATIENT.objetivos.map(o=>`<li>${o}</li>`).join('')}</ul></div>
+  </section></div>`;
+}
+
+function renderSpecs() {
+  const specsHtml = PATIENT.specs.map(s => {
+    const items = s.items.map(it => `<li>${it}</li>`).join('');
+    return `<div class="spec"><h4>${s.titulo}</h4><ul>${items}</ul></div>`;
+  }).join('');
+  const vinagHtml = PATIENT.vinagretas?.length
+    ? `<div class="sec-h" style="margin-top:32px"><span class="ix">02</span><h2>Salsas bajas en calorías</h2><div class="rule"></div></div>
+       <div class="vinag-grid">${PATIENT.vinagretas.map(v=>`<div class="vinag"><div class="vname">${v.nombre}</div><div class="vdesc">${v.desc}</div></div>`).join('')}</div>` : '';
+  const notaHtml = PATIENT.notaSpecs
+    ? `<div class="note" style="margin-top:24px"><b>Importante:</b> ${PATIENT.notaSpecs}</div>` : '';
+  $('tab-specs').innerHTML = `<div class="wrap"><section>
+    <div class="sec-h"><span class="ix">01</span><h2>Especificaciones</h2><div class="rule"></div></div>
+    <div class="specs">${specsHtml}</div>
+    ${vinagHtml}${notaHtml}
+    <div style="margin-top:32px;background:var(--panel2);border:1px solid var(--line);border-radius:14px;padding:20px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);margin-bottom:6px;">Recurso adicional</div>
+        <div style="font-family:'Libre Franklin',sans-serif;font-size:16px;font-weight:600;color:var(--ink);">🍽️ Guía para comer fuera sin salirte del plan</div>
+        <div style="font-size:12px;color:var(--muted);margin-top:4px;">10 categorías · 150+ opciones · 25+ restaurantes en Lima</div>
+      </div>
+      <a href="../guia-restaurante.html" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:var(--navy);color:#000;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:10px 20px;border-radius:10px;text-decoration:none;flex-shrink:0;">Ver guía →</a>
+    </div>
+  </section></div>`;
+}
+
+// ── Evolución Física ──────────────────────────────────────────────────────
+const ANTRO_KEY = () => `${PATIENT.slug}-antro-v1`;
+function getAntroBase() {
+  const a = PATIENT.antro;
+  const s6 = +(a.tri+a.sub+a.supra+a.abd+a.pierna+a.pant).toFixed(1);
+  const s8 = +(s6+a.bi+a.cresta).toFixed(1);
+  const current = { fecha:a.fecha, peso:a.peso, tri:a.tri, bi:a.bi, sub:a.sub, cresta:a.cresta, supra:a.supra, abd:a.abd, pierna:a.pierna, pant:a.pant, brazRelaj:a.brazRelaj, brazFlex:a.brazFlex, abdom:a.abdom, cadera:a.cadera, muslo:a.muslo, pantPer:a.pantPer, s6, s8 };
+  return [...(PATIENT.antroHistorial||[]), current];
+}
+function getAntroData() { try { const r=localStorage.getItem(ANTRO_KEY()); return r?JSON.parse(r):getAntroBase(); } catch { return getAntroBase(); } }
+function saveAntroData(d) { localStorage.setItem(ANTRO_KEY(), JSON.stringify(d)); }
+
+let antroInited=false;
+function initAntro() { if(antroInited)return; antroInited=true; renderAntro(); }
+
+Chart.defaults.color='#666';
+Chart.defaults.borderColor='rgba(255,255,255,0.07)';
+Chart.defaults.font.family="'IBM Plex Mono',monospace";
+Chart.defaults.font.size=11;
+const CC={gold:'#C4973A',cyan:'#4fc3f7',coral:'#ef9a9a',green:'#a5d6a7',purple:'#ce93d8'};
+
+function mkChart(id,labels,datasets) {
+  const ctx=$(id); if(!ctx)return;
+  if(ctx._ch)ctx._ch.destroy();
+  ctx._ch=new Chart(ctx,{type:'line',data:{labels,datasets:datasets.map(d=>({tension:.35,pointRadius:5,borderWidth:2,fill:false,spanGaps:true,...d}))},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{boxWidth:12,padding:14,color:'#888'}},tooltip:{mode:'index',intersect:false}},
+    scales:{x:{grid:{color:'rgba(255,255,255,0.06)'},ticks:{color:'#666'}},y:{grid:{color:'rgba(255,255,255,0.06)'},ticks:{color:'#666'}}}}});
+}
+
+function renderAntro() {
+  const el=$('tab-evol-antro'); if(!el)return;
+  el.innerHTML=`<div class="wrap">
+    <section style="padding-top:24px">
+      <div class="sec-h"><span class="ix">01</span><h2>Evolución Antropométrica</h2><div class="rule"></div></div>
+      <div class="kpi-row" id="antroKpis"></div>
+    </section>
+    <section style="padding-top:0">
+      <div class="sec-h"><span class="ix">02</span><h2>Gráficos</h2><div class="rule"></div></div>
+      <div class="chart-card"><h3>Peso corporal</h3><div class="cap">kg</div><div class="chart-wrap"><canvas id="cPeso"></canvas></div></div>
+      <div class="chart-grid">
+        <div class="chart-card"><h3>Sumatorias de pliegues</h3><div class="cap">Σ6 y Σ8 (mm)</div><div class="chart-wrap"><canvas id="cSigma"></canvas></div></div>
+        <div class="chart-card"><h3>Perímetros musculares</h3><div class="cap">Brazo flex, muslo, pantorrilla (cm)</div><div class="chart-wrap"><canvas id="cMusc"></canvas></div></div>
+        <div class="chart-card"><h3>Cintura y cadera</h3><div class="cap">Perímetros (cm)</div><div class="chart-wrap"><canvas id="cCint"></canvas></div></div>
+        <div class="chart-card"><h3>Pliegues individuales</h3><div class="cap">Abdominal, cresta, subescapular (mm)</div><div class="chart-wrap"><canvas id="cPl"></canvas></div></div>
+      </div>
+    </section>
+    <section style="padding-top:0">
+      <div class="sec-h"><span class="ix">03</span><h2>Historial</h2><div class="rule"></div></div>
+      <div class="tbl-scroll"><table class="antro-table" id="antroTable"></table></div>
+    </section>
+    <section style="padding-top:0">
+      <div class="sec-h"><span class="ix">04</span><h2>Nueva medición</h2><div class="rule"></div></div>
+      <div class="eval-form"><h3>Registrar evaluación</h3>
+        <div class="form-grid">
+          <div class="form-field"><label>Fecha</label><input type="date" id="f-fecha"></div>
+          <div class="form-field"><label>Peso (kg)</label><input type="number" step="0.1" id="f-peso" placeholder="—"></div>
+          <div class="form-field"><label>Tricipital (mm)</label><input type="number" step="0.5" id="f-tri"></div>
+          <div class="form-field"><label>Bicipital (mm)</label><input type="number" step="0.5" id="f-bi"></div>
+          <div class="form-field"><label>Subescapular</label><input type="number" step="0.5" id="f-sub"></div>
+          <div class="form-field"><label>Cresta iliaca</label><input type="number" step="0.5" id="f-cresta"></div>
+          <div class="form-field"><label>Supra espinal</label><input type="number" step="0.5" id="f-supra"></div>
+          <div class="form-field"><label>Abdominal (mm)</label><input type="number" step="0.5" id="f-abd"></div>
+          <div class="form-field"><label>Pierna media</label><input type="number" step="0.5" id="f-pierna"></div>
+          <div class="form-field"><label>Pantorrilla pl.</label><input type="number" step="0.5" id="f-pant"></div>
+          <div class="form-field"><label>Brazo relajado</label><input type="number" step="0.1" id="f-brazRelaj"></div>
+          <div class="form-field"><label>Brazo flex.</label><input type="number" step="0.1" id="f-brazFlex"></div>
+          <div class="form-field"><label>Cintura (cm)</label><input type="number" step="0.1" id="f-abdom"></div>
+          <div class="form-field"><label>Cadera (cm)</label><input type="number" step="0.1" id="f-cadera"></div>
+          <div class="form-field"><label>Muslo medio</label><input type="number" step="0.1" id="f-muslo"></div>
+          <div class="form-field"><label>Pantorrilla per.</label><input type="number" step="0.1" id="f-pantPer"></div>
+        </div>
+        <button class="btn-add" onclick="addAntroEntry()">+ Guardar medición</button>
+      </div>
+    </section>
+  </div>`;
+  drawAntroCharts();
+}
+
+function drawAntroCharts() {
+  const data=getAntroData(); const lbl=data.map(d=>d.fecha);
+  const first=data[0],last=data[data.length-1];
+  const kpis=[
+    {v:last.peso,u:'kg',l:'Peso actual',d:+(last.peso-first.peso).toFixed(1),good:'down'},
+    {v:last.s8,u:'mm',l:'Σ8 pliegues',d:+(last.s8-first.s8).toFixed(1),good:'down'},
+    {v:last.brazFlex,u:'cm',l:'Brazo flex.',d:+(last.brazFlex-first.brazFlex).toFixed(1),good:'up'},
+    {v:last.abdom,u:'cm',l:'Cintura',d:+(last.abdom-first.abdom).toFixed(1),good:'down'},
+  ];
+  $('antroKpis').innerHTML=kpis.map(k=>{
+    const sign=k.d>0?'+':''; const cls=(k.good==='down'?k.d<0:k.d>0)?'up':(k.d<0?'down':'');
+    const arr=k.d>0?'▲':(k.d<0?'▼':'—');
+    return `<div class="kpi"><div class="kv">${k.v}<span style="font-size:14px;opacity:.5"> ${k.u}</span></div><div class="kl">${k.l}</div>${data.length>1?`<div class="kd ${cls}">${arr} ${sign}${k.d} ${k.u}</div>`:''}</div>`;
+  }).join('');
+  mkChart('cPeso',lbl,[{label:'Peso kg',data:data.map(d=>d.peso),borderColor:CC.gold,pointBackgroundColor:CC.gold}]);
+  mkChart('cSigma',lbl,[{label:'Σ6',data:data.map(d=>d.s6),borderColor:CC.coral,pointBackgroundColor:CC.coral},{label:'Σ8',data:data.map(d=>d.s8),borderColor:CC.purple,pointBackgroundColor:CC.purple}]);
+  mkChart('cMusc',lbl,[{label:'Brazo flex',data:data.map(d=>d.brazFlex),borderColor:CC.green,pointBackgroundColor:CC.green},{label:'Muslo',data:data.map(d=>d.muslo),borderColor:CC.cyan,pointBackgroundColor:CC.cyan},{label:'Pantorrilla',data:data.map(d=>d.pantPer),borderColor:CC.gold,pointBackgroundColor:CC.gold}]);
+  mkChart('cCint',lbl,[{label:'Cintura',data:data.map(d=>d.abdom),borderColor:CC.coral,pointBackgroundColor:CC.coral},{label:'Cadera',data:data.map(d=>d.cadera),borderColor:CC.gold,pointBackgroundColor:CC.gold}]);
+  mkChart('cPl',lbl,[{label:'Abdominal',data:data.map(d=>d.abd),borderColor:CC.coral,pointBackgroundColor:CC.coral},{label:'Cresta',data:data.map(d=>d.cresta),borderColor:CC.gold,pointBackgroundColor:CC.gold},{label:'Subescapular',data:data.map(d=>d.sub),borderColor:CC.cyan,pointBackgroundColor:CC.cyan}]);
+  const cols=['fecha','peso','s6','s8','brazFlex','muslo','abdom','cadera'];
+  const heads=['Fecha','Peso kg','Σ6 mm','Σ8 mm','Brazo cm','Muslo cm','Cintura cm','Cadera cm'];
+  $('antroTable').innerHTML=`<thead><tr>${heads.map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>`+[...data].reverse().map(d=>`<tr>${cols.map(c=>`<td>${d[c]??'—'}</td>`).join('')}</tr>`).join('')+'</tbody>';
+}
+
+function addAntroEntry() {
+  const gf=id=>{const e=$(id);return e?e.value||null:null};
+  const gn=id=>{const e=$(id);return e?parseFloat(e.value)||null:null};
+  const fecha=gf('f-fecha'); if(!fecha){alert('Ingresa la fecha');return;}
+  const e={fecha:fecha.split('-').reverse().join('.'),peso:gn('f-peso'),tri:gn('f-tri'),bi:gn('f-bi'),sub:gn('f-sub'),cresta:gn('f-cresta'),supra:gn('f-supra'),abd:gn('f-abd'),pierna:gn('f-pierna'),pant:gn('f-pant'),brazRelaj:gn('f-brazRelaj'),brazFlex:gn('f-brazFlex'),abdom:gn('f-abdom'),cadera:gn('f-cadera'),muslo:gn('f-muslo'),pantPer:gn('f-pantPer')};
+  e.s6=+[e.tri,e.sub,e.supra,e.abd,e.pierna,e.pant].filter(Boolean).reduce((a,b)=>a+b,0).toFixed(1);
+  e.s8=+(e.s6+(e.bi||0)+(e.cresta||0)).toFixed(1);
+  const data=getAntroData(); data.push(e); saveAntroData(data);
+  antroInited=false; initAntro();
+  ['fecha','peso','tri','bi','sub','cresta','supra','abd','pierna','pant','brazRelaj','brazFlex','abdom','cadera','muslo','pantPer'].forEach(f=>{const el=$('f-'+f);if(el)el.value='';});
+  flashSave();
+}
+
+// ── Meal interaction ──────────────────────────────────────────────────────
+function initOpts(){
+  document.querySelectorAll('.opt').forEach(opt=>{
+    opt.dataset.count='0';
+    const cb=opt.querySelector('.cb');
+    const textSpan=document.createElement('span');textSpan.className='opt-text';
+    Array.from(opt.childNodes).forEach(n=>{if(n!==cb)textSpan.appendChild(n);});
+    opt.appendChild(textSpan);
+    const ctrl=document.createElement('span');ctrl.className='opt-ctrl';
+    ctrl.innerHTML=`<button class="opt-btn opt-dec" tabindex="-1">−</button><span class="opt-cnt">0</span><button class="opt-btn opt-inc" tabindex="-1">+</button>`;
+    opt.appendChild(ctrl);
+    ctrl.querySelector('.opt-dec').addEventListener('click',e=>{e.stopPropagation();decrOpt(opt);});
+    ctrl.querySelector('.opt-inc').addEventListener('click',e=>{e.stopPropagation();incrOpt(opt);});
+    opt.addEventListener('click',()=>incrOpt(opt));
+    updateOpt(opt);
+  });
+}
+function groupTotal(g){let t=0;g.querySelectorAll('.opt').forEach(o=>t+=parseInt(o.dataset.count||0));return t;}
+function incrOpt(opt){const g=opt.closest('.options');const max=parseInt(g.dataset.max)||1;if(groupTotal(g)>=max)return;opt.dataset.count=parseInt(opt.dataset.count||0)+1;updateOpt(opt);saveSelections();}
+function decrOpt(opt){const c=parseInt(opt.dataset.count||0);if(c<=0)return;opt.dataset.count=c-1;updateOpt(opt);saveSelections();}
+function updateOpt(opt){const c=parseInt(opt.dataset.count||0);opt.classList.toggle('selected',c>0);const cb=opt.querySelector('.cb');if(cb)cb.textContent=c>0?c:'';const cnt=opt.querySelector('.opt-cnt');if(cnt)cnt.textContent=c;const dec=opt.querySelector('.opt-dec');if(dec)dec.disabled=c<=0;}
+
+function planKey(){return `${PATIENT.slug}-plan-s1`;}
+function saveSelections(){const data={};document.querySelectorAll('.options').forEach(g=>{const gid=g.dataset.group;data[gid]={};g.querySelectorAll('.opt').forEach((o,i)=>{const c=parseInt(o.dataset.count||0);if(c>0)data[gid][i]=c;});});localStorage.setItem(planKey(),JSON.stringify(data));}
+function loadSelections(){const raw=localStorage.getItem(planKey());document.querySelectorAll('.opt').forEach(o=>{o.dataset.count='0';updateOpt(o);});if(!raw)return;try{const data=JSON.parse(raw);document.querySelectorAll('.options').forEach(g=>{const gid=g.dataset.group;if(!data[gid])return;const opts=g.querySelectorAll('.opt');Object.entries(data[gid]).forEach(([idx,count])=>{if(opts[idx]){opts[idx].dataset.count=count;updateOpt(opts[idx]);}});});}catch(e){}}
+
+function flashSave(){const ind=$('saveind');if(!ind)return;$('saveTxt').textContent='Guardado';ind.classList.add('show');clearTimeout(saveTimer);saveTimer=setTimeout(()=>ind.classList.remove('show'),1800);}
+
+renderHero();
+renderTabs();
+renderPlan();
+renderEval();
+renderSpecs();
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="paciente.js"></script>
+<script>(function(){function _inj(){document.querySelectorAll('.meal[data-mealid]').forEach(function(el){if(typeof injectMealLog==='function')injectMealLog(el);});if(typeof injectGuardarBtn==='function')document.querySelectorAll('.meals').forEach(injectGuardarBtn);}  _inj();setTimeout(_inj,300);setTimeout(_inj,800);})();</script>
+<script src="guia-data.js"></script>
+<script src="comer-fuera.js"></script>
+</body>
+</html>
