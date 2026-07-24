@@ -184,19 +184,23 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 const PATIENT = {
   slug:     'chiara-bitrich',
   nombre:   'Chiara\nBitrich',
-  fecha:    '03.07.2026',
+  fecha:    '21.07.2026',
   tipoPlan: 'Hipocalórico · Hiperprotéico',
-  macros:   { kcal: 1700, p: 110, c: 195, g: 57 },
+  macros:   { kcal: 1550, p: 110, c: 195, g: 57 },
   hidratacion: [
     { label:'💧 Entrenamiento', valor:'3.0' },
     { label:'💧 Descanso',      valor:'2.7' },
   ],
   semanas: 1,
   antro: {
-    fecha:'03.07.2026', peso:72.3, talla:173.0, imc:25.2,
-    tri:16.0, bi:10.0, sub:7.0, cresta:20.0, supra:8.0, abd:10.0, pierna:37.0, pant:16.0,
-    brazRelaj:30.0, brazFlex:30.5, abdom:76.0, cadera:108.0, muslo:55.0, pantPer:38.5,
+    fecha:'21.07.2026', peso:72.5, talla:173.0, imc:24.2,
+    tri:16.0, bi:5.0, sub:9.0, cresta:14.0, supra:6.0, abd:10.0, pierna:30.0, pant:14.0,
+    brazRelaj:29.3, brazFlex:30.6, abdom:74.0, cadera:107.0, muslo:54.0, pantPer:38.0,
   },
+  antroHistorial: [
+    { fecha:'03.07.2026', peso:72.3, tri:16.0, bi:10.0, sub:7.0, cresta:20.0, supra:8.0, abd:10.0, pierna:37.0, pant:16.0, s6:94.0, s8:124.0, brazRelaj:30.0, brazFlex:30.5, abdom:76.0, cadera:108.0, muslo:55.0, pantPer:38.5 },
+    { fecha:'21.07.2026', peso:72.5, tri:16.0, bi:5.0, sub:9.0, cresta:14.0, supra:6.0, abd:10.0, pierna:30.0, pant:14.0, s6:85.0, s8:104.0, brazRelaj:29.3, brazFlex:30.6, abdom:74.0, cadera:107.0, muslo:54.0, pantPer:38.0 },
+  ],
 
   objetivos: [
     'Disminuir sumatoria de 8 pliegues en 10 mm',
@@ -219,17 +223,16 @@ const PATIENT = {
       ]},
       { label:'Escoge 01 · Proteína', max:1, ops:[
         '50 g de pollo + 60 g de palta',
-        '50 g de queso mozzarella light (CuisineCo) + 1 huevo',
+        '45 g de queso mozzarella light + 40 g de palta',
         '½ lata de atún en agua + 60 g de palta',
         '110 g de Vakimú Quark + 1 porción de frutos secos (Ver especificaciones)',
-        '70 g de queso cottage + 1 huevo',
         '2 huevos',
-        '90 g de queso fresco Slim + 1 huevo',
-        '120 g de queso cottage bajo en grasa + 1 huevo',
+        '60 g de queso fresco Slim + 60 g de palta',
+        '70 g de queso cottage + 1 huevo',
       ]},
     ]},
 
-    { id:'mm', nombre:'🕙 Media Mañana', kcal:210, p:20, c:22, g:5, grupos:[
+    { id:'mm', nombre:'🕙 Media Mañana', kcal:210, p:20, c:22, g:5, nota:'Puedes reemplazar toda la media mañana por 150 g de yogurt griego de lúcuma de <b>Sanno</b>.', grupos:[
       { label:'Escoge 01 · Proteína', max:1, ops:[
         '150 g de Vakimú Quark',
         '55 g de mozzarella light',
@@ -249,15 +252,15 @@ const PATIENT = {
       ]},
     ]},
 
-    { id:'alm', nombre:'🥗 Almuerzo', kcal:542, p:30, c:65, g:18, grupos:[
-      { label:'Escoge 02 · Carbohidrato (pesos cocidos)', max:2, ops:[
+    { id:'alm', nombre:'🥗 Almuerzo', kcal:506, p:33, c:58, g:15, grupos:[
+      { label:'Escoge 03 · Carbohidrato (pesos cocidos)', max:3, ops:[
         '60 g de arroz',
         '90 g de papa, camote o betarraga',
         '60 g de quinua',
         '100 g de menestra',
         '50 g de fideos',
       ]},
-      { label:'Escoge 01 · Proteína (100 g, peso crudo)', max:1, ops:[
+      { label:'Escoge 01 · Proteína (120 g, peso crudo)', max:1, ops:[
         'Pechuga de pollo','Pechuga de pavo o pavita','Pescado',
         'Bistec','Carne molida light',
       ]},
@@ -293,18 +296,16 @@ const PATIENT = {
       ]},
     ], nota:'Puedes reemplazar ocasionalmente por 1 pudín marca Hop o 1 chocoteja. · Mayonesa light casera para sanguche: 2 cdtas mayo light + 1 cda yogurt natural + ½ cdta mostaza + sal y pimienta + 1 cdta vinagre blanco. · Cine: 1 canchita grande + 40 g popcorn de casa (eliminar snack y cena).' },
 
-    { id:'cen', nombre:'🌙 Cena', kcal:404, p:27, c:41, g:15, grupos:[
+    { id:'cen', nombre:'🌙 Cena', kcal:420, p:31, c:41, g:15, grupos:[
       { label:'Escoge 02 · Carbohidrato', max:2, ops:[
         '90 g de papa o camote',
-        '60 g de arroz',
-        '60 g de quinua',
         '1 Rapidita integral',
         '1 rebanada de pan de molde integral (30 g)',
         '20 g de avena (peso crudo)',
         '20 g de cereales',
         '20 g de granola',
       ]},
-      { label:'Escoge 01 · Proteína (100 g, peso crudo)', max:1, ops:[
+      { label:'Escoge 01 · Proteína (120 g, peso crudo)', max:1, ops:[
         'Pechuga de pollo','Pechuga de pavo o pavita','Pescado',
         'Bistec','Carne molida light',
         '200 g de Vakimú Quark',
@@ -584,6 +585,7 @@ function renderSpecs() {
 // ── Evolución Física ───────────────────────────────────────────────────────
 const ANTRO_KEY = () => `${PATIENT.slug}-antro-v1`;
 function getAntroBase() {
+  if (PATIENT.antroHistorial?.length) return PATIENT.antroHistorial;
   const a = PATIENT.antro;
   const s6 = +(a.tri+a.sub+a.supra+a.abd+a.pierna+a.pant).toFixed(1);
   const s8 = +(s6+a.bi+a.cresta).toFixed(1);
