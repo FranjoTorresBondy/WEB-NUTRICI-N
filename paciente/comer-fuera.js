@@ -81,15 +81,19 @@
 
   /* ── Utilidades de grupo (leen el DOM, agnósticas del motor) ──────────── */
   function groupInfo(pick) {
-    var optsEl = pick.querySelector('.options');
-    var max = optsEl ? (parseInt(optsEl.getAttribute('data-max'), 10) || 1) : 1;
     var opts = pick.querySelectorAll('.opt');
-    var count = 0;
+    var max = 0, count = 0;
+    // data-max puede estar en el contenedor .options (unos motores) o en cada .opt (otros)
+    var optsEl = pick.querySelector('.options');
+    if (optsEl) { var m0 = parseInt(optsEl.getAttribute('data-max'), 10); if (!isNaN(m0)) max = m0; }
     for (var i = 0; i < opts.length; i++) {
+      var dm = parseInt(opts[i].getAttribute('data-max'), 10);
+      if (!isNaN(dm) && dm > max) max = dm;
       var c = opts[i].querySelector('.opt-cnt');
       if (c) count += (parseInt(c.textContent, 10) || 0);
       else if (opts[i].classList.contains('selected')) count += 1;
     }
+    if (max <= 0) max = Infinity;            // sin dato fiable → no capear
     return { max: max, count: count, opts: opts };
   }
 
@@ -125,14 +129,18 @@
     for (var i = 0; i < picks.length; i++) {
       var pick = picks[i], gi = groupInfo(pick);
       var k = pick.querySelector('.k'); if (!k) continue;
+      var finite = isFinite(gi.max);
+      var full = finite && gi.count >= gi.max;
       var tag = k.querySelector('.gcount');
-      if (!tag) { tag = document.createElement('span'); tag.className = 'gcount'; k.appendChild(tag); }
-      tag.textContent = ' ' + gi.count + '/' + gi.max;
-      tag.className = 'gcount' + (gi.count >= gi.max ? ' full' : '');
+      if (finite) {
+        if (!tag) { tag = document.createElement('span'); tag.className = 'gcount'; k.appendChild(tag); }
+        tag.textContent = ' ' + gi.count + '/' + gi.max;
+        tag.className = 'gcount' + (full ? ' full' : '');
+      } else if (tag) { tag.remove(); }
       for (var j = 0; j < gi.opts.length; j++) {
         var btns = gi.opts[j].querySelectorAll('.opt-btn');
         for (var b = 0; b < btns.length; b++) {
-          if ((btns[b].textContent || '').trim().indexOf('+') === 0) btns[b].disabled = (gi.count >= gi.max);
+          if ((btns[b].textContent || '').trim().indexOf('+') === 0) btns[b].disabled = full;
         }
       }
     }
@@ -151,6 +159,7 @@
       var tot = 0, got = 0;
       for (var q = 0; q < picks.length; q++) {
         var gi = groupInfo(picks[q]);
+        if (!isFinite(gi.max)) continue;
         tot += gi.max; got += Math.min(gi.count, gi.max);
       }
       if (!tot) continue;
@@ -321,17 +330,21 @@
   }
 
   /* ── Arranque ─────────────────────────────────────────────────────────── */
+  function redecorate() { try { decorateGroups(); renderProgress(); } catch (e) {} }
+
   function boot() {
     injectCSS();
     addTab();
     capClicks();
-    decorateGroups();
-    renderProgress();
+    redecorate();
+    // Reintentos: algunos motores agregan data-max / re-renderizan el plan
+    // después de este boot (cambio de atributo que el observer no capta).
+    [200, 600, 1200, 2200].forEach(function (t) { setTimeout(redecorate, t); });
     var plan = $id('tab-plan');
     if (plan && window.MutationObserver) {
       var mo = new MutationObserver(function () {
         if (mo._busy) return; mo._busy = true;
-        setTimeout(function () { try { decorateGroups(); renderProgress(); } catch (e) {} mo._busy = false; }, 0);
+        setTimeout(function () { redecorate(); mo._busy = false; }, 0);
       });
       mo.observe(plan, { childList: true, subtree: true });
     }
