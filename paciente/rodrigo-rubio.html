@@ -821,6 +821,7 @@ let saveTimer = null;
 function flashSave(){const ind=$('saveind');if(!ind)return;$('saveTxt').textContent='Guardado';ind.classList.add('show');clearTimeout(saveTimer);saveTimer=setTimeout(()=>ind.classList.remove('show'),1800);}
 
 // ── Entrenamiento ──────────────────────────────────────────────────────────
+const BASE_IMG = 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/';
 let WEEKS = [];
 let currentWeek = 1;
 
