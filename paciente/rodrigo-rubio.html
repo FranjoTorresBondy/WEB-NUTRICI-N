@@ -165,6 +165,74 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
   h1{font-size:clamp(32px,10vw,56px)}
   .tab{padding:12px 10px;font-size:11px}
 }
+/* ── ENTRENAMIENTO ── */
+.train-intro{font-size:13px;color:var(--muted);background:var(--panel2);border:1px dashed var(--line);border-radius:12px;padding:14px 16px;margin:6px 0 18px;line-height:1.6}
+.train-intro b{color:var(--ink)}
+.weeksel{display:flex;flex-wrap:wrap;gap:10px;margin:4px 0 8px}
+.wbtn{appearance:none;cursor:pointer;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px 14px;color:var(--muted);font-family:'Inter';text-align:left;transition:.2s;min-width:110px;position:relative;box-shadow:var(--shadow)}
+.wbtn:hover{border-color:var(--muted);color:var(--ink)}
+.wbtn.active{border-color:var(--navy);color:var(--ink);background:var(--panel2)}
+.wbtn .wn{font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:17px;line-height:1;display:block}
+.wbtn .wp{font-family:'IBM Plex Mono';font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;margin-top:6px;display:block}
+.wbtn.active .wn{color:var(--navy)}
+.wbtn .wdot{position:absolute;top:10px;right:10px;width:8px;height:8px;border-radius:50%}
+.train-head{display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin:18px 0 6px}
+.train-head .badge{font-family:'IBM Plex Mono';font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#000;padding:6px 13px;border-radius:999px;font-weight:700}
+.train-head .hint{font-size:12px;color:var(--faint)}
+.sess{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow);margin-bottom:16px}
+.sess .sh{display:flex;align-items:center;gap:12px;padding:14px 18px;background:var(--panel2);cursor:pointer;user-select:none;transition:background .15s}
+.sess .sh:hover{background:var(--bg2)}
+.sess .sh .snum{font-family:'IBM Plex Mono';font-size:11px;color:var(--faint);letter-spacing:.1em}
+.sess .sh h3{font-size:16px;font-weight:700;color:var(--ink);flex:1;margin:0}
+.sess .sh .scount{font-size:11px;color:var(--faint);white-space:nowrap}
+.sess .sh .chev{font-size:20px;color:var(--faint);transition:transform .2s;line-height:1}
+.sess.open .sh .chev{transform:rotate(90deg)}
+.sbody{display:none}
+.sess.open .sbody{display:block}
+.exq{display:flex;gap:14px;border-top:1px solid var(--line);padding:15px 18px}
+.exq:first-child{border-top:none}
+.exq .thumb{width:90px;height:90px;flex:0 0 90px;border-radius:10px;overflow:hidden;background:var(--panel2);border:1px solid var(--line)}
+.exq .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.exq .ebody{flex:1;min-width:0}
+@media(max-width:520px){.exq .thumb{width:66px;height:66px;flex-basis:66px}}
+.exq .nm{font-weight:600;font-size:14.5px;color:var(--ink);margin-bottom:9px}
+.exq .meta{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:12px}
+.mpill{font-family:'IBM Plex Mono';font-size:10.5px;border:1px solid var(--line);border-radius:7px;padding:4px 9px;color:var(--muted);background:var(--bg)}
+.mpill b{color:var(--ink);font-weight:600}
+.mpill.rir{border-color:rgba(196,151,58,.5);background:rgba(196,151,58,.08)}
+.mpill.rir b{color:var(--navy)}
+.mpill.rir-f{border-color:rgba(239,154,154,.5);background:rgba(239,154,154,.08)}
+.mpill.rir-f b{color:#ef9a9a}
+.mpill.rest b{color:var(--cyan)}
+.sets{display:grid;grid-template-columns:repeat(auto-fill,minmax(108px,1fr));gap:9px}
+.setbox{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:8px 10px}
+.setbox .sl{font-family:'IBM Plex Mono';font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin-bottom:4px}
+.setbox input{width:100%;background:transparent;border:none;color:var(--ink);font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:21px;padding:0;-moz-appearance:textfield}
+.setbox input::-webkit-outer-spin-button,.setbox input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.setbox input:focus{outline:none}
+.setbox input::placeholder{color:var(--faint);font-weight:400;opacity:.55}
+.setbox .un{font-family:'Inter';font-size:12px;color:var(--muted);font-weight:600}
+.setbox.filled{border-color:rgba(196,151,58,.4);background:var(--panel2)}
+.setbox.filled .sl{color:var(--navy)}
+.sess-sel{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.sess-btn{appearance:none;background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:7px 14px;font-family:'IBM Plex Mono';font-size:10px;color:var(--muted);cursor:pointer;transition:.2s;text-transform:uppercase;letter-spacing:.06em}
+.sess-btn:hover{border-color:var(--muted);color:var(--ink)}
+.sess-btn.active{border-color:var(--navy);color:var(--navy)}
+.ex-sel{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 20px}
+.ex-pill{appearance:none;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:6px 12px;font-family:'IBM Plex Mono';font-size:10.5px;color:var(--muted);cursor:pointer;transition:.2s;white-space:nowrap}
+.ex-pill:hover{border-color:var(--muted);color:var(--ink)}
+.ex-pill.active{background:var(--navy);border-color:var(--navy);color:#000;font-weight:700}
+.no-data{text-align:center;padding:48px 20px;color:var(--faint);font-size:13px;font-style:italic}
+@media(max-width:600px){
+  .sess .sh h3{font-size:15px}
+  .sess .sh .scount{display:none}
+  .exq{padding:11px 14px;gap:10px}
+  .exq .nm{font-size:13px;margin-bottom:6px}
+  .sets{grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:7px}
+  .wbtn{min-width:80px;padding:8px 10px}
+  .wbtn .wn{font-size:14px}
+  .wbtn .wp{font-size:8.5px}
+}
 </style>
 <link rel="stylesheet" href="paciente.css">
 </head>
