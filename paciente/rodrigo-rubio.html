@@ -817,13 +817,214 @@ function planKey(){return `${PATIENT.slug}-plan-s${currentMicro}`;}
 function saveSelections(){const data={};document.querySelectorAll('.options').forEach(g=>{const gid=g.dataset.group;data[gid]={};g.querySelectorAll('.opt').forEach((o,i)=>{const c=parseInt(o.dataset.count||0);if(c>0)data[gid][i]=c;});});localStorage.setItem(planKey(),JSON.stringify(data));}
 function loadSelections(){const raw=localStorage.getItem(planKey());document.querySelectorAll('.opt').forEach(o=>{o.dataset.count='0';updateOpt(o);});if(!raw)return;try{const data=JSON.parse(raw);document.querySelectorAll('.options').forEach(g=>{const gid=g.dataset.group;if(!data[gid])return;const opts=g.querySelectorAll('.opt');Object.entries(data[gid]).forEach(([idx,count])=>{if(opts[idx]){opts[idx].dataset.count=count;updateOpt(opts[idx]);}});});}catch(e){}}
 
+let saveTimer = null;
 function flashSave(){const ind=$('saveind');if(!ind)return;$('saveTxt').textContent='Guardado';ind.classList.add('show');clearTimeout(saveTimer);saveTimer=setTimeout(()=>ind.classList.remove('show'),1800);}
+
+// ── Entrenamiento ──────────────────────────────────────────────────────────
+let WEEKS = [];
+let currentWeek = 1;
+
+function buildWeeks() {
+  const weeks = [];
+  let n = 1;
+  PATIENT.entrenamiento.fases.forEach((fase, fi) => {
+    for (let i = 0; i < fase.semanas; i++) {
+      weeks.push({ n, label:`S${n}`, fase: fi, faseLabel: fase.label, color: fase.color, bg: fase.bg });
+      n++;
+    }
+  });
+  return weeks;
+}
+
+function renderTrain() {
+  if (!PATIENT.entrenamiento) return;
+  WEEKS = buildWeeks();
+  $('tab-train').innerHTML = `<div class="wrap">
+    <section style="padding-top:24px">
+      <div class="sec-h"><span class="ix">01</span><h2>Plan de Entrenamiento</h2><div class="rule"></div></div>
+      <p class="train-intro">Progresión por RIR en compuestos. <b>Anota el peso de cada serie</b> — se guarda automáticamente.</p>
+      <div class="weeksel" id="weeksel"></div>
+    </section>
+    <section style="padding-top:6px">
+      <div class="train-head" id="trainHead"></div>
+      <div id="sessions"></div>
+    </section>
+  </div>`;
+  buildWeekSel();
+  buildTrainHead(WEEKS[0]);
+  $('sessions').innerHTML = buildSessions(1);
+  loadTrainValues();
+}
+
+function buildWeekSel() {
+  $('weeksel').innerHTML = WEEKS.map(w =>
+    `<button class="wbtn${w.n===1?' active':''}" onclick="setWeek(${w.n},this)">
+      <span class="wdot" style="background:${w.color}"></span>
+      <span class="wn">${w.label}</span>
+      <span class="wp" style="color:${w.color}">${w.faseLabel}</span>
+    </button>`
+  ).join('');
+}
+
+function buildTrainHead(w) {
+  $('trainHead').innerHTML = `<span class="badge" style="background:${w.bg};color:#fff">${w.label} · ${w.faseLabel}</span>
+    <span class="hint" style="color:var(--muted)">Progresión individual por ejercicio según MEV/MRV</span>`;
+}
+
+function setWeek(n, btn) {
+  currentWeek = n;
+  document.querySelectorAll('.wbtn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const w = WEEKS.find(x=>x.n===n);
+  buildTrainHead(w);
+  $('sessions').innerHTML = buildSessions(n);
+  loadTrainValues();
+}
+
+function buildThumb(ex) {
+  if (ex.img === 'anim') {
+    return `<div class="thumb" style="position:relative">
+      <img src="${BASE_IMG}${ex.s1}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .3s" onmouseover="this.style.opacity=0;this.nextElementSibling.style.opacity=1" onmouseout="this.style.opacity=1;this.nextElementSibling.style.opacity=0" loading="lazy">
+      <img src="${BASE_IMG}${ex.s2}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .3s" loading="lazy">
+    </div>`;
+  }
+  return `<div class="thumb"><img src="${ex.gif||ex.s1}" loading="lazy" style="width:100%;height:100%;object-fit:cover"></div>`;
+}
+
+function rirLabel(rir) {
+  if (rir === 'F') return { text: 'A fallo', cls: 'rir-f' };
+  if (rir === 0)   return { text: 'RIR 0', cls: 'rir' };
+  return { text: `RIR ${rir}`, cls: '' };
+}
+
+function buildSessions(week) {
+  return PATIENT.entrenamiento.sesiones.map((sess, si) => {
+    const exRows = sess.ejercicios.map((ex, ei) => {
+      const [series, rir] = ex.prog[week-1];
+      const rl = rirLabel(rir);
+      const sets = Array.from({length:series},(_,si2) => {
+        const k = trainKey(sess.id, ei, si2);
+        return `<div class="setbox"><div class="sl">Serie ${si2+1}</div>
+          <input type="number" inputmode="decimal" placeholder="—" data-key="${k}" oninput="saveTrainInput(this)">
+          <div class="un">kg</div></div>`;
+      }).join('');
+      const notaHtml = ex.nota ? `<span style="font-size:11px;color:var(--faint);display:block;margin-top:3px">${ex.nota}</span>` : '';
+      return `<div class="exq">${buildThumb(ex)}
+        <div class="ebody">
+          <div class="nm">${ex.nombre}${notaHtml}</div>
+          <div class="meta">
+            <span class="mpill"><b>${series}×${ex.reps}</b></span>
+            <span class="mpill ${rl.cls}"><b>${rl.text}</b></span>
+            <span class="mpill rest">Descanso <b>${ex.descanso}</b></span>
+          </div>
+          <div class="sets">${sets}</div>
+        </div></div>`;
+    }).join('');
+    return `<div class="sess open">
+      <div class="sh" onclick="this.closest('.sess').classList.toggle('open')">
+        <span class="snum">0${si+1}</span><span style="font-size:20px">${sess.icon}</span>
+        <h3>${sess.label}</h3>
+        <span class="scount">${sess.ejercicios.length} ejercicios · ${sess.nota}</span>
+        <span class="chev">›</span>
+      </div>
+      <div class="sbody">${exRows}</div>
+    </div>`;
+  }).join('');
+}
+
+function trainKey(sessId, exIdx, setIdx) { return `${PATIENT.slug}-train-s${currentWeek}-${sessId}-${exIdx}-s${setIdx}`; }
+
+function saveTrainInput(input) {
+  localStorage.setItem(input.dataset.key, input.value);
+  input.closest('.setbox').classList.toggle('filled', input.value !== '');
+  flashSave();
+}
+
+function loadTrainValues() {
+  document.querySelectorAll('#sessions input[data-key]').forEach(inp => {
+    const val = localStorage.getItem(inp.dataset.key) || '';
+    inp.value = val;
+    inp.closest('.setbox').classList.toggle('filled', val !== '');
+  });
+}
+
+// ── Evolución Entrenamiento ────────────────────────────────────────────────
+let evolTrainInited=false, evolActiveSess='s1', evolActiveEx=0, cTrainChart=null;
+
+function initEvolTrain() { if(evolTrainInited)return; evolTrainInited=true; renderEvolTrain(); }
+
+function renderEvolTrain() {
+  const el=$('tab-evol-train'); if(!el)return;
+  el.innerHTML=`<div class="wrap"><section style="padding-top:24px">
+    <div class="sec-h"><span class="ix">01</span><h2>Evolución del Entrenamiento</h2><div class="rule"></div></div>
+    <p class="train-intro">Los pesos anotados en la pestaña <b>Entrenamiento</b> se grafican aquí automáticamente por semana.</p>
+    <div class="sess-sel" id="evolSessSel"></div>
+    <div class="ex-sel" id="evolExSel"></div>
+    <div class="chart-card" id="evolChartCard">
+      <h3 id="evolChartTitle">—</h3>
+      <div class="cap">Peso máximo registrado por semana (kg)</div>
+      <div class="chart-wrap"><canvas id="cTrain"></canvas></div>
+    </div>
+  </section></div>`;
+  buildEvolSessSel(); buildEvolExSel(); renderEvolChart();
+}
+
+function buildEvolSessSel() {
+  $('evolSessSel').innerHTML = PATIENT.entrenamiento.sesiones.map(s=>
+    `<button class="sess-btn${s.id===evolActiveSess?' active':''}" onclick="setEvolSess('${s.id}',this)">${s.icon} ${s.label}</button>`
+  ).join('');
+}
+
+function setEvolSess(id,btn) { evolActiveSess=id; evolActiveEx=0; document.querySelectorAll('.sess-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); buildEvolExSel(); renderEvolChart(); }
+
+function buildEvolExSel() {
+  const sess = PATIENT.entrenamiento.sesiones.find(s=>s.id===evolActiveSess);
+  $('evolExSel').innerHTML = sess.ejercicios.map((ex,i)=>
+    `<button class="ex-pill${i===evolActiveEx?' active':''}" onclick="setEvolEx(${i},this)">${ex.nombre}</button>`
+  ).join('');
+}
+
+function setEvolEx(idx,btn) { evolActiveEx=idx; document.querySelectorAll('.ex-pill').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); renderEvolChart(); }
+
+function renderEvolChart() {
+  if (!WEEKS.length) WEEKS = buildWeeks();
+  const sess = PATIENT.entrenamiento.sesiones.find(s=>s.id===evolActiveSess);
+  const ex = sess.ejercicios[evolActiveEx];
+  if ($('evolChartTitle')) $('evolChartTitle').textContent = ex.nombre;
+  const byWeek = {};
+  for (let i=0; i<localStorage.length; i++) {
+    const key = localStorage.key(i); if (!key) continue;
+    const pat = new RegExp(`^${PATIENT.slug}-train-s(\\d+)-${sess.id}-(\\d+)-s(\\d+)$`);
+    const m = key.match(pat); if (!m) continue;
+    if (parseInt(m[2]) !== evolActiveEx) continue;
+    const val = parseFloat(localStorage.getItem(key)); if (!val || isNaN(val)) continue;
+    if (!byWeek[m[1]]) byWeek[m[1]] = [];
+    byWeek[m[1]].push(val);
+  }
+  const lbl = WEEKS.map(w=>w.label);
+  const maxW = WEEKS.map(w=>byWeek[w.n] ? Math.max(...byWeek[w.n]) : null);
+  const hasData = maxW.some(v=>v!==null);
+  if (cTrainChart) { cTrainChart.destroy(); cTrainChart=null; }
+  const ctx = $('cTrain'); if (!ctx) return;
+  const nd = document.querySelector('#evolChartCard .no-data'); if (nd) nd.remove();
+  if (!hasData) {
+    ctx.style.display='none';
+    const d=document.createElement('div'); d.className='no-data';
+    d.textContent='Aún no hay pesos registrados. Anótalos en la pestaña Entrenamiento.';
+    $('evolChartCard').appendChild(d); return;
+  }
+  ctx.style.display='';
+  cTrainChart = new Chart(ctx, {type:'line',data:{labels:lbl,datasets:[{label:'Máximo kg',data:maxW,borderColor:CC.gold,pointBackgroundColor:CC.gold,tension:.35,pointRadius:5,borderWidth:2,fill:false,spanGaps:true}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{boxWidth:12,padding:14,color:'#888'}}},
+    scales:{x:{grid:{color:'rgba(255,255,255,0.06)'},ticks:{color:'#666'}},y:{grid:{color:'rgba(255,255,255,0.06)'},ticks:{color:'#666'},title:{display:true,text:'kg',color:'#555'}}}}});
+}
 
 renderHero();
 renderTabs();
 renderPlan();
 renderEval();
 renderSpecs();
+renderTrain();
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="paciente.js"></script>
