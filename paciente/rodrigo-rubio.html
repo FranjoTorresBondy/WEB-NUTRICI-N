@@ -241,7 +241,10 @@ const PATIENT = {
         ]},
         { label:'Escoge 01 · Fruta', max:1, ops:[
           '3 porciones de fruta* (Ver especificaciones)',
-          '1 plátano mediano + 1 fruta (1 mandarina, 100 g de berries o 20 g de dátiles)',
+          '1 plátano mediano + 1 mandarina',
+          '1 plátano mediano + 80 g de mango',
+          '1 plátano mediano + 20 g de dátiles',
+          '1 vaso de jugo de naranja natural (200 ml) + 1 fruta',
         ]},
         { label:'Escoge 01 · Proteína', max:1, ops:[
           '2 huevos enteros (fritos o revueltos con poquito aceite PAM)',
@@ -262,14 +265,16 @@ const PATIENT = {
         ]},
         { label:'Escoge 01 · Fruta / Carbohidrato', max:1, ops:[
           '3 porciones de fruta* (Ver especificaciones)',
-          '1 plátano mediano + 1 fruta (1 mandarina, 100 g de berries o 20 g de dátiles)',
+          '1 plátano mediano + 1 mandarina',
+          '1 plátano mediano + 80 g de mango',
+          '1 plátano mediano + 20 g de dátiles',
         ]},
     ], nota:'*Puedes intercambiar 2 porciones de fruta por 25 g de Popcorners del sabor de tu elección (no consumir a diario). Opcionales 1× semana: Protein chips QNT (50 g) | Protein Food: Tiramisú, Tres Leches, Lucumosa, Carrot Cake, Cuchareable Chocomanjar, etc. | Fit Monster: Fitalfajor, Cuchareable La Intensa, Sandwich Gelato Fitoreo, Cuchareable Chocolucuma, etc.' },
 
     { id:'alm', nombre:'🥗 Almuerzo', kcal:750, p:45, c:105, g:20, grupos:[
         { label:'Escoge 06 · Carbohidrato', max:6, ops:[
           '60 g de arroz (cocido)',
-          '90 g de papa o camote (cocido)',
+          '90 g de papa (cocida)',
           '100 g de menestra',
           '60 g de choclo',
           '50 g de fideos (cocido)',
@@ -297,7 +302,7 @@ const PATIENT = {
     { id:'cen', nombre:'🌙 Cena', kcal:650, p:30, c:72, g:20, grupos:[
         { label:'Escoge 06 · Carbohidrato', max:6, ops:[
           '60 g de arroz (cocido)',
-          '90 g de papa o camote (cocido)',
+          '90 g de papa (cocida)',
           '100 g de menestra',
           '60 g de choclo',
           '1 rebanada de pan de molde integral (30 g)',
@@ -330,7 +335,7 @@ const PATIENT = {
         { label:'Escoge 01', max:1, ops:[
           '1 plátano',
           '1 cda de miel + 20 g de dátiles',
-          'Extracto de 2 betarragas + 1 cda de miel + ¼ cdta de sal',
+          '20 g de dátiles + 1 cda de miel',
         ]},
     ], nota:'* Solo días de entrenamiento. Suma +100 kcal al total del día (2,400 + 100 = 2,500 kcal aprox.).' },
   ],
@@ -341,8 +346,8 @@ const PATIENT = {
       'Refrescos no azucarados: emoliente, agua de piña, agua de manzana',
       'Puedes agregar edulcorantes acalóricos: Stevia, yacón o fruto del monje',
       '##Bebidas bajas en calorías',
-      'Té negro o té verde helado + limón + Stevia + agua con o sin gas + hielo (opcional: berries)',
-      'Agua de flor de Jamaica + Stevia + agua con o sin gas + hielo (opcional: berries)',
+      'Té negro o té verde helado + limón + Stevia + agua con o sin gas + hielo',
+      'Agua de flor de Jamaica + Stevia + agua con o sin gas + hielo',
       'Matcha + 200 ml de leche de almendra + Stevia + hielo',
       'Si estás fuera: Freetea Light',
     ]},
@@ -351,10 +356,10 @@ const PATIENT = {
       '½ taza de mango picado (80 g)',
       '1 manzana',
       '1 plátano pequeño (60 g pelado) / ½ grande (120 g pelado)',
-      '1 taza de papaya picada (160 g)',
-      'Berries 150 g: arándano, fresa, aguaymanto, moras, frambuesas',
+      '½ taza de mango picado adicional (80 g)',
       '¾ taza de piña picada (165 g)',
       '1 granadilla / 1 mandarina mediana / 1 pera / 1 durazno / 10 uvas',
+      '1 vaso de jugo de naranja natural (200 ml)',
     ]},
     { titulo:'🥜 Frutos secos (1 porción)', items:[
       '6 Cashews',
@@ -377,6 +382,7 @@ const PATIENT = {
       'Intentar consumir los alimentos a la misma hora en cada tiempo de ingesta',
       'Si vas a comer en restaurante, elegir alimentos similares a los intercambios del plan',
       'Puedes hacerte helados con fruta congelada, yogurt Skyr o Quark y Stevia (de chocolate: cocoa + plátano congelado)',
+      'Los días de pichanga cuentan como día de entrenamiento: agregar Pre Entreno antes de jugar',
     ]},
   ],
 
