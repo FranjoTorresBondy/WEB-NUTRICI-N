@@ -201,7 +201,7 @@
   }
 
   /* ── 3) PESTAÑA COMER FUERA ───────────────────────────────────────────── */
-  var st = { mealId: null, cat: 'Todas', soloEntran: true, qty: {} };
+  var st = { mealIds: [], cat: 'Todas', soloEntran: true, qty: {} };
   function fMeals() { return P.comidas.filter(function (m) { return m.kcal != null; }); }
   function fCats() {
     var seen = {}, out = ['Todas'];
@@ -237,10 +237,13 @@
   function renderFuera() {
     var panel = $id('tab-fuera'); if (!panel) return;
     var meals = fMeals();
-    if (!st.mealId && meals.length) st.mealId = meals[0].id;
-    var meal = null;
-    for (var i = 0; i < P.comidas.length; i++) if (P.comidas[i].id === st.mealId) meal = P.comidas[i];
-    var budget = (meal && meal.kcal) || 500;
+    if (!st.mealIds.length && meals.length) st.mealIds = [meals[0].id];
+    // comidas seleccionadas → presupuesto = suma de sus kcal
+    var selMeals = meals.filter(function (m) { return st.mealIds.indexOf(m.id) >= 0; });
+    var budget = 0, mealNames = [];
+    selMeals.forEach(function (m) { budget += (m.kcal || 0); mealNames.push(m.nombre); });
+    if (!budget) budget = 500;
+    var mealLabel = mealNames.join(' + ');
 
     var S = 0, PR = 0, nPort = 0;
     for (var k in st.qty) {
@@ -250,7 +253,7 @@
     var diff = budget - S;
 
     var mealsHtml = meals.map(function (m) {
-      return '<button class="fmeal' + (m.id === st.mealId ? ' active' : '') + '" data-mid="' + esc(m.id) + '">' +
+      return '<button class="fmeal' + (st.mealIds.indexOf(m.id) >= 0 ? ' active' : '') + '" data-mid="' + esc(m.id) + '">' +
         '<span class="fmn">' + esc(m.nombre) + '</span><span class="fmk">~' + m.kcal + ' kcal</span></button>';
     }).join('');
 
@@ -299,9 +302,9 @@
     panel.innerHTML =
       '<div class="wrap"><section>' +
       '<div class="sec-h"><span class="ix">01</span><h2>Comer fuera sin salirte del plan</h2><div class="rule"></div></div>' +
-      '<div class="fuera-intro">Elige <b>en qué comida</b> vas a comer fuera y usa <b>− / +</b> para sumar porciones (puedes <b>repetir la misma</b>). Abajo ves cuántas kcal llevas vs. las que tienes para esa comida. Badge <b style="color:var(--navy)">COMPLETA ✓</b> = te deja justo (±50 kcal).</div>' +
+      '<div class="fuera-intro">Elige <b>una o más comidas</b> (tócalas para juntarlas y sumar su presupuesto, ej. Almuerzo + Snack). Usa <b>− / +</b> para sumar porciones (puedes <b>repetir la misma</b>). Abajo ves cuántas kcal llevas vs. las disponibles. Badge <b style="color:var(--navy)">COMPLETA ✓</b> = te deja justo (±50 kcal).</div>' +
       '<div class="fmeals">' + mealsHtml + '</div>' +
-      '<div class="fbudget">Presupuesto de <b>' + esc(meal ? meal.nombre : '') + '</b>: <b>~' + budget + ' kcal</b></div>' +
+      '<div class="fbudget">Presupuesto de <b>' + esc(mealLabel) + '</b>: <b>~' + budget + ' kcal</b>' + (selMeals.length > 1 ? ' <span style="color:var(--faint)">(' + selMeals.length + ' comidas juntas)</span>' : '') + '</div>' +
       '<div class="fchips">' + chipsHtml + '</div>' +
       '<div class="ffilter' + (st.soloEntran ? ' on' : '') + '" id="cfFilter"><div class="fmini"><i></i></div><span>Solo las que entran en lo que te queda</span></div>' +
       '<div class="flist">' + listHtml + '</div><div class="cf-spacer"></div>' +
@@ -313,7 +316,12 @@
         (diff > 0 ? 'te faltan' : diff < 0 ? 'te pasas' : 'exacto') + ' kcal</div></div></div></div>';
 
     panel.querySelectorAll('.fmeal').forEach(function (b) {
-      b.onclick = function () { st.mealId = b.getAttribute('data-mid'); st.qty = {}; renderFuera(); };
+      b.onclick = function () {
+        var id = b.getAttribute('data-mid'), pos = st.mealIds.indexOf(id);
+        if (pos >= 0) { if (st.mealIds.length > 1) st.mealIds.splice(pos, 1); } // no dejar sin comidas
+        else st.mealIds.push(id);
+        renderFuera();
+      };
     });
     panel.querySelectorAll('.fchip').forEach(function (b) {
       b.onclick = function () { st.cat = b.getAttribute('data-cat'); renderFuera(); };
