@@ -254,7 +254,7 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 const PATIENT = {
   slug:      'juan-de-dios',
   nombre:    'Juan de\nDios',
-  fecha:     '30.06.2026',
+  fecha:     '27.07.2026',
   tipoPlan:  'Superávit ligero · Hiperprotéico',
   macros:    { kcal: 2900, p: 195, c: 363, g: 75 },
   hidratacion: [
@@ -263,10 +263,16 @@ const PATIENT = {
   ],
   semanas: 1,
   antro: {
-    fecha:'30.06.2026', peso:75.0, talla:177.0, imc:23.9,
-    tri:3.5, bi:1.0, sub:10.0, cresta:9.0, supra:5.0, abd:9.0, pierna:4.0, pant:3.0,
-    brazRelaj:37.3, brazFlex:40.8, abdom:81.0, cadera:100.0, muslo:57.0, pantPer:37.0,
+    fecha:'27.07.2026', peso:76.5, talla:177.0, imc:24.5,
+    tri:4.0, bi:1.5, sub:11.0, cresta:8.0, supra:4.5, abd:11.0, pierna:3.0, pant:2.0,
+    brazRelaj:38.4, brazFlex:41.6, abdom:81.0, cadera:100.0, muslo:57.3, pantPer:37.2,
+    diam:{ humero:7.0, biEstiloideo:5.4, femur:9.1 },
   },
+
+  antroHistorial: [
+    { fecha:'30.06.2026', peso:75.0, tri:3.5, bi:1.0, sub:10.0, cresta:9.0, supra:5.0, abd:9.0, pierna:4.0, pant:3.0, s6:34.5, s8:44.5, brazRelaj:37.3, brazFlex:40.8, abdom:81.0, cadera:100.0, muslo:57.0, pantPer:37.0 },
+    { fecha:'27.07.2026', peso:76.5, tri:4.0, bi:1.5, sub:11.0, cresta:8.0, supra:4.5, abd:11.0, pierna:3.0, pant:2.0, s6:35.5, s8:45.0, brazRelaj:38.4, brazFlex:41.6, abdom:81.0, cadera:100.0, muslo:57.3, pantPer:37.2 },
+  ],
 
   objetivos: [
     'Aumento de masa muscular magra',
