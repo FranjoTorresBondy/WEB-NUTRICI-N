@@ -22,11 +22,13 @@
     var s = document.createElement('style');
     s.id = 'pdfBtnStyles';
     s.textContent = [
-      '.pdfbtn{margin-left:auto;align-self:center;flex-shrink:0;appearance:none;cursor:pointer;',
+      '#tabNav{overflow-x:auto;flex-wrap:nowrap;scrollbar-width:none;-ms-overflow-style:none}',
+      '#tabNav::-webkit-scrollbar{display:none}',
+      '.pdfbtn{position:sticky;right:0;z-index:5;flex-shrink:0;align-self:center;margin:0 0 0 8px;appearance:none;cursor:pointer;',
       'background:var(--navy,#C4973A);color:#000;border:none;border-radius:8px;',
-      'font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:700;letter-spacing:.06em;',
-      'text-transform:uppercase;padding:8px 14px;display:inline-flex;align-items:center;gap:6px;',
-      'transition:.15s;white-space:nowrap}',
+      'font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:700;letter-spacing:.04em;',
+      'text-transform:uppercase;padding:7px 12px;display:inline-flex;align-items:center;gap:5px;',
+      'transition:.15s;white-space:nowrap;box-shadow:-12px 0 14px -4px rgba(8,8,8,.96)}',
       '.pdfbtn:hover{opacity:.85}',
       '.pdfbtn.pdfbtn-fixed{position:fixed;top:12px;right:12px;z-index:60;box-shadow:0 4px 16px rgba(0,0,0,.4)}',
       '@media print{.pdfbtn{display:none!important}}'
@@ -152,7 +154,7 @@
     if ($id('cfPdfBtn')) return true;
     var b = document.createElement('button');
     b.id = 'cfPdfBtn'; b.type = 'button'; b.className = 'pdfbtn';
-    b.innerHTML = '⬇ Descargar PDF';
+    b.innerHTML = '⬇ PDF';
     b.setAttribute('aria-label', 'Descargar plan en PDF');
     b.onclick = downloadPdf;
     var nav = $id('tabNav');
