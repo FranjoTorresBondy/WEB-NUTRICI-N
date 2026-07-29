@@ -156,6 +156,33 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
   h1{font-size:clamp(32px,10vw,56px)}
   .tab{padding:12px 10px;font-size:11px}
 }
+.micro-sel-wrap{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 20px;margin-bottom:20px;box-shadow:var(--shadow)}
+.micro-sel-label{font-family:'IBM Plex Mono';font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-bottom:10px}
+.micro-sel{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.micro-btn{appearance:none;border:1.5px solid var(--line);border-radius:8px;background:var(--panel2);color:var(--muted);font-family:'IBM Plex Mono';font-size:12px;font-weight:600;padding:7px 14px;cursor:pointer;transition:.15s}
+.micro-btn:hover{border-color:var(--navy);color:var(--ink)}
+.micro-btn.active{border-color:var(--navy);background:rgba(196,151,58,.15);color:var(--navy)}
+.micro-info{font-size:12.5px;color:var(--muted);border-top:1px dashed var(--line);padding-top:10px}
+.micro-info b{color:var(--ink)}
+.tren-ses{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:16px;box-shadow:var(--shadow)}
+.tren-ses-h{background:var(--panel2);padding:14px 20px;font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:17px;border-bottom:1px solid var(--line)}
+.ex-table{width:100%;border-collapse:collapse;font-size:13px}
+.ex-table thead th{background:var(--panel2);color:var(--faint);font-family:'IBM Plex Mono';font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;padding:9px 14px;border-bottom:1px solid var(--line);text-align:center;white-space:nowrap}
+.ex-table thead th:nth-child(2){text-align:left}
+.ex-row{border-bottom:1px solid var(--line);transition:.12s}
+.ex-row:last-child{border-bottom:none}
+.ex-row:hover{background:var(--bg2)}
+.ex-td-img{padding:6px 10px 6px 14px;width:56px;text-align:center}
+.ex-thumb{width:44px;height:44px;object-fit:cover;border-radius:8px;display:block}
+.ex-thumb-ph{display:flex;width:44px;height:44px;align-items:center;justify-content:center;font-size:18px;color:var(--faint)}
+.ex-td-nm{padding:10px 14px 10px 8px;color:var(--ink);font-size:13px;line-height:1.35}
+.ex-td-num,.ex-td-rir,.ex-td-des{padding:10px 14px;text-align:center;font-family:'IBM Plex Mono';white-space:nowrap}
+.ex-td-num{color:var(--ink);font-weight:600;font-size:13px}
+.ex-td-des{color:var(--muted);font-size:12px}
+.rir-badge{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:8px;font-family:'IBM Plex Mono';font-weight:700;font-size:14px}
+.rir-0{background:rgba(239,83,80,.18);color:#ef5350}
+.rir-1{background:rgba(255,183,77,.15);color:#ffb74d}
+.rir-2{background:rgba(102,187,106,.15);color:#66bb6a}
 .pre-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-top:6px}
 .pre-card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 20px;box-shadow:var(--shadow)}
 .pre-card .pt{font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:15px;color:var(--navy);margin-bottom:12px}
@@ -387,6 +414,52 @@ const PATIENT = {
     { nombre:'🍅 Salsa roja',      desc:'Tomate, cebolla, ajo, albahaca, poro + Lakanto o Stevia + sal, pimienta y tomillo + 1 cda aceite olivo. Añade otras verduras a gusto.' },
   ],
   notaSpecs: 'Plan base = 2 010 kcal (día de descanso). Días de entrenamiento: +300 kcal con pre-entreno + post-entreno. Hidratación entreno: 4.3 L · descanso: 2.9 L. Procura que tus orinas sean siempre claras.',
+  entrenamiento: {
+    tipo: 'Mesociclo · 5 Microciclos',
+    inicio: '15.06.2026',
+    micros: [
+      { nombre:'Micro 1', rir:'a' }, { nombre:'Micro 2', rir:'a' },
+      { nombre:'Micro 3', rir:'b' }, { nombre:'Micro 4', rir:'b' }, { nombre:'Micro 5', rir:'b' },
+    ],
+    sesiones: [
+      {
+        nombre:'Sesión 1 · Lower', emoji:'🦵',
+        ejercicios: [
+          { nombre:'Hack squat',                           s:2, r:'6',  ra:2, rb:1, d:'7.5', img:'anim', s1:'Hack_Squat/0.jpg',                               s2:'Hack_Squat/1.jpg' },
+          { nombre:'Hip thrust',                           s:2, r:'8',  ra:1, rb:0, d:'5',   img:'anim', s1:'Barbell_Hip_Thrust/0.jpg',                       s2:'Barbell_Hip_Thrust/1.jpg' },
+          { nombre:'Flexión de rodilla en máquina sentado (isquios)', s:2, r:'10', ra:1, rb:0, d:'5', img:'anim', s1:'Lying_Leg_Curls/0.jpg',               s2:'Lying_Leg_Curls/1.jpg' },
+          { nombre:'Búlgaras',                             s:2, r:'8',  ra:1, rb:0, d:'5',   img:'anim', s1:'Barbell_Side_Split_Squat/0.jpg',                 s2:'Barbell_Side_Split_Squat/1.jpg' },
+          { nombre:'Leg raises en banco declinado',        s:2, r:'10', ra:0, rb:0, d:'2.5', img:'anim', s1:'Flat_Bench_Lying_Leg_Raise/0.jpg',              s2:'Flat_Bench_Lying_Leg_Raise/1.jpg' },
+          { nombre:'Pantorrilla en máquina o multipower',  s:2, r:'10', ra:0, rb:0, d:'2.5', img:'anim', s1:'Donkey_Calf_Raises/0.jpg',                      s2:'Donkey_Calf_Raises/1.jpg' },
+        ]
+      },
+      {
+        nombre:'Sesión 2 · Upper', emoji:'💪',
+        ejercicios: [
+          { nombre:'Barras con lastre con agarre prono',   s:2, r:'6',  ra:2, rb:0, d:'6.25',img:'anim', s1:'Band_Assisted_Pull-Up/0.jpg',                   s2:'Band_Assisted_Pull-Up/1.jpg' },
+          { nombre:'Máquina de pectoral convergente',      s:2, r:'6',  ra:2, rb:0, d:'6.25',img:'anim', s1:'Dumbbell_Flyes/0.jpg',                          s2:'Dumbbell_Flyes/1.jpg' },
+          { nombre:'Remo con barra tipo Pendlay',          s:2, r:'6',  ra:2, rb:0, d:'5',   img:'anim', s1:'Bent_Over_Barbell_Row/0.jpg',                   s2:'Bent_Over_Barbell_Row/1.jpg' },
+          { nombre:'Aducción de pecho en máquina',         s:2, r:'10', ra:1, rb:0, d:'5',   img:'anim', s1:'Cable_Crossover/0.jpg',                         s2:'Cable_Crossover/1.jpg' },
+          { nombre:'Jalón unilateral desde polea alta',    s:2, r:'10', ra:1, rb:0, d:'3.75',img:'anim', s1:'Close-Grip_Front_Lat_Pulldown/0.jpg',           s2:'Close-Grip_Front_Lat_Pulldown/1.jpg' },
+          { nombre:'Kaz press',                            s:3, r:'10', ra:1, rb:0, d:'5',   img:'none' },
+          { nombre:'Curl de bícep con mancuernas sentado', s:3, r:'10', ra:1, rb:0, d:'5',   img:'anim', s1:'Dumbbell_Bicep_Curl/0.jpg',                     s2:'Dumbbell_Bicep_Curl/1.jpg' },
+        ]
+      },
+      {
+        nombre:'Sesión 3 · Full Body', emoji:'🔥',
+        ejercicios: [
+          { nombre:'Hack squat',                           s:2, r:'5',  ra:2, rb:1, d:'8.75',img:'anim', s1:'Hack_Squat/0.jpg',                              s2:'Hack_Squat/1.jpg' },
+          { nombre:'RDL',                                  s:2, r:'5',  ra:2, rb:1, d:'8.75',img:'anim', s1:'Barbell_Deadlift/0.jpg',                        s2:'Barbell_Deadlift/1.jpg' },
+          { nombre:'Remo unilateral con polea',            s:2, r:'10', ra:1, rb:0, d:'5',   img:'anim', s1:'Kneeling_Single-Arm_High_Pulley_Row/0.jpg',     s2:'Kneeling_Single-Arm_High_Pulley_Row/1.jpg' },
+          { nombre:'Press con barra a 45°',                s:2, r:'5',  ra:2, rb:1, d:'8.75',img:'anim', s1:'Barbell_Incline_Bench_Press_-_Medium_Grip/0.jpg',s2:'Barbell_Incline_Bench_Press_-_Medium_Grip/1.jpg' },
+          { nombre:'Pantorrilla en multipower',            s:3, r:'10', ra:0, rb:0, d:'5',   img:'anim', s1:'Donkey_Calf_Raises/0.jpg',                      s2:'Donkey_Calf_Raises/1.jpg' },
+          { nombre:'Deltoide posterior con mancuernas',    s:3, r:'15', ra:0, rb:0, d:'2.5', img:'anim', s1:'Dumbbell_Lying_Rear_Lateral_Raise/0.jpg',       s2:'Dumbbell_Lying_Rear_Lateral_Raise/1.jpg' },
+          { nombre:'Elevaciones laterales con mancuernas', s:3, r:'10', ra:0, rb:0, d:'3.75',img:'anim', s1:'Cable_Seated_Lateral_Raise/0.jpg',              s2:'Cable_Seated_Lateral_Raise/1.jpg' },
+          { nombre:'Curl de antebrazos con barra, apoyo en banco', s:3, r:'10', ra:0, rb:0, d:'5', img:'anim', s1:'Barbell_Curls_Lying_Against_An_Incline/0.jpg', s2:'Barbell_Curls_Lying_Against_An_Incline/1.jpg' },
+        ]
+      },
+    ],
+  },
 };
 
 const $ = id => document.getElementById(id);
@@ -402,10 +475,11 @@ function renderHero() {
 
 function renderTabs() {
   const tabs = [
-    {id:'plan',  label:'Plan Nutricional'},
-    {id:'eval',  label:'Evaluación'},
-    {id:'specs', label:'Especificaciones'},
-    {id:'evol-antro', label:'Evolución Física'},
+    {id:'plan',         label:'Plan Nutricional'},
+    {id:'eval',         label:'Evaluación'},
+    {id:'entren',       label:'Entrenamiento'},
+    {id:'specs',        label:'Especificaciones'},
+    {id:'evol-antro',   label:'Evolución Física'},
   ];
   $('tabNav').innerHTML = tabs.map((t,i) => {
     const extra = t.id==='evol-antro' ? ";initAntro()" : "";
@@ -686,10 +760,92 @@ function loadSelections(){const raw=localStorage.getItem(planKey());document.que
 
 function flashSave(){const ind=$('saveind');if(!ind)return;$('saveTxt').textContent='Guardado';ind.classList.add('show');clearTimeout(saveTimer);saveTimer=setTimeout(()=>ind.classList.remove('show'),1800);}
 
+// ── Entrenamiento ─────────────────────────────────────────────────────────
+const BASE = 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/';
+let microActivo = 0;
+
+function renderEntrenamiento() {
+  const e = PATIENT.entrenamiento;
+  const microSel = e.micros.map((m,i) =>
+    `<button class="micro-btn${i===0?' active':''}" onclick="setMicro(${i},this)">${m.nombre}</button>`
+  ).join('');
+
+  const sesiones = e.sesiones.map(ses => {
+    const rows = ses.ejercicios.map(ex => {
+      const rir = e.micros[microActivo].rir === 'a' ? ex.ra : ex.rb;
+      const thumb = ex.img === 'anim'
+        ? `<img class="ex-thumb" src="${BASE}${ex.s1}" alt="${ex.nombre}" loading="lazy" onerror="this.style.display='none'">`
+        : `<span class="ex-thumb-ph">—</span>`;
+      return `<tr class="ex-row" data-exid="${encodeURIComponent(ex.nombre)}">
+        <td class="ex-td-img">${thumb}</td>
+        <td class="ex-td-nm">${ex.nombre}</td>
+        <td class="ex-td-num">${ex.s}×${ex.r}</td>
+        <td class="ex-td-rir"><span class="rir-badge rir-${rir}">${rir}</span></td>
+        <td class="ex-td-des">${ex.d} min</td>
+      </tr>`;
+    }).join('');
+    return `<div class="tren-ses">
+      <div class="tren-ses-h">${ses.emoji} ${ses.nombre}</div>
+      <div class="tbl-scroll">
+        <table class="ex-table">
+          <thead><tr>
+            <th style="width:56px"></th>
+            <th style="text-align:left">Ejercicio</th>
+            <th>Series×Reps</th>
+            <th>RIR</th>
+            <th>Descanso</th>
+          </tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>
+    </div>`;
+  }).join('');
+
+  $('tab-entren').innerHTML = `<div class="wrap"><section>
+    <div class="sec-h"><span class="ix">01</span><h2>${e.tipo}</h2><div class="rule"></div></div>
+    <div class="micro-sel-wrap">
+      <div class="micro-sel-label">Seleccionar semana:</div>
+      <div class="micro-sel">${microSel}</div>
+      <div class="micro-info" id="microInfo">${getMicroInfo(0)}</div>
+    </div>
+    <div id="trenSesiones">${sesiones}</div>
+    <div class="note" style="margin-top:20px"><b>RIR</b> = Repeticiones en reserva (cuántas reps faltan para el fallo). RIR 0 = al fallo · RIR 1 = 1 rep antes del fallo · RIR 2 = 2 reps antes del fallo.</div>
+  </section></div>`;
+}
+
+function getMicroInfo(i) {
+  const m = PATIENT.entrenamiento.micros[i];
+  return m.rir === 'a'
+    ? '<b>Micro 1–2</b>: Fase de acumulación · RIR 2→1 en compuestos. Prioridad en la técnica y el volumen.'
+    : '<b>Micro 3–5</b>: Fase de intensificación · RIR 1→0 en compuestos. Entrenar más cerca del fallo.';
+}
+
+function setMicro(i, btn) {
+  microActivo = i;
+  document.querySelectorAll('.micro-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  $('microInfo').innerHTML = getMicroInfo(i);
+  // update RIR badges
+  const micros = PATIENT.entrenamiento.micros;
+  const tipo = micros[i].rir;
+  PATIENT.entrenamiento.sesiones.forEach(ses => {
+    ses.ejercicios.forEach(ex => {
+      const rir = tipo === 'a' ? ex.ra : ex.rb;
+      const key = encodeURIComponent(ex.nombre);
+      const row = document.querySelector(`.ex-row[data-exid="${key}"]`);
+      if (row) {
+        const badge = row.querySelector('.rir-badge');
+        if (badge) { badge.textContent = rir; badge.className = `rir-badge rir-${rir}`; }
+      }
+    });
+  });
+}
+
 renderHero();
 renderTabs();
 renderPlan();
 renderEval();
+renderEntrenamiento();
 renderSpecs();
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
