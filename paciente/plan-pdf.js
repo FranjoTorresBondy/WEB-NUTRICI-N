@@ -22,16 +22,19 @@
     var s = document.createElement('style');
     s.id = 'pdfBtnStyles';
     s.textContent = [
-      '#tabNav{overflow-x:auto;flex-wrap:nowrap;scrollbar-width:none;-ms-overflow-style:none}',
+      '#tabNav{overflow-x:auto;flex-wrap:nowrap;scrollbar-width:none;-ms-overflow-style:none;padding-right:135px}',
       '#tabNav::-webkit-scrollbar{display:none}',
-      '.pdfbtn{position:sticky;right:0;z-index:5;flex-shrink:0;align-self:center;margin:0 0 0 8px;appearance:none;cursor:pointer;',
+      '.pdfdock{position:absolute;top:0;right:0;bottom:0;display:flex;align-items:center;',
+      'padding-left:30px;padding-right:16px;z-index:6;pointer-events:none;',
+      'background:linear-gradient(90deg,transparent,var(--bg,#080808) 40%)}',
+      '.pdfbtn{pointer-events:auto;flex-shrink:0;appearance:none;cursor:pointer;',
       'background:var(--navy,#C4973A);color:#000;border:none;border-radius:8px;',
       'font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:700;letter-spacing:.04em;',
       'text-transform:uppercase;padding:7px 12px;display:inline-flex;align-items:center;gap:5px;',
-      'transition:.15s;white-space:nowrap;box-shadow:-12px 0 14px -4px rgba(8,8,8,.96)}',
+      'transition:.15s;white-space:nowrap}',
       '.pdfbtn:hover{opacity:.85}',
       '.pdfbtn.pdfbtn-fixed{position:fixed;top:12px;right:12px;z-index:60;box-shadow:0 4px 16px rgba(0,0,0,.4)}',
-      '@media print{.pdfbtn{display:none!important}}'
+      '@media print{.pdfdock,.pdfbtn{display:none!important}}'
     ].join('');
     document.head.appendChild(s);
   }
@@ -158,7 +161,12 @@
     b.setAttribute('aria-label', 'Descargar plan en PDF');
     b.onclick = downloadPdf;
     var nav = $id('tabNav');
-    if (nav) { nav.appendChild(b); return true; }
+    var bar = document.querySelector('nav.tabbar, .tabbar') || (nav && nav.parentNode);
+    if (bar) {
+      var dock = document.createElement('div'); dock.className = 'pdfdock'; dock.id = 'cfPdfDock';
+      dock.appendChild(b); bar.appendChild(dock);
+      return true;
+    }
     b.className = 'pdfbtn pdfbtn-fixed';
     document.body.appendChild(b);
     return true;
