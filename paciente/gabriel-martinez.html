@@ -172,17 +172,17 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 const PATIENT = {
   slug:     'gabriel-martinez',
   nombre:   'Gabriel\nMartínez',
-  fecha:    '03.07.2026',
+  fecha:    '27.07.2026',
   tipoPlan: 'Hipocalórico · Hiperproteico',
-  macros:   { kcal: 2730, p: 220, c: 300, g: 72 },
+  macros:   { kcal: 2700, p: null, c: null, g: null },
   hidratacion: [
     { label:'Entrenamiento', valor:'3.5' },
     { label:'Descanso',      valor:'2.0' },
   ],
   antro: {
-    fecha:'03.07.2026', peso:100.0, talla:182.5, imc:30.0, pctGrasa:12.8,
-    tri:7.0, bi:5.0, sub:11.0, cresta:18.0, supra:11.0, abd:17.0, pierna:7.0, pant:6.0,
-    brazRelaj:38.5, brazFlex:39.0, abdom:96.0, cadera:112.0, muslo:60.5, pantPer:40.5,
+    fecha:'27.07.2026', peso:98.0, talla:182.5, imc:29.4, pctGrasa:17.7,
+    tri:7.0, bi:4.0, sub:12.0, cresta:18.0, supra:11.0, abd:16.0, pierna:6.0, pant:4.0,
+    brazRelaj:38.5, brazFlex:39.8, abdom:93.0, cadera:110.0, muslo:58.5, pantPer:41.0,
     diam: { humero:8.0, biEstiloideo:6.0, femur:11.5 },
   },
   objetivos: [
@@ -192,38 +192,44 @@ const PATIENT = {
     'Todas las semanas mandar registro de peso y fotos',
   ],
   comidas: [
-    { id:'des', nombre:'☀️ Desayuno', kcal:600, p:42, c:72, g:15, grupos:[
-      { label:'Escoge 06 · Carbohidrato', max:6, ops:[
+    { id:'des', nombre:'☀️ Desayuno', kcal:748, p:37, c:86, g:30, grupos:[
+      { label:'Escoge 05 · Carbohidrato', max:5, ops:[
         '1 rebanada de pan de molde (30 g)',
         '20 g de granola',
         '20 g de cereales (Cornflakes, Mamalama, Dyfferent)',
         '1 unidad de pan pita Bimbo',
         '1 rapidita integral o cero',
       ]},
-      { label:'Escoge 02 · Fruta', max:2, ops:[
+      { label:'Escoge 01 · Fruta', max:1, ops:[
         '1 porción de fruta (ver especificaciones)',
       ]},
-      { label:'Escoge 03 · Proteína', max:3, ops:[
-        '1 huevo entero',
-        '30 g de queso mozzarella descremado (CuisineCo)',
-        '80 g de queso fresco Sbelt',
-        '50 g de pechuga de pollo + 40 g de palta',
-        '1/2 lata de atún en agua + 40 g de palta',
-        '100 g de yogurt Quark Vakimú + 1 porción de frutos secos',
-        '1 scoop de proteína en polvo + 1 porción de frutos secos',
-        '200 ml de leche de soya + 1 porción de frutos secos',
-        '2 deditos de pollo Avinka (eliminar 1 grasa y 1 CHO del desayuno)',
+      { label:'Escoge 01 · Proteína', max:1, ops:[
+        '3 huevos enteros',
+        '75 g de queso mozzarella descremado (CuisineCo) + 1 huevo',
+        '85 g de queso fresco Sbelt + 1 huevo',
+        '100 g de pechuga de pollo + 60 g de palta',
+        '1 lata de atún en agua + 60 g de palta',
+        '200 g de yogurt Quark Vakimú + 2 porciones de frutos secos',
+        '1 scoop de proteína + 2 porciones de frutos secos',
+        '5 deditos de pollo Avinka (eliminar 1 grasa y 1 CHO)',
       ]},
-    ], nota:'Panqueques / waffles: 80 g avena + 1 plátano + 3 huevos + 100 g quark + vainilla + canela + sal. Freír con PAM. Acompañar con 150 g de berries. · Overnight oats: 80 g avena + 250 g yogurt griego Laive + 120 ml leche soya + 1 cda chía + canela. · También: 1 huevo entero + 2 claras + 40 g de palta.' },
+      { label:'Escoge 02 · Grasa', max:2, ops:[
+        '40 g de palta',
+        '5 g de aceite de oliva',
+        '5 g de aceite de ajonjolí',
+        '8 aceitunas',
+        '1 porción de frutos secos (ver especificaciones)',
+      ]},
+    ], nota:'Puedes usar miel de maple sin calorías de Essential o spread.' },
 
-    { id:'mm', nombre:'🥤 Media Mañana', kcal:280, p:18, c:30, g:9, grupos:[
+    { id:'mm', nombre:'🥤 Media Mañana', kcal:184, p:20, c:16, g:6, grupos:[
       { label:'Combo fijo', max:1, ops:[
         '1 porción de fruta + 1 porción de frutos secos + 150 g de yogurt Quark Vakimú',
       ]},
     ], nota:null },
 
-    { id:'alm', nombre:'🥗 Almuerzo', kcal:780, p:60, c:95, g:21, grupos:[
-      { label:'Escoge 06 · Carbohidrato (peso cocido)', max:6, ops:[
+    { id:'alm', nombre:'🥗 Almuerzo', kcal:685, p:42, c:79, g:22, grupos:[
+      { label:'Escoge 04 · Carbohidrato (peso cocido)', max:4, ops:[
         '60 g de arroz blanco o integral (1/3 taza)',
         '60 g de quinua (1/3 taza)',
         '50 g de pasta cocida sin relleno (1/3 taza)',
@@ -250,16 +256,14 @@ const PATIENT = {
       ]},
     ], nota:'Acompañar con 1 vaso de jugo de naranja exprimido (240 ml).' },
 
-    { id:'mt1', nombre:'🍎 Media Tarde 1', kcal:320, p:18, c:38, g:11, grupos:[
-      { label:'Escoge 01 · Opción', max:1, ops:[
-        '100 g yogurt Vakimú Quark + 150 g berries + 10 g mantequilla de maní',
-        '100 g yogurt Vakimú Quark + 1 porción de fruta + 10 g chocolate 70% cacao',
-        '30 g queso mozzarella CuisineCo (o 80 g queso fresco Sbelt) + 2 galletas de arroz + 1/2 tomate + 40 g palta o 5 g aceite de oliva',
-        '1 barrita Fitrex + 1 porción de fruta',
-      ]},
+    { id:'mt1', nombre:'🍎 Media Tarde 1', kcal:259, p:17, c:27, g:11, grupos:[
+      { label:'Opción 01', max:1, ops:['100 g yogurt Vakimú Quark + 150 g berries + 20 g mantequilla de maní'] },
+      { label:'Opción 02', max:1, ops:['100 g yogurt Vakimú Quark + 1 porción de fruta + 20 g chocolate 70% cacao'] },
+      { label:'Opción 03', max:1, ops:['30 g queso mozzarella light CuisineCo / 80 g queso fresco Sbelt + 2 galletas de arroz + ½ tomate + 80 g de palta o 10 g de aceite de oliva'] },
+      { label:'Opción 04', max:1, ops:['1 barrita Fitrex + 1 porción de fruta'] },
     ], nota:'Puedes hacer sanguche con 2 rebanadas de pan + queso mozz o pollo + mayonesa light o yogurt con sal y pimienta (+ cebolla, apio, lechuga, tomate). · Puedes agregar 1 cdta (5 g) de miel de abeja.' },
 
-    { id:'mt2', nombre:'🏃 Media Tarde 2', kcal:130, p:5, c:18, g:5, grupos:[
+    { id:'mt2', nombre:'🏃 Media Tarde 2', kcal:105, p:2, c:15, g:5, grupos:[
       { label:'Escoge 01 · Fruta', max:1, ops:[
         '1 porción de fruta (ver especificaciones)',
       ]},
@@ -268,11 +272,11 @@ const PATIENT = {
       ]},
     ], nota:null },
 
-    { id:'cen', nombre:'🌙 Cena', kcal:620, p:77, c:47, g:11, grupos:[
+    { id:'cen', nombre:'🌙 Cena', kcal:685, p:42, c:79, g:22, grupos:[
       { label:'Pre-comida (fijo)', max:1, ops:[
         '1 cda medidora de jarabe de moringa (15 ml) + 1 taza de anís',
       ]},
-      { label:'Escoge 06 · Carbohidrato (peso cocido)', max:6, ops:[
+      { label:'Escoge 04 · Carbohidrato (peso cocido)', max:4, ops:[
         '60 g de arroz blanco o integral',
         '90 g de papa, beterraga o camote',
         '65 g de menestras (1/2 taza)',
@@ -297,7 +301,7 @@ const PATIENT = {
         '100 g de mix de verduras (espinaca, col, brócoli, vainita, zanahoria)',
         '100 g de berries',
       ]},
-      { label:'Escoge 02 · Grasa', max:2, ops:[
+      { label:'Escoge 03 · Grasa', max:3, ops:[
         '1 porción de frutos secos (ver especificaciones)',
         '40 g de palta',
         '1 cdta de aceite de oliva',
@@ -367,7 +371,7 @@ const PATIENT = {
     ]},
   ],
 
-  notaSpecs: 'Plan base = días de descanso (2730 kcal). Días de entrenamiento: agregar Pre Entreno (+176 kcal).',
+  notaSpecs: 'Plan base = días de descanso (2700 kcal). Días de entrenamiento: agregar Pre Entreno (+176 kcal).',
 };
 
 const $ = id => document.getElementById(id);
@@ -553,6 +557,9 @@ function getAntroBase() {
     { fecha:'19.06.2026', peso:97.5, tri:6.0, bi:5.0, sub:10.0, cresta:19.0, supra:9.0, abd:15.0, pierna:6.5, pant:6.0,
       brazRelaj:38.5, brazFlex:39.5, abdom:95.5, cadera:122.0, muslo:60.3, pantPer:40.5,
       s6:52.5, s8:76.5 },
+    { fecha:'03.07.2026', peso:100.0, tri:7.0, bi:5.0, sub:11.0, cresta:18.0, supra:11.0, abd:17.0, pierna:7.0, pant:6.0,
+      brazRelaj:38.5, brazFlex:39.0, abdom:96.0, cadera:112.0, muslo:60.5, pantPer:40.5,
+      s6:59.0, s8:82.0 },
     { fecha:a.fecha, peso:a.peso, tri:a.tri, bi:a.bi, sub:a.sub, cresta:a.cresta, supra:a.supra, abd:a.abd, pierna:a.pierna, pant:a.pant, brazRelaj:a.brazRelaj, brazFlex:a.brazFlex, abdom:a.abdom, cadera:a.cadera, muslo:a.muslo, pantPer:a.pantPer, s6:s6, s8:s8 }
   ];
 }
