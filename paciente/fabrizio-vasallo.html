@@ -137,26 +137,29 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 <footer><div class="wrap"><div class="foot-inner"><div class="foot-brand">FRANJO TORRES BONDY · NUTRICIÓN</div><div class="foot-contact">franjo.torres.b@gmail.com · +51 992 832 991</div></div></div></footer>
 <script>
 const PATIENT = {
-  slug:'fabrizio-vasallo', nombre:'Fabrizio\nVasallo', fecha:'08.07.2026',
+  slug:'fabrizio-vasallo', nombre:'Fabrizio\nVasallo', fecha:'27.07.2026',
   tipoPlan:'Hipocalórico · Hiperprotéico',
-  macros:{kcal:2394, p:null, c:null, g:null},
+  macros:{kcal:2100, p:176, c:217, g:57},
   hidratacion:[
     {label:'Doble entrenamiento', valor:'5.0'},
     {label:'1 entrenamiento',     valor:'4.3'},
     {label:'Descanso',            valor:'3.3'},
   ],
   antro:{
-    fecha:'08.07.2026', peso:109.0, talla:181.5, imc:33.1,
-    tri:12.0, bi:7.0, sub:26.0, cresta:39.0, supra:30.0, abd:32.0, pierna:22.0, pant:12.0,
-    brazRelaj:42.0, brazFlex:42.5, abdom:101.0, cadera:115.0, muslo:65.0, pantPer:43.1,
+    fecha:'27.07.2026', peso:103.7, talla:181.5, imc:31.5,
+    tri:10.0, bi:7.0, sub:23.0, cresta:32.0, supra:20.0, abd:27.0, pierna:21.0, pant:12.0,
+    brazRelaj:41.0, brazFlex:42.0, abdom:98.0, cadera:114.0, muslo:64.0, pantPer:42.0,
     diam:{humero:7.5, biEstiloideo:6.2, femur:11.0},
   },
+  antroHistorial:[
+    {fecha:'08.07.2026', peso:109.0, tri:12.0, bi:7.0, sub:26.0, cresta:39.0, supra:30.0, abd:32.0, pierna:22.0, pant:12.0, brazRelaj:42.0, brazFlex:42.5, abdom:101.0, cadera:115.0, muslo:65.0, pantPer:43.1},
+  ],
   objetivos:[
-    'Disminución de sumatoria de 8 pliegues a 165 mm para la próxima sesión en 2 semanas.',
+    'Disminución de Σ8 a 165 mm en 2 semanas.',
   ],
   comidas:[
-    {id:'c1', nombre:'🍽️ Comida 1', kcal:1045, p:null, c:null, g:null, grupos:[
-      {label:'Escoge 06 · Carbohidrato', max:6, ops:[
+    {id:'c1', nombre:'🍽️ Comida 1', kcal:957, p:76, c:96, g:28, grupos:[
+      {label:'Escoge 05 · Carbohidrato', max:5, ops:[
         '⅓ taza de arroz blanco o integral (60 g, cocido)',
         '⅓ taza de quinua (60 g, cocida)',
         '⅓ taza de pasta cocida sin relleno (50 g)',
@@ -188,13 +191,13 @@ const PATIENT = {
         '90 g de queso fresco light + 1 cda aceite de oliva',
       ]},
     ], nota:'Puedes usar las porciones de aceite para cocinar y para tu ensalada. Puedes escoger cualquier salsa baja en calorías (ver especificaciones).'},
-    {id:'c2', nombre:'🥤 Comida 2', kcal:304, p:null, c:null, g:null, grupos:[
+    {id:'c2', nombre:'🥤 Comida 2', kcal:304, p:25, c:25, g:1, grupos:[
       {label:'Opción única', max:1, ops:[
-        '3 porciones de fruta (ver especificaciones) + 1 scoop de proteína iso + 10 g de creatina',
+        '2 porciones de fruta (ver especificaciones) + 1 scoop de proteína iso + 10 g de creatina',
       ]},
     ]},
-    {id:'c3', nombre:'🌙 Comida 3', kcal:1045, p:null, c:null, g:null, grupos:[
-      {label:'Escoge 06 · Carbohidrato', max:6, ops:[
+    {id:'c3', nombre:'🌙 Comida 3', kcal:957, p:76, c:96, g:28, grupos:[
+      {label:'Escoge 05 · Carbohidrato', max:5, ops:[
         '⅓ taza de arroz blanco o integral (60 g, cocido)',
         '⅓ taza de quinua (60 g, cocida)',
         '⅓ taza de pasta cocida sin relleno (50 g)',
@@ -292,7 +295,7 @@ function adjOpt(btn,delta){var opt=btn.closest('.opt');var key=opt.dataset.key;m
 function renderEval(){var a=PATIENT.antro;var fmt=function(v){return v!=null?v:'—';};var s6=+(a.tri+a.sub+a.supra+a.abd+a.pierna+a.pant).toFixed(1);var s8=+(s6+a.bi+a.cresta).toFixed(1);var s4=a.tri+a.sub+a.supra+a.abd;var pctG=+(5.783+0.153*s4).toFixed(1);var mgKg=+(a.peso*pctG/100).toFixed(1);var mMag=+(a.peso-mgKg).toFixed(1);$('tab-eval').innerHTML='<div class="wrap"><section><div class="sec-h"><span class="ix">01</span><h2>Evaluación Nutricional</h2><div class="rule"></div></div><div class="evalwrap"><div class="evgroup"><div class="gh">Antropometría básica</div><div class="row"><span>Fecha</span><span>'+a.fecha+'</span></div><div class="row"><span>Peso</span><span>'+fmt(a.peso)+' kg</span></div><div class="row"><span>Talla</span><span>'+fmt(a.talla)+' cm</span></div><div class="row"><span>IMC</span><span>'+fmt(a.imc)+' kg/m²</span></div></div><div class="evgroup"><div class="gh">Pliegues (mm) · ISAK</div><div class="row"><span>Tricipital</span><span>'+fmt(a.tri)+'</span></div><div class="row"><span>Bicipital</span><span>'+fmt(a.bi)+'</span></div><div class="row"><span>Subescapular</span><span>'+fmt(a.sub)+'</span></div><div class="row"><span>Cresta iliaca</span><span>'+fmt(a.cresta)+'</span></div><div class="row"><span>Supra espinal</span><span>'+fmt(a.supra)+'</span></div><div class="row"><span>Abdominal</span><span>'+fmt(a.abd)+'</span></div><div class="row"><span>Pierna media</span><span>'+fmt(a.pierna)+'</span></div><div class="row"><span>Pantorrilla</span><span>'+fmt(a.pant)+'</span></div><div class="row bold"><span>Sigma 6</span><span>'+s6+' mm</span></div><div class="row bold"><span>Sigma 8</span><span>'+s8+' mm</span></div></div><div class="evgroup"><div class="gh">Perímetros (cm)</div><div class="row"><span>Brazo relajado</span><span>'+fmt(a.brazRelaj)+'</span></div><div class="row"><span>Brazo flexionado</span><span>'+fmt(a.brazFlex)+'</span></div><div class="row"><span>Abdominal</span><span>'+fmt(a.abdom)+'</span></div><div class="row"><span>Cadera</span><span>'+fmt(a.cadera)+'</span></div><div class="row"><span>Muslo medio</span><span>'+fmt(a.muslo)+'</span></div><div class="row"><span>Pantorrilla</span><span>'+fmt(a.pantPer)+'</span></div></div><div class="evgroup"><div class="gh">Composición Corporal · Faulkner</div><div class="row"><span>Sigma 4 pliegues</span><span>'+s4+' mm</span></div><div class="row"><span>% Grasa</span><span>'+pctG+' %</span></div><div class="row"><span>Masa grasa</span><span>'+mgKg+' kg</span></div><div class="row bold"><span>Masa magra</span><span>'+mMag+' kg</span></div></div></div>'+(a.diam?'<div class="evalwrap" style="margin-top:16px"><div class="evgroup"><div class="gh">Diámetros óseos (cm)</div><div class="row"><span>Húmero</span><span>'+a.diam.humero+'</span></div><div class="row"><span>Bi-estiloides</span><span>'+a.diam.biEstiloideo+'</span></div><div class="row"><span>Fémur</span><span>'+a.diam.femur+'</span></div></div></div>':'')+'<div class="sec-h" style="margin-top:32px"><span class="ix">02</span><h2>Objetivos</h2><div class="rule"></div></div><div class="card" style="max-width:640px"><ul class="obj">'+PATIENT.objetivos.map(function(o){return '<li>'+o+'</li>';}).join('')+'</ul></div></section></div>';}
 function renderSpecs(){var html=PATIENT.specs.map(function(s){var items=s.items.map(function(it){return it.indexOf('##')===0?'<div class="sub-title">'+it.slice(2)+'</div>':'<li>'+it+'</li>';}).join('');return '<div class="spec"><h4>'+s.titulo+'</h4><ul>'+items+'</ul></div>';}).join('');var guia='<div style="margin-top:32px;background:var(--panel2);border:1px solid var(--line);border-radius:14px;padding:20px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;"><div><div style="font-family:\'IBM Plex Mono\',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);margin-bottom:6px;">Recurso adicional</div><div style="font-family:\'Libre Franklin\',sans-serif;font-size:16px;font-weight:600;color:var(--ink);">Guia para comer fuera sin salirte del plan</div><div style="font-size:12px;color:var(--muted);margin-top:4px;">10 categorias · 150+ opciones · 25+ restaurantes en Lima</div></div><a href="../guia-restaurante.html" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:var(--navy);color:#000;font-family:\'IBM Plex Mono\',monospace;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:10px 20px;border-radius:10px;text-decoration:none;flex-shrink:0;">Ver guia →</a></div>';$('tab-specs').innerHTML='<div class="wrap"><section><div class="sec-h"><span class="ix">01</span><h2>Especificaciones</h2><div class="rule"></div></div><div class="specs">'+html+'</div>'+guia+'</section></div>';}
 var ANTRO_KEY=PATIENT.slug+'-antro-v1';
-function getAntroBase(){var a=PATIENT.antro;var s6=+(a.tri+a.sub+a.supra+a.abd+a.pierna+a.pant).toFixed(1);var s8=+(s6+a.bi+a.cresta).toFixed(1);return [{fecha:a.fecha,peso:a.peso,tri:a.tri,bi:a.bi,sub:a.sub,cresta:a.cresta,supra:a.supra,abd:a.abd,pierna:a.pierna,pant:a.pant,brazRelaj:a.brazRelaj,brazFlex:a.brazFlex,abdom:a.abdom,cadera:a.cadera,muslo:a.muslo,pantPer:a.pantPer,s6:s6,s8:s8}];}
+function getAntroBase(){var hist=(PATIENT.antroHistorial||[]).map(function(h){var s6=+(h.tri+h.sub+h.supra+h.abd+h.pierna+h.pant).toFixed(1);var s8=+(s6+h.bi+h.cresta).toFixed(1);return Object.assign({},h,{s6:s6,s8:s8});});var a=PATIENT.antro;var s6=+(a.tri+a.sub+a.supra+a.abd+a.pierna+a.pant).toFixed(1);var s8=+(s6+a.bi+a.cresta).toFixed(1);return hist.concat([{fecha:a.fecha,peso:a.peso,tri:a.tri,bi:a.bi,sub:a.sub,cresta:a.cresta,supra:a.supra,abd:a.abd,pierna:a.pierna,pant:a.pant,brazRelaj:a.brazRelaj,brazFlex:a.brazFlex,abdom:a.abdom,cadera:a.cadera,muslo:a.muslo,pantPer:a.pantPer,s6:s6,s8:s8}]);}
 function getAntroData(){try{var r=localStorage.getItem(ANTRO_KEY);return r?JSON.parse(r):getAntroBase();}catch(e){return getAntroBase();}}
 function saveAntroData(d){localStorage.setItem(ANTRO_KEY,JSON.stringify(d));}
 var antroInited=false;
