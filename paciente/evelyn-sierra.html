@@ -134,14 +134,19 @@ section{padding:30px 0}
 <footer><div class="wrap"><div class="foot-inner"><div class="foot-brand">FRANJO TORRES BONDY · NUTRICIÓN</div><div class="foot-contact">franjo.torres.b@gmail.com · +51 992 832 991</div></div></div></footer>
 <script>
 const PATIENT = {
-  slug:'evelyn-sierra', nombre:'Evelyn\nSierra', fecha:'09.07.2026',
+  slug:'evelyn-sierra', nombre:'Evelyn\nSierra', fecha:'30.07.2026',
   tipoPlan:'Hipocalórico · Hiperprotéico',
   macros:{kcal:1530,p:100,c:177,g:51},
   hidratacion:[{label:'Entrenamiento',valor:'2.2'},{label:'Descanso',valor:'2.0'}],
+  antroHistorial:[
+    { fecha:'09.07.2026',peso:58.3,talla:153,imc:24.9,
+      tri:13.0,bi:4.0,sub:13.0,cresta:12.0,supra:9.0,abd:13.0,pierna:16.0,pant:14.0,
+      brazRelaj:29.3,brazFlex:30.6,abdom:70.5,cadera:99.0,muslo:53.3,pantPer:34.5 },
+  ],
   antro:{
-    fecha:'09.07.2026',peso:58.3,talla:153,imc:24.9,
-    tri:13.0,bi:4.0,sub:13.0,cresta:12.0,supra:9.0,abd:13.0,pierna:16.0,pant:14.0,
-    brazRelaj:29.3,brazFlex:30.6,abdom:70.5,cadera:99.0,muslo:53.3,pantPer:34.5,
+    fecha:'30.07.2026',peso:56.0,talla:153,imc:23.9,
+    tri:11.0,bi:2.0,sub:9.0,cresta:10.0,supra:9.0,abd:10.0,pierna:12.0,pant:14.0,
+    brazRelaj:29.0,brazFlex:30.5,abdom:68.5,cadera:99.0,muslo:53.0,pantPer:34.8,
     diam:{humero:null,biEstiloideo:null,femur:null},
   },
   objetivos:[
@@ -150,7 +155,7 @@ const PATIENT = {
   ],
   comidas:[
     {id:'des',nombre:'☀️ Desayuno',kcal:400,p:21,c:48,g:15,grupos:[
-      {label:'Escoge 02 · Carbohidrato',max:2,ops:['1 rapidita integral','1 rebanada de pan de molde integral (30 g)','Avena (20 g, en crudo)','20 g de cereales Dyfferent o NutriCo','20 g de granola sin azúcar','1 pan pita integral (30 g)','3 salmas','8 galletas de arroz']},
+      {label:'Escoge 02 · Carbohidrato',max:2,ops:['1 rapidita integral','1 rebanada de pan de molde integral (30 g)','Avena (20 g, en crudo)','20 g de cereales Dyfferent o NutriCo','20 g de granola sin azúcar','1 pan pita integral (30 g)','3 salmas','8 galletas de arroz','20 g de crema de arroz','1 tostada integral (30 g)']},
       {label:'Escoge 01 · Fruta',max:1,ops:['1 porción de fruta (ver especificaciones) + 1 cda de chía o linaza molida']},
       {label:'Escoge 01 · Proteína',max:1,ops:['50 g de pollo cocido + 60 g de palta','50 g de mozzarella light + 1 huevo','½ lata de atún (50 g) + 60 g de palta','110 g de yogurt Quark + 1 porción de frutos secos','70 g de queso cottage + 1 huevo','2 huevos enteros']},
     ]},
@@ -162,7 +167,7 @@ const PATIENT = {
     ]},
     {id:'snk1',nombre:'🍎 Snack 1',kcal:225,p:22,c:33,g:1,nota:'Puedes reemplazar por: 1 barrita fit rex + 1 porción de fruta / 150 g de Quark + 1 Milky La Ibérica (20 g).',grupos:[
       {label:'Escoge 01 · Fruta',max:1,ops:['1 porción de fruta (ver especificaciones)']},
-      {label:'Escoge 01 · Carbohidrato',max:1,ops:['1 rapidita integral','20 g de cereales','20 g de granola sin azúcar','1 pan pita integral (30 g)','3 salmas','8 galletas de arroz']},
+      {label:'Escoge 01 · Carbohidrato',max:1,ops:['1 rapidita integral','20 g de cereales','20 g de granola sin azúcar','1 pan pita integral (30 g)','3 salmas','8 galletas de arroz','20 g de crema de arroz','1 tostada integral (30 g)']},
       {label:'Escoge 01 · Proteína',max:1,ops:['150 g de yogurt Quark']},
     ]},
     {id:'snk2',nombre:'🍊 Snack 2',kcal:100,p:2,c:14,g:4,nota:'Puedes reemplazar por: 1 Milky La Ibérica (20 g).',grupos:[
@@ -170,7 +175,7 @@ const PATIENT = {
       {label:'Escoge 01 · Frutos secos',max:1,ops:['1 porción de frutos secos (ver especificaciones)']},
     ]},
     {id:'cen',nombre:'🌙 Cena',kcal:404,p:27,c:41,g:15,grupos:[
-      {label:'Escoge 02 · Carbohidrato',max:2,ops:['90 g de papa o camote (cocido)','60 g de arroz (en crudo)','60 g de quinua (en crudo)','1 rapidita integral','1 rebanada de pan de molde integral (30 g)','Avena (20 g, en crudo)','20 g de cereales','20 g de granola sin azúcar','1 pan pita integral (30 g)','3 salmas','8 galletas de arroz']},
+      {label:'Escoge 02 · Carbohidrato',max:2,ops:['90 g de papa o camote (cocido)','60 g de arroz (en crudo)','60 g de quinua (en crudo)','1 rapidita integral','1 rebanada de pan de molde integral (30 g)','Avena (20 g, en crudo)','20 g de cereales','20 g de granola sin azúcar','1 pan pita integral (30 g)','3 salmas','8 galletas de arroz','20 g de crema de arroz','1 tostada integral (30 g)']},
       {label:'Escoge · Proteína (100 g crudo)',max:1,ops:['Pechuga de pollo','Pechuga de pavo','Pescado','Bistec','Carne molida light','200 g de yogurt Quark + 1 huevo','80 g de mozzarella light','2 scoops de proteína en polvo']},
       {label:'Escoge 02 · Grasa',max:2,ops:['40 g de palta','1 porción de frutos secos (ver especificaciones)','8 g de mantequilla']},
       {label:'Escoge 01 · Verdura / Fruta',max:1,ops:['150 g de verduras cocidas','1 puñado de berries']},
