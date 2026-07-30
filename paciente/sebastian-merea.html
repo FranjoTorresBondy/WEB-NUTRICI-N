@@ -156,6 +156,32 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
   h1{font-size:clamp(32px,10vw,56px)}
   .tab{padding:12px 10px;font-size:11px}
 }
+.weight-form{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end;margin-bottom:20px}
+.weight-form .wf-field{display:flex;flex-direction:column;gap:5px}
+.weight-form .wf-field label{font-family:'IBM Plex Mono';font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
+.weight-form .wf-field input{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:9px 12px;color:var(--ink);font-family:'Libre Franklin';font-size:15px;font-weight:600;width:150px}
+.weight-form .wf-field input:focus{outline:none;border-color:var(--navy)}
+.weight-table{width:100%;border-collapse:collapse;font-size:12px}
+.weight-table th{background:var(--panel2);color:var(--faint);font-family:'IBM Plex Mono';font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;padding:8px 12px;border-bottom:1px solid var(--line);text-align:right}
+.weight-table th:first-child{text-align:left}.weight-table td{padding:8px 12px;border-bottom:1px solid var(--line);font-family:'IBM Plex Mono';font-size:12px;color:var(--ink);text-align:right}
+.weight-table td:first-child{text-align:left;color:var(--muted)}.weight-table .pos{color:var(--coral)}.weight-table .neg{color:var(--green)}
+.weight-table .del-btn{background:none;border:none;color:var(--faint);cursor:pointer;font-size:14px;padding:2px 6px;border-radius:4px;transition:.15s}.weight-table .del-btn:hover{color:var(--coral)}
+.photo-upload-area{border:2px dashed var(--line);border-radius:14px;padding:32px;text-align:center;cursor:pointer;transition:.2s;background:var(--panel);margin-bottom:20px}
+.photo-upload-area:hover,.photo-upload-area.drag{border-color:var(--navy);background:rgba(196,151,58,.05)}
+.photo-upload-area .pu-icon{font-size:32px;margin-bottom:10px}
+.photo-upload-area .pu-label{font-family:'Libre Franklin';font-weight:600;font-size:15px;color:var(--ink)}
+.photo-upload-area .pu-sub{font-size:12px;color:var(--faint);margin-top:4px}
+.photo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+.photo-item{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:var(--shadow)}
+.photo-item img{width:100%;aspect-ratio:1;object-fit:cover;display:block}
+.photo-item .pi-foot{padding:8px 10px;display:flex;justify-content:space-between;align-items:center}
+.photo-item .pi-date{font-family:'IBM Plex Mono';font-size:10px;color:var(--muted)}
+.photo-item .pi-del{background:none;border:none;color:var(--faint);cursor:pointer;font-size:13px;padding:2px 4px;border-radius:4px;transition:.15s}.photo-item .pi-del:hover{color:var(--coral)}
+.photo-lightbox{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:100;display:flex;align-items:center;justify-content:center;cursor:zoom-out}
+.photo-lightbox img{max-width:90vw;max-height:90vh;border-radius:8px}
+.storage-bar{height:4px;background:var(--line);border-radius:2px;margin-bottom:6px;overflow:hidden}
+.storage-bar-fill{height:100%;background:var(--navy);border-radius:2px;transition:.4s}
+.storage-label{font-family:'IBM Plex Mono';font-size:10px;color:var(--faint);margin-bottom:16px}
 .pre-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-top:6px}
 .pre-card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 20px;box-shadow:var(--shadow)}
 .pre-card .pt{font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:15px;color:var(--navy);margin-bottom:12px}
@@ -198,16 +224,15 @@ const PATIENT = {
   ],
   antro: {
     fecha:'30.07.2026', peso:79.0, talla:178.0, imc:24.9,
-    tri:14.0, bi:7.0, sub:18.0, cresta:22.0, supra:16.0, abd:22.0, pierna:13.0, pant:8.0,
-    brazRelaj:32.0, brazFlex:34.5, abdom:86.0, cadera:98.0, muslo:54.0, pantPer:37.5,
+    tri:null, bi:null, sub:null, cresta:null, supra:null, abd:null, pierna:null, pant:null,
+    brazRelaj:null, brazFlex:null, abdom:null, cadera:null, muslo:null, pantPer:null,
   },
   objetivos: [
     'Recomposición corporal: disminuir masa grasa y aumentar masa muscular.',
     'Mejorar el rendimiento en el gym y en el básquet.',
     'Cuidar la digestión: evitar alimentos muy grasosos o irritantes. Continuar con Enterogermina cuando haya episodios de diarrea o malestar.',
     'Estandarizar como mínimo 7 000 pasos diarios.',
-    'Registrar peso en ayunas todos los días y enviar registro semanal.',
-    '<b>Nota:</b> las medidas antropométricas actuales son estimadas. Evaluación completa con pliegues y perímetros reales pendiente en la próxima consulta.',
+    'Registrar peso en ayunas todos los días en la pestaña Seguimiento y enviar fotos semanales.',
   ],
   comidas: [
     { id:'des', nombre:'☀️ Desayuno', kcal:480, p:30, c:52, g:16, grupos:[
@@ -394,17 +419,17 @@ function renderHero() {
 
 function renderTabs() {
   const tabs = [
-    {id:'plan',       label:'Plan Nutricional'},
-    {id:'eval',       label:'Evaluación'},
-    {id:'specs',      label:'Especificaciones'},
-    {id:'evol-antro', label:'Evolución Física'},
+    {id:'plan',        label:'Plan Nutricional', extra:''},
+    {id:'eval',        label:'Evaluación',       extra:''},
+    {id:'specs',       label:'Especificaciones', extra:''},
+    {id:'seguimiento', label:'Seguimiento',      extra:';initSeguimiento()'},
+    {id:'evol-antro',  label:'Evolución Física', extra:';initAntro()'},
   ];
-  $('tabNav').innerHTML = tabs.map((t,i) => {
-    const extra = t.id==='evol-antro' ? ";initAntro()" : "";
-    return `<button class="tab${i===0?' active':''}" onclick="showTab('${t.id}',this)${extra}">
+  $('tabNav').innerHTML = tabs.map((t,i) =>
+    `<button class="tab${i===0?' active':''}" onclick="showTab('${t.id}',this)${t.extra}">
       <span class="tnum">0${i+1}</span> ${t.label}
-    </button>`;
-  }).join('');
+    </button>`
+  ).join('');
   $('tabPanels').innerHTML = tabs.map((t,i) =>
     `<div id="tab-${t.id}" class="panel${i===0?' active':''}"></div>`
   ).join('');
@@ -469,8 +494,10 @@ function renderPlan() {
 
 function renderEval() {
   const a = PATIENT.antro;
-  const s6 = +(a.tri+a.sub+a.supra+a.abd+a.pierna+a.pant).toFixed(1);
-  const s8 = +(s6+a.bi+a.cresta).toFixed(1);
+  const fmt = v => v != null ? v : '—';
+  const allPl = [a.tri,a.sub,a.supra,a.abd,a.pierna,a.pant];
+  const s6 = allPl.every(v=>v!=null) ? +(allPl.reduce((x,y)=>x+y,0)).toFixed(1) : null;
+  const s8 = s6!=null && a.bi!=null && a.cresta!=null ? +(s6+a.bi+a.cresta).toFixed(1) : null;
   $('tab-eval').innerHTML = `<div class="wrap"><section>
     <div class="sec-h"><span class="ix">01</span><h2>Evaluación Nutricional</h2><div class="rule"></div></div>
     <div class="evalwrap">
@@ -479,25 +506,25 @@ function renderEval() {
         <div class="row"><span>Talla</span><span>${a.talla} cm</span></div>
         <div class="row"><span>IMC</span><span>${a.imc} kg/m²</span></div>
       </div>
-      <div class="evgroup"><div class="gh">Pliegues (mm) · ISAK — estimados</div>
-        <div class="row"><span>Tricipital</span><span>${a.tri}</span></div>
-        <div class="row"><span>Bicipital</span><span>${a.bi}</span></div>
-        <div class="row"><span>Subescapular</span><span>${a.sub}</span></div>
-        <div class="row"><span>Cresta iliaca</span><span>${a.cresta}</span></div>
-        <div class="row"><span>Supra espinal</span><span>${a.supra}</span></div>
-        <div class="row"><span>Abdominal</span><span>${a.abd}</span></div>
-        <div class="row"><span>Pierna media</span><span>${a.pierna}</span></div>
-        <div class="row"><span>Pantorrilla</span><span>${a.pant}</span></div>
-        <div class="row bold"><span>Σ6 pliegues</span><span>${s6} mm</span></div>
-        <div class="row bold"><span>Σ8 pliegues</span><span>${s8} mm</span></div>
+      <div class="evgroup"><div class="gh">Pliegues (mm) · ISAK</div>
+        <div class="row"><span>Tricipital</span><span>${fmt(a.tri)}</span></div>
+        <div class="row"><span>Bicipital</span><span>${fmt(a.bi)}</span></div>
+        <div class="row"><span>Subescapular</span><span>${fmt(a.sub)}</span></div>
+        <div class="row"><span>Cresta iliaca</span><span>${fmt(a.cresta)}</span></div>
+        <div class="row"><span>Supra espinal</span><span>${fmt(a.supra)}</span></div>
+        <div class="row"><span>Abdominal</span><span>${fmt(a.abd)}</span></div>
+        <div class="row"><span>Pierna media</span><span>${fmt(a.pierna)}</span></div>
+        <div class="row"><span>Pantorrilla</span><span>${fmt(a.pant)}</span></div>
+        <div class="row bold"><span>Σ6 pliegues</span><span>${s6!=null?s6+' mm':'—'}</span></div>
+        <div class="row bold"><span>Σ8 pliegues</span><span>${s8!=null?s8+' mm':'—'}</span></div>
       </div>
-      <div class="evgroup"><div class="gh">Perímetros (cm) — estimados</div>
-        <div class="row"><span>Brazo relajado</span><span>${a.brazRelaj}</span></div>
-        <div class="row"><span>Brazo flexionado</span><span>${a.brazFlex}</span></div>
-        <div class="row"><span>Abdominal</span><span>${a.abdom}</span></div>
-        <div class="row"><span>Cadera</span><span>${a.cadera}</span></div>
-        <div class="row"><span>Muslo medio</span><span>${a.muslo}</span></div>
-        <div class="row"><span>Pantorrilla</span><span>${a.pantPer}</span></div>
+      <div class="evgroup"><div class="gh">Perímetros (cm)</div>
+        <div class="row"><span>Brazo relajado</span><span>${fmt(a.brazRelaj)}</span></div>
+        <div class="row"><span>Brazo flexionado</span><span>${fmt(a.brazFlex)}</span></div>
+        <div class="row"><span>Abdominal</span><span>${fmt(a.abdom)}</span></div>
+        <div class="row"><span>Cadera</span><span>${fmt(a.cadera)}</span></div>
+        <div class="row"><span>Muslo medio</span><span>${fmt(a.muslo)}</span></div>
+        <div class="row"><span>Pantorrilla</span><span>${fmt(a.pantPer)}</span></div>
       </div>
     </div>
     <div class="sec-h" style="margin-top:32px"><span class="ix">02</span><h2>Objetivos</h2><div class="rule"></div></div>
@@ -534,8 +561,9 @@ function renderSpecs() {
 const ANTRO_KEY = () => `${PATIENT.slug}-antro-v1`;
 function getAntroBase() {
   const a = PATIENT.antro;
-  const s6 = +(a.tri+a.sub+a.supra+a.abd+a.pierna+a.pant).toFixed(1);
-  const s8 = +(s6+a.bi+a.cresta).toFixed(1);
+  const pl = [a.tri,a.sub,a.supra,a.abd,a.pierna,a.pant];
+  const s6 = pl.every(v=>v!=null) ? +(pl.reduce((x,y)=>x+y,0)).toFixed(1) : null;
+  const s8 = s6!=null && a.bi!=null && a.cresta!=null ? +(s6+a.bi+a.cresta).toFixed(1) : null;
   const current = { fecha:a.fecha, peso:a.peso, tri:a.tri, bi:a.bi, sub:a.sub, cresta:a.cresta, supra:a.supra, abd:a.abd, pierna:a.pierna, pant:a.pant, brazRelaj:a.brazRelaj, brazFlex:a.brazFlex, abdom:a.abdom, cadera:a.cadera, muslo:a.muslo, pantPer:a.pantPer, s6, s8 };
   return [...(PATIENT.antroHistorial||[]), current];
 }
@@ -670,6 +698,176 @@ function saveSelections(){const data={};document.querySelectorAll('.options').fo
 function loadSelections(){const raw=localStorage.getItem(planKey());document.querySelectorAll('.opt').forEach(o=>{o.dataset.count='0';updateOpt(o);});if(!raw)return;try{const data=JSON.parse(raw);document.querySelectorAll('.options').forEach(g=>{const gid=g.dataset.group;if(!data[gid])return;const opts=g.querySelectorAll('.opt');Object.entries(data[gid]).forEach(([idx,count])=>{if(opts[idx]){opts[idx].dataset.count=count;updateOpt(opts[idx]);}});});}catch(e){}}
 
 function flashSave(){const ind=$('saveind');if(!ind)return;$('saveTxt').textContent='Guardado';ind.classList.add('show');clearTimeout(saveTimer);saveTimer=setTimeout(()=>ind.classList.remove('show'),1800);}
+
+// ── Seguimiento (peso + fotos) ────────────────────────────────────────────
+const WEIGHT_KEY  = `${PATIENT.slug}-weight-v1`;
+const PHOTOS_KEY  = `${PATIENT.slug}-photos-v1`;
+let seguimientoInited = false;
+
+function getWeightData()   { try { const r=localStorage.getItem(WEIGHT_KEY);  return r?JSON.parse(r):[]; } catch { return []; } }
+function saveWeightData(d) { localStorage.setItem(WEIGHT_KEY, JSON.stringify(d)); }
+function getPhotosData()   { try { const r=localStorage.getItem(PHOTOS_KEY);  return r?JSON.parse(r):[]; } catch { return []; } }
+function savePhotosData(d) { localStorage.setItem(PHOTOS_KEY, JSON.stringify(d)); }
+
+function initSeguimiento() { if(seguimientoInited)return; seguimientoInited=true; renderSeguimiento(); }
+
+function renderSeguimiento() {
+  const el=$('tab-seguimiento'); if(!el)return;
+  const today = new Date();
+  const pad = n => n<10?'0'+n:String(n);
+  const todayVal = `${today.getFullYear()}-${pad(today.getMonth()+1)}-${pad(today.getDate())}`;
+  el.innerHTML=`<div class="wrap">
+    <section style="padding-top:24px">
+      <div class="sec-h"><span class="ix">01</span><h2>Registro diario de peso</h2><div class="rule"></div></div>
+      <div class="weight-form">
+        <div class="wf-field"><label>Fecha</label><input type="date" id="w-fecha" value="${todayVal}"></div>
+        <div class="wf-field"><label>Peso (kg)</label><input type="number" step="0.1" id="w-peso" placeholder="79.0" style="width:120px"></div>
+        <button class="btn-add" onclick="addWeight()" style="margin-top:0;align-self:flex-end">+ Agregar</button>
+      </div>
+      <div class="chart-card">
+        <h3>Tendencia de peso</h3>
+        <div class="cap" id="weightCap">—</div>
+        <div class="chart-wrap" style="height:260px"><canvas id="cWeight"></canvas></div>
+      </div>
+      <div class="tbl-scroll" style="margin-top:16px"><table class="weight-table" id="weightTable"></table></div>
+    </section>
+    <section style="padding-top:0">
+      <div class="sec-h"><span class="ix">02</span><h2>Fotos de progreso</h2><div class="rule"></div></div>
+      <div class="photo-upload-area" id="photoDropZone"
+        onclick="$('photoInput').click()"
+        ondragover="event.preventDefault();this.classList.add('drag')"
+        ondragleave="this.classList.remove('drag')"
+        ondrop="handlePhotoDrop(event)">
+        <div class="pu-icon">📷</div>
+        <div class="pu-label">Subir foto de progreso</div>
+        <div class="pu-sub">Haz clic o arrastra una imagen · JPG, PNG · se comprime automáticamente</div>
+      </div>
+      <input type="file" id="photoInput" accept="image/*" multiple style="display:none" onchange="handlePhotoFiles(this.files)">
+      <div id="storageInfo"></div>
+      <div class="photo-grid" id="photoGrid"></div>
+    </section>
+  </div>`;
+  drawWeightChart();
+  drawPhotoGrid();
+}
+
+function linReg(pts) {
+  const n=pts.length; if(n<2)return null;
+  let sx=0,sy=0,sxy=0,sx2=0;
+  pts.forEach((p,i)=>{sx+=i;sy+=p;sxy+=i*p;sx2+=i*i;});
+  const slope=(n*sxy-sx*sy)/(n*sx2-sx*sx);
+  return {slope, intercept:(sy-slope*sx)/n};
+}
+function movingAvg(data,w) {
+  return data.map((_,i)=>{
+    const sl=data.slice(Math.max(0,i-w+1),i+1);
+    return +(sl.reduce((a,b)=>a+b,0)/sl.length).toFixed(2);
+  });
+}
+
+function drawWeightChart() {
+  const data=getWeightData(); data.sort((a,b)=>a.fecha.localeCompare(b.fecha));
+  const labels=data.map(d=>d.fecha.split('-').reverse().join('.'));
+  const weights=data.map(d=>d.peso);
+  const ctx=$('cWeight'); if(!ctx)return;
+  if(ctx._ch)ctx._ch.destroy();
+  const ds=[{label:'Peso kg',data:weights,borderColor:CC.gold,pointBackgroundColor:CC.gold,pointRadius:4,borderWidth:2,tension:.3,fill:false,spanGaps:true}];
+  if(weights.length>=3){
+    const r=linReg(weights);
+    ds.push({label:'Tendencia',data:weights.map((_,i)=>+(r.intercept+r.slope*i).toFixed(2)),borderColor:'rgba(196,151,58,.4)',borderDash:[6,4],pointRadius:0,borderWidth:2,tension:0,fill:false});
+  }
+  if(weights.length>=7){
+    ds.push({label:'Media 7d',data:movingAvg(weights,7),borderColor:CC.cyan,pointRadius:0,borderWidth:1.5,tension:.4,fill:false});
+  }
+  ctx._ch=new Chart(ctx,{type:'line',data:{labels,datasets:ds},options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{labels:{boxWidth:12,padding:14,color:'#888'}},tooltip:{mode:'index',intersect:false}},
+    scales:{x:{grid:{color:'rgba(255,255,255,0.06)'},ticks:{color:'#666',maxTicksLimit:12}},
+      y:{grid:{color:'rgba(255,255,255,0.06)'},ticks:{color:'#666'},
+        suggestedMin:weights.length?Math.min(...weights)-1:74,
+        suggestedMax:weights.length?Math.max(...weights)+1:84}}}});
+  const cap=$('weightCap'); if(!cap)return;
+  if(!weights.length){ cap.textContent='Sin registros aún'; }
+  else if(weights.length===1){ cap.textContent=weights[0]+' kg'; }
+  else {
+    const diff=+(weights[weights.length-1]-weights[0]).toFixed(1);
+    const r=linReg(weights);
+    cap.textContent=`${data.length} registros · ${diff>0?'+':''}${diff} kg total · ${r.slope*7>0?'+':''}${+(r.slope*7).toFixed(2)} kg/semana`;
+  }
+  drawWeightTable(data);
+}
+
+function drawWeightTable(data) {
+  const tbl=$('weightTable'); if(!tbl)return;
+  const s=[...data].reverse();
+  if(!s.length){ tbl.innerHTML='<tr><td style="color:var(--faint);padding:16px;font-size:13px;text-align:left">Sin registros todavía.</td></tr>'; return; }
+  tbl.innerHTML=`<thead><tr><th style="text-align:left">Fecha</th><th>Peso</th><th>Cambio</th><th></th></tr></thead><tbody>`+
+    s.map((d,i)=>{
+      const prev=s[i+1];
+      const diff=prev?+(d.peso-prev.peso).toFixed(1):null;
+      const dc=diff!=null?`<span class="${diff>0?'pos':'neg'}">${diff>0?'+':''}${diff}</span>`:'—';
+      return `<tr><td>${d.fecha.split('-').reverse().join('.')}</td><td>${d.peso} kg</td><td>${dc}</td><td><button class="del-btn" onclick="deleteWeight('${d.fecha}')">✕</button></td></tr>`;
+    }).join('')+'</tbody>';
+}
+
+function addWeight() {
+  const fecha=$('w-fecha')?.value;
+  const peso=parseFloat($('w-peso')?.value);
+  if(!fecha||isNaN(peso)){alert('Completa fecha y peso');return;}
+  const data=getWeightData();
+  const idx=data.findIndex(d=>d.fecha===fecha);
+  if(idx>=0){data[idx].peso=peso;}else{data.push({fecha,peso});}
+  saveWeightData(data); drawWeightChart(); flashSave();
+}
+function deleteWeight(fecha) { saveWeightData(getWeightData().filter(d=>d.fecha!==fecha)); drawWeightChart(); flashSave(); }
+
+function compressImage(file,cb) {
+  const reader=new FileReader();
+  reader.onload=e=>{
+    const img=new Image();
+    img.onload=()=>{
+      const MAX=900; let w=img.width,h=img.height;
+      if(w>h){if(w>MAX){h=Math.round(h*MAX/w);w=MAX;}}else{if(h>MAX){w=Math.round(w*MAX/h);h=MAX;}}
+      const c=document.createElement('canvas'); c.width=w; c.height=h;
+      c.getContext('2d').drawImage(img,0,0,w,h);
+      cb(c.toDataURL('image/jpeg',0.72));
+    };
+    img.src=e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+function handlePhotoFiles(files) {
+  Array.from(files).forEach(file=>{
+    compressImage(file,src=>{
+      const today=new Date(); const pad=n=>n<10?'0'+n:String(n);
+      const photos=getPhotosData();
+      photos.unshift({id:`${Date.now()}_${Math.random().toString(36).slice(2)}`,src,fecha:`${today.getDate()}.${today.getMonth()+1}.${today.getFullYear()}`});
+      try{savePhotosData(photos);}catch(e){alert('Almacenamiento lleno.');return;}
+      drawPhotoGrid(); flashSave();
+    });
+  });
+  const pi=$('photoInput'); if(pi)pi.value='';
+}
+function handlePhotoDrop(e) { e.preventDefault(); $('photoDropZone')?.classList.remove('drag'); handlePhotoFiles(e.dataTransfer.files); }
+function deletePhoto(id)     { savePhotosData(getPhotosData().filter(p=>p.id!==id)); drawPhotoGrid(); flashSave(); }
+function openLightbox(src)   { const lb=document.createElement('div'); lb.className='photo-lightbox'; lb.innerHTML=`<img src="${src}">`; lb.onclick=()=>document.body.removeChild(lb); document.body.appendChild(lb); }
+function drawPhotoGrid() {
+  const grid=$('photoGrid'); if(!grid)return;
+  const photos=getPhotosData(); updateStorageInfo();
+  if(!photos.length){grid.innerHTML='<div style="color:var(--faint);font-size:13px;padding:16px 0">Aún no hay fotos.</div>';return;}
+  grid.innerHTML=photos.map(p=>`<div class="photo-item">
+    <img src="${p.src}" loading="lazy" style="cursor:zoom-in" onclick="openLightbox('${p.src}')">
+    <div class="pi-foot"><span class="pi-date">${p.fecha}</span><button class="pi-del" onclick="deletePhoto('${p.id}')">✕</button></div>
+  </div>`).join('');
+}
+function updateStorageInfo() {
+  const info=$('storageInfo'); if(!info)return;
+  try {
+    let used=0;
+    [WEIGHT_KEY,PHOTOS_KEY,ANTRO_KEY()].forEach(k=>{const v=localStorage.getItem(k);if(v)used+=v.length*2;});
+    const pct=Math.min(100,Math.round(used/5e6*100));
+    info.innerHTML=`<div class="storage-bar"><div class="storage-bar-fill" style="width:${pct}%"></div></div><div class="storage-label">Almacenamiento: ${(used/1e6).toFixed(2)} MB de ~5 MB · ${pct}%</div>`;
+  } catch(e){}
+}
 
 renderHero();
 renderTabs();
