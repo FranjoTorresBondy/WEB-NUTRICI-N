@@ -256,7 +256,7 @@ const PATIENT = {
   nombre:    'Ioanis\nPatsias',
   fecha:     '15.07.2026',
   tipoPlan:  'Hipocalórico · Hiperprotéico',
-  macros:    { kcal: 1990, p: 157, c: 172, g: 67 },
+  macros:    { kcal: 2160, p: 170, c: 193, g: 69 },
   hidratacion: [
     { label:'💧 Día de box',        valor:'4.5' },
     { label:'💧 Día de pesas',      valor:'3.5' },
@@ -402,6 +402,18 @@ const PATIENT = {
         '10 g de chocolate blanco',
       ]},
     ], nota:'* Si eliges bistec, salmón o carne molida de bistec, eliminar la porción de grasa.' },
+
+    { id:'snk-noche', nombre:'🌙 Snack antes de dormir', kcal:170, p:13, c:21, g:2, grupos:[
+      { label:'Escoge 01 · Lácteo', max:1, ops:[
+        '150 ml de leche slim',
+        '150 g de yogurt slim',
+      ]},
+      { label:'Escoge 01 · Cereal', max:1, ops:[
+        '30 g de cereales Dyfferent',
+        '30 g de cereales Mamalama',
+        '30 g de trigo atómico',
+      ]},
+    ], nota:'' },
 
     { id:'cine', nombre:'🍿 Noche de cine (1 vez/semana)', kcal:200, p:7, c:27, g:7, grupos:[
       { label:'Opción 1 · Canchita casera', max:1, ops:[
