@@ -103,12 +103,12 @@ input::placeholder{color:#444}
     <h1>Tu plan personalizado</h1>
     <form id="loginForm">
       <div class="field">
-        <label for="email">Correo electrónico</label>
-        <input type="email" id="email" placeholder="tu@correo.com" required autocomplete="email">
+        <label for="email">Nombre</label>
+        <input type="text" id="email" placeholder="ej: jorge" required autocomplete="username">
       </div>
       <div class="field">
-        <label for="password">Contraseña</label>
-        <input type="password" id="password" placeholder="••••••••" required autocomplete="current-password">
+        <label for="password">DNI</label>
+        <input type="password" id="password" placeholder="Tu número de DNI" required autocomplete="current-password">
       </div>
       <button type="submit" class="btn" id="submitBtn">Iniciar sesión</button>
       <div class="error" id="errorMsg"></div>
@@ -187,8 +187,9 @@ loginForm.addEventListener('submit', async (e) => {
   submitBtn.disabled = true;
   submitBtn.textContent = 'Verificando…';
 
-  const email    = document.getElementById('email').value.trim();
-  const password = document.getElementById('password').value;
+  const raw      = document.getElementById('email').value.trim().toLowerCase();
+  const email    = raw.includes('@') ? raw : raw + '@plan';
+  const password = document.getElementById('password').value.trim();
 
   try {
     const { data, error } = await sb.auth.signInWithPassword({ email, password });
