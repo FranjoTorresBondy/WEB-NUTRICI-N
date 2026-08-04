@@ -180,9 +180,9 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 const PATIENT = {
   slug:      'ruben-rios',
   nombre:    'Ruben\nRios',
-  fecha:     '02.07.2026',
+  fecha:     '04.08.2026',
   tipoPlan:  'Hipocalórico · Hiperprotéico',
-  macros:    { kcal: 1800, p: 150, c: 140, g: 72 },
+  macros:    { kcal: 1900, p: 150, c: 201, g: 57 },
   hidratacion: [
     { label:'💧 Entrenamiento', valor:'3.5' },
     { label:'💧 Descanso',      valor:'3.0' },
@@ -193,26 +193,31 @@ const PATIENT = {
       tri:5.0, bi:4.0, sub:10.0, cresta:18.0, supra:10.0, abd:23.0, pierna:9.0, pant:4.0,
       brazRelaj:36.5, brazFlex:38.6, abdom:89.0, cadera:102.3, muslo:54.5, pantPer:37.0,
       s6:61.0, s8:83.0 },
+    { fecha:'21.07.2026', peso:80.1, talla:171.8, imc:27.1,
+      tri:4.0, bi:3.0, sub:11.0, cresta:17.0, supra:8.0, abd:21.0, pierna:8.5, pant:4.5,
+      brazRelaj:36.8, brazFlex:38.8, abdom:88.0, cadera:102.3, muslo:55.0, pantPer:37.0 },
   ],
   antro: {
-    fecha:    '21.07.2026',
-    peso:     80.1,
-    talla:    171.8,
-    imc:      27.1,
+    fecha:    '04.08.2026',
+    peso:     79.6,
+    talla:    171,
+    imc:      27.2,
     tri:      4.0,
-    bi:       3.0,
-    sub:      11.0,
-    cresta:   17.0,
+    bi:       1.5,
+    sub:      4.0,
+    cresta:   15.0,
     supra:    8.0,
-    abd:      21.0,
-    pierna:   8.5,
-    pant:     4.5,
+    abd:      20.0,
+    pierna:   9.0,
+    pant:     3.0,
     brazRelaj: 36.8,
-    brazFlex:  38.8,
-    abdom:     88.0,
-    cadera:   102.3,
+    brazFlex:  39.0,
+    abdom:     89.0,
+    cadera:   102.5,
     muslo:     55.0,
     pantPer:   37.0,
+    s6:        54.0,
+    s8:        70.5,
   },
 
   objetivos: [
@@ -222,8 +227,8 @@ const PATIENT = {
   ],
 
   comidas: [
-    { id:'des', nombre:'☀️ Desayuno', kcal:375, p:20, c:29, g:22, grupos:[
-        { label:'Escoge 01 · Carbohidrato', max:1, ops:[
+    { id:'des', nombre:'☀️ Desayuno', kcal:390, p:20, c:44, g:17, grupos:[
+        { label:'Escoge 02 · Carbohidrato', max:2, ops:[
           '1 tortilla rapidita integral',
           '1 rebanada de pan de molde integral (30 g)',
           '20 g de avena (peso crudo)',
@@ -243,15 +248,16 @@ const PATIENT = {
           '70 g de queso cottage + 1 huevo',
           '2 huevos',
         ]},
-        { label:'Escoge 02 · Grasa', max:2, ops:[
+        { label:'Escoge 01 · Grasa', max:1, ops:[
           '1 cdta de aceite de olivo',
           '4 aceitunas',
           '1 porción de frutos secos',
+          '20 g de queso fresco',
         ]},
       ], nota:null },
 
-    { id:'alm', nombre:'🥗 Almuerzo', kcal:563, p:46, c:43, g:22, grupos:[
-        { label:'Escoge 02 · Carbohidrato', max:2, ops:[
+    { id:'alm', nombre:'🥗 Almuerzo', kcal:578, p:46, c:58, g:17, grupos:[
+        { label:'Escoge 03 · Carbohidrato', max:3, ops:[
           '60 g de arroz',
           '90 g de papa, camote o betarraga',
           '60 g de quinua',
@@ -264,17 +270,18 @@ const PATIENT = {
           'Pescado',
           'Bistec',
         ]},
-        { label:'Escoge 01 · Verdura', max:1, ops:[
-          '150 g de verduras a tu preferencia (crudas o cocidas)',
+        { label:'Escoge 01 · Verduras', max:1, ops:[
+          '150 g de verduras a tu preferencia',
         ]},
-        { label:'Escoge 03 · Grasa', max:3, ops:[
+        { label:'Escoge 02 · Grasa', max:2, ops:[
           '1 cdta de aceite de olivo',
           '4 aceitunas',
           '1 porción de frutos secos',
+          '20 g de queso fresco',
         ]},
-      ], nota:null },
+      ], nota:'*Puedes agregar 1 cda de ketchup sin azúcar Alacena a tus comidas.' },
 
-    { id:'snk', nombre:'🍎 Snack Tarde', kcal:355, p:37, c:40, g:6, grupos:[
+    { id:'snk', nombre:'🍎 Snack Media Tarde', kcal:355, p:37, c:40, g:6, grupos:[
         { label:'Escoge 01 · Fruta', max:1, ops:[
           '1 porción de fruta',
         ]},
@@ -286,7 +293,6 @@ const PATIENT = {
           '20 g de cereales de Dyfferent o NutriCo',
           '20 g de granola',
           '3 unidades de salmas',
-          '30 g de trigo atómico',
         ]},
         { label:'Escoge 01 · Frutos secos / semillas', max:1, ops:[
           '1 porción de frutos secos o semillas',
@@ -298,10 +304,10 @@ const PATIENT = {
           '120 g de pollo',
           '1 lata de atún en agua',
         ]},
-      ], nota:'Opción reemplazo completo del snack: 150 g de keke de plátano casero ya cocinado (≈ 4 rebanadas) = 355 kcal. Ver receta en Especificaciones.' },
+      ], nota:null },
 
-    { id:'cen', nombre:'🌙 Cena', kcal:503, p:46, c:28, g:22, grupos:[
-        { label:'Escoge 01 · Carbohidrato', max:1, ops:[
+    { id:'cen', nombre:'🌙 Cena', kcal:578, p:46, c:58, g:17, grupos:[
+        { label:'Escoge 03 · Carbohidrato', max:3, ops:[
           '90 g de papa o camote',
           '60 g de arroz',
           '60 g de quinua',
@@ -319,13 +325,15 @@ const PATIENT = {
           '200 g de Quark',
           '80 g de queso mozzarella light (Cuisine&Co)',
           '1 huevo + 2 claras',
+          '1 milanesa Avinka (freidora sin aceite)',
         ]},
-        { label:'Escoge 03 · Grasa', max:3, ops:[
+        { label:'Escoge 02 · Grasa', max:2, ops:[
           '1 cdta de aceite de olivo',
           '4 aceitunas',
           '1 porción de frutos secos',
+          '20 g de queso fresco',
         ]},
-        { label:'Escoge 01 · Verdura', max:1, ops:[
+        { label:'Escoge 01 · Verduras', max:1, ops:[
           '150 g de verduras cocidas',
           '1 puñado de berries',
         ]},
@@ -362,6 +370,20 @@ const PATIENT = {
       'Pollo a la brasa: pechuga sin pellejo con ensalada y papa al horno o sancochada.',
       'Ceviche o tiradito con choclo y camote. Sin canchita.',
     ]},
+    { titulo:'✈️ Lineamientos para el viaje', items:[
+      '## Desayuno',
+      '1 shake de proteína o 1 yogurt alto en proteína (≈20 g proteína) + 2 porciones de fruta',
+      '## Almuerzo / Cena',
+      'Tratar que tenga algún tipo de verdura o ensalada y proteína como carne, pollo o pescado.',
+      'Si sales a comer carnes, siempre con ensalada y si puedes papa al horno. Evita salsas y aliños a base de aceite; puedes pedir aliño de limón y sal o vinagre balsámico para la ensalada.',
+      'Si comes parrilla, elige cortes magros como lomo fino, cuadril o colita de cuadril.',
+      'Si son pastas, procura que sea pomodoro o pesto (evitar salsas muy cremosas o con mucho queso) y acompañar con alguna proteína.',
+      '*Si sabes que vas a comer algo que esté fuera del plan, que la otra comida solo sea proteína magra y verduras.',
+      '## Snacks',
+      'La fruta que quieras + 1 scoop de proteína en polvo con leche descremada, leche vegetal o agua.',
+      'Puedes reemplazar el scoop de proteína por algún yogurt bajo en calorías y alto en proteínas.',
+    ]},
+
     { titulo:'Especificaciones generales', items:[
       '## Bebidas',
       'Agua, infusiones (manzanilla, anís, té, muña, hierba luisa, flor de Jamaica), refrescos no azucarados (emoliente, agua de piña, agua de manzana). Puedes agregar edulcorantes acalóricos (Stevia, yacón o fruto del monje). Puedes usar Clight.',
@@ -399,6 +421,15 @@ const PATIENT = {
   ],
 
   notaSpecs: 'Puedes reemplazar el monkfruit por Stevia o cualquier edulcorante acalórico. Si deseas que las salsas salgan más espesas, agregar espesante en frío como guar gum o xanthan gum.',
+
+  preEntrenos: [
+    { tipo:'Fuerza', ops:[
+      '1 porción de fruta (ver especificaciones)',
+    ]},
+    { tipo:'Natación / Frontón (+150 kcal)', ops:[
+      '1 plátano + 1 cdta de miel de abeja',
+    ]},
+  ],
 
   entrenamiento: null,
 };
