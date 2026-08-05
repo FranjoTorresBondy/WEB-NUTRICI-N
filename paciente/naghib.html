@@ -198,6 +198,12 @@ const PATIENT = {
     brazRelaj:35.3, brazFlex:38.5, abdom:78.0, cadera:104.0, muslo:55.0, pantPer:39.0,
     diam:{ humero:6.8, biEstiloideo:5.3, femur:10.0 },
   },
+  antroHistorial: [
+    { fecha:'03.07.2026', peso:89.7, talla:185.0, imc:26.2,
+      tri:8.0, bi:1.5, sub:8.0, cresta:14.0, supra:11.0, abd:15.0, pierna:7.0, pant:7.0,
+      s6:56.0, s8:71.5,
+      brazRelaj:37.0, brazFlex:39.9, abdom:83.0, cadera:107.0, muslo:58.0, pantPer:39.8 },
+  ],
 
   objetivos: [
     'Recomposición corporal',
@@ -588,7 +594,13 @@ function getAntroBase() {
   const a = PATIENT.antro;
   const s6 = +(a.tri+a.sub+a.supra+a.abd+a.pierna+a.pant).toFixed(1);
   const s8 = +(s6+a.bi+a.cresta).toFixed(1);
-  return [{ fecha:a.fecha, peso:a.peso, tri:a.tri, bi:a.bi, sub:a.sub, cresta:a.cresta, supra:a.supra, abd:a.abd, pierna:a.pierna, pant:a.pant, brazRelaj:a.brazRelaj, brazFlex:a.brazFlex, abdom:a.abdom, cadera:a.cadera, muslo:a.muslo, pantPer:a.pantPer, s6, s8 }];
+  const cur = { fecha:a.fecha, peso:a.peso, tri:a.tri, bi:a.bi, sub:a.sub, cresta:a.cresta, supra:a.supra, abd:a.abd, pierna:a.pierna, pant:a.pant, brazRelaj:a.brazRelaj, brazFlex:a.brazFlex, abdom:a.abdom, cadera:a.cadera, muslo:a.muslo, pantPer:a.pantPer, s6, s8 };
+  const hist = (PATIENT.antroHistorial||[]).map(h => {
+    const hs6 = h.s6!=null ? h.s6 : +(h.tri+h.sub+h.supra+h.abd+h.pierna+h.pant).toFixed(1);
+    const hs8 = h.s8!=null ? h.s8 : +(hs6+h.bi+h.cresta).toFixed(1);
+    return { fecha:h.fecha, peso:h.peso, tri:h.tri, bi:h.bi, sub:h.sub, cresta:h.cresta, supra:h.supra, abd:h.abd, pierna:h.pierna, pant:h.pant, brazRelaj:h.brazRelaj, brazFlex:h.brazFlex, abdom:h.abdom, cadera:h.cadera, muslo:h.muslo, pantPer:h.pantPer, s6:hs6, s8:hs8 };
+  });
+  return hist.concat([cur]);
 }
 function getAntroData() { try { const r=localStorage.getItem(ANTRO_KEY()); return r?JSON.parse(r):getAntroBase(); } catch { return getAntroBase(); } }
 function saveAntroData(d) { localStorage.setItem(ANTRO_KEY(), JSON.stringify(d)); }
