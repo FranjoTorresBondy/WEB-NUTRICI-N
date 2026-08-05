@@ -184,26 +184,26 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 const PATIENT = {
   slug:     'naghib',
   nombre:   'Naghib',
-  fecha:    '03.07.2026',
-  tipoPlan: 'Hipocalórico · Hiperprotéico',
-  macros:   { kcal: 1780, p: 165, c: 175, g: 45 },
+  fecha:    '04.08.2026',
+  tipoPlan: 'Normo calórico · Hiperprotéico',
+  macros:   { kcal: 2040, p: 170, c: 240, g: 45 },
   hidratacion: [
     { label:'💧 Entrenamiento', valor:'4.2' },
     { label:'💧 Descanso',      valor:'3.2' },
   ],
   semanas: 1,
   antro: {
-    fecha:'03.07.2026', peso:89.7, talla:185.0, imc:26.2,
-    tri:8.0, bi:1.5, sub:8.0, cresta:14.0, supra:11.0, abd:15.0, pierna:7.0, pant:7.0,
-    brazRelaj:37.0, brazFlex:39.9, abdom:83.0, cadera:107.0, muslo:58.0, pantPer:39.8,
+    fecha:'04.08.2026', peso:84.9, talla:185.0, imc:24.8,
+    tri:6.0, bi:1.5, sub:8.0, cresta:12.0, supra:8.0, abd:12.0, pierna:12.0, pant:10.0,
+    brazRelaj:35.3, brazFlex:38.5, abdom:78.0, cadera:104.0, muslo:55.0, pantPer:39.0,
+    diam:{ humero:6.8, biEstiloideo:5.3, femur:10.0 },
   },
 
   objetivos: [
     'Recomposición corporal',
-    'Disminución de sumatoria de pliegues en 10 mm para la próxima sesión',
-    'Mejora en rendimiento deportivo',
-    'Mínimo 8000 pasos diarios',
-    'Adherencia al plan nutricional mínimo 8/10',
+    'Mejora en rendimiento',
+    '8000 pasos diarios como mínimo',
+    'Adherencia al plan nutricional, como mínimo 8/10',
     'Mandar registro de pesos y fotos (frontal, perfil y posterior) semanalmente',
   ],
 
@@ -215,7 +215,7 @@ const PATIENT = {
       { label:'Escoge 01 · Fruta', max:1, ops:[
         '2 porciones de fruta (ver especificaciones) — puedes hacer jugo',
       ]},
-      { label:'Escoge 02 · Carbohidrato', max:2, ops:[
+      { label:'Escoge 03 · Carbohidrato', max:3, ops:[
         '20 g de avena',
         '20 g de cereales Dyfferent',
         '1 rebanada de pan La Chola o de molde (30 g)',
@@ -231,7 +231,7 @@ const PATIENT = {
     ]},
 
     { id:'alm', nombre:'🥗 Almuerzo', kcal:555, p:55, c:58, g:13, grupos:[
-      { label:'Escoge 04 · Carbohidrato (pesos cocidos)', max:4, ops:[
+      { label:'Escoge 05 · Carbohidrato (pesos cocidos)', max:5, ops:[
         '90 g de papa',
         '90 g de camote',
         '60 g de arroz blanco o integral',
@@ -275,7 +275,7 @@ const PATIENT = {
     ], nota:'Puedes reemplazar linaza + leche Slim por 15 g de mantequilla de maní. · Puedes agregar 2 cdas de salsa.' },
 
     { id:'cen', nombre:'🌙 Cena', kcal:500, p:52, c:55, g:12, grupos:[
-      { label:'Escoge 04 · Carbohidrato (pesos cocidos)', max:4, ops:[
+      { label:'Escoge 05 · Carbohidrato (pesos cocidos)', max:5, ops:[
         '90 g de papa',
         '90 g de camote',
         '60 g de arroz blanco o integral',
@@ -309,6 +309,10 @@ const PATIENT = {
       'Refrescos no azucarados (emoliente, agua de piña, agua de manzana)',
       'Puedes agregar edulcorantes acalóricos: Stevia, yacón o fruto del monje',
       'Evitar el consumo de chicles',
+    ]},
+    { titulo:'💊 Suplementación', items:[
+      'Multivitamínico: 1 cápsula con el desayuno',
+      'Creatina: 10 g POST entrenamiento — todos los días',
     ]},
     { titulo:'🥝 Fruta y berries', items:[
       '1 kiwi','½ taza mango picado (80 g)','1 manzana',
@@ -352,7 +356,7 @@ const PATIENT = {
     { nombre:'Salsa roja',             desc:'Tomate, cebolla, ajo, albahaca, poro + Lakanto o Stevia al gusto + sal, pimienta y tomillo + 1 cda aceite de oliva' },
   ],
 
-  notaSpecs: 'Plan base = días de descanso (1780 kcal). Días de entrenamiento de fuerza o box: agregar pre-entreno (+200 kcal).',
+  notaSpecs: 'Plan base = días de descanso (2 040 kcal). Días de entrenamiento de fuerza o box: agregar pre-entreno (+200 kcal ≈ 2 240 kcal).',
   entrenamiento: null,
 };
 
