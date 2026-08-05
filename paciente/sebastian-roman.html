@@ -195,6 +195,12 @@ const PATIENT = {
     s6:76.0, s8:100.0,
     brazRelaj:32.8, brazFlex:35.6, abdom:84.0, cadera:100.0, muslo:51.2, pantPer:34.7,
   },
+  antroHistorial: [
+    { fecha:'15.07.2026', peso:80.4, talla:182.3, imc:24.2,
+      tri:11.0, bi:4.0, sub:18.0, cresta:28.0, supra:13.0, abd:29.0, pierna:10.5, pant:8.0,
+      s6:89.5, s8:121.5,
+      brazRelaj:32.8, brazFlex:35.3, abdom:84.5, cadera:101.5, muslo:51.5, pantPer:34.5 },
+  ],
   objetivos: [
     'Disminuir sumatoria de pliegues a 50 mm',
     'Aumentar masa muscular en brazos, hombros y piernas',
@@ -386,7 +392,13 @@ function getAntroBase(){
   var a=PATIENT.antro;
   var s6=+(a.tri+a.sub+a.supra+a.abd+a.pierna+a.pant).toFixed(1);
   var s8=+(s6+a.bi+a.cresta).toFixed(1);
-  return [{fecha:a.fecha,peso:a.peso,tri:a.tri,bi:a.bi,sub:a.sub,cresta:a.cresta,supra:a.supra,abd:a.abd,pierna:a.pierna,pant:a.pant,brazRelaj:a.brazRelaj,brazFlex:a.brazFlex,abdom:a.abdom,cadera:a.cadera,muslo:a.muslo,pantPer:a.pantPer,s6:s6,s8:s8}];
+  var cur={fecha:a.fecha,peso:a.peso,tri:a.tri,bi:a.bi,sub:a.sub,cresta:a.cresta,supra:a.supra,abd:a.abd,pierna:a.pierna,pant:a.pant,brazRelaj:a.brazRelaj,brazFlex:a.brazFlex,abdom:a.abdom,cadera:a.cadera,muslo:a.muslo,pantPer:a.pantPer,s6:s6,s8:s8};
+  var hist=(PATIENT.antroHistorial||[]).map(function(h){
+    var hs6=h.s6!=null?h.s6:+(h.tri+h.sub+h.supra+h.abd+h.pierna+h.pant).toFixed(1);
+    var hs8=h.s8!=null?h.s8:+(hs6+h.bi+h.cresta).toFixed(1);
+    return {fecha:h.fecha,peso:h.peso,tri:h.tri,bi:h.bi,sub:h.sub,cresta:h.cresta,supra:h.supra,abd:h.abd,pierna:h.pierna,pant:h.pant,brazRelaj:h.brazRelaj,brazFlex:h.brazFlex,abdom:h.abdom,cadera:h.cadera,muslo:h.muslo,pantPer:h.pantPer,s6:hs6,s8:hs8};
+  });
+  return hist.concat([cur]);
 }
 function getAntroData(){ try{ var r=localStorage.getItem(ANTRO_KEY()); return r?JSON.parse(r):getAntroBase(); }catch(e){ return getAntroBase(); } }
 function saveAntroData(d){ localStorage.setItem(ANTRO_KEY(),JSON.stringify(d)); }
