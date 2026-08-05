@@ -195,26 +195,25 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 const PATIENT = {
   slug:      'jorge-orocoy',
   nombre:    'Jorge Antonio\nOrocoy',
-  fecha:     '23.06.2026',
+  fecha:     '05.08.2026',
   tipoPlan:  'Hipercalórico · Hiperprotéico',
   macros:    { kcal: 2250, p: 151, c: 277, g: 48 },
   hidratacion: { entreno: '3.5', descanso: '2.5' },
   semanas:   4,
 
   antro: {
-    fecha: '19.06.2026',
-    peso: 66.5, talla: 165.3, imc: 24.3,
-    tri: 8.0, bi: 3.0, sub: 10.0, cresta: 15.0, supra: 12.0, abd: 17.0, pierna: 9.0, pant: 5.0,
-    brazRelaj: 30.5, brazFlex: 32.0, abdom: 82.0, cadera: 98.5, muslo: 49.5, pantPer: 33.5,
+    fecha: '05.08.2026',
+    peso: 67.0, talla: 165.3, imc: 24.5,
+    tri: 8.0, bi: 3.0, sub: 10.0, cresta: 14.0, supra: 9.0, abd: 18.0, pierna: 9.0, pant: 6.0,
+    s6: 62.0, s8: 78.5,
+    brazRelaj: 31.5, brazFlex: 32.5, abdom: 82.5, cadera: 99.0, muslo: 50.0, pantPer: 34.0,
   },
 
   objetivos: [
-    'Aumento de peso corporal con mínima acumulación de grasa',
-    'Monitorear peso en ayunas y mandar registro semanalmente',
-    'Monitorear cargas en el gym y mandar registro semanalmente',
-    'Caminar 5 minutos después de las comidas grandes',
-    'Agregar a la rutina: 3 series de deltoide posterior + 2 series de elevaciones laterales',
-    'Objetivo de pasos: 8 000 diarios como mínimo',
+    'Aumento de perimetro de brazo flexionado, pierna media, pantorrilla y gluteo',
+    'Monitorear pesos en ayunas y mandar registro semanalmente',
+    'Monitorear cargas en el gym y mandar semanalmente',
+    'Caminar 5 minutos despues de las comidas grandes',
   ],
 
   comidas: [
@@ -251,7 +250,7 @@ const PATIENT = {
         { label:'Semillas', max:1, ops:['2 cdas de semillas de chía o linaza molidas'] },
     ], nota:'* Cocinar arroz con bastante agua para que quede suave. Puedes probar las verduras como crema (al tiempo, no caliente). Hora: 9:00 pm.' },
 
-    { id:'snkn', nombre:'🌙 Snack Nocturno', kcal:278, p:5, c:60, g:2, grupos:[
+    { id:'snkn', nombre:'🌙 Snack Nocturno', kcal:350, p:6, c:77, g:2, grupos:[
         { label:'Carbohidrato', max:1, ops:['2 rebanadas de pan de molde integral + 180 g de camote'] },
     ], nota:'* Hora: 11:00 pm.' },
 
@@ -426,8 +425,8 @@ function renderSpecs() {
 const ANTRO_KEY = () => `${PATIENT.slug}-antro-v1`;
 function getAntroBase() {
   const a = PATIENT.antro;
-  const s6 = +(a.tri+a.sub+a.supra+a.abd+a.pierna+a.pant).toFixed(1);
-  const s8 = +(s6+a.bi+a.cresta).toFixed(1);
+  const s6 = a.s6!=null ? a.s6 : +(a.tri+a.sub+a.supra+a.abd+a.pierna+a.pant).toFixed(1);
+  const s8 = a.s8!=null ? a.s8 : +(s6+a.bi+a.cresta).toFixed(1);
   return [
     { fecha:a.fecha, peso:a.peso, tri:a.tri, bi:a.bi, sub:a.sub, cresta:a.cresta, supra:a.supra, abd:a.abd, pierna:a.pierna, pant:a.pant, brazRelaj:a.brazRelaj, brazFlex:a.brazFlex, abdom:a.abdom, cadera:a.cadera, muslo:a.muslo, pantPer:a.pantPer, s6, s8 },
   ];
