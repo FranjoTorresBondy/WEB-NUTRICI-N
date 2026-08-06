@@ -398,6 +398,27 @@
     }
     .btn-clear:hover { border-color: var(--border-l); color: var(--cream-2); }
 
+    /* ── SEMANA ANTERIOR ── */
+    .track-set {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+    }
+    .track-prev {
+      font-size: 10px;
+      color: var(--cream-3);
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      padding: 2px 7px;
+      font-family: 'Inter', monospace;
+      white-space: nowrap;
+      min-width: 44px;
+      text-align: center;
+      letter-spacing: 0.02em;
+    }
+
     /* ── TOAST ── */
     .toast {
       position: fixed; bottom: 28px; right: 28px; z-index: 10000;
@@ -772,13 +793,24 @@ function getRir(type, micro) {
   return r.core;
 }
 
+function prevMicro(micro) {
+  const n = parseInt(micro.slice(1));
+  return n > 1 ? 'm' + (n - 1) : null;
+}
+
 function buildSessionHTML(session, micro) {
+  const prev = prevMicro(micro);
   const rows = session.exercises.map((ex, ei) => {
     const rir = getRir(ex.type, micro);
     const trackCells = Array.from({length: ex.sets}, (_, si) => {
       const key = `${micro}-${session.id}-${ei}-s${si+1}`;
       const saved = localStorage.getItem(key) || '';
-      return `<input class="track-input" placeholder="${si+1}ª" data-key="${key}" value="${saved}" />`;
+      const prevKey = prev ? `${prev}-${session.id}-${ei}-s${si+1}` : null;
+      const prevVal = prevKey ? (localStorage.getItem(prevKey) || '—') : null;
+      return `<div class="track-set">
+        ${prevVal !== null ? `<div class="track-prev" title="Semana anterior">${prevVal}</div>` : ''}
+        <input class="track-input" placeholder="${si+1}ª" data-key="${key}" value="${saved}" />
+      </div>`;
     });
     return `
       <tr>
@@ -790,6 +822,8 @@ function buildSessionHTML(session, micro) {
         <td><div class="track-cell">${trackCells.join('')}</div></td>
       </tr>`;
   }).join('');
+
+  const prevLabel = prev ? `<span style="font-weight:400;color:var(--cream-4);font-size:10px;margin-left:6px;">sem. ant. → actual</span>` : '';
 
   return `
     <div class="session-block open" id="block-${micro}-${session.id}">
@@ -812,7 +846,7 @@ function buildSessionHTML(session, micro) {
               <th class="center">Reps</th>
               <th class="center">RIR</th>
               <th class="center">Descanso</th>
-              <th>Registro (peso / reps)</th>
+              <th>Registro${prevLabel}</th>
             </tr>
           </thead>
           <tbody>${rows}</tbody>
@@ -827,8 +861,8 @@ function buildSessionHTML(session, micro) {
 
 function renderMicro(micro) {
   const container = document.getElementById(`sessions-${micro}`);
+  if (!container) return;
   container.innerHTML = SESSIONS.map(s => buildSessionHTML(s, micro)).join('');
-  // attach listeners
   container.querySelectorAll('.track-input').forEach(inp => {
     inp.addEventListener('change', () => {
       localStorage.setItem(inp.dataset.key, inp.value);
@@ -845,7 +879,10 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
     document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
     btn.classList.add('active');
-    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+    const tabId = btn.dataset.tab;
+    document.getElementById('tab-' + tabId).classList.add('active');
+    // re-renderizar para mostrar valores actualizados de la semana anterior
+    renderMicro(tabId);
   });
 });
 
