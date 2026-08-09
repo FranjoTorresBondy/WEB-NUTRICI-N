@@ -255,10 +255,15 @@ const PATIENT = {
     { label:'💧 Entrenamiento', valor:'4.5' },
     { label:'💧 Descanso',      valor:'3.5' },
   ],
+  antroHistorial: [
+    { fecha:'01.06.2026', peso:102.5, tri:9.0, bi:7.0, sub:22.0, cresta:25.0, supra:20.0, abd:35.0, pierna:10.0, pant:7.0, brazRelaj:37.8, brazFlex:39.8, abdom:98.0, cadera:110.0, muslo:56.3, pantPer:40.0, s6:101.0, s8:133.0 },
+  ],
+
   antro: {
     fecha:'04.08.2026', peso:99.0, talla:183.0, imc:29.6,
     tri:5.0, bi:5.0, sub:20.0, cresta:23.0, supra:18.0, abd:25.0, pierna:9.0, pant:5.5,
     brazRelaj:38.5, brazFlex:41.5, abdom:93.0, cadera:108.0, muslo:56.8, pantPer:40.0,
+    s6:82.5, s8:110.5,
     diam:{ humero:6.8, biEstiloideo:6.0, femur:10.0 },
   },
 
@@ -879,10 +884,12 @@ function loadTrainValues() {
 // ── Evolución Física ───────────────────────────────────────────────────────
 const ANTRO_KEY = () => `${PATIENT.slug}-antro-v1`;
 function getAntroBase() {
+  const hist = PATIENT.antroHistorial || [];
   const a = PATIENT.antro;
-  const s6 = +(a.tri+a.sub+a.supra+a.abd+a.pierna+a.pant).toFixed(1);
-  const s8 = +(s6+a.bi+a.cresta).toFixed(1);
-  return [{ fecha:a.fecha, peso:a.peso, tri:a.tri, bi:a.bi, sub:a.sub, cresta:a.cresta, supra:a.supra, abd:a.abd, pierna:a.pierna, pant:a.pant, brazRelaj:a.brazRelaj, brazFlex:a.brazFlex, abdom:a.abdom, cadera:a.cadera, muslo:a.muslo, pantPer:a.pantPer, s6, s8 }];
+  const s6 = a.s6 != null ? a.s6 : +(a.tri+a.sub+a.supra+a.abd+a.pierna+a.pant).toFixed(1);
+  const s8 = a.s8 != null ? a.s8 : +(s6+a.bi+a.cresta).toFixed(1);
+  const current = { fecha:a.fecha, peso:a.peso, tri:a.tri, bi:a.bi, sub:a.sub, cresta:a.cresta, supra:a.supra, abd:a.abd, pierna:a.pierna, pant:a.pant, brazRelaj:a.brazRelaj, brazFlex:a.brazFlex, abdom:a.abdom, cadera:a.cadera, muslo:a.muslo, pantPer:a.pantPer, s6, s8 };
+  return [...hist, current];
 }
 function getAntroData() { try { const r=localStorage.getItem(ANTRO_KEY()); return r?JSON.parse(r):getAntroBase(); } catch { return getAntroBase(); } }
 function saveAntroData(d) { localStorage.setItem(ANTRO_KEY(), JSON.stringify(d)); }
