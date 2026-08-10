@@ -242,7 +242,7 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 const PATIENT = {
   slug:      'giorgio-badani',
   nombre:    'Giorgio\nBadani',
-  fecha:     '18.07.2026',
+  fecha:     '10.08.2026',
   tipoPlan:  'Hipercalórico · Hiperprotéico',
   macros:    { kcal: 2200, p: 145, c: 260, g: 65 },
   hidratacion: [
@@ -251,12 +251,16 @@ const PATIENT = {
   ],
   entrenamiento: null,
   antro: {
-    fecha:'18.07.2026', peso:73.2, talla:178.5, imc:23.0,
-    tri:5.0, bi:1.2, sub:6.0, cresta:16.0, supra:6.0, abd:19.0, pierna:12.0, pant:6.0,
-    s6:54.0, s8:71.2,
-    brazRelaj:32.4, brazFlex:34.5, abdom:78.0, cadera:98.0, muslo:55.0, pantPer:36.2,
+    fecha:'10.08.2026', peso:74.1, talla:178.5, imc:23.3,
+    tri:4.0, bi:1.0, sub:5.0, cresta:13.0, supra:5.0, abd:14.0, pierna:10.5, pant:5.0,
+    s6:43.5, s8:57.5,
+    brazRelaj:32.5, brazFlex:34.9, abdom:77.0, cadera:100.0, muslo:56.5, pantPer:37.0,
     diam:{ humero:6.2, biEstiloideo:5.2, femur:9.0 },
   },
+  antroHistorial: [
+    { fecha:'18.07.2026', peso:73.2, tri:5.0, bi:1.2, sub:6.0, cresta:16.0, supra:6.0, abd:19.0, pierna:12.0, pant:6.0,
+      brazRelaj:32.4, brazFlex:34.5, abdom:78.0, cadera:98.0, muslo:55.0, pantPer:36.2, s6:54.0, s8:71.2 },
+  ],
 
   objetivos: [
     'Aumento de masa muscular: perímetros brazo flex y pierna media',
@@ -395,7 +399,7 @@ const PATIENT = {
 
     { id:'pre', nombre:'⚡ Pre Entreno', kcal:200, p:2, c:47, g:1, grupos:[
       { label:'Pre entreno · Fijo (20–30 min antes)', max:1, ops:[
-        '1 plátano + 1 cda de miel de abeja + ¼ cdta de sal',
+        '1 plátano + 1 cda de miel de abeja + ½ cdta de sal',
       ]},
     ], nota:'Solo días de entrenamiento de fuerza. Agregar al plan de descanso (+200 kcal).' },
 
