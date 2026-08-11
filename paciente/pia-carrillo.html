@@ -387,12 +387,30 @@ const PATIENT = {
         {nombre:'Patada de glúteo en polea (bilateral)',reps:'12-15',descanso:'60 seg',img:'static',s1:'https://img.youtube.com/vi/dU1R-AHW4IM/hqdefault.jpg',s2:'',prog:[[3,3],[3,2],[4,1],[3,3]]},
       ]},
     ],
+    casaSesiones:[
+      {id:'c1',icon:'🏠',label:'Casa A · Lower',nota:'Glúteo + piernas sin implementos',ejercicios:[
+        {nombre:'Puente de glúteo unilateral',reps:'12 c/lado',series:4,descanso:'60 seg',img:'anim',s1:'Single_Leg_Glute_Bridge/0.jpg',s2:'Single_Leg_Glute_Bridge/1.jpg'},
+        {nombre:'Lunge con paso',reps:'10 c/lado',series:3,descanso:'60 seg',img:'anim',s1:'Bodyweight_Walking_Lunge/0.jpg',s2:'Bodyweight_Walking_Lunge/1.jpg'},
+        {nombre:'Sentadilla (3 seg de bajada)',reps:'15',series:3,descanso:'60 seg',img:'anim',s1:'Bodyweight_Squat/0.jpg',s2:'Bodyweight_Squat/1.jpg'},
+        {nombre:'Patada de glúteo en 4 puntos',reps:'15 c/lado',series:3,descanso:'60 seg',img:'anim',s1:'Glute_Kickback/0.jpg',s2:'Glute_Kickback/1.jpg'},
+        {nombre:'Good morning sin peso',reps:'12',series:3,descanso:'60 seg',img:'anim',s1:'Good_Morning/0.jpg',s2:'Good_Morning/1.jpg'},
+        {nombre:'Pantorrilla en escalón (unilateral)',reps:'20 c/lado',series:3,descanso:'45 seg',img:'anim',s1:'Standing_Calf_Raises/0.jpg',s2:'Standing_Calf_Raises/1.jpg'},
+      ]},
+      {id:'c2',icon:'💪',label:'Casa B · Upper',nota:'Empuje + tirón sin implementos',ejercicios:[
+        {nombre:'Push-up',reps:'10-12',series:3,descanso:'90 seg',img:'anim',s1:'Pushups/0.jpg',s2:'Pushups/1.jpg'},
+        {nombre:'Remo con mochila con peso',reps:'10-12 c/lado',series:3,descanso:'90 seg',img:'static',s1:'../img/ejercicios/remo-mancuerna-banco-inclinado.jpg',s2:''},
+        {nombre:'Push-up declinado (pies en silla)',reps:'8-10',series:3,descanso:'90 seg',img:'anim',s1:'Decline_Push-Up/0.jpg',s2:'Decline_Push-Up/1.jpg'},
+        {nombre:'Reverse crunch',reps:'12-15',series:3,descanso:'60 seg',img:'anim',s1:'Reverse_Crunch/0.jpg',s2:'Reverse_Crunch/1.jpg'},
+        {nombre:'Plancha frontal',reps:'30-40 seg',series:3,descanso:'60 seg',img:'anim',s1:'Plank/0.jpg',s2:'Plank/1.jpg'},
+        {nombre:'Dead bug',reps:'8 c/lado',series:3,descanso:'60 seg',img:'anim',s1:'Dead_Bug/0.jpg',s2:'Dead_Bug/1.jpg'},
+      ]},
+    ],
   },
 };
 const $ = id => document.getElementById(id);
 let saveTimer = null;
 function renderHero(){$('heroEyebrow').innerHTML='Plan Nutricional &nbsp;·&nbsp; '+PATIENT.fecha;$('heroNombre').innerHTML=PATIENT.nombre.replace('\n','<br>');var m=PATIENT.macros;var macSpan=(m.p||m.c||m.g)?'<span><b>'+m.p+'P</b> · <b>'+m.c+'C</b> · <b>'+m.g+'G</b></span>':'';$('heroSub').innerHTML='<span><b>'+m.kcal.toLocaleString('es')+'</b> kcal &nbsp;·&nbsp; '+PATIENT.tipoPlan+'</span>'+macSpan;}
-function renderTabs(){var tabs=[{id:'plan',label:'Plan Nutricional'},{id:'eval',label:'Evaluación'},{id:'specs',label:'Especificaciones'},{id:'train',label:'Entrenamiento'},{id:'evol-antro',label:'Evolución Física'},{id:'evol-train',label:'Evolución Entreno'},{id:'seguimiento',label:'Mi Progreso'}];$('tabNav').innerHTML=tabs.map(function(t,i){var ex=t.id==='evol-antro'?';initAntro()':t.id==='seguimiento'?';initSeguimiento()':t.id==='evol-train'?';initEvolTrain()':'';return '<button class="tab'+(i===0?' active':'')+'" onclick="showTab(\''+t.id+'\',this)'+ex+'"><span class="tnum">0'+(i+1)+'</span> '+t.label+'</button>';}).join('');$('tabPanels').innerHTML=tabs.map(function(t,i){return '<div id="tab-'+t.id+'" class="panel'+(i===0?' active':'')+'"></div>';}).join('');}
+function renderTabs(){var tabs=[{id:'plan',label:'Plan Nutricional'},{id:'eval',label:'Evaluación'},{id:'specs',label:'Especificaciones'},{id:'train',label:'Entrenamiento'},{id:'casa',label:'Entreno en Casa'},{id:'evol-antro',label:'Evolución Física'},{id:'evol-train',label:'Evolución Entreno'},{id:'seguimiento',label:'Mi Progreso'}];$('tabNav').innerHTML=tabs.map(function(t,i){var ex=t.id==='evol-antro'?';initAntro()':t.id==='seguimiento'?';initSeguimiento()':t.id==='evol-train'?';initEvolTrain()':'';return '<button class="tab'+(i===0?' active':'')+'" onclick="showTab(\''+t.id+'\',this)'+ex+'"><span class="tnum">0'+(i+1)+'</span> '+t.label+'</button>';}).join('');$('tabPanels').innerHTML=tabs.map(function(t,i){return '<div id="tab-'+t.id+'" class="panel'+(i===0?' active':'')+'"></div>';}).join('');}
 function showTab(id,btn){document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active');});document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active');});var p=$('tab-'+id);if(p)p.classList.add('active');btn.classList.add('active');}
 var MEAL_KEY=PATIENT.slug+'-meals-v1';
 function getMealState(){try{var r=localStorage.getItem(MEAL_KEY);return r?JSON.parse(r):{};}catch(e){return{};}}
@@ -469,7 +487,8 @@ function buildEvolExSel(){var sess=PATIENT.entrenamiento.sesiones.find(function(
 function setEvolEx(idx,btn){evolActiveEx=idx;document.querySelectorAll('.ex-pill').forEach(function(b){b.classList.remove('active');});btn.classList.add('active');renderEvolChart();}
 function renderEvolChart(){if(!WEEKS.length)WEEKS=buildWeeks();var sess=PATIENT.entrenamiento.sesiones.find(function(s){return s.id===evolActiveSess;});var ex=sess.ejercicios[evolActiveEx];if($('evolChartTitle'))$('evolChartTitle').textContent=ex.nombre;var byWeek={};for(var i=0;i<localStorage.length;i++){var key=localStorage.key(i);if(!key)continue;var pat=new RegExp('^'+PATIENT.slug+'-train-s(\\d+)-'+sess.id+'-(\\d+)-s(\\d+)$');var m=key.match(pat);if(!m)continue;if(parseInt(m[2])!==evolActiveEx)continue;var val=parseFloat(localStorage.getItem(key));if(!val||isNaN(val))continue;if(!byWeek[m[1]])byWeek[m[1]]=[];byWeek[m[1]].push(val);}var lbl=WEEKS.map(function(w){return w.label;});var maxW=WEEKS.map(function(w){return byWeek[w.n]?Math.max.apply(null,byWeek[w.n]):null;});var hasData=maxW.some(function(v){return v!==null;});if(cTrainChart){cTrainChart.destroy();cTrainChart=null;}var ctx=$('cTrain');if(!ctx)return;var nd=document.querySelector('#evolChartCard .no-data');if(nd)nd.remove();if(!hasData){ctx.style.display='none';var d=document.createElement('div');d.className='no-data';d.textContent='Aún no hay pesos registrados. Anótalos en la pestaña Entrenamiento.';$('evolChartCard').appendChild(d);return;}ctx.style.display='';cTrainChart=new Chart(ctx,{type:'line',data:{labels:lbl,datasets:[{label:'Máximo kg',data:maxW,borderColor:CC.gold,pointBackgroundColor:CC.gold,tension:.35,pointRadius:5,borderWidth:2,fill:false,spanGaps:true}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{boxWidth:12,padding:14,color:'#888'}}},scales:{x:{grid:{color:'rgba(255,255,255,0.06)'},ticks:{color:'#666'}},y:{grid:{color:'rgba(255,255,255,0.06)'},ticks:{color:'#666'}}}}});}
 
-function init(){renderHero();renderTabs();renderNutr();renderEval();renderSpecs();renderTrain();}
+function renderCasa(){var sesiones=PATIENT.entrenamiento.casaSesiones||[];var html='<div class="wrap"><section style="padding-top:24px"><div class="sec-h"><span class="ix">01</span><h2>Entrenamiento en Casa</h2><div class="rule"></div></div><p class="train-intro">Sesiones para los días que no vayas al gym. <b>Sin implementos</b> — solo necesitas el peso de tu cuerpo, una silla y una mochila con peso para los remos.</p>';html+=sesiones.map(function(sess,si){var exRows=sess.ejercicios.map(function(ex){return '<div class="exq">'+buildThumb(ex)+'<div class="ebody"><div class="nm">'+ex.nombre+'</div><div class="meta"><span class="mpill"><b>'+ex.series+'×'+ex.reps+'</b></span><span class="mpill rest">Descanso <b>'+ex.descanso+'</b></span></div></div></div>';}).join('');return '<div class="sess open"><div class="sh" onclick="this.closest(\'.sess\').classList.toggle(\'open\')"><span class="snum">0'+(si+1)+'</span><span style="font-size:20px">'+sess.icon+'</span><h3>'+sess.label+'</h3><span class="scount">'+sess.ejercicios.length+' ejercicios · '+sess.nota+'</span><span class="chev">›</span></div><div class="sbody">'+exRows+'</div></div>';}).join('');html+='</section></div>';$('tab-casa').innerHTML=html;}
+function init(){renderHero();renderTabs();renderNutr();renderEval();renderSpecs();renderTrain();renderCasa();}
 init();
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
