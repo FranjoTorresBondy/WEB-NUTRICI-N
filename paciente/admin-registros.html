@@ -10,103 +10,155 @@
   --bg:#080808;--panel:#141414;--panel2:#1c1c1c;--panel3:#222;
   --line:#2a2a2a;--ink:#f0f0f0;--muted:#888;--faint:#444;
   --amber:#C4973A;--gold-pale:rgba(196,151,58,.07);
-  --green:#4caf50;--green-bg:#1a3a1a;
+  --green:#4caf50;--green-bg:rgba(76,175,80,.1);--green-line:#1a3a1a;
+  --blue:#4fc3f7;--red:#ef5350;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{min-height:100vh}
 body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;line-height:1.5}
 
-/* Header */
-.header{background:var(--panel);border-bottom:1px solid var(--line);padding:16px 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;gap:16px;flex-wrap:wrap}
+/* ── Header ── */
+.header{background:var(--panel);border-bottom:1px solid var(--line);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:20;gap:12px;flex-wrap:wrap}
 .header h1{font-family:'Chakra Petch',sans-serif;font-size:18px;color:var(--amber);white-space:nowrap}
-.header .sub{font-size:11px;color:var(--muted);margin-top:1px}
-.tabs{display:flex;gap:6px}
-.tab-btn{background:none;border:1px solid var(--line);color:var(--muted);font-size:12px;font-weight:600;cursor:pointer;padding:6px 14px;border-radius:8px;transition:.15s;font-family:'Inter',sans-serif}
+.header .sub{font-size:11px;color:var(--muted)}
+.tabs{display:flex;gap:5px;flex-wrap:wrap}
+.tab-btn{background:none;border:1px solid var(--line);color:var(--muted);font-size:12px;font-weight:600;cursor:pointer;padding:6px 13px;border-radius:8px;transition:.15s;font-family:'Inter',sans-serif;white-space:nowrap}
 .tab-btn.active{background:var(--amber);border-color:var(--amber);color:#000}
-.tab-btn:not(.active):hover{color:var(--ink);border-color:var(--muted)}
+.tab-btn:not(.active):hover{color:var(--ink)}
 
-/* Layout */
-.wrap{max-width:1100px;margin:0 auto;padding:24px 20px}
+/* ── Layout ── */
+.wrap{max-width:1100px;margin:0 auto;padding:20px 18px}
 .btn{background:var(--amber);color:#000;border:none;border-radius:8px;padding:8px 18px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif}
-.btn-ghost{background:var(--panel2);color:var(--muted);border:1px solid var(--line);border-radius:8px;padding:8px 14px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn-sm{padding:5px 12px;font-size:12px}
+.btn-ghost{background:var(--panel2);color:var(--muted);border:1px solid var(--line);border-radius:8px;padding:7px 14px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif}
 .btn-ghost:hover{color:var(--ink)}
-.loading{text-align:center;padding:48px;color:var(--muted);font-size:14px}
-.empty{text-align:center;padding:60px 20px;color:var(--faint)}
-.empty .ico{font-size:40px;margin-bottom:12px}
-.empty p{font-size:14px}
+.btn-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.loading{text-align:center;padding:40px;color:var(--muted);font-size:14px}
+.empty-msg{text-align:center;padding:48px;color:var(--faint);font-size:14px}
 
-/* Stats */
-.stats{display:flex;gap:12px;margin-bottom:24px;flex-wrap:wrap}
-.stat{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 20px;flex:1;min-width:130px}
-.stat .val{font-family:'Libre Franklin',sans-serif;font-size:26px;font-weight:700;color:var(--amber)}
+/* ── Stats ── */
+.stats{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 18px;flex:1;min-width:120px}
+.stat .val{font-family:'Libre Franklin',sans-serif;font-size:24px;font-weight:700;color:var(--amber)}
 .stat .lbl{font-size:11px;color:var(--muted);margin-top:2px}
 
-/* Filtro búsqueda */
-.search-bar{display:flex;gap:10px;align-items:center;margin-bottom:20px}
-.search-bar input{background:var(--panel2);border:1px solid var(--line);border-radius:8px;color:var(--ink);font-size:13px;padding:9px 14px;font-family:'Inter',sans-serif;outline:none;flex:1;max-width:280px}
-.search-bar input:focus{border-color:var(--amber)}
+/* ── Search / Filters ── */
+.search-bar{display:flex;gap:10px;align-items:center;margin-bottom:18px}
+.search-bar input,.fi{background:var(--panel2);border:1px solid var(--line);border-radius:8px;color:var(--ink);font-size:13px;padding:9px 13px;font-family:'Inter',sans-serif;outline:none}
+.search-bar input{flex:1;max-width:300px}
+.search-bar input:focus,.fi:focus{border-color:var(--amber)}
+.filters{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:18px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 16px}
+.filters label{font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-right:4px}
+.fi{width:auto}
 
-/* Grid de pacientes */
-.pacientes-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
-.pac-card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px 20px;cursor:pointer;transition:.15s}
+/* ── Patient grid ── */
+.pacientes-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.pac-card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px;cursor:pointer;transition:.15s}
 .pac-card:hover{border-color:var(--amber);background:var(--panel2)}
-.pac-card .pac-avatar{width:44px;height:44px;border-radius:50%;background:rgba(196,151,58,.15);border:1px solid rgba(196,151,58,.3);display:flex;align-items:center;justify-content:center;font-family:'Chakra Petch',sans-serif;font-size:16px;font-weight:700;color:var(--amber);margin-bottom:12px}
-.pac-card .pac-name{font-weight:700;font-size:15px;margin-bottom:4px}
-.pac-card .pac-dias{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--amber);margin-bottom:2px}
-.pac-card .pac-last{font-size:11px;color:var(--muted)}
+.pac-avatar{width:42px;height:42px;border-radius:50%;background:rgba(196,151,58,.12);border:1px solid rgba(196,151,58,.25);display:flex;align-items:center;justify-content:center;font-family:'Chakra Petch',sans-serif;font-size:15px;font-weight:700;color:var(--amber);margin-bottom:10px}
+.pac-name{font-weight:700;font-size:14px;margin-bottom:3px}
+.pac-dias{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--amber);margin-bottom:2px}
+.pac-last{font-size:11px;color:var(--muted)}
+.pac-badge{display:inline-block;font-size:10px;font-weight:700;padding:2px 7px;border-radius:5px;margin-top:6px;background:var(--green-bg);color:var(--green)}
+.pac-badge.nuevo{background:rgba(196,151,58,.1);color:var(--amber)}
 
-/* Vista historial de un paciente */
-.back-btn{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--muted);cursor:pointer;margin-bottom:20px;background:none;border:none;font-family:'Inter',sans-serif;padding:0}
+/* ── Patient folder ── */
+.back-btn{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--muted);cursor:pointer;margin-bottom:16px;background:none;border:none;font-family:'Inter',sans-serif;padding:0}
 .back-btn:hover{color:var(--ink)}
-.pac-header{margin-bottom:24px}
-.pac-header h2{font-family:'Chakra Petch',sans-serif;font-size:24px;color:var(--ink);font-weight:700}
-.pac-header .pac-sub{font-size:13px;color:var(--muted);margin-top:4px}
+.pac-folder-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:20px;flex-wrap:wrap}
+.pac-folder-head h2{font-family:'Chakra Petch',sans-serif;font-size:22px;font-weight:700}
+.pac-folder-head .pac-sub{font-size:12px;color:var(--muted);margin-top:4px}
+.sub-tabs{display:flex;gap:4px;margin-bottom:20px;border-bottom:1px solid var(--line);padding-bottom:0}
+.sub-tab{background:none;border:none;color:var(--muted);font-size:13px;font-weight:600;cursor:pointer;padding:9px 16px;border-bottom:2px solid transparent;font-family:'Inter',sans-serif;transition:.15s;white-space:nowrap}
+.sub-tab.active{color:var(--amber);border-bottom-color:var(--amber)}
+.sub-tab:hover:not(.active){color:var(--ink)}
 
-/* Timeline de días */
-.dias-list{display:flex;flex-direction:column;gap:10px}
-.dia-row{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 20px;cursor:pointer;transition:.15s;display:flex;align-items:center;gap:16px}
+/* ── Diario rows ── */
+.dias-list{display:flex;flex-direction:column;gap:8px}
+.dia-row{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 18px;cursor:pointer;transition:.15s;display:flex;align-items:center;gap:14px}
 .dia-row:hover{border-color:var(--amber);background:var(--panel2)}
 .dia-fecha{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--amber);min-width:110px;font-weight:600}
-.dia-resumen{flex:1;font-size:13px;color:var(--muted)}
-.dia-resumen b{color:var(--ink)}
-.dia-chips{display:flex;gap:6px;flex-shrink:0}
-.chip{display:inline-flex;align-items:center;gap:4px;font-size:11px;padding:3px 8px;border-radius:6px;font-weight:600}
-.chip.nota{background:#1a2a3a;color:#4fc3f7}
+.dia-resumen{flex:1;font-size:12px;color:var(--muted)}
+.chip{display:inline-flex;align-items:center;gap:4px;font-size:11px;padding:3px 7px;border-radius:5px;font-weight:600}
+.chip.nota{background:#1a2a3a;color:var(--blue)}
 .chip.ok{background:var(--green-bg);color:var(--green)}
-.ver-btn{font-size:12px;font-weight:600;color:var(--amber);background:none;border:none;cursor:pointer;padding:4px 0;white-space:nowrap;font-family:'Inter',sans-serif}
-.ver-btn:hover{text-decoration:underline}
+.ver-btn{font-size:12px;font-weight:600;color:var(--amber);background:none;border:none;cursor:pointer;font-family:'Inter',sans-serif;white-space:nowrap}
 
-/* Modal detalle día */
-.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:100;display:flex;align-items:flex-start;justify-content:center;padding:32px 16px;overflow-y:auto}
+/* ── Clinical form sections ── */
+.section{background:var(--panel);border:1px solid var(--line);border-radius:12px;margin-bottom:16px;overflow:hidden}
+.section-head{padding:12px 18px;display:flex;align-items:center;gap:9px;cursor:pointer;user-select:none;border-bottom:1px solid var(--line)}
+.section-head h3{font-size:13px;font-weight:700;flex:1}
+.section-head .ico{font-size:15px}
+.section-head .chev{color:var(--muted);font-size:12px;transition:.2s}
+.section.collapsed .chev{transform:rotate(-90deg)}
+.section-body{padding:16px 18px;display:grid;gap:12px}
+.section.collapsed .section-body{display:none}
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.fg.c3{grid-template-columns:1fr 1fr 1fr}
+.fg.c1{grid-template-columns:1fr}
+@media(max-width:600px){.fg,.fg.c3{grid-template-columns:1fr}}
+.f{display:flex;flex-direction:column;gap:4px}
+.f label{font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+.f input,.f textarea,.f select{background:var(--panel2);border:1px solid var(--line);border-radius:8px;color:var(--ink);font-size:13px;padding:8px 11px;font-family:'Inter',sans-serif;outline:none;width:100%;transition:border-color .15s;resize:vertical}
+.f input:focus,.f textarea:focus,.f select:focus{border-color:var(--amber)}
+.f select option{background:var(--panel2)}
+.f textarea{min-height:65px}
+.sw{display:flex;align-items:center;gap:10px}
+.sw input[type=range]{flex:1;accent-color:var(--amber)}
+.sw-val{font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:600;color:var(--amber);min-width:26px;text-align:center}
+.sub-lbl{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+.checks-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:5px}
+.check-item{display:flex;align-items:center;gap:6px;font-size:13px;cursor:pointer;padding:3px 0}
+.check-item input[type=checkbox]{accent-color:var(--amber);width:13px;height:13px;flex-shrink:0}
+.data-table{width:100%;border-collapse:collapse;font-size:12px}
+.data-table th{background:var(--panel2);padding:8px 9px;text-align:left;font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--line);white-space:nowrap}
+.data-table td{padding:7px 9px;border-bottom:1px solid var(--line);vertical-align:middle}
+.data-table tr:last-child td{border-bottom:none}
+.data-table input{background:var(--panel3);border:1px solid var(--line);border-radius:5px;color:var(--ink);font-size:12px;padding:4px 7px;width:100%;min-width:55px;font-family:'Inter',sans-serif;outline:none}
+.data-table input:focus{border-color:var(--amber)}
+.data-table .calc{color:var(--amber);font-family:'IBM Plex Mono',monospace;font-size:12px}
+.table-wrap{overflow-x:auto;border-radius:8px;border:1px solid var(--line)}
+.saved-ok{background:var(--green-bg);border:1px solid rgba(76,175,80,.3);color:var(--green);border-radius:8px;padding:9px 14px;font-size:13px;font-weight:600;display:none}
+.saved-ok.show{display:block}
+
+/* ── Sessions ── */
+.session-row{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:13px 16px;display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.session-row .sdate{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--amber);min-width:100px;font-weight:600}
+.session-row .ssub{flex:1;font-size:12px;color:var(--muted)}
+.sdel{background:none;border:none;color:var(--faint);cursor:pointer;font-size:16px;line-height:1;padding:0 4px}
+.sdel:hover{color:var(--red)}
+
+/* ── Medidas calc stats ── */
+.med-stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(105px,1fr));gap:8px;margin-bottom:12px}
+.med-stat{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:9px 12px;text-align:center}
+.med-stat .val{font-family:'Libre Franklin',sans-serif;font-size:18px;font-weight:700;color:var(--amber)}
+.med-stat .lbl{font-size:10px;color:var(--muted);margin-top:2px}
+
+/* ── Modals ── */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.82);z-index:100;display:flex;align-items:flex-start;justify-content:center;padding:28px 12px;overflow-y:auto}
 .modal-bg.hidden{display:none}
-.modal{background:var(--panel);border:1px solid var(--line);border-radius:16px;width:100%;max-width:660px}
-.modal-head{background:var(--panel2);padding:20px 24px;display:flex;justify-content:space-between;align-items:flex-start;border-bottom:1px solid var(--line)}
-.modal-head h2{font-family:'Libre Franklin',sans-serif;font-size:18px;font-weight:700}
-.modal-head .meta{font-size:12px;color:var(--muted);margin-top:3px}
-.modal-close{background:none;border:none;color:var(--muted);font-size:24px;cursor:pointer;line-height:1;padding:0;flex-shrink:0}
-.modal-body{padding:20px 24px;display:flex;flex-direction:column;gap:14px;max-height:70vh;overflow-y:auto}
-.meal-block{background:var(--panel2);border:1px solid var(--line);border-radius:10px;overflow:hidden}
-.meal-block-head{padding:12px 16px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
-.meal-block-head .nm{font-weight:600;font-size:14px}
-.meal-block-body{padding:12px 16px;display:flex;flex-direction:column;gap:8px}
-.sel-list{list-style:none;display:flex;flex-direction:column;gap:5px}
-.sel-list li{font-size:13px;color:var(--muted);display:flex;align-items:flex-start;gap:7px;line-height:1.4}
-.sel-list li::before{content:"✓";color:var(--amber);font-size:11px;font-weight:700;margin-top:2px;flex-shrink:0}
-.nota-block{background:var(--panel3);border-radius:8px;padding:10px 12px;font-size:13px;color:var(--ink);border-left:3px solid #4fc3f7}
-.nota-label{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#4fc3f7;margin-bottom:4px}
-.foto-thumb{border-radius:8px;max-width:100%;max-height:240px;object-fit:cover;border:1px solid var(--line)}
-.no-data{font-size:13px;color:var(--faint);font-style:italic}
+.modal{background:var(--panel);border:1px solid var(--line);border-radius:14px;width:100%;max-width:680px}
+.modal-head{background:var(--panel2);padding:16px 20px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);border-radius:14px 14px 0 0}
+.modal-head h2{font-family:'Libre Franklin',sans-serif;font-size:16px;font-weight:700}
+.modal-head .meta{font-size:12px;color:var(--muted);margin-top:2px}
+.modal-close{background:none;border:none;color:var(--muted);font-size:22px;cursor:pointer;line-height:1;padding:0}
+.modal-body{padding:18px 20px;display:flex;flex-direction:column;gap:12px;max-height:72vh;overflow-y:auto}
+.modal-foot{padding:12px 20px;border-top:1px solid var(--line);display:flex;gap:8px;justify-content:flex-end}
+.meal-block{background:var(--panel2);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.meal-block-head{padding:10px 14px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;font-weight:600;font-size:13px}
+.meal-block-body{padding:10px 14px;display:flex;flex-direction:column;gap:7px}
+.sel-list{list-style:none}
+.sel-list li{font-size:12px;color:var(--muted);margin-bottom:4px;padding-left:16px;position:relative}
+.sel-list li::before{content:"✓";position:absolute;left:0;color:var(--amber);font-size:10px;font-weight:700;top:2px}
+.nota-block{background:var(--panel3);border-left:3px solid var(--blue);border-radius:5px;padding:8px 10px;font-size:12px}
 
-/* Sección comer fuera */
-.fuera-table-head{display:grid;grid-template-columns:160px 1fr 80px 80px 110px;gap:0;background:var(--panel2);border-bottom:1px solid var(--line);padding:12px 20px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.fuera-table-row{display:grid;grid-template-columns:160px 1fr 80px 80px 110px;gap:0;padding:14px 20px;border-bottom:1px solid var(--line);align-items:center;cursor:pointer;transition:background .15s}
-.fuera-table-row:last-child{border-bottom:none}
-.fuera-table-row:hover{background:var(--gold-pale)}
-.table-wrap{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden}
-.filters{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:20px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 18px}
-.filters label{font-size:12px;font-weight:600;color:var(--muted);margin-right:5px}
-.filters input[type=date]{background:var(--panel2);border:1px solid var(--line);border-radius:8px;color:var(--ink);font-size:13px;padding:7px 10px;font-family:'Inter',sans-serif;outline:none}
-.filters input[type=text]{background:var(--panel2);border:1px solid var(--line);border-radius:8px;color:var(--ink);font-size:13px;padding:7px 10px;font-family:'Inter',sans-serif;outline:none;width:160px}
+/* ── Fuera table ── */
+.fuera-grid{display:grid;grid-template-columns:150px 1fr 75px 75px 90px;gap:0}
+.fuera-head{background:var(--panel2);border-bottom:1px solid var(--line);padding:10px 18px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.fuera-row{padding:12px 18px;border-bottom:1px solid var(--line);align-items:center;cursor:pointer;transition:background .15s}
+.fuera-row:hover{background:var(--gold-pale)}
+.fuera-row:last-child{border-bottom:none}
 </style>
 </head>
 <body>
@@ -116,60 +168,186 @@ body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;line-h
     <h1>📊 Registros</h1>
     <div class="sub">Panel · Franjo Torres</div>
   </div>
-  <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
     <div class="tabs">
-      <button class="tab-btn active" id="tab-btn-pacientes" onclick="setTab('pacientes')">Por Paciente</button>
-      <button class="tab-btn" id="tab-btn-diarios" onclick="setTab('diarios')">Todos los registros</button>
-      <button class="tab-btn" id="tab-btn-fuera" onclick="setTab('fuera')">Comer Fuera</button>
+      <button class="tab-btn active" id="tb-pacientes" onclick="setTab('pacientes')">Por Paciente</button>
+      <button class="tab-btn" id="tb-diarios" onclick="setTab('diarios')">Todos los registros</button>
+      <button class="tab-btn" id="tb-fuera" onclick="setTab('fuera')">Comer Fuera</button>
     </div>
-    <a href="dashboard.html" style="font-size:12px;color:var(--muted);text-decoration:none;white-space:nowrap">← Dashboard</a>
+    <a href="dashboard.html" style="font-size:12px;color:var(--muted);text-decoration:none">← Dashboard</a>
   </div>
 </div>
 
 <div class="wrap">
 
-<!-- ══ CARPETAS POR PACIENTE ══ -->
+<!-- ══ POR PACIENTE ══ -->
 <div id="section-pacientes">
-  <!-- Vista: lista de pacientes -->
+
+  <!-- Lista de pacientes -->
   <div id="view-lista">
     <div class="stats">
       <div class="stat"><div class="val" id="sp-total">—</div><div class="lbl">Registros totales</div></div>
-      <div class="stat"><div class="val" id="sp-pacientes">—</div><div class="lbl">Pacientes activos</div></div>
+      <div class="stat"><div class="val" id="sp-activos">—</div><div class="lbl">Con registros</div></div>
+      <div class="stat"><div class="val" id="sp-total-pac">—</div><div class="lbl">Total pacientes</div></div>
       <div class="stat"><div class="val" id="sp-hoy">—</div><div class="lbl">Registros hoy</div></div>
     </div>
     <div class="search-bar">
-      <input type="text" id="buscar-pac" placeholder="Buscar paciente..." oninput="filtrarPacientes()">
+      <input type="text" id="buscar-pac" placeholder="Buscar por nombre..." oninput="filtrarPacientes()">
     </div>
     <div class="pacientes-grid" id="pacientes-grid"><div class="loading">Cargando pacientes...</div></div>
   </div>
 
-  <!-- Vista: historial de un paciente -->
+  <!-- Carpeta de un paciente -->
   <div id="view-paciente" style="display:none">
     <button class="back-btn" onclick="volverLista()">← Todos los pacientes</button>
-    <div class="pac-header">
-      <h2 id="pac-nombre">—</h2>
-      <div class="pac-sub" id="pac-sub">—</div>
+    <div class="pac-folder-head">
+      <div>
+        <h2 id="pac-nombre">—</h2>
+        <div class="pac-sub" id="pac-sub">—</div>
+      </div>
     </div>
-    <div class="dias-list" id="dias-list"><div class="loading">Cargando...</div></div>
-  </div>
+
+    <div class="sub-tabs">
+      <button class="sub-tab active" id="st-historia"   onclick="setSubTab('historia')">📋 Historia</button>
+      <button class="sub-tab"        id="st-registros"  onclick="setSubTab('registros')">📊 Registros</button>
+      <button class="sub-tab"        id="st-monitoreo"  onclick="setSubTab('monitoreo')">🩺 Monitoreo</button>
+      <button class="sub-tab"        id="st-medidas"    onclick="setSubTab('medidas')">📏 Medidas</button>
+    </div>
+
+    <!-- SUB: HISTORIA -->
+    <div id="stab-historia">
+      <div class="saved-ok" id="hist-ok">✓ Historia guardada</div>
+
+      <div class="section" id="sec-gen"><div class="section-head" onclick="toggleSec('sec-gen')"><span class="ico">👤</span><h3>I. Datos Generales</h3><span class="chev">▾</span></div>
+        <div class="section-body">
+          <div class="fg"><div class="f"><label>Apellidos y nombres</label><input type="text" id="h-nombre"></div><div class="f"><label>Correo electrónico</label><input type="email" id="h-email"></div></div>
+          <div class="fg c3"><div class="f"><label>Fecha de nacimiento</label><input type="date" id="h-nac"></div><div class="f"><label>DNI</label><input type="text" id="h-dni"></div><div class="f"><label>Género</label><select id="h-genero"><option value="">—</option><option>Masculino</option><option>Femenino</option><option>Otro</option></select></div></div>
+          <div class="fg"><div class="f"><label>Teléfono / Celular</label><input type="text" id="h-tel"></div><div class="f"><label>Escolaridad</label><input type="text" id="h-esc"></div></div>
+          <div class="fg c1"><div class="f"><label>Dirección</label><input type="text" id="h-dir"></div></div>
+          <div class="fg c1"><div class="f"><label>Datos del acompañante (si es menor de 18 años)</label><input type="text" id="h-acomp" placeholder="Nombre y relación"></div></div>
+        </div>
+      </div>
+
+      <div class="section" id="sec-estilo"><div class="section-head" onclick="toggleSec('sec-estilo')"><span class="ico">🏃</span><h3>II. Estilo de Vida</h3><span class="chev">▾</span></div>
+        <div class="section-body">
+          <div class="fg"><div class="f"><label>Actividad laboral</label><input type="text" id="h-lab"></div><div class="f"><label>Nivel de estrés (1-10)</label><div class="sw"><input type="range" min="1" max="10" value="5" id="h-estres" oninput="document.getElementById('h-ev').textContent=this.value"><span class="sw-val" id="h-ev">5</span></div></div></div>
+          <div class="fg c1"><div class="f"><label>Descripción actividad laboral</label><textarea id="h-lab-desc"></textarea></div></div>
+          <div class="sub-lbl">Actividades deportivas</div>
+          <div class="table-wrap"><table class="data-table" id="sport-tbl"><thead><tr><th>Día</th><th>Veces/día</th><th style="min-width:140px">Tipo de entrenamiento</th><th>Duración (min)</th><th>Intensidad (1-10)</th></tr></thead><tbody id="sport-body"></tbody></table></div>
+        </div>
+      </div>
+
+      <div class="section" id="sec-hist-cl"><div class="section-head" onclick="toggleSec('sec-hist-cl')"><span class="ico">🏥</span><h3>III. Historia Clínica</h3><span class="chev">▾</span></div>
+        <div class="section-body">
+          <div class="fg c1"><div class="f"><label>Motivo de la consulta</label><textarea id="h-motivo"></textarea></div></div>
+          <div class="fg c1"><div class="f"><label>Diagnóstico médico</label><textarea id="h-diag"></textarea></div></div>
+          <div class="fg c1"><div class="f"><label>Medicamentos / Suplementos actuales</label><textarea id="h-meds"></textarea></div></div>
+          <div class="fg"><div class="f"><label>Cirugías realizadas</label><textarea id="h-ciru"></textarea></div><div class="f"><label>Alergias / Intolerancias</label><textarea id="h-alerg"></textarea></div></div>
+          <div class="fg c1"><div class="f"><label>Antecedentes patológicos familiares</label><textarea id="h-antec"></textarea></div></div>
+        </div>
+      </div>
+
+      <div class="section" id="sec-hab"><div class="section-head" onclick="toggleSec('sec-hab')"><span class="ico">🚬</span><h3>IV. Hábitos Nocivos</h3><span class="chev">▾</span></div>
+        <div class="section-body">
+          <div class="sub-lbl">Cigarro</div>
+          <div class="fg c3"><div class="f"><label>Consume</label><select id="h-cig"><option value="">—</option><option>Sí</option><option>No</option><option>Ex fumador</option></select></div><div class="f"><label>Frecuencia</label><input type="text" id="h-cig-f"></div><div class="f"><label>Cantidad</label><input type="text" id="h-cig-c"></div></div>
+          <div class="sub-lbl">Alcohol</div>
+          <div class="fg c3"><div class="f"><label>Consume</label><select id="h-alc"><option value="">—</option><option>Sí</option><option>No</option><option>Ocasional</option></select></div><div class="f"><label>Frecuencia</label><input type="text" id="h-alc-f"></div><div class="f"><label>Cantidad</label><input type="text" id="h-alc-c"></div></div>
+        </div>
+      </div>
+
+      <div class="section" id="sec-bio"><div class="section-head" onclick="toggleSec('sec-bio')"><span class="ico">🧪</span><h3>V. Bioquímica</h3><span class="chev">▾</span></div>
+        <div class="section-body">
+          <div class="table-wrap"><table class="data-table"><thead><tr><th>Fecha</th><th>Glucosa</th><th>Urea</th><th>Creatinina</th><th>Col. Total</th><th>HDL</th><th>LDL</th><th>VLDL</th><th>Triglicéridos</th><th>Hemoglobina</th><th>Otro</th><th></th></tr></thead><tbody id="bio-body"></tbody></table></div>
+          <div><button class="btn btn-sm" onclick="addBioRow()">+ Agregar análisis</button></div>
+        </div>
+      </div>
+
+      <div class="section" id="sec-pato"><div class="section-head" onclick="toggleSec('sec-pato')"><span class="ico">🩺</span><h3>VI. Patologías</h3><span class="chev">▾</span></div>
+        <div class="section-body">
+          <div id="pato-groups"></div>
+          <div class="sub-lbl" style="margin-top:8px">Desórdenes alimenticios</div>
+          <div class="checks-grid">
+            <label class="check-item"><input type="checkbox" data-pato="anorexia"> Anorexia</label>
+            <label class="check-item"><input type="checkbox" data-pato="bulimia"> Bulimia</label>
+            <label class="check-item"><input type="checkbox" data-pato="vigorexia"> Vigorexia</label>
+          </div>
+          <div class="fg c1"><div class="f"><label>Observación</label><textarea id="h-des-obs"></textarea></div></div>
+          <div class="sub-lbl" style="margin-top:6px">Intolerancias</div>
+          <div class="checks-grid">
+            <label class="check-item"><input type="checkbox" data-pato="lactosa"> Lactosa</label>
+            <label class="check-item"><input type="checkbox" data-pato="gluten"> Gluten (celiaquía)</label>
+          </div>
+          <div class="fg c1"><div class="f"><label>Otras intolerancias / alergias</label><textarea id="h-intol"></textarea></div></div>
+        </div>
+      </div>
+
+      <div class="section" id="sec-diet"><div class="section-head" onclick="toggleSec('sec-diet')"><span class="ico">🥗</span><h3>VII. Dietética</h3><span class="chev">▾</span></div>
+        <div class="section-body">
+          <div class="sub-lbl">Frecuencia de consumo</div>
+          <div class="table-wrap"><table class="data-table"><thead><tr><th>Alimento</th><th>Diario</th><th>4-6/sem</th><th>2-3/sem</th><th>1/sem</th><th>2-3/mes</th><th>1/mes</th></tr></thead><tbody id="freq-body"></tbody></table></div>
+          <div class="sub-lbl" style="margin-top:12px">Consumo habitual</div>
+          <div class="table-wrap"><table class="data-table"><thead><tr><th>Comida</th><th>Hora</th><th style="min-width:180px">Descripción</th><th>Kcal</th></tr></thead><tbody id="hab-body"></tbody></table></div>
+          <div class="fg" style="margin-top:10px">
+            <div class="f"><label>Alimentos preferidos</label><textarea id="h-gust"></textarea></div>
+            <div class="f"><label>Alimentos que le desagradan</label><textarea id="h-disg"></textarea></div>
+          </div>
+          <div class="fg c1"><div class="f"><label>Notas (hidratación, sueño, otros)</label><textarea id="h-notas"></textarea></div></div>
+        </div>
+      </div>
+
+      <div class="section" id="sec-obj"><div class="section-head" onclick="toggleSec('sec-obj')"><span class="ico">🎯</span><h3>VIII. Objetivo del Tratamiento</h3><span class="chev">▾</span></div>
+        <div class="section-body">
+          <div class="fg c1"><div class="f"><label>Objetivo nutricional</label><textarea id="h-objetivo" style="min-height:90px"></textarea></div></div>
+        </div>
+      </div>
+
+      <div class="btn-row" style="margin-top:6px">
+        <button class="btn" id="btn-save-hist" onclick="saveHistoria()">💾 Guardar historia</button>
+        <span style="font-size:11px;color:var(--muted)" id="hist-ts"></span>
+      </div>
+    </div><!-- /stab-historia -->
+
+    <!-- SUB: REGISTROS -->
+    <div id="stab-registros" style="display:none">
+      <div class="dias-list" id="dias-list"><div class="loading">Cargando...</div></div>
+    </div>
+
+    <!-- SUB: MONITOREO -->
+    <div id="stab-monitoreo" style="display:none">
+      <div class="btn-row" style="margin-bottom:14px">
+        <button class="btn" onclick="abrirMonitoreo(null)">+ Nueva sesión</button>
+      </div>
+      <div id="mon-list"><div class="loading">Cargando...</div></div>
+    </div>
+
+    <!-- SUB: MEDIDAS -->
+    <div id="stab-medidas" style="display:none">
+      <div class="btn-row" style="margin-bottom:14px">
+        <button class="btn" onclick="abrirMedidas(null)">+ Nueva medición ISAK</button>
+      </div>
+      <div id="med-list"><div class="loading">Cargando...</div></div>
+    </div>
+
+  </div><!-- /view-paciente -->
 </div>
 
 <!-- ══ TODOS LOS REGISTROS ══ -->
 <div id="section-diarios" style="display:none">
   <div class="filters">
-    <div><label>Desde</label><input type="date" id="f-desde"></div>
-    <div><label>Hasta</label><input type="date" id="f-hasta"></div>
-    <div><label>Paciente</label><input type="text" id="f-paciente" placeholder="Buscar..."></div>
+    <div><label>Desde</label><input class="fi" type="date" id="f-desde"></div>
+    <div><label>Hasta</label><input class="fi" type="date" id="f-hasta"></div>
+    <div><label>Paciente</label><input class="fi" type="text" id="f-pac" placeholder="Buscar..."></div>
     <button class="btn" onclick="cargarDiarios()">Buscar</button>
     <button class="btn-ghost" onclick="resetDiarios()">Ver todo</button>
   </div>
   <div class="stats">
     <div class="stat"><div class="val" id="sd-total">—</div><div class="lbl">Registros</div></div>
-    <div class="stat"><div class="val" id="sd-pacientes">—</div><div class="lbl">Pacientes únicos</div></div>
+    <div class="stat"><div class="val" id="sd-pac">—</div><div class="lbl">Pacientes únicos</div></div>
     <div class="stat"><div class="val" id="sd-hoy">—</div><div class="lbl">Hoy</div></div>
   </div>
   <div class="table-wrap">
-    <div class="table-head" style="display:grid;grid-template-columns:130px 1fr 1fr 80px 110px;gap:0;background:var(--panel2);border-bottom:1px solid var(--line);padding:12px 20px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)">
+    <div style="display:grid;grid-template-columns:120px 1fr 1fr 70px 100px;background:var(--panel2);border-bottom:1px solid var(--line);padding:10px 18px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)">
       <div>Fecha</div><div>Paciente</div><div>Resumen</div><div>Notas</div><div></div>
     </div>
     <div id="diarios-body"><div class="loading">Cargando...</div></div>
@@ -179,21 +357,21 @@ body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;line-h
 <!-- ══ COMER FUERA ══ -->
 <div id="section-fuera" style="display:none">
   <div class="filters">
-    <div><label>Desde</label><input type="date" id="ff-desde"></div>
-    <div><label>Hasta</label><input type="date" id="ff-hasta"></div>
-    <div><label>Paciente</label><input type="text" id="ff-paciente" placeholder="Buscar..."></div>
+    <div><label>Desde</label><input class="fi" type="date" id="ff-desde"></div>
+    <div><label>Hasta</label><input class="fi" type="date" id="ff-hasta"></div>
+    <div><label>Paciente</label><input class="fi" type="text" id="ff-pac" placeholder="Buscar..."></div>
     <button class="btn" onclick="cargarFuera()">Buscar</button>
     <button class="btn-ghost" onclick="resetFuera()">Ver todo</button>
   </div>
   <div class="stats">
-    <div class="stat"><div class="val" id="sf-total">—</div><div class="lbl">Registros totales</div></div>
-    <div class="stat"><div class="val" id="sf-pacientes">—</div><div class="lbl">Pacientes únicos</div></div>
+    <div class="stat"><div class="val" id="sf-total">—</div><div class="lbl">Registros</div></div>
+    <div class="stat"><div class="val" id="sf-pac">—</div><div class="lbl">Pacientes únicos</div></div>
     <div class="stat"><div class="val" id="sf-hoy">—</div><div class="lbl">Hoy</div></div>
     <div class="stat"><div class="val" id="sf-kcal">—</div><div class="lbl">Kcal promedio</div></div>
   </div>
   <div class="table-wrap">
-    <div class="fuera-table-head">
-      <div>Fecha y hora</div><div>Paciente / Lo que comió</div><div>Kcal</div><div>Proteína</div><div></div>
+    <div class="fuera-grid fuera-head">
+      <div>Fecha y hora</div><div>Paciente / Resumen</div><div>Kcal</div><div>Proteína</div><div></div>
     </div>
     <div id="fuera-body"><div class="loading">Cargando...</div></div>
   </div>
@@ -201,24 +379,99 @@ body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;line-h
 
 </div><!-- /wrap -->
 
-<!-- Modal detalle día -->
-<div class="modal-bg hidden" id="modal-bg" onclick="if(event.target===this)cerrarModal()">
+<!-- ── Modal: detalle día registros ── -->
+<div class="modal-bg hidden" id="modal-dia" onclick="if(event.target===this)this.classList.add('hidden')">
   <div class="modal">
-    <div class="modal-head">
-      <div><h2 id="modal-title">—</h2><div class="meta" id="modal-meta">—</div></div>
-      <button class="modal-close" onclick="cerrarModal()">×</button>
-    </div>
-    <div class="modal-body" id="modal-body"></div>
+    <div class="modal-head"><div><h2 id="mdia-title">—</h2><div class="meta" id="mdia-sub">—</div></div><button class="modal-close" onclick="document.getElementById('modal-dia').classList.add('hidden')">×</button></div>
+    <div class="modal-body" id="mdia-body"></div>
   </div>
 </div>
 
-<!-- Modal comer fuera -->
-<div class="modal-bg hidden" id="modal-fuera-bg" onclick="if(event.target===this)this.classList.add('hidden')">
-  <div class="modal">
-    <div class="modal-head">
-      <div><h2 id="mf-title">—</h2><div class="meta" id="mf-meta">—</div></div>
-      <button class="modal-close" onclick="document.getElementById('modal-fuera-bg').classList.add('hidden')">×</button>
+<!-- ── Modal: monitoreo ── -->
+<div class="modal-bg hidden" id="modal-mon" onclick="if(event.target===this)this.classList.add('hidden')">
+  <div class="modal" style="max-width:600px">
+    <div class="modal-head"><h2>🩺 Sesión de Monitoreo</h2><button class="modal-close" onclick="document.getElementById('modal-mon').classList.add('hidden')">×</button></div>
+    <div class="modal-body">
+      <div class="f"><label>Fecha</label><input type="date" id="mon-fecha"></div>
+      <div class="f"><label>1. Del 1 al 10, ¿cuánto has cumplido el plan?</label><div class="sw"><input type="range" min="1" max="10" value="7" id="mon-q1" oninput="document.getElementById('mon-q1v').textContent=this.value"><span class="sw-val" id="mon-q1v">7</span></div></div>
+      <div class="f"><label>2. ¿Has tenido dificultades para seguir el plan?</label><textarea id="mon-q2"></textarea></div>
+      <div class="f"><label>3. ¿Cómo te sientes con el plan?</label><textarea id="mon-q3"></textarea></div>
+      <div class="f"><label>4. ¿Te da hambre en algún momento del día?</label><textarea id="mon-q4"></textarea></div>
+      <div class="f"><label>5. ¿Te llenas rápido o dejas comida en el plato?</label><textarea id="mon-q5"></textarea></div>
+      <div class="f"><label>6. ¿Cómo va tu digestibilidad?</label><textarea id="mon-q6"></textarea></div>
+      <div class="f"><label>7. Del 1 al 10, ¿has cumplido con el ejercicio?</label><div class="sw"><input type="range" min="1" max="10" value="7" id="mon-q7" oninput="document.getElementById('mon-q7v').textContent=this.value"><span class="sw-val" id="mon-q7v">7</span></div></div>
+      <div class="f"><label>8. ¿Cómo va tu descanso?</label><textarea id="mon-q8"></textarea></div>
+      <div class="f"><label>9. ¿Estás siguiendo la hidratación?</label><textarea id="mon-q9"></textarea></div>
+      <div class="f"><label>10. ¿Algo importante que quieras mencionar?</label><textarea id="mon-q10"></textarea></div>
     </div>
+    <div class="modal-foot">
+      <button class="btn-ghost" onclick="document.getElementById('modal-mon').classList.add('hidden')">Cancelar</button>
+      <button class="btn" onclick="saveMonitoreo()">💾 Guardar sesión</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── Modal: medidas ISAK ── -->
+<div class="modal-bg hidden" id="modal-med" onclick="if(event.target===this)this.classList.add('hidden')">
+  <div class="modal" style="max-width:740px">
+    <div class="modal-head"><h2>📏 Medidas Antropométricas (ISAK)</h2><button class="modal-close" onclick="document.getElementById('modal-med').classList.add('hidden')">×</button></div>
+    <div class="modal-body">
+      <div class="fg"><div class="f"><label>Fecha</label><input type="date" id="med-fecha"></div><div class="f"><label>Sexo</label><select id="med-sexo"><option value="m">Masculino</option><option value="f">Femenino</option></select></div></div>
+      <div class="sub-lbl">Medidas básicas</div>
+      <div class="fg c3">
+        <div class="f"><label>Masa / Peso (kg)</label><input type="number" step="0.1" id="med-masa" oninput="calcMed()" placeholder="70.5"></div>
+        <div class="f"><label>Talla (cm)</label><input type="number" step="0.1" id="med-talla" oninput="calcMed()" placeholder="170.0"></div>
+        <div class="f"><label>Talla sentado (cm)</label><input type="number" step="0.1" id="med-ts" placeholder="88.0"></div>
+      </div>
+      <div class="sub-lbl">Pliegues cutáneos (mm)</div>
+      <div class="fg c3">
+        <div class="f"><label>Tríceps</label><input type="number" step="0.1" id="med-ptric" oninput="calcMed()"></div>
+        <div class="f"><label>Subescapular</label><input type="number" step="0.1" id="med-psub" oninput="calcMed()"></div>
+        <div class="f"><label>Bíceps</label><input type="number" step="0.1" id="med-pbic" oninput="calcMed()"></div>
+        <div class="f"><label>Cresta ilíaca</label><input type="number" step="0.1" id="med-pil" oninput="calcMed()"></div>
+        <div class="f"><label>Supraespinal</label><input type="number" step="0.1" id="med-psup" oninput="calcMed()"></div>
+        <div class="f"><label>Abdominal</label><input type="number" step="0.1" id="med-pabd" oninput="calcMed()"></div>
+        <div class="f"><label>Muslo anterior</label><input type="number" step="0.1" id="med-pmus" oninput="calcMed()"></div>
+        <div class="f"><label>Pantorrilla medial</label><input type="number" step="0.1" id="med-ppant" oninput="calcMed()"></div>
+      </div>
+      <div class="sub-lbl">Perímetros (cm)</div>
+      <div class="fg c3">
+        <div class="f"><label>Brazo relajado</label><input type="number" step="0.1" id="med-gbr" oninput="calcMed()"></div>
+        <div class="f"><label>Brazo contraído</label><input type="number" step="0.1" id="med-gbc"></div>
+        <div class="f"><label>Cintura</label><input type="number" step="0.1" id="med-gcin" oninput="calcMed()"></div>
+        <div class="f"><label>Cadera</label><input type="number" step="0.1" id="med-gcad" oninput="calcMed()"></div>
+        <div class="f"><label>Muslo</label><input type="number" step="0.1" id="med-gmus"></div>
+        <div class="f"><label>Pantorrilla</label><input type="number" step="0.1" id="med-gpant"></div>
+        <div class="f"><label>Tórax</label><input type="number" step="0.1" id="med-gtor"></div>
+        <div class="f"><label>Cuello</label><input type="number" step="0.1" id="med-gcue"></div>
+      </div>
+      <div class="sub-lbl">Diámetros óseos (cm)</div>
+      <div class="fg c3">
+        <div class="f"><label>Húmero</label><input type="number" step="0.01" id="med-dhum" oninput="calcMed()"></div>
+        <div class="f"><label>Fémur</label><input type="number" step="0.01" id="med-dfem" oninput="calcMed()"></div>
+        <div class="f"><label>Biestiloideo</label><input type="number" step="0.01" id="med-dest"></div>
+      </div>
+      <div class="sub-lbl">Resultados calculados</div>
+      <div class="med-stats">
+        <div class="med-stat"><div class="val" id="c-imc">—</div><div class="lbl">IMC kg/m²</div></div>
+        <div class="med-stat"><div class="val" id="c-whr">—</div><div class="lbl">Cin/Cad</div></div>
+        <div class="med-stat"><div class="val" id="c-s6">—</div><div class="lbl">Σ6 mm</div></div>
+        <div class="med-stat"><div class="val" id="c-s8">—</div><div class="lbl">Σ8 mm</div></div>
+        <div class="med-stat"><div class="val" id="c-pgra">—</div><div class="lbl">% Grasa</div></div>
+        <div class="med-stat"><div class="val" id="c-pmus">—</div><div class="lbl">% Músculo</div></div>
+      </div>
+      <div class="f"><label>Notas</label><textarea id="med-notas"></textarea></div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn-ghost" onclick="document.getElementById('modal-med').classList.add('hidden')">Cancelar</button>
+      <button class="btn" onclick="saveMedidas()">💾 Guardar medición</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── Modal: comer fuera ── -->
+<div class="modal-bg hidden" id="modal-fuera" onclick="if(event.target===this)this.classList.add('hidden')">
+  <div class="modal"><div class="modal-head"><div><h2 id="mf-title">—</h2><div class="meta" id="mf-meta"></div></div><button class="modal-close" onclick="document.getElementById('modal-fuera').classList.add('hidden')">×</button></div>
     <div class="modal-body" id="mf-body"></div>
   </div>
 </div>
@@ -229,328 +482,537 @@ const SB_URL  = 'https://hmnjtbruliluctslkndq.supabase.co';
 const SB_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhtbmp0YnJ1bGlsdWN0c2xrbmRxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE0NjAxNjksImV4cCI6MjA5NzAzNjE2OX0.IYmCcvjdlbH1L0QoSoGIpwudRehSQINR1hNoWG02Cc4';
 let _sb;
 
-const COMIDA_LABELS = { des:'☀️ Desayuno', alm:'🥗 Almuerzo', snk:'🥤 Snack', snk2:'🥤 Snack 2', cen:'🌙 Cena', pre:'⚡ Pre-entreno', snkmm:'🍎 Snack', post:'💪 Post-entreno' };
+/* Lista completa de pacientes (login.html PACIENTES) */
+const TODOS_PACIENTES = {
+  'jorge':'jorge-orocoy','adrian.tamayo':'adrian-tamayo','alejandro':'alejandro-roman',
+  'alessia':'alessia-zucchetti','andrea':'andrea-hinojosa','andres':'andres',
+  'araceli':'araceli-suarez','arturo':'arturo-fernandez','bruno':'bruno-bastos',
+  'cadmo':'cadmo-garibaldi','chiara':'chiara-bitrich','cristian':'cristian-contreras',
+  'diego.cornejo':'diego-cornejo','diego.lobaton':'diego-lobaton','diego.lopez':'diego-lopez',
+  'enzo':'enzo-risco','estephano':'estephano-vigil','evelyn':'evelyn-sierra','ezio':'ezio-perez',
+  'fabrizio.valderrama':'fabrizio-valderrama','fatima':'fatima-palomino','fernando':'fernando-penagos',
+  'franco':'franco-gervasi','giancarlo.bambaren':'giancarlo-bambaren','giancarlo.cassia':'giancarlo-cassia',
+  'giorgio':'giorgio-badani','gonzalo':'gonzalo-gamboa','hugo':'hugo','james':'james-hole',
+  'ivan':'ivan-joaquin','carlo':'carlo-villamar','javier':'javier-vargas','joaquin':'joaquin-angulo',
+  'johan':'johan-naveda','kristel':'kristel-centurion','marcelo.gago':'marcelo-gago',
+  'maria.augusta':'maria-augusta','mateo':'mateo-cotrina','matias':'matias-carrion',
+  'mauricio':'mauricio-vergani','miguel':'miguel-yzaga','rodrigo':'rodrigo-rubio',
+  'salma':'salma-achtar','salvatore':'salvatore-cabanillas','santiago':'santiago-bedoya',
+  'sebastian.merea':'sebastian-merea','sebastian.roman':'sebastian-roman','stephan':'stephan-braedt',
+  'tomas':'tomas-ruiz','valeria.salazar':'valeria-salazar','vasco':'vasco-valera',
+  'victor':'victor-bazan','vittorio':'vittorio-calderon','ximena':'ximena','ioanis':'ioanis-patsias',
+  'valeria.aguilera':'valeria-aguilera','adrian.castro':'adrian-castro','alejandra.loayza':'alejandra-loayza',
+  'alejandra.meza':'alejandra-meza','alejandro.cerna':'alejandro-cerna','alex':'alex-rios',
+  'anthony':'anthony-lee','aurelio':'aurelio','debora':'debora-withers','fabrizio.vasallo':'fabrizio-vasallo',
+  'gabriel':'gabriel-martinez','george':'george-alarcon','gisela':'gisela-schrader','ian':'ian-escuza',
+  'javier.lazo':'javier-lazo','joaquin.llona':'joaquin-llona','juan':'juan-de-dios','kurt':'kurt-schrader',
+  'marcelo.prado':'marcelo-prado','maria.jose':'maria-jose-figueroa','naghib':'naghib',
+  'nicolas':'nicolas-holz','oscar':'oscar-ravello','paula':'paula-camino','renzo':'renzo-acosta',
+  'ricardo':'ricardo-acosta','ruben':'ruben-rios','salvador':'salvador-aguirre','thiago':'thiago-gago',
+  'valeria.rojas':'valeria-rojas','viviana':'viviana-caceres','raquel':'raquel-lazarte'
+};
+// All slugs: values from TODOS_PACIENTES
+const ALL_SLUGS = [...new Set(Object.values(TODOS_PACIENTES))];
 
-function today() { return new Date().toISOString().slice(0,10); }
-function formatFecha(d) {
-  const meses = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
-  const [y,m,day] = d.split('-');
-  return `${day} ${meses[+m-1]} ${y}`;
-}
-function formatNombre(slug) {
-  return slug.split('-').map(w => w.charAt(0).toUpperCase()+w.slice(1)).join(' ');
-}
-function initials(slug) {
-  const parts = slug.split('-');
-  return (parts[0][0] + (parts[1]?.[0] || '')).toUpperCase();
-}
+const COMIDA_LABELS = { des:'☀️ Desayuno', alm:'🥗 Almuerzo', snk:'🥤 Snack', snk2:'🥤 Snack 2', cen:'🌙 Cena', pre:'⚡ Pre-entreno', post:'💪 Post-entreno', snkmm:'🍎 Snack' };
+const DIAS = ['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'];
+const MESES = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
 
-/* ── Tabs ──────────────────────────────────────────────────── */
-let tabLoaded = { pacientes: false, diarios: false, fuera: false };
-function setTab(t) {
-  ['pacientes','diarios','fuera'].forEach(id => {
-    document.getElementById('section-'+id).style.display = t===id ? 'block' : 'none';
-    document.getElementById('tab-btn-'+id).classList.toggle('active', t===id);
+function today(){ return new Date().toISOString().slice(0,10); }
+function fFecha(d){ const[y,m,day]=d.split('-'); return `${day} ${MESES[+m-1]} ${y}`; }
+function fNombre(s){ return s.split('-').map(w=>w[0].toUpperCase()+w.slice(1)).join(' '); }
+function initials(s){ const p=s.split('-'); return (p[0][0]+(p[1]?.[0]||'')).toUpperCase(); }
+
+/* ── Init ── */
+window.addEventListener('load',()=>{
+  const init=()=>{
+    if(!window.supabase){setTimeout(init,100);return;}
+    _sb=window.supabase.createClient(SB_URL,SB_ANON);
+    buildHistoriaUI();
+    cargarPacientes();
+    tabLoaded.pacientes=true;
+  };
+  init();
+});
+
+/* ── Main tabs ── */
+let tabLoaded={pacientes:false,diarios:false,fuera:false};
+function setTab(t){
+  ['pacientes','diarios','fuera'].forEach(id=>{
+    document.getElementById('section-'+id).style.display=t===id?'block':'none';
+    document.getElementById('tb-'+id).classList.toggle('active',t===id);
   });
-  if (!tabLoaded[t]) {
-    tabLoaded[t] = true;
-    if (t==='pacientes') cargarPacientes();
-    if (t==='diarios')   { initDiarios(); cargarDiarios(); }
-    if (t==='fuera')     { initFuera();   cargarFuera();   }
+  if(!tabLoaded[t]){tabLoaded[t]=true;
+    if(t==='diarios'){initDiarios();cargarDiarios();}
+    if(t==='fuera'){initFuera();cargarFuera();}
   }
 }
 
-/* ══ CARPETAS POR PACIENTE ══════════════════════════════════ */
-let todosRegistros = [], pacientesData = {};
+/* ── Sub tabs (dentro de carpeta paciente) ── */
+let subTabLoaded={}, currentSlug='', monData=[], medData=[], regData=[], editMonId=null, editMedId=null;
+function setSubTab(t){
+  ['historia','registros','monitoreo','medidas'].forEach(id=>{
+    document.getElementById('stab-'+id).style.display=t===id?'block':'none';
+    document.getElementById('st-'+id).classList.toggle('active',t===id);
+  });
+  if(!subTabLoaded[t]){subTabLoaded[t]=true;
+    if(t==='registros') loadRegistrosPac();
+    if(t==='monitoreo') loadMonitoreo();
+    if(t==='medidas')   loadMedidas();
+  }
+}
 
-async function cargarPacientes() {
-  document.getElementById('pacientes-grid').innerHTML = '<div class="loading">Cargando...</div>';
-  const { data, error } = await _sb.from('registros_diarios').select('paciente,fecha,datos').order('fecha', { ascending: false });
-  if (error) { document.getElementById('pacientes-grid').innerHTML = `<div class="empty"><p>Error: ${error.message}</p></div>`; return; }
+/* ══ PACIENTES LIST ═════════════════════════════════════════ */
+let pacientesData={};
 
-  todosRegistros = data || [];
-
-  // Agrupar por paciente
-  pacientesData = {};
-  const hoy = today();
-  let totalHoy = 0;
-  todosRegistros.forEach(r => {
-    if (!pacientesData[r.paciente]) pacientesData[r.paciente] = [];
+async function cargarPacientes(){
+  document.getElementById('pacientes-grid').innerHTML='<div class="loading">Cargando...</div>';
+  const {data}=await _sb.from('registros_diarios').select('paciente,fecha,datos').order('fecha',{ascending:false});
+  const rows=data||[];
+  pacientesData={};
+  const hoy=today(); let totalHoy=0;
+  rows.forEach(r=>{
+    if(!pacientesData[r.paciente]) pacientesData[r.paciente]=[];
     pacientesData[r.paciente].push(r);
-    if (r.fecha === hoy) totalHoy++;
+    if(r.fecha===hoy) totalHoy++;
   });
-
-  const numPac = Object.keys(pacientesData).length;
-  document.getElementById('sp-total').textContent = todosRegistros.length;
-  document.getElementById('sp-pacientes').textContent = numPac;
-  document.getElementById('sp-hoy').textContent = totalHoy;
-
-  renderPacientesGrid(Object.keys(pacientesData));
+  document.getElementById('sp-total').textContent=rows.length;
+  document.getElementById('sp-activos').textContent=Object.keys(pacientesData).length;
+  document.getElementById('sp-total-pac').textContent=ALL_SLUGS.length;
+  document.getElementById('sp-hoy').textContent=totalHoy;
+  renderPacGrid(ALL_SLUGS);
 }
 
-function renderPacientesGrid(slugs) {
-  if (!slugs.length) {
-    document.getElementById('pacientes-grid').innerHTML = '<div class="empty"><div class="ico">📭</div><p>No hay registros aún</p></div>';
-    return;
-  }
-  // Ordenar por última fecha
-  slugs.sort((a,b) => {
-    const la = pacientesData[a][0]?.fecha || '';
-    const lb = pacientesData[b][0]?.fecha || '';
+function renderPacGrid(slugs){
+  if(!slugs.length){document.getElementById('pacientes-grid').innerHTML='<div class="empty-msg">Sin coincidencias</div>';return;}
+  // Sort: with registros first (by last date), then without (alphabetically)
+  const withReg=slugs.filter(s=>pacientesData[s]).sort((a,b)=>{
+    const la=pacientesData[a][0]?.fecha||''; const lb=pacientesData[b][0]?.fecha||'';
     return lb.localeCompare(la);
   });
-
-  document.getElementById('pacientes-grid').innerHTML = slugs.map(slug => {
-    const registros = pacientesData[slug];
-    const dias = registros.length;
-    const ultima = registros[0]?.fecha ? formatFecha(registros[0].fecha) : '—';
+  const noReg=slugs.filter(s=>!pacientesData[s]).sort((a,b)=>fNombre(a).localeCompare(fNombre(b)));
+  const sorted=[...withReg,...noReg];
+  document.getElementById('pacientes-grid').innerHTML=sorted.map(slug=>{
+    const regs=pacientesData[slug]||[];
+    const dias=regs.length;
+    const ultima=regs[0]?.fecha?fFecha(regs[0].fecha):'Sin registros';
     return `<div class="pac-card" onclick="verPaciente('${slug}')">
       <div class="pac-avatar">${initials(slug)}</div>
-      <div class="pac-name">${formatNombre(slug)}</div>
-      <div class="pac-dias">${dias} día${dias!==1?'s':''} registrado${dias!==1?'s':''}</div>
-      <div class="pac-last">Último: ${ultima}</div>
-      <a href="admin-paciente.html?p=${slug}" onclick="event.stopPropagation()" style="display:block;margin-top:10px;font-size:11px;font-weight:700;color:var(--amber);text-decoration:none;letter-spacing:.04em">→ Abrir carpeta completa</a>
+      <div class="pac-name">${fNombre(slug)}</div>
+      <div class="pac-dias">${dias>0?dias+' día'+(dias!==1?'s':'')+' registrado'+(dias!==1?'s':''):'Sin registros de comida'}</div>
+      <div class="pac-last">${dias>0?'Último: '+ultima:''}</div>
+      ${dias>0?'<span class="pac-badge">'+dias+' registros</span>':'<span class="pac-badge nuevo">Nuevo</span>'}
     </div>`;
   }).join('');
 }
 
-function filtrarPacientes() {
-  const q = document.getElementById('buscar-pac').value.toLowerCase();
-  const slugs = Object.keys(pacientesData).filter(s => !q || formatNombre(s).toLowerCase().includes(q) || s.includes(q));
-  renderPacientesGrid(slugs);
+function filtrarPacientes(){
+  const q=document.getElementById('buscar-pac').value.toLowerCase().trim();
+  const slugs=!q?ALL_SLUGS:ALL_SLUGS.filter(s=>fNombre(s).toLowerCase().includes(q)||s.includes(q));
+  renderPacGrid(slugs);
 }
 
-function verPaciente(slug) {
-  document.getElementById('view-lista').style.display = 'none';
-  document.getElementById('view-paciente').style.display = 'block';
+function verPaciente(slug){
+  currentSlug=slug;
+  subTabLoaded={};
+  document.getElementById('view-lista').style.display='none';
+  document.getElementById('view-paciente').style.display='block';
+  document.getElementById('pac-nombre').textContent=fNombre(slug);
+  const dias=(pacientesData[slug]||[]).length;
+  document.getElementById('pac-sub').textContent=slug+(dias?` · ${dias} días con registro`:'');
+  // Always show historia first and load it
+  setSubTab('historia');
+  loadHistoria();
+  // Reset other sub-tabs
+  monData=[]; medData=[]; regData=[];
+}
 
-  const registros = pacientesData[slug] || [];
-  document.getElementById('pac-nombre').textContent = formatNombre(slug);
-  document.getElementById('pac-sub').textContent = `${registros.length} días registrados`;
+function volverLista(){
+  document.getElementById('view-paciente').style.display='none';
+  document.getElementById('view-lista').style.display='block';
+  currentSlug='';
+}
 
-  if (!registros.length) {
-    document.getElementById('dias-list').innerHTML = '<div class="empty"><p>Sin registros</p></div>';
-    return;
+/* ══ HISTORIA ═══════════════════════════════════════════════ */
+const PATO_GROUPS=[
+  {label:'Sistema cardiovascular',items:['Angina de pecho','Antec. de infarto','Arterosclerosis','Hipertensión','Hipotensión','Hipercolesterolemia','Hipertrigliceridemia','Taquicardia','Bradicardia','Cardiomegalia','Várices']},
+  {label:'Sistema digestivo',items:['Acidez estomacal','Colon irritable','Colitis','Diarrea','Distensión abdominal','Estreñimiento','Gases']},
+  {label:'Sistema urinario',items:['Insuficiencia renal','Dolor de riñón','Disuria','Oliguria','Poliuria','Pielonefritis','Cistitis']},
+  {label:'Glándulas y metabolismo',items:['Hipertiroidismo','Hipotiroidismo','Diabetes','Gota','Osteoporosis']},
+  {label:'Piel / Cabello',items:['Cabello deslustrado','Cabello escaso','Despigmentación difusa','Seborrea nasolabial']},
+  {label:'Otros',items:['Anemia','Alcoholismo','Cáncer','Cirrosis']},
+];
+const FREQ_ITEMS=['Frutas','Verduras','Cereales','Tubérculos','Leguminosas','Pescado y mariscos','Pollo / Pavita','Cerdo / Res','Huevo','Embutidos','Lácteos','Palta / Aguacate','Café','Refrescos azucarados','Bollería / Pasteles','Comida rápida','Helado / Dulces'];
+const COMIDAS_HAB=['Comida 1','Comida 2','Comida 3','Comida 4','Comida 5','Comida 6','Colación'];
+
+function buildHistoriaUI(){
+  // Sport table
+  document.getElementById('sport-body').innerHTML=DIAS.map(d=>`<tr>
+    <td style="font-weight:600;font-size:12px;white-space:nowrap">${d}</td>
+    <td><input type="number" min="0" max="5" data-s="${d}-v" style="width:50px"></td>
+    <td><input type="text" data-s="${d}-t" placeholder="Tipo"></td>
+    <td><input type="number" min="0" data-s="${d}-d" style="width:70px"></td>
+    <td><input type="number" min="1" max="10" data-s="${d}-i" style="width:60px"></td>
+  </tr>`).join('');
+  // Bio: start with 1 row
+  addBioRow();
+  // Patologías
+  document.getElementById('pato-groups').innerHTML=PATO_GROUPS.map(g=>`
+    <div style="margin-bottom:10px"><div class="sub-lbl">${g.label}</div>
+    <div class="checks-grid">${g.items.map(it=>`<label class="check-item"><input type="checkbox" data-pato="${it.toLowerCase().replace(/[^a-z0-9]/g,'_')}"> ${it}</label>`).join('')}</div></div>`).join('');
+  // Frecuencia
+  document.getElementById('freq-body').innerHTML=FREQ_ITEMS.map(it=>`<tr>
+    <td style="font-weight:600;white-space:nowrap;font-size:12px">${it}</td>
+    ${['diario','4a6','2a3s','1s','2a3m','1m'].map(k=>`<td><input type="checkbox" data-freq="${it}-${k}" style="width:auto"></td>`).join('')}
+  </tr>`).join('');
+  // Consumo habitual
+  document.getElementById('hab-body').innerHTML=COMIDAS_HAB.map(c=>`<tr>
+    <td style="font-weight:600;font-size:12px;white-space:nowrap">${c}</td>
+    <td><input type="time" data-hab="${c}-hora" style="width:80px"></td>
+    <td><input type="text" data-hab="${c}-desc" style="min-width:170px"></td>
+    <td><input type="number" data-hab="${c}-kcal" style="width:65px"></td>
+  </tr>`).join('');
+}
+
+function addBioRow(){
+  const tbody=document.getElementById('bio-body');
+  const i=tbody.children.length;
+  const fields=['fecha','glucosa','urea','creatinina','col_total','hdl','ldl','vldl','trigliceridos','hemoglobina','otro'];
+  const tr=document.createElement('tr');
+  tr.innerHTML=fields.map((f,j)=>`<td><input type="${j===0?'date':'text'}" data-bio="${i}-${f}" style="${j===0?'width:110px':'width:72px'}"></td>`).join('')+
+    `<td><button onclick="this.closest('tr').remove()" style="background:none;border:none;color:var(--faint);cursor:pointer;font-size:16px">×</button></td>`;
+  tbody.appendChild(tr);
+}
+
+function toggleSec(id){ document.getElementById(id).classList.toggle('collapsed'); }
+
+async function loadHistoria(){
+  const r=await fetch(SB_URL+'/rest/v1/paciente_historia?paciente=eq.'+currentSlug+'&select=datos,updated_at',{headers:{apikey:SB_ANON,Authorization:'Bearer '+SB_ANON}});
+  const rows=await r.json();
+  if(!rows.length) return;
+  fillHistoria(rows[0].datos||{});
+  if(rows[0].updated_at) document.getElementById('hist-ts').textContent='Guardado: '+new Date(rows[0].updated_at).toLocaleDateString('es-PE');
+}
+
+function collectHistoria(){
+  const t=id=>document.getElementById(id)?.value||'';
+  const d={
+    nombre:t('h-nombre'),email:t('h-email'),nac:t('h-nac'),dni:t('h-dni'),genero:t('h-genero'),
+    tel:t('h-tel'),esc:t('h-esc'),dir:t('h-dir'),acomp:t('h-acomp'),
+    laboral:t('h-lab'),estres:document.getElementById('h-estres')?.value,laboral_desc:t('h-lab-desc'),
+    deporte:{},
+    motivo:t('h-motivo'),diag:t('h-diag'),meds:t('h-meds'),ciru:t('h-ciru'),alerg:t('h-alerg'),antec:t('h-antec'),
+    cigarro:{consume:t('h-cig'),freq:t('h-cig-f'),cant:t('h-cig-c')},
+    alcohol:{consume:t('h-alc'),freq:t('h-alc-f'),cant:t('h-alc-c')},
+    bioquimica:[],patologias:{},des_obs:t('h-des-obs'),intol:t('h-intol'),
+    frecuencia:{},habitual:{},gust:t('h-gust'),disg:t('h-disg'),notas:t('h-notas'),objetivo:t('h-objetivo'),
+  };
+  DIAS.forEach(dia=>{
+    const v=(k)=>document.querySelector(`[data-s="${dia}-${k}"]`)?.value;
+    if(v('v')||v('t')||v('d')||v('i')) d.deporte[dia]={v:v('v'),t:v('t'),d:v('d'),i:v('i')};
+  });
+  document.querySelectorAll('#bio-body tr').forEach(tr=>{
+    const row={}; tr.querySelectorAll('input').forEach(inp=>{if(inp.dataset.bio){const k=inp.dataset.bio.split('-').slice(1).join('-');row[k]=inp.value;}});
+    if(Object.values(row).some(v=>v)) d.bioquimica.push(row);
+  });
+  document.querySelectorAll('[data-pato]').forEach(el=>{if(el.checked)d.patologias[el.dataset.pato]=true;});
+  document.querySelectorAll('[data-freq]').forEach(el=>{if(el.checked)d.frecuencia[el.dataset.freq]=true;});
+  document.querySelectorAll('[data-hab]').forEach(el=>{if(el.value)d.habitual[el.dataset.hab]=el.value;});
+  return d;
+}
+
+function fillHistoria(d){
+  const set=(id,v)=>{const el=document.getElementById(id);if(el&&v!=null)el.value=v;};
+  set('h-nombre',d.nombre);set('h-email',d.email);set('h-nac',d.nac);set('h-dni',d.dni);set('h-genero',d.genero);
+  set('h-tel',d.tel);set('h-esc',d.esc);set('h-dir',d.dir);set('h-acomp',d.acomp);
+  set('h-lab',d.laboral);set('h-lab-desc',d.laboral_desc);
+  if(d.estres){const el=document.getElementById('h-estres');if(el){el.value=d.estres;document.getElementById('h-ev').textContent=d.estres;}}
+  if(d.deporte) DIAS.forEach(dia=>{
+    const dep=d.deporte[dia]; if(!dep) return;
+    ['v','t','d','i'].forEach(k=>{const el=document.querySelector(`[data-s="${dia}-${k}"]`);if(el)el.value=dep[k]||'';});
+  });
+  set('h-motivo',d.motivo);set('h-diag',d.diag);set('h-meds',d.meds);set('h-ciru',d.ciru);set('h-alerg',d.alerg);set('h-antec',d.antec);
+  if(d.cigarro){set('h-cig',d.cigarro.consume);set('h-cig-f',d.cigarro.freq);set('h-cig-c',d.cigarro.cant);}
+  if(d.alcohol){set('h-alc',d.alcohol.consume);set('h-alc-f',d.alcohol.freq);set('h-alc-c',d.alcohol.cant);}
+  if(d.bioquimica?.length){
+    document.getElementById('bio-body').innerHTML='';
+    d.bioquimica.forEach((_,i)=>addBioRow());
+    d.bioquimica.forEach((row,i)=>Object.entries(row).forEach(([k,v])=>{const el=document.querySelector(`[data-bio="${i}-${k}"]`);if(el)el.value=v;}));
   }
+  if(d.patologias) Object.keys(d.patologias).forEach(k=>{const el=document.querySelector(`[data-pato="${k}"]`);if(el)el.checked=true;});
+  set('h-des-obs',d.des_obs);set('h-intol',d.intol);
+  if(d.frecuencia) Object.keys(d.frecuencia).forEach(k=>{const el=document.querySelector(`[data-freq="${k}"]`);if(el)el.checked=true;});
+  if(d.habitual) Object.entries(d.habitual).forEach(([k,v])=>{const el=document.querySelector(`[data-hab="${k}"]`);if(el)el.value=v;});
+  set('h-gust',d.gust);set('h-disg',d.disg);set('h-notas',d.notas);set('h-objetivo',d.objetivo);
+}
 
-  document.getElementById('dias-list').innerHTML = registros.map((r, i) => {
-    const d = r.datos || {};
-    const resumen = d.resumen || {};
-    const notas   = d.notas   || {};
-    const comidas = Object.keys(resumen);
-    const totalOpciones = comidas.reduce((s,k) => s + (resumen[k]?.length||0), 0);
-    const tieneNotas = Object.keys(notas).length > 0;
-    const comidaStr = comidas.map(k => COMIDA_LABELS[k]?.replace(/^\S+\s/,'') || k).join(', ');
+async function saveHistoria(){
+  const btn=document.getElementById('btn-save-hist'); btn.disabled=true; btn.textContent='Guardando...';
+  const r=await fetch(SB_URL+'/rest/v1/paciente_historia',{method:'POST',
+    headers:{'Content-Type':'application/json',apikey:SB_ANON,Authorization:'Bearer '+SB_ANON,Prefer:'resolution=merge-duplicates,return=minimal'},
+    body:JSON.stringify({paciente:currentSlug,datos:collectHistoria(),updated_at:new Date().toISOString()})});
+  btn.disabled=false; btn.textContent='💾 Guardar historia';
+  if(r.ok){const ok=document.getElementById('hist-ok');ok.classList.add('show');setTimeout(()=>ok.classList.remove('show'),3000);
+    document.getElementById('hist-ts').textContent='Guardado: '+new Date().toLocaleTimeString('es-PE');}
+  else alert('Error al guardar');
+}
 
-    return `<div class="dia-row" onclick="verDia(${i}, '${slug}')">
-      <div class="dia-fecha">${formatFecha(r.fecha)}</div>
-      <div class="dia-resumen">
-        ${totalOpciones > 0 ? `<b>${totalOpciones} opciones</b> · ${comidaStr}` : '<span style="color:var(--faint)">Sin selecciones guardadas</span>'}
-      </div>
-      <div class="dia-chips">
-        ${tieneNotas ? '<span class="chip nota">📝 nota</span>' : ''}
-        ${totalOpciones > 0 ? '<span class="chip ok">✓</span>' : ''}
-      </div>
+/* ══ REGISTROS DIARIOS ══════════════════════════════════════ */
+async function loadRegistrosPac(){
+  document.getElementById('dias-list').innerHTML='<div class="loading">Cargando...</div>';
+  const r=await fetch(SB_URL+'/rest/v1/registros_diarios?paciente=eq.'+currentSlug+'&order=fecha.desc&select=fecha,datos',{headers:{apikey:SB_ANON,Authorization:'Bearer '+SB_ANON}});
+  regData=await r.json();
+  if(!regData.length){document.getElementById('dias-list').innerHTML='<div class="empty-msg">Sin registros de comida</div>';return;}
+  document.getElementById('dias-list').innerHTML=regData.map((r,i)=>{
+    const d=r.datos||{};const res=d.resumen||{};const total=Object.values(res).reduce((s,a)=>s+(a?.length||0),0);
+    const tieneNota=d.notas&&Object.keys(d.notas).length>0;
+    return `<div class="dia-row" onclick="verDia(${i})">
+      <div class="dia-fecha">${fFecha(r.fecha)}</div>
+      <div class="dia-resumen">${total>0?total+' opciones registradas':'Sin selecciones'}</div>
+      ${tieneNota?'<span class="chip nota">📝 nota</span>':''}
       <button class="ver-btn">Ver →</button>
     </div>`;
   }).join('');
 }
 
-function volverLista() {
-  document.getElementById('view-paciente').style.display = 'none';
-  document.getElementById('view-lista').style.display = 'block';
+function verDia(i){
+  const r=regData[i];const d=r.datos||{};const res=d.resumen||{};const notas=d.notas||{};const fotos=d.fotos||{};
+  const mids=new Set([...Object.keys(res),...Object.keys(notas),...Object.keys(fotos)]);
+  document.getElementById('mdia-title').textContent=fNombre(currentSlug);
+  document.getElementById('mdia-sub').textContent=fFecha(r.fecha);
+  let html='';
+  if(!mids.size){html='<div style="color:var(--faint);font-size:13px;font-style:italic">Sin datos registrados</div>';}
+  else mids.forEach(mid=>{
+    const label=COMIDA_LABELS[mid]||mid;const textos=res[mid]||[];const nota=notas[mid];const foto=fotos[mid];
+    html+=`<div class="meal-block"><div class="meal-block-head">${label}${textos.length?` <span class="chip ok">✓ ${textos.length}</span>`:''}</div><div class="meal-block-body">`;
+    if(textos.length)html+=`<ul class="sel-list">${textos.map(t=>`<li>${t}</li>`).join('')}</ul>`;
+    if(nota)html+=`<div class="nota-block">${nota}</div>`;
+    if(foto)html+=`<img src="${foto}" style="border-radius:6px;max-width:100%;max-height:180px;object-fit:cover;margin-top:4px">`;
+    if(!textos.length&&!nota&&!foto)html+='<div style="color:var(--faint);font-size:12px;font-style:italic">Sin registro</div>';
+    html+='</div></div>';
+  });
+  document.getElementById('mdia-body').innerHTML=html;
+  document.getElementById('modal-dia').classList.remove('hidden');
 }
 
-function verDia(idx, slug) {
-  const r = pacientesData[slug][idx];
-  abrirModalDia(r);
+/* ══ MONITOREO ══════════════════════════════════════════════ */
+async function loadMonitoreo(){
+  document.getElementById('mon-list').innerHTML='<div class="loading">Cargando...</div>';
+  const r=await fetch(SB_URL+'/rest/v1/paciente_monitoreo?paciente=eq.'+currentSlug+'&order=fecha.desc',{headers:{apikey:SB_ANON,Authorization:'Bearer '+SB_ANON}});
+  monData=await r.json();
+  renderMonitoreo();
 }
-
-/* ── Modal detalle día ────────────────────────────────────── */
-function abrirModalDia(r) {
-  const d = r.datos || {};
-  const resumen = d.resumen || {};
-  const notas   = d.notas   || {};
-  const fotos   = d.fotos   || {};
-  const allMids = new Set([...Object.keys(resumen), ...Object.keys(notas), ...Object.keys(fotos)]);
-
-  document.getElementById('modal-title').textContent = formatNombre(r.paciente);
-  document.getElementById('modal-meta').textContent  = formatFecha(r.fecha);
-
-  let html = '';
-  if (!allMids.size) {
-    html = '<div class="no-data">Sin datos registrados este día</div>';
-  } else {
-    allMids.forEach(mid => {
-      const label  = COMIDA_LABELS[mid] || mid;
-      const textos = resumen[mid] || [];
-      const nota   = notas[mid];
-      const foto   = fotos[mid];
-
-      html += `<div class="meal-block">
-        <div class="meal-block-head">
-          <span class="nm">${label}</span>
-          ${textos.length ? `<span class="chip ok">✓ ${textos.length} elegidas</span>` : ''}
-        </div>
-        <div class="meal-block-body">`;
-
-      if (textos.length) {
-        html += `<ul class="sel-list">${textos.map(t=>`<li>${t}</li>`).join('')}</ul>`;
-      }
-      if (nota) {
-        html += `<div><div class="nota-label">Nota</div><div class="nota-block">${nota}</div></div>`;
-      }
-      if (foto) {
-        html += `<div><div class="nota-label">Foto</div><img class="foto-thumb" src="${foto}" alt="foto"></div>`;
-      }
-      if (!textos.length && !nota && !foto) {
-        html += '<div class="no-data">Sin registro</div>';
-      }
-      html += `</div></div>`;
-    });
-  }
-
-  document.getElementById('modal-body').innerHTML = html;
-  document.getElementById('modal-bg').classList.remove('hidden');
-}
-
-function cerrarModal() { document.getElementById('modal-bg').classList.add('hidden'); }
-
-/* ══ TODOS LOS REGISTROS ════════════════════════════════════ */
-let diariosData = [];
-function initDiarios() {
-  document.getElementById('f-desde').value = new Date(Date.now()-7*86400000).toISOString().slice(0,10);
-  document.getElementById('f-hasta').value = today();
-}
-function resetDiarios() {
-  document.getElementById('f-desde').value = '';
-  document.getElementById('f-hasta').value = '';
-  document.getElementById('f-paciente').value = '';
-  cargarDiarios();
-}
-async function cargarDiarios() {
-  document.getElementById('diarios-body').innerHTML = '<div class="loading">Cargando...</div>';
-  const desde = document.getElementById('f-desde').value;
-  const hasta  = document.getElementById('f-hasta').value;
-  const pac    = document.getElementById('f-paciente').value.toLowerCase().trim();
-  let q = _sb.from('registros_diarios').select('*').order('fecha',{ascending:false});
-  if (desde) q = q.gte('fecha', desde);
-  if (hasta)  q = q.lte('fecha', hasta);
-  if (pac)    q = q.ilike('paciente', `%${pac}%`);
-  const { data, error } = await q;
-  if (error) { document.getElementById('diarios-body').innerHTML = `<div class="empty"><p>${error.message}</p></div>`; return; }
-  diariosData = data || [];
-  const hoy = today();
-  document.getElementById('sd-total').textContent     = diariosData.length;
-  document.getElementById('sd-pacientes').textContent = new Set(diariosData.map(r=>r.paciente)).size;
-  document.getElementById('sd-hoy').textContent       = diariosData.filter(r=>r.fecha===hoy).length;
-  if (!diariosData.length) {
-    document.getElementById('diarios-body').innerHTML = '<div class="empty"><div class="ico">📭</div><p>No hay registros</p></div>';
-    return;
-  }
-  document.getElementById('diarios-body').innerHTML = diariosData.map((r,i) => {
-    const d = r.datos || {};
-    const resumen = d.resumen || {};
-    const total = Object.values(resumen).reduce((s,a)=>s+(a?.length||0),0);
-    const tieneNotas = d.notas && Object.keys(d.notas).length > 0;
-    return `<div style="display:grid;grid-template-columns:130px 1fr 1fr 80px 110px;gap:0;padding:14px 20px;border-bottom:1px solid var(--line);align-items:center;cursor:pointer;transition:background .15s" onmouseover="this.style.background='var(--gold-pale)'" onmouseout="this.style.background=''" onclick="abrirModalDia(diariosData[${i}])">
-      <div style="font-family:'IBM Plex Mono';font-size:12px;color:var(--muted)">${formatFecha(r.fecha)}</div>
-      <div style="font-weight:600;font-size:14px">${formatNombre(r.paciente)}</div>
-      <div style="font-size:12px;color:var(--muted)">${total > 0 ? total+' opciones elegidas' : 'Sin selecciones'}</div>
-      <div>${tieneNotas ? '<span class="chip nota">📝</span>' : '—'}</div>
-      <div><button class="ver-btn">Ver detalle →</button></div>
+function renderMonitoreo(){
+  if(!monData.length){document.getElementById('mon-list').innerHTML='<div class="empty-msg">Sin sesiones de monitoreo</div>';return;}
+  document.getElementById('mon-list').innerHTML=monData.map((m,i)=>{
+    const d=m.datos||{};
+    return `<div class="session-row">
+      <div class="sdate">${fFecha(m.fecha)}</div>
+      <div class="ssub">Plan: <b style="color:var(--amber)">${d.q1||'—'}/10</b> · Ejercicio: <b style="color:var(--amber)">${d.q7||'—'}/10</b></div>
+      <button class="btn btn-sm" onclick="abrirMonitoreo(${i})">Ver / Editar</button>
+      <button class="sdel" onclick="deleteMonitoreo('${m.id}',${i})">×</button>
     </div>`;
   }).join('');
 }
+function abrirMonitoreo(idx){
+  editMonId=idx!=null?monData[idx]?.id:null;
+  const d=idx!=null?(monData[idx]?.datos||{}):{};
+  const f=idx!=null?monData[idx]?.fecha:today();
+  document.getElementById('mon-fecha').value=f||'';
+  ['q1','q7'].forEach(k=>{const el=document.getElementById('mon-'+k);if(el){el.value=d[k]||7;document.getElementById('mon-'+k+'v').textContent=d[k]||7;}});
+  ['q2','q3','q4','q5','q6','q8','q9','q10'].forEach(k=>{const el=document.getElementById('mon-'+k);if(el)el.value=d[k]||'';});
+  document.getElementById('modal-mon').classList.remove('hidden');
+}
+async function saveMonitoreo(){
+  const datos={q1:document.getElementById('mon-q1').value,q7:document.getElementById('mon-q7').value};
+  ['q2','q3','q4','q5','q6','q8','q9','q10'].forEach(k=>datos[k]=document.getElementById('mon-'+k).value);
+  const body={paciente:currentSlug,fecha:document.getElementById('mon-fecha').value,datos};
+  let url=SB_URL+'/rest/v1/paciente_monitoreo',method='POST';
+  if(editMonId){url+='?id=eq.'+editMonId;method='PATCH';}
+  const r=await fetch(url,{method,headers:{'Content-Type':'application/json',apikey:SB_ANON,Authorization:'Bearer '+SB_ANON,Prefer:'return=minimal'},body:JSON.stringify(body)});
+  if(r.ok){document.getElementById('modal-mon').classList.add('hidden');subTabLoaded.monitoreo=false;loadMonitoreo();}
+  else alert('Error al guardar');
+}
+async function deleteMonitoreo(id,i){
+  if(!confirm('¿Eliminar esta sesión?'))return;
+  await fetch(SB_URL+'/rest/v1/paciente_monitoreo?id=eq.'+id,{method:'DELETE',headers:{apikey:SB_ANON,Authorization:'Bearer '+SB_ANON}});
+  monData.splice(i,1);renderMonitoreo();
+}
 
-/* ══ COMER FUERA ════════════════════════════════════════════ */
-let fueraData = [];
-function initFuera() {
-  document.getElementById('ff-desde').value = new Date(Date.now()-30*86400000).toISOString().slice(0,10);
-  document.getElementById('ff-hasta').value = today();
+/* ══ MEDIDAS ISAK ═══════════════════════════════════════════ */
+async function loadMedidas(){
+  document.getElementById('med-list').innerHTML='<div class="loading">Cargando...</div>';
+  const r=await fetch(SB_URL+'/rest/v1/paciente_medidas?paciente=eq.'+currentSlug+'&order=fecha.desc',{headers:{apikey:SB_ANON,Authorization:'Bearer '+SB_ANON}});
+  medData=await r.json();
+  renderMedidas();
 }
-function resetFuera() {
-  document.getElementById('ff-desde').value = '';
-  document.getElementById('ff-hasta').value = '';
-  document.getElementById('ff-paciente').value = '';
-  cargarFuera();
+function renderMedidas(){
+  if(!medData.length){document.getElementById('med-list').innerHTML='<div class="empty-msg">Sin mediciones registradas</div>';return;}
+  document.getElementById('med-list').innerHTML=`<div class="table-wrap"><table class="data-table">
+    <thead><tr><th>Fecha</th><th>Peso kg</th><th>Talla cm</th><th>IMC</th><th>% Grasa</th><th>Σ6 Pliegues</th><th>Cintura cm</th><th></th></tr></thead>
+    <tbody>${medData.map((m,i)=>{const d=m.datos||{};return`<tr>
+      <td style="font-family:'IBM Plex Mono';font-size:12px;color:var(--amber)">${fFecha(m.fecha)}</td>
+      <td class="calc">${d.masa||'—'}</td><td class="calc">${d.talla||'—'}</td>
+      <td class="calc">${d.calc_imc||'—'}</td><td class="calc">${d.calc_pgra?d.calc_pgra+'%':'—'}</td>
+      <td class="calc">${d.calc_s6||'—'}</td><td class="calc">${d.gcin||'—'}</td>
+      <td style="white-space:nowrap"><button class="btn btn-sm" onclick="abrirMedidas(${i})">Ver/Editar</button>
+      <button onclick="deleteMedida('${m.id}',${i})" class="sdel">×</button></td>
+    </tr>`;}).join('')}</tbody>
+  </table></div>`;
 }
-async function cargarFuera() {
-  document.getElementById('fuera-body').innerHTML = '<div class="loading">Cargando...</div>';
-  const desde = document.getElementById('ff-desde').value;
-  const hasta  = document.getElementById('ff-hasta').value;
-  const pac    = document.getElementById('ff-paciente').value.toLowerCase().trim();
-  let q = _sb.from('registros_fuera').select('*').order('fecha',{ascending:false});
-  if (desde) q = q.gte('fecha', desde+'T00:00:00');
-  if (hasta)  q = q.lte('fecha', hasta+'T23:59:59');
-  if (pac)    q = q.ilike('paciente', `%${pac}%`);
-  const { data, error } = await q;
-  if (error) { document.getElementById('fuera-body').innerHTML = `<div class="empty"><p>${error.message}</p></div>`; return; }
-  fueraData = data || [];
-  const hoy = today();
-  document.getElementById('sf-total').textContent     = fueraData.length;
-  document.getElementById('sf-pacientes').textContent = new Set(fueraData.map(r=>r.paciente)).size;
-  document.getElementById('sf-hoy').textContent       = fueraData.filter(r=>r.fecha?.startsWith(hoy)).length;
-  const avg = fueraData.length ? Math.round(fueraData.reduce((s,r)=>s+(r.kcal_total||0),0)/fueraData.length) : 0;
-  document.getElementById('sf-kcal').textContent = avg || '—';
-  if (!fueraData.length) {
-    document.getElementById('fuera-body').innerHTML = '<div class="empty"><div class="ico">🍽️</div><p>No hay registros de comer fuera</p></div>';
-    return;
-  }
-  document.getElementById('fuera-body').innerHTML = fueraData.map((r,i) => {
-    const items = r.items || [];
-    const resumen = items.slice(0,2).map(it=>it.dish).join(', ')+(items.length>2?` +${items.length-2} más`:'');
-    const fecha = new Date(r.fecha);
-    const fechaStr = fecha.toLocaleDateString('es-PE',{day:'2-digit',month:'short'})+' '+fecha.toLocaleTimeString('es-PE',{hour:'2-digit',minute:'2-digit'});
-    return `<div class="fuera-table-row" onclick="verFuera(${i})">
-      <div style="font-family:'IBM Plex Mono';font-size:12px;color:var(--muted)">${fechaStr}</div>
-      <div><div style="font-weight:600;font-size:14px">${formatNombre(r.paciente)}</div><div style="font-size:12px;color:var(--muted);margin-top:2px">${resumen||'—'}</div></div>
-      <div style="font-family:'IBM Plex Mono';font-size:13px;color:var(--amber)">${r.kcal_total||'—'}</div>
-      <div style="font-family:'IBM Plex Mono';font-size:13px;color:#a5d6a7">${r.proteina_total?r.proteina_total+'g':'—'}</div>
+function abrirMedidas(idx){
+  editMedId=idx!=null?medData[idx]?.id:null;
+  const d=idx!=null?(medData[idx]?.datos||{}):{};
+  const f=idx!=null?medData[idx]?.fecha:today();
+  document.getElementById('med-fecha').value=f||'';
+  document.getElementById('med-sexo').value=d.sexo||'m';
+  const s=(id,v)=>{const el=document.getElementById(id);if(el&&v!=null)el.value=v;};
+  s('med-masa',d.masa);s('med-talla',d.talla);s('med-ts',d.ts);
+  s('med-ptric',d.ptric);s('med-psub',d.psub);s('med-pbic',d.pbic);s('med-pil',d.pil);
+  s('med-psup',d.psup);s('med-pabd',d.pabd);s('med-pmus',d.pmus);s('med-ppant',d.ppant);
+  s('med-gbr',d.gbr);s('med-gbc',d.gbc);s('med-gcin',d.gcin);s('med-gcad',d.gcad);
+  s('med-gmus',d.gmus);s('med-gpant',d.gpant);s('med-gtor',d.gtor);s('med-gcue',d.gcue);
+  s('med-dhum',d.dhum);s('med-dfem',d.dfem);s('med-dest',d.dest);s('med-notas',d.notas);
+  calcMed();
+  document.getElementById('modal-med').classList.remove('hidden');
+}
+function calcMed(){
+  const v=id=>parseFloat(document.getElementById(id)?.value)||0;
+  const masa=v('med-masa');const talla=v('med-talla')/100;
+  const imc=talla>0?(masa/talla/talla).toFixed(1):'—';
+  const cin=v('med-gcin');const cad=v('med-gcad');const whr=cad>0?(cin/cad).toFixed(2):'—';
+  const tri=v('med-ptric'),sub=v('med-psub'),supra=v('med-psup'),abd=v('med-pabd'),mus=v('med-pmus'),pant=v('med-ppant');
+  const bic=v('med-pbic'),il=v('med-pil');
+  const s6=tri+sub+supra+abd+mus+pant;const s8=s6+bic+il;
+  const sexo=document.getElementById('med-sexo')?.value;
+  let pgra='—';
+  if(tri>0&&sub>0){const s=tri+sub;pgra=(sexo==='f'?(1.33*s-0.013*s*s-2.5):(1.21*s-0.008*s*s-1.7)).toFixed(1);}
+  const S=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v;};
+  S('c-imc',imc);S('c-whr',whr);S('c-s6',s6>0?s6.toFixed(1):'—');S('c-s8',s8>0?s8.toFixed(1):'—');
+  S('c-pgra',pgra!=='—'?pgra+'%':pgra);
+  const brazoR=v('med-gbr');let pmus='—';
+  if(masa>0&&talla>0&&brazoR>0) pmus=((masa*0.40/masa)*100).toFixed(1)+'%';
+  S('c-pmus',pmus);
+}
+async function saveMedidas(){
+  const n=id=>{const el=document.getElementById(id);const v=parseFloat(el?.value);return isNaN(v)?undefined:v;};
+  const t=id=>document.getElementById(id)?.value||undefined;
+  const datos={sexo:t('med-sexo'),masa:n('med-masa'),talla:n('med-talla'),ts:n('med-ts'),
+    ptric:n('med-ptric'),psub:n('med-psub'),pbic:n('med-pbic'),pil:n('med-pil'),
+    psup:n('med-psup'),pabd:n('med-pabd'),pmus:n('med-pmus'),ppant:n('med-ppant'),
+    gbr:n('med-gbr'),gbc:n('med-gbc'),gcin:n('med-gcin'),gcad:n('med-gcad'),
+    gmus:n('med-gmus'),gpant:n('med-gpant'),gtor:n('med-gtor'),gcue:n('med-gcue'),
+    dhum:n('med-dhum'),dfem:n('med-dfem'),dest:n('med-dest'),notas:t('med-notas'),
+    calc_imc:document.getElementById('c-imc')?.textContent,
+    calc_s6:document.getElementById('c-s6')?.textContent,
+    calc_pgra:document.getElementById('c-pgra')?.textContent?.replace('%',''),
+  };
+  const body={paciente:currentSlug,fecha:document.getElementById('med-fecha').value,datos};
+  let url=SB_URL+'/rest/v1/paciente_medidas',method='POST';
+  if(editMedId){url+='?id=eq.'+editMedId;method='PATCH';}
+  const r=await fetch(url,{method,headers:{'Content-Type':'application/json',apikey:SB_ANON,Authorization:'Bearer '+SB_ANON,Prefer:'return=minimal'},body:JSON.stringify(body)});
+  if(r.ok){document.getElementById('modal-med').classList.add('hidden');subTabLoaded.medidas=false;loadMedidas();}
+  else alert('Error al guardar');
+}
+async function deleteMedida(id,i){
+  if(!confirm('¿Eliminar esta medición?'))return;
+  await fetch(SB_URL+'/rest/v1/paciente_medidas?id=eq.'+id,{method:'DELETE',headers:{apikey:SB_ANON,Authorization:'Bearer '+SB_ANON}});
+  medData.splice(i,1);renderMedidas();
+}
+
+/* ══ TODOS LOS REGISTROS ════════════════════════════════════ */
+let diariosData=[];
+function initDiarios(){document.getElementById('f-desde').value=new Date(Date.now()-7*86400000).toISOString().slice(0,10);document.getElementById('f-hasta').value=today();}
+function resetDiarios(){['f-desde','f-hasta','f-pac'].forEach(id=>document.getElementById(id).value='');cargarDiarios();}
+async function cargarDiarios(){
+  document.getElementById('diarios-body').innerHTML='<div class="loading">Cargando...</div>';
+  const desde=document.getElementById('f-desde').value,hasta=document.getElementById('f-hasta').value,pac=document.getElementById('f-pac').value.toLowerCase().trim();
+  let q=_sb.from('registros_diarios').select('*').order('fecha',{ascending:false});
+  if(desde)q=q.gte('fecha',desde);if(hasta)q=q.lte('fecha',hasta);if(pac)q=q.ilike('paciente','%'+pac+'%');
+  const{data}=await q;diariosData=data||[];
+  const hoy=today();
+  document.getElementById('sd-total').textContent=diariosData.length;
+  document.getElementById('sd-pac').textContent=new Set(diariosData.map(r=>r.paciente)).size;
+  document.getElementById('sd-hoy').textContent=diariosData.filter(r=>r.fecha===hoy).length;
+  if(!diariosData.length){document.getElementById('diarios-body').innerHTML='<div class="empty-msg">No hay registros</div>';return;}
+  document.getElementById('diarios-body').innerHTML=diariosData.map((r,i)=>{
+    const d=r.datos||{};const res=d.resumen||{};const total=Object.values(res).reduce((s,a)=>s+(a?.length||0),0);
+    const tieneNota=d.notas&&Object.keys(d.notas).length>0;
+    return `<div style="display:grid;grid-template-columns:120px 1fr 1fr 70px 100px;padding:10px 18px;border-bottom:1px solid var(--line);align-items:center;cursor:pointer;transition:background .12s" onmouseover="this.style.background='var(--gold-pale)'" onmouseout="this.style.background=''" onclick="abrirModalDia(diariosData[${i}])">
+      <div style="font-family:'IBM Plex Mono';font-size:11px;color:var(--muted)">${fFecha(r.fecha)}</div>
+      <div style="font-weight:600;font-size:13px">${fNombre(r.paciente)}</div>
+      <div style="font-size:12px;color:var(--muted)">${total>0?total+' opciones':'Sin selecciones'}</div>
+      <div>${tieneNota?'<span class="chip nota">📝</span>':'—'}</div>
       <div><button class="ver-btn">Ver →</button></div>
     </div>`;
   }).join('');
 }
-function verFuera(idx) {
-  const r = fueraData[idx];
-  const items = r.items || [];
-  document.getElementById('mf-title').textContent = formatNombre(r.paciente);
-  document.getElementById('mf-meta').textContent  = new Date(r.fecha).toLocaleString('es-PE')+' · '+(r.comidas||[]).join(' + ');
-  document.getElementById('mf-body').innerHTML = `
-    <div style="display:flex;gap:14px;margin-bottom:4px">
-      <div style="flex:1;background:var(--panel2);border-radius:10px;padding:14px;text-align:center">
-        <div style="font-family:'Libre Franklin',sans-serif;font-size:26px;font-weight:700;color:var(--amber)">${r.kcal_total||0}</div>
-        <div style="font-size:11px;color:var(--muted)">kcal totales</div>
-      </div>
-      <div style="flex:1;background:var(--panel2);border-radius:10px;padding:14px;text-align:center">
-        <div style="font-family:'Libre Franklin',sans-serif;font-size:26px;font-weight:700;color:#a5d6a7">${r.proteina_total||0}g</div>
-        <div style="font-size:11px;color:var(--muted)">proteína</div>
-      </div>
-    </div>
-    ${items.map(it=>`
-      <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:var(--panel2);border-radius:8px">
-        <div>
-          <div style="font-weight:600;font-size:14px">${it.qty>1?it.qty+'× ':''}${it.dish}</div>
-          <div style="font-size:11px;color:var(--muted);margin-top:2px;text-transform:uppercase;letter-spacing:.04em">${it.rest||''}</div>
-        </div>
-        <div style="text-align:right;font-family:'IBM Plex Mono';font-size:12px">
-          <div style="color:var(--amber)">${it.kcal*(it.qty||1)} kcal</div>
-          <div style="color:#a5d6a7">${it.p*(it.qty||1)}g P</div>
-        </div>
-      </div>`).join('')}`;
-  document.getElementById('modal-fuera-bg').classList.remove('hidden');
+function abrirModalDia(r){
+  currentSlug=r.paciente; verDia({fecha:r.fecha,datos:r.datos});
+  // We'll just open the modal directly
+  const d=r.datos||{};const res=d.resumen||{};const notas=d.notas||{};const fotos=d.fotos||{};
+  const mids=new Set([...Object.keys(res),...Object.keys(notas),...Object.keys(fotos)]);
+  document.getElementById('mdia-title').textContent=fNombre(r.paciente);
+  document.getElementById('mdia-sub').textContent=fFecha(r.fecha);
+  let html='';
+  mids.forEach(mid=>{
+    const label=COMIDA_LABELS[mid]||mid;const textos=res[mid]||[];const nota=notas[mid];const foto=fotos[mid];
+    html+=`<div class="meal-block"><div class="meal-block-head">${label}</div><div class="meal-block-body">`;
+    if(textos.length)html+=`<ul class="sel-list">${textos.map(t=>`<li>${t}</li>`).join('')}</ul>`;
+    if(nota)html+=`<div class="nota-block">${nota}</div>`;
+    if(foto)html+=`<img src="${foto}" style="border-radius:6px;max-width:100%;max-height:180px;object-fit:cover">`;
+    if(!textos.length&&!nota&&!foto)html+='<div style="color:var(--faint);font-size:12px;font-style:italic">Sin registro</div>';
+    html+='</div></div>';
+  });
+  if(!mids.size)html='<div style="color:var(--faint);font-size:13px">Sin datos</div>';
+  document.getElementById('mdia-body').innerHTML=html;
+  document.getElementById('modal-dia').classList.remove('hidden');
 }
 
-/* ── Init ─────────────────────────────────────────────────── */
-window.addEventListener('load', () => {
-  const init = () => {
-    if (!window.supabase) { setTimeout(init, 100); return; }
-    _sb = window.supabase.createClient(SB_URL, SB_ANON);
-    cargarPacientes();
-    tabLoaded.pacientes = true;
-  };
-  init();
-});
+/* ══ COMER FUERA ════════════════════════════════════════════ */
+let fueraData=[];
+function initFuera(){document.getElementById('ff-desde').value=new Date(Date.now()-30*86400000).toISOString().slice(0,10);document.getElementById('ff-hasta').value=today();}
+function resetFuera(){['ff-desde','ff-hasta','ff-pac'].forEach(id=>document.getElementById(id).value='');cargarFuera();}
+async function cargarFuera(){
+  document.getElementById('fuera-body').innerHTML='<div class="loading">Cargando...</div>';
+  const desde=document.getElementById('ff-desde').value,hasta=document.getElementById('ff-hasta').value,pac=document.getElementById('ff-pac').value.toLowerCase().trim();
+  let q=_sb.from('registros_fuera').select('*').order('fecha',{ascending:false});
+  if(desde)q=q.gte('fecha',desde+'T00:00:00');if(hasta)q=q.lte('fecha',hasta+'T23:59:59');if(pac)q=q.ilike('paciente','%'+pac+'%');
+  const{data}=await q;fueraData=data||[];
+  const hoy=today();
+  document.getElementById('sf-total').textContent=fueraData.length;
+  document.getElementById('sf-pac').textContent=new Set(fueraData.map(r=>r.paciente)).size;
+  document.getElementById('sf-hoy').textContent=fueraData.filter(r=>r.fecha?.startsWith(hoy)).length;
+  const avg=fueraData.length?Math.round(fueraData.reduce((s,r)=>s+(r.kcal_total||0),0)/fueraData.length):0;
+  document.getElementById('sf-kcal').textContent=avg||'—';
+  if(!fueraData.length){document.getElementById('fuera-body').innerHTML='<div class="empty-msg">No hay registros</div>';return;}
+  document.getElementById('fuera-body').innerHTML=fueraData.map((r,i)=>{
+    const items=r.items||[];const res=items.slice(0,2).map(it=>it.dish).join(', ')+(items.length>2?` +${items.length-2} más`:'');
+    const fecha=new Date(r.fecha);const fechaStr=fecha.toLocaleDateString('es-PE',{day:'2-digit',month:'short'})+' '+fecha.toLocaleTimeString('es-PE',{hour:'2-digit',minute:'2-digit'});
+    return `<div class="fuera-grid fuera-row" onclick="verFuera(${i})">
+      <div style="font-family:'IBM Plex Mono';font-size:11px;color:var(--muted)">${fechaStr}</div>
+      <div><div style="font-weight:600;font-size:13px">${fNombre(r.paciente)}</div><div style="font-size:11px;color:var(--muted);margin-top:2px">${res||'—'}</div></div>
+      <div style="font-family:'IBM Plex Mono';font-size:12px;color:var(--amber)">${r.kcal_total||'—'}</div>
+      <div style="font-family:'IBM Plex Mono';font-size:12px;color:#a5d6a7">${r.proteina_total?r.proteina_total+'g':'—'}</div>
+      <div><button class="ver-btn">Ver →</button></div>
+    </div>`;
+  }).join('');
+}
+function verFuera(i){
+  const r=fueraData[i];const items=r.items||[];
+  document.getElementById('mf-title').textContent=fNombre(r.paciente);
+  document.getElementById('mf-meta').textContent=new Date(r.fecha).toLocaleString('es-PE')+' · '+(r.comidas||[]).join(' + ');
+  document.getElementById('mf-body').innerHTML=`
+    <div style="display:flex;gap:10px;margin-bottom:8px">
+      <div style="flex:1;background:var(--panel2);border-radius:8px;padding:12px;text-align:center"><div style="font-size:22px;font-weight:700;color:var(--amber)">${r.kcal_total||0}</div><div style="font-size:10px;color:var(--muted)">kcal</div></div>
+      <div style="flex:1;background:var(--panel2);border-radius:8px;padding:12px;text-align:center"><div style="font-size:22px;font-weight:700;color:#a5d6a7">${r.proteina_total||0}g</div><div style="font-size:10px;color:var(--muted)">proteína</div></div>
+    </div>
+    ${items.map(it=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:9px 12px;background:var(--panel2);border-radius:7px;margin-bottom:6px">
+      <div><div style="font-weight:600;font-size:13px">${it.qty>1?it.qty+'× ':''}${it.dish}</div><div style="font-size:11px;color:var(--muted)">${it.rest||''}</div></div>
+      <div style="text-align:right;font-family:'IBM Plex Mono';font-size:11px"><div style="color:var(--amber)">${it.kcal*(it.qty||1)} kcal</div><div style="color:#a5d6a7">${it.p*(it.qty||1)}g P</div></div>
+    </div>`).join('')}`;
+  document.getElementById('modal-fuera').classList.remove('hidden');
+}
 </script>
 </body>
 </html>
