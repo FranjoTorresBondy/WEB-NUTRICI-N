@@ -250,12 +250,21 @@ const PATIENT = {
     { label: 'Descanso',            valor: '1.5' },
   ],
 
+  antroHistorial: [
+    { fecha:'14.07.2026', peso:63.3, talla:151.0, imc:27.8,
+      tri:21.0, bi:12.0, sub:23.0, cresta:50.0, supra:25.0,
+      abd:30.0, pierna:0, pant:0,
+      brazRelaj:29.8, brazFlex:29.8, abdom:94.5, cadera:94.0, muslo:0, pantPer:0,
+      s6:99.0, s8:161.0 },
+  ],
+
   antro: {
-    fecha: '14.07.2026',
-    peso: 63.3, talla: 151.0, imc: 27.8,
-    tri: 21.0, bi: 12.0, sub: 23.0, cresta: 50.0, supra: 25.0,
-    abd: 30.0, pierna: 0, pant: 0,
-    brazRelaj: 29.8, brazFlex: 29.8, abdom: 94.5, cadera: 94.0, muslo: 0, pantPer: 0,
+    fecha: '10.08.2026',
+    peso: 60.0, talla: 151.0, imc: 26.3,
+    tri: 20.0, bi: 11.0, sub: 22.0, cresta: 32.0, supra: 22.0,
+    abd: 25.0, pierna: 0, pant: 17.0,
+    brazRelaj: 0, brazFlex: 30.0, abdom: 89.0, cadera: 95.0, muslo: 0, pantPer: 33.0,
+    s6: 106.0, s8: 149.0,
   },
 
   objetivos: [
@@ -621,13 +630,15 @@ function initAntro() { if (antroInited) return; antroInited = true; renderEvolAn
 const ANTRO_KEY = () => `${PATIENT.slug}-antro-v1`;
 function getAntroData() {
   try { const r = localStorage.getItem(ANTRO_KEY()); if (r) return JSON.parse(r); } catch {}
+  const hist = PATIENT.antroHistorial || [];
   const a = PATIENT.antro;
-  const s6 = +(a.tri+a.sub+a.supra+a.abd+a.pierna+a.pant).toFixed(1);
-  const s8 = +(s6+a.bi+a.cresta).toFixed(1);
-  return [{ fecha:a.fecha, peso:a.peso, tri:a.tri, bi:a.bi, sub:a.sub, cresta:a.cresta,
+  const s6 = a.s6 != null ? a.s6 : +(a.tri+a.sub+a.supra+a.abd+a.pierna+a.pant).toFixed(1);
+  const s8 = a.s8 != null ? a.s8 : +(s6+a.bi+a.cresta).toFixed(1);
+  const current = { fecha:a.fecha, peso:a.peso, tri:a.tri, bi:a.bi, sub:a.sub, cresta:a.cresta,
     supra:a.supra, abd:a.abd, pierna:a.pierna, pant:a.pant,
     brazRelaj:a.brazRelaj, brazFlex:a.brazFlex, abdom:a.abdom,
-    cadera:a.cadera, muslo:a.muslo, pantPer:a.pantPer, s6, s8 }];
+    cadera:a.cadera, muslo:a.muslo, pantPer:a.pantPer, s6, s8 };
+  return [...hist, current];
 }
 function saveAntroData(d) { localStorage.setItem(ANTRO_KEY(), JSON.stringify(d)); flashSave(); }
 
