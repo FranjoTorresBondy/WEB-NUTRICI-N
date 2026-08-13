@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carpeta — Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Libre+Franklin:wght@600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=Chakra+Petch:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#080808;--panel:#141414;--panel2:#1c1c1c;--panel3:#222;
+  --line:#2a2a2a;--ink:#f0f0f0;--muted:#888;--faint:#444;
+  --amber:#C4973A;--gold-pale:rgba(196,151,58,.07);
+  --green:#4caf50;--green-bg:rgba(76,175,80,.1);
+  --blue:#4fc3f7;--blue-bg:rgba(79,195,247,.08);
+  --red:#ef5350;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{min-height:100vh}
+body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;line-height:1.5}
+
+/* Header */
+.header{background:var(--panel);border-bottom:1px solid var(--line);padding:14px 24px;display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:20;flex-wrap:wrap}
+.back-link{font-size:12px;color:var(--muted);text-decoration:none;white-space:nowrap}
+.back-link:hover{color:var(--ink)}
+.pac-title{font-family:'Chakra Petch',sans-serif;font-size:20px;color:var(--ink);font-weight:700;flex:1;min-width:120px}
+.pac-slug{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted)}
+
+/* Tabs */
+.tabs{display:flex;gap:4px;flex-wrap:wrap}
+.tab{background:none;border:1px solid var(--line);color:var(--muted);font-size:12px;font-weight:600;cursor:pointer;padding:7px 14px;border-radius:8px;transition:.15s;font-family:'Inter',sans-serif;white-space:nowrap}
+.tab.active{background:var(--amber);border-color:var(--amber);color:#000}
+.tab:not(.active):hover{color:var(--ink)}
+
+/* Layout */
+.wrap{max-width:980px;margin:0 auto;padding:24px 18px}
+.loading{text-align:center;padding:48px;color:var(--muted)}
+.saved-banner{background:var(--green-bg);border:1px solid rgba(76,175,80,.3);color:var(--green);border-radius:8px;padding:10px 16px;font-size:13px;font-weight:600;margin-bottom:16px;display:none}
+.saved-banner.show{display:block}
+.err-banner{background:rgba(239,83,80,.08);border:1px solid rgba(239,83,80,.3);color:var(--red);border-radius:8px;padding:10px 16px;font-size:13px;margin-bottom:16px;display:none}
+.err-banner.show{display:block}
+
+/* Section cards */
+.section{background:var(--panel);border:1px solid var(--line);border-radius:12px;margin-bottom:20px;overflow:hidden}
+.section-head{padding:14px 20px;display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none;border-bottom:1px solid var(--line)}
+.section-head h3{font-size:14px;font-weight:700;flex:1}
+.section-head .ico{font-size:16px}
+.section-head .chevron{color:var(--muted);font-size:14px;transition:.2s}
+.section.collapsed .chevron{transform:rotate(-90deg)}
+.section-body{padding:18px 20px;display:grid;gap:14px}
+.section.collapsed .section-body{display:none}
+
+/* Form fields */
+.field-group{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.field-group.cols3{grid-template-columns:1fr 1fr 1fr}
+.field-group.cols1{grid-template-columns:1fr}
+@media(max-width:600px){.field-group,.field-group.cols3{grid-template-columns:1fr}}
+.field{display:flex;flex-direction:column;gap:5px}
+.field label{font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+.field input,.field textarea,.field select{background:var(--panel2);border:1px solid var(--line);border-radius:8px;color:var(--ink);font-size:13px;padding:9px 12px;font-family:'Inter',sans-serif;outline:none;width:100%;transition:border-color .15s;resize:vertical}
+.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--amber)}
+.field select option{background:var(--panel2)}
+.field textarea{min-height:70px}
+
+/* Slider fields */
+.slider-wrap{display:flex;align-items:center;gap:12px}
+.slider-wrap input[type=range]{flex:1;accent-color:var(--amber)}
+.slider-val{font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:600;color:var(--amber);min-width:28px;text-align:center}
+
+/* Checklist */
+.checks-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:6px}
+.check-item{display:flex;align-items:center;gap:7px;font-size:13px;cursor:pointer;padding:4px 0}
+.check-item input[type=checkbox]{accent-color:var(--amber);width:14px;height:14px;flex-shrink:0}
+
+/* Tables */
+.data-table{width:100%;border-collapse:collapse;font-size:13px}
+.data-table th{background:var(--panel2);padding:9px 10px;text-align:left;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--line);white-space:nowrap}
+.data-table td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:middle}
+.data-table tr:last-child td{border-bottom:none}
+.data-table input{background:var(--panel3);border:1px solid var(--line);border-radius:6px;color:var(--ink);font-size:12px;padding:5px 8px;width:100%;min-width:60px;font-family:'Inter',sans-serif;outline:none}
+.data-table input:focus{border-color:var(--amber)}
+.data-table .calc{color:var(--amber);font-family:'IBM Plex Mono',monospace;font-size:12px}
+.table-wrap{overflow-x:auto;border-radius:8px;border:1px solid var(--line)}
+
+/* Sessions list */
+.session-list{display:flex;flex-direction:column;gap:8px}
+.session-row{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 18px;cursor:pointer;display:flex;align-items:center;gap:14px;transition:.15s}
+.session-row:hover{border-color:var(--amber)}
+.session-row .sdate{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--amber);min-width:110px;font-weight:600}
+.session-row .ssub{font-size:12px;color:var(--muted)}
+.session-row .sdel{background:none;border:none;color:var(--faint);cursor:pointer;font-size:18px;margin-left:auto;padding:0 4px;line-height:1}
+.session-row .sdel:hover{color:var(--red)}
+
+/* Buttons */
+.btn{background:var(--amber);color:#000;border:none;border-radius:8px;padding:10px 20px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;transition:.1s}
+.btn:hover{opacity:.9}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn-sm{padding:6px 14px;font-size:12px}
+.btn-ghost{background:var(--panel2);color:var(--muted);border:1px solid var(--line);border-radius:8px;padding:9px 16px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif}
+.btn-ghost:hover{color:var(--ink)}
+.btn-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+
+/* Modal */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:100;display:flex;align-items:flex-start;justify-content:center;padding:28px 14px;overflow-y:auto}
+.modal-bg.hidden{display:none}
+.modal{background:var(--panel);border:1px solid var(--line);border-radius:16px;width:100%;max-width:720px}
+.modal-head{background:var(--panel2);padding:18px 22px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);border-radius:16px 16px 0 0}
+.modal-head h2{font-family:'Libre Franklin',sans-serif;font-size:17px;font-weight:700}
+.modal-close{background:none;border:none;color:var(--muted);font-size:24px;cursor:pointer;line-height:1;padding:0}
+.modal-body{padding:20px 22px;display:flex;flex-direction:column;gap:16px;max-height:75vh;overflow-y:auto}
+.modal-foot{padding:14px 22px;border-top:1px solid var(--line);display:flex;gap:10px;justify-content:flex-end}
+
+/* Medidas summary stats */
+.med-stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px;margin-bottom:16px}
+.med-stat{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:10px 14px;text-align:center}
+.med-stat .val{font-family:'Libre Franklin',sans-serif;font-size:20px;font-weight:700;color:var(--amber)}
+.med-stat .lbl{font-size:10px;color:var(--muted);margin-top:2px}
+
+/* Sub-label */
+.sub-lbl{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;margin-top:4px}
+
+/* Tag */
+.tag{display:inline-flex;align-items:center;font-size:11px;font-weight:600;padding:3px 8px;border-radius:6px}
+.tag.green{background:var(--green-bg);color:var(--green)}
+.tag.amber{background:var(--gold-pale);color:var(--amber)}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <a class="back-link" href="admin-registros.html">← Registros</a>
+  <div>
+    <div class="pac-title" id="hdr-nombre">—</div>
+    <div class="pac-slug" id="hdr-slug">—</div>
+  </div>
+  <div class="tabs">
+    <button class="tab active" onclick="setTab('historia')">📋 Historia</button>
+    <button class="tab" onclick="setTab('registros')">📊 Registros</button>
+    <button class="tab" onclick="setTab('monitoreo')">🩺 Monitoreo</button>
+    <button class="tab" onclick="setTab('medidas')">📏 Medidas</button>
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- ══ HISTORIA CLÍNICA ══════════════════════════════════════ -->
+<div id="tab-historia">
+  <div class="saved-banner" id="hist-ok">✓ Historia guardada correctamente</div>
+  <div class="err-banner" id="hist-err">Error al guardar. Intenta de nuevo.</div>
+
+  <!-- 1. Datos generales -->
+  <div class="section" id="sec-general">
+    <div class="section-head" onclick="toggleSec('sec-general')">
+      <span class="ico">👤</span><h3>I. Datos Generales</h3><span class="chevron">▾</span>
+    </div>
+    <div class="section-body">
+      <div class="field-group">
+        <div class="field"><label>Apellidos y nombres</label><input type="text" id="h-nombre" placeholder="Apellidos y nombres completos"></div>
+        <div class="field"><label>Correo electrónico</label><input type="email" id="h-email" placeholder="correo@email.com"></div>
+      </div>
+      <div class="field-group cols3">
+        <div class="field"><label>Fecha de nacimiento</label><input type="date" id="h-nacimiento"></div>
+        <div class="field"><label>DNI</label><input type="text" id="h-dni" placeholder="DNI o pasaporte"></div>
+        <div class="field"><label>Género</label>
+          <select id="h-genero"><option value="">Seleccionar</option><option>Masculino</option><option>Femenino</option><option>Otro</option></select></div>
+      </div>
+      <div class="field-group">
+        <div class="field"><label>Teléfono / Celular</label><input type="text" id="h-tel" placeholder="+51 999 999 999"></div>
+        <div class="field"><label>Escolaridad</label><input type="text" id="h-escolaridad" placeholder="Nivel de estudios"></div>
+      </div>
+      <div class="field-group cols1">
+        <div class="field"><label>Dirección</label><input type="text" id="h-direccion" placeholder="Dirección completa"></div>
+      </div>
+      <div class="field-group cols1">
+        <div class="field"><label>Datos del acompañante (si es menor de 18 años)</label><input type="text" id="h-acompanante" placeholder="Nombre y relación"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Estilo de vida -->
+  <div class="section" id="sec-estilo">
+    <div class="section-head" onclick="toggleSec('sec-estilo')">
+      <span class="ico">🏃</span><h3>II. Estilo de Vida</h3><span class="chevron">▾</span>
+    </div>
+    <div class="section-body">
+      <div class="field-group">
+        <div class="field"><label>Actividad laboral</label><input type="text" id="h-laboral" placeholder="Profesión u ocupación"></div>
+        <div class="field"><label>Nivel de estrés</label>
+          <div class="slider-wrap">
+            <input type="range" min="1" max="10" value="5" id="h-estres" oninput="document.getElementById('h-estres-val').textContent=this.value">
+            <span class="slider-val" id="h-estres-val">5</span>
+          </div>
+        </div>
+      </div>
+      <div class="field-group cols1">
+        <div class="field"><label>Descripción de la actividad laboral</label><textarea id="h-laboral-desc" placeholder="Describe las tareas, horas de pie/sentado, carga física, etc."></textarea></div>
+      </div>
+      <div class="sub-lbl">Actividades deportivas por día</div>
+      <div class="table-wrap">
+        <table class="data-table" id="sport-table">
+          <thead><tr>
+            <th style="min-width:100px">Día</th>
+            <th>Veces x día</th>
+            <th style="min-width:160px">Tipo de entrenamiento</th>
+            <th>Duración (min)</th>
+            <th>Intensidad (1-10)</th>
+          </tr></thead>
+          <tbody id="sport-body"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Historia clínica -->
+  <div class="section" id="sec-clinica">
+    <div class="section-head" onclick="toggleSec('sec-clinica')">
+      <span class="ico">🏥</span><h3>III. Historia Clínica</h3><span class="chevron">▾</span>
+    </div>
+    <div class="section-body">
+      <div class="field-group cols1">
+        <div class="field"><label>Motivo de la consulta</label><textarea id="h-motivo" placeholder="¿Por qué busca la consulta nutricional?"></textarea></div>
+      </div>
+      <div class="field-group cols1">
+        <div class="field"><label>Diagnóstico médico</label><textarea id="h-diagnostico" placeholder="Diagnósticos médicos actuales"></textarea></div>
+      </div>
+      <div class="field-group cols1">
+        <div class="field"><label>Medicamentos / Suplementos actuales</label><textarea id="h-meds" placeholder="Nombre, dosis, frecuencia"></textarea></div>
+      </div>
+      <div class="field-group">
+        <div class="field"><label>Cirugías realizadas</label><textarea id="h-cirugias" placeholder="Tipo y año aproximado"></textarea></div>
+        <div class="field"><label>Alergias / Intolerancias</label><textarea id="h-alergias" placeholder="Alimentos, medicamentos, etc."></textarea></div>
+      </div>
+      <div class="field-group cols1">
+        <div class="field"><label>Antecedentes patológicos familiares</label><textarea id="h-antecedentes" placeholder="Enfermedades en padres, abuelos, hermanos..."></textarea></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Hábitos nocivos -->
+  <div class="section" id="sec-habitos">
+    <div class="section-head" onclick="toggleSec('sec-habitos')">
+      <span class="ico">🚬</span><h3>IV. Hábitos Nocivos</h3><span class="chevron">▾</span>
+    </div>
+    <div class="section-body">
+      <div class="sub-lbl">Consumo de cigarro</div>
+      <div class="field-group cols3">
+        <div class="field"><label>Consume</label>
+          <select id="h-cigarro"><option value="">—</option><option>Sí</option><option>No</option><option>Ex fumador</option></select></div>
+        <div class="field"><label>Frecuencia</label><input type="text" id="h-cigarro-freq" placeholder="ej: diario"></div>
+        <div class="field"><label>Cantidad</label><input type="text" id="h-cigarro-cant" placeholder="ej: 5 cigarros/día"></div>
+      </div>
+      <div class="sub-lbl">Consumo de alcohol</div>
+      <div class="field-group cols3">
+        <div class="field"><label>Consume</label>
+          <select id="h-alcohol"><option value="">—</option><option>Sí</option><option>No</option><option>Ocasional</option></select></div>
+        <div class="field"><label>Frecuencia</label><input type="text" id="h-alcohol-freq" placeholder="ej: fines de semana"></div>
+        <div class="field"><label>Cantidad</label><input type="text" id="h-alcohol-cant" placeholder="ej: 2-3 cervezas"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. Bioquímica -->
+  <div class="section" id="sec-bio">
+    <div class="section-head" onclick="toggleSec('sec-bio')">
+      <span class="ico">🧪</span><h3>V. Bioquímica</h3><span class="chevron">▾</span>
+    </div>
+    <div class="section-body">
+      <div class="table-wrap">
+        <table class="data-table" id="bio-table">
+          <thead><tr>
+            <th>Fecha</th><th>Glucosa (mg/dL)</th><th>Urea (mg/dL)</th><th>Creatinina</th>
+            <th>Col. Total</th><th>HDL</th><th>LDL</th><th>VLDL</th><th>Triglicéridos</th>
+            <th>Hemoglobina</th><th>Otro</th><th></th>
+          </tr></thead>
+          <tbody id="bio-body"></tbody>
+        </table>
+      </div>
+      <div><button class="btn btn-sm" onclick="addBioRow()">+ Agregar análisis</button></div>
+    </div>
+  </div>
+
+  <!-- 6. Patologías (checklist) -->
+  <div class="section" id="sec-pato">
+    <div class="section-head" onclick="toggleSec('sec-pato')">
+      <span class="ico">🩺</span><h3>VI. Patologías Relacionadas</h3><span class="chevron">▾</span>
+    </div>
+    <div class="section-body">
+      <div id="pato-groups"></div>
+      <div class="sub-lbl" style="margin-top:10px">Desórdenes alimenticios</div>
+      <div class="checks-grid">
+        <label class="check-item"><input type="checkbox" data-pato="anorexia"> Anorexia</label>
+        <label class="check-item"><input type="checkbox" data-pato="bulimia"> Bulimia</label>
+        <label class="check-item"><input type="checkbox" data-pato="vigorexia"> Vigorexia</label>
+      </div>
+      <div class="field-group cols1" style="margin-top:8px">
+        <div class="field"><label>Observación desórdenes</label><textarea id="h-desordenes-obs" placeholder="Observaciones"></textarea></div>
+      </div>
+      <div class="sub-lbl" style="margin-top:10px">Intolerancias alimentarias</div>
+      <div class="checks-grid">
+        <label class="check-item"><input type="checkbox" data-pato="lactosa"> Intolerancia a la lactosa</label>
+        <label class="check-item"><input type="checkbox" data-pato="gluten"> Intolerancia al gluten (celiaquía)</label>
+      </div>
+      <div class="field-group cols1" style="margin-top:8px">
+        <div class="field"><label>Otras intolerancias / alergias</label><textarea id="h-intol-otros" placeholder="Especificar"></textarea></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. Dietética -->
+  <div class="section" id="sec-dieta">
+    <div class="section-head" onclick="toggleSec('sec-dieta')">
+      <span class="ico">🥗</span><h3>VII. Dietética</h3><span class="chevron">▾</span>
+    </div>
+    <div class="section-body">
+      <div class="sub-lbl">Frecuencia de consumo de alimentos</div>
+      <div class="table-wrap">
+        <table class="data-table" id="freq-table">
+          <thead><tr>
+            <th>Alimento</th><th>Diario</th><th>4-6/sem</th><th>2-3/sem</th><th>1/sem</th><th>2-3/mes</th><th>1/mes</th>
+          </tr></thead>
+          <tbody id="freq-body"></tbody>
+        </table>
+      </div>
+      <div class="sub-lbl" style="margin-top:14px">Consumo habitual de alimentos</div>
+      <div class="table-wrap">
+        <table class="data-table" id="hab-table">
+          <thead><tr>
+            <th>Comida</th><th>Hora</th><th style="min-width:200px">Descripción de la ingesta</th><th>Kcal aprox.</th>
+          </tr></thead>
+          <tbody id="hab-body"></tbody>
+        </table>
+      </div>
+      <div class="field-group" style="margin-top:14px">
+        <div class="field"><label>Alimentos preferidos</label><textarea id="h-gustos" placeholder="Lo que más le gusta comer"></textarea></div>
+        <div class="field"><label>Alimentos que le desagradan</label><textarea id="h-disgustos" placeholder="Lo que no le gusta o no come"></textarea></div>
+      </div>
+      <div class="field-group cols1">
+        <div class="field"><label>Notas adicionales (hidratación, sueño, otros)</label><textarea id="h-notas-dieta" placeholder="Hidratación, calidad del sueño, observaciones relevantes..."></textarea></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 8. Objetivo -->
+  <div class="section" id="sec-objetivo">
+    <div class="section-head" onclick="toggleSec('sec-objetivo')">
+      <span class="ico">🎯</span><h3>VIII. Objetivo del Tratamiento</h3><span class="chevron">▾</span>
+    </div>
+    <div class="section-body">
+      <div class="field-group cols1">
+        <div class="field"><label>Objetivo principal</label><textarea id="h-objetivo" placeholder="Describe el objetivo nutricional del paciente" style="min-height:100px"></textarea></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="btn-row" style="margin-top:8px">
+    <button class="btn" id="btn-save-hist" onclick="saveHistoria()">💾 Guardar historia</button>
+    <span style="font-size:12px;color:var(--muted)" id="hist-timestamp"></span>
+  </div>
+</div>
+
+<!-- ══ REGISTROS DIARIOS ══════════════════════════════════════ -->
+<div id="tab-registros" style="display:none">
+  <div class="dias-list" id="dias-list-reg"><div class="loading">Cargando registros...</div></div>
+</div>
+
+<!-- ══ MONITOREO ═════════════════════════════════════════════ -->
+<div id="tab-monitoreo" style="display:none">
+  <div class="btn-row" style="margin-bottom:16px">
+    <button class="btn" onclick="abrirMonitoreo(null)">+ Nueva sesión de monitoreo</button>
+  </div>
+  <div class="session-list" id="mon-list"><div class="loading">Cargando...</div></div>
+</div>
+
+<!-- ══ MEDIDAS ANTROPOMÉTRICAS ════════════════════════════════ -->
+<div id="tab-medidas" style="display:none">
+  <div class="btn-row" style="margin-bottom:16px">
+    <button class="btn" onclick="abrirMedidas(null)">+ Nueva medición ISAK</button>
+  </div>
+  <div id="med-history"><div class="loading">Cargando...</div></div>
+</div>
+
+</div><!-- /wrap -->
+
+<!-- Modal Registros detalle -->
+<div class="modal-bg hidden" id="modal-reg" onclick="if(event.target===this)this.classList.add('hidden')">
+  <div class="modal">
+    <div class="modal-head">
+      <h2 id="mreg-title">—</h2>
+      <button class="modal-close" onclick="document.getElementById('modal-reg').classList.add('hidden')">×</button>
+    </div>
+    <div class="modal-body" id="mreg-body"></div>
+  </div>
+</div>
+
+<!-- Modal Monitoreo -->
+<div class="modal-bg hidden" id="modal-mon" onclick="if(event.target===this)this.classList.add('hidden')">
+  <div class="modal" style="max-width:640px">
+    <div class="modal-head">
+      <h2>🩺 Sesión de Monitoreo</h2>
+      <button class="modal-close" onclick="document.getElementById('modal-mon').classList.add('hidden')">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="field"><label>Fecha</label><input type="date" id="mon-fecha"></div>
+      <div class="field">
+        <label>1. Del 1 al 10, ¿cuánto has cumplido el plan?</label>
+        <div class="slider-wrap"><input type="range" min="1" max="10" value="7" id="mon-q1" oninput="document.getElementById('mon-q1v').textContent=this.value"><span class="slider-val" id="mon-q1v">7</span></div>
+      </div>
+      <div class="field"><label>2. ¿Has tenido dificultades para seguir el plan? ¿Cuáles?</label><textarea id="mon-q2" placeholder="Respuesta..."></textarea></div>
+      <div class="field"><label>3. ¿Cómo te sientes con el plan?</label><textarea id="mon-q3" placeholder="Respuesta..."></textarea></div>
+      <div class="field"><label>4. ¿Te da hambre en algún momento del día en especial?</label><textarea id="mon-q4" placeholder="Respuesta..."></textarea></div>
+      <div class="field"><label>5. ¿Te llenas rápido con alguna comida? ¿O dejas comida en el plato?</label><textarea id="mon-q5" placeholder="Respuesta..."></textarea></div>
+      <div class="field"><label>6. ¿Cómo va tu digestibilidad de alimentos?</label><textarea id="mon-q6" placeholder="Respuesta..."></textarea></div>
+      <div class="field">
+        <label>7. Del 1 al 10, ¿has cumplido con el ejercicio?</label>
+        <div class="slider-wrap"><input type="range" min="1" max="10" value="7" id="mon-q7" oninput="document.getElementById('mon-q7v').textContent=this.value"><span class="slider-val" id="mon-q7v">7</span></div>
+      </div>
+      <div class="field"><label>8. ¿Cómo va tu descanso?</label><textarea id="mon-q8" placeholder="Respuesta..."></textarea></div>
+      <div class="field"><label>9. ¿Estás siguiendo la hidratación?</label><textarea id="mon-q9" placeholder="Respuesta..."></textarea></div>
+      <div class="field"><label>10. ¿Hay algo que consideras importante mencionar?</label><textarea id="mon-q10" placeholder="Respuesta..."></textarea></div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn-ghost" onclick="document.getElementById('modal-mon').classList.add('hidden')">Cancelar</button>
+      <button class="btn" onclick="saveMonitoreo()">💾 Guardar sesión</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Medidas ISAK -->
+<div class="modal-bg hidden" id="modal-med" onclick="if(event.target===this)this.classList.add('hidden')">
+  <div class="modal" style="max-width:780px">
+    <div class="modal-head">
+      <h2>📏 Medidas Antropométricas (ISAK)</h2>
+      <button class="modal-close" onclick="document.getElementById('modal-med').classList.add('hidden')">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="field-group">
+        <div class="field"><label>Fecha de medición</label><input type="date" id="med-fecha"></div>
+        <div class="field"><label>Sexo (para cálculos)</label>
+          <select id="med-sexo"><option value="m">Masculino</option><option value="f">Femenino</option></select></div>
+      </div>
+
+      <div class="sub-lbl">Medidas básicas</div>
+      <div class="field-group cols3">
+        <div class="field"><label>Masa / Peso (kg)</label><input type="number" step="0.1" id="med-masa" oninput="calcMedidas()" placeholder="70.5"></div>
+        <div class="field"><label>Talla (cm)</label><input type="number" step="0.1" id="med-talla" oninput="calcMedidas()" placeholder="170.0"></div>
+        <div class="field"><label>Talla sentado (cm)</label><input type="number" step="0.1" id="med-t-sentado" placeholder="88.0"></div>
+      </div>
+
+      <div class="sub-lbl">Pliegues cutáneos (mm)</div>
+      <div class="field-group cols3">
+        <div class="field"><label>Tríceps</label><input type="number" step="0.1" id="med-pf-triceps" oninput="calcMedidas()" placeholder="mm"></div>
+        <div class="field"><label>Subescapular</label><input type="number" step="0.1" id="med-pf-subesc" oninput="calcMedidas()" placeholder="mm"></div>
+        <div class="field"><label>Bíceps</label><input type="number" step="0.1" id="med-pf-biceps" oninput="calcMedidas()" placeholder="mm"></div>
+        <div class="field"><label>Cresta ilíaca</label><input type="number" step="0.1" id="med-pf-iliaca" oninput="calcMedidas()" placeholder="mm"></div>
+        <div class="field"><label>Supraespinal</label><input type="number" step="0.1" id="med-pf-supra" oninput="calcMedidas()" placeholder="mm"></div>
+        <div class="field"><label>Abdominal</label><input type="number" step="0.1" id="med-pf-abd" oninput="calcMedidas()" placeholder="mm"></div>
+        <div class="field"><label>Muslo anterior</label><input type="number" step="0.1" id="med-pf-muslo" oninput="calcMedidas()" placeholder="mm"></div>
+        <div class="field"><label>Pantorrilla medial</label><input type="number" step="0.1" id="med-pf-pantorrilla" oninput="calcMedidas()" placeholder="mm"></div>
+      </div>
+
+      <div class="sub-lbl">Perímetros / Circunferencias (cm)</div>
+      <div class="field-group cols3">
+        <div class="field"><label>Brazo relajado</label><input type="number" step="0.1" id="med-pg-brazo-r" oninput="calcMedidas()" placeholder="cm"></div>
+        <div class="field"><label>Brazo contraído</label><input type="number" step="0.1" id="med-pg-brazo-c" placeholder="cm"></div>
+        <div class="field"><label>Cintura</label><input type="number" step="0.1" id="med-pg-cintura" oninput="calcMedidas()" placeholder="cm"></div>
+        <div class="field"><label>Cadera</label><input type="number" step="0.1" id="med-pg-cadera" oninput="calcMedidas()" placeholder="cm"></div>
+        <div class="field"><label>Muslo</label><input type="number" step="0.1" id="med-pg-muslo" oninput="calcMedidas()" placeholder="cm"></div>
+        <div class="field"><label>Pantorrilla</label><input type="number" step="0.1" id="med-pg-pantorrilla" oninput="calcMedidas()" placeholder="cm"></div>
+        <div class="field"><label>Tórax / Pecho</label><input type="number" step="0.1" id="med-pg-torax" placeholder="cm"></div>
+        <div class="field"><label>Cuello</label><input type="number" step="0.1" id="med-pg-cuello" placeholder="cm"></div>
+        <div class="field"><label>Pierna / Gemelo</label><input type="number" step="0.1" id="med-pg-gemelo" placeholder="cm"></div>
+      </div>
+
+      <div class="sub-lbl">Diámetros óseos (cm)</div>
+      <div class="field-group cols3">
+        <div class="field"><label>Húmero</label><input type="number" step="0.01" id="med-db-humero" oninput="calcMedidas()" placeholder="cm"></div>
+        <div class="field"><label>Fémur</label><input type="number" step="0.01" id="med-db-femur" oninput="calcMedidas()" placeholder="cm"></div>
+        <div class="field"><label>Biestiloideo</label><input type="number" step="0.01" id="med-db-estiloideo" placeholder="cm"></div>
+      </div>
+
+      <div class="sub-lbl">Resultados calculados</div>
+      <div class="med-stats" id="calc-stats">
+        <div class="med-stat"><div class="val" id="calc-imc">—</div><div class="lbl">IMC (kg/m²)</div></div>
+        <div class="med-stat"><div class="val" id="calc-whr">—</div><div class="lbl">Cintura/Cadera</div></div>
+        <div class="med-stat"><div class="val" id="calc-s6">—</div><div class="lbl">Σ6 pliegues (mm)</div></div>
+        <div class="med-stat"><div class="val" id="calc-s8">—</div><div class="lbl">Σ8 pliegues (mm)</div></div>
+        <div class="med-stat"><div class="val" id="calc-pgra">—</div><div class="lbl">% Grasa (Slaughter)</div></div>
+        <div class="med-stat"><div class="val" id="calc-pmus">—</div><div class="lbl">% Músculo (Lee)</div></div>
+        <div class="med-stat"><div class="val" id="calc-phueso">—</div><div class="lbl">% Hueso (Rocha)</div></div>
+      </div>
+
+      <div class="field-group cols1">
+        <div class="field"><label>Notas de la medición</label><textarea id="med-notas" placeholder="Observaciones, condiciones del día, etc."></textarea></div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn-ghost" onclick="document.getElementById('modal-med').classList.add('hidden')">Cancelar</button>
+      <button class="btn" onclick="saveMedidas()">💾 Guardar medición</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SB_URL  = 'https://hmnjtbruliluctslkndq.supabase.co';
+const SB_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhtbmp0YnJ1bGlsdWN0c2xrbmRxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE0NjAxNjksImV4cCI6MjA5NzAzNjE2OX0.IYmCcvjdlbH1L0QoSoGIpwudRehSQINR1hNoWG02Cc4';
+let _sb, SLUG;
+
+const COMIDA_LABELS = { des:'☀️ Desayuno', alm:'🥗 Almuerzo', snk:'🥤 Snack', snk2:'🥤 Snack 2', cen:'🌙 Cena', pre:'⚡ Pre-entreno', post:'💪 Post-entreno', snkmm:'🍎 Snack' };
+const DIAS = ['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'];
+const MESES = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+
+function fmtFecha(d) { const [y,m,day]=d.split('-'); return `${day} ${MESES[+m-1]} ${y}`; }
+function fmtNombre(s) { return s.split('-').map(w=>w[0].toUpperCase()+w.slice(1)).join(' '); }
+
+/* ── Init ─────────────────────────────────────────────────── */
+window.addEventListener('load', () => {
+  const init = () => {
+    if (!window.supabase) { setTimeout(init, 100); return; }
+    _sb = window.supabase.createClient(SB_URL, SB_ANON);
+    SLUG = new URLSearchParams(location.search).get('p') || '';
+    if (!SLUG) { document.body.innerHTML = '<div style="padding:40px;color:#888">Sin paciente especificado.<br><a href="admin-registros.html" style="color:#C4973A">← Volver</a></div>'; return; }
+    document.getElementById('hdr-nombre').textContent = fmtNombre(SLUG);
+    document.getElementById('hdr-slug').textContent   = SLUG;
+    document.title = fmtNombre(SLUG) + ' — Admin';
+    buildStaticUI();
+    loadHistoria();
+  };
+  init();
+});
+
+/* ── Tabs ─────────────────────────────────────────────────── */
+let tabLoaded = {};
+function setTab(t) {
+  document.querySelectorAll('[id^="tab-"]').forEach(el => el.style.display='none');
+  document.getElementById('tab-'+t).style.display='block';
+  document.querySelectorAll('.tab').forEach((b,i) => {
+    b.classList.toggle('active', ['historia','registros','monitoreo','medidas'][i]===t);
+  });
+  if (!tabLoaded[t]) { tabLoaded[t]=true;
+    if (t==='registros')  loadRegistros();
+    if (t==='monitoreo')  loadMonitoreo();
+    if (t==='medidas')    loadMedidas();
+  }
+}
+
+/* ── Section collapse ─────────────────────────────────────── */
+function toggleSec(id) {
+  document.getElementById(id).classList.toggle('collapsed');
+}
+
+/* ══ BUILD STATIC UI ════════════════════════════════════════ */
+function buildStaticUI() {
+  // Sport table
+  const sb = document.getElementById('sport-body');
+  sb.innerHTML = DIAS.map(d => `<tr>
+    <td style="font-weight:600;font-size:12px">${d}</td>
+    <td><input type="number" min="0" max="5" data-sport="${d}-veces" placeholder="0"></td>
+    <td><input type="text" data-sport="${d}-tipo" placeholder="Ej: Pesas, cardio"></td>
+    <td><input type="number" min="0" data-sport="${d}-dur" placeholder="60"></td>
+    <td><input type="number" min="1" max="10" data-sport="${d}-int" placeholder="7"></td>
+  </tr>`).join('');
+
+  // Bioquímica — start with one empty row
+  addBioRow();
+
+  // Patologías checklist
+  const patoGroups = [
+    { label:'Sistema cardiovascular', items:['Angina de pecho','Antec. de infarto','Arterosclerosis','Hipertensión','Hipotensión','Hipercolesterolemia','Hipertrigliceridemia','Taquicardia','Bradicardia','Cardiomegalia','Várices'] },
+    { label:'Sistema digestivo', items:['Acidez estomacal','Colon irritable','Colitis','Diarrea','Distensión abdominal','Estreñimiento','Gases'] },
+    { label:'Sistema urinario', items:['Insuficiencia renal','Dolor de riñón','Disuria','Oliguria','Poliuria','Pielonefritis','Cistitis'] },
+    { label:'Glándulas y metabolismo', items:['Hipertiroidismo','Hipotiroidismo','Diabetes','Gota','Osteoporosis'] },
+    { label:'Piel / Cabello', items:['Cabello deslustrado','Cabello escaso','Despigmentación difusa','Seborrea nasolabial'] },
+    { label:'Otros', items:['Anemia','Alcoholismo','Cáncer','Cirrosis','Estreñimiento'] },
+  ];
+  const pg = document.getElementById('pato-groups');
+  pg.innerHTML = patoGroups.map(g => `
+    <div style="margin-bottom:12px">
+      <div class="sub-lbl">${g.label}</div>
+      <div class="checks-grid">${g.items.map(it => {
+        const key = it.toLowerCase().replace(/[^a-z0-9]/g,'_');
+        return `<label class="check-item"><input type="checkbox" data-pato="${key}"> ${it}</label>`;
+      }).join('')}</div>
+    </div>`).join('');
+
+  // Frecuencia de consumo
+  const freqItems = ['Frutas','Verduras','Cereales','Tubérculos','Leguminosas','Pescado y mariscos','Pollo / Pavita','Cerdo / Res','Huevo','Embutidos','Lácteos','Palta / Aguacate','Café','Refrescos azucarados','Bollería / Pasteles','Comida rápida','Helado / Dulces'];
+  const fb = document.getElementById('freq-body');
+  fb.innerHTML = freqItems.map(it => `<tr>
+    <td style="font-weight:600;white-space:nowrap">${it}</td>
+    ${['diario','4a6','2a3sem','1sem','2a3mes','1mes'].map(k => `<td><input type="checkbox" data-freq="${it}-${k}" style="width:auto"></td>`).join('')}
+  </tr>`).join('');
+
+  // Consumo habitual
+  const comidas = ['Comida 1','Comida 2','Comida 3','Comida 4','Comida 5','Comida 6','Colación'];
+  const hb = document.getElementById('hab-body');
+  hb.innerHTML = comidas.map(c => `<tr>
+    <td style="font-weight:600;white-space:nowrap;font-size:12px">${c}</td>
+    <td><input type="time" data-hab="${c}-hora" style="width:80px"></td>
+    <td><input type="text" data-hab="${c}-desc" placeholder="Descripción..." style="min-width:200px"></td>
+    <td><input type="number" data-hab="${c}-kcal" placeholder="kcal" style="width:70px"></td>
+  </tr>`).join('');
+}
+
+function addBioRow() {
+  const tbody = document.getElementById('bio-body');
+  const idx = tbody.children.length;
+  const tr = document.createElement('tr');
+  const fields = ['fecha','glucosa','urea','creatinina','col_total','hdl','ldl','vldl','trigliceridos','hemoglobina','otro'];
+  tr.innerHTML = fields.map((f,i) => `<td><input type="${i===0?'date':'text'}" data-bio="${idx}-${f}" style="${i===0?'width:120px':'width:80px'}"></td>`).join('')+
+    `<td><button onclick="this.closest('tr').remove()" style="background:none;border:none;color:var(--faint);cursor:pointer;font-size:16px">×</button></td>`;
+  tbody.appendChild(tr);
+}
+
+/* ══ HISTORIA — SAVE / LOAD ═════════════════════════════════ */
+async function saveHistoria() {
+  const btn = document.getElementById('btn-save-hist');
+  btn.disabled = true; btn.textContent = 'Guardando...';
+  const datos = collectHistoria();
+  try {
+    const r = await fetch(SB_URL+'/rest/v1/paciente_historia', {
+      method:'POST',
+      headers:{ 'Content-Type':'application/json', apikey:SB_ANON, Authorization:'Bearer '+SB_ANON,
+        Prefer:'resolution=merge-duplicates,return=minimal' },
+      body: JSON.stringify({ paciente:SLUG, datos, updated_at: new Date().toISOString() })
+    });
+    if (!r.ok) throw new Error(await r.text());
+    showBanner('hist-ok');
+    document.getElementById('hist-timestamp').textContent = 'Último guardado: '+new Date().toLocaleTimeString('es-PE');
+  } catch(e) {
+    console.error(e); showBanner('hist-err');
+  }
+  btn.disabled=false; btn.textContent='💾 Guardar historia';
+}
+
+async function loadHistoria() {
+  const r = await fetch(SB_URL+'/rest/v1/paciente_historia?paciente=eq.'+SLUG+'&select=datos,updated_at', {
+    headers:{ apikey:SB_ANON, Authorization:'Bearer '+SB_ANON }
+  });
+  const rows = await r.json();
+  if (!rows.length) return;
+  fillHistoria(rows[0].datos || {});
+  if (rows[0].updated_at) {
+    document.getElementById('hist-timestamp').textContent = 'Último guardado: '+new Date(rows[0].updated_at).toLocaleDateString('es-PE');
+  }
+}
+
+function collectHistoria() {
+  const d = {};
+  const txt = (id) => document.getElementById(id)?.value || '';
+  // Datos generales
+  d.nombre=txt('h-nombre'); d.email=txt('h-email'); d.nacimiento=txt('h-nacimiento');
+  d.dni=txt('h-dni'); d.genero=txt('h-genero'); d.tel=txt('h-tel');
+  d.escolaridad=txt('h-escolaridad'); d.direccion=txt('h-direccion'); d.acompanante=txt('h-acompanante');
+  // Estilo de vida
+  d.laboral=txt('h-laboral'); d.estres=document.getElementById('h-estres')?.value;
+  d.laboral_desc=txt('h-laboral-desc');
+  d.deporte = {};
+  DIAS.forEach(dia => {
+    const veces = document.querySelector(`[data-sport="${dia}-veces"]`)?.value;
+    const tipo  = document.querySelector(`[data-sport="${dia}-tipo"]`)?.value;
+    const dur   = document.querySelector(`[data-sport="${dia}-dur"]`)?.value;
+    const intens= document.querySelector(`[data-sport="${dia}-int"]`)?.value;
+    if (veces||tipo||dur||intens) d.deporte[dia]={veces,tipo,dur,intens};
+  });
+  // Historia clínica
+  d.motivo=txt('h-motivo'); d.diagnostico=txt('h-diagnostico'); d.meds=txt('h-meds');
+  d.cirugias=txt('h-cirugias'); d.alergias=txt('h-alergias'); d.antecedentes=txt('h-antecedentes');
+  // Hábitos nocivos
+  d.cigarro={consume:txt('h-cigarro'),freq:txt('h-cigarro-freq'),cant:txt('h-cigarro-cant')};
+  d.alcohol ={consume:txt('h-alcohol'), freq:txt('h-alcohol-freq'), cant:txt('h-alcohol-cant')};
+  // Bioquímica
+  d.bioquimica = [];
+  document.querySelectorAll('#bio-body tr').forEach(tr => {
+    const row = {};
+    tr.querySelectorAll('input').forEach(inp => { if(inp.dataset.bio) { const k=inp.dataset.bio.split('-').slice(1).join('-'); row[k]=inp.value; }});
+    if (Object.values(row).some(v=>v)) d.bioquimica.push(row);
+  });
+  // Patologías
+  d.patologias = {};
+  document.querySelectorAll('[data-pato]').forEach(el => { if(el.checked) d.patologias[el.dataset.pato]=true; });
+  d.desordenes_obs = txt('h-desordenes-obs');
+  d.intol_otros = txt('h-intol-otros');
+  // Dietética
+  d.frecuencia = {};
+  document.querySelectorAll('[data-freq]').forEach(el => { if(el.checked) d.frecuencia[el.dataset.freq]=true; });
+  d.habitual = {};
+  document.querySelectorAll('[data-hab]').forEach(el => { if(el.value) d.habitual[el.dataset.hab]=el.value; });
+  d.gustos=txt('h-gustos'); d.disgustos=txt('h-disgustos'); d.notas_dieta=txt('h-notas-dieta');
+  d.objetivo=txt('h-objetivo');
+  return d;
+}
+
+function fillHistoria(d) {
+  const set = (id,v) => { const el=document.getElementById(id); if(el&&v!=null) el.value=v; };
+  set('h-nombre',d.nombre); set('h-email',d.email); set('h-nacimiento',d.nacimiento);
+  set('h-dni',d.dni); set('h-genero',d.genero); set('h-tel',d.tel);
+  set('h-escolaridad',d.escolaridad); set('h-direccion',d.direccion); set('h-acompanante',d.acompanante);
+  set('h-laboral',d.laboral); set('h-laboral-desc',d.laboral_desc);
+  if (d.estres) { document.getElementById('h-estres').value=d.estres; document.getElementById('h-estres-val').textContent=d.estres; }
+  if (d.deporte) {
+    DIAS.forEach(dia => {
+      const dep = d.deporte[dia];
+      if (!dep) return;
+      const s = (k,v) => { const el=document.querySelector(`[data-sport="${dia}-${k}"]`); if(el) el.value=v||''; };
+      s('veces',dep.veces); s('tipo',dep.tipo); s('dur',dep.dur); s('intens',dep.intens);
+    });
+  }
+  set('h-motivo',d.motivo); set('h-diagnostico',d.diagnostico); set('h-meds',d.meds);
+  set('h-cirugias',d.cirugias); set('h-alergias',d.alergias); set('h-antecedentes',d.antecedentes);
+  if (d.cigarro) { set('h-cigarro',d.cigarro.consume); set('h-cigarro-freq',d.cigarro.freq); set('h-cigarro-cant',d.cigarro.cant); }
+  if (d.alcohol)  { set('h-alcohol', d.alcohol.consume);  set('h-alcohol-freq', d.alcohol.freq);  set('h-alcohol-cant', d.alcohol.cant); }
+  // Bioquímica
+  if (d.bioquimica?.length) {
+    const tbody = document.getElementById('bio-body');
+    tbody.innerHTML = '';
+    d.bioquimica.forEach((_,i) => addBioRow());
+    d.bioquimica.forEach((row,i) => {
+      Object.entries(row).forEach(([k,v]) => {
+        const el = document.querySelector(`[data-bio="${i}-${k}"]`);
+        if (el) el.value=v;
+      });
+    });
+  }
+  // Patologías
+  if (d.patologias) { Object.keys(d.patologias).forEach(k => { const el=document.querySelector(`[data-pato="${k}"]`); if(el) el.checked=true; }); }
+  set('h-desordenes-obs',d.desordenes_obs); set('h-intol-otros',d.intol_otros);
+  if (d.frecuencia) { Object.keys(d.frecuencia).forEach(k => { const el=document.querySelector(`[data-freq="${k}"]`); if(el) el.checked=true; }); }
+  if (d.habitual) { Object.entries(d.habitual).forEach(([k,v]) => { const el=document.querySelector(`[data-hab="${k}"]`); if(el) el.value=v; }); }
+  set('h-gustos',d.gustos); set('h-disgustos',d.disgustos); set('h-notas-dieta',d.notas_dieta);
+  set('h-objetivo',d.objetivo);
+}
+
+function showBanner(id) {
+  const el = document.getElementById(id);
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 3000);
+}
+
+/* ══ REGISTROS DIARIOS ══════════════════════════════════════ */
+let regData = [];
+async function loadRegistros() {
+  const r = await fetch(SB_URL+'/rest/v1/registros_diarios?paciente=eq.'+SLUG+'&order=fecha.desc&select=fecha,datos', {
+    headers:{apikey:SB_ANON, Authorization:'Bearer '+SB_ANON}
+  });
+  regData = await r.json();
+  if (!regData.length) { document.getElementById('dias-list-reg').innerHTML='<div style="text-align:center;padding:48px;color:var(--faint)">Sin registros diarios</div>'; return; }
+  document.getElementById('dias-list-reg').innerHTML = regData.map((r,i)=>{
+    const d=r.datos||{}; const res=d.resumen||{}; const total=Object.values(res).reduce((s,a)=>s+(a?.length||0),0);
+    const tieneNota=d.notas&&Object.keys(d.notas).length>0;
+    return `<div style="background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 18px;display:flex;align-items:center;gap:14px;cursor:pointer;margin-bottom:8px;transition:border-color .15s" onmouseover="this.style.borderColor='var(--amber)'" onmouseout="this.style.borderColor='var(--line)'" onclick="verRegDia(${i})">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--amber);min-width:110px;font-weight:600">${fmtFecha(r.fecha)}</div>
+      <div style="flex:1;font-size:12px;color:var(--muted)">${total>0?total+' opciones registradas':'Sin selecciones'}</div>
+      ${tieneNota?'<span class="tag amber">📝 nota</span>':''}
+      <span style="color:var(--amber);font-size:12px;font-weight:600">Ver →</span>
+    </div>`;
+  }).join('');
+}
+function verRegDia(i) {
+  const r=regData[i]; const d=r.datos||{}; const res=d.resumen||{}; const notas=d.notas||{}; const fotos=d.fotos||{};
+  const allMids=new Set([...Object.keys(res),...Object.keys(notas),...Object.keys(fotos)]);
+  document.getElementById('mreg-title').textContent=fmtFecha(r.fecha);
+  let html='';
+  if(!allMids.size){html='<div style="color:var(--faint);font-style:italic;font-size:13px">Sin datos registrados este día</div>';}
+  else allMids.forEach(mid=>{
+    const label=COMIDA_LABELS[mid]||mid; const textos=res[mid]||[]; const nota=notas[mid]; const foto=fotos[mid];
+    html+=`<div style="background:var(--panel2);border:1px solid var(--line);border-radius:10px;overflow:hidden">
+      <div style="padding:10px 16px;border-bottom:1px solid var(--line);font-weight:700;font-size:14px">${label}</div>
+      <div style="padding:12px 16px;display:flex;flex-direction:column;gap:8px">`;
+    if(textos.length)html+=`<ul style="list-style:none">${textos.map(t=>`<li style="font-size:13px;color:var(--muted);margin-bottom:4px"><span style="color:var(--amber);font-size:11px;font-weight:700;margin-right:6px">✓</span>${t}</li>`).join('')}</ul>`;
+    if(nota)html+=`<div style="background:var(--panel3);border-left:3px solid var(--blue);border-radius:6px;padding:8px 12px;font-size:13px">${nota}</div>`;
+    if(foto)html+=`<img src="${foto}" style="border-radius:8px;max-width:100%;max-height:200px;object-fit:cover">`;
+    if(!textos.length&&!nota&&!foto)html+=`<div style="color:var(--faint);font-size:12px;font-style:italic">Sin registro</div>`;
+    html+=`</div></div>`;
+  });
+  document.getElementById('mreg-body').innerHTML=html;
+  document.getElementById('modal-reg').classList.remove('hidden');
+}
+
+/* ══ MONITOREO ══════════════════════════════════════════════ */
+let monData=[], editMonId=null;
+async function loadMonitoreo() {
+  const r=await fetch(SB_URL+'/rest/v1/paciente_monitoreo?paciente=eq.'+SLUG+'&order=fecha.desc', {headers:{apikey:SB_ANON,Authorization:'Bearer '+SB_ANON}});
+  monData=await r.json();
+  renderMonitoreo();
+}
+function renderMonitoreo() {
+  if(!monData.length){document.getElementById('mon-list').innerHTML='<div style="text-align:center;padding:48px;color:var(--faint)">Sin sesiones de monitoreo</div>';return;}
+  document.getElementById('mon-list').innerHTML=monData.map((m,i)=>{
+    const d=m.datos||{}; const q1=d.q1||'—'; const q7=d.q7||'—';
+    return `<div class="session-row">
+      <div class="sdate">${fmtFecha(m.fecha)}</div>
+      <div class="ssub">Plan: <b style="color:var(--amber)">${q1}/10</b> · Ejercicio: <b style="color:var(--amber)">${q7}/10</b></div>
+      <button class="btn btn-sm" style="margin-left:auto;margin-right:6px" onclick="abrirMonitoreo(${i})">Ver / Editar</button>
+      <button class="sdel" onclick="deleteMonitoreo('${m.id}',${i})" title="Eliminar">×</button>
+    </div>`;
+  }).join('');
+}
+function abrirMonitoreo(idx) {
+  editMonId = idx!=null ? monData[idx]?.id : null;
+  const d = idx!=null ? (monData[idx]?.datos||{}) : {};
+  const f = idx!=null ? monData[idx]?.fecha : new Date().toISOString().slice(0,10);
+  document.getElementById('mon-fecha').value=f||'';
+  ['q1','q7'].forEach(k=>{ const el=document.getElementById('mon-'+k); if(el){el.value=d[k]||7; document.getElementById('mon-'+k+'v').textContent=d[k]||7;}});
+  ['q2','q3','q4','q5','q6','q8','q9','q10'].forEach(k=>{ const el=document.getElementById('mon-'+k); if(el) el.value=d[k]||''; });
+  document.getElementById('modal-mon').classList.remove('hidden');
+}
+async function saveMonitoreo() {
+  const datos={
+    q1:document.getElementById('mon-q1').value,
+    q2:document.getElementById('mon-q2').value, q3:document.getElementById('mon-q3').value,
+    q4:document.getElementById('mon-q4').value, q5:document.getElementById('mon-q5').value,
+    q6:document.getElementById('mon-q6').value, q7:document.getElementById('mon-q7').value,
+    q8:document.getElementById('mon-q8').value, q9:document.getElementById('mon-q9').value,
+    q10:document.getElementById('mon-q10').value
+  };
+  const fecha=document.getElementById('mon-fecha').value;
+  const body={paciente:SLUG,fecha,datos};
+  let url=SB_URL+'/rest/v1/paciente_monitoreo'; let method='POST';
+  if(editMonId){url+='?id=eq.'+editMonId; method='PATCH';}
+  const r=await fetch(url,{method,headers:{'Content-Type':'application/json',apikey:SB_ANON,Authorization:'Bearer '+SB_ANON,Prefer:'return=minimal'},body:JSON.stringify(body)});
+  if(r.ok){document.getElementById('modal-mon').classList.add('hidden'); tabLoaded.monitoreo=false; loadMonitoreo();}
+  else alert('Error al guardar');
+}
+async function deleteMonitoreo(id,i) {
+  if(!confirm('¿Eliminar esta sesión?')) return;
+  await fetch(SB_URL+'/rest/v1/paciente_monitoreo?id=eq.'+id,{method:'DELETE',headers:{apikey:SB_ANON,Authorization:'Bearer '+SB_ANON}});
+  monData.splice(i,1); renderMonitoreo();
+}
+
+/* ══ MEDIDAS ANTROPOMÉTRICAS ═════════════════════════════════ */
+let medData=[], editMedId=null;
+async function loadMedidas() {
+  const r=await fetch(SB_URL+'/rest/v1/paciente_medidas?paciente=eq.'+SLUG+'&order=fecha.desc', {headers:{apikey:SB_ANON,Authorization:'Bearer '+SB_ANON}});
+  medData=await r.json();
+  renderMedidas();
+}
+function renderMedidas() {
+  const el=document.getElementById('med-history');
+  if(!medData.length){el.innerHTML='<div style="text-align:center;padding:48px;color:var(--faint)">Sin mediciones registradas</div>';return;}
+  el.innerHTML=`<div class="table-wrap"><table class="data-table">
+    <thead><tr><th>Fecha</th><th>Peso (kg)</th><th>Talla (cm)</th><th>IMC</th><th>% Grasa</th><th>Σ6 Pliegues</th><th>Cintura (cm)</th><th></th></tr></thead>
+    <tbody>${medData.map((m,i)=>{
+      const d=m.datos||{};
+      return `<tr>
+        <td style="font-family:'IBM Plex Mono';font-size:12px;color:var(--amber)">${fmtFecha(m.fecha)}</td>
+        <td class="calc">${d.masa||'—'}</td>
+        <td class="calc">${d.talla||'—'}</td>
+        <td class="calc">${d.calc_imc||'—'}</td>
+        <td class="calc">${d.calc_pgra||'—'}${d.calc_pgra?'%':''}</td>
+        <td class="calc">${d.calc_s6||'—'}</td>
+        <td class="calc">${d.pg_cintura||'—'}</td>
+        <td style="white-space:nowrap">
+          <button class="btn btn-sm" onclick="abrirMedidas(${i})">Ver / Editar</button>
+          <button onclick="deleteMedida('${m.id}',${i})" style="background:none;border:none;color:var(--faint);cursor:pointer;font-size:18px;margin-left:6px" title="Eliminar">×</button>
+        </td></tr>`;
+    }).join('')}</tbody>
+  </table></div>`;
+}
+function abrirMedidas(idx) {
+  editMedId = idx!=null ? medData[idx]?.id : null;
+  const d = idx!=null ? (medData[idx]?.datos||{}) : {};
+  const f = idx!=null ? medData[idx]?.fecha : new Date().toISOString().slice(0,10);
+  document.getElementById('med-fecha').value=f||'';
+  document.getElementById('med-sexo').value=d.sexo||'m';
+  const set=(id,v)=>{const el=document.getElementById(id);if(el&&v!=null)el.value=v;};
+  set('med-masa',d.masa); set('med-talla',d.talla); set('med-t-sentado',d.t_sentado);
+  set('med-pf-triceps',d.pf_triceps); set('med-pf-subesc',d.pf_subesc); set('med-pf-biceps',d.pf_biceps);
+  set('med-pf-iliaca',d.pf_iliaca); set('med-pf-supra',d.pf_supra); set('med-pf-abd',d.pf_abd);
+  set('med-pf-muslo',d.pf_muslo); set('med-pf-pantorrilla',d.pf_pantorrilla);
+  set('med-pg-brazo-r',d.pg_brazo_r); set('med-pg-brazo-c',d.pg_brazo_c);
+  set('med-pg-cintura',d.pg_cintura); set('med-pg-cadera',d.pg_cadera);
+  set('med-pg-muslo',d.pg_muslo); set('med-pg-pantorrilla',d.pg_pantorrilla);
+  set('med-pg-torax',d.pg_torax); set('med-pg-cuello',d.pg_cuello); set('med-pg-gemelo',d.pg_gemelo);
+  set('med-db-humero',d.db_humero); set('med-db-femur',d.db_femur); set('med-db-estiloideo',d.db_estiloideo);
+  set('med-notas',d.notas);
+  calcMedidas();
+  document.getElementById('modal-med').classList.remove('hidden');
+}
+function calcMedidas() {
+  const v=(id)=>parseFloat(document.getElementById(id)?.value)||0;
+  const masa=v('med-masa'); const talla=v('med-talla')/100;
+  const imc = talla>0 ? (masa/talla/talla).toFixed(1) : '—';
+  const cin=v('med-pg-cintura'); const cad=v('med-pg-cadera');
+  const whr = cad>0 ? (cin/cad).toFixed(2) : '—';
+  const tri=v('med-pf-triceps'); const sub=v('med-pf-subesc'); const supra=v('med-pf-supra');
+  const abd=v('med-pf-abd'); const muslo=v('med-pf-muslo'); const pant=v('med-pf-pantorrilla');
+  const bic=v('med-pf-biceps'); const iliaca=v('med-pf-iliaca');
+  const s6=tri+sub+supra+abd+muslo+pant;
+  const s8=s6+bic+iliaca;
+  // % Grasa Slaughter (mixto)
+  const sexo=document.getElementById('med-sexo')?.value;
+  let pgra='—';
+  if(tri>0&&sub>0){
+    const s=tri+sub;
+    pgra = sexo==='f' ? (1.33*s - 0.013*s*s - 2.5).toFixed(1) : (1.21*s - 0.008*s*s - 1.7).toFixed(1);
+  }
+  // % Músculo Lee (simplificado)
+  let pmus='—';
+  const brazoR=v('med-pg-brazo-r'); const femur=v('med-db-femur'); const humero=v('med-db-humero');
+  if(masa>0&&talla>0&&brazoR>0){
+    const ms=masa*0.40; // simplified estimate
+    pmus=((ms/masa)*100).toFixed(1);
+  }
+  // % Hueso Rocha
+  let phueso='—';
+  if(masa>0&&talla>0&&humero>0&&femur>0){
+    const hes=3.02*Math.pow((talla*0.01*humero*femur*400),0.712);
+    phueso=((hes/masa)*100).toFixed(1);
+  }
+  const S=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v||'—';};
+  S('calc-imc',imc); S('calc-whr',whr);
+  S('calc-s6',s6>0?s6.toFixed(1):'—'); S('calc-s8',s8>0?s8.toFixed(1):'—');
+  S('calc-pgra',pgra!=='—'?pgra+'%':pgra);
+  S('calc-pmus',pmus!=='—'?pmus+'%':pmus);
+  S('calc-phueso',phueso!=='—'?phueso+'%':phueso);
+}
+async function saveMedidas() {
+  const v=(id)=>{ const el=document.getElementById(id); const n=parseFloat(el?.value); return isNaN(n)?undefined:n; };
+  const s=(id)=>document.getElementById(id)?.value||undefined;
+  const datos={
+    sexo:s('med-sexo'),
+    masa:v('med-masa'), talla:v('med-talla'), t_sentado:v('med-t-sentado'),
+    pf_triceps:v('med-pf-triceps'), pf_subesc:v('med-pf-subesc'), pf_biceps:v('med-pf-biceps'),
+    pf_iliaca:v('med-pf-iliaca'), pf_supra:v('med-pf-supra'), pf_abd:v('med-pf-abd'),
+    pf_muslo:v('med-pf-muslo'), pf_pantorrilla:v('med-pf-pantorrilla'),
+    pg_brazo_r:v('med-pg-brazo-r'), pg_brazo_c:v('med-pg-brazo-c'),
+    pg_cintura:v('med-pg-cintura'), pg_cadera:v('med-pg-cadera'),
+    pg_muslo:v('med-pg-muslo'), pg_pantorrilla:v('med-pg-pantorrilla'),
+    pg_torax:v('med-pg-torax'), pg_cuello:v('med-pg-cuello'), pg_gemelo:v('med-pg-gemelo'),
+    db_humero:v('med-db-humero'), db_femur:v('med-db-femur'), db_estiloideo:v('med-db-estiloideo'),
+    notas:s('med-notas'),
+    // Store calculated values
+    calc_imc:document.getElementById('calc-imc')?.textContent,
+    calc_s6: document.getElementById('calc-s6')?.textContent,
+    calc_pgra:document.getElementById('calc-pgra')?.textContent?.replace('%',''),
+  };
+  const fecha=document.getElementById('med-fecha').value;
+  const body={paciente:SLUG,fecha,datos};
+  let url=SB_URL+'/rest/v1/paciente_medidas'; let method='POST';
+  if(editMedId){url+='?id=eq.'+editMedId;method='PATCH';}
+  const r=await fetch(url,{method,headers:{'Content-Type':'application/json',apikey:SB_ANON,Authorization:'Bearer '+SB_ANON,Prefer:'return=minimal'},body:JSON.stringify(body)});
+  if(r.ok){document.getElementById('modal-med').classList.add('hidden'); tabLoaded.medidas=false; loadMedidas();}
+  else alert('Error al guardar');
+}
+async function deleteMedida(id,i) {
+  if(!confirm('¿Eliminar esta medición?')) return;
+  await fetch(SB_URL+'/rest/v1/paciente_medidas?id=eq.'+id,{method:'DELETE',headers:{apikey:SB_ANON,Authorization:'Bearer '+SB_ANON}});
+  medData.splice(i,1); renderMedidas();
+}
+</script>
+</body>
+</html>
