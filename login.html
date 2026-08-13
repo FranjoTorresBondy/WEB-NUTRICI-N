@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Iniciar sesión — Franjo Torres</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Libre+Franklin:wght@700;800&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 :root{
   --bg:#080808;--panel:#141414;--line:#2a2a2a;
@@ -21,13 +20,11 @@ body{
   display:flex;align-items:center;justify-content:center;min-height:100vh;
   padding:24px;
 }
-
 .card{
   width:100%;max-width:400px;
   background:var(--panel);border:1px solid var(--line);
   border-radius:16px;padding:40px 36px;
 }
-
 .logo{
   display:flex;flex-direction:column;align-items:center;
   gap:6px;margin-bottom:36px;text-align:center;
@@ -38,12 +35,10 @@ body{
   letter-spacing:.18em;text-transform:uppercase;color:var(--gold);
 }
 .logo-sub{font-size:12px;color:var(--muted);letter-spacing:.04em}
-
 h1{
   font-family:'Libre Franklin',sans-serif;font-size:20px;font-weight:800;
   text-align:center;margin-bottom:28px;letter-spacing:-.01em;
 }
-
 .field{margin-bottom:16px}
 label{display:block;font-size:12px;font-weight:600;color:var(--muted);
   letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px}
@@ -55,7 +50,6 @@ input{
 }
 input:focus{border-color:var(--gold)}
 input::placeholder{color:#444}
-
 .btn{
   width:100%;margin-top:8px;
   background:var(--gold);color:#000;
@@ -65,7 +59,6 @@ input::placeholder{color:#444}
 }
 .btn:hover{background:var(--gold2)}
 .btn:disabled{opacity:.5;cursor:not-allowed}
-
 .error{
   background:rgba(239,83,80,.1);border:1px solid rgba(239,83,80,.3);
   border-radius:8px;padding:10px 14px;
@@ -73,22 +66,18 @@ input::placeholder{color:#444}
   display:none;
 }
 .error.show{display:block}
-
 .loading{
   display:none;flex-direction:column;align-items:center;
   gap:12px;padding:40px 0;text-align:center;
 }
 .loading.show{display:flex}
 .loading p{font-size:14px;color:var(--muted)}
-
 .spinner{
   width:32px;height:32px;
   border:3px solid var(--line);border-top-color:var(--gold);
   border-radius:50%;animation:spin .7s linear infinite;
 }
 @keyframes spin{to{transform:rotate(360deg)}}
-
-.form-content{}
 </style>
 </head>
 <body>
@@ -99,16 +88,16 @@ input::placeholder{color:#444}
     <div class="logo-sub">Nutricionista · Entrenamiento</div>
   </div>
 
-  <div class="form-content" id="formContent">
+  <div id="formContent">
     <h1>Tu plan personalizado</h1>
     <form id="loginForm">
       <div class="field">
-        <label for="email">Nombre</label>
-        <input type="text" id="email" placeholder="ej: jorge" required autocomplete="username">
+        <label for="usuario">Nombre</label>
+        <input type="text" id="usuario" placeholder="ej: ezio" required autocomplete="username">
       </div>
       <div class="field">
         <label for="password">Contraseña</label>
-        <input type="password" id="password" placeholder="Tu nombre" required autocomplete="current-password">
+        <input type="password" id="password" placeholder="Tu contraseña" required autocomplete="current-password">
       </div>
       <button type="submit" class="btn" id="submitBtn">Iniciar sesión</button>
       <div class="error" id="errorMsg"></div>
@@ -122,10 +111,95 @@ input::placeholder{color:#444}
 </div>
 
 <script>
-const SUPABASE_URL  = 'https://hmnjtbruliluctslkndq.supabase.co';
-const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhtbmp0YnJ1bGlsdWN0c2xrbmRxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE0NjAxNjksImV4cCI6MjA5NzAzNjE2OX0.IYmCcvjdlbH1L0QoSoGIpwudRehSQINR1hNoWG02Cc4';
-
-const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+const PACIENTES = {
+  'jorge':              'jorge-orocoy',
+  'adrian.tamayo':      'adrian-tamayo',
+  'alejandro':          'alejandro-roman',
+  'alessia':            'alessia-zucchetti',
+  'andrea':             'andrea-hinojosa',
+  'andres':             'andres',
+  'araceli':            'araceli-suarez',
+  'arturo':             'arturo-fernandez',
+  'bruno':              'bruno-bastos',
+  'cadmo':              'cadmo-garibaldi',
+  'chiara':             'chiara-bitrich',
+  'cristian':           'cristian-contreras',
+  'diego.cornejo':      'diego-cornejo',
+  'diego.lobaton':      'diego-lobaton',
+  'diego.lopez':        'diego-lopez',
+  'enzo':               'enzo-risco',
+  'estephano':          'estephano-vigil',
+  'evelyn':             'evelyn-sierra',
+  'ezio':               'ezio-perez',
+  'fabrizio.valderrama':'fabrizio-valderrama',
+  'fatima':             'fatima-palomino',
+  'fernando':           'fernando-penagos',
+  'franco':             'franco-gervasi',
+  'giancarlo.bambaren': 'giancarlo-bambaren',
+  'giancarlo.cassia':   'giancarlo-cassia',
+  'giorgio':            'giorgio-badani',
+  'gonzalo':            'gonzalo-gamboa',
+  'hugo':               'hugo',
+  'james':              'james-hole',
+  'ivan':               'ivan-joaquin',
+  'carlo':              'carlo-villamar',
+  'javier':             'javier-vargas',
+  'joaquin':            'joaquin-angulo',
+  'johan':              'johan-naveda',
+  'kristel':            'kristel-centurion',
+  'marcelo.gago':       'marcelo-gago',
+  'maria.augusta':      'maria-augusta',
+  'mateo':              'mateo-cotrina',
+  'matias':             'matias-carrion',
+  'mauricio':           'mauricio-vergani',
+  'miguel':             'miguel-yzaga',
+  'rodrigo':            'rodrigo-rubio',
+  'salma':              'salma-achtar',
+  'salvatore':          'salvatore-cabanillas',
+  'santiago':           'santiago-bedoya',
+  'sebastian.merea':    'sebastian-merea',
+  'sebastian.roman':    'sebastian-roman',
+  'stephan':            'stephan-braedt',
+  'tomas':              'tomas-ruiz',
+  'valeria.salazar':    'valeria-salazar',
+  'vasco':              'vasco-valera',
+  'victor':             'victor-bazan',
+  'vittorio':           'vittorio-calderon',
+  'ximena':             'ximena',
+  'ioanis':             'ioanis-patsias',
+  'valeria.aguilera':   'valeria-aguilera',
+  'adrian.castro':      'adrian-castro',
+  'alejandra.loayza':   'alejandra-loayza',
+  'alejandra.meza':     'alejandra-meza',
+  'alejandro.cerna':    'alejandro-cerna',
+  'alex':               'alex-rios',
+  'anthony':            'anthony-lee',
+  'aurelio':            'aurelio',
+  'debora':             'debora-withers',
+  'fabrizio.vasallo':   'fabrizio-vasallo',
+  'gabriel':            'gabriel-martinez',
+  'george':             'george-alarcon',
+  'gisela':             'gisela-schrader',
+  'ian':                'ian-escuza',
+  'javier.lazo':        'javier-lazo',
+  'joaquin.llona':      'joaquin-llona',
+  'juan':               'juan-de-dios',
+  'kurt':               'kurt-schrader',
+  'marcelo.prado':      'marcelo-prado',
+  'maria.jose':         'maria-jose-figueroa',
+  'naghib':             'naghib',
+  'nicolas':            'nicolas-holz',
+  'oscar':              'oscar-ravello',
+  'paula':              'paula-camino',
+  'renzo':              'renzo-acosta',
+  'ricardo':            'ricardo-acosta',
+  'ruben':              'ruben-rios',
+  'salvador':           'salvador-aguirre',
+  'thiago':             'thiago-gago',
+  'valeria.rojas':      'valeria-rojas',
+  'viviana':            'viviana-caceres',
+  'raquel':             'raquel-lazarte',
+};
 
 const formContent  = document.getElementById('formContent');
 const loadingState = document.getElementById('loadingState');
@@ -133,74 +207,47 @@ const loginForm    = document.getElementById('loginForm');
 const submitBtn    = document.getElementById('submitBtn');
 const errorMsg     = document.getElementById('errorMsg');
 
-function showLoading() {
-  formContent.style.display = 'none';
-  loadingState.classList.add('show');
-}
-
 function showError(msg) {
   errorMsg.textContent = msg;
   errorMsg.classList.add('show');
   submitBtn.disabled = false;
+  submitBtn.textContent = 'Iniciar sesión';
 }
 
-async function loadPlan(session) {
-  showLoading();
-  try {
-    const { data: profile, error } = await sb
-      .from('patient_profiles')
-      .select('slug')
-      .eq('user_id', session.user.id)
-      .single();
-
-    if (error || !profile?.slug) {
-      formContent.style.display = '';
-      loadingState.classList.remove('show');
-      showError('No se encontró tu perfil. Escríbele a tu nutricionista.');
-      return;
-    }
-
-    const res = await fetch(`/paciente/${profile.slug}.html`);
-    if (!res.ok) throw new Error('Página no encontrada');
-    const html = await res.text();
-
-    document.open();
-    document.write(html);
-    document.close();
-  } catch (err) {
-    formContent.style.display = '';
-    loadingState.classList.remove('show');
-    showError('Error al cargar tu plan. Intenta de nuevo.');
-  }
-}
-
-// Si ya hay sesión activa, cargar plan directamente
-(async () => {
-  const { data: { session } } = await sb.auth.getSession();
-  if (session) await loadPlan(session);
-})();
-
-// Submit del formulario
 loginForm.addEventListener('submit', async (e) => {
   e.preventDefault();
   errorMsg.classList.remove('show');
   submitBtn.disabled = true;
   submitBtn.textContent = 'Verificando…';
 
-  const raw      = document.getElementById('email').value.trim().toLowerCase();
-  const email    = raw.includes('@') ? raw : raw + '@plan';
-  const password = document.getElementById('password').value.trim();
+  const usuario  = document.getElementById('usuario').value.trim().toLowerCase();
+  const password = document.getElementById('password').value.trim().toLowerCase();
+
+  if (usuario !== password) {
+    showError('Nombre o contraseña incorrectos.');
+    return;
+  }
+
+  const slug = PACIENTES[usuario];
+  if (!slug) {
+    showError('Nombre o contraseña incorrectos.');
+    return;
+  }
+
+  formContent.style.display = 'none';
+  loadingState.classList.add('show');
 
   try {
-    const { data, error } = await sb.auth.signInWithPassword({ email, password });
-    if (error) throw error;
-    await loadPlan(data.session);
-  } catch (err) {
-    const msg = err.message?.includes('Invalid login credentials')
-      ? 'Correo o contraseña incorrectos.'
-      : (err.message || 'Error al iniciar sesión.');
-    showError(msg);
-    submitBtn.textContent = 'Iniciar sesión';
+    const res = await fetch('/paciente/' + slug + '.html');
+    if (!res.ok) throw new Error('no encontrado');
+    const html = await res.text();
+    document.open();
+    document.write(html);
+    document.close();
+  } catch {
+    formContent.style.display = '';
+    loadingState.classList.remove('show');
+    showError('Error al cargar tu plan. Intenta de nuevo.');
   }
 });
 </script>
