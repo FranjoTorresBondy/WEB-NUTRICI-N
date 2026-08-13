@@ -1071,6 +1071,68 @@ function calcMed(){
     else if(s6>refH[1]){nivelS='atleta entrenado';cS='var(--green)';}
     msgs.push({t:`Σ6 Yuhasz: ${s6.toFixed(1)} mm → nivel ${nivelS}`,c:cS});
   }
+
+  // ── Interpretación diámetros óseos ──
+  // Rangos de referencia ISAK adultos (H = hombre, M = mujer)
+  // Clasificación: pequeño / medio / grande → talla de estructura (frame size)
+  const dest=v('med-dest'); // biestiloideo
+  if(dhum>0||dfem>0||dest>0){
+    // Húmero
+    const hRef=sexo==='f'?[5.5,6.5]:[6.5,7.5];
+    // Fémur
+    const fRef=sexo==='f'?[8.0,9.5]:[9.0,10.5];
+    // Biestiloideo (muñeca)
+    const bRef=sexo==='f'?[4.9,5.7]:[5.6,6.4];
+
+    const frameLabel=(val,[lo,hi])=>val>0?(val<lo?'pequeño':val<=hi?'medio':'grande'):'—';
+    const frameColor=(val,[lo,hi])=>val>0?(val<lo?'#4fc3f7':val<=hi?'var(--green)':'var(--amber)'):'var(--muted)';
+
+    const hL=frameLabel(dhum,hRef), fL=frameLabel(dfem,fRef), bL=frameLabel(dest,bRef);
+    const hC=frameColor(dhum,hRef), fC=frameColor(dfem,fRef);
+
+    // Determinar frame size general (2 de 3 gana)
+    const votes={pequeño:0,medio:0,grande:0};
+    if(dhum>0)votes[hL]++;
+    if(dfem>0)votes[fL]++;
+    if(dest>0)votes[bL]++;
+    const frameSize=Object.entries(votes).sort((a,b)=>b[1]-a[1])[0][0];
+    const frameC=frameSize==='pequeño'?'var(--blue)':frameSize==='medio'?'var(--green)':'var(--amber)';
+
+    // Interpretación clínica de cada diámetro
+    if(dhum>0){
+      const interp=dhum<hRef[0]
+        ?'estructura ósea fina en tren superior — menor potencial de masa muscular en brazos/hombros'
+        :dhum<=hRef[1]
+        ?'estructura ósea media — buena base para desarrollo muscular equilibrado'
+        :'estructura ósea robusta — alto potencial de masa muscular en tren superior, predisposición a mayor mesomorfia';
+      msgs.push({t:`Húmero ${dhum} cm (${hL}) → ${interp}`,c:hC});
+    }
+    if(dfem>0){
+      const interp=dfem<fRef[0]
+        ?'estructura ósea fina en tren inferior — menor potencial muscular en piernas; favorable para deportes de resistencia'
+        :dfem<=fRef[1]
+        ?'estructura ósea media en tren inferior — equilibrio entre fuerza y ligereza'
+        :'estructura ósea robusta en tren inferior — alto potencial de masa muscular en piernas; predisposición a mayor fuerza';
+      msgs.push({t:`Fémur ${dfem} cm (${fL}) → ${interp}`,c:fC});
+    }
+    if(dest>0){
+      const bS=bL==='pequeño'?'muñeca fina':'bL'==='medio'?'muñeca media':'muñeca ancha';
+      const bInterp=bL==='pequeño'
+        ?'muñeca fina → ectomorfia predominante; indica menor densidad ósea periférica'
+        :bL==='medio'
+        ?'muñeca media → estructura balanceada'
+        :'muñeca ancha → mayor densidad ósea periférica; componente mesomórfico elevado';
+      msgs.push({t:`Biestiloideo ${dest} cm (${bL}) → ${bInterp}`,c:frameColor(dest,bRef)});
+    }
+    // Resumen frame size
+    const frameMsgs={
+      pequeño:`Estructura ósea general: PEQUEÑA — mayor facilidad para bajar de peso; menor potencial de masa muscular; predisposición a ectomorfia. Peso ideal más bajo que tablas estándar.`,
+      medio:`Estructura ósea general: MEDIA — responde bien tanto a fuerza como a resistencia; peso ideal según tablas estándar.`,
+      grande:`Estructura ósea general: GRANDE — alto potencial de masa muscular; mayor peso ideal que tablas estándar; predisposición a mesomorfia. No confundir estructura grande con exceso de grasa.`
+    };
+    msgs.push({t:frameMsgs[frameSize],c:frameC});
+  }
+
   document.getElementById('c-interpret').innerHTML=msgs.map(m=>
     `<div style="background:var(--panel2);border-left:3px solid ${m.c};border-radius:6px;padding:7px 12px;font-size:12px;color:var(--ink)">${m.t}</div>`
   ).join('');
