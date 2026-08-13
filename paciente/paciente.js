@@ -138,6 +138,19 @@ async function guardarDia() {
     const state = (typeof mealState !== 'undefined') ? mealState : {};
     datos.selecciones = state;
 
+    // Collect selected option texts per meal for readable admin view
+    const resumen = {};
+    document.querySelectorAll('.meal[data-mealid]').forEach(mealEl => {
+      const mid = mealEl.dataset.mealid;
+      const textos = [];
+      mealEl.querySelectorAll('.opt.selected').forEach(opt => {
+        const txt = opt.querySelector('.opt-text');
+        if (txt) textos.push(txt.textContent.trim().replace(/\s+/g, ' '));
+      });
+      if (textos.length) resumen[mid] = textos;
+    });
+    if (Object.keys(resumen).length) datos.resumen = resumen;
+
     // Collect notes
     document.querySelectorAll('.meal[data-mealid]').forEach(mealEl => {
       const mid = mealEl.dataset.mealid;
