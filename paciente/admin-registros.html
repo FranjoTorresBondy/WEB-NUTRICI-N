@@ -441,9 +441,12 @@ body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;line-h
         <div class="f"><label>Cintura</label><input type="number" step="0.1" id="med-gcin" oninput="calcMed()"></div>
         <div class="f"><label>Cadera</label><input type="number" step="0.1" id="med-gcad" oninput="calcMed()"></div>
         <div class="f"><label>Muslo</label><input type="number" step="0.1" id="med-gmus"></div>
-        <div class="f"><label>Pantorrilla</label><input type="number" step="0.1" id="med-gpant"></div>
-        <div class="f"><label>Tórax</label><input type="number" step="0.1" id="med-gtor"></div>
+        <div class="f"><label>Pantorrilla</label><input type="number" step="0.1" id="med-gpant" oninput="calcMed()"></div>
+        <div class="f"><label>Tórax / Pecho</label><input type="number" step="0.1" id="med-gtor"></div>
         <div class="f"><label>Cuello</label><input type="number" step="0.1" id="med-gcue"></div>
+        <div class="f"><label>Hombros</label><input type="number" step="0.1" id="med-ghom"></div>
+        <div class="f"><label>Pecho (busto)</label><input type="number" step="0.1" id="med-gpec"></div>
+        <div class="f"><label>Antebrazo</label><input type="number" step="0.1" id="med-gant"></div>
       </div>
       <div class="sub-lbl">Diámetros óseos (cm)</div>
       <div class="fg c3">
@@ -452,14 +455,22 @@ body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;line-h
         <div class="f"><label>Biestiloideo</label><input type="number" step="0.01" id="med-dest"></div>
       </div>
       <div class="sub-lbl">Resultados calculados</div>
-      <div class="med-stats">
-        <div class="med-stat"><div class="val" id="c-imc">—</div><div class="lbl">IMC kg/m²</div></div>
-        <div class="med-stat"><div class="val" id="c-whr">—</div><div class="lbl">Cin/Cad</div></div>
-        <div class="med-stat"><div class="val" id="c-s6">—</div><div class="lbl">Σ6 mm</div></div>
-        <div class="med-stat"><div class="val" id="c-s8">—</div><div class="lbl">Σ8 mm</div></div>
-        <div class="med-stat"><div class="val" id="c-pgra">—</div><div class="lbl">% Grasa</div></div>
-        <div class="med-stat"><div class="val" id="c-pmus">—</div><div class="lbl">% Músculo</div></div>
+      <div class="med-stats" style="grid-template-columns:repeat(auto-fill,minmax(120px,1fr))">
+        <div class="med-stat"><div class="val" id="c-imc">—</div><div class="lbl">IMC kg/m²</div><div id="c-imc-i" style="font-size:9px;margin-top:3px;color:var(--muted)"></div></div>
+        <div class="med-stat"><div class="val" id="c-whr">—</div><div class="lbl">Cin/Cad (ICC)</div><div id="c-whr-i" style="font-size:9px;margin-top:3px;color:var(--muted)"></div></div>
+        <div class="med-stat"><div class="val" id="c-ict">—</div><div class="lbl">Cin/Talla</div><div id="c-ict-i" style="font-size:9px;margin-top:3px;color:var(--muted)"></div></div>
+        <div class="med-stat"><div class="val" id="c-s6">—</div><div class="lbl">Σ6 Yuhasz (mm)</div></div>
+        <div class="med-stat"><div class="val" id="c-s8">—</div><div class="lbl">Σ8 ISAK (mm)</div></div>
+        <div class="med-stat"><div class="val" id="c-pgra">—</div><div class="lbl">% Grasa</div><div id="c-pgra-i" style="font-size:9px;margin-top:3px;color:var(--muted)"></div></div>
+        <div class="med-stat"><div class="val" id="c-kgra">—</div><div class="lbl">kg Grasa</div></div>
+        <div class="med-stat"><div class="val" id="c-pmus">—</div><div class="lbl">% Músculo (Lee)</div><div id="c-pmus-i" style="font-size:9px;margin-top:3px;color:var(--muted)"></div></div>
+        <div class="med-stat"><div class="val" id="c-kmus">—</div><div class="lbl">kg Músculo</div></div>
+        <div class="med-stat"><div class="val" id="c-mose">—</div><div class="lbl">kg Masa ósea</div></div>
+        <div class="med-stat"><div class="val" id="c-imo">—</div><div class="lbl">Índice músculo-óseo</div><div id="c-imo-i" style="font-size:9px;margin-top:3px;color:var(--muted)"></div></div>
+        <div class="med-stat"><div class="val" id="c-aks">—</div><div class="lbl">Área musc. brazo cm²</div></div>
+        <div class="med-stat"><div class="val" id="c-mlm">—</div><div class="lbl">Masa libre de grasa</div></div>
       </div>
+      <div id="c-interpret" style="margin-top:10px;display:grid;gap:6px"></div>
       <div class="f"><label>Notas</label><textarea id="med-notas"></textarea></div>
     </div>
     <div class="modal-foot">
@@ -872,27 +883,197 @@ function abrirMedidas(idx){
   s('med-psup',d.psup);s('med-pabd',d.pabd);s('med-pmus',d.pmus);s('med-ppant',d.ppant);
   s('med-gbr',d.gbr);s('med-gbc',d.gbc);s('med-gcin',d.gcin);s('med-gcad',d.gcad);
   s('med-gmus',d.gmus);s('med-gpant',d.gpant);s('med-gtor',d.gtor);s('med-gcue',d.gcue);
+  s('med-ghom',d.ghom);s('med-gpec',d.gpec);s('med-gant',d.gant);
   s('med-dhum',d.dhum);s('med-dfem',d.dfem);s('med-dest',d.dest);s('med-notas',d.notas);
   calcMed();
   document.getElementById('modal-med').classList.remove('hidden');
 }
 function calcMed(){
   const v=id=>parseFloat(document.getElementById(id)?.value)||0;
-  const masa=v('med-masa');const talla=v('med-talla')/100;
-  const imc=talla>0?(masa/talla/talla).toFixed(1):'—';
-  const cin=v('med-gcin');const cad=v('med-gcad');const whr=cad>0?(cin/cad).toFixed(2):'—';
-  const tri=v('med-ptric'),sub=v('med-psub'),supra=v('med-psup'),abd=v('med-pabd'),mus=v('med-pmus'),pant=v('med-ppant');
-  const bic=v('med-pbic'),il=v('med-pil');
-  const s6=tri+sub+supra+abd+mus+pant;const s8=s6+bic+il;
-  const sexo=document.getElementById('med-sexo')?.value;
-  let pgra='—';
-  if(tri>0&&sub>0){const s=tri+sub;pgra=(sexo==='f'?(1.33*s-0.013*s*s-2.5):(1.21*s-0.008*s*s-1.7)).toFixed(1);}
-  const S=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v;};
-  S('c-imc',imc);S('c-whr',whr);S('c-s6',s6>0?s6.toFixed(1):'—');S('c-s8',s8>0?s8.toFixed(1):'—');
-  S('c-pgra',pgra!=='—'?pgra+'%':pgra);
-  const brazoR=v('med-gbr');let pmus='—';
-  if(masa>0&&talla>0&&brazoR>0) pmus=((masa*0.40/masa)*100).toFixed(1)+'%';
-  S('c-pmus',pmus);
+  const t=id=>document.getElementById(id)?.value||'';
+  const masa=v('med-masa'), tallaC=v('med-talla'), tallaM=tallaC/100;
+  const sexo=t('med-sexo'); // 'm' | 'f'
+  const edadEl=document.getElementById('_med-edad-calc'); // no existe, usamos 25 por defecto si no hay edad
+  const edad=25; // fallback; idealmente viene de historia
+  const S=(id,val)=>{const el=document.getElementById(id);if(el)el.textContent=val;};
+  const SI=(id,val,color)=>{const el=document.getElementById(id);if(el){el.textContent=val;el.style.color=color||'var(--muted)';}};
+
+  // Pliegues
+  const tri=v('med-ptric'),sub=v('med-psub'),bic=v('med-pbic'),il=v('med-pil');
+  const supra=v('med-psup'),abd=v('med-pabd'),mus=v('med-pmus'),pant=v('med-ppant');
+  const s6=tri+sub+supra+abd+mus+pant;
+  const s8=s6+bic+il;
+
+  // Perímetros
+  const cin=v('med-gcin'),cad=v('med-gcad'),gbr=v('med-gbr'),gpant=v('med-gpant');
+
+  // Diámetros
+  const dhum=v('med-dhum'),dfem=v('med-dfem');
+
+  // ── IMC ──
+  let imc='—', imcN=0;
+  if(masa>0&&tallaM>0){imcN=masa/tallaM/tallaM;imc=imcN.toFixed(1);}
+  S('c-imc',imc);
+  if(imcN>0){
+    let ii='', ic='var(--muted)';
+    if(imcN<18.5){ii='Bajo peso';ic='#ef9a9a';}
+    else if(imcN<25){ii='Normopeso';ic='var(--green)';}
+    else if(imcN<30){ii='Sobrepeso';ic='var(--amber)';}
+    else if(imcN<35){ii='Obesidad I';ic='#ef5350';}
+    else{ii='Obesidad II+';ic='#b71c1c';}
+    SI('c-imc-i',ii,ic);
+  }
+
+  // ── ICC (WHR) ──
+  let whr='—', whrN=0;
+  if(cin>0&&cad>0){whrN=cin/cad;whr=whrN.toFixed(2);}
+  S('c-whr',whr);
+  if(whrN>0){
+    const corteH=sexo==='f'?[0.80,0.85]:[0.95,1.00];
+    let wi='', wc='var(--muted)';
+    if(whrN<corteH[0]){wi='Sin riesgo';wc='var(--green)';}
+    else if(whrN<corteH[1]){wi='Riesgo mod.';wc='var(--amber)';}
+    else{wi='Riesgo alto';wc='#ef5350';}
+    SI('c-whr-i',wi,wc);
+  }
+
+  // ── Índice Cin/Talla ──
+  let ict='—', ictN=0;
+  if(cin>0&&tallaC>0){ictN=cin/tallaC;ict=ictN.toFixed(2);}
+  S('c-ict',ict);
+  if(ictN>0){
+    let ii='', ic='var(--muted)';
+    if(ictN<0.50){ii='Saludable';ic='var(--green)';}
+    else if(ictN<0.60){ii='Riesgo mod.';ic='var(--amber)';}
+    else{ii='Riesgo alto';ic='#ef5350';}
+    SI('c-ict-i',ii,ic);
+  }
+
+  // ── Sumatorias ──
+  S('c-s6',s6>0?s6.toFixed(1):'—');
+  S('c-s8',s8>0?s8.toFixed(1):'—');
+
+  // ── % Grasa — Durnin-Womersley (Σ4 log, con edad) — más preciso para adultos ──
+  let pgraN=0, pgraStr='—';
+  const s4dw=tri+bic+sub+il; // pliegues D-W
+  if(s4dw>0&&edad>0){
+    // coeficientes D-W por sexo y edad (25 años → grupo 20-29)
+    let C,M;
+    if(sexo==='f'){C=1.1599;M=0.0717;} // mujer 20-29
+    else{C=1.1631;M=0.0632;} // hombre 20-29
+    const D=C-M*Math.log10(s4dw);
+    pgraN=(4.95/D-4.50)*100;
+    // Complementar con Yuhasz si no hay s4dw completo pero sí s6
+    if(pgraN<1||pgraN>50) pgraN=0;
+  }
+  // Fallback → Yuhasz (Σ6) si no se pudo calcular D-W
+  if(pgraN===0&&s6>0){
+    pgraN=sexo==='f'?(s6*0.1429+4.56):(s6*0.097+3.64);
+  }
+  if(pgraN>0){pgraStr=pgraN.toFixed(1)+'%';}
+  S('c-pgra',pgraStr);
+  if(pgraN>0){
+    const rangos=sexo==='f'
+      ?[[17,'Atlético'],[22,'Óptimo'],[28,'Aceptable'],[33,'Sobrepeso'],[999,'Obesidad']]
+      :[[10,'Atlético'],[15,'Óptimo'],[20,'Aceptable'],[25,'Sobrepeso'],[999,'Obesidad']];
+    const colores=['#4fc3f7','var(--green)','var(--amber)','#ef5350','#b71c1c'];
+    let idx=rangos.findIndex(r=>pgraN<r[0]);if(idx<0)idx=4;
+    SI('c-pgra-i',rangos[idx][1],colores[idx]);
+  }
+
+  // ── kg Grasa ──
+  let kgraStr='—';
+  if(masa>0&&pgraN>0){kgraStr=(masa*pgraN/100).toFixed(1)+' kg';}
+  S('c-kgra',kgraStr);
+
+  // ── Masa libre de grasa (MLG) ──
+  let mlgStr='—', mlgN=0;
+  if(masa>0&&pgraN>0){mlgN=masa*(1-pgraN/100);mlgStr=mlgN.toFixed(1)+' kg';}
+  S('c-mlm',mlgStr);
+
+  // ── Masa muscular esquelética — Lee et al. 2000 ──
+  // MSE (kg) = Talla(m) × (0.00744×PCc² + 0.00088×PMc² + 0.00441×PPc²) + 2.4×sexoN − 0.048×edad + raza + 7.8
+  let kmusN=0, kmusStr='—', pmusStr='—', pmusN=0;
+  const pcBr=gbr>0&&tri>0?gbr-Math.PI*(tri/10):0; // perímetro brazo corregido
+  const pcMu=v('med-gmus')>0&&mus>0?v('med-gmus')-Math.PI*(mus/10):0;
+  const pcPa=gpant>0&&pant>0?gpant-Math.PI*(pant/10):0;
+  const sexoN=sexo==='m'?1:0;
+  if(tallaM>0&&(pcBr>0||pcMu>0||pcPa>0)){
+    kmusN=tallaM*(0.00744*pcBr*pcBr+0.00088*pcMu*pcMu+0.00441*pcPa*pcPa)+2.4*sexoN-0.048*edad+7.8;
+    if(kmusN>0){kmusStr=kmusN.toFixed(1)+' kg';pmusN=masa>0?kmusN/masa*100:0;pmusStr=pmusN.toFixed(1)+'%';}
+  }
+  S('c-kmus',kmusStr);
+  S('c-pmus',pmusStr);
+  if(pmusN>0){
+    const rangosM=sexo==='f'
+      ?[[24,'Sarcopenia'],[28,'Bajo'],[32,'Normal'],[36,'Bueno'],[999,'Atlético']]
+      :[[29,'Sarcopenia'],[34,'Bajo'],[40,'Normal'],[45,'Bueno'],[999,'Atlético']];
+    const colM=['#ef5350','#ef9a9a','var(--muted)','var(--green)','var(--blue)'];
+    let idx=rangosM.findIndex(r=>pmusN<r[0]);if(idx<0)idx=4;
+    SI('c-pmus-i',rangosM[idx][1],colM[idx]);
+  }
+
+  // ── Masa ósea — Rocha 1975 ──
+  let moseN=0, moseStr='—';
+  if(tallaM>0&&dhum>0&&dfem>0){
+    // Rocha 1975: diámetros en metros (dividir cm entre 100)
+    const dhumM=dhum/100, dfemM=dfem/100;
+    moseN=3.02*Math.pow(tallaM*tallaM*dhumM*dfemM*400,0.712);
+    if(moseN>0)moseStr=moseN.toFixed(1)+' kg';
+  }
+  S('c-mose',moseStr);
+
+  // ── Índice músculo-óseo ──
+  let imoStr='—', imoN=0;
+  if(kmusN>0&&moseN>0){imoN=kmusN/moseN;imoStr=imoN.toFixed(2);}
+  S('c-imo',imoStr);
+  if(imoN>0){
+    let ii='',ic='var(--muted)';
+    if(imoN<3){ii='Bajo';ic='#ef9a9a';}
+    else if(imoN<5){ii='Normal';ic='var(--green)';}
+    else if(imoN<7){ii='Alto';ic='var(--blue)';}
+    else{ii='Muy alto';ic='var(--amber)';}
+    SI('c-imo-i',ii,ic);
+  }
+
+  // ── Área muscular del brazo (AKS) ──
+  let aksStr='—';
+  if(gbr>0){
+    const AT=Math.PI*Math.pow(gbr/(2*Math.PI),2);
+    const AG=tri>0?Math.PI*Math.pow(tri/20,2):0;
+    const AM=AT-AG;
+    aksStr=AM>0?AM.toFixed(1)+' cm²':'—';
+  }
+  S('c-aks',aksStr);
+
+  // ── Bloque interpretaciones detalladas ──
+  const msgs=[];
+  if(pgraN>0&&masa>0){
+    const kgra=(masa*pgraN/100).toFixed(1);
+    const kmlg=(masa-masa*pgraN/100).toFixed(1);
+    msgs.push({t:`Composición corporal: ${kgra} kg de grasa · ${kmlg} kg de masa libre de grasa`,c:'#555'});
+    const metaH=sexo==='f'?[17,22]:[10,15];
+    if(pgraN>metaH[1])msgs.push({t:`Para llegar a zona óptima (${metaH[0]}–${metaH[1]}%) necesita perder ≈ ${Math.max(0,((pgraN-metaH[1])/100*masa)).toFixed(1)} kg de grasa`,c:'var(--amber)'});
+    else if(pgraN<metaH[0])msgs.push({t:`% grasa por debajo del óptimo — evaluar salud hormonal y densidad ósea`,c:'#ef9a9a'});
+    else msgs.push({t:`% grasa en zona óptima para rendimiento deportivo`,c:'var(--green)'});
+  }
+  if(kmusN>0&&moseN>0)msgs.push({t:`Músculo: ${kmusN.toFixed(1)} kg · Hueso: ${moseN.toFixed(1)} kg · IMO: ${imoN.toFixed(2)} (ratio músculo/hueso)`,c:'#555'});
+  if(whrN>0){
+    const rio=sexo==='f'?0.85:1.00;
+    if(whrN>rio)msgs.push({t:`ICC elevado (${whr}) → distribución androide de grasa, mayor riesgo metabólico`,c:'#ef5350'});
+  }
+  if(ictN>=0.5)msgs.push({t:`Índice cintura/talla ≥ 0.50 → riesgo cardiometabólico aumentado (meta: < 0.50)`,c:'var(--amber)'});
+  if(s6>0){
+    const refH=sexo==='f'?[55,80,100,130]:[40,60,80,110];
+    let nivelS='deportista de élite'; let cS='var(--blue)';
+    if(s6>refH[3]){nivelS='sedentario';cS='#ef5350';}
+    else if(s6>refH[2]){nivelS='activo/fitness';cS='var(--amber)';}
+    else if(s6>refH[1]){nivelS='atleta entrenado';cS='var(--green)';}
+    msgs.push({t:`Σ6 Yuhasz: ${s6.toFixed(1)} mm → nivel ${nivelS}`,c:cS});
+  }
+  document.getElementById('c-interpret').innerHTML=msgs.map(m=>
+    `<div style="background:var(--panel2);border-left:3px solid ${m.c};border-radius:6px;padding:7px 12px;font-size:12px;color:var(--ink)">${m.t}</div>`
+  ).join('');
 }
 async function saveMedidas(){
   const n=id=>{const el=document.getElementById(id);const v=parseFloat(el?.value);return isNaN(v)?undefined:v;};
@@ -902,10 +1083,18 @@ async function saveMedidas(){
     psup:n('med-psup'),pabd:n('med-pabd'),pmus:n('med-pmus'),ppant:n('med-ppant'),
     gbr:n('med-gbr'),gbc:n('med-gbc'),gcin:n('med-gcin'),gcad:n('med-gcad'),
     gmus:n('med-gmus'),gpant:n('med-gpant'),gtor:n('med-gtor'),gcue:n('med-gcue'),
+    ghom:n('med-ghom'),gpec:n('med-gpec'),gant:n('med-gant'),
     dhum:n('med-dhum'),dfem:n('med-dfem'),dest:n('med-dest'),notas:t('med-notas'),
     calc_imc:document.getElementById('c-imc')?.textContent,
     calc_s6:document.getElementById('c-s6')?.textContent,
     calc_pgra:document.getElementById('c-pgra')?.textContent?.replace('%',''),
+    calc_kgra:document.getElementById('c-kgra')?.textContent,
+    calc_pmus:document.getElementById('c-pmus')?.textContent?.replace('%',''),
+    calc_kmus:document.getElementById('c-kmus')?.textContent,
+    calc_mose:document.getElementById('c-mose')?.textContent,
+    calc_imo:document.getElementById('c-imo')?.textContent,
+    calc_whr:document.getElementById('c-whr')?.textContent,
+    calc_ict:document.getElementById('c-ict')?.textContent,
   };
   const body={paciente:currentSlug,fecha:document.getElementById('med-fecha').value,datos};
   let url=SB_URL+'/rest/v1/paciente_medidas',method='POST';
