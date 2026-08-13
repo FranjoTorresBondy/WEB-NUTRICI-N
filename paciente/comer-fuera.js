@@ -14,6 +14,10 @@
   var TOL = 50;
   var $id = function (i) { return document.getElementById(i); };
 
+  var SB_URL  = 'https://hmnjtbruliluctslkndq.supabase.co';
+  var SB_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhtbmp0YnJ1bGlsdWN0c2xrbmRxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE0NjAxNjksImV4cCI6MjA5NzAzNjE2OX0.IYmCcvjdlbH1L0QoSoGIpwudRehSQINR1hNoWG02Cc4';
+  var SLUG = window.location.pathname.split('/').pop().replace('.html', '');
+
   /* ── CSS ──────────────────────────────────────────────────────────────── */
   function injectCSS() {
     if ($id('cfStyles')) return;
@@ -67,6 +71,10 @@
       '.fcart .fcst{font-size:12px;margin-top:5px}',
       '.fcart .fcst.ok{color:var(--green)}.fcart .fcst.low{color:var(--faint)}.fcart .fcst.over{color:var(--coral)}',
       '.fclear{background:none;border:none;color:var(--coral);font-size:11.5px;cursor:pointer;text-decoration:underline;padding:0}',
+      '.fsave{background:var(--navy);color:#000;border:none;border-radius:10px;padding:10px 18px;font-family:Inter,sans-serif;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;transition:.15s;flex-shrink:0}',
+      '.fsave:hover{opacity:.85}',
+      '.fsave:disabled{opacity:.4;cursor:not-allowed}',
+      '.fsave.saved{background:var(--green);color:#000}',
       '.fcart .fcdiff{text-align:right;flex-shrink:0}',
       '.fcart .fcdiff .fcn{font-family:"Chakra Petch",sans-serif;font-weight:700;font-size:27px;line-height:1;color:var(--navy)}',
       '.fcart .fcdiff .fcl{font-family:"IBM Plex Mono",monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-top:3px}',
@@ -313,7 +321,9 @@
         '<div class="fck">' + S + ' <small>/ ' + budget + ' kcal · ' + PR + 'g P</small></div>' +
         '<div class="fcst ' + stCls + '">' + stTxt + (nPort ? ' · <button class="fclear" id="cfClear">limpiar (' + nPort + ')</button>' : '') + '</div>' +
       '</div><div class="fcdiff"><div class="fcn">' + Math.abs(diff) + '</div><div class="fcl">' +
-        (diff > 0 ? 'te faltan' : diff < 0 ? 'te pasas' : 'exacto') + ' kcal</div></div></div></div>';
+        (diff > 0 ? 'te faltan' : diff < 0 ? 'te pasas' : 'exacto') + ' kcal</div></div>' +
+      (nPort > 0 ? '<button class="fsave" id="cfSave">Guardar lo que comí</button>' : '') +
+      '</div></div>';
 
     panel.querySelectorAll('.fmeal').forEach(function (b) {
       b.onclick = function () {
@@ -335,6 +345,55 @@
     });
     var f = $id('cfFilter'); if (f) f.onclick = function () { st.soloEntran = !st.soloEntran; renderFuera(); };
     var c = $id('cfClear');  if (c) c.onclick = function () { st.qty = {}; renderFuera(); };
+    var sv = $id('cfSave');  if (sv) sv.onclick = guardarRegistro;
+  }
+
+  /* ── Guardar registro en Supabase ─────────────────────────────────────── */
+  function guardarRegistro() {
+    var btn = $id('cfSave'); if (!btn) return;
+    var items = [];
+    var kcalTotal = 0, protTotal = 0;
+    for (var k in st.qty) {
+      if (!st.qty[k] || !CAT[k]) continue;
+      items.push({ dish: CAT[k].dish, rest: CAT[k].rest, qty: st.qty[k], kcal: CAT[k].kcal, p: CAT[k].p });
+      kcalTotal += CAT[k].kcal * st.qty[k];
+      protTotal += CAT[k].p * st.qty[k];
+    }
+    if (!items.length) return;
+
+    var selMeals = P.comidas.filter(function (m) { return st.mealIds.indexOf(m.id) >= 0; });
+    var comidas = selMeals.map(function (m) { return m.nombre; });
+
+    btn.disabled = true;
+    btn.textContent = 'Guardando…';
+
+    fetch(SB_URL + '/rest/v1/registros_fuera', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SB_ANON,
+        'Authorization': 'Bearer ' + SB_ANON,
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify({
+        paciente: SLUG,
+        comidas: comidas,
+        items: items,
+        kcal_total: Math.round(kcalTotal),
+        proteina_total: Math.round(protTotal)
+      })
+    }).then(function (r) {
+      if (!r.ok) throw new Error(r.status);
+      btn.textContent = '¡Guardado ✓';
+      btn.classList.add('saved');
+      setTimeout(function () {
+        st.qty = {};
+        renderFuera();
+      }, 1800);
+    }).catch(function () {
+      btn.disabled = false;
+      btn.textContent = 'Error — reintentar';
+    });
   }
 
   /* ── Arranque ─────────────────────────────────────────────────────────── */
