@@ -285,7 +285,7 @@ body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;line-h
       <div class="section" id="sec-diet"><div class="section-head" onclick="toggleSec('sec-diet')"><span class="ico">🥗</span><h3>VII. Dietética</h3><span class="chev">▾</span></div>
         <div class="section-body">
           <div class="sub-lbl">Frecuencia de consumo</div>
-          <div class="table-wrap"><table class="data-table"><thead><tr><th>Alimento</th><th>Diario</th><th>4-6/sem</th><th>2-3/sem</th><th>1/sem</th><th>2-3/mes</th><th>1/mes</th></tr></thead><tbody id="freq-body"></tbody></table></div>
+          <div class="table-wrap"><table class="data-table"><thead><tr><th>Alimento</th><th>Diario</th><th>4-6/sem</th><th>2-3/sem</th><th>1/sem</th><th>2-3/mes</th><th>1/mes</th><th style="min-width:160px">Observaciones</th></tr></thead><tbody id="freq-body"></tbody></table></div>
           <div class="sub-lbl" style="margin-top:12px">Consumo habitual</div>
           <div class="table-wrap"><table class="data-table"><thead><tr><th>Comida</th><th>Hora</th><th style="min-width:180px">Descripción</th><th>Kcal</th></tr></thead><tbody id="hab-body"></tbody></table></div>
           <div class="fg" style="margin-top:10px">
@@ -520,7 +520,8 @@ const TODOS_PACIENTES = {
   'marcelo.prado':'marcelo-prado','maria.jose':'maria-jose-figueroa','naghib':'naghib',
   'nicolas':'nicolas-holz','oscar':'oscar-ravello','paula':'paula-camino','renzo':'renzo-acosta',
   'ricardo':'ricardo-acosta','ruben':'ruben-rios','salvador':'salvador-aguirre','thiago':'thiago-gago',
-  'valeria.rojas':'valeria-rojas','viviana':'viviana-caceres','raquel':'raquel-lazarte'
+  'valeria.rojas':'valeria-rojas','viviana':'viviana-caceres','raquel':'raquel-lazarte',
+  'arnold':'arnold-perochena'
 };
 // All slugs: values from TODOS_PACIENTES
 const ALL_SLUGS = [...new Set(Object.values(TODOS_PACIENTES))];
@@ -675,6 +676,7 @@ function buildHistoriaUI(){
   document.getElementById('freq-body').innerHTML=FREQ_ITEMS.map(it=>`<tr>
     <td style="font-weight:600;white-space:nowrap;font-size:12px">${it}</td>
     ${['diario','4a6','2a3s','1s','2a3m','1m'].map(k=>`<td><input type="checkbox" data-freq="${it}-${k}" style="width:auto"></td>`).join('')}
+    <td><input type="text" data-freq-obs="${it}" placeholder="ej: solo fines de semana" style="min-width:150px"></td>
   </tr>`).join('');
   // Consumo habitual
   document.getElementById('hab-body').innerHTML=COMIDAS_HAB.map(c=>`<tr>
@@ -728,6 +730,7 @@ function collectHistoria(){
   });
   document.querySelectorAll('[data-pato]').forEach(el=>{if(el.checked)d.patologias[el.dataset.pato]=true;});
   document.querySelectorAll('[data-freq]').forEach(el=>{if(el.checked)d.frecuencia[el.dataset.freq]=true;});
+  document.querySelectorAll('[data-freq-obs]').forEach(el=>{if(el.value.trim())d.frecuencia_obs=d.frecuencia_obs||{},(d.frecuencia_obs[el.dataset.freqObs]=el.value.trim());});
   document.querySelectorAll('[data-hab]').forEach(el=>{if(el.value)d.habitual[el.dataset.hab]=el.value;});
   return d;
 }
@@ -753,6 +756,7 @@ function fillHistoria(d){
   if(d.patologias) Object.keys(d.patologias).forEach(k=>{const el=document.querySelector(`[data-pato="${k}"]`);if(el)el.checked=true;});
   set('h-des-obs',d.des_obs);set('h-intol',d.intol);
   if(d.frecuencia) Object.keys(d.frecuencia).forEach(k=>{const el=document.querySelector(`[data-freq="${k}"]`);if(el)el.checked=true;});
+  if(d.frecuencia_obs) Object.entries(d.frecuencia_obs).forEach(([k,v])=>{const el=document.querySelector(`[data-freq-obs="${k}"]`);if(el)el.value=v;});
   if(d.habitual) Object.entries(d.habitual).forEach(([k,v])=>{const el=document.querySelector(`[data-hab="${k}"]`);if(el)el.value=v;});
   set('h-gust',d.gust);set('h-disg',d.disg);set('h-notas',d.notas);set('h-objetivo',d.objetivo);
 }
