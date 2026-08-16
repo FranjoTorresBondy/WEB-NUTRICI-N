@@ -15,9 +15,15 @@
 
   /* ── boot ── */
   function boot() {
-    if (!window.PATIENT || !window.supabase) { setTimeout(boot, 200); return; }
-    _sb = window.supabase.createClient(SB_URL, SB_ANON);
+    if (!window.PATIENT) { setTimeout(boot, 100); return; }
+    // Inject the tab immediately — no need to wait for Supabase
     injectTab();
+    // Init Supabase client now or as soon as available
+    function initSb() {
+      if (window.supabase) { _sb = window.supabase.createClient(SB_URL, SB_ANON); }
+      else { setTimeout(initSb, 200); }
+    }
+    initSb();
   }
 
   /* ── inject tab button + panel ── */
