@@ -1,0 +1,19 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "web-nutricion",
+      "runtimeExecutable": "powershell",
+      "runtimeArgs": ["-ExecutionPolicy", "Bypass", "-File", "${workspaceFolder}/.claude/serve.ps1"],
+      "port": 8081,
+      "open": "/WEB NUTRICI%C3%93N Y ENTRENAMIENTO/plan-paula-corte-rebound.html"
+    },
+    {
+      "name": "stephan-entrenamiento",
+      "runtimeExecutable": "powershell",
+      "runtimeArgs": ["-ExecutionPolicy", "Bypass", "-File", "${workspaceFolder}/.claude/serve.ps1"],
+      "autoPort": true,
+      "open": "/WEB NUTRICI%C3%93N Y ENTRENAMIENTO/paciente/stephan-entrenamiento.html"
+    }
+  ]
+}

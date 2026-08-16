@@ -212,6 +212,7 @@ body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;line-h
       <button class="sub-tab"        id="st-registros"  onclick="setSubTab('registros')">📊 Registros</button>
       <button class="sub-tab"        id="st-monitoreo"  onclick="setSubTab('monitoreo')">🩺 Monitoreo</button>
       <button class="sub-tab"        id="st-medidas"    onclick="setSubTab('medidas')">📏 Medidas</button>
+      <button class="sub-tab"        id="st-pesos"      onclick="setSubTab('pesos')">⚖️ Pesos</button>
     </div>
 
     <!-- SUB: HISTORIA -->
@@ -319,6 +320,11 @@ body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;line-h
         <button class="btn" onclick="abrirMonitoreo(null)">+ Nueva sesión</button>
       </div>
       <div id="mon-list"><div class="loading">Cargando...</div></div>
+    </div>
+
+    <!-- SUB: PESOS -->
+    <div id="stab-pesos" style="display:none">
+      <div id="pesos-list"><div class="loading">Cargando...</div></div>
     </div>
 
     <!-- SUB: MEDIDAS -->
@@ -561,9 +567,9 @@ function setTab(t){
 }
 
 /* ── Sub tabs (dentro de carpeta paciente) ── */
-let subTabLoaded={}, currentSlug='', monData=[], medData=[], regData=[], editMonId=null, editMedId=null;
+let subTabLoaded={}, currentSlug='', monData=[], medData=[], pesosData=[], regData=[], editMonId=null, editMedId=null;
 function setSubTab(t){
-  ['historia','registros','monitoreo','medidas'].forEach(id=>{
+  ['historia','registros','monitoreo','medidas','pesos'].forEach(id=>{
     document.getElementById('stab-'+id).style.display=t===id?'block':'none';
     document.getElementById('st-'+id).classList.toggle('active',t===id);
   });
@@ -571,6 +577,7 @@ function setSubTab(t){
     if(t==='registros') loadRegistrosPac();
     if(t==='monitoreo') loadMonitoreo();
     if(t==='medidas')   loadMedidas();
+    if(t==='pesos')     loadPesosPac();
   }
 }
 
@@ -852,6 +859,35 @@ async function deleteMonitoreo(id,i){
   if(!confirm('¿Eliminar esta sesión?'))return;
   await fetch(SB_URL+'/rest/v1/paciente_monitoreo?id=eq.'+id,{method:'DELETE',headers:{apikey:SB_ANON,Authorization:'Bearer '+SB_ANON}});
   monData.splice(i,1);renderMonitoreo();
+}
+
+/* ══ PESOS DIARIOS ══════════════════════════════════════════ */
+async function loadPesosPac(){
+  document.getElementById('pesos-list').innerHTML='<div class="loading">Cargando...</div>';
+  const r=await fetch(SB_URL+'/rest/v1/peso_registro?paciente=eq.'+currentSlug+'&order=fecha.desc',{headers:{apikey:SB_ANON,Authorization:'Bearer '+SB_ANON}});
+  pesosData=r.ok?(await r.json()):[];
+  renderPesosPac();
+}
+function renderPesosPac(){
+  const el=document.getElementById('pesos-list');
+  if(!pesosData.length){el.innerHTML='<div class="empty-msg">Sin registros de peso</div>';return;}
+  const MESES=['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+  function fF(d){const[y,m,day]=d.split('-');return `${day} ${MESES[+m-1]} ${y}`;}
+  const rows=pesosData.map((p,i)=>`<tr>
+    <td style="font-family:'IBM Plex Mono';font-size:12px;color:var(--amber)">${fF(p.fecha)}</td>
+    <td style="font-family:'IBM Plex Mono';font-size:14px;font-weight:700">${parseFloat(p.peso).toFixed(1)} kg</td>
+    <td style="font-size:12px;color:var(--muted)">${p.nota||'—'}</td>
+    <td><button class="btn btn-sm" style="background:none;border:none;color:var(--red,#ef5350);cursor:pointer;font-size:13px" onclick="deletePeso(${p.id},${i})">✕</button></td>
+  </tr>`).join('');
+  el.innerHTML=`<div class="table-wrap"><table class="data-table">
+    <thead><tr><th>Fecha</th><th>Peso</th><th>Nota</th><th></th></tr></thead>
+    <tbody>${rows}</tbody>
+  </table></div>`;
+}
+async function deletePeso(id,i){
+  if(!confirm('¿Eliminar este registro de peso?'))return;
+  await fetch(SB_URL+'/rest/v1/peso_registro?id=eq.'+id,{method:'DELETE',headers:{apikey:SB_ANON,Authorization:'Bearer '+SB_ANON}});
+  pesosData.splice(i,1);renderPesosPac();
 }
 
 /* ══ MEDIDAS ISAK ═══════════════════════════════════════════ */

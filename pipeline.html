@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pipeline Elite · Franjo Torres</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #080808; --bg-2: #0f0f0f; --bg-3: #181818; --bg-4: #222;
+      --gold: #C4973A; --gold-2: #E8B84B; --gold-dim: rgba(196,151,58,0.12);
+      --cream: #F5F5F5; --cream-2: #C0C0C0; --cream-3: #808080; --cream-4: #484848;
+      --border: rgba(255,255,255,0.07);
+      --green: #4CAF50; --yellow: #FFC107; --blue: #2196F3; --red: #f44336; --purple: #9C27B0;
+      --font: 'Inter', system-ui, sans-serif;
+      --serif: 'Chakra Petch', sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--cream); font-family: var(--font); font-size: 14px; line-height: 1.5; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ── HEADER ── */
+    .header {
+      background: var(--bg-2); border-bottom: 1px solid var(--border);
+      padding: 16px 28px;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    }
+    .header-brand { display: flex; flex-direction: column; gap: 2px; }
+    .header-brand h1 { font-family: var(--serif); font-size: 18px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--cream); }
+    .header-brand span { font-size: 11px; color: var(--cream-3); letter-spacing: 1px; }
+    .header-actions { display: flex; gap: 10px; align-items: center; }
+    .btn { display: inline-flex; align-items: center; gap: 7px; padding: 9px 18px; border-radius: 8px; font-size: 12px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; border: none; transition: all 0.2s; }
+    .btn-primary { background: var(--gold); color: #080808; }
+    .btn-primary:hover { background: var(--gold-2); transform: translateY(-1px); }
+    .btn-ghost { background: none; border: 1px solid var(--border); color: var(--cream-2); }
+    .btn-ghost:hover { border-color: rgba(255,255,255,0.2); color: var(--cream); }
+
+    /* ── STATS BAR ── */
+    .stats-bar {
+      display: flex; gap: 0;
+      background: var(--bg-2); border-bottom: 1px solid var(--border);
+      overflow-x: auto;
+    }
+    .stat {
+      flex: 1; min-width: 140px; padding: 16px 24px;
+      border-right: 1px solid var(--border);
+      display: flex; flex-direction: column; gap: 4px;
+    }
+    .stat:last-child { border-right: none; }
+    .stat-num { font-family: var(--serif); font-size: 28px; font-weight: 700; line-height: 1; }
+    .stat-label { font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--cream-3); }
+    .stat-sub { font-size: 11px; color: var(--cream-4); }
+    .gold { color: var(--gold); }
+    .green { color: var(--green); }
+    .blue { color: var(--blue); }
+    .yellow { color: var(--yellow); }
+
+    /* ── KANBAN ── */
+    .kanban {
+      display: grid;
+      grid-template-columns: repeat(5, 280px);
+      gap: 16px; padding: 24px 28px;
+      overflow-x: auto; min-height: calc(100vh - 140px);
+      align-items: start;
+    }
+    .column { display: flex; flex-direction: column; gap: 12px; }
+    .col-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 14px;
+      background: var(--bg-2); border: 1px solid var(--border);
+      border-radius: 10px; margin-bottom: 4px;
+    }
+    .col-title { display: flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
+    .col-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .col-count { font-size: 11px; color: var(--cream-3); background: var(--bg-3); padding: 2px 8px; border-radius: 100px; border: 1px solid var(--border); }
+
+    /* ── CARD ── */
+    .card {
+      background: var(--bg-2); border: 1px solid var(--border);
+      border-radius: 12px; padding: 16px;
+      cursor: pointer; transition: border-color 0.2s, transform 0.15s;
+      position: relative;
+    }
+    .card:hover { border-color: rgba(255,255,255,0.15); transform: translateY(-1px); }
+    .card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 10px; }
+    .card-name { font-weight: 700; font-size: 15px; color: var(--cream); }
+    .card-sport { font-size: 11px; color: var(--cream-3); margin-top: 2px; }
+    .card-priority { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+    .priority-high { background: var(--red); box-shadow: 0 0 6px rgba(244,67,54,0.5); }
+    .priority-med  { background: var(--yellow); }
+    .priority-low  { background: var(--cream-4); }
+
+    .card-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 12px; }
+    .tag { padding: 3px 9px; border-radius: 100px; font-size: 10px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
+    .tag-gold   { background: rgba(196,151,58,0.12); color: var(--gold); border: 1px solid rgba(196,151,58,0.2); }
+    .tag-green  { background: rgba(76,175,80,0.1); color: var(--green); border: 1px solid rgba(76,175,80,0.2); }
+    .tag-blue   { background: rgba(33,150,243,0.1); color: var(--blue); border: 1px solid rgba(33,150,243,0.2); }
+    .tag-red    { background: rgba(244,67,54,0.1); color: var(--red); border: 1px solid rgba(244,67,54,0.2); }
+    .tag-purple { background: rgba(156,39,176,0.1); color: var(--purple); border: 1px solid rgba(156,39,176,0.2); }
+    .tag-gray   { background: var(--bg-3); color: var(--cream-3); border: 1px solid var(--border); }
+
+    .card-note { font-size: 12px; color: var(--cream-3); line-height: 1.55; margin-bottom: 12px; border-left: 2px solid var(--border); padding-left: 10px; }
+    .card-footer { display: flex; align-items: center; justify-content: space-between; }
+    .card-date { font-size: 11px; color: var(--cream-4); }
+    .card-actions { display: flex; gap: 6px; }
+    .card-btn {
+      width: 28px; height: 28px; border-radius: 7px;
+      border: 1px solid var(--border); background: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--cream-3); font-size: 13px;
+      transition: all 0.15s;
+    }
+    .card-btn:hover { border-color: rgba(255,255,255,0.2); color: var(--cream); background: var(--bg-3); }
+
+    .card-price { font-family: var(--serif); font-size: 13px; font-weight: 700; color: var(--gold); }
+    .card-influencer { position: absolute; top: 10px; right: 10px; font-size: 14px; }
+
+    /* add-card btn */
+    .add-card {
+      width: 100%; padding: 12px;
+      background: none; border: 1px dashed var(--border);
+      border-radius: 10px; color: var(--cream-4);
+      font-size: 12px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
+      cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 6px;
+    }
+    .add-card:hover { border-color: rgba(255,255,255,0.2); color: var(--cream-2); background: var(--bg-2); }
+
+    /* ── MODAL ── */
+    .overlay {
+      position: fixed; inset: 0; z-index: 1000;
+      background: rgba(0,0,0,0.85); backdrop-filter: blur(8px);
+      display: flex; align-items: center; justify-content: center; padding: 20px;
+      opacity: 0; pointer-events: none; transition: opacity 0.25s;
+    }
+    .overlay.open { opacity: 1; pointer-events: all; }
+    .modal {
+      background: var(--bg-2); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 18px; width: 100%; max-width: 560px;
+      max-height: 92vh; overflow-y: auto; padding: 36px;
+      transform: translateY(16px); transition: transform 0.25s;
+    }
+    .overlay.open .modal { transform: translateY(0); }
+    .modal h2 { font-family: var(--serif); font-size: 22px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 24px; }
+    .field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+    .field label { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--cream-3); }
+    .field input, .field select, .field textarea {
+      background: var(--bg-3); border: 1px solid var(--border);
+      border-radius: 9px; color: var(--cream); font-family: var(--font); font-size: 14px;
+      padding: 11px 14px; outline: none; width: 100%;
+      transition: border-color 0.2s;
+    }
+    .field input:focus, .field select:focus, .field textarea:focus { border-color: rgba(196,151,58,0.4); }
+    .field select { appearance: none; cursor: pointer; }
+    .field textarea { resize: vertical; min-height: 72px; }
+    .field input::placeholder, .field textarea::placeholder { color: var(--cream-4); }
+    .modal-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .modal-footer { display: flex; gap: 10px; margin-top: 24px; justify-content: flex-end; }
+
+    /* ── SCRIPTS PANEL ── */
+    .scripts-panel {
+      position: fixed; right: 0; top: 0; bottom: 0; width: 420px;
+      background: var(--bg-2); border-left: 1px solid var(--border);
+      z-index: 500; transform: translateX(100%); transition: transform 0.3s ease;
+      display: flex; flex-direction: column;
+    }
+    .scripts-panel.open { transform: translateX(0); }
+    .scripts-header {
+      padding: 20px 24px; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .scripts-header h3 { font-family: var(--serif); font-size: 15px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+    .scripts-close { width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--border); background: none; cursor: pointer; color: var(--cream-3); display: flex; align-items: center; justify-content: center; font-size: 14px; }
+    .scripts-body { flex: 1; overflow-y: auto; padding: 20px 24px; display: flex; flex-direction: column; gap: 16px; }
+    .script-card { background: var(--bg-3); border: 1px solid var(--border); border-radius: 12px; padding: 16px; }
+    .script-label { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; display: block; }
+    .script-text { font-size: 13px; color: var(--cream-2); line-height: 1.65; white-space: pre-wrap; }
+    .script-copy { display: flex; justify-content: flex-end; margin-top: 10px; }
+    .copy-btn { padding: 5px 12px; background: var(--bg-4); border: 1px solid var(--border); border-radius: 6px; color: var(--cream-3); font-size: 11px; cursor: pointer; transition: all 0.2s; }
+    .copy-btn:hover { border-color: rgba(255,255,255,0.2); color: var(--cream); }
+    .copy-btn.copied { background: rgba(76,175,80,0.15); border-color: rgba(76,175,80,0.3); color: var(--green); }
+
+    /* ── EMPTY STATE ── */
+    .empty { padding: 28px 16px; text-align: center; color: var(--cream-4); font-size: 13px; }
+
+    @media (max-width: 600px) { .kanban { grid-template-columns: 260px; } .modal-row { grid-template-columns: 1fr; } .scripts-panel { width: 100%; } }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-brand">
+    <h1>Pipeline Elite <span style="color:var(--gold)">1:1</span></h1>
+    <span>Sistema de gestión de prospectos · Programa $800 USD</span>
+  </div>
+  <div class="header-actions">
+    <button class="btn btn-ghost" onclick="openScripts()">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      Scripts
+    </button>
+    <button class="btn btn-primary" onclick="openNewCard()">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+      Nuevo prospecto
+    </button>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats-bar" id="statsBar">
+  <div class="stat"><div class="stat-num gold" id="st-total">0</div><div class="stat-label">Total leads</div><div class="stat-sub">en pipeline</div></div>
+  <div class="stat"><div class="stat-num yellow" id="st-new">0</div><div class="stat-label">Nuevos</div><div class="stat-sub">esta semana</div></div>
+  <div class="stat"><div class="stat-num blue" id="st-call">0</div><div class="stat-label">En llamada</div><div class="stat-sub">agendada</div></div>
+  <div class="stat"><div class="stat-num green" id="st-closed">0</div><div class="stat-label">Cerrados</div><div class="stat-sub">clientes activos</div></div>
+  <div class="stat"><div class="stat-num gold" id="st-mrr">$0</div><div class="stat-label">MRR Elite</div><div class="stat-sub">ingreso mensual</div></div>
+  <div class="stat"><div class="stat-num" id="st-slots" style="color:var(--red)">5</div><div class="stat-label">Cupos libres</div><div class="stat-sub">de 5 disponibles</div></div>
+</div>
+
+<!-- KANBAN -->
+<div class="kanban" id="kanban">
+
+  <!-- COL 1: NUEVO LEAD -->
+  <div class="column" id="col-nuevo">
+    <div class="col-header">
+      <div class="col-title"><span class="col-dot" style="background:#FFC107"></span> Nuevo lead</div>
+      <span class="col-count" id="cnt-nuevo">0</span>
+    </div>
+    <button class="add-card" onclick="openNewCard('nuevo')">+ Agregar</button>
+  </div>
+
+  <!-- COL 2: CONTACTADO -->
+  <div class="column" id="col-contactado">
+    <div class="col-header">
+      <div class="col-title"><span class="col-dot" style="background:#2196F3"></span> Contactado</div>
+      <span class="col-count" id="cnt-contactado">0</span>
+    </div>
+    <button class="add-card" onclick="openNewCard('contactado')">+ Agregar</button>
+  </div>
+
+  <!-- COL 3: LLAMADA AGENDADA -->
+  <div class="column" id="col-llamada">
+    <div class="col-header">
+      <div class="col-title"><span class="col-dot" style="background:#9C27B0"></span> Llamada agendada</div>
+      <span class="col-count" id="cnt-llamada">0</span>
+    </div>
+    <button class="add-card" onclick="openNewCard('llamada')">+ Agregar</button>
+  </div>
+
+  <!-- COL 4: PROPUESTA -->
+  <div class="column" id="col-propuesta">
+    <div class="col-header">
+      <div class="col-title"><span class="col-dot" style="background:#FF9800"></span> Propuesta enviada</div>
+      <span class="col-count" id="cnt-propuesta">0</span>
+    </div>
+    <button class="add-card" onclick="openNewCard('propuesta')">+ Agregar</button>
+  </div>
+
+  <!-- COL 5: CERRADO -->
+  <div class="column" id="col-cerrado">
+    <div class="col-header">
+      <div class="col-title"><span class="col-dot" style="background:#4CAF50"></span> Cliente activo</div>
+      <span class="col-count" id="cnt-cerrado">0</span>
+    </div>
+    <button class="add-card" onclick="openNewCard('cerrado')">+ Agregar</button>
+  </div>
+
+</div>
+
+<!-- MODAL NUEVO/EDITAR PROSPECTO -->
+<div class="overlay" id="cardOverlay">
+  <div class="modal">
+    <h2 id="modalTitle">Nuevo prospecto</h2>
+    <div class="modal-row">
+      <div class="field">
+        <label>Nombre</label>
+        <input type="text" id="f-nombre" placeholder="Nombre completo" />
+      </div>
+      <div class="field">
+        <label>Deporte / contexto</label>
+        <input type="text" id="f-deporte" placeholder="MMA, Triatlón, Influencer..." />
+      </div>
+    </div>
+    <div class="modal-row">
+      <div class="field">
+        <label>Etapa</label>
+        <select id="f-etapa">
+          <option value="nuevo">Nuevo lead</option>
+          <option value="contactado">Contactado</option>
+          <option value="llamada">Llamada agendada</option>
+          <option value="propuesta">Propuesta enviada</option>
+          <option value="cerrado">Cliente activo</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Prioridad</label>
+        <select id="f-prioridad">
+          <option value="high">🔴 Alta</option>
+          <option value="med">🟡 Media</option>
+          <option value="low">⚪ Baja</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-row">
+      <div class="field">
+        <label>Canal de entrada</label>
+        <select id="f-canal">
+          <option value="">Selecciona</option>
+          <option>Instagram DM</option>
+          <option>Formulario web</option>
+          <option>Referido</option>
+          <option>WhatsApp directo</option>
+          <option>Consulta presencial</option>
+          <option>Otro</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Fecha de contacto</label>
+        <input type="date" id="f-fecha" />
+      </div>
+    </div>
+    <div class="field">
+      <label>Objetivo del prospecto</label>
+      <textarea id="f-objetivo" placeholder="¿Qué quiere lograr? ¿Cuál es su situación?" rows="2"></textarea>
+    </div>
+    <div class="field">
+      <label>Notas / próximo paso</label>
+      <textarea id="f-nota" placeholder="¿Qué falta para avanzar a la siguiente etapa?" rows="2"></textarea>
+    </div>
+    <div class="modal-row">
+      <div class="field">
+        <label>Es influencer / figura pública</label>
+        <select id="f-influencer">
+          <option value="no">No</option>
+          <option value="si">Sí</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Próximo follow-up</label>
+        <input type="date" id="f-followup" />
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal()">Cancelar</button>
+      <button class="btn btn-primary" onclick="saveCard()">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<!-- SCRIPTS PANEL -->
+<div class="scripts-panel" id="scriptsPanel">
+  <div class="scripts-header">
+    <h3>Scripts de venta</h3>
+    <button class="scripts-close" onclick="closeScripts()">✕</button>
+  </div>
+  <div class="scripts-body">
+
+    <div class="script-card">
+      <span class="script-label">Primer mensaje — WhatsApp</span>
+      <div class="script-text" id="sc1">[Nombre], ¿cómo va el entrenamiento?
+
+Te escribo porque lancé algo nuevo que creo que puede interesarte — un programa donde trabajo contigo en nutrición, entrenamiento y seguimiento semanal presencial.
+
+Es intensivo y tengo cupos limitados. ¿Te cuento de qué va?</div>
+      <div class="script-copy"><button class="copy-btn" onclick="copyScript('sc1', this)">Copiar</button></div>
+    </div>
+
+    <div class="script-card">
+      <span class="script-label">Respuesta cuando preguntan precio</span>
+      <div class="script-text" id="sc2">Antes de hablarte del precio quiero entender si tiene sentido para tu caso.
+
+¿Qué deporte practicás y cuál es tu objetivo principal en los próximos 3 meses?
+
+Con eso te cuento si el programa aplica para ti.</div>
+      <div class="script-copy"><button class="copy-btn" onclick="copyScript('sc2', this)">Copiar</button></div>
+    </div>
+
+    <div class="script-card">
+      <span class="script-label">Agendar llamada de diagnóstico</span>
+      <div class="script-text" id="sc3">Gracias por contarme, [nombre].
+
+Lo que describís es exactamente el tipo de caso donde el programa Elite marca diferencia.
+
+Propongo que agendemos una llamada de diagnóstico de 30 minutos para explicarte cómo lo trabajaríamos específicamente para ti.
+
+¿Tenés disponibilidad el [día] a las [hora]?</div>
+      <div class="script-copy"><button class="copy-btn" onclick="copyScript('sc3', this)">Copiar</button></div>
+    </div>
+
+    <div class="script-card">
+      <span class="script-label">Follow-up 24h — sin respuesta</span>
+      <div class="script-text" id="sc4">Hola [nombre], fue buena la conversación de ayer.
+
+Quería saber si quedó alguna duda que pueda aclarar.
+
+El cupo lo reservo hasta el [fecha, 48h después]. Después lo abro al siguiente interesado.</div>
+      <div class="script-copy"><button class="copy-btn" onclick="copyScript('sc4', this)">Copiar</button></div>
+    </div>
+
+    <div class="script-card">
+      <span class="script-label">Follow-up 48h — cierre o liberar</span>
+      <div class="script-text" id="sc5">[Nombre], entiendo que es una decisión importante.
+
+Solo quería decirte que el cupo para este mes lo libero mañana si no recibo confirmación.
+
+Si decidís avanzar, es hoy. El siguiente cupo disponible es en [mes siguiente].
+
+Sin presión — solo quiero que tengas la info completa.</div>
+      <div class="script-copy"><button class="copy-btn" onclick="copyScript('sc5', this)">Copiar</button></div>
+    </div>
+
+    <div class="script-card">
+      <span class="script-label">Bienvenida — cuando dice SÍ</span>
+      <div class="script-text" id="sc6">Excelente decisión, [nombre].
+
+Para arrancar necesito:
+
+1. Transferencia del primer mes: $800 USD a [datos de pago]
+2. Formulario de historial: [link]
+3. Primera sesión en gym: ¿el [día/hora] te viene bien?
+
+Una vez reciba el pago y el formulario, te preparo el plan base en 48 horas.
+
+Bienvenido al programa.</div>
+      <div class="script-copy"><button class="copy-btn" onclick="copyScript('sc6', this)">Copiar</button></div>
+    </div>
+
+    <div class="script-card">
+      <span class="script-label">Objeción: "Es caro"</span>
+      <div class="script-text" id="sc7">Entiendo que $800 no es poco.
+
+Déjame preguntarte: ¿cuánto gastás por mes en gym, suplementos y cualquier cosa relacionada a tu entrenamiento?
+
+Sumado eso, ¿cuánto te cuesta seguir sin resultados reales por 3 meses más? No solo en plata — en tiempo, energía y frustración.
+
+Lo que ofrezco no es un gasto más. Es cambiar el sistema que no está funcionando.</div>
+      <div class="script-copy"><button class="copy-btn" onclick="copyScript('sc7', this)">Copiar</button></div>
+    </div>
+
+    <div class="script-card">
+      <span class="script-label">Objeción: "Solo un mes"</span>
+      <div class="script-text" id="sc8">No acepto un mes. Y te voy a ser honesto sobre por qué.
+
+En un mes puedo darte un plan y seguimiento, pero no puedo comprometerte resultados medibles. Y para mí eso importa.
+
+3 meses es el mínimo para que el sistema funcione. ¿Tenés claridad sobre eso?</div>
+      <div class="script-copy"><button class="copy-btn" onclick="copyScript('sc8', this)">Copiar</button></div>
+    </div>
+
+    <div class="script-card">
+      <span class="script-label">Para influencer / figura pública</span>
+      <div class="script-text" id="sc9">Y hay algo más que aplica específicamente a tu situación:
+
+Si vas a mostrar este proceso a tu audiencia, necesitás que los resultados sean visibles y consistentes.
+
+Eso no pasa con dos consultas al mes — pasa con alguien que está encima de los datos cada semana y ajusta en tiempo real.</div>
+      <div class="script-copy"><button class="copy-btn" onclick="copyScript('sc9', this)">Copiar</button></div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  // ── STATE ──
+  let leads = JSON.parse(localStorage.getItem('elite-pipeline') || '[]');
+  let editingId = null;
+  let defaultStage = 'nuevo';
+
+  const STAGES = ['nuevo','contactado','llamada','propuesta','cerrado'];
+  const STAGE_LABELS = { nuevo:'Nuevo lead', contactado:'Contactado', llamada:'Llamada agendada', propuesta:'Propuesta enviada', cerrado:'Cliente activo' };
+
+  // ── RENDER ──
+  function render() {
+    STAGES.forEach(stage => {
+      const col = document.getElementById('col-' + stage);
+      // Remove cards but keep header + add btn
+      col.querySelectorAll('.card').forEach(c => c.remove());
+      const header = col.querySelector('.col-header');
+      const addBtn = col.querySelector('.add-card');
+      const stageLeads = leads.filter(l => l.stage === stage);
+      document.getElementById('cnt-' + stage).textContent = stageLeads.length;
+      stageLeads.forEach(lead => {
+        const card = createCardEl(lead);
+        col.insertBefore(card, addBtn);
+      });
+    });
+    updateStats();
+  }
+
+  function createCardEl(lead) {
+    const el = document.createElement('div');
+    el.className = 'card';
+    el.setAttribute('data-id', lead.id);
+    const priorityClass = { high:'priority-high', med:'priority-med', low:'priority-low' }[lead.priority] || 'priority-low';
+    const followupStr = lead.followup ? ` · Follow-up: ${lead.followup}` : '';
+    const influencerIcon = lead.influencer === 'si' ? '<span class="card-influencer" title="Influencer / figura pública">⭐</span>' : '';
+    el.innerHTML = `
+      ${influencerIcon}
+      <div class="card-top">
+        <div>
+          <div class="card-name">${lead.nombre || '—'}</div>
+          <div class="card-sport">${lead.deporte || ''}</div>
+        </div>
+        <div class="card-priority ${priorityClass}"></div>
+      </div>
+      <div class="card-tags">
+        ${lead.canal ? `<span class="tag tag-blue">${lead.canal}</span>` : ''}
+        ${lead.stage === 'cerrado' ? `<span class="tag tag-green">Cliente activo</span>` : ''}
+        ${lead.influencer === 'si' ? `<span class="tag tag-gold">Influencer</span>` : ''}
+        ${lead.priority === 'high' ? `<span class="tag tag-red">Urgente</span>` : ''}
+      </div>
+      ${lead.objetivo ? `<div class="card-note">${lead.objetivo.substring(0,90)}${lead.objetivo.length > 90 ? '…' : ''}</div>` : ''}
+      ${lead.nota ? `<div class="card-note" style="border-color:var(--gold);color:var(--cream-2)">${lead.nota.substring(0,80)}${lead.nota.length > 80 ? '…' : ''}</div>` : ''}
+      <div class="card-footer">
+        <div>
+          <div class="card-date">${lead.fecha || ''}${followupStr}</div>
+          ${lead.stage === 'cerrado' ? `<div class="card-price">$800 USD/mes</div>` : ''}
+        </div>
+        <div class="card-actions">
+          ${STAGES.indexOf(lead.stage) < STAGES.length - 1 ? `<button class="card-btn" title="Avanzar etapa" onclick="advanceStage('${lead.id}',event)">→</button>` : ''}
+          <button class="card-btn" title="Editar" onclick="editCard('${lead.id}',event)">✏</button>
+          <button class="card-btn" title="Eliminar" onclick="deleteCard('${lead.id}',event)" style="color:var(--red)">✕</button>
+        </div>
+      </div>`;
+    return el;
+  }
+
+  function updateStats() {
+    const total  = leads.length;
+    const newW   = leads.filter(l => l.stage === 'nuevo').length;
+    const call   = leads.filter(l => l.stage === 'llamada').length;
+    const closed = leads.filter(l => l.stage === 'cerrado').length;
+    const mrr    = closed * 800;
+    const slots  = Math.max(0, 5 - closed);
+
+    document.getElementById('st-total').textContent  = total;
+    document.getElementById('st-new').textContent    = newW;
+    document.getElementById('st-call').textContent   = call;
+    document.getElementById('st-closed').textContent = closed;
+    document.getElementById('st-mrr').textContent    = '$' + mrr.toLocaleString();
+    document.getElementById('st-slots').textContent  = slots;
+    document.getElementById('st-slots').style.color  = slots === 0 ? 'var(--red)' : slots <= 2 ? 'var(--yellow)' : 'var(--green)';
+  }
+
+  // ── MODAL ──
+  function openNewCard(stage) {
+    editingId = null;
+    defaultStage = stage || 'nuevo';
+    document.getElementById('modalTitle').textContent = 'Nuevo prospecto';
+    document.getElementById('f-nombre').value = '';
+    document.getElementById('f-deporte').value = '';
+    document.getElementById('f-etapa').value = defaultStage;
+    document.getElementById('f-prioridad').value = 'med';
+    document.getElementById('f-canal').value = '';
+    document.getElementById('f-fecha').value = new Date().toISOString().slice(0,10);
+    document.getElementById('f-objetivo').value = '';
+    document.getElementById('f-nota').value = '';
+    document.getElementById('f-influencer').value = 'no';
+    document.getElementById('f-followup').value = '';
+    document.getElementById('cardOverlay').classList.add('open');
+  }
+
+  function editCard(id, e) {
+    if (e) e.stopPropagation();
+    const lead = leads.find(l => l.id === id);
+    if (!lead) return;
+    editingId = id;
+    document.getElementById('modalTitle').textContent = 'Editar prospecto';
+    document.getElementById('f-nombre').value    = lead.nombre || '';
+    document.getElementById('f-deporte').value   = lead.deporte || '';
+    document.getElementById('f-etapa').value     = lead.stage || 'nuevo';
+    document.getElementById('f-prioridad').value = lead.priority || 'med';
+    document.getElementById('f-canal').value     = lead.canal || '';
+    document.getElementById('f-fecha').value     = lead.fecha || '';
+    document.getElementById('f-objetivo').value  = lead.objetivo || '';
+    document.getElementById('f-nota').value      = lead.nota || '';
+    document.getElementById('f-influencer').value= lead.influencer || 'no';
+    document.getElementById('f-followup').value  = lead.followup || '';
+    document.getElementById('cardOverlay').classList.add('open');
+  }
+
+  function closeModal() { document.getElementById('cardOverlay').classList.remove('open'); }
+
+  function saveCard() {
+    const data = {
+      id:         editingId || Date.now().toString(),
+      nombre:     document.getElementById('f-nombre').value.trim(),
+      deporte:    document.getElementById('f-deporte').value.trim(),
+      stage:      document.getElementById('f-etapa').value,
+      priority:   document.getElementById('f-prioridad').value,
+      canal:      document.getElementById('f-canal').value,
+      fecha:      document.getElementById('f-fecha').value,
+      objetivo:   document.getElementById('f-objetivo').value.trim(),
+      nota:       document.getElementById('f-nota').value.trim(),
+      influencer: document.getElementById('f-influencer').value,
+      followup:   document.getElementById('f-followup').value,
+    };
+    if (!data.nombre) { document.getElementById('f-nombre').focus(); return; }
+    if (editingId) {
+      leads = leads.map(l => l.id === editingId ? data : l);
+    } else {
+      leads.push(data);
+    }
+    save(); closeModal(); render();
+  }
+
+  function deleteCard(id, e) {
+    if (e) e.stopPropagation();
+    if (!confirm('¿Eliminar este prospecto?')) return;
+    leads = leads.filter(l => l.id !== id);
+    save(); render();
+  }
+
+  function advanceStage(id, e) {
+    if (e) e.stopPropagation();
+    const lead = leads.find(l => l.id === id);
+    if (!lead) return;
+    const idx = STAGES.indexOf(lead.stage);
+    if (idx < STAGES.length - 1) { lead.stage = STAGES[idx + 1]; save(); render(); }
+  }
+
+  function save() { localStorage.setItem('elite-pipeline', JSON.stringify(leads)); }
+
+  // ── SCRIPTS ──
+  function openScripts()  { document.getElementById('scriptsPanel').classList.add('open'); }
+  function closeScripts() { document.getElementById('scriptsPanel').classList.remove('open'); }
+
+  function copyScript(id, btn) {
+    const text = document.getElementById(id).textContent;
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = '✓ Copiado';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'Copiar'; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+
+  // ── KEYBOARD ──
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') { closeModal(); closeScripts(); }
+    if (e.key === 'n' && !document.getElementById('cardOverlay').classList.contains('open')) openNewCard();
+  });
+
+  // ── INIT ──
+  // Seed con Ioanis si pipeline vacío
+  if (leads.length === 0) {
+    leads = [{
+      id: 'seed-1',
+      nombre: 'Ioanis Patsias',
+      deporte: 'Youtuber / Influencer · Composición corporal',
+      stage: 'llamada',
+      priority: 'high',
+      canal: 'Consulta presencial',
+      fecha: new Date().toISOString().slice(0,10),
+      objetivo: 'Cambio radical de composición corporal. Primera consulta mañana. Ya pagó 290 soles plan básico.',
+      nota: 'Trabajar upgrade a Elite durante la consulta. Mencionar el diferencial para content creators.',
+      influencer: 'si',
+      followup: new Date(Date.now() + 86400000).toISOString().slice(0,10),
+    }];
+    save();
+  }
+
+  render();
+</script>
+</body>
+</html>

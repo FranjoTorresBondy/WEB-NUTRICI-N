@@ -1,0 +1,406 @@
+<title>Sillas de auto evolutivas — Comparativa para coche Cybex</title>
+<style>
+  :root{
+    --porcelain:#FAF6F1;
+    --card:#FFFFFF;
+    --ink:#1B2530;
+    --ink-soft:#4A5866;
+    --line:#E6DED3;
+    --line-strong:#D8CDBE;
+    --coral:#EC6A52;
+    --coral-deep:#C9482F;
+    --teal:#2E837A;
+    --teal-soft:#E4F0ED;
+    --amber:#E0A340;
+    --grey-bias:#8A93A0;
+    --ok:#3E9B6C;
+    --shadow:0 1px 2px rgba(27,37,48,.04),0 10px 30px -12px rgba(27,37,48,.18);
+    --bg:var(--porcelain);
+    --sans:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,"SFMono-Regular","Cascadia Code","JetBrains Mono",Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --porcelain:#10151B;
+      --card:#171E26;
+      --ink:#EAF0F2;
+      --ink-soft:#A7B4BF;
+      --line:#25303B;
+      --line-strong:#33414F;
+      --coral:#F2856F;
+      --coral-deep:#F2856F;
+      --teal:#4FB3A6;
+      --teal-soft:#16302D;
+      --amber:#E6B45C;
+      --grey-bias:#7C8794;
+      --shadow:0 1px 2px rgba(0,0,0,.3),0 14px 40px -14px rgba(0,0,0,.6);
+    }
+  }
+  :root[data-theme="light"]{
+    --porcelain:#FAF6F1;--card:#FFFFFF;--ink:#1B2530;--ink-soft:#4A5866;--line:#E6DED3;
+    --line-strong:#D8CDBE;--coral:#EC6A52;--coral-deep:#C9482F;--teal:#2E837A;--teal-soft:#E4F0ED;
+    --amber:#E0A340;--grey-bias:#8A93A0;--shadow:0 1px 2px rgba(27,37,48,.04),0 10px 30px -12px rgba(27,37,48,.18);
+  }
+  :root[data-theme="dark"]{
+    --porcelain:#10151B;--card:#171E26;--ink:#EAF0F2;--ink-soft:#A7B4BF;--line:#25303B;
+    --line-strong:#33414F;--coral:#F2856F;--coral-deep:#F2856F;--teal:#4FB3A6;--teal-soft:#16302D;
+    --amber:#E6B45C;--grey-bias:#7C8794;--shadow:0 1px 2px rgba(0,0,0,.3),0 14px 40px -14px rgba(0,0,0,.6);
+  }
+
+  *{box-sizing:border-box}
+  .wrap{
+    background:var(--bg);color:var(--ink);font-family:var(--sans);
+    line-height:1.55;-webkit-font-smoothing:antialiased;
+    padding:clamp(20px,5vw,64px) clamp(16px,5vw,48px);
+  }
+  .page{max-width:1080px;margin:0 auto}
+  .mono{font-family:var(--mono)}
+
+  /* ---- eyebrow / labels ---- */
+  .eyebrow{
+    font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--coral-deep);font-weight:600;display:inline-flex;align-items:center;gap:8px;
+  }
+  .eyebrow::before{content:"";width:22px;height:2px;background:var(--coral);border-radius:2px}
+
+  h1,h2,h3{text-wrap:balance;margin:0;font-weight:700;letter-spacing:-.015em}
+  h1{font-size:clamp(30px,5.4vw,52px);line-height:1.04;margin-top:16px}
+  h2{font-size:clamp(22px,3.4vw,32px);line-height:1.1}
+  h3{font-size:18px}
+  p{margin:0}
+
+  /* ---- hero ---- */
+  .hero{
+    border:1px solid var(--line);border-radius:20px;background:
+      radial-gradient(120% 140% at 100% 0%,var(--teal-soft) 0%,transparent 46%),var(--card);
+    padding:clamp(24px,4vw,44px);box-shadow:var(--shadow);position:relative;overflow:hidden;
+  }
+  .hero .lead{font-size:clamp(16px,2vw,19px);color:var(--ink-soft);max-width:62ch;margin-top:16px}
+  .cyb-tag{
+    display:inline-flex;gap:10px;align-items:center;margin-top:22px;padding:9px 14px;border-radius:999px;
+    background:var(--teal-soft);border:1px solid color-mix(in srgb,var(--teal) 30%,transparent);
+    color:var(--teal);font-family:var(--mono);font-size:13px;font-weight:600;
+  }
+  .cyb-tag b{color:var(--ink)}
+
+  section{margin-top:clamp(40px,6vw,72px)}
+  .sec-head{margin-bottom:22px}
+  .sec-head p{color:var(--ink-soft);margin-top:8px;max-width:64ch}
+
+  /* ---- growth ladder chart ---- */
+  .ladder{
+    border:1px solid var(--line);border-radius:16px;background:var(--card);
+    padding:clamp(18px,3vw,28px);box-shadow:var(--shadow);
+  }
+  .ladder-row{display:grid;grid-template-columns:150px 1fr;gap:14px;align-items:center;padding:9px 0}
+  .ladder-row + .ladder-row{border-top:1px dashed var(--line)}
+  .lr-name{font-weight:650;font-size:14px}
+  .lr-name small{display:block;font-family:var(--mono);font-size:11px;color:var(--grey-bias);font-weight:500;margin-top:2px}
+  .track{position:relative;height:34px;border-radius:8px;background:
+    repeating-linear-gradient(90deg,transparent,transparent calc(9.523%*1 - 1px),var(--line) calc(9.523%*1 - 1px),var(--line) calc(9.523%*1))}
+  .bar{
+    position:absolute;top:5px;height:24px;border-radius:6px;display:flex;align-items:center;
+    padding:0 10px;color:#fff;font-family:var(--mono);font-size:11px;font-weight:600;white-space:nowrap;
+    box-shadow:0 2px 6px -1px rgba(0,0,0,.25);
+  }
+  .bar.rear{background:linear-gradient(90deg,var(--teal),color-mix(in srgb,var(--teal) 78%,#000))}
+  .bar.mix{background:linear-gradient(90deg,var(--teal),var(--coral))}
+  .bar.fwd{background:linear-gradient(90deg,var(--coral),var(--coral-deep))}
+  .scale{display:grid;grid-template-columns:150px 1fr;gap:14px;margin-top:6px}
+  .scale-marks{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10.5px;color:var(--grey-bias)}
+  .legend{display:flex;flex-wrap:wrap;gap:18px;margin-top:18px;font-size:12.5px;color:var(--ink-soft)}
+  .legend span{display:inline-flex;align-items:center;gap:7px}
+  .dot{width:11px;height:11px;border-radius:3px;display:inline-block}
+
+  /* ---- stage cards (the recommended chain) ---- */
+  .chain{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .stage{
+    border:1px solid var(--line);border-radius:16px;background:var(--card);padding:22px;
+    box-shadow:var(--shadow);display:flex;flex-direction:column;position:relative;
+  }
+  .stage-step{font-family:var(--mono);font-size:12px;color:var(--coral-deep);font-weight:600;letter-spacing:.05em}
+  .stage h3{margin-top:8px}
+  .stage .age{font-family:var(--mono);font-size:12.5px;color:var(--ink-soft);margin-top:4px}
+  .stage ul{margin:14px 0 0;padding-left:0;list-style:none;display:flex;flex-direction:column;gap:8px}
+  .stage li{font-size:13.5px;color:var(--ink-soft);padding-left:20px;position:relative;line-height:1.4}
+  .stage li::before{content:"";position:absolute;left:0;top:7px;width:8px;height:8px;border-radius:50%;background:var(--teal)}
+  .pill-price{margin-top:16px;font-family:var(--mono);font-size:13px;font-weight:600;color:var(--ink);
+    border-top:1px solid var(--line);padding-top:12px}
+  .fit-cyb{position:absolute;top:16px;right:16px;font-family:var(--mono);font-size:10px;font-weight:700;
+    letter-spacing:.06em;color:var(--teal);background:var(--teal-soft);border:1px solid color-mix(in srgb,var(--teal) 28%,transparent);
+    padding:4px 8px;border-radius:6px}
+
+  /* ---- comparison table ---- */
+  .table-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);background:var(--card)}
+  table{border-collapse:collapse;width:100%;min-width:720px;font-size:13.5px}
+  thead th{
+    text-align:left;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;
+    color:var(--ink-soft);font-weight:600;padding:16px 16px;border-bottom:1px solid var(--line-strong);
+    background:color-mix(in srgb,var(--card) 88%,var(--bg));position:sticky;top:0;
+  }
+  tbody td{padding:14px 16px;border-bottom:1px solid var(--line);vertical-align:top}
+  tbody tr:last-child td{border-bottom:none}
+  tbody tr.reco{background:color-mix(in srgb,var(--teal-soft) 60%,transparent)}
+  .seat-name{font-weight:650;color:var(--ink)}
+  .seat-name small{display:block;font-weight:500;color:var(--grey-bias);font-size:11.5px;margin-top:2px;font-family:var(--mono)}
+  .num{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+  .chip{display:inline-block;font-family:var(--mono);font-size:10.5px;font-weight:700;padding:3px 7px;border-radius:6px;letter-spacing:.03em}
+  .chip.win{color:var(--ok);background:color-mix(in srgb,var(--ok) 15%,transparent)}
+  .chip.cyb{color:var(--teal);background:var(--teal-soft)}
+  .chip.alt{color:var(--amber);background:color-mix(in srgb,var(--amber) 16%,transparent)}
+  .stars{color:var(--coral);letter-spacing:1px;font-size:12px}
+
+  /* ---- verdict ---- */
+  .verdict{
+    border:1px solid var(--line);border-left:4px solid var(--coral);border-radius:14px;
+    background:var(--card);padding:24px clamp(20px,3vw,30px);box-shadow:var(--shadow);
+  }
+  .verdict h2{margin-bottom:12px}
+  .verdict p{color:var(--ink-soft);max-width:70ch}
+  .verdict p + p{margin-top:12px}
+  .kbd{font-family:var(--mono);font-size:.9em;background:var(--teal-soft);color:var(--teal);
+    padding:1px 6px;border-radius:5px;font-weight:600}
+
+  .note{margin-top:14px;font-size:12px;color:var(--grey-bias);font-family:var(--mono);line-height:1.5}
+  footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);font-size:12px;color:var(--grey-bias)}
+  footer a{color:var(--teal);text-decoration:none}
+  footer a:hover{text-decoration:underline}
+
+  @media (max-width:760px){
+    .chain{grid-template-columns:1fr}
+    .ladder-row,.scale{grid-template-columns:96px 1fr;gap:10px}
+    .lr-name{font-size:12.5px}
+  }
+
+  /* ---- print / PDF ---- */
+  @page{size:A4;margin:12mm}
+  @media print{
+    *{-webkit-print-color-adjust:exact !important;print-color-adjust:exact !important}
+    .wrap{padding:0 !important}
+    .hero,.ladder,.stage,.table-scroll,.verdict{box-shadow:none !important;break-inside:avoid}
+    section{break-inside:avoid;margin-top:22px !important}
+    .chain{grid-template-columns:repeat(3,1fr) !important}
+    header.hero{break-after:avoid}
+    table{min-width:0 !important}
+    thead th{position:static !important}
+    footer{break-inside:avoid}
+    h2{break-after:avoid}
+  }
+</style>
+
+<div class="wrap">
+<div class="page">
+
+  <!-- HERO -->
+  <header class="hero">
+    <span class="eyebrow">Guía de compra · Seguridad infantil i-Size</span>
+    <h1>Sillas de auto evolutivas: del recién nacido al niño grande</h1>
+    <p class="lead">Comparativa de las mejores sillas que crecen con tu bebé, ordenada por etapas de altura (norma europea <b>i-Size / R129</b>, la más segura y vigente). Con una ruta recomendada pensada para que combine con tu coche.</p>
+    <div class="cyb-tag">◆ Tu equipo: <b>Travel system Cybex</b> — priorizamos piezas que enganchan a tu coche</div>
+  </header>
+
+  <!-- REALIDAD i-SIZE -->
+  <section>
+    <div class="sec-head">
+      <span class="eyebrow">Antes de comparar</span>
+      <h2>No existe UNA sola silla de 0 a 12 años (y está bien)</h2>
+      <p>Con la norma i-Size, lo más seguro es a contramarcha el mayor tiempo posible. Por eso el mercado europeo se divide en dos o tres piezas que se relevan por altura. “Evolutiva” = cubre varias etapas, no necesariamente todas en un solo asiento. La ruta ideal usa <b>2 sillas</b>: una que llega a los 4 años y un elevador que llega a los 12.</p>
+    </div>
+
+    <!-- GROWTH LADDER -->
+    <div class="ladder" role="img" aria-label="Gráfico de cobertura por altura de cada silla, de 45 a 150 cm">
+      <div class="ladder-row">
+        <div class="lr-name">Cybex Cloud T <small>portabebé</small></div>
+        <div class="track"><div class="bar rear" style="left:0%;width:40%">45–87 cm · a contramarcha</div></div>
+      </div>
+      <div class="ladder-row">
+        <div class="lr-name">Cybex Sirona T <small>giratoria 360°</small></div>
+        <div class="track"><div class="bar mix" style="left:0%;width:57.1%">45–105 cm</div></div>
+      </div>
+      <div class="ladder-row">
+        <div class="lr-name">Cybex Sirona Gi <small>giratoria 360°</small></div>
+        <div class="track"><div class="bar mix" style="left:15.2%;width:41.9%">61–105 cm</div></div>
+      </div>
+      <div class="ladder-row">
+        <div class="lr-name">Cybex Pallas G <small>2-en-1 + cojín</small></div>
+        <div class="track"><div class="bar fwd" style="left:29.5%;width:70.5%">76–150 cm</div></div>
+      </div>
+      <div class="ladder-row">
+        <div class="lr-name">Cybex Solution G <small>elevador</small></div>
+        <div class="track"><div class="bar fwd" style="left:52.4%;width:47.6%">100–150 cm</div></div>
+      </div>
+      <div class="scale">
+        <div></div>
+        <div class="scale-marks"><span>45cm</span><span>66</span><span>87</span><span>108</span><span>129</span><span>150cm</span></div>
+      </div>
+      <div class="legend">
+        <span><i class="dot" style="background:var(--teal)"></i> A contramarcha (lo más seguro para bebés)</span>
+        <span><i class="dot" style="background:linear-gradient(90deg,var(--teal),var(--coral))"></i> Convertible (contra + a favor)</span>
+        <span><i class="dot" style="background:var(--coral)"></i> A favor de la marcha</span>
+      </div>
+    </div>
+    <p class="note">Rangos de altura oficiales i-Size (R129). El peso máx. y la edad son aproximados; siempre manda la altura del niño.</p>
+  </section>
+
+  <!-- RECOMMENDED CHAIN -->
+  <section>
+    <div class="sec-head">
+      <span class="eyebrow">Ruta recomendada · para tu coche Cybex</span>
+      <h2>El “combo evolutivo” Cybex, en 3 relevos</h2>
+      <p>Como ya tienes travel system Cybex, esta es la ruta que mejor combina: el portabebé engancha directo a tu coche, y el resto comparte accesorios y estética de marca.</p>
+    </div>
+    <div class="chain">
+      <article class="stage">
+        <span class="fit-cyb">◆ ENGANCHA AL COCHE</span>
+        <span class="stage-step">RELEVO 1</span>
+        <h3>Cybex Cloud T i-Size</h3>
+        <div class="age mono">0 – 24 meses · 45–87 cm</div>
+        <ul>
+          <li>Portabebé que se clipa directo a tu coche Cybex con adaptadores</li>
+          <li>Posición <b>lie-flat</b> (casi acostado) al pasear: mejor respiración del recién nacido</li>
+          <li>Con Base T (opcional): giro 180° hacia la puerta para sacar al bebé</li>
+        </ul>
+        <div class="pill-price">≈ US$ 230–290 · Base T ≈ US$ 190</div>
+      </article>
+      <article class="stage">
+        <span class="stage-step">RELEVO 2</span>
+        <h3>Cybex Sirona T / Gi i-Size</h3>
+        <div class="age mono">≈ 3 meses – 4 años · hasta 105 cm</div>
+        <ul>
+          <li>Giro <b>360°</b>: gira hacia ti para subir/bajar al niño sin esfuerzo</li>
+          <li>Sirona T arranca desde 45 cm (nacimiento); Gi desde 61 cm</li>
+          <li>Sirona Gi fue “Best in Class” en el test ADAC de mayo 2024</li>
+        </ul>
+        <div class="pill-price">≈ US$ 330–420</div>
+      </article>
+      <article class="stage">
+        <span class="stage-step">RELEVO 3</span>
+        <h3>Cybex Pallas G i-Size</h3>
+        <div class="age mono">≈ 15 meses – 12 años · 76–150 cm</div>
+        <ul>
+          <li>2-en-1: cojín de impacto de bebé y luego elevador de niño mayor</li>
+          <li>El Pallas G3 fue “Best in Class” en el test ADAC de mayo 2026</li>
+          <li>Alternativa: Solution G (solo elevador, desde 100 cm, más barato)</li>
+        </ul>
+        <div class="pill-price">≈ US$ 230–290</div>
+      </article>
+    </div>
+    <p class="note">Precios referenciales internacionales (USD); en Perú varían según importador/tienda. La opción “2 sillas” = Sirona (0–4) + Pallas/Solution (4–12).</p>
+  </section>
+
+  <!-- COMPARISON TABLE -->
+  <section>
+    <div class="sec-head">
+      <span class="eyebrow">Comparativa completa</span>
+      <h2>Cybex vs. las mejores rivales evolutivas</h2>
+      <p>Las filas resaltadas son la ruta recomendada para tu caso. Incluyo top rivales por si quieres comparar fuera de Cybex.</p>
+    </div>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Silla</th>
+            <th>Etapa que cubre</th>
+            <th>Altura i-Size</th>
+            <th>Giro</th>
+            <th>Punto fuerte</th>
+            <th>Marca</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="reco">
+            <td><span class="seat-name">Cybex Cloud T<small>portabebé</small></span></td>
+            <td>Recién nacido</td>
+            <td class="num">45–87 cm</td>
+            <td>180°*</td>
+            <td>Lie-flat + engancha a tu coche</td>
+            <td><span class="chip cyb">CYBEX</span></td>
+          </tr>
+          <tr class="reco">
+            <td><span class="seat-name">Cybex Sirona T i-Size<small>giratoria</small></span></td>
+            <td>Nacimiento → 4 años</td>
+            <td class="num">45–105 cm</td>
+            <td>360°</td>
+            <td>Una sola silla de 0 a 4 años</td>
+            <td><span class="chip cyb">CYBEX</span></td>
+          </tr>
+          <tr class="reco">
+            <td><span class="seat-name">Cybex Pallas G i-Size<small>2-en-1</small></span></td>
+            <td>15 m → 12 años</td>
+            <td class="num">76–150 cm</td>
+            <td>—</td>
+            <td><span class="chip win">ADAC 2026</span> Best in Class</td>
+            <td><span class="chip cyb">CYBEX</span></td>
+          </tr>
+          <tr>
+            <td><span class="seat-name">Cybex Sirona Gi i-Size<small>giratoria</small></span></td>
+            <td>≈3 m → 4 años</td>
+            <td class="num">61–105 cm</td>
+            <td>360°</td>
+            <td><span class="chip win">ADAC 2024</span> Best in Class</td>
+            <td><span class="chip cyb">CYBEX</span></td>
+          </tr>
+          <tr>
+            <td><span class="seat-name">Cybex Anoris T2 i-Size<small>con airbag</small></span></td>
+            <td>15 m → 6 años</td>
+            <td class="num">76–125 cm</td>
+            <td>—</td>
+            <td>Airbag integrado, +50% seguridad</td>
+            <td><span class="chip cyb">CYBEX</span></td>
+          </tr>
+          <tr>
+            <td><span class="seat-name">Britax Römer Dualfix Pro<small>giratoria</small></span></td>
+            <td>Nacimiento → 4 años</td>
+            <td class="num">40–105 cm</td>
+            <td>360°</td>
+            <td>Contramarcha desde 40 cm</td>
+            <td><span class="chip alt">RIVAL</span></td>
+          </tr>
+          <tr>
+            <td><span class="seat-name">BeSafe iZi Turn B<small>giratoria</small></span></td>
+            <td>Nacimiento → 4 años</td>
+            <td class="num">40–105 cm</td>
+            <td>360°</td>
+            <td>Filosofía extended rear-facing</td>
+            <td><span class="chip alt">RIVAL</span></td>
+          </tr>
+          <tr>
+            <td><span class="seat-name">Maxi-Cosi Emerald 360 S<small>giratoria</small></span></td>
+            <td>Nacimiento → 4 años</td>
+            <td class="num">40–105 cm</td>
+            <td>360°</td>
+            <td>Gama alta cómoda y fácil</td>
+            <td><span class="chip alt">RIVAL</span></td>
+          </tr>
+          <tr>
+            <td><span class="seat-name">Graco 4Ever DLX 4-en-1<small>all-in-one (USA)</small></span></td>
+            <td>Nacimiento → ~10 años</td>
+            <td class="num">≈45–145 cm</td>
+            <td>—</td>
+            <td>Una sola silla toda la vida (norma USA)</td>
+            <td><span class="chip alt">RIVAL</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">* El giro 180° del Cloud T requiere la Base T. Graco es estándar estadounidense (cinturón), no i-Size europeo: cómodo por ser todo-en-uno, pero menos alineado con la práctica de contramarcha extendida.</p>
+  </section>
+
+  <!-- VERDICT -->
+  <section>
+    <div class="verdict">
+      <span class="eyebrow">Veredicto para tu caso</span>
+      <h2>Qué compraría yo teniendo un coche Cybex</h2>
+      <p><b>Si quieres lo más cómodo desde el nacimiento:</b> <span class="kbd">Cybex Cloud T</span> (+ Base T) para clipar a tu coche los primeros ~15 meses → luego <span class="kbd">Sirona Gi/T</span> giratoria hasta los 4 años → y <span class="kbd">Pallas G</span> hasta los 12. Es la ruta con mejor combinación y con dos premios ADAC “Best in Class” (Sirona Gi 2024, Pallas G3 2026).</p>
+      <p><b>Si quieres gastar menos y menos sillas:</b> sáltate el portabebé y empieza directo con la <span class="kbd">Sirona T</span> (0–4 años, 45–105 cm) → después <span class="kbd">Solution G</span> como elevador. Dos sillas cubren de 0 a 12 años.</p>
+      <p><b>Si la máxima seguridad manda y el niño ya tiene 15+ meses:</b> la <span class="kbd">Anoris T2</span> con airbag integrado es lo más avanzado del mercado.</p>
+    </div>
+    <p class="note">Regla de oro: la silla debe caber bien en TU auto (prueba el ISOFIX y la pata de apoyo), y el niño pasa de etapa por altura, no por edad. A contramarcha el mayor tiempo posible.</p>
+  </section>
+
+  <footer>
+    Fuentes: CYBEX (fichas oficiales Cloud T, Sirona T/Gi, Pallas G, Anoris T2) · ADAC / Stiftung Warentest (tests mayo 2024 y 2026) · MadeForMums, Which?, Consumer Reports · Blog del Bebé. Datos verificados a julio 2026; precios referenciales, confirmar disponibilidad en Perú.
+  </footer>
+
+</div>
+</div>
