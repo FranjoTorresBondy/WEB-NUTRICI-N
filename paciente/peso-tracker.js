@@ -13,12 +13,14 @@
   let _chart = null;
   let _editId = null;
 
-  /* ── boot ── */
+  /* ── boot ──
+     Note: patient pages use `const PATIENT` which does NOT attach to window,
+     so we check the identifier directly (safe across all script tags).       */
   function boot() {
-    if (!window.PATIENT) { setTimeout(boot, 100); return; }
-    // Inject the tab immediately — no need to wait for Supabase
+    try {
+      if (typeof PATIENT === 'undefined' || !PATIENT.slug) { setTimeout(boot, 100); return; }
+    } catch(e) { setTimeout(boot, 100); return; }
     injectTab();
-    // Init Supabase client now or as soon as available
     function initSb() {
       if (window.supabase) { _sb = window.supabase.createClient(SB_URL, SB_ANON); }
       else { setTimeout(initSb, 200); }
