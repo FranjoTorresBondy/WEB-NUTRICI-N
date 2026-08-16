@@ -194,7 +194,7 @@ const PATIENT = {
   nombre:    'Sammer\nMitri',
   fecha:     '16.08.2026',
   tipoPlan:  'Hipocalórico · Hiperprotéico',
-  macros:    { kcal: 1900, p: 138, c: 212, g: 55 },
+  macros:    { kcal: 2005, p: 139, c: 239, g: 55 },
   hidratacion: [
     { label:'💧 Entrenamiento', valor:'3.5' },
     { label:'💧 Descanso',      valor:'3.0' },
@@ -265,6 +265,13 @@ const PATIENT = {
         '1 cdta de aceite de oliva',
         '40 g de palta',
         '1 porción de frutos secos',
+      ]},
+    ]},
+
+    { id:'snk-pe', nombre:'⚡ Pre Entreno', kcal:105, p:1, c:27, g:0, grupos:[
+      { label:'Escoge 01 · Carbohidrato rápido', max:1, ops:[
+        '1 plátano pequeño (60 g pelado)',
+        '40 g de cereales azucarados',
       ]},
     ]},
 
@@ -371,7 +378,7 @@ const PATIENT = {
     { nombre:'Salsa roja',        desc:'Tomate, cebolla, ajo, albahaca, poro, sal, pimienta, tomillo + 1 cda aceite de oliva. Opcional: Lakanto o Stevia si falta dulzor. Puede adicionar otras verduras a preferencia' },
   ],
 
-  notaSpecs: 'Plan base = 3 comidas principales (1 900 kcal). Sin snack intermedio.',
+  notaSpecs: 'Plan base = 3 comidas + pre entreno (~2 005 kcal días de entrenamiento).',
 };
 // ════════════════════════════════════════════════════════════════════════════
 //  FIN DATOS — motor de renderizado
