@@ -194,22 +194,22 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 const PATIENT = {
   slug:      'maria-jose-figueroa',
   nombre:    'María José\nFigueroa',
-  fecha:     '27.07.2026',
+  fecha:     '17.08.2026',
   tipoPlan:  'Hipocalórico · Hiperprotéico',
   macros:    { kcal: 1715, p: 115, c: 157, g: 64 },
   hidratacion: { entreno: '3.0', descanso: '2.0' },
   semanas:   4,
 
   antro: {
-    fecha: '27.07.2026',
-    peso: 63.6, talla: 162.0, imc: 24.2,
-    tri: 10.0, bi: 3.0, sub: 8.0, cresta: 13.0, supra: 9.0, abd: 12.0, pierna: 13.0, pant: 12.0,
-    brazRelaj: 29.8, brazFlex: 31.0, abdom: 75.0, cadera: 102.0, muslo: 54.0, pantPer: 36.5,
+    fecha: '17.08.2026',
+    peso: 63.4, talla: 162.0, imc: 24.2,
+    tri: 10.0, bi: 3.0, sub: 8.0, cresta: 7.0, supra: 3.0, abd: 12.0, pierna: 8.0, pant: 10.0,
+    brazRelaj: 30.0, brazFlex: 31.0, abdom: 73.0, cadera: 102.0, muslo: 54.0, pantPer: 36.5,
     diam: { humero: 5.8, biEstiloideo: 4.8, femur: 9.4 },
   },
 
   objetivos: [
-    'Disminución de sumatoria de 8 pliegues a 75.0 mm',
+    'Disminución de sumatoria de 8 pliegues a 70.0 mm',
     'Apuntar a tener entre 13 000 y 15 000 pasos diarios',
     'Monitorear peso con la app HappyScale · reportar semanalmente',
     'Mejorar la adherencia al plan nutricional',
@@ -436,6 +436,7 @@ function getAntroBase() {
   return [
     { fecha:'02.06.2026', peso:65.0, tri:11.0, bi:3.0, sub:6.0, cresta:15.0, supra:12.0, abd:14.0, pierna:13.0, pant:10.0, brazRelaj:29.0, brazFlex:30.5, abdom:77.0, cadera:104.0, muslo:56.0, pantPer:36.8, s6:66.0, s8:84.0 },
     { fecha:'19.06.2026', peso:64.7, tri:12.0, bi:4.0, sub:10.0, cresta:14.0, supra:9.0, abd:13.0, pierna:15.0, pant:13.0, brazRelaj:29.8, brazFlex:30.5, abdom:75.0, cadera:103.0, muslo:55.5, pantPer:37.5, s6:72.0, s8:90.0 },
+    { fecha:'27.07.2026', peso:63.6, tri:10.0, bi:3.0, sub:8.0, cresta:13.0, supra:9.0, abd:12.0, pierna:13.0, pant:12.0, brazRelaj:29.8, brazFlex:31.0, abdom:75.0, cadera:102.0, muslo:54.0, pantPer:36.5, s6:64.0, s8:80.0 },
     { fecha:a.fecha, peso:a.peso, tri:a.tri, bi:a.bi, sub:a.sub, cresta:a.cresta, supra:a.supra, abd:a.abd, pierna:a.pierna, pant:a.pant, brazRelaj:a.brazRelaj, brazFlex:a.brazFlex, abdom:a.abdom, cadera:a.cadera, muslo:a.muslo, pantPer:a.pantPer, s6, s8 },
   ];
 }
