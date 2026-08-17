@@ -172,7 +172,7 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 const PATIENT = {
   slug:     'gabriel-martinez',
   nombre:   'Gabriel\nMartínez',
-  fecha:    '27.07.2026',
+  fecha:    '17.08.2026',
   tipoPlan: 'Hipocalórico · Hiperproteico',
   macros:   { kcal: 2700, p: null, c: null, g: null },
   hidratacion: [
@@ -180,7 +180,7 @@ const PATIENT = {
     { label:'Descanso',      valor:'2.0' },
   ],
   antro: {
-    fecha:'27.07.2026', peso:98.0, talla:182.5, imc:29.4, pctGrasa:17.7,
+    fecha:'17.08.2026', peso:98.0, talla:182.5, imc:29.4, pctGrasa:17.7,
     tri:7.0, bi:4.0, sub:12.0, cresta:18.0, supra:11.0, abd:16.0, pierna:6.0, pant:4.0,
     brazRelaj:38.5, brazFlex:39.8, abdom:93.0, cadera:110.0, muslo:58.5, pantPer:41.0,
     diam: { humero:8.0, biEstiloideo:6.0, femur:11.5 },
@@ -247,7 +247,7 @@ const PATIENT = {
       { label:'Escoge 01 · Verduras', max:1, ops:[
         '150 a 170 g de verduras a tu preferencia (espinaca, col, brócoli, vainita, zanahoria)',
       ]},
-      { label:'Escoge 02 · Grasa', max:2, ops:[
+      { label:'Escoge 03 · Grasa', max:3, ops:[
         '40 g de palta',
         '5 g de aceite de oliva',
         '5 g de aceite de ajonjolí',
@@ -560,6 +560,9 @@ function getAntroBase() {
     { fecha:'03.07.2026', peso:100.0, tri:7.0, bi:5.0, sub:11.0, cresta:18.0, supra:11.0, abd:17.0, pierna:7.0, pant:6.0,
       brazRelaj:38.5, brazFlex:39.0, abdom:96.0, cadera:112.0, muslo:60.5, pantPer:40.5,
       s6:59.0, s8:82.0 },
+    { fecha:'27.07.2026', peso:98.0, tri:7.0, bi:4.0, sub:12.0, cresta:18.0, supra:11.0, abd:16.0, pierna:6.0, pant:4.0,
+      brazRelaj:38.5, brazFlex:39.8, abdom:93.0, cadera:110.0, muslo:58.5, pantPer:41.0,
+      s6:56.0, s8:78.0 },
     { fecha:a.fecha, peso:a.peso, tri:a.tri, bi:a.bi, sub:a.sub, cresta:a.cresta, supra:a.supra, abd:a.abd, pierna:a.pierna, pant:a.pant, brazRelaj:a.brazRelaj, brazFlex:a.brazFlex, abdom:a.abdom, cadera:a.cadera, muslo:a.muslo, pantPer:a.pantPer, s6:s6, s8:s8 }
   ];
 }
