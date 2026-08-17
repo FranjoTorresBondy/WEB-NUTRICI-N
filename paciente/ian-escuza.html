@@ -234,7 +234,7 @@ const PATIENT = {
   planes: [
     {
       id: 'descanso',
-      label: 'Descanso',
+      label: 'Sábado y domingo · 1900 kcal',
       macros: { kcal:1900, p:136, c:196, g:67 },
       comidas: [
         { id:'des', nombre:'☀️ Desayuno', kcal:500, p:29, c:60, g:18, grupos:[
@@ -292,6 +292,7 @@ const PATIENT = {
             '120 g de pollo',
             '1 Helado Vakimú + Pro',
             '1 pudding HOPP',
+            '80 g de queso mozzarella light',
           ]},
           { label:'Escoge 01 · Grasa', max:1, ops:[
             '1 porción de frutos secos o semillas* (ver especificaciones)',
@@ -342,8 +343,126 @@ const PATIENT = {
     },
 
     {
+      id: 'martes-jueves',
+      label: 'Martes y jueves · 2320 kcal',
+      macros: { kcal:2320, p:136, c:296, g:67 },
+      comidas: [
+        { id:'des', nombre:'☀️ Desayuno', kcal:660, p:29, c:100, g:18, grupos:[
+          { label:'Escoge 01 · Fruta', max:1, ops:[
+            '1 porción de fruta* (ver especificaciones) + 100 g de berries + 1 cda de linaza molida',
+          ]},
+          { label:'Escoge 04 · Carbohidrato', max:4, ops:[
+            '20 g de avena',
+            '1 rebanada de pan molde (30 g)',
+            '1 rapidita integral',
+            '20 g de cereales Dyfferent o Nutri Co',
+            '1 pan pita (30 g)',
+            '3 unidades de salmas',
+          ]},
+          { label:'Escoge 01 · Proteína', max:1, ops:[
+            '3 huevos',
+            '1 lata de atún con agua + 70 g de palta',
+            '80 g de pechuga de pollo + 70 g de palta',
+            '200 g de yogurt Vakimú + 20 g de frutos secos o semillas',
+            '2 huevos + 60 g de queso mozzarella light',
+            '80 g de queso cottage descremado + 2 huevos',
+          ]},
+        ], nota:'* Puedes tomar café.' },
+
+        { id:'alm', nombre:'🥗 Almuerzo', kcal:766, p:40, c:102, g:22, grupos:[
+          { label:'Escoge 05 · Carbohidrato (peso cocido)', max:5, ops:[
+            '1/3 taza de arroz blanco o integral (60 g)',
+            '1/3 taza de quinua (60 g)',
+            '1/3 taza de pasta cocida sin relleno (50 g)',
+            'Papa, camote o betarraga (90 g)',
+            '½ taza de menestras (100 g)',
+            '40 g de ravioles de Verduras Don Italo (peso crudo)',
+          ]},
+          { label:'Escoge · Proteína (150 g peso crudo)', max:1, ops:[
+            'Pechuga de pollo',
+            'Pechuga de pavo',
+            'Pescado',
+            'Lomo de res',
+            'Langostinos',
+            '100 g de carne molida de bistec (si escoges esta opción, consumir la mitad de la porción de grasas)',
+          ]},
+          { label:'Escoge 01 · Verduras', max:1, ops:[
+            '150 a 180 g de verduras de tu preferencia',
+          ]},
+          { label:'Escoge 03 · Grasa', max:3, ops:[
+            '1 cdta de aceite de oliva',
+            '40 g de palta',
+            '1 porción de frutos secos o semillas* (ver especificaciones)',
+          ]},
+        ], nota:'* Puedes comer gelatina light o 100 g de pudding light universal preparado con leche evaporada Gloria light zero lacto.' },
+
+        { id:'snk', nombre:'🍎 Snack', kcal:287, p:22, c:31, g:9, grupos:[
+          { label:'Escoge 01 · Proteína', max:1, ops:[
+            '220 g de Quark',
+            '120 g de pollo',
+            '1 Helado Vakimú + Pro',
+            '1 pudding HOPP',
+            '80 g de queso mozzarella light',
+          ]},
+          { label:'Escoge 01 · Grasa', max:1, ops:[
+            '1 porción de frutos secos o semillas* (ver especificaciones)',
+            '1 cdta de aceite de oliva',
+            '40 g de palta',
+          ]},
+          { label:'Escoge 01 · Carbohidrato', max:1, ops:[
+            '20 g de avena',
+            '1 rebanada de pan molde (30 g)',
+            '1 rapidita integral',
+            '20 g de cereales Dyfferent o Nutri Co',
+            '1 pan pita (30 g)',
+            '3 unidades de salmas',
+          ]},
+        ]},
+
+        { id:'cen', nombre:'🌙 Cena', kcal:606, p:40, c:82, g:22, grupos:[
+          { label:'Escoge 04 · Carbohidrato (peso cocido)', max:4, ops:[
+            '90 g de papa',
+            '90 g de camote',
+            '90 g de betarraga',
+            '60 g de arroz',
+            '50 g de pasta',
+            '40 g de ravioles de Verduras Don Italo (peso crudo)',
+          ]},
+          { label:'Escoge · Proteína (150 g peso crudo)', max:1, ops:[
+            'Pechuga de pollo',
+            'Pechuga de pavo',
+            'Pescado',
+            'Lomo de res',
+            'Langostinos',
+            '130 g de queso cottage descremado + 1 huevo + 1 clara',
+          ]},
+          { label:'Escoge 03 · Grasa', max:3, ops:[
+            '1 cdta de aceite de oliva',
+            '40 g de palta',
+            '1 porción de frutos secos o semillas* (ver especificaciones)',
+          ]},
+          { label:'Escoge 01 · Verduras / Berries', max:1, ops:[
+            '120 a 150 g de verduras de tu preferencia',
+            '100 g de mix de berries',
+          ]},
+        ]},
+
+        { id:'pre', nombre:'⚡ Pre + Post Entreno Fuerza', kcal:null, p:null, c:null, g:null,
+          nota:'Agregar +300 kcal a la dieta descanso en días de entrenamiento de fuerza.',
+          grupos:[
+          { label:'Pre Entreno · 40–30 min antes', max:1, ops:[
+            '2 tajadas de pan de molde + 1 cda de mermelada (20 g)',
+          ]},
+          { label:'Post Entreno', max:1, ops:[
+            '1 scoop de proteína en polvo',
+          ]},
+        ]},
+      ],
+    },
+
+    {
       id: 'mma',
-      label: 'MMA',
+      label: 'Lunes, miércoles y viernes · 2700 kcal',
       macros: { kcal:2710, p:170, c:356, g:70 },
       comidas: [
         { id:'des', nombre:'☀️ Desayuno', kcal:643, p:35, c:86, g:20, grupos:[
@@ -401,6 +520,7 @@ const PATIENT = {
             '120 g de pollo',
             '1 Helado Vakimú + Pro',
             '1 pudding HOPP',
+            '80 g de queso mozzarella light',
           ]},
           { label:'Escoge 01 · Grasa', max:1, ops:[
             '1 porción de frutos secos* (ver especificaciones)',
@@ -515,7 +635,7 @@ const PATIENT = {
     { nombre:'Salsa roja',                desc:'Tomate, cebolla, ajo, albahaca, poro + Lakanto o Stevia al gusto + sal, pimienta y tomillo + 1 cda aceite oliva. Puedes agregar cualquier otra verdura.' },
   ],
 
-  notaSpecs: 'Plan base = días de descanso (1900 kcal). Días de entrenamiento de fuerza: agregar Pre+Post (+300 kcal ≈ 2200 kcal). Días de MMA: usar plan MMA (2710 kcal).',
+  notaSpecs: 'Sábado y domingo: 1900 kcal (descanso). Martes y jueves: 2320 kcal (fuerza). Lunes, miércoles y viernes: 2700 kcal (MMA).',
 
   entrenamiento: null,
 };
