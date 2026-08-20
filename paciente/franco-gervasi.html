@@ -254,7 +254,7 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 const PATIENT = {
   slug:      'franco-gervasi',
   nombre:    'Franco\nGervasi',
-  fecha:     '24.06.2026',
+  fecha:     '20.08.2026',
   tipoPlan:  'Normocalórico · Hiperprotéico',
   macros:    { kcal: 1994, p: 164, c: 236, g: 44 },
   hidratacion: [
@@ -263,28 +263,28 @@ const PATIENT = {
   ],
   semanas: 1,
   antro: {
-    fecha:'24.06.2026', peso:85.2, talla:184.5, imc:25.2,
-    tri:4.0, bi:1.5, sub:10.0, cresta:14.0, supra:12.0, abd:17.0, pierna:8.0, pant:6.0,
-    brazRelaj:38.8, brazFlex:41.8, abdom:82.5, cadera:103.0, muslo:54.0, pantPer:34.0,
+    fecha:'20.08.2026', peso:84.0, talla:184.5, imc:25.2,
+    tri:2.0, bi:8.0, sub:7.0, cresta:12.0, supra:10.0, abd:16.0, pierna:6.5, pant:6.0,
+    brazRelaj:38.0, brazFlex:42.3, abdom:81.0, cadera:104.0, muslo:54.0, pantPer:34.8,
   },
 
   objetivos: [
-    'Mantener sumatoria de 8 pliegues (Σ8 = 72.5 mm)',
+    'Mantener sumatoria de 8 pliegues (Σ8 = 60.3 mm)',
     '8 000 pasos diarios',
   ],
 
   comidas: [
     { id:'c1', nombre:'☀️ Comida 1', kcal:493, p:48, c:66, g:6, grupos:[
       { label:'Agua', max:1, ops:['500 ml agua'] },
-      { label:'Escoge 03 · Carbohidrato', max:3, ops:['Avena (20 g, en crudo)','1 rebanada pan de molde integral masa madre (30 g)','20 g granola','20 g cornflakes'] },
-      { label:'Escoge 01 · Fruta', max:1, ops:['2 porciones de fruta (ver especificaciones)'] },
+      { label:'Escoge 04 · Carbohidrato', max:4, ops:['Avena (20 g, en crudo)','1 rebanada pan de molde integral masa madre (30 g)','20 g granola','20 g cornflakes','1 rapidita','3 salmas','8 galletas de arroz costeño','30 g pan de panadería'] },
+      { label:'Escoge 01 · Fruta', max:1, ops:['1 porción de fruta (ver especificaciones)'] },
       { label:'Escoge 01 · Quark', max:1, ops:['100 g yogurt Quark'] },
       { label:'Escoge 01 · Proteína', max:1, ops:['80 g queso mozzarella descremado CuisineCo','100 g pechuga de pollo','1 lata atún en agua','100 g yogurt Quark + 120 g claras (3 unidades)','1 scoop proteína (30 g)'] },
     ], nota:'Para panqueques o waffles: 40 g avena + 1 plátano + 1 huevo + 50 g yogurt Quark + esencia de vainilla + canela + sal. Puedes añadir miel de maple sin calorías.' },
 
     { id:'c2', nombre:'🥗 Comida 2', kcal:656, p:48, c:76, g:17, grupos:[
-      { label:'Escoge 03 · Carbohidrato', max:3, ops:['1/3 taza arroz (60 g, cocido)','1/3 taza quinua cocida','1/3 taza pasta cocida','90 g papa o camote (cocido)','100 g menestras cocidas','60 g choclo cocido','60 g trigo cocido'] },
-      { label:'Escoge 01 · Proteína (180 g peso crudo)', max:1, ops:['Pechuga de pollo','Pechuga de pavo','Pescado','Bistec','Langostinos'] },
+      { label:'Escoge 03 · Carbohidrato', max:3, ops:['1/3 taza arroz (60 g, cocido)','1/3 taza quinua cocida','1/3 taza pasta cocida','90 g papa o camote (cocido)','100 g menestras cocidas','60 g choclo cocido','60 g trigo cocido','60 g puré'] },
+      { label:'Escoge 01 · Proteína (180 g peso crudo)', max:1, ops:['Pechuga de pollo','Pechuga de pavo','Pescado','Bistec','Langostinos','1 milanesa de Avinka (sin aceite en freidora)'] },
       { label:'Escoge 01 · Verduras', max:1, ops:['150–170 g verduras a tu preferencia'] },
       { label:'Escoge 02 · Grasa', max:2, ops:['30 g palta','5 g aceite de oliva','5 g aceite de ajonjolí'] },
     ]},
@@ -295,7 +295,7 @@ const PATIENT = {
 
     { id:'c4', nombre:'🌙 Comida 4', kcal:656, p:48, c:76, g:17, grupos:[
       { label:'Pre-comida', max:1, ops:['1 cda vinagre de manzana + 500 ml agua'] },
-      { label:'Escoge 03 · Carbohidrato', max:3, ops:['Arroz (60 g, cocido)','90 g papa o camote (cocido)','100 g menestras cocidas','1 tortilla Rapidita Cero','60 g choclo cocido','20 g avena (en crudo)','1 tortilla Mission','60 g trigo cocido'] },
+      { label:'Escoge 03 · Carbohidrato', max:3, ops:['Arroz (60 g, cocido)','90 g papa o camote (cocido)','100 g menestras cocidas','1 tortilla Rapidita Cero','60 g choclo cocido','20 g avena (en crudo)','1 tortilla Mission','60 g trigo cocido','8 galletas de arroz costeño','3 salmas','20 g cornflakes','20 g granola'] },
       { label:'Escoge 01 · Proteína (180 g peso crudo)', max:1, ops:['Pechuga de pollo','Pechuga de pavo','Pescado','Bistec','80 g queso mozzarella descremado CuisineCo','1 lata atún en agua','Langostinos','1 milanesa Avinka'] },
       { label:'Escoge 01 · Verduras', max:1, ops:['100 g verduras a tu preferencia'] },
       { label:'Escoge 02 · Grasa', max:2, ops:['30 g palta','5 g aceite de oliva','5 g aceite de ajonjolí'] },
@@ -390,8 +390,8 @@ const PATIENT = {
         { nombre:'Squat con barra', img:'anim', s1:'Barbell_Squat/0.jpg', s2:'Barbell_Squat/1.jpg',
           reps:'5', descanso:'8:45',
           prog:[[3,2],[3,2],[3,1],[3,1],[3,0],[3,0]] },
-        { nombre:'RDL (Romanian Deadlift)', img:'anim', s1:'Romanian_Deadlift/0.jpg', s2:'Romanian_Deadlift/1.jpg',
-          reps:'5', descanso:'8:45',
+        { nombre:'Hiperextensiones', img:'anim', s1:'Hyperextensions_with_No_Hyperextension_Bench/0.jpg', s2:'Hyperextensions_with_No_Hyperextension_Bench/1.jpg',
+          reps:'10', descanso:'3:45',
           prog:[[3,2],[3,2],[3,1],[3,1],[3,0],[3,0]] },
         { nombre:'Press banca inclinado con barra', img:'anim', s1:'Barbell_Incline_Bench_Press_-_Medium_Grip/0.jpg', s2:'Barbell_Incline_Bench_Press_-_Medium_Grip/1.jpg',
           reps:'5', descanso:'8:45',
