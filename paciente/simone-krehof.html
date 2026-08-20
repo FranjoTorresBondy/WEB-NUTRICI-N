@@ -186,7 +186,7 @@ const PATIENT = {
   nombre:   'Simone\nKrehof',
   fecha:    '20.08.2026',
   tipoPlan: 'Hipocalórico · Hiperprotéico',
-  macros:   { kcal: 1450, p: 115, c: 170, g: 52 },
+  macros:   { kcal: 1450, p: 110, c: 155, g: 44 },
   hidratacion: [
     { label:'💧 Entrenamiento', valor:'2.8' },
     { label:'💧 Descanso',      valor:'2.5' },
@@ -207,7 +207,7 @@ const PATIENT = {
   ],
 
   comidas: [
-    { id:'des', nombre:'☀️ Desayuno', kcal:310, p:22, c:30, g:12, grupos:[
+    { id:'des', nombre:'☀️ Desayuno', kcal:285, p:20, c:28, g:10, grupos:[
       { label:'Escoge 01 · Carbohidrato', max:1, ops:[
         '20 g de avena (peso crudo) + 1 cda de linaza molida',
         '20 g de granola + 1 cda de linaza molida',
@@ -228,13 +228,13 @@ const PATIENT = {
       ]},
     ]},
 
-    { id:'mm', nombre:'🕙 Media Mañana', kcal:190, p:18, c:20, g:5, nota:'Si tienes urgencia de picar entre comidas, primero toma 400 ml de agua. Si persiste: palito de apio o zanahoria, o 3-4 cuadritos de chocolate 70%.', grupos:[
+    { id:'mm', nombre:'🕙 Media Mañana', kcal:160, p:13, c:17, g:5, nota:'Si tienes urgencia de picar entre comidas, primero toma 400 ml de agua. Si persiste: palito de apio o zanahoria, o 3-4 cuadritos de chocolate 70%.', grupos:[
       { label:'Escoge 01 · Proteína', max:1, ops:[
-        '150 g de Vakimú Quark',
-        '120 g de queso cottage',
-        '55 g de mozzarella light',
-        '1 lata de atún en agua',
-        '80 g de pechuga de pollo',
+        '120 g de Vakimú Quark',
+        '100 g de queso cottage',
+        '45 g de mozzarella light',
+        '½ lata de atún en agua',
+        '70 g de pechuga de pollo',
       ]},
       { label:'Escoge 01 · Carbohidrato / Fruta', max:1, ops:[
         '1 porción de fruta (Ver especificaciones)',
@@ -251,7 +251,7 @@ const PATIENT = {
       ]},
     ]},
 
-    { id:'alm', nombre:'🥗 Almuerzo', kcal:480, p:35, c:55, g:14, grupos:[
+    { id:'alm', nombre:'🥗 Almuerzo', kcal:455, p:34, c:52, g:13, grupos:[
       { label:'Escoge 02 · Carbohidrato (pesos cocidos)', max:2, ops:[
         '60 g de arroz',
         '90 g de papa o camote',
@@ -276,12 +276,12 @@ const PATIENT = {
       ]},
     ], nota:'Con las menestras: acompañar siempre de una fuente de vitamina C (jugo de limón sobre la ensalada, tomate, pimiento) para mejorar la absorción de hierro. Evitar té o café en la hora del almuerzo.' },
 
-    { id:'snk', nombre:'🕔 Media Tarde', kcal:250, p:20, c:28, g:6, grupos:[
+    { id:'snk', nombre:'🕔 Media Tarde', kcal:215, p:18, c:25, g:6, grupos:[
       { label:'Escoge 01 · Proteína', max:1, ops:[
-        '150 g de Vakimú Quark',
-        '120 g de queso cottage',
-        '55 g de mozzarella light',
-        '80 g de pechuga de pollo',
+        '120 g de Vakimú Quark',
+        '100 g de queso cottage',
+        '45 g de mozzarella light',
+        '70 g de pechuga de pollo',
       ]},
       { label:'Escoge 01 · Dulce / Fruta', max:1, ops:[
         '1 porción de fruta (Ver especificaciones)',
@@ -299,8 +299,8 @@ const PATIENT = {
       ]},
     ], nota:'Cine o antojo de canchita: 50 g de popcorn de casa al aire (eliminar el snack). · Starbucks: flat white con leche descremada sin azúcares agregados (reemplaza el café de la mañana).' },
 
-    { id:'cen', nombre:'🌙 Cena', kcal:380, p:28, c:37, g:14, grupos:[
-      { label:'Escoge 02 · Carbohidrato', max:2, ops:[
+    { id:'cen', nombre:'🌙 Cena', kcal:335, p:25, c:33, g:10, grupos:[
+      { label:'Escoge 01 · Carbohidrato', max:1, ops:[
         '90 g de papa o camote',
         '1 rebanada de pan de molde integral (30 g)',
         '20 g de avena (peso crudo)',
@@ -313,11 +313,11 @@ const PATIENT = {
         'Pechuga de pavo o pavita',
         'Pescado al horno o a la plancha',
         'Sashimi (en salida a restaurante japonés)',
-        '200 g de Vakimú Quark',
-        '80 g de queso mozzarella light (CuisineCo)',
+        '180 g de Vakimú Quark',
+        '70 g de queso mozzarella light (CuisineCo)',
         '2 huevos + 30 g mozzarella',
       ]},
-      { label:'Escoge 02 · Grasa', max:2, ops:[
+      { label:'Escoge 01 · Grasa', max:1, ops:[
         '40 g de palta',
         '4 aceitunas',
         '1 porción de frutos secos (Ver especificaciones)',
