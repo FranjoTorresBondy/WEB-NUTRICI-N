@@ -254,7 +254,7 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 const PATIENT = {
   slug:      'anthony-lee',
   nombre:    'Anthony\nLee',
-  fecha:     '02.07.2026',
+  fecha:     '20.08.2026',
   tipoPlan:  'Hipocalórico · Hiperprotéico',
   macros:    { kcal: 1950, p: 140, c: 247, g: 44 },
   hidratacion: [
@@ -262,10 +262,16 @@ const PATIENT = {
     { label:'💧 Descanso',      valor:'2.8' },
   ],
   semanas: 1,
+  antroHistorial: [
+    { fecha:'02.07.2026', peso:60.3, talla:166.0, imc:21.9,
+      tri:8.0, bi:3.0, sub:10.0, cresta:18.0, supra:12.0, abd:20.0, pierna:7.0, pant:4.0,
+      brazRelaj:26.5, brazFlex:28.5, abdom:77.5, cadera:91.5, muslo:45.5, pantPer:32.0 },
+  ],
   antro: {
-    fecha:'02.07.2026', peso:60.3, talla:166.0, imc:21.9,
-    tri:8.0, bi:3.0, sub:10.0, cresta:18.0, supra:12.0, abd:20.0, pierna:7.0, pant:4.0,
-    brazRelaj:26.5, brazFlex:28.5, abdom:77.5, cadera:91.5, muslo:45.5, pantPer:32.0,
+    fecha:'20.08.2026', peso:60.0, talla:166.0, imc:21.9,
+    tri:7.0, bi:2.0, sub:7.0, cresta:16.0, supra:11.0, abd:18.0, pierna:7.0, pant:3.0,
+    brazRelaj:26.8, brazFlex:28.8, abdom:76.0, cadera:90.5, muslo:46.5, pantPer:32.5,
+    diam:{ humero:6.0, biEstiloideo:5.2, femur:9.5 },
   },
 
   objetivos: [
@@ -291,7 +297,7 @@ const PATIENT = {
     ]},
 
     { id:'c3', nombre:'🥗 Almuerzo', kcal:506, p:33, c:58, g:15, grupos:[
-      { label:'Escoge 03 · Carbohidrato', max:3, ops:['60 g de arroz blanco o integral (cocido)','50 g de pasta cocida sin relleno','90 g de papa o camote (cocido)'] },
+      { label:'Escoge 03 · Carbohidrato', max:3, ops:['60 g de arroz blanco o integral (cocido)','50 g de pasta cocida sin relleno','90 g de papa o camote (cocido)','60 g de quinoa (cocida)','60 g de choclo','60 g de menestra'] },
       { label:'Escoge 01 · Proteína (120 g, peso crudo)', max:1, ops:['Pechuga de pollo','Pechuga de pavo','Pescado','Lomo de res','Langostinos','Bistec (tratar de evitar)'] },
       { label:'Escoge 01 · Verduras', max:1, ops:['150 g de verduras a tu preferencia'] },
       { label:'Escoge 02 · Grasa', max:2, ops:['1 cdta de aceite de oliva','40 g de palta','1 porción de frutos secos'] },
@@ -313,8 +319,9 @@ const PATIENT = {
     ], nota:'Puedes meter las papas en el airfryer.' },
 
     { id:'pre', nombre:'⚡ Pre Entreno', kcal:80, p:1, c:19, g:0, grupos:[
-      { label:'Fuerza · ~80 kcal', max:1, ops:['1 plátano + 1 cdta de miel de abeja'] },
-      { label:'Running 10K · ~200 kcal', max:1, ops:['40 g de Nestum + 1 cda de miel de abeja'] },
+      { label:'Fuerza · ~80 kcal', max:1, ops:['1 plátano + 1 cdta de miel / 1 rebanada de pan blanco + 1 cda de mermelada'] },
+      { label:'Running 10K / Bici / Natación', max:1, ops:['Extracto o licuado colado: 1 betarraga + jugo de 1 naranja + 1 cda de miel + ¼ cdta de sal + canela + kion'] },
+      { label:'Solo fondos +1h30 min: agregar', max:1, ops:['40 g de Nestum (pre entreno) + 1 scoop de Tailwind en 500 ml de agua cada hora (intra entreno)'] },
     ], nota:'* Solo días de entrenamiento. Suma al total del día (Fuerza ~80 kcal / Running 10K ~200 kcal).' },
   ],
 
