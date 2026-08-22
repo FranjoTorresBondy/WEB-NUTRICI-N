@@ -164,15 +164,20 @@
       for (var d = 0; d < P.comidas.length; d++) if (P.comidas[d].id === mid) data = P.comidas[d];
       if (!data || data.kcal == null) continue;
       var picks = meals[i].querySelectorAll('.pick');
-      var tot = 0, got = 0;
+      var tot = 0, got = 0, kcalPerGroup = 0, usePerGroup = true;
       for (var q = 0; q < picks.length; q++) {
         var gi = groupInfo(picks[q]);
         if (!isFinite(gi.max)) continue;
+        var gKcal = parseFloat(picks[q].dataset.kcal);
+        if (!(gKcal > 0)) usePerGroup = false;
+        var gf = gi.max > 0 ? Math.min(gi.count, gi.max) / gi.max : 0;
+        kcalPerGroup += (gKcal > 0 ? gKcal : 0) * gf;
         tot += gi.max; got += Math.min(gi.count, gi.max);
       }
       if (!tot) continue;
       var f = got / tot;
-      out.kcal += data.kcal * f; out.p += (data.p || 0) * f;
+      out.kcal += usePerGroup ? kcalPerGroup : data.kcal * f;
+      out.p += (data.p || 0) * f;
       out.c += (data.c || 0) * f; out.g += (data.g || 0) * f;
     }
     out.kcal = Math.round(out.kcal); out.p = Math.round(out.p);

@@ -267,17 +267,17 @@ const PATIENT = {
 
   comidas: [
     { id:'des', nombre:'☀️ Desayuno', kcal:285, p:20, c:28, g:10, grupos:[
-      { label:'Escoge 01 · Carbohidrato', max:1, ops:[
+      { label:'Escoge 01 · Carbohidrato', max:1, kcal:110, ops:[
         '20 g de avena (peso crudo) + 1 cda de linaza molida',
         '20 g de granola + 1 cda de linaza molida',
         '20 g de cereales (Zucaritas, Fruit Loops u otro) + 1 cda de linaza molida',
         '1 rebanada de pan de molde integral (30 g) + 1 cda de linaza molida',
         'Pan de semillas (30 g) + 1 cda de linaza molida',
       ]},
-      { label:'Escoge 01 · Fruta', max:1, ops:[
+      { label:'Escoge 01 · Fruta', max:1, kcal:55, ops:[
         '1 porción de fruta (Ver especificaciones)',
       ]},
-      { label:'Escoge 01 · Proteína + Grasa', max:1, ops:[
+      { label:'Escoge 01 · Proteína + Grasa', max:1, kcal:120, ops:[
         '2 huevos revueltos + 30 g queso mozzarella light (CuisineCo)',
         '110 g de Vakimú Quark + 1 porción de frutos secos (Ver especificaciones)',
         '120 g de queso cottage + 1 porción de frutos secos (Ver especificaciones)',
@@ -287,21 +287,21 @@ const PATIENT = {
     ]},
 
     { id:'mm', nombre:'🕙 Media Mañana', kcal:160, p:13, c:17, g:5, nota:'Si tienes urgencia de picar entre comidas, primero toma 400 ml de agua. Si persiste: palito de apio o zanahoria, o 3-4 cuadritos de chocolate 70%.', grupos:[
-      { label:'Escoge 01 · Proteína', max:1, ops:[
+      { label:'Escoge 01 · Proteína', max:1, kcal:65, ops:[
         '120 g de Vakimú Quark',
         '100 g de queso cottage',
         '45 g de mozzarella light',
         '½ lata de atún en agua',
         '70 g de pechuga de pollo',
       ]},
-      { label:'Escoge 01 · Carbohidrato / Fruta', max:1, ops:[
+      { label:'Escoge 01 · Carbohidrato / Fruta', max:1, kcal:60, ops:[
         '1 porción de fruta (Ver especificaciones)',
         '20 g de granola',
         '20 g de cereales',
         '1 rebanada de pan de molde integral (30 g)',
         '3 Salmas',
       ]},
-      { label:'Escoge 01 · Grasa', max:1, ops:[
+      { label:'Escoge 01 · Grasa', max:1, kcal:35, ops:[
         '1 porción de frutos secos o semillas (Ver especificaciones)',
         '40 g de palta',
         '4 aceitunas',
@@ -310,24 +310,24 @@ const PATIENT = {
     ]},
 
     { id:'alm', nombre:'🥗 Almuerzo', kcal:455, p:34, c:52, g:13, grupos:[
-      { label:'Escoge 02 · Carbohidrato (pesos cocidos)', max:2, ops:[
+      { label:'Escoge 02 · Carbohidrato (pesos cocidos)', max:2, kcal:195, ops:[
         '60 g de arroz',
         '90 g de papa o camote',
         '60 g de quinua',
         '100 g de menestra (lenteja, frijol, garbanzo, pallares) — 2 a 3 veces/semana',
         '50 g de fideos o pasta',
       ]},
-      { label:'Escoge 01 · Proteína (100 g, peso crudo)', max:1, ops:[
+      { label:'Escoge 01 · Proteína (100 g, peso crudo)', max:1, kcal:155, ops:[
         'Pechuga de pollo',
         'Pechuga de pavo o pavita',
         'Pescado (salmón, jurel, tilapia, lenguado) — mínimo 3-4 veces/semana',
         'Atún en agua (1 lata)',
         'Conchitas o mariscos',
       ]},
-      { label:'Escoge 01 · Verduras', max:1, ops:[
+      { label:'Escoge 01 · Verduras', max:1, kcal:40, ops:[
         '150 g de verduras (preferir espinaca, brócoli, vainitas — ricas en hierro)',
       ]},
-      { label:'Escoge 02 · Grasa', max:2, ops:[
+      { label:'Escoge 02 · Grasa', max:2, kcal:65, ops:[
         '1 cda de aceite de oliva',
         '40 g de palta',
         '4 aceitunas',
@@ -335,20 +335,20 @@ const PATIENT = {
     ], nota:'Con las menestras: acompañar siempre de una fuente de vitamina C (jugo de limón sobre la ensalada, tomate, pimiento) para mejorar la absorción de hierro. Evitar té o café en la hora del almuerzo.' },
 
     { id:'snk', nombre:'🕔 Media Tarde', kcal:215, p:18, c:25, g:6, grupos:[
-      { label:'Escoge 01 · Proteína', max:1, ops:[
+      { label:'Escoge 01 · Proteína', max:1, kcal:90, ops:[
         '120 g de Vakimú Quark',
         '100 g de queso cottage',
         '45 g de mozzarella light',
         '70 g de pechuga de pollo',
       ]},
-      { label:'Escoge 01 · Dulce / Fruta', max:1, ops:[
+      { label:'Escoge 01 · Dulce / Fruta', max:1, kcal:50, ops:[
         '1 porción de fruta (Ver especificaciones)',
         '2 pastillas de chocolate La Ibérica (70%)',
       ]},
-      { label:'Escoge 01 · Frutos secos', max:1, ops:[
+      { label:'Escoge 01 · Frutos secos', max:1, kcal:50, ops:[
         '1 porción de frutos secos o semillas (Ver especificaciones)',
       ]},
-      { label:'Escoge 01 · Carbohidrato', max:1, ops:[
+      { label:'Escoge 01 · Carbohidrato', max:1, kcal:25, ops:[
         '20 g de cereales (Zucaritas, Fruit Loops u otro)',
         '20 g de granola + yogurt',
         '1 rebanada de pan de molde integral (30 g)',
@@ -358,7 +358,7 @@ const PATIENT = {
     ], nota:'Cine o antojo de canchita: 50 g de popcorn de casa al aire (eliminar el snack). · Starbucks: flat white con leche descremada sin azúcares agregados (reemplaza el café de la mañana).' },
 
     { id:'cen', nombre:'🌙 Cena', kcal:335, p:25, c:33, g:10, grupos:[
-      { label:'Escoge 01 · Carbohidrato', max:1, ops:[
+      { label:'Escoge 01 · Carbohidrato', max:1, kcal:100, ops:[
         '90 g de papa o camote',
         '1 rebanada de pan de molde integral (30 g)',
         '20 g de avena (peso crudo)',
@@ -366,7 +366,7 @@ const PATIENT = {
         '20 g de cereales',
         '1 wrap integral pequeño',
       ]},
-      { label:'Escoge 01 · Proteína (100 g, peso crudo)', max:1, ops:[
+      { label:'Escoge 01 · Proteína (100 g, peso crudo)', max:1, kcal:125, ops:[
         'Pechuga de pollo',
         'Pechuga de pavo o pavita',
         'Pescado al horno o a la plancha',
@@ -375,13 +375,13 @@ const PATIENT = {
         '70 g de queso mozzarella light (CuisineCo)',
         '2 huevos + 30 g mozzarella',
       ]},
-      { label:'Escoge 01 · Grasa', max:1, ops:[
+      { label:'Escoge 01 · Grasa', max:1, kcal:50, ops:[
         '40 g de palta',
         '4 aceitunas',
         '1 porción de frutos secos (Ver especificaciones)',
         '1 cda de aceite de oliva',
       ]},
-      { label:'Escoge 01 · Verduras / Fruta', max:1, ops:[
+      { label:'Escoge 01 · Verduras / Fruta', max:1, kcal:60, ops:[
         '150 g de verduras cocidas (evitar sopa de verduras si no la disfrutas)',
         '1 puñado de berries',
         'Ensalada de lechuga, tomate, pepino y palta',
@@ -607,7 +607,7 @@ function buildMeal(meal) {
         </div>`:''}
       </div>`;
     }).join('');
-    return `<div class="pick"><div class="k">${g.label}</div><div class="options">${opts}</div></div>`;
+    return `<div class="pick"${g.kcal?' data-kcal="'+g.kcal+'"':''}><div class="k">${g.label}</div><div class="options">${opts}</div></div>`;
   }).join('');
   const nota = meal.nota ? `<div class="note2">${meal.nota}</div>` : '';
   return `<div class="meal" data-mealid="${meal.id}"><div class="top">
