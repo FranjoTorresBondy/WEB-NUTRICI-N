@@ -287,18 +287,18 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 const PATIENT = {
   slug:      'kurt-schrader',      // identificador único (sin espacios, sin tildes)
   nombre:    'Kurt\nSchrader',     // \n hace salto de línea en el h1
-  fecha:     '15.06.2026',
+  fecha:     '20.08.2026',
   tipoPlan:  'Hipocalórico · Hiperprotéico',
-  macros:    { kcal: 2000, p: 131, c: 230, g: 60 },
+  macros:    { kcal: 2231, p: 159, c: 230, g: 61 },
   hidratacion: { entreno: '3.0', descanso: '2.8' },
   semanas:   8,                    // número de microciclos
 
   // ── EVALUACIÓN ANTROPOMÉTRICA (inicial) ─────────────────────────────────
   antro: {
-    fecha: '15.06.2026',
-    peso: 81.0, talla: 176, imc: 26.1,
-    tri: 5.5, bi: 3.5, sub: 15.0, cresta: 20.0, supra: 10.0, abd: 22.0, pierna: 7.0, pant: 4.0,
-    brazRelaj: 33.5, brazFlex: 34.2, abdom: 97.0, cadera: 97.5, muslo: 50.0, pantPer: 37.3,
+    fecha: '20.08.2026',
+    peso: 80.0, talla: 176, imc: 25.8,
+    tri: 6.0, bi: 3.0, sub: 11.0, cresta: 11.0, supra: 6.0, abd: 16.0, pierna: 7.0, pant: 3.0,
+    brazRelaj: 33.8, brazFlex: 35.0, abdom: 92.0, cadera: 98.0, muslo: 51.0, pantPer: 37.5,
   },
 
   objetivos: [
@@ -311,10 +311,13 @@ const PATIENT = {
   // grupos: cada grupo tiene { label, max, ops: ['opción 1', 'opción 2', ...] }
   // nota: texto en cursiva al pie de la comida (opcional)
   comidas: [
-    { id:'des', nombre:'🍳 Desayuno', kcal:505, p:24, c:62, g:20, grupos:[
-        { label:'Escoge 02 · Carbohidrato', max:2, ops:['1 tortilla rapidita integral','1 rebanada pan de molde integral (30 g)','20 g de avena (peso crudo)','1 pan pita integral (30 g)','20 g de cereales Dyfferent o NutriCo','20 g de granola','3 unidades de salmas'] },
+    { id:'des', nombre:'🍳 Desayuno', kcal:576, p:24, c:103, g:21, grupos:[
+        { label:'Escoge 03 · Carbohidrato', max:3, ops:['1 tortilla rapidita integral','1 rebanada pan de molde integral (30 g)','20 g de avena (peso crudo)','1 pan pita integral (30 g)','20 g de cereales Dyfferent o NutriCo','20 g de granola','3 unidades de salmas'] },
         { label:'Escoge 01 · Fruta', max:1, ops:['2 porciones de fruta + 2 cdas chía o linaza molida (obligatorio)'] },
         { label:'Escoge 01 · Proteína + Grasa', max:1, ops:['50 g pollo + 60 g palta','50 g queso mozzarella light (Cuisine&Co) + 1 huevo','½ lata atún + 60 g palta','110 g Vakimu Quark + 1 porción frutos secos','70 g queso cottage + 1 huevo','2 huevos'] },
+    ], nota:'*No consumir jugo de naranja o toronja junto a la atorvastatina' },
+    { id:'snkmm', nombre:'🥤 Snack Media Mañana', kcal:160, p:25, c:14, g:0, grupos:[
+        { label:'Escoge 01', max:1, ops:['1 porción de fruta (ver especificaciones) + 1 scoop de proteína'] },
     ]},
     { id:'alm', nombre:'🥗 Almuerzo', kcal:680, p:52, c:75, g:17, grupos:[
         { label:'Escoge 04 · Carbohidrato', max:4, ops:['60 g de arroz','90 g de papa, camote o betarraga','60 g de quinua','100 g de menestra','50 g de fideos'] },
