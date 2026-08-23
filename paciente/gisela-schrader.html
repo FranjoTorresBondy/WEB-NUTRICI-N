@@ -252,18 +252,23 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 const PATIENT = {
   slug:      'gisela-schrader',
   nombre:    'Gisela',
-  fecha:     '15.06.2026',
+  fecha:     '20.08.2026',
   tipoPlan:  'Hipocalórico · Hiperprotéico',
   macros:    { kcal: 1700, p: 110, c: 195, g: 57 },
   hidratacion: { entreno: '2.4', descanso: '2.1' },
   semanas:   4,
 
   antro: {
-    fecha: '15.06.2026',
-    peso: 61.5, talla: 165.0, imc: 22.8,
-    tri: 12.0, bi: 5.0, sub: 9.0, cresta: 17.0, supra: 8.0, abd: 14.0, pierna: 17.0, pant: 9.0,
-    brazRelaj: 28.0, brazFlex: 30.0, abdom: 78.0, cadera: 97.5, muslo: 48.2, pantPer: 33.8,
+    fecha: '20.08.2026',
+    peso: 60.0, talla: 165.0, imc: 22.0,
+    tri: 9.0, bi: 4.0, sub: 8.0, cresta: 12.0, supra: 6.0, abd: 8.0, pierna: 15.0, pant: 9.0,
+    s6: 55.0, s8: 71.0,
+    brazRelaj: 28.0, brazFlex: 30.5, abdom: 74.0, cadera: 96.5, muslo: 48.5, pantPer: 34.0,
   },
+
+  antroHistorial: [
+    { fecha:'15.06.2026', peso:61.5, tri:12.0, bi:5.0, sub:9.0, cresta:17.0, supra:8.0, abd:14.0, pierna:17.0, pant:9.0, s6:91.0, s8:123.0, brazRelaj:28.0, brazFlex:30.0, abdom:78.0, cadera:97.5, muslo:48.2, pantPer:33.8 },
+  ],
 
   objetivos: [
     'Recomposición corporal',
