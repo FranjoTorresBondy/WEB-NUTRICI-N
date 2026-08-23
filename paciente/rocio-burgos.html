@@ -203,12 +203,12 @@ const PATIENT = {
   ],
 
   comidas: [
-    { id:'des', nombre:'☀️ Desayuno', kcal:420, p:35, c:42, g:13, grupos:[
-      { label:'Escoge 02 · Proteína', max:2, ops:[
-        '2 huevos enteros (revueltos con aceite PAM, a la plancha o duros)',
-        '½ lata de caballa al agua (75g) + 1 huevo entero',
-        '70g de pechuga de pollo o pavita cocida + 1 huevo entero',
-        '1 scoop de proteína aislada (con 250ml leche de almendra sin azúcar)',
+    { id:'des', nombre:'☀️ Desayuno', kcal:375, p:25, c:38, g:14, grupos:[
+      { label:'Escoge 01 · Proteína', max:1, ops:[
+        '3 huevos enteros (revueltos con aceite PAM, a la plancha o duros)',
+        '80g de pechuga de pollo o pavita cocida',
+        '½ lata de caballa al agua (75g)',
+        '1 scoop de proteína aislada (con 200ml leche de almendra sin azúcar)',
       ]},
       { label:'Escoge 01 · Carbohidrato', max:1, ops:[
         '20g de avena (en crudo)',
@@ -219,29 +219,27 @@ const PATIENT = {
         '1 porción de fruta (ver especificaciones)',
       ]},
       { label:'Escoge 01 · Grasa', max:1, ops:[
-        '½ palta',
+        '60g de palta (½ palta mediana)',
         '2 cdtas de aceite de oliva',
-        '8 aceitunas',
+        '20 aceitunas',
       ]},
-    ], nota:'Puedes hacer tortilla de avena: avena + huevo + plátano machucado + pizca de sal + canela. · Si usas proteína en polvo: mezclarla con leche de almendra sin azúcar y tomar con la fruta. · *Opción rápida si saliste volando: 1 barrita proteica + 1 porción de fruta + ½ palta.' },
+    ], nota:'Si elegiste huevos, puedes omitir la grasa adicional — la yema ya aporta suficiente. · Si usas proteína en polvo: mezclarla con leche de almendra sin azúcar. · *Opción rápida: 1 barrita proteica + 1 porción de fruta + 60g palta.' },
 
-    { id:'alm', nombre:'🥗 Almuerzo', kcal:590, p:52, c:62, g:16, grupos:[
+    { id:'alm', nombre:'🥗 Almuerzo', kcal:610, p:52, c:62, g:17, grupos:[
       { label:'Escoge 04 · Carbohidrato (peso cocido)', max:4, ops:[
         '60g de arroz blanco o integral',
-        '60g de quinua',
-        '50g de pasta cocida sin relleno',
+        '75g de quinua',
+        '75g de pasta cocida sin relleno',
         '90g de papa, camote o yuca',
-        '60g de choclo',
+        '80g de choclo',
         '60g de trigo o cebada',
       ]},
       { label:'Escoge 01 · Proteína (150g, peso crudo)', max:1, ops:[
         'Pechuga de pollo',
         'Pechuga de pavita',
         'Trucha o tilapia',
-        'Atún al agua (150g)',
-        '½ lata de caballa al agua + 1 huevo duro',
-        'Carne molida de bistec',
-        'Bistec (tratar de evitar)',
+        'Atún al agua (150g, peso escurrido)',
+        'Bistec (tratar de evitar — colesterol)',
       ]},
       { label:'Escoge 01 · Verduras', max:1, ops:[
         '150 a 170g de verduras a tu preferencia',
@@ -249,49 +247,48 @@ const PATIENT = {
       { label:'Escoge 01 · Grasa', max:1, ops:[
         '2 cdtas de aceite de oliva',
         '2 cdtas de aceite de ajonjolí',
-        '40g de palta',
-        '8 aceitunas',
+        '60g de palta',
+        '20 aceitunas',
       ]},
     ], nota:'Esta es tu comida principal — dale el tiempo que merece. · Si comes fuera: pollo a la plancha o pescado con arroz o papa; evita salsas cremosas. · 1 vez a la semana puedes comer chifa: arroz chaufa con pollo o tallarín saltado.' },
 
-    { id:'snk', nombre:'🍎 Snack Tarde', kcal:220, p:25, c:20, g:5, grupos:[
+    { id:'snk', nombre:'🍎 Snack Tarde', kcal:220, p:22, c:24, g:4, grupos:[
       { label:'Escoge 01 · Proteína', max:1, ops:[
         '1 scoop de proteína aislada (con 200ml leche de almendra sin azúcar)',
         '1 Vakimu Pro (yogurt proteico sin lactosa)',
-        '150g de yogurt Skyr sin lactosa + Stevia o 1 cdta de miel',
+        '200g de yogurt Skyr sin lactosa + Stevia o 1 cdta de miel',
         '1 barrita Fitrex',
       ]},
       { label:'Escoge 01 · Acompañamiento', max:1, ops:[
         '1 porción de fruta',
-        '15g de nueces o almendras (un puñadito)',
         '20g de granola sin azúcar',
         '30g de avena en crudo (preparada con leche de almendra)',
       ]},
     ], nota:'Este snack reemplaza el yogurt de la máquina — prepáralo desde casa y llévalo al trabajo. Es la clave para llegar con hambre controlada a la cena y evitar el picoteo nocturno.' },
 
-    { id:'cen', nombre:'🌙 Cena', kcal:310, p:18, c:19, g:16, grupos:[
+    { id:'cen', nombre:'🌙 Cena', kcal:335, p:31, c:19, g:15, grupos:[
       { label:'Pre-comida (opcional)', max:1, ops:[
         '1 cda de vinagre de manzana + 1 vaso de agua (500ml) — 10 min antes',
-      ]},
-      { label:'Escoge 02 · Carbohidrato (peso cocido)', max:2, ops:[
-        '60g de papa, camote o yuca',
-        '30g de arroz blanco o integral',
-        '½ choclo',
       ]},
       { label:'Escoge 01 · Proteína (100g, peso crudo)', max:1, ops:[
         'Pechuga de pollo o pavita',
         'Trucha o tilapia a la plancha',
-        '2 huevos enteros',
-        '½ lata de caballa al agua',
-        'Atún al agua (100g)',
+        '½ lata de caballa al agua (75g)',
+        'Atún al agua (100g, peso escurrido)',
+        '2 huevos enteros + 50g de atún al agua',
+      ]},
+      { label:'Escoge 02 · Carbohidrato (peso cocido)', max:2, ops:[
+        '45g de papa, camote o yuca',
+        '30g de arroz blanco o integral',
+        '½ choclo',
       ]},
       { label:'Escoge 01 · Verduras', max:1, ops:[
         '100 a 150g de verduras a tu preferencia',
       ]},
       { label:'Escoge 01 · Grasa', max:1, ops:[
-        '30g de palta',
-        '1 cdta de aceite de oliva',
-        '6 aceitunas',
+        '60g de palta',
+        '2 cdtas de aceite de oliva',
+        '20 aceitunas',
       ]},
     ], nota:'Cena más liviana que el almuerzo — no necesitas mucho carbo a esta hora. · Si llegas con hambre extrema, bebe un vaso grande de agua primero y espera 10 min. · Toque final opcional: 10g de chocolate 70% cacao.' },
   ],
