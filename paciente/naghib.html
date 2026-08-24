@@ -184,7 +184,7 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 const PATIENT = {
   slug:     'naghib',
   nombre:   'Naghib',
-  fecha:    '04.08.2026',
+  fecha:    '24.08.2026',
   tipoPlan: 'Normo calórico · Hiperprotéico',
   macros:   { kcal: 2040, p: 170, c: 240, g: 45 },
   hidratacion: [
@@ -193,16 +193,15 @@ const PATIENT = {
   ],
   semanas: 1,
   antro: {
-    fecha:'04.08.2026', peso:84.9, talla:185.0, imc:24.8,
-    tri:6.0, bi:1.5, sub:8.0, cresta:12.0, supra:8.0, abd:12.0, pierna:12.0, pant:10.0,
-    brazRelaj:35.3, brazFlex:38.5, abdom:78.0, cadera:104.0, muslo:55.0, pantPer:39.0,
+    fecha:'24.08.2026', peso:86.6, talla:185.0, imc:24.8,
+    tri:8.0, bi:1.5, sub:10.0, cresta:14.0, supra:8.0, abd:11.0, pierna:10.0, pant:6.0,
+    brazRelaj:36.3, brazFlex:39.5, abdom:80.0, cadera:105.0, muslo:56.5, pantPer:39.5,
     diam:{ humero:6.8, biEstiloideo:5.3, femur:10.0 },
   },
   antroHistorial: [
-    { fecha:'03.07.2026', peso:89.7, talla:185.0, imc:26.2,
-      tri:8.0, bi:1.5, sub:8.0, cresta:14.0, supra:11.0, abd:15.0, pierna:7.0, pant:7.0,
-      s6:56.0, s8:71.5,
-      brazRelaj:37.0, brazFlex:39.9, abdom:83.0, cadera:107.0, muslo:58.0, pantPer:39.8 },
+    { fecha:'03.07.2026', peso:89.7, tri:8.0, bi:1.5, sub:8.0, cresta:14.0, supra:11.0, abd:15.0, pierna:7.0, pant:7.0, s6:56.0, s8:71.5, brazRelaj:37.0, brazFlex:39.9, abdom:83.0, cadera:107.0, muslo:58.0, pantPer:39.8 },
+    { fecha:'04.08.2026', peso:84.9, tri:6.0, bi:1.5, sub:8.0, cresta:12.0, supra:8.0, abd:12.0, pierna:12.0, pant:10.0, s6:56.0, s8:69.5, brazRelaj:35.3, brazFlex:38.5, abdom:78.0, cadera:104.0, muslo:55.0, pantPer:39.0 },
+    { fecha:'24.08.2026', peso:86.6, tri:8.0, bi:1.5, sub:10.0, cresta:14.0, supra:8.0, abd:11.0, pierna:10.0, pant:6.0, s6:53.0, s8:68.5, brazRelaj:36.3, brazFlex:39.5, abdom:80.0, cadera:105.0, muslo:56.5, pantPer:39.5 },
   ],
 
   objetivos: [
@@ -228,13 +227,13 @@ const PATIENT = {
         '1 Rapidita integral',
       ]},
       { label:'Escoge 01 · Proteína', max:1, ops:[
-        '2 huevos + 15 g de mantequilla de maní',
-        '1 lata de atún en agua + 70 g de palta',
-        '60 g de pollo + 1 huevo + 15 g de mantequilla de maní',
-        '200 g de yogurt quark Vakimú + 20 g de frutos secos o 20 g de mantequilla de maní',
-        '2 huevos + 40 g de queso mozzarella light + 10 g de mantequilla de maní',
+        '3 huevos',
+        '1 lata de atún en agua + 60 g de palta',
+        '100 g de pechuga de pollo + 60 g de palta',
+        '300 g de yogurt Vakimú + 1 porción de frutos secos o 10 g de mantequilla de maní',
+        '60 g de queso mozzarella light + 60 g de palta',
       ]},
-    ]},
+    ], nota:'Opción rápida — batido: 2 porciones de fruta + 300 g de leche fresca Slim + 60 g de avena + 1 cda de mantequilla de maní → licuar. Acompañar con 3 huevos aparte.' },
 
     { id:'alm', nombre:'🥗 Almuerzo', kcal:555, p:55, c:58, g:13, grupos:[
       { label:'Escoge 05 · Carbohidrato (pesos cocidos)', max:5, ops:[
@@ -268,7 +267,7 @@ const PATIENT = {
         '1 rebanada de pan La Chola o de molde (30 g)',
         '1 Rapidita integral',
       ]},
-      { label:'Escoge 01 · Fruta', max:1, ops:['1 plátano pequeño'] },
+      { label:'Escoge 01 · Fruta', max:1, ops:['2 porciones de frutas (ver especificaciones)'] },
       { label:'Escoge 01 · Proteína', max:1, ops:[
         '100 g de pechuga de pollo',
         '1 lata de atún en agua',
@@ -298,7 +297,6 @@ const PATIENT = {
         'Pechuga de pollo','Pechuga de pavo','Pescado',
         'Lomo de res','Langostinos','Lomo de cerdo',
         '300 g de yogurt quark Vakimú + 1 porción de fruta',
-        '2 scoops de Soja Complex (70 g)',
       ]},
       { label:'Escoge 01 · Grasa', max:1, ops:[
         '1 cdta de aceite de oliva',
@@ -310,7 +308,7 @@ const PATIENT = {
         '120 a 150 g de verduras de tu preferencia',
         '150 g de mix de berries (arándano, fresa, frambuesas, moras)',
       ]},
-    ], nota:'🥤 Opción batido (días sin mucho hambre): 2 scoops de Soja Complex (70 g) + 35 g de avena + 150 g de mix de berries + 1 cdta de mantequilla de maní o 1 cda de chía / linaza molida + hielo + agua o leche de almendra al gusto — mezclar todo en licuadora.' },
+    ], nota:'🥤 Opción batido (días sin mucho hambre): 300 g de yogurt quark Vakimú + 35 g de avena + 150 g de mix de berries + 1 cdta de mantequilla de maní o 1 cda de chía / linaza molida + hielo + agua o leche de almendra al gusto — mezclar todo en licuadora.' },
   ],
 
   specs: [
