@@ -45,6 +45,10 @@ section{padding:30px 0}
 .micro-bar{display:flex;align-items:center;gap:12px;margin:0 0 24px;flex-wrap:wrap}
 .micro-bar .mlabel{font-family:'IBM Plex Mono';font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
 .micro-btn{appearance:none;border:1.5px solid var(--line);background:var(--panel);border-radius:999px;padding:7px 16px;font-family:'IBM Plex Mono';font-size:12px;font-weight:600;color:var(--muted);cursor:pointer;transition:.2s}
+.variant-bar{display:flex;gap:8px;margin:0 0 20px;flex-wrap:wrap}
+.vbtn{padding:9px 20px;border-radius:999px;border:1.5px solid var(--line);background:var(--panel);font-family:'IBM Plex Mono';font-size:12px;font-weight:600;color:var(--muted);cursor:pointer;transition:.2s;white-space:nowrap}
+.vbtn:hover{border-color:var(--navy);color:var(--ink)}
+.vbtn.active{background:var(--navy);border-color:var(--navy);color:#000}
 .micro-btn:hover{border-color:var(--navy);color:var(--navy)}
 .micro-btn.active{background:var(--navy);border-color:var(--navy);color:#000}
 .micro-note{font-size:12px;color:var(--faint);font-style:italic}
@@ -397,15 +401,52 @@ const PATIENT = {
     { nombre:'Salsa roja',             desc:'Tomate, cebolla, ajo, albahaca, poro + Lakanto o Stevia al gusto + sal, pimienta, tomillo + 1 cda aceite oliva. Puedes agregar otras verduras a preferencia.' },
   ],
 
-  notaSpecs: 'Plan base = 1,850 kcal / día (días de descanso). Días de entrenamiento: sumar Pre Entreno (+175 kcal ≈ 2,025 kcal total).',
+  notaSpecs: 'Plan base = días de pierna (1 850 kcal). Otros días: 1 730 kcal (−2 porciones de carbo: alm 3 porciones, cena 1 porción). Días de entrenamiento: sumar Pre Entreno (+175 kcal).',
 
   entrenamiento: null,
+
+  planVariants: {
+    otros: {
+      label: 'Otros días',
+      macros: { kcal: 1730, p: 131, c: 218, g: 44 },
+      overrides: {
+        alm: { kcal: 390, p: 32, c: 47, g: 7, maxCarbo: 3 },
+        cen: { kcal: 284, p: 35, c: 22, g: 7, maxCarbo: 1 },
+      }
+    }
+  },
 };
 // ════════════════════════════════════════════════════════════════════════════
 //  FIN DATOS — motor de renderizado
 // ════════════════════════════════════════════════════════════════════════════
 
 const $ = id => document.getElementById(id);
+
+let activeVariant = localStorage.getItem(PATIENT.slug+'-variant') || 'pierna';
+function setVariant(v) {
+  activeVariant = v;
+  localStorage.setItem(PATIENT.slug+'-variant', v);
+  renderNutr();
+}
+function getVariantData() {
+  if (!PATIENT.planVariants || activeVariant === 'pierna') {
+    return { macros: PATIENT.macros, comidas: PATIENT.comidas };
+  }
+  const v = PATIENT.planVariants.otros;
+  return {
+    macros: v.macros,
+    comidas: PATIENT.comidas.map(m => {
+      const ov = v.overrides[m.id];
+      if (!ov) return m;
+      return Object.assign({}, m, {
+        kcal: ov.kcal, p: ov.p, c: ov.c, g: ov.g,
+        grupos: m.grupos.map((g, i) => i === 0
+          ? Object.assign({}, g, { max: ov.maxCarbo, label: g.label.replace(/Escoge \d+/, 'Escoge 0' + ov.maxCarbo) })
+          : g)
+      });
+    })
+  };
+}
 
 function renderHero() {
   $('heroEyebrow').innerHTML = `Plan Nutricional &nbsp;·&nbsp; ${PATIENT.fecha}`;
@@ -438,13 +479,21 @@ function renderTabs() {
 
 function renderPlan() {
   const el = $('tab-plan');
+  const vdata = getVariantData();
   const microBtns = PATIENT.semanas > 1
     ? Array.from({length:PATIENT.semanas},(_,i)=>
         `<button class="micro-btn${i===0?' active':''}" onclick="setMicro(${i+1},this)">S${i+1}</button>`
       ).join('')
     : '';
 
-  const meals = PATIENT.comidas.map(m => {
+  const variantBar = PATIENT.planVariants
+    ? `<div class="variant-bar">
+        <button class="vbtn${activeVariant==='pierna'?' active':''}" onclick="setVariant('pierna')">🦵 Día de Pierna · 1 850 kcal</button>
+        <button class="vbtn${activeVariant==='otros'?' active':''}" onclick="setVariant('otros')">📅 Otros días · 1 730 kcal</button>
+      </div>`
+    : '';
+
+  const meals = vdata.comidas.map(m => {
     const grupos = m.grupos.map((g,gi) => {
       const ops = g.ops.map(o =>
         `<div class="opt"><span class="cb"></span><span class="opt-text">${o}</span></div>`
@@ -464,12 +513,13 @@ function renderPlan() {
 
   el.innerHTML = `<div class="wrap"><section>
     <div class="sec-h"><span class="ix">01</span><h2>Plan diario</h2><div class="rule"></div></div>
+    ${variantBar}
     ${microBtns ? `<div class="micro-bar"><span class="mlabel">Semana</span>${microBtns}<span class="micro-note">Tus selecciones se guardan automáticamente</span></div>` : ''}
     <div class="macros">
-      <div class="kcal">${PATIENT.macros.kcal.toLocaleString('es')} <small>kcal / día base</small></div>
-      <div class="mtag"><b>${PATIENT.macros.p}</b> g Proteína</div>
-      <div class="mtag"><b>${PATIENT.macros.c}</b> g Carbohidratos</div>
-      <div class="mtag"><b>${PATIENT.macros.g}</b> g Grasas</div>
+      <div class="kcal">${vdata.macros.kcal.toLocaleString('es')} <small>kcal / día base</small></div>
+      <div class="mtag"><b>${vdata.macros.p}</b> g Proteína</div>
+      <div class="mtag"><b>${vdata.macros.c}</b> g Carbohidratos</div>
+      <div class="mtag"><b>${vdata.macros.g}</b> g Grasas</div>
       <div class="sep"></div>
       <span class="tag">${PATIENT.tipoPlan}</span>
     </div>
