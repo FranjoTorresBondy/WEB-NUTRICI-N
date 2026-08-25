@@ -426,7 +426,7 @@ let activeVariant = localStorage.getItem(PATIENT.slug+'-variant') || 'pierna';
 function setVariant(v) {
   activeVariant = v;
   localStorage.setItem(PATIENT.slug+'-variant', v);
-  renderNutr();
+  renderPlan();
 }
 function getVariantData() {
   if (!PATIENT.planVariants || activeVariant === 'pierna') {
