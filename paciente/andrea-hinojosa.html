@@ -137,7 +137,7 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 <footer><div class="wrap"><div class="foot-inner"><div class="foot-brand">FRANJO TORRES BONDY · NUTRICIÓN</div><div class="foot-contact">franjo.torres.b@gmail.com · +51 992 832 991</div></div></div></footer>
 <script>
 const PATIENT = {
-  slug:'andrea-hinojosa', nombre:'Andrea\nHinojosa', fecha:'30.07.2026',
+  slug:'andrea-hinojosa', nombre:'Andrea\nHinojosa', fecha:'24.08.2026',
   tipoPlan:'Hipocalórico · Hiperprotéico',
   macros:{kcal:1510, p:106, c:157, g:54},
   hidratacion:[
@@ -145,10 +145,14 @@ const PATIENT = {
     {label:'💧 Descanso',      valor:'2.1'},
   ],
   antro:{
-    fecha:'30.07.2026', peso:61.1, talla:162.0, imc:23.3,
+    fecha:'24.08.2026', peso:61.1, talla:162.0, imc:23.3,
     tri:17.0, bi:6.5, sub:8.0, cresta:19.0, supra:12.0, abd:21.0, pierna:22.0, pant:13.0,
     brazRelaj:29.0, brazFlex:29.7, abdom:68.0, cadera:106.0, muslo:54.0, pantPer:35.0,
+    diam:{ humero:6.0, biEstiloideo:4.9, femur:8.7 },
   },
+  antroHistorial:[
+    { fecha:'30.07.2026', peso:61.1, tri:17.0, bi:6.5, sub:8.0, cresta:19.0, supra:12.0, abd:21.0, pierna:22.0, pant:13.0, s6:93.0, s8:118.5, brazRelaj:29.0, brazFlex:29.7, abdom:68.0, cadera:106.0, muslo:54.0, pantPer:35.0 },
+  ],
   objetivos:[
     'Disminuir sumatoria de 8 pliegues en 10 mm para la próxima sesión.',
     'Aumentar la cantidad de pasos al día progresivamente.',
@@ -175,6 +179,7 @@ const PATIENT = {
         '110 g de Vakimú Quark + 1 porción de frutos secos* (ver especificaciones)',
         '2 huevos',
         '2 tajadas de jamón de pechuga de pavo (30 g c/u) + 1 huevo',
+        '200 g de kéfir + 1 porción de frutos secos* (ver especificaciones)',
       ]},
       {label:'Escoge 01 · Grasa', max:1, ops:[
         '1 porción de frutos secos* (ver especificaciones)',
@@ -190,6 +195,7 @@ const PATIENT = {
         '1 Vakimú +Pro Bebible',
         '100 g de pollo',
         '60 g de queso mozzarella light (Cuisine&Co)',
+        '1 barrita de Fit Rex',
       ]},
       {label:'Escoge 01 · Carbohidrato / Fruta', max:1, ops:[
         '1 porción de fruta* (ver especificaciones)',
@@ -202,6 +208,7 @@ const PATIENT = {
         '40 g de palta',
         '5 g de aceite de oliva',
         '4 aceitunas',
+        '1 cda de mayonesa light',
       ]},
     ]},
 
@@ -229,13 +236,15 @@ const PATIENT = {
         '5 g de aceite de ajonjolí',
         '40 g de palta',
         '1 porción de frutos secos* (ver especificaciones)',
+        '1 cda de mayonesa light',
       ]},
-    ], nota:'*Puedes comer una pastilla de La Ibérica después del almuerzo.'},
+    ], nota:'*Puedes comer una pastilla de La Ibérica después del almuerzo. *Puedes tomar las bebidas Mein o Hula.'},
 
     {id:'snk-mt', nombre:'🕑 Snack MT', kcal:50, p:1, c:12, g:0, grupos:[
       {label:'Escoge 01', max:1, ops:[
         '1 porción de fruta* (ver especificaciones)',
-        '100 g de kefir Duman',
+        '100 g de kéfir Duman',
+        '2 monedas de chocolate de La Ibérica',
       ]},
     ]},
 
@@ -250,6 +259,7 @@ const PATIENT = {
         '30 g de pan multigranos',
         '3 unidades de salmas',
         '20 g de granola',
+        '20 g de pop corn',
       ]},
       {label:'Escoge · Proteína (120 g, peso crudo)', max:1, ops:[
         'Pechuga de pollo',
@@ -260,6 +270,7 @@ const PATIENT = {
         '1 lata de atún en agua',
         '75 g de queso mozzarella light Cuisine&Co',
         '250 g de yogurt Quark',
+        '1 milanesa de Avinka (en freidora sin aceite)',
       ]},
       {label:'Escoge 01 · Verduras', max:1, ops:[
         '150 g de verduras cocidas',
@@ -270,6 +281,7 @@ const PATIENT = {
         '40 g de palta',
         '1 porción de frutos secos* (ver especificaciones)',
         '5 g de mantequilla',
+        '1 cda de mayonesa light',
       ]},
     ]},
   ],
