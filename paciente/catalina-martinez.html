@@ -545,6 +545,7 @@ function renderSpecs() {
 
   const vinagHtml = PATIENT.vinagretas?.length
     ? `<div class="sec-h" style="margin-top:32px"><span class="ix">03</span><h2>Salsas bajas en calorías</h2><div class="rule"></div></div>
+       <p style="font-size:13px;color:var(--muted);margin:-8px 0 16px">Puedes usar hasta 3 cdas al ras de cualquiera de estas salsas al día.</p>
        <div class="vinag-grid">${PATIENT.vinagretas.map(v=>`<div class="vinag"><div class="vname">${v.nombre}</div><div class="vdesc">${v.desc}</div></div>`).join('')}</div>` : '';
 
   const batinosHtml = PATIENT.batinosCena?.length
