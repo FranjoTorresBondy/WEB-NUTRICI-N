@@ -185,6 +185,7 @@ const PATIENT = {
   slug:     'catalina-martinez',
   nombre:   'Catalina\nMartinez',
   fecha:    '27.08.2026',
+  genero:   'femenino',
   tipoPlan: 'Hipocalórico · Hiperprotéico',
   macros:   { kcal: 1550, p: 125, c: 155, g: 48 },
   hidratacion: [
@@ -489,9 +490,21 @@ function restoreMealUI() {}
 // ── Evaluación ─────────────────────────────────────────────────────────────
 function renderEval() {
   const a = PATIENT.antro;
-  const s6str = a.tri!=null ? +(a.tri+a.sub+a.supra+a.abd+a.pierna+a.pant).toFixed(1) : '—';
-  const s8str = a.tri!=null ? +(s6str+a.bi+a.cresta).toFixed(1) : '—';
+  const s6 = a.tri!=null ? +(a.tri+a.sub+a.supra+a.abd+a.pierna+a.pant).toFixed(1) : null;
+  const s8 = s6!=null ? +(s6+a.bi+a.cresta).toFixed(1) : null;
+  const s6str = s6!=null ? s6 : '—';
+  const s8str = s8!=null ? s8 : '—';
+  const genero = PATIENT.genero || 'masculino';
+  const pctGrasa = s6!=null ? +(genero==='femenino' ? s6*0.1429+4.56 : s6*0.097+3.64).toFixed(1) : null;
+  const masaGrasa = pctGrasa!=null && a.peso ? +(a.peso*pctGrasa/100).toFixed(1) : null;
+  const masaMagra = masaGrasa!=null ? +(a.peso-masaGrasa).toFixed(1) : null;
   const v = x => x!=null ? x : '—';
+  const compHtml = pctGrasa!=null ? `
+    <div class="evgroup"><div class="gh">Composición corporal (Yuhasz)</div>
+      <div class="row bold"><span>% Grasa</span><span>${pctGrasa} %</span></div>
+      <div class="row"><span>Masa grasa</span><span>${masaGrasa} kg</span></div>
+      <div class="row bold"><span>Masa magra (LBM)</span><span>${masaMagra} kg</span></div>
+    </div>` : '';
   const diamHtml = a.diam ? `
     <div class="evgroup"><div class="gh">Diámetros (cm)</div>
       <div class="row"><span>Húmero</span><span>${v(a.diam.humero)}</span></div>
@@ -527,7 +540,7 @@ function renderEval() {
         <div class="row"><span>Pantorrilla</span><span>${v(a.pantPer)}</span></div>
       </div>
     </div>
-    ${diamHtml ? `<div class="evalwrap" style="margin-top:16px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))">${diamHtml}</div>` : ''}
+    ${compHtml || diamHtml ? `<div class="evalwrap" style="margin-top:16px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))">${compHtml}${diamHtml}</div>` : ''}
     <div class="sec-h" style="margin-top:32px"><span class="ix">02</span><h2>Objetivos</h2><div class="rule"></div></div>
     <div class="card" style="max-width:640px"><ul class="obj">${PATIENT.objetivos.map(o=>`<li>${o}</li>`).join('')}</ul></div>
   </section></div>`;
