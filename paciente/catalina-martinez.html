@@ -548,11 +548,27 @@ function renderSpecs() {
     ? `<div class="sec-h" style="margin-top:32px"><span class="ix">02</span><h2>Batidos de cena</h2><div class="rule"></div></div>
        <div class="vinag-grid">${PATIENT.batinosCena.map(v=>`<div class="vinag"><div class="vname">${v.nombre}</div><div class="vdesc">${v.desc}</div></div>`).join('')}</div>` : '';
 
+  const entrenHtml = `<div class="sec-h" style="margin-top:32px"><span class="ix">04</span><h2>Especificaciones de entrenamiento</h2><div class="rule"></div></div>
+    <div class="specs">
+      <div class="spec"><h4>🦾 Muñeca</h4><ul>
+        <li>Isométrico en flexión de muñeca · 2 × 30″</li>
+        <li>Isométrico en extensión de muñeca · 2 × 30″</li>
+        <li>Flexión de muñeca · 2 × 10 reps</li>
+        <li>Extensión de muñeca · 2 × 10 reps</li>
+      </ul></div>
+      <div class="spec"><h4>🏋️ Volumen semanal</h4><ul>
+        <li>8 series de elevaciones laterales a la semana, divididas en 2 sesiones</li>
+        <li>Trabajo unilateral de flexión y extensión de rodilla</li>
+        <li>Aducción y abducción de cadera · 4 series semanales de cada uno</li>
+      </ul></div>
+    </div>`;
+
   $('tab-specs').innerHTML = `<div class="wrap"><section>
     <div class="sec-h"><span class="ix">01</span><h2>Especificaciones</h2><div class="rule"></div></div>
     <div class="specs">${specsHtml}</div>
     ${batinosHtml}
     ${vinagHtml}
+    ${entrenHtml}
 
     <div style="margin-top:32px;background:var(--panel2);border:1px solid var(--line);border-radius:14px;padding:20px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
       <div>
