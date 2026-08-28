@@ -1,0 +1,1370 @@
+<title>Beta Nutricional</title>
+
+<style>
+  :root{
+    /* Paleta: gimnasio de boulder de noche — roca, magnesio, presas y cinta de ruta */
+    --roca-0:#0A1013;
+    --roca-1:#111B1F;
+    --roca-2:#18262B;
+    --roca-3:#20343A;
+    --linea:#2B4149;
+    --magnesio:#F2F6F4;
+    --magnesio-2:#9DB2B0;
+    --magnesio-3:#6B8286;
+    --presa:#FF5A36;      /* presa naranja — acento principal */
+    --cinta:#FFC93C;      /* cinta de ruta amarilla — grados y numeros */
+    --agua:#3FC1C9;       /* hidratacion */
+    --ok:#4ADE80;
+    --no:#FF4D5E;
+
+    --display:"Arial Black","Arial Bold",Impact,"Haettenschweiler","Franklin Gothic Heavy",system-ui,sans-serif;
+    --body:"Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+    --mono:"Consolas","Roboto Mono",ui-monospace,"SF Mono","DejaVu Sans Mono",monospace;
+  }
+
+  *{box-sizing:border-box}
+
+  body{
+    margin:0;
+    background:var(--roca-0);
+    color:var(--magnesio);
+    font-family:var(--body);
+    -webkit-font-smoothing:antialiased;
+    overflow:hidden;
+  }
+
+  /* ---------- Escenario ---------- */
+  .escenario{
+    position:relative;
+    width:100vw;
+    height:100dvh;
+    overflow:hidden;
+    background:
+      radial-gradient(120% 90% at 12% 0%, #1B2C33 0%, rgba(27,44,51,0) 60%),
+      radial-gradient(90% 70% at 100% 100%, #17262C 0%, rgba(23,38,44,0) 55%),
+      var(--roca-0);
+  }
+  .escenario::after{
+    /* polvo de magnesio */
+    content:"";
+    position:absolute; inset:0;
+    pointer-events:none;
+    opacity:.055;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/></filter><rect width='220' height='220' filter='url(%23n)'/></svg>");
+  }
+
+  /* ---------- Riel izquierdo (cinta de ruta) ---------- */
+  .riel{
+    position:absolute; left:0; top:0; bottom:0; width:58px;
+    border-right:1px solid var(--linea);
+    background:linear-gradient(180deg,var(--roca-1),var(--roca-0));
+    display:flex; flex-direction:column; align-items:center; justify-content:space-between;
+    padding:16px 0; z-index:5;
+  }
+  .riel .grado{
+    font-family:var(--mono); font-size:13px; font-weight:700; letter-spacing:.14em;
+    color:var(--roca-0); background:var(--cinta);
+    padding:5px 9px; border-radius:3px;
+  }
+  .riel .bloque{
+    writing-mode:vertical-rl; transform:rotate(180deg);
+    font-family:var(--mono); font-size:11px; letter-spacing:.30em; text-transform:uppercase;
+    color:var(--magnesio-3); white-space:nowrap;
+  }
+  .riel .num{ font-family:var(--mono); font-size:11px; color:var(--magnesio-3); letter-spacing:.1em; }
+
+  /* ---------- Lámina ---------- */
+  .lamina{
+    position:absolute; inset:0 0 0 58px;
+    display:none;
+    padding:clamp(24px,4.2vh,56px) clamp(28px,5vw,96px) clamp(56px,7vh,80px);
+    overflow-y:auto;
+    align-content:center;
+    animation:entra .42s cubic-bezier(.2,.7,.3,1) both;
+  }
+  .lamina.viva{ display:grid; }
+  @keyframes entra{ from{opacity:0; transform:translateY(18px)} to{opacity:1; transform:none} }
+  @media (prefers-reduced-motion:reduce){ .lamina{animation:none} }
+
+  /* ---------- Tipografía ---------- */
+  .eyebrow{
+    font-family:var(--mono); font-size:clamp(11px,1.15vw,13px); letter-spacing:.26em;
+    text-transform:uppercase; color:var(--presa); margin:0 0 clamp(10px,1.6vh,18px);
+  }
+  h1{
+    font-family:var(--display); text-transform:uppercase;
+    font-size:clamp(38px,7.4vw,104px); line-height:.92; letter-spacing:-.02em;
+    margin:0 0 clamp(12px,2vh,22px); text-wrap:balance;
+  }
+  h2{
+    font-family:var(--display); text-transform:uppercase;
+    font-size:clamp(28px,4.6vw,62px); line-height:.96; letter-spacing:-.015em;
+    margin:0 0 clamp(12px,2vh,22px); text-wrap:balance;
+  }
+  h3{
+    font-family:var(--display); text-transform:uppercase;
+    font-size:clamp(17px,1.7vw,23px); letter-spacing:.01em; margin:0 0 8px;
+  }
+  p.lead{ font-size:clamp(17px,2.05vw,27px); line-height:1.42; max-width:22ch; color:var(--magnesio); margin:0 0 18px; }
+  p{ font-size:clamp(15px,1.35vw,19px); line-height:1.55; max-width:60ch; color:var(--magnesio-2); margin:0 0 14px; }
+  strong{ color:var(--magnesio); font-weight:700; }
+  .presa{ color:var(--presa); }
+  .cinta{ color:var(--cinta); }
+  .agua{ color:var(--agua); }
+  .tachado{ text-decoration:line-through; text-decoration-thickness:.09em; color:var(--magnesio-3); }
+
+  .enorme{
+    font-family:var(--display); font-size:clamp(64px,15vw,210px); line-height:.85;
+    letter-spacing:-.03em; color:var(--presa);
+  }
+
+  /* ---------- Rejillas ---------- */
+  .dos{ display:grid; grid-template-columns:1.05fr .95fr; gap:clamp(24px,4vw,68px); align-items:center; }
+  .tarjetas{ display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:clamp(12px,1.4vw,18px); }
+  .tarjeta{
+    background:var(--roca-1); border:1px solid var(--linea); border-radius:10px;
+    padding:clamp(14px,1.5vw,20px);
+  }
+  .tarjeta p{ font-size:clamp(13px,1.05vw,15px); margin:0; }
+  .tarjeta .icono{ font-size:26px; line-height:1; margin-bottom:10px; display:block; }
+  .costo{ font-family:var(--mono); font-size:12px; color:var(--cinta); letter-spacing:.05em; margin-top:10px; display:block; }
+
+  ul.lista{ list-style:none; padding:0; margin:0; display:grid; gap:clamp(9px,1.2vh,14px); }
+  ul.lista li{
+    font-size:clamp(15px,1.35vw,20px); line-height:1.4; color:var(--magnesio);
+    padding-left:34px; position:relative;
+  }
+  ul.lista li::before{
+    content:""; position:absolute; left:0; top:.42em;
+    width:15px; height:15px; border-radius:50%;
+    background:var(--presa); box-shadow:0 0 0 4px rgba(255,90,54,.14);
+  }
+  ul.lista.si li::before{ background:var(--ok); box-shadow:0 0 0 4px rgba(74,222,128,.14); }
+  ul.lista.no li::before{ background:var(--no); box-shadow:0 0 0 4px rgba(255,77,94,.14); }
+
+  .cita{
+    border-left:4px solid var(--presa); padding-left:clamp(16px,2vw,28px);
+    font-family:var(--display); text-transform:uppercase; line-height:1.02;
+    font-size:clamp(24px,3.6vw,50px); text-wrap:balance;
+  }
+
+  /* ---------- Batería ---------- */
+  .bateria{ display:flex; align-items:center; gap:14px; }
+  .bateria .cuerpo{
+    width:min(46vw,420px); height:clamp(74px,10vw,120px);
+    border:5px solid var(--magnesio); border-radius:12px; padding:8px; position:relative;
+  }
+  .bateria .tapa{ width:12px; height:34px; background:var(--magnesio); border-radius:0 5px 5px 0; }
+  .bateria .carga{
+    height:100%; width:12%; border-radius:5px; background:var(--no);
+    transition:width 2.6s cubic-bezier(.4,0,.2,1), background 2.6s ease;
+  }
+  .lamina.viva .bateria .carga.llena{ width:100%; background:var(--ok); }
+  .bateria .pct{ font-family:var(--mono); font-size:clamp(20px,2.4vw,34px); color:var(--no); font-weight:700; }
+
+  /* ---------- Gráfico de intentos ---------- */
+  .intentos{ display:grid; grid-template-columns:repeat(6,1fr); gap:clamp(8px,1vw,14px); align-items:end; height:clamp(160px,26vh,260px); }
+  .intentos .col{ display:flex; flex-direction:column; justify-content:flex-end; height:100%; gap:6px; }
+  .intentos .barra{ border-radius:5px 5px 0 0; transition:height 1s cubic-bezier(.3,.8,.3,1); }
+  .intentos .rot{ font-family:var(--mono); font-size:11px; color:var(--magnesio-3); text-align:center; letter-spacing:.06em; }
+  .leyenda{ display:flex; gap:20px; margin-top:16px; font-family:var(--mono); font-size:12px; color:var(--magnesio-2); flex-wrap:wrap; }
+  .leyenda span{ display:flex; align-items:center; gap:7px; }
+  .punto{ width:11px; height:11px; border-radius:3px; display:inline-block; }
+
+  /* ---------- Encuesta en vivo ---------- */
+  .encuesta{ display:grid; gap:clamp(9px,1.3vh,14px); }
+  .voto{
+    display:grid; grid-template-columns:1fr auto; align-items:center; gap:14px;
+    background:var(--roca-1); border:1px solid var(--linea); border-radius:9px;
+    padding:clamp(11px,1.4vh,16px) 18px; cursor:pointer; position:relative; overflow:hidden;
+    color:var(--magnesio); font-family:inherit; font-size:clamp(14px,1.3vw,19px); text-align:left;
+    transition:border-color .18s ease, transform .12s ease;
+  }
+  .voto:hover{ border-color:var(--presa); }
+  .voto:active{ transform:scale(.99); }
+  .voto:focus-visible{ outline:3px solid var(--cinta); outline-offset:3px; }
+  .voto .relleno{
+    position:absolute; left:0; top:0; bottom:0; width:0%;
+    background:linear-gradient(90deg,rgba(255,90,54,.34),rgba(255,90,54,.10));
+    transition:width .45s cubic-bezier(.3,.8,.3,1); z-index:0;
+  }
+  .voto span, .voto b{ position:relative; z-index:1; }
+  .voto b{ font-family:var(--mono); color:var(--cinta); font-size:clamp(15px,1.5vw,22px); }
+
+  /* ---------- Escala de hidratación ---------- */
+  .pipi{ display:grid; grid-template-columns:repeat(4,1fr); gap:clamp(8px,1vw,14px); }
+  .frasco{
+    border:1px solid var(--linea); border-radius:9px; overflow:hidden; cursor:pointer;
+    background:var(--roca-1); text-align:center; padding:0 0 12px; color:var(--magnesio);
+    font-family:inherit; transition:transform .14s ease, border-color .18s ease;
+  }
+  .frasco:hover{ transform:translateY(-4px); border-color:var(--magnesio-3); }
+  .frasco:focus-visible{ outline:3px solid var(--cinta); outline-offset:3px; }
+  .frasco .liquido{ height:clamp(58px,9vh,94px); }
+  .frasco .txt{ font-family:var(--mono); font-size:11px; letter-spacing:.05em; padding:10px 6px 0; color:var(--magnesio-2); line-height:1.35; }
+  .frasco.abierto .txt{ color:var(--magnesio); }
+  .frasco .veredicto{ display:none; font-size:12px; font-weight:700; margin-top:6px; padding:0 6px; }
+  .frasco.abierto .veredicto{ display:block; }
+
+  /* ---------- Constructor de recuperación ---------- */
+  .platos{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(10px,1.2vw,16px); }
+  .plato{
+    background:var(--roca-1); border:2px solid var(--linea); border-radius:11px;
+    padding:clamp(12px,1.5vh,18px); cursor:pointer; text-align:left; color:var(--magnesio);
+    font-family:inherit; transition:border-color .16s ease, background .16s ease, transform .12s ease;
+  }
+  .plato:hover{ transform:translateY(-3px); }
+  .plato:focus-visible{ outline:3px solid var(--cinta); outline-offset:3px; }
+  .plato.elegido{ border-color:var(--presa); background:var(--roca-2); }
+  .plato .icono{ font-size:24px; display:block; margin-bottom:8px; }
+  .plato .nom{ font-weight:700; font-size:clamp(13px,1.1vw,16px); display:block; }
+  .plato .macro{ font-family:var(--mono); font-size:11px; color:var(--magnesio-3); letter-spacing:.05em; }
+  .plato .juicio{ display:none; margin-top:9px; font-size:12px; line-height:1.4; }
+  .plato.revelado .juicio{ display:block; }
+
+  /* ---------- Mito o verdad ---------- */
+  .mitos{ display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:clamp(10px,1.2vw,16px); }
+  .mito{
+    background:var(--roca-1); border:1px solid var(--linea); border-radius:11px;
+    padding:clamp(14px,1.8vh,20px); cursor:pointer; text-align:left; color:var(--magnesio);
+    font-family:inherit; min-height:clamp(130px,20vh,190px);
+    display:flex; flex-direction:column; justify-content:space-between; gap:12px;
+    transition:border-color .16s ease, transform .12s ease;
+  }
+  .mito:hover{ transform:translateY(-3px); border-color:var(--magnesio-3); }
+  .mito:focus-visible{ outline:3px solid var(--cinta); outline-offset:3px; }
+  .mito .frase{ font-size:clamp(14px,1.2vw,18px); line-height:1.35; font-weight:600; }
+  .mito .sello{
+    font-family:var(--display); text-transform:uppercase; font-size:clamp(18px,2vw,28px);
+    letter-spacing:.02em; display:none;
+  }
+  .mito .porque{ display:none; font-size:clamp(12px,1vw,14px); line-height:1.45; color:var(--magnesio-2); }
+  .mito.abierto .sello, .mito.abierto .porque{ display:block; }
+  .mito.abierto .frase{ color:var(--magnesio-3); font-size:clamp(12px,1vw,14px); font-weight:400; }
+  .mito.abierto.v{ border-color:var(--ok); } .mito.v .sello{ color:var(--ok); }
+  .mito.abierto.f{ border-color:var(--no); } .mito.f .sello{ color:var(--no); }
+  .toque{ font-family:var(--mono); font-size:11px; color:var(--magnesio-3); letter-spacing:.14em; text-transform:uppercase; }
+
+  /* ---------- Los tres motores ---------- */
+  .motores{ display:grid; gap:clamp(9px,1.2vh,15px); }
+  .motor{
+    display:grid; grid-template-columns:clamp(96px,10vw,132px) 1fr; gap:clamp(14px,2vw,26px);
+    align-items:center; background:var(--roca-1); border:1px solid var(--linea); border-radius:10px;
+    padding:clamp(11px,1.5vh,17px) clamp(14px,1.7vw,20px);
+  }
+  .motor .ventana{
+    font-family:var(--mono); font-size:clamp(11px,1.05vw,14px); letter-spacing:.03em;
+    color:var(--roca-0); background:var(--cinta); border-radius:4px; padding:6px 8px; text-align:center;
+  }
+  .motor.b .ventana{ background:var(--presa); color:#fff; }
+  .motor.c .ventana{ background:var(--agua); color:var(--roca-0); }
+  .motor h3{ margin:0 0 4px; font-size:clamp(14px,1.35vw,19px); }
+  .motor p{ margin:0; font-size:clamp(12.5px,1.1vw,16px); max-width:none; }
+
+  /* ---------- Receta ---------- */
+  .receta{ display:grid; gap:0; }
+  .ingrediente{
+    display:grid; grid-template-columns:clamp(120px,13vw,175px) 1fr; gap:clamp(12px,1.6vw,22px);
+    align-items:baseline; border-bottom:1px solid var(--roca-3); padding:clamp(8px,1.1vh,13px) 0;
+  }
+  .ingrediente b{ font-family:var(--mono); color:var(--cinta); font-size:clamp(11.5px,1.02vw,14.5px); font-weight:400; }
+  .ingrediente span{ font-size:clamp(13px,1.1vw,16.5px); color:var(--magnesio); }
+  .ingrediente span em{ font-style:normal; color:var(--magnesio-2); display:block; font-size:.88em; margin-top:3px; }
+
+  /* ---------- Cálculo paso a paso ---------- */
+  .calculo{ display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:clamp(10px,1.3vw,18px); }
+  .paso{ background:var(--roca-1); border:1px solid var(--linea); border-radius:10px; padding:clamp(13px,1.7vh,19px); }
+  .paso .n{ font-family:var(--mono); font-size:11px; letter-spacing:.16em; color:var(--presa); display:block; margin-bottom:9px; }
+  .paso .op{ font-family:var(--mono); font-size:clamp(15px,1.5vw,21px); color:var(--cinta); line-height:1.25; }
+  .paso p{ font-size:clamp(12px,1.02vw,14px); margin:9px 0 0; max-width:none; }
+  .paso.total{ border-color:var(--ok); }
+  .paso.total .op{ color:var(--ok); }
+
+  /* ---------- Datos duros: cada cifra carga su fuente ---------- */
+  .datos{ display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:clamp(14px,1.8vw,26px); }
+  .dato{ display:flex; flex-direction:column; gap:8px; }
+  .dato .cifra{
+    font-family:var(--display); font-size:clamp(42px,6.4vw,84px); line-height:.86;
+    letter-spacing:-.02em; color:var(--cinta);
+  }
+  .dato .cifra small{ font-size:.42em; letter-spacing:0; }
+  .dato .que{ font-size:clamp(13px,1.15vw,17px); line-height:1.35; color:var(--magnesio); }
+  .dato .fuente{
+    font-family:var(--mono); font-size:clamp(10px,.82vw,11.5px); line-height:1.4; color:var(--magnesio-3);
+    border-top:1px solid var(--linea); padding-top:8px; margin-top:auto;
+  }
+  .dato.rojo .cifra{ color:var(--no); }
+  .dato.agua-c .cifra{ color:var(--agua); }
+
+  .nota-fuente{
+    font-family:var(--mono); font-size:clamp(10px,.85vw,12px); color:var(--magnesio-3);
+    line-height:1.5; margin-top:14px;
+  }
+
+  /* ---------- Bibliografía ---------- */
+  .biblio{ display:grid; grid-template-columns:1fr 1fr; gap:6px clamp(20px,3vw,44px); }
+  .biblio li{
+    display:grid; grid-template-columns:22px 1fr; gap:10px; align-items:baseline;
+    font-size:clamp(10.5px,.92vw,13px); line-height:1.42; color:var(--magnesio-2);
+    padding:7px 0; border-bottom:1px solid var(--roca-3);
+  }
+  .biblio li b{ font-family:var(--mono); color:var(--presa); font-size:.92em; font-weight:400; }
+  .biblio li i{ font-style:normal; color:var(--magnesio); }
+  ol.biblio{ list-style:none; padding:0; margin:0; }
+  @media (max-width:860px){ .biblio{ grid-template-columns:1fr; } }
+
+  /* ---------- Comparación de dos escaladores ---------- */
+  .versus{ display:grid; grid-template-columns:1fr auto 1fr; gap:clamp(14px,2vw,32px); align-items:stretch; }
+  .perfil{ background:var(--roca-1); border:1px solid var(--linea); border-radius:12px; padding:clamp(16px,2vh,26px); }
+  .perfil.mal{ border-color:rgba(255,77,94,.45); }
+  .perfil.bien{ border-color:rgba(74,222,128,.45); }
+  .perfil h3{ margin-bottom:14px; }
+  .perfil ul{ list-style:none; padding:0; margin:0; display:grid; gap:9px; }
+  .perfil li{ font-size:clamp(13px,1.1vw,16px); color:var(--magnesio-2); line-height:1.35; padding-left:22px; position:relative; }
+  .perfil.mal li::before{ content:"↓"; position:absolute; left:0; color:var(--no); font-weight:700; }
+  .perfil.bien li::before{ content:"↑"; position:absolute; left:0; color:var(--ok); font-weight:700; }
+  .vs{ display:flex; align-items:center; font-family:var(--display); color:var(--magnesio-3); font-size:clamp(18px,2vw,28px); }
+
+  /* ---------- Reto final ---------- */
+  .casillas{ display:grid; gap:clamp(9px,1.2vh,14px); }
+  .casilla{
+    display:flex; align-items:center; gap:16px; cursor:pointer;
+    background:var(--roca-1); border:1px solid var(--linea); border-radius:9px;
+    padding:clamp(11px,1.5vh,17px) 18px; color:var(--magnesio); font-family:inherit;
+    font-size:clamp(14px,1.25vw,19px); text-align:left; transition:border-color .16s ease;
+  }
+  .casilla:hover{ border-color:var(--presa); }
+  .casilla:focus-visible{ outline:3px solid var(--cinta); outline-offset:3px; }
+  .caja{
+    width:26px; height:26px; flex:0 0 26px; border:2px solid var(--magnesio-3); border-radius:5px;
+    display:grid; place-items:center; font-weight:900; color:var(--roca-0); font-size:17px;
+  }
+  .casilla.marcada .caja{ background:var(--ok); border-color:var(--ok); }
+  .casilla.marcada .caja::after{ content:"✓"; }
+
+  /* ---------- Cronómetro ---------- */
+  .crono{
+    font-family:var(--mono); font-size:clamp(56px,11vw,150px); font-weight:700;
+    color:var(--cinta); font-variant-numeric:tabular-nums; letter-spacing:-.02em;
+  }
+  .btn{
+    font-family:var(--mono); font-size:13px; letter-spacing:.14em; text-transform:uppercase;
+    background:var(--presa); color:#fff; border:0; border-radius:7px; padding:13px 24px;
+    cursor:pointer; transition:filter .16s ease;
+  }
+  .btn:hover{ filter:brightness(1.12); }
+  .btn:focus-visible{ outline:3px solid var(--cinta); outline-offset:3px; }
+  .btn.fantasma{ background:transparent; color:var(--magnesio-2); border:1px solid var(--linea); }
+
+  /* ---------- Pie: progreso + notas ---------- */
+  .pie{
+    position:absolute; left:58px; right:0; bottom:0; height:44px; z-index:6;
+    display:flex; align-items:center; gap:18px; padding:0 clamp(18px,3vw,40px);
+    border-top:1px solid var(--linea); background:rgba(10,16,19,.82);
+    backdrop-filter:blur(6px);
+  }
+  .barra-prog{ flex:1; height:4px; background:var(--roca-2); border-radius:3px; overflow:hidden; }
+  .barra-prog i{ display:block; height:100%; background:var(--presa); width:0%; transition:width .35s ease; }
+  .pie .marca{ font-family:var(--mono); font-size:11px; color:var(--magnesio-3); letter-spacing:.14em; text-transform:uppercase; white-space:nowrap; }
+  .pie .flechas{ display:flex; gap:8px; }
+  .pie .flechas button{
+    background:var(--roca-2); border:1px solid var(--linea); color:var(--magnesio-2);
+    width:32px; height:26px; border-radius:6px; cursor:pointer; font-size:13px; line-height:1;
+  }
+  .pie .flechas button:hover{ color:var(--magnesio); border-color:var(--magnesio-3); }
+
+  .notas{
+    position:absolute; left:58px; right:0; bottom:44px; z-index:7;
+    background:rgba(17,27,31,.97); border-top:2px solid var(--cinta);
+    padding:16px clamp(18px,3vw,40px); display:none;
+    max-height:38vh; overflow-y:auto;
+  }
+  .notas.visible{ display:block; }
+  .notas h4{ font-family:var(--mono); font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:var(--cinta); margin:0 0 8px; }
+  .notas p{ font-size:15px; line-height:1.55; color:var(--magnesio); max-width:none; margin:0 0 8px; }
+  .notas .tiempo{ font-family:var(--mono); color:var(--presa); }
+
+  /* ---------- Portada ---------- */
+  .portada{ align-content:center; }
+  .portada .kicker{ font-family:var(--mono); font-size:clamp(11px,1.1vw,14px); letter-spacing:.3em; text-transform:uppercase; color:var(--magnesio-3); }
+  .firma{ display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; margin-top:clamp(20px,4vh,44px); }
+  .firma .nom{ font-family:var(--display); text-transform:uppercase; font-size:clamp(15px,1.5vw,21px); }
+  .firma .ig{ font-family:var(--mono); font-size:clamp(12px,1.1vw,15px); color:var(--presa); letter-spacing:.05em; }
+
+  .ayuda{
+    position:absolute; right:clamp(16px,3vw,36px); top:clamp(16px,3vh,30px); z-index:6;
+    font-family:var(--mono); font-size:11px; letter-spacing:.1em; color:var(--magnesio-3);
+    text-align:right; line-height:1.7;
+  }
+  .ayuda kbd{
+    background:var(--roca-2); border:1px solid var(--linea); border-radius:4px;
+    padding:2px 6px; color:var(--magnesio-2); font-family:var(--mono); font-size:10px;
+  }
+
+  @media (max-width:760px){
+    .dos{ grid-template-columns:1fr; gap:22px; }
+    .versus{ grid-template-columns:1fr; }
+    .vs{ justify-content:center; }
+    .platos{ grid-template-columns:repeat(2,1fr); }
+    .pipi{ grid-template-columns:repeat(2,1fr); }
+    .intentos{ height:150px; }
+    .ayuda{ display:none; }
+  }
+</style>
+
+<div class="escenario">
+  <div class="riel">
+    <div class="grado" id="grado">V0</div>
+    <div class="bloque" id="bloque">Arranque</div>
+    <div class="num" id="num">1</div>
+  </div>
+
+  <div class="ayuda">
+    <kbd>→</kbd> avanzar &nbsp; <kbd>←</kbd> volver<br>
+    <kbd>N</kbd> notas del ponente
+  </div>
+
+  <!-- ============ 1. PORTADA ============ -->
+  <section class="lamina portada" data-bloque="Arranque" data-grado="V0"
+    data-nota="0:00 — Antes de hablar: pide que TODOS se paren. 'Levanta la mano si hoy viniste a entrenar sin haber comido nada en las últimas 3 horas.' Cuenta las manos en voz alta. Ese número es tu gancho: 'Ok, [X] de ustedes van a escalar hoy con el tanque en rojo. En 30 minutos van a entender por qué eso les está robando grados.'">
+    <p class="kicker">Charla para escaladores de 11 a 16 años</p>
+    <h1>Beta<br>nutricional</h1>
+    <p class="lead">Cómo comer para pegar el bloque que hoy se te escapa.</p>
+    <div class="firma">
+      <span class="nom">Franjo Torres Bondy</span>
+      <span class="ig">@el_nutricionistafranjo</span>
+    </div>
+  </section>
+
+  <!-- ============ 2. GANCHO: LA BATERÍA ============ -->
+  <section class="lamina" data-bloque="Arranque" data-grado="V0"
+    data-nota="1:30 — Saca tu celular y muéstralo. 'Si tu celu está en 12% ¿sales de casa así? ¿No? Entonces por qué entras al muro así.' Deja que la batería se llene sola en pantalla mientras hablas. Pregunta directa: '¿Quién ha sentido que en el intento 4 o 5 los dedos ya no responden aunque la cabeza sí quiere?'">
+    <p class="eyebrow">El problema de siempre</p>
+    <div class="dos">
+      <div>
+        <h2>Tu cuerpo tiene batería.<br>Y casi nadie la carga.</h2>
+        <p>No es que te falte fuerza. Es que te quedaste sin combustible a la mitad de la sesión — y la fuerza que sí tenías, no la pudiste usar.</p>
+      </div>
+      <div>
+        <div class="bateria">
+          <div class="cuerpo"><div class="carga llena" id="carga"></div></div>
+          <div class="tapa"></div>
+        </div>
+        <p class="pct" style="margin-top:14px" id="pct">12%</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 3. LA PREGUNTA EQUIVOCADA ============ -->
+  <section class="lamina" data-bloque="Arranque" data-grado="V0"
+    data-nota="3:00 — Momento clave del tono de toda la charla. Di esto tal cual: 'Hoy no vamos a hablar de bajar de peso. Ni una sola vez. Vamos a hablar de PODER MÁS.' Esto desarma a los que vienen con ansiedad por el peso y evita que la charla se convierta en una excusa para restringir.">
+    <p class="eyebrow">Cambiemos la pregunta</p>
+    <h2 style="max-width:16ch"><span class="tachado">¿Cuánto pesas?</span></h2>
+    <h2 class="presa" style="max-width:20ch">¿Cuánta fuerza te queda a los 45 minutos de sesión?</h2>
+    <p style="max-width:52ch">La primera pregunta te mete en un hueco. La segunda te hace mejor escalador. Toda esta charla va de la segunda.</p>
+  </section>
+
+  <!-- ============ 3b. LOS TRES MOTORES ============ -->
+  <section class="lamina" data-bloque="El motor" data-grado="V1"
+    data-nota="4:00 — Usa las manos para marcar los tres tiempos. Analogía de auto: el primero es el nitro, el segundo la gasolina, el tercero el alternador que recarga la batería. La idea que se tienen que llevar: el tercer motor no mueve el bloque, pero decide cuántos intentos buenos te quedan. Pregunta: '¿Quién ha visto que su cuarto intento es mucho peor que el primero? Eso es el motor 3 sin combustible.'">
+    <p class="eyebrow">Bloque 1 · El motor</p>
+    <h2>No tienes un motor. Tienes tres.</h2>
+    <div class="motores" style="margin-top:clamp(14px,2.5vh,26px)">
+      <div class="motor">
+        <span class="ventana">0 – 10 s</span>
+        <div>
+          <h3 class="cinta">El explosivo · fosfocreatina</h3>
+          <p>El dyno, el bloqueo, el crimp al máximo. Arranca al instante y se agota rapidísimo. Es el motor del intento.</p>
+        </div>
+      </div>
+      <div class="motor b">
+        <span class="ventana">10 s – 2 min</span>
+        <div>
+          <h3 class="presa">El intermedio · glucólisis</h3>
+          <p>El bloque largo, la travesía que no termina. Quema glucógeno. Aquí es donde se te hinchan los antebrazos.</p>
+        </div>
+      </div>
+      <div class="motor c">
+        <span class="ventana">todo el rato</span>
+        <div>
+          <h3 class="agua">El de fondo · aeróbico</h3>
+          <p>No mueve el bloque. Hace algo mejor: <strong>recarga los otros dos mientras descansas entre intentos.</strong></p>
+        </div>
+      </div>
+    </div>
+    <p class="nota-fuente">Por eso el que se recupera rápido no siempre es el más fuerte: es el que tiene el tercer motor bien alimentado.</p>
+  </section>
+
+  <!-- ============ 3c. LOS NÚMEROS DEL BOULDER ============ -->
+  <section class="lamina" data-bloque="El motor" data-grado="V1"
+    data-nota="5:30 — El dato que más engancha es el primero: 27 segundos de esfuerzo y 32 de descanso. Casi uno a uno. Dilo así: 'Tu deporte es 27 segundos al 100 % y medio minuto para recuperarte, cinco o seis veces seguidas. Eso no lo aguanta la fuerza sola: lo aguanta el combustible.' El tercer dato es la bisagra hacia todo lo que viene.">
+    <p class="eyebrow">Bloque 1 · Los números de tu deporte</p>
+    <h2>Qué es realmente un bloque, por dentro</h2>
+    <div class="datos" style="margin-top:clamp(16px,2.8vh,28px)">
+      <div class="dato">
+        <span class="cifra">27<small>s</small></span>
+        <span class="que">dura un intento de bloque en competencia internacional. Y descansas unos <strong>32 s</strong> entre intento e intento: casi uno a uno.</span>
+        <span class="fuente">Winkler et al., <i>Front Sports Act Living</i> 2022 · 52 recorridos de Copa del Mundo</span>
+      </div>
+      <div class="dato rojo">
+        <span class="cifra">62<small>%</small></span>
+        <span class="que">de la energía de un esfuerzo máximo de 30 s en escalada sale del sistema de la <strong>fosfocreatina</strong>. Casi nada de oxígeno.</span>
+        <span class="fuente">Maciejczyk et al., <i>Front Physiol</i> 2022 · n = 13, nivel 8a+</span>
+      </div>
+      <div class="dato agua-c">
+        <span class="cifra">60<small>%</small></span>
+        <span class="que">pero en un esfuerzo <strong>intermitente</strong> de unos 4 minutos, el aeróbico ya pone el 60 %. Ese es el motor que te devuelve los dedos.</span>
+        <span class="fuente">Maciejczyk et al., <i>Front Physiol</i> 2022 · n = 13, nivel 8a+</span>
+      </div>
+    </div>
+    <p class="nota-fuente">El intento se paga con fosfocreatina. <span class="agua">La recuperación entre intentos se paga con oxígeno y glucógeno</span> — y eso sí depende de lo que comiste.</p>
+  </section>
+
+  <!-- ============ 4. GLUCÓGENO ============ -->
+  <section class="lamina" data-bloque="El motor" data-grado="V1"
+    data-nota="4:30 — Analogía: el glucógeno es la batería; la grasa es el cargador lento. Para un movimiento explosivo de boulder solo sirve la batería. Aterriza: 'Un dyno, un crimp al máximo, un talón bloqueado — eso se paga SOLO con glucógeno.'">
+    <p class="eyebrow">Bloque 1 · El motor</p>
+    <div class="dos">
+      <div>
+        <h2>Se llama<br><span class="cinta">glucógeno</span></h2>
+        <p>Es el azúcar guardado en tus músculos e hígado. Es la única gasolina que tu cuerpo puede quemar rápido — y el boulder es puro esfuerzo rápido.</p>
+      </div>
+      <div>
+        <ul class="lista">
+          <li>Se llena con <strong>carbohidratos</strong>: arroz, pan, papa, camote, avena, fruta, fideos.</li>
+          <li>Te alcanza para <strong>60 a 90 minutos</strong> de escalada intensa.</li>
+          <li>Cuando se vacía: se te va el agarre, la coordinación y la paciencia.</li>
+          <li>Se recarga <strong>comiendo</strong>. No hay otra forma.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 5. GRÁFICO DE INTENTOS ============ -->
+  <section class="lamina" data-bloque="El motor" data-grado="V1"
+    data-nota="6:00 — Señala la caída de la barra roja. 'Miren dónde se cae el que no comió: intento 4. ¿Y saben cuál es el intento donde normalmente sale el proyecto? El 5, el 6, el 7.' Punchline: 'El que come no es más fuerte. Es que sigue teniendo fuerza cuando el otro ya no.'">
+    <p class="eyebrow">Bloque 1 · El motor</p>
+    <h2>Dos escaladores, el mismo proyecto</h2>
+    <div class="intentos" id="grafico"></div>
+    <div class="leyenda">
+      <span><i class="punto" style="background:#4ADE80"></i> Comió bien antes de entrenar</span>
+      <span><i class="punto" style="background:#FF4D5E"></i> Vino con el tanque vacío</span>
+    </div>
+    <p style="margin-top:18px">Los dos tienen la misma fuerza máxima. Solo uno la conserva hasta el intento donde el bloque cae.</p>
+  </section>
+
+  <!-- ============ 6. ENCUESTA EN VIVO ============ -->
+  <section class="lamina" data-bloque="El motor" data-grado="V1"
+    data-nota="7:30 — DINÁMICA. Pregunta uno por uno y toca la barra en pantalla por cada mano levantada. Es un contador en vivo: cada clic suma. No juzgues ninguna respuesta — solo cuenta y comenta con humor. Cierra con: 'Los de la última fila: hoy escalan con la mitad de su tanque. No es tu culpa, nadie te lo explicó. Hasta hoy.'">
+    <p class="eyebrow">Bloque 1 · Encuesta en vivo</p>
+    <h2>¿Qué comiste hoy antes de venir?</h2>
+    <p style="margin-bottom:22px">Levanta la mano. Yo cuento tocando la pantalla.</p>
+    <div class="encuesta" id="encuesta"></div>
+  </section>
+
+  <!-- ============ 7. LA REGLA DEL RELOJ ============ -->
+  <section class="lamina" data-bloque="Antes" data-grado="V2"
+    data-nota="10:00 — Regla simple y memorizable. Repítela dos veces y haz que la digan en voz alta: '3 – 1 – 0'. Aclara: si vienes directo del colegio a las 6pm y almorzaste a la 1, estás en el hueco: necesitas el snack de la hora previa SÍ o SÍ.">
+    <p class="eyebrow">Bloque 2 · Antes de escalar</p>
+    <h2>La regla <span class="cinta">3 · 1 · 0</span></h2>
+    <div class="tarjetas" style="margin-top:12px">
+      <div class="tarjeta">
+        <span class="icono">🍚</span>
+        <h3 class="presa">3 horas antes</h3>
+        <p>Comida completa: carbohidrato + proteína + verdura. Arroz con pollo, tallarín con carne, menestra con arroz.</p>
+      </div>
+      <div class="tarjeta">
+        <span class="icono">🍌</span>
+        <h3 class="presa">1 hora antes</h3>
+        <p>Snack fácil de digerir, principalmente carbohidrato. Plátano, pan con miel, galleta de soda, fruta.</p>
+      </div>
+      <div class="tarjeta">
+        <span class="icono">💧</span>
+        <h3 class="presa">0 minutos antes</h3>
+        <p>Solo agua. Nada pesado, nada frito, nada de gaseosa. Llegas con el tanque lleno y el estómago liviano.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 8. MENÚ PERUANO BARATO ============ -->
+  <section class="lamina" data-bloque="Antes" data-grado="V2"
+    data-nota="12:00 — Enfatiza el precio. A esta edad el argumento 'es caro' es la excusa #1 y es falsa. Todo esto se consigue en cualquier mercado o bodega de Lima. Pregunta: '¿Cuánto cuesta un pre-entreno de suplemento? ¿Y esto?'">
+    <p class="eyebrow">Bloque 2 · Antes de escalar</p>
+    <h2>Combustible de bodega</h2>
+    <p style="margin-bottom:18px">Nada de esto es caro, raro ni importado. Todo se compra en el mercado de tu barrio.</p>
+    <div class="tarjetas">
+      <div class="tarjeta"><span class="icono">🥑</span><h3>Pan con palta y huevo</h3><p>El clásico imbatible. Carbo + grasa buena + proteína.</p><span class="costo">~ S/ 3</span></div>
+      <div class="tarjeta"><span class="icono">🍠</span><h3>Camote sancochado</h3><p>Carbohidrato de liberación lenta. Cae suave al estómago.</p><span class="costo">~ S/ 2</span></div>
+      <div class="tarjeta"><span class="icono">🌽</span><h3>Choclo con queso fresco</h3><p>Carbo + proteína + calcio. Muy peruano, muy efectivo.</p><span class="costo">~ S/ 3</span></div>
+      <div class="tarjeta"><span class="icono">🥣</span><h3>Avena con leche y plátano</h3><p>El desayuno de escalador. Aguanta toda la mañana.</p><span class="costo">~ S/ 2</span></div>
+    </div>
+  </section>
+
+  <!-- ============ 9. LO QUE NO ============ -->
+  <section class="lamina" data-bloque="Antes" data-grado="V2"
+    data-nota="13:30 — Rápido, tono divertido. Sobre energizantes sé firme: 'Volt, Red Bull, Monster: no. No porque sea aburrido. Porque a tu edad la cafeína en esa dosis te acelera el corazón, te quita el sueño y el sueño es donde te vuelves fuerte.'">
+    <p class="eyebrow">Bloque 2 · Antes de escalar</p>
+    <div class="dos">
+      <div>
+        <h2 style="color:var(--no)">Esto no, justo antes</h2>
+        <ul class="lista no">
+          <li><strong>Frito y pesado</strong> — se queda en el estómago y te sube mientras cuelgas.</li>
+          <li><strong>Mucha fibra de golpe</strong> — ensaladota o menestra pura te hincha.</li>
+          <li><strong>Gaseosa</strong> — gas + azúcar de golpe = bajón a los 20 minutos.</li>
+          <li><strong>Energizantes</strong> — Volt, Red Bull, Monster. A tu edad, no.</li>
+        </ul>
+      </div>
+      <div>
+        <h2 style="color:var(--ok)">Esto sí</h2>
+        <ul class="lista si">
+          <li>Algo <strong>conocido</strong>. El día del campeonato no se prueba comida nueva.</li>
+          <li>Algo <strong>simple</strong>: fruta, pan, avena, camote.</li>
+          <li><strong>Agua</strong> desde que sales de casa, no cuando ya tienes sed.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 10. TEST DEL PIPÍ ============ -->
+  <section class="lamina" data-bloque="Agua" data-grado="V3"
+    data-nota="15:00 — DINÁMICA ESTRELLA. Se van a reír, aprovéchalo. Toca cada frasco para revelar el veredicto. Cierre serio: 'Perder solo el 2% de tu agua corporal ya te baja la fuerza y la concentración. Y en Lima sudas aunque no haga calor, porque la humedad no deja que el sudor se evapore.'">
+    <p class="eyebrow">Bloque 3 · Hidratación</p>
+    <h2>El test más honesto: <span class="agua">tu pipí</span></h2>
+    <p style="margin-bottom:20px">Mírala antes de entrenar. Te dice la verdad más rápido que cualquier app. Toca cada frasco.</p>
+    <div class="pipi" id="pipi"></div>
+    <p class="nota-fuente">Perder más del <span class="agua">2 % de tu peso corporal</span> en líquido ya compromete el rendimiento — y niveles mayores también afectan la concentración. · American College of Sports Medicine, <i>Exercise and Fluid Replacement</i> (2007)</p>
+  </section>
+
+  <!-- ============ 11. CUÁNTA AGUA ============ -->
+  <section class="lamina" data-bloque="Agua" data-grado="V3"
+    data-nota="17:00 — Muestra tu propia botella. Regla visual: una botella de 625 ml es 'la sesión'. Truco: pon la botella al lado de la colchoneta, no en la mochila. Lo que no ves, no lo tomas.">
+    <p class="eyebrow">Bloque 3 · Hidratación</p>
+    <div class="dos">
+      <div>
+        <h2>Una botella<br>por sesión</h2>
+        <p>Unos <strong>500 a 700 ml</strong> durante dos horas de entreno, a sorbos cada 15–20 minutos. No de golpe al final.</p>
+        <p>Si la sesión pasa de 90 minutos o sudas muchísimo, agrega una <strong>pizca de sal</strong> a tu agua o toma una bebida deportiva diluida a la mitad.</p>
+      </div>
+      <div>
+        <ul class="lista">
+          <li>La botella va <strong>al lado de la colchoneta</strong>, no dentro de la mochila.</li>
+          <li>Si ya tienes sed, <strong>llegaste tarde</strong>.</li>
+          <li>Manos sudadas ≠ estar hidratado. Son cosas distintas.</li>
+          <li>El magnesio seca la piel, no el cuerpo. <strong>Igual toma agua.</strong></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 11b. EL SUDOR NO ES SOLO AGUA ============ -->
+  <section class="lamina" data-bloque="Agua" data-grado="V3"
+    data-nota="18:00 — Gancho seguro: pregunta quién termina el entreno con marcas blancas en la polera o en la gorra. Levantarán manos. 'Esos son ustedes perdiendo sal, no polvo de magnesio.' Aclara bien el matiz: para una sesión normal de boulder el agua sola basta; el sodio entra cuando la sesión es larga, hace calor o es día de competencia con varias rondas.">
+    <p class="eyebrow">Bloque 3 · Hidratación</p>
+    <h2>El sudor no es agua. <span class="agua">Es agua con sal.</span></h2>
+    <div class="dos" style="margin-top:clamp(12px,2vh,22px)">
+      <div>
+        <div class="datos">
+          <div class="dato agua-c">
+            <span class="cifra">10<small>×</small></span>
+            <span class="que">de diferencia puede haber entre lo salado que suda una persona y otra: el sodio del sudor va de <strong>10 a 90 mmol/L</strong>. Por eso no hay una receta única.</span>
+            <span class="fuente">Baker, <i>Sports Medicine</i> 2017 — revisión de variabilidad del sudor</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h3 style="margin-bottom:12px">¿Eres de sudor salado?</h3>
+        <ul class="lista">
+          <li>Te quedan <strong>marcas blancas</strong> en la polera o la gorra al secarse.</li>
+          <li>El sudor te <strong>arde en los ojos</strong> y sabe muy salado.</li>
+          <li>Terminas con <strong>calambres</strong> en dedos o antebrazos.</li>
+        </ul>
+        <h3 style="margin:clamp(16px,2.6vh,26px) 0 12px">¿Cuándo agregar sodio?</h3>
+        <ul class="lista si">
+          <li>Sesiones de <strong>más de 90 minutos</strong>.</li>
+          <li>Días de <strong>calor o mucha humedad</strong>.</li>
+          <li><strong>Competencia</strong> con varias rondas en un mismo día.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="nota-fuente">Para una sesión normal de boulder, el agua sola alcanza. La hiponatremia — tomar mucha agua sin sal — solo es riesgo real en esfuerzos de más de 4 horas, así que no es tu escenario.</p>
+  </section>
+
+  <!-- ============ 11c. CUÁNTA AGUA AL DÍA ============ -->
+  <section class="lamina" data-bloque="Agua" data-grado="V3"
+    data-nota="19:30 — Haz el cálculo EN VIVO con un voluntario de la sala: pregúntale su peso y resuélvelo en la pizarra o en voz alta. Aterriza mucho mejor que mostrar la fórmula. Importantísimo el encuadre de la balanza: 'No te pesas para saber cuánto pesas. Te pesas para saber cuánta agua perdiste. Es medir líquido, no medir tu cuerpo.' Dilo tal cual — después de la charla del mito, si no lo aclaras, alguien se va con la idea equivocada.">
+    <p class="eyebrow">Bloque 3 · Hidratación</p>
+    <h2>Cuánta agua necesitas de verdad</h2>
+    <div class="calculo" style="margin-top:clamp(16px,2.6vh,26px)">
+      <div class="paso">
+        <span class="n">PASO 1 · TU BASE</span>
+        <div class="op">35 ml × kg<br>de masa magra</div>
+        <p>La masa magra es tu cuerpo sin la grasa: es el tejido que de verdad gasta agua.</p>
+      </div>
+      <div class="paso">
+        <span class="n">PASO 2 · EJEMPLO</span>
+        <div class="op">50 kg · 20 % grasa<br>= 40 kg magros<br>40 × 35 = 1 400 ml</div>
+        <p>Esa es tu base del día, antes de entrenar.</p>
+      </div>
+      <div class="paso">
+        <span class="n">PASO 3 · LO QUE PIERDES</span>
+        <div class="op">1 kg en la balanza<br>≈ 1 litro de líquido</div>
+        <p>Pésate antes y después del entreno, con poca ropa y seco.</p>
+      </div>
+      <div class="paso total">
+        <span class="n">PASO 4 · REPONER</span>
+        <div class="op">1,25 – 1,5 L<br>por cada kg perdido</div>
+        <p>Pierdes 0,6 kg → tomas 750 a 900 ml extra. <strong>Total del día ≈ 2,2 L.</strong></p>
+      </div>
+    </div>
+    <p class="nota-fuente">No te pesas para saber cuánto pesas: te pesas para saber cuánta <span class="agua">agua</span> perdiste. · Reposición de 1,25–1,5 L por kg: ACSM 2007. La regla de ml por kg es una regla clínica práctica (suele citarse 30–40 ml/kg de peso total); aquí se aplica sobre masa magra. Como referencia independiente, la EFSA sitúa la ingesta adecuada en 2,1 L/día a los 9–13 años y 2,5 L desde los 14 en chicos (1,9–2,0 L en chicas), contando el agua de los alimentos.</p>
+  </section>
+
+  <!-- ============ 12. DESPUÉS: LA VENTANA ============ -->
+  <section class="lamina" data-bloque="Después" data-grado="V4"
+    data-nota="18:30 — Aquí está el hábito de mayor impacto real: la mayoría entrena 7-9pm y llega a casa a comer nada o solo pan. Insiste: 'Lo que comes DESPUÉS decide cómo llegas al entreno del jueves. No entrenas para hoy, entrenas para el acumulado.'">
+    <p class="eyebrow">Bloque 4 · Recuperación</p>
+    <h2>El entreno no termina<br>cuando sueltas la presa</h2>
+    <div class="dos" style="margin-top:10px">
+      <div>
+        <p class="lead">Termina cuando comes.</p>
+        <p>En las primeras <strong>2 horas</strong> tu músculo es una esponja: absorbe y repara mejor que en todo el resto del día. Si dejas pasar esa ventana, llegas al siguiente entreno a medias.</p>
+      </div>
+      <div>
+        <ul class="lista">
+          <li><strong>Carbohidrato</strong> para volver a llenar la batería.</li>
+          <li><strong>Proteína</strong> para reparar el músculo y los tendones.</li>
+          <li><strong>Agua</strong> para reponer lo que sudaste.</li>
+          <li>Y después: <strong>dormir 8 a 10 horas</strong>. Ahí es donde te vuelves fuerte.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 13. EL BATIDO DEL BARRIO ============ -->
+  <section class="lamina" data-bloque="Después" data-grado="V4"
+    data-nota="20:00 — Muéstralo como receta que ellos mismos pueden hacer sin cocinar. 'No necesitas que tu mamá te lo prepare. Licuadora, 2 minutos, listo.' Si puedes, lleva los ingredientes físicos y ármalo en vivo — el impacto se multiplica.">
+    <p class="eyebrow">Bloque 4 · Recuperación</p>
+    <h2>El batido del barrio</h2>
+    <p style="margin-bottom:20px">Sin nada importado ni de bote. Lo haces tú mismo en dos minutos.</p>
+    <div class="tarjetas">
+      <div class="tarjeta"><span class="icono">🥛</span><h3>1 taza de leche</h3><p>Proteína + calcio para tus huesos.</p></div>
+      <div class="tarjeta"><span class="icono">🍌</span><h3>1 plátano</h3><p>Carbohidrato rápido + potasio.</p></div>
+      <div class="tarjeta"><span class="icono">🥣</span><h3>3 cucharadas de avena</h3><p>Recarga la batería para mañana.</p></div>
+      <div class="tarjeta"><span class="icono">🥜</span><h3>1 cucharada de maní</h3><p>Grasa buena y más proteína.</p></div>
+    </div>
+    <p style="margin-top:20px"><strong>¿No tienes licuadora?</strong> Yogurt con granola y fruta. O pan con atún. O el clásico: leche con avena instantánea.</p>
+  </section>
+
+  <!-- ============ 14. CONSTRUCTOR ============ -->
+  <section class="lamina" data-bloque="Después" data-grado="V4"
+    data-nota="21:30 — DINÁMICA. Pide que voten por 2 opciones a mano alzada antes de revelar. Toca las dos más votadas, luego pulsa REVELAR. Lo importante no es acertar: es que vean que 'la más rica' no siempre es la que repara. Sin culpa — el objetivo es criterio, no prohibición.">
+    <p class="eyebrow">Bloque 4 · Dinámica</p>
+    <h2>Sales del gym a las 9pm. ¿Qué eliges?</h2>
+    <p style="margin-bottom:18px">Elige <strong>2</strong>. Luego revelamos.</p>
+    <div class="platos" id="platos"></div>
+    <div style="margin-top:20px; display:flex; gap:12px; flex-wrap:wrap;">
+      <button class="btn" id="revelar">Revelar</button>
+      <button class="btn fantasma" id="reiniciar">Reiniciar</button>
+    </div>
+  </section>
+
+  <!-- ============ 15. DEDOS ============ -->
+  <section class="lamina" data-bloque="Dedos y huesos" data-grado="V5"
+    data-nota="23:00 — TEMA SERIO, baja el tono. Esta es la lesión que más veo en escaladores jóvenes y casi nadie se la explica. Sé claro: 'Entre los 11 y los 16, el hueso de tus dedos todavía tiene una zona blanda de crecimiento. Si le metes carga máxima en crimp cerrado y encima comes poco, se puede fracturar. Y esa fractura te saca meses, a veces para siempre.' Nada de campus board a esta edad.">
+    <p class="eyebrow">Bloque 5 · Alerta seria</p>
+    <div class="dos">
+      <div>
+        <h2 style="color:var(--cinta)">Tus dedos<br>todavía están<br>creciendo</h2>
+      </div>
+      <div>
+        <p>Hasta más o menos los <strong>16–18 años</strong>, los huesos de tus dedos tienen una <strong>placa de crecimiento</strong>: una zona blanda por donde el hueso se alarga.</p>
+        <p>Es la parte más frágil de tu mano. Y la lesión más común en escaladores jóvenes del mundo es exactamente ahí.</p>
+        <ul class="lista no" style="margin-top:18px">
+          <li>Nada de <strong>campus board</strong> a tu edad.</li>
+          <li>Cuidado con el <strong>crimp cerrado</strong> al máximo, repetido.</li>
+          <li>Si un dedo duele <strong>más de una semana</strong>: se avisa. No se aguanta.</li>
+          <li>Comer poco <strong>debilita el hueso</strong> justo cuando más lo cargas.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 15b. EL DATO INCÓMODO ============ -->
+  <section class="lamina" data-bloque="Dedos y huesos" data-grado="V5"
+    data-nota="24:00 — DINÁMICA CORTA. Haz las dos preguntas al aire ANTES de avanzar: '¿Quién sabe qué es exactamente una lesión de placa de crecimiento?' y '¿A qué edad se puede empezar campus board?'. Cuenta las manos, y recién entonces muestra los números. Remate: 'No es que sean descuidados. Es que nadie se los explicó. A partir de hoy ya no tienen excusa — y yo tampoco.'">
+    <p class="eyebrow">Bloque 5 · El dato incómodo</p>
+    <h2>Se lo preguntaron a 267 escaladores de tu edad</h2>
+    <p style="margin-bottom:clamp(18px,3vh,30px); max-width:62ch">En un estudio con competidores de 8 a 18 años les hicieron exactamente las dos preguntas que acabas de escuchar.</p>
+    <div class="datos">
+      <div class="dato">
+        <span class="cifra">17,6<small>%</small></span>
+        <span class="que">supo qué es realmente una lesión de placa de crecimiento en el dedo.</span>
+        <span class="fuente">Meyers et al., <i>Int J Environ Res Public Health</i> 2020 · n = 267</span>
+      </div>
+      <div class="dato rojo">
+        <span class="cifra">5,7<small>%</small></span>
+        <span class="que">supo a partir de qué edad es seguro entrenar en campus board. La respuesta correcta era <strong>18 años</strong>.</span>
+        <span class="fuente">Meyers et al., <i>Int J Environ Res Public Health</i> 2020 · n = 267</span>
+      </div>
+      <div class="dato">
+        <span class="cifra">14</span>
+        <span class="que">años es la edad promedio a la que se rompe esa placa de crecimiento en escaladores.</span>
+        <span class="fuente">Jaini et al., <i>PM&amp;R</i> 2025 · revisión de alcance</span>
+      </div>
+    </div>
+    <p class="nota-fuente">No es que seas descuidado: es que casi nadie te lo explicó. Estos son los dos datos de toda la charla que te pueden ahorrar una cirugía.</p>
+  </section>
+
+  <!-- ============ 16. HUESO ============ -->
+  <section class="lamina" data-bloque="Dedos y huesos" data-grado="V5"
+    data-nota="25:00 — Dato local que engancha: 'Lima está nublada media parte del año — la garúa nos tapa el sol. Eso nos pone en desventaja con la vitamina D comparado con la sierra o la selva.' Recomienda 15 min de sol en brazos al mediodía, sin quemarse.">
+    <p class="eyebrow">Bloque 5 · Dedos y huesos</p>
+    <h2>El hueso se construye ahora</h2>
+    <p style="margin-bottom:18px">Cerca del <strong class="cinta">90 % de la masa ósea</strong> que tendrás en tu vida se acumula al final de la adolescencia — alrededor de los 18 años en chicas y los 20 en chicos. Esta ventana no se repite.</p>
+    <p class="nota-fuente" style="margin:0 0 20px">Weaver et al., <i>Osteoporosis International</i> 2016 — declaración de posición de la National Osteoporosis Foundation sobre masa ósea pico</p>
+    <div class="tarjetas">
+      <div class="tarjeta"><span class="icono">🥛</span><h3 class="cinta">Calcio</h3><p>Leche, yogurt, queso fresco, sardinas con espina, kiwicha, brócoli.</p></div>
+      <div class="tarjeta"><span class="icono">☀️</span><h3 class="cinta">Vitamina D</h3><p>15 minutos de sol en brazos y piernas. En Lima gris, cuesta más: no la des por hecha.</p></div>
+      <div class="tarjeta"><span class="icono">🍗</span><h3 class="cinta">Proteína</h3><p>Huevo, pollo, atún, leche, menestras. Un puño en cada comida principal.</p></div>
+      <div class="tarjeta"><span class="icono">⚡</span><h3 class="cinta">Energía suficiente</h3><p>Si comes menos de lo que gastas, el cuerpo deja de invertir en hueso.</p></div>
+    </div>
+  </section>
+
+  <!-- ============ 17. HIERRO ============ -->
+  <section class="lamina" data-bloque="Sangre" data-grado="V6"
+    data-nota="26:30 — Habla directo y sin rodeos, con respeto. Las chicas con menstruación pierden hierro cada mes y son el grupo con más déficit en el Perú. Síntoma clave: 'te cansas en el calentamiento y crees que estás fuera de forma, cuando en realidad te falta hierro'. Recomendación concreta: si te pasa, pide en casa que te hagan un análisis de hemoglobina y ferritina.">
+    <p class="eyebrow">Bloque 6 · Sangre</p>
+    <div class="dos">
+      <div>
+        <h2>Si te falta el aire<br>en el calentamiento,<br>quizá no es la <span class="tachado">forma</span></h2>
+        <p class="lead presa">Puede ser hierro.</p>
+      </div>
+      <div>
+        <p>El hierro lleva oxígeno a tus músculos. Sin él: te cansas rápido, te falta el aire, te mareas y no rindes aunque entrenes igual que siempre.</p>
+        <p><strong>Ojo, chicas:</strong> con la menstruación se pierde hierro todos los meses.</p>
+        <div class="datos" style="margin:18px 0">
+          <div class="dato rojo">
+            <span class="cifra">25<small>%</small></span>
+            <span class="que">de las mujeres peruanas de <strong>15 a 19 años</strong> tiene anemia. Una de cada cuatro.</span>
+            <span class="fuente">ENDES 2023 · Hernández-Vásquez et al., <i>Rev Peru Med Exp Salud Publica</i> 2024</span>
+          </div>
+        </div>
+        <p>Si te pasa seguido, pide en casa un análisis de <strong>hemoglobina y ferritina</strong>. Se resuelve.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 18. FUENTES DE HIERRO ============ -->
+  <section class="lamina" data-bloque="Sangre" data-grado="V6"
+    data-nota="27:30 — Momento 'iugh' garantizado: la sangrecita. Aprovecha el asco colectivo — es memorable. 'La sangrecita es de los alimentos con más hierro del mundo y cuesta 2 soles en cualquier mercado del Perú.' Truco que se recuerda: limón sobre la lenteja.">
+    <p class="eyebrow">Bloque 6 · Sangre</p>
+    <h2>Hierro peruano y barato</h2>
+    <div class="tarjetas" style="margin-top:6px">
+      <div class="tarjeta"><span class="icono">🩸</span><h3 class="presa">Sangrecita</h3><p>Sí, da impresión. Y es de los alimentos con más hierro que existen. Guisada con cebolla queda buenísima.</p></div>
+      <div class="tarjeta"><span class="icono">🫘</span><h3 class="presa">Hígado y bazo</h3><p>Una vez por semana basta. Apanado sabe mucho mejor de lo que crees.</p></div>
+      <div class="tarjeta"><span class="icono">🥘</span><h3 class="presa">Lentejas y frejoles</h3><p>Con un chorro de limón encima: la vitamina C multiplica el hierro que absorbes.</p></div>
+      <div class="tarjeta"><span class="icono">🚫</span><h3 class="presa">Ojo con el té y el café</h3><p>Justo con la comida bloquean el hierro. Tómalos una hora después.</p></div>
+    </div>
+  </section>
+
+  <!-- ============ 19. EL MITO PELIGROSO ============ -->
+  <section class="lamina" data-bloque="El mito" data-grado="V7"
+    data-nota="29:00 — CLÍMAX DE LA CHARLA. Baja la voz, camina hacia ellos. Este es el mensaje que puede cambiarle la vida a alguien en esa sala. Reconoce primero que la idea tiene lógica — si no, no te creen. Luego demuéstrala falsa.">
+    <p class="eyebrow">Bloque 7 · El mito más peligroso de la escalada</p>
+    <h2 style="max-width:20ch">«Si peso menos,<br>escalo más grado»</h2>
+    <div class="dos" style="margin-top:14px">
+      <div>
+        <p class="lead">Suena lógico.<br>Y por unas semanas<br>hasta parece cierto.</p>
+      </div>
+      <div>
+        <p>Es la idea que más carreras de escaladores jóvenes ha arruinado en el mundo. Porque funciona un rato — y después cobra todo junto.</p>
+        <p>Y hay algo que casi nadie te dice: <strong>a tu edad tu cuerpo está construyendo hueso, músculo y estatura al mismo tiempo que entrena.</strong> Comer poco no te vuelve ligero. Te vuelve un proyecto a medio construir.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 19b. LOS NÚMEROS DEL MITO ============ -->
+  <section class="lamina" data-bloque="El mito" data-grado="V7"
+    data-nota="30:00 — Aquí dejas de ser 'el nutricionista que opina' y pasas a mostrar datos. Léelos despacio, uno por uno. El tercero es el más duro: son escaladoras de Copa del Mundo, las mejores del planeta. Remate: 'Esto no le pasa a gente descuidada. Le pasa a las mejores del mundo, porque este deporte premia estar ligero. Por eso se los cuento a ustedes ahora y no a los 25.'">
+    <p class="eyebrow">Bloque 7 · Esto no es opinión mía</p>
+    <h2>Lo que encontraron los estudios</h2>
+    <div class="datos" style="margin-top:clamp(18px,3vh,30px)">
+      <div class="dato rojo">
+        <span class="cifra">35,6<small>%</small></span>
+        <span class="que">de los escaladores medidos estaba comiendo <strong>menos energía de la que su cuerpo necesitaba</strong>. Solo el 8,9 % estaba en el rango óptimo.</span>
+        <span class="fuente">Mora-Fernández et al., <i>Nutrients</i> 2024 · n = 46</span>
+      </div>
+      <div class="dato">
+        <span class="cifra">57,8<small>%</small></span>
+        <span class="que">comía <strong>menos carbohidrato</strong> del mínimo recomendado para su deporte. Justo el combustible del boulder.</span>
+        <span class="fuente">Mora-Fernández et al., <i>Nutrients</i> 2024 · n = 46</span>
+      </div>
+      <div class="dato rojo">
+        <span class="cifra">15,8<small>%</small></span>
+        <span class="que">de 114 escaladoras de <strong>Copa del Mundo</strong> había perdido la menstruación. De ellas, el 22 % reportó estar lidiando con un trastorno alimentario.</span>
+        <span class="fuente">Joubert et al., <i>Front Sports Act Living</i> 2022 · n = 114</span>
+      </div>
+    </div>
+    <p class="nota-fuente">No le pasa a gente descuidada: le pasa a las mejores del mundo. Porque este deporte premia estar ligero — y por eso conviene saberlo a los 13, no a los 25.</p>
+  </section>
+
+  <!-- ============ 20. VERSUS ============ -->
+  <section class="lamina" data-bloque="El mito" data-grado="V7"
+    data-nota="30:30 — Lee las dos columnas en voz alta, sin prisa. Deja silencio al terminar la izquierda. Luego: 'Los dos entrenan igual. Los dos quieren lo mismo. Solo uno va a estar escalando dentro de tres años.'">
+    <p class="eyebrow">Bloque 7 · Lo que pasa de verdad</p>
+    <h2>Seis meses después</h2>
+    <div class="versus">
+      <div class="perfil mal">
+        <h3 style="color:var(--no)">Comió menos para pesar menos</h3>
+        <ul>
+          <li>Pierde fuerza y potencia, no solo grasa</li>
+          <li>Se estanca de grado y no entiende por qué</li>
+          <li>Dedos, hombros y codos que no terminan de sanar</li>
+          <li>Se enferma más seguido</li>
+          <li>Duerme mal y anda irritable</li>
+          <li>En chicas: la menstruación se atrasa o desaparece</li>
+          <li>Deja de crecer y el hueso se vuelve frágil</li>
+        </ul>
+      </div>
+      <div class="vs">VS</div>
+      <div class="perfil bien">
+        <h3 style="color:var(--ok)">Comió para entrenar</h3>
+        <ul>
+          <li>Gana fuerza real, sesión tras sesión</li>
+          <li>Aguanta hasta el intento donde el bloque cae</li>
+          <li>Se recupera y vuelve al día siguiente</li>
+          <li>Se lesiona menos</li>
+          <li>Duerme bien y disfruta escalar</li>
+          <li>Crece y se desarrolla como debe</li>
+          <li>Sigue escalando a los 20, a los 30, a los 40</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 21. LA FRASE ============ -->
+  <section class="lamina" data-bloque="El mito" data-grado="V7"
+    data-nota="32:00 — Silencio. Cuenta hasta tres antes de hablar. Pide que la repitan en voz alta todos juntos. Esta es la frase que se tienen que llevar a casa. Agrega: 'Si alguien acá está preocupado por su peso, o alguien le dijo algo sobre su cuerpo, ven a hablar conmigo al terminar. En serio.'">
+    <p class="eyebrow">Bloque 7 · Llévate esto</p>
+    <p class="cita">No se trata<br>de pesar menos.<br><span class="presa">Se trata de poder más.</span></p>
+    <p style="margin-top:clamp(24px,4vh,44px); max-width:48ch">El escalador fuerte no es el más liviano de la sala. Es el que llega al intento seis con los dedos todavía respondiendo.</p>
+  </section>
+
+  <!-- ============ 22. MITO O VERDAD ============ -->
+  <section class="lamina" data-bloque="Mito o verdad" data-grado="V8"
+    data-nota="33:00 — DINÁMICA FINAL. Lee cada tarjeta, pide voto a mano alzada (mito / verdad), y recién ahí toca para revelar. Rápido y con energía — máximo 1 minuto por tarjeta. Si el tiempo aprieta, haz solo 4.">
+    <p class="eyebrow">Bloque 8 · Dinámica</p>
+    <h2>Mito o verdad</h2>
+    <p style="margin-bottom:18px" class="toque">Vota primero · Toca la tarjeta para revelar</p>
+    <div class="mitos" id="mitos"></div>
+  </section>
+
+  <!-- ============ 22b. ÓXIDO NÍTRICO ============ -->
+  <section class="lamina" data-bloque="Día de competencia" data-grado="V9"
+    data-nota="35:00 — Este bloque es solo para día de competencia, no para el martes cualquiera. Abre así: 'Todo lo anterior es la base. Esto es la cereza — y la cereza sin torta no sirve de nada.' Conecta con el motor 1: el nitrato acelera la recarga de fosfocreatina, o sea el motor del intento. Sé honesto con lo del único estudio en adolescentes; esa honestidad es la que te compra credibilidad.">
+    <p class="eyebrow">Bloque 9 · Día de competencia</p>
+    <h2>La beterraga y el <span class="presa">óxido nítrico</span></h2>
+    <div class="dos" style="margin-top:clamp(12px,2vh,20px)">
+      <div>
+        <p>La beterraga es de los alimentos con más <strong>nitrato</strong>. Las bacterias de tu boca lo convierten en nitrito, y tu cuerpo lo convierte en <strong>óxido nítrico</strong>: una molécula que abre los vasos sanguíneos y hace que el músculo gaste menos oxígeno para el mismo trabajo.</p>
+        <p>Para boulder importa por una razón concreta: <strong class="cinta">acelera la recarga de fosfocreatina</strong> — el motor número 1, el del intento. Más intentos buenos seguidos.</p>
+        <p class="nota-fuente" style="margin-top:18px">El Instituto Australiano del Deporte lo clasifica en el <strong>Grupo A</strong>: la categoría de suplementos con mejor respaldo científico. · Dosis de referencia: 6–8 mmol de nitrato, 2–3 h antes.</p>
+      </div>
+      <div>
+        <div class="datos">
+          <div class="dato">
+            <span class="cifra">+8,4<small>%</small></span>
+            <span class="que">de fuerza de prensa manual en judocas adolescentes de 14 años, 2 h después de tomar jugo de beterraga. También <strong>+3 % de salto</strong> y +3,2 % de fuerza dorsal.</span>
+            <span class="fuente">Demirli et al., <i>Frontiers in Nutrition</i> 2025 · n = 35, 14,2 ± 1,6 años, ensayo cruzado</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tarjeta" style="margin-top:clamp(14px,2.2vh,24px); border-color:var(--cinta)">
+      <h3 class="cinta">Antes de que alguien pregunte: ¿y esto no es un suplemento?</h3>
+      <p style="max-width:none">Esto <strong>es comida</strong>: no lleva estimulantes y no viene en cápsula. Aun así, no es lo primero — la base va antes, siempre. Y seamos honestos: en adolescentes hay <strong>un solo estudio bien hecho</strong>. Es prometedor, no es una certeza. <span class="cinta">Si lo vas a usar en competencia, conversémoslo antes.</span></p>
+    </div>
+  </section>
+
+  <!-- ============ 22c. LA RECETA ============ -->
+  <section class="lamina" data-bloque="Día de competencia" data-grado="V9"
+    data-nota="37:00 — Si puedes, llévalo preparado y que lo prueben. El sabor es la mitad de la batalla: la beterraga sola es horrible, con naranja y miel se toma sin problema. Insiste en las dos reglas que la gente rompe: nada de enjuague bucal ese día, y probarlo en un entreno antes. Y avisa lo del pipí rosado o vas a recibir un mensaje de un papá asustado el domingo.">
+    <p class="eyebrow">Bloque 9 · Día de competencia</p>
+    <h2>El shot de beterraga</h2>
+    <div class="dos" style="margin-top:clamp(10px,1.8vh,18px)">
+      <div>
+        <div class="receta">
+          <div class="ingrediente"><b>250 ml</b><span>Extracto de beterraga cruda<em>Una beterraga mediana licuada y colada. Es el ingrediente activo: el nitrato.</em></span></div>
+          <div class="ingrediente"><b>150 ml</b><span>Jugo de naranja<em>La vitamina C ayuda a convertir el nitrito en óxido nítrico. Y aporta carbohidrato.</em></span></div>
+          <div class="ingrediente"><b>1 cucharada</b><span>Miel de abeja<em>Unos 17 g de carbohidrato rápido. Y hace que se pueda tomar.</em></span></div>
+          <div class="ingrediente"><b>1 pizca</b><span>Canela<em>Solo sabor. No tiene efecto de rendimiento demostrado, pero ayuda a que se lo tomen.</em></span></div>
+          <div class="ingrediente"><b>¼ cucharadita</b><span>Sal<em>Unos 575 mg de sodio, para el sudor de varias rondas seguidas.</em></span></div>
+        </div>
+      </div>
+      <div>
+        <h3 style="margin-bottom:14px">Las reglas que nadie puede saltarse</h3>
+        <ul class="lista">
+          <li>Tómalo <strong>2 a 3 horas antes</strong> de la primera ronda.</li>
+          <li><strong>Nada de enjuague bucal ese día.</strong> Mata las bacterias de tu boca que convierten el nitrato — sin ellas no hay efecto.</li>
+          <li><strong>Pruébalo primero en un entreno.</strong> El día de la competencia no se estrena nada.</li>
+          <li>El pipí y la caca se ponen <strong>rosados</strong>. Es normal, no es sangre.</li>
+        </ul>
+        <p class="nota-fuente">Un jugo casero no permite garantizar los 6–8 mmol de nitrato: depende de la beterraga, del suelo y de la variedad. Tómalo como una ayuda, no como una dosis exacta.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 23. SUPLEMENTOS ============ -->
+  <section class="lamina" data-bloque="Suplementos" data-grado="V10"
+    data-nota="36:00 — Ojo con el encuadre de esta lámina: la izquierda es innegociable, la franja de abajo NO. No digas 'no necesitas suplementos' — eso es una decisión clínica y se toma caso por caso, con la historia de cada uno y con análisis cuando hace falta. Lo que sí cierras aquí es la puerta a que se automediquen: 'no se decide en TikTok'. Con la creatina no exageres: si dices que es peligrosa te van a pillar, porque la evidencia dice otra cosa y ellos la buscan en el celular. Termina invitándolos: 'si a alguien le da vueltas el tema, hablamos y lo vemos con su caso en la mano'.">
+    <p class="eyebrow">Bloque 10 · Suplementos</p>
+    <div class="dos">
+      <div>
+        <h2 style="color:var(--no)">Esto no,<br>y punto</h2>
+        <ul class="lista no">
+          <li><strong>Energizantes</strong> — Volt, Red Bull, Monster. La Academia Americana de Pediatría dice textualmente que <strong>no tienen lugar</strong> en la dieta de un adolescente.</li>
+          <li><strong>Más de 100 mg de cafeína al día</strong> entre los 12 y 18 años. Una sola lata ya puede pasarse.</li>
+          <li><strong>Quemadores</strong> y "detox". Nada de eso, nunca.</li>
+          <li>Cualquier cosa que prometa <strong>bajar de peso rápido</strong>.</li>
+        </ul>
+        <p class="nota-fuente">AAP, <i>Sports Drinks and Energy Drinks for Children and Adolescents</i>, Pediatrics 2011</p>
+      </div>
+      <div>
+        <h2 style="color:var(--ok)">Esto primero,<br>siempre</h2>
+        <ul class="lista si">
+          <li><strong>Comer suficiente</strong>, todos los días.</li>
+          <li><strong>Dormir 8 a 10 horas.</strong> Es lo más potente que existe.</li>
+          <li><strong>Agua</strong> y algo de sal si sudas mucho.</li>
+          <li><strong>Constancia.</strong> Lo que haces siempre le gana a lo que haces una vez.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tarjeta" style="margin-top:clamp(8px,1.4vh,18px); padding:clamp(11px,1.2vw,16px); border-color:var(--cinta)">
+      <h3 class="cinta" style="margin-bottom:4px">¿Y la proteína en polvo, la creatina, el hierro, la vitamina D?</h3>
+      <p style="max-width:none">Eso <strong>no se decide en TikTok</strong>, ni porque a un amigo le funcionó. Se evalúa <strong>uno por uno</strong>: tu edad, tu etapa de crecimiento, lo que comes de verdad y, cuando hace falta, un análisis. Puede que a ti te convenga algo y a tu compañero no. Sobre la creatina, para que nadie te venda humo: la ISSN concluyó que <strong>no hay evidencia de que sea riesgosa antes de los 18</strong> con supervisión. Que algo sea seguro no significa que sea tu prioridad — y eso es justamente lo que hay que evaluar. <span class="cinta">Si te da vueltas el tema, ven y lo vemos con tu caso en la mano.</span></p>
+      <p class="nota-fuente" style="margin-bottom:0">Kreider et al., <i>Journal of the International Society of Sports Nutrition</i> 2017 — declaración de posición sobre creatina</p>
+    </div>
+  </section>
+
+  <!-- ============ 24. RETO ============ -->
+  <section class="lamina" data-bloque="Cierre" data-grado="TOP"
+    data-nota="38:00 — Toca cada casilla mientras la lees. Reta al grupo: 'Quiero que la próxima semana me digan cuántas marcaron. El que marque las cinco los siete días, me avisa — hacemos algo.' Reparte aquí la tarjeta impresa del reto.">
+    <p class="eyebrow">Cierre · Tu proyecto de esta semana</p>
+    <h2>El reto de los 7 días</h2>
+    <p style="margin-bottom:20px">Cinco casillas al día. Siete días. Nada más.</p>
+    <div class="casillas" id="casillas"></div>
+  </section>
+
+  <!-- ============ 25. CIERRE ============ -->
+  <section class="lamina portada" data-bloque="Cierre" data-grado="TOP"
+    data-nota="40:00 — Cierre. Repite la frase una última vez y abre a preguntas. Ofrécete explícitamente para quien tenga dudas sobre su cuerpo o su peso — ahí es donde de verdad ayudas.">
+    <p class="eyebrow">Nos vemos en el muro</p>
+    <h1 style="max-width:14ch">Come como<br>quien va a<br>pegar el <span class="presa">proyecto</span></h1>
+    <p class="lead" style="max-width:30ch">Porque el bloque no se pega con hambre. Se pega con fuerza — y la fuerza se come.</p>
+    <div class="firma">
+      <span class="nom">Franjo Torres Bondy</span>
+      <span class="ig">@el_nutricionistafranjo</span>
+    </div>
+  </section>
+
+  <!-- ============ 26. BIBLIOGRAFÍA ============ -->
+  <section class="lamina" data-bloque="Fuentes" data-grado="—"
+    data-nota="Lámina de respaldo. No la muestres en la charla salvo que un papá, una mamá o un entrenador pregunte de dónde salen los números. Tenerla a mano vale oro: es la diferencia entre 'el nutricionista dijo' y 'esto está publicado'. Si alguien quiere los estudios, ofrécele mandarle el link del deck.">
+    <p class="eyebrow">Lámina de respaldo · De dónde salen los números</p>
+    <h2 style="font-size:clamp(22px,3.2vw,40px); margin-bottom:clamp(14px,2vh,22px)">Las fuentes</h2>
+    <ol class="biblio">
+      <li><b>1</b><span><i>Mora-Fernández A, et al.</i> Nutritional Assessment, Body Composition, and Low Energy Availability in Sport Climbing Athletes. <i>Nutrients</i>. 2024;16(17):2974.</span></li>
+      <li><b>2</b><span><i>Joubert L, et al.</i> Prevalence of amenorrhea in elite female competitive climbers. <i>Front Sports Act Living</i>. 2022;4:895588.</span></li>
+      <li><b>3</b><span><i>Mountjoy M, et al.</i> 2023 IOC consensus statement on Relative Energy Deficiency in Sport (REDs). <i>Br J Sports Med</i>. 2023;57(17):1073–1097.</span></li>
+      <li><b>4</b><span><i>Meyers RN, et al.</i> Are Adolescent Climbers Aware of the Most Common Youth Climbing Injury and Safe Training Practices? <i>Int J Environ Res Public Health</i>. 2020;17(3):812.</span></li>
+      <li><b>5</b><span><i>Schöffl V, et al.</i> Evaluation of a Diagnostic-Therapeutic Algorithm for Finger Epiphyseal Growth Plate Stress Injuries in Adolescent Climbers. <i>Am J Sports Med</i>. 2022.</span></li>
+      <li><b>6</b><span><i>Jaini A, et al.</i> Finger growth plate injuries in adolescent sport climbers: a scoping review. <i>PM&amp;R</i>. 2025.</span></li>
+      <li><b>7</b><span><i>Weaver CM, et al.</i> National Osteoporosis Foundation position statement on peak bone mass development and lifestyle factors. <i>Osteoporos Int</i>. 2016.</span></li>
+      <li><b>8</b><span><i>Hernández-Vásquez A, et al.</i> Prevalencia de anemia en mujeres peruanas con los criterios OMS 2024: análisis de la ENDES 2023. <i>Rev Peru Med Exp Salud Publica</i>. 2024;41(3):324–326.</span></li>
+      <li><b>9</b><span><i>Sawka MN, et al.</i> ACSM Position Stand: Exercise and Fluid Replacement. <i>Med Sci Sports Exerc</i>. 2007;39(2):377–390.</span></li>
+      <li><b>10</b><span><i>Schneider MB, Benjamin HJ; AAP.</i> Sports Drinks and Energy Drinks for Children and Adolescents: Are They Appropriate? <i>Pediatrics</i>. 2011;127(6):1182–1189.</span></li>
+      <li><b>11</b><span><i>Kreider RB, et al.</i> ISSN position stand: safety and efficacy of creatine supplementation in exercise, sport, and medicine. <i>J Int Soc Sports Nutr</i>. 2017.</span></li>
+      <li><b>12</b><span><i>Winkler M, Künzell S, Augste C.</i> The load structure in international competitive climbing. <i>Front Sports Act Living</i>. 2022;4:790336.</span></li>
+      <li><b>13</b><span><i>Maciejczyk M, et al.</i> Climbing-specific exercise tests: energy system contributions and relationships with sport performance. <i>Front Physiol</i>. 2022;12:787902.</span></li>
+      <li><b>14</b><span><i>Demirli A, et al.</i> Acute beetroot juice supplementation enhances judo-specific performance, explosive power, and muscular strength in recreational adolescent judokas. <i>Front Nutr</i>. 2025;12:1669799.</span></li>
+      <li><b>15</b><span><i>Australian Institute of Sport.</i> AIS Sports Supplement Framework — Dietary Nitrate / Beetroot Juice (Grupo A).</span></li>
+      <li><b>16</b><span><i>Baker LB.</i> Sweating rate and sweat sodium concentration in athletes: a review of methodology and intra/interindividual variability. <i>Sports Med</i>. 2017;47(Suppl 1):111–128.</span></li>
+      <li><b>17</b><span><i>EFSA Panel on Dietetic Products, Nutrition and Allergies.</i> Scientific opinion on dietary reference values for water. <i>EFSA Journal</i>. 2010;8(3):1459.</span></li>
+    </ol>
+  </section>
+
+  <!-- ============ NOTAS + PIE ============ -->
+  <div class="notas" id="notas">
+    <h4>Notas del ponente</h4>
+    <p id="notaTexto"></p>
+  </div>
+
+  <div class="pie">
+    <span class="marca" id="marca">Beta Nutricional</span>
+    <div class="barra-prog"><i id="prog"></i></div>
+    <span class="marca" id="contador">1 / 25</span>
+    <div class="flechas">
+      <button id="atras" aria-label="Lámina anterior">←</button>
+      <button id="adelante" aria-label="Lámina siguiente">→</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------- Contenido de las dinámicas ---------- */
+
+  var OPCIONES_ENCUESTA = [
+    "Desayuno completo (avena, pan, huevo...)",
+    "Solo algo rápido: fruta, galleta, pan",
+    "Solo agua o un jugo",
+    "Nada. Vine directo del colegio."
+  ];
+
+  var FRASCOS = [
+    { color:"#F7F3D8", txt:"Casi transparente", ok:true,  ver:"Perfecto. Vas bien.", c:"#4ADE80" },
+    { color:"#F2E68A", txt:"Amarillo claro",    ok:true,  ver:"Ideal. Sigue así.",   c:"#4ADE80" },
+    { color:"#E6C74A", txt:"Amarillo fuerte",   ok:false, ver:"Toma agua ya.",       c:"#FFC93C" },
+    { color:"#B8860B", txt:"Ámbar oscuro",      ok:false, ver:"Deshidratado. Para y toma agua.", c:"#FF4D5E" }
+  ];
+
+  var PLATOS = [
+    { i:"🍗", n:"Pollo con arroz", m:"Carbo + proteína", bien:true,
+      j:"La mejor. Recarga la batería y repara músculo al mismo tiempo." },
+    { i:"🥤", n:"Batido leche + plátano + avena", m:"Carbo + proteína", bien:true,
+      j:"Excelente y rapidísimo. Si llegas tarde y con sueño, esta es." },
+    { i:"🍟", n:"Papas fritas solas", m:"Solo grasa + carbo", bien:false,
+      j:"Llena, pero no repara nada. Tu músculo se queda esperando." },
+    { i:"🥪", n:"Pan con atún y palta", m:"Carbo + proteína", bien:true,
+      j:"Muy buena. No necesitas cocinar y cumple las dos funciones." },
+    { i:"🍬", n:"Gaseosa y galletas dulces", m:"Solo azúcar", bien:false,
+      j:"Azúcar sin proteína. Recarga a medias y no repara." },
+    { i:"🥗", n:"Solo una ensalada", m:"Casi sin energía", bien:false,
+      j:"Sana, pero después de entrenar te deja sin recarga. Necesita arroz y pollo al lado." }
+  ];
+
+  var MITOS = [
+    { f:"El pan y el arroz engordan, mejor no comerlos antes de entrenar.",
+      v:false, p:"Son tu gasolina principal. Sin ellos escalas con la batería a la mitad." },
+    { f:"Si no como después de entrenar, quemo más grasa.",
+      v:false, p:"Quemas músculo y llegas peor al siguiente entreno. Recuperar es parte del entreno." },
+    { f:"Dormir poco te hace perder fuerza y te lesiona más.",
+      v:true,  p:"El músculo y el tendón se reparan mientras duermes. 8 a 10 horas, en serio." },
+    { f:"Los deportistas necesitan muchísima más proteína que el resto.",
+      v:false, p:"Necesitas algo más, sí — pero con comida normal alcanza. El polvo no es obligatorio." },
+    { f:"Saltarse el desayuno te hace más ligero y escalas mejor.",
+      v:false, p:"Llegas sin batería. Pierdes fuerza y concentración justo cuando más las necesitas." },
+    { f:"Tomar agua durante la sesión mejora tu agarre y tu cabeza.",
+      v:true,  p:"Con solo 2% de deshidratación ya bajan la fuerza y la concentración." }
+  ];
+
+  var RETO = [
+    "Desayuné antes de salir de casa",
+    "Comí algo 1 hora antes de entrenar",
+    "Terminé mi botella de agua en la sesión",
+    "Comí carbo + proteína dentro de las 2h después",
+    "Dormí 8 horas o más"
+  ];
+
+  /* ---------- Encuesta ---------- */
+  var enc = document.getElementById("encuesta");
+  var tally = OPCIONES_ENCUESTA.map(function(){ return 0; });
+
+  OPCIONES_ENCUESTA.forEach(function(texto, idx){
+    var b = document.createElement("button");
+    b.className = "voto";
+    b.type = "button";
+    b.innerHTML = '<i class="relleno"></i><span>' + texto + '</span><b>0</b>';
+    b.addEventListener("click", function(){
+      tally[idx]++;
+      pintarEncuesta();
+    });
+    enc.appendChild(b);
+  });
+
+  function pintarEncuesta(){
+    var max = Math.max.apply(null, tally.concat([1]));
+    Array.prototype.forEach.call(enc.children, function(b, i){
+      b.querySelector("b").textContent = tally[i];
+      b.querySelector(".relleno").style.width = (tally[i] / max * 100) + "%";
+    });
+  }
+
+  /* ---------- Escala de hidratación ---------- */
+  var pipi = document.getElementById("pipi");
+  FRASCOS.forEach(function(f){
+    var b = document.createElement("button");
+    b.className = "frasco";
+    b.type = "button";
+    b.innerHTML = '<div class="liquido" style="background:' + f.color + '"></div>' +
+                  '<div class="txt">' + f.txt + '</div>' +
+                  '<div class="veredicto" style="color:' + f.c + '">' + f.ver + '</div>';
+    b.addEventListener("click", function(){ b.classList.toggle("abierto"); });
+    pipi.appendChild(b);
+  });
+
+  /* ---------- Constructor de recuperación ---------- */
+  var platos = document.getElementById("platos");
+  PLATOS.forEach(function(p){
+    var b = document.createElement("button");
+    b.className = "plato";
+    b.type = "button";
+    b.innerHTML = '<span class="icono">' + p.i + '</span>' +
+                  '<span class="nom">' + p.n + '</span>' +
+                  '<span class="macro">' + p.m + '</span>' +
+                  '<div class="juicio" style="color:' + (p.bien ? "#4ADE80" : "#FF4D5E") + '">' + p.j + '</div>';
+    b.addEventListener("click", function(){ b.classList.toggle("elegido"); });
+    platos.appendChild(b);
+  });
+
+  document.getElementById("revelar").addEventListener("click", function(){
+    Array.prototype.forEach.call(platos.children, function(b){ b.classList.add("revelado"); });
+  });
+  document.getElementById("reiniciar").addEventListener("click", function(){
+    Array.prototype.forEach.call(platos.children, function(b){
+      b.classList.remove("revelado");
+      b.classList.remove("elegido");
+    });
+  });
+
+  /* ---------- Mito o verdad ---------- */
+  var mitos = document.getElementById("mitos");
+  MITOS.forEach(function(m){
+    var b = document.createElement("button");
+    b.className = "mito " + (m.v ? "v" : "f");
+    b.type = "button";
+    b.innerHTML = '<div class="frase">' + m.f + '</div>' +
+                  '<div class="sello">' + (m.v ? "Verdad" : "Mito") + '</div>' +
+                  '<div class="porque">' + m.p + '</div>' +
+                  '<div class="toque">Tocar</div>';
+    b.addEventListener("click", function(){ b.classList.toggle("abierto"); });
+    mitos.appendChild(b);
+  });
+
+  /* ---------- Reto ---------- */
+  var casillas = document.getElementById("casillas");
+  RETO.forEach(function(t){
+    var b = document.createElement("button");
+    b.className = "casilla";
+    b.type = "button";
+    b.innerHTML = '<span class="caja"></span><span>' + t + '</span>';
+    b.addEventListener("click", function(){ b.classList.toggle("marcada"); });
+    casillas.appendChild(b);
+  });
+
+  /* ---------- Gráfico de intentos ---------- */
+  var grafico = document.getElementById("grafico");
+  var CON = [100, 99, 96, 93, 88, 84];
+  var SIN = [100, 95, 84, 62, 41, 27];
+  for (var i = 0; i < 6; i++){
+    var col = document.createElement("div");
+    col.className = "col";
+    col.innerHTML =
+      '<div class="barra" data-h="' + CON[i] + '" style="background:#4ADE80; height:0"></div>' +
+      '<div class="barra" data-h="' + SIN[i] + '" style="background:#FF4D5E; height:0"></div>' +
+      '<div class="rot">Intento ' + (i + 1) + '</div>';
+    grafico.appendChild(col);
+  }
+
+  function animarGrafico(){
+    var barras = grafico.querySelectorAll(".barra");
+    Array.prototype.forEach.call(barras, function(b, k){
+      b.style.height = "0";
+      setTimeout(function(){
+        b.style.height = (parseInt(b.getAttribute("data-h"), 10) * 0.44) + "%";
+      }, 60 + k * 40);
+    });
+  }
+
+  /* ---------- Batería ---------- */
+  var carga = document.getElementById("carga");
+  var pct = document.getElementById("pct");
+  var timerPct = null;
+
+  function animarBateria(){
+    if (timerPct) { clearInterval(timerPct); timerPct = null; }
+    carga.classList.remove("llena");
+    pct.textContent = "12%";
+    pct.style.color = "var(--no)";
+    setTimeout(function(){
+      carga.classList.add("llena");
+      var n = 12;
+      timerPct = setInterval(function(){
+        n += 3;
+        if (n >= 100){ n = 100; clearInterval(timerPct); timerPct = null; }
+        pct.textContent = n + "%";
+        pct.style.color = n > 60 ? "var(--ok)" : (n > 30 ? "var(--cinta)" : "var(--no)");
+      }, 80);
+    }, 420);
+  }
+
+  /* ---------- Navegación ---------- */
+  var laminas = Array.prototype.slice.call(document.querySelectorAll(".lamina"));
+  var total = laminas.length;
+  var actual = 0;
+
+  var elGrado = document.getElementById("grado");
+  var elBloque = document.getElementById("bloque");
+  var elNum = document.getElementById("num");
+  var elProg = document.getElementById("prog");
+  var elContador = document.getElementById("contador");
+  var elNotas = document.getElementById("notas");
+  var elNotaTexto = document.getElementById("notaTexto");
+
+  function ir(n){
+    if (n < 0 || n >= total) return;
+    laminas[actual].classList.remove("viva");
+    actual = n;
+    var l = laminas[actual];
+    l.classList.add("viva");
+    l.scrollTop = 0;
+
+    elGrado.textContent = l.getAttribute("data-grado") || "";
+    elBloque.textContent = l.getAttribute("data-bloque") || "";
+    elNum.textContent = (actual + 1);
+    elProg.style.width = ((actual + 1) / total * 100) + "%";
+    elContador.textContent = (actual + 1) + " / " + total;
+    elNotaTexto.textContent = l.getAttribute("data-nota") || "Sin notas para esta lámina.";
+
+    if (l.querySelector("#carga")) animarBateria();
+    if (l.querySelector("#grafico")) animarGrafico();
+
+    try { location.hash = "l" + (actual + 1); } catch (e) {}
+  }
+
+  document.getElementById("adelante").addEventListener("click", function(){ ir(actual + 1); });
+  document.getElementById("atras").addEventListener("click", function(){ ir(actual - 1); });
+
+  document.addEventListener("keydown", function(e){
+    var k = e.key;
+    if (k === "ArrowRight" || k === "PageDown" || k === " "){ e.preventDefault(); ir(actual + 1); }
+    else if (k === "ArrowLeft" || k === "PageUp"){ e.preventDefault(); ir(actual - 1); }
+    else if (k === "Home"){ e.preventDefault(); ir(0); }
+    else if (k === "End"){ e.preventDefault(); ir(total - 1); }
+    else if (k === "n" || k === "N"){ elNotas.classList.toggle("visible"); }
+  });
+
+  /* Deslizar en móvil / tablet */
+  var x0 = null;
+  document.addEventListener("touchstart", function(e){ x0 = e.touches[0].clientX; }, {passive:true});
+  document.addEventListener("touchend", function(e){
+    if (x0 === null) return;
+    var dx = e.changedTouches[0].clientX - x0;
+    if (Math.abs(dx) > 60) ir(actual + (dx < 0 ? 1 : -1));
+    x0 = null;
+  }, {passive:true});
+
+  /* Arranque: respeta el hash si viene uno */
+  var inicial = 0;
+  var m = /^#l(\d+)$/.exec(location.hash || "");
+  if (m) {
+    var n = parseInt(m[1], 10) - 1;
+    if (n >= 0 && n < total) inicial = n;
+  }
+  laminas.forEach(function(l){ l.classList.remove("viva"); });
+  actual = 0;
+  ir(inicial);
+})();
+</script>

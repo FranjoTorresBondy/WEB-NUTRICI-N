@@ -857,7 +857,7 @@ function buildSesiones(microIdx) {
       const rirCls = rir === 0 ? 'rir' : '';
       const sets = Array.from({length: ex.s}, (_,si2) => {
         const k = trainKey(microIdx, ses.nombre, ei, si2);
-        return `<div class="setbox"><div class="sl">Serie ${si2+1}</div><input type="number" inputmode="decimal" placeholder="—" data-key="${k}" oninput="saveTrainInput(this)"><div class="un">kg</div></div>`;
+        return `<div class="setbox"><div class="sl">Serie ${si2+1}</div><input type="number" inputmode="decimal" placeholder="—" data-key="${k}" oninput="saveTrainInput(this)" onchange="saveTrainInput(this)" onblur="saveTrainInput(this)"><div class="un">kg</div></div>`;
       }).join('');
       return `<div class="exq">${buildExThumb(ex)}<div class="ebody"><div class="nm">${ex.nombre}</div><div class="meta"><span class="mpill"><b>${ex.s}×${ex.r}</b></span><span class="mpill ${rirCls}"><b>${rirText}</b></span><span class="mpill rest">Descanso <b>${ex.d} min</b></span></div><div class="sets">${sets}</div></div></div>`;
     }).join('');
@@ -900,6 +900,7 @@ function setMicro(i, btn) {
   buildSesiones(i);
   loadTrainValues();
 }
+function saveSession(){document.querySelectorAll('#sessions input[data-key]').forEach(function(inp){if(inp.value!=='')localStorage.setItem(inp.dataset.key,inp.value);});var btn=document.getElementById('saveSessionBtn');if(btn){btn.textContent='✓ Guardado';btn.style.background='#26a69a';setTimeout(function(){btn.textContent='Guardar sesión';btn.style.background='';},2000);}}
 
 var WEIGHT_KEY=PATIENT.slug+'-weight-v1';var PHOTOS_KEY=PATIENT.slug+'-photos-v1';var seguimientoInited=false;
 function getWeightData(){try{var r=localStorage.getItem(WEIGHT_KEY);return r?JSON.parse(r):[];}catch(e){return[];}}

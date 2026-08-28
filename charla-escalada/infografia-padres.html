@@ -1,0 +1,313 @@
+<title>Alimentar a un Escalador</title>
+
+<style>
+  /* Pieza impresa: se compromete con un solo mundo visual (papel + magnesio).
+     Todos los colores se pintan explícitamente para que no herede el tema del visor. */
+  :root{
+    --papel:#FBF9F5;
+    --papel-2:#F2EEE6;
+    --tinta:#141C1F;
+    --tinta-2:#4A5B60;
+    --tinta-3:#849499;
+    --linea:#DCD5C8;
+    --presa:#E0431C;
+    --cinta:#E5A400;
+    --agua:#1B8E97;
+    --ok:#2E7D4F;
+    --no:#C6303F;
+    --display:"Arial Black","Arial Bold",Impact,"Franklin Gothic Heavy",system-ui,sans-serif;
+    --body:"Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+    --mono:"Consolas","Roboto Mono",ui-monospace,"SF Mono",monospace;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--papel-2); color:var(--tinta);
+    font-family:var(--body); -webkit-font-smoothing:antialiased;
+    padding:24px 16px;
+  }
+  .hoja{
+    max-width:940px; margin:0 auto; background:var(--papel);
+    border:1px solid var(--linea); border-radius:4px;
+    padding:clamp(26px,4.5vw,56px);
+    box-shadow:0 2px 18px rgba(20,28,31,.08);
+  }
+
+  header{ border-bottom:3px solid var(--tinta); padding-bottom:22px; margin-bottom:30px; }
+  .eyebrow{
+    font-family:var(--mono); font-size:11px; letter-spacing:.28em; text-transform:uppercase;
+    color:var(--presa); margin:0 0 12px;
+  }
+  h1{
+    font-family:var(--display); text-transform:uppercase; margin:0 0 12px;
+    font-size:clamp(30px,5.4vw,54px); line-height:.93; letter-spacing:-.02em; text-wrap:balance;
+  }
+  header p{ margin:0; font-size:clamp(14px,1.6vw,17px); line-height:1.5; color:var(--tinta-2); max-width:62ch; }
+
+  h2{
+    font-family:var(--display); text-transform:uppercase; font-size:clamp(15px,1.9vw,20px);
+    letter-spacing:.01em; margin:0 0 14px; display:flex; align-items:center; gap:11px;
+  }
+  h2 .marca{
+    font-family:var(--mono); font-size:11px; letter-spacing:.1em; background:var(--tinta);
+    color:var(--papel); padding:4px 8px; border-radius:3px; font-weight:400;
+  }
+  h3{ font-family:var(--display); text-transform:uppercase; font-size:14px; margin:0 0 6px; letter-spacing:.01em; }
+  p{ font-size:14.5px; line-height:1.55; color:var(--tinta-2); margin:0 0 12px; max-width:66ch; }
+  strong{ color:var(--tinta); font-weight:700; }
+
+  section{ margin-bottom:34px; }
+  section:last-of-type{ margin-bottom:0; }
+
+  /* Reloj de los tres momentos */
+  .reloj{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+  .momento{ border:1px solid var(--linea); border-radius:8px; padding:16px; background:var(--papel); }
+  .momento .hora{
+    font-family:var(--display); font-size:26px; color:var(--presa); line-height:1; margin-bottom:8px;
+  }
+  .momento p{ font-size:13.5px; margin:0; }
+
+  /* Rejilla de nutrientes */
+  .nutrientes{ display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+  .nutri{ border-top:4px solid var(--cinta); background:var(--papel-2); border-radius:0 0 8px 8px; padding:14px; }
+  .nutri:nth-child(2){ border-top-color:var(--agua); }
+  .nutri:nth-child(3){ border-top-color:var(--presa); }
+  .nutri:nth-child(4){ border-top-color:var(--ok); }
+  .nutri p{ font-size:12.5px; margin:0; line-height:1.45; }
+  .nutri .para{ display:block; font-family:var(--mono); font-size:10.5px; letter-spacing:.06em; color:var(--tinta-2); text-transform:uppercase; margin-top:8px; }
+
+  /* Lonchera */
+  .lonchera{ display:grid; grid-template-columns:1.1fr .9fr; gap:26px; align-items:start; }
+  ul.chk{ list-style:none; padding:0; margin:0; display:grid; gap:8px; }
+  ul.chk li{ font-size:14px; line-height:1.4; color:var(--tinta); padding-left:26px; position:relative; }
+  ul.chk li::before{
+    content:""; position:absolute; left:0; top:2px; width:14px; height:14px;
+    border:2px solid var(--tinta-2); border-radius:3px;
+  }
+  ul.mal li::before{ content:"×"; border:0; color:var(--no); font-weight:900; font-size:19px; line-height:.8; top:0; }
+
+  /* Evidencia */
+  .cifras{ display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+  .cifra{ border:1px solid var(--linea); border-radius:8px; padding:14px; background:var(--papel); }
+  .cifra .n{ font-family:var(--display); font-size:clamp(24px,3.4vw,34px); line-height:1; color:var(--presa); }
+  .cifra .n small{ font-size:.5em; }
+  .cifra p{ font-size:12px; line-height:1.4; margin:8px 0 0; color:var(--tinta); }
+  .cifra .ref{ font-family:var(--mono); font-size:10px; color:var(--tinta-3); display:block; margin-top:6px; }
+
+  .fuentes{ margin-top:12px; }
+  .fuentes p{
+    font-family:var(--mono); font-size:9.5px; line-height:1.6; color:var(--tinta-3);
+    max-width:none; margin:0;
+  }
+  .fuentes b{ color:var(--tinta-2); font-weight:400; }
+
+  /* Alerta */
+  .alerta{ border:2px solid var(--no); border-radius:9px; padding:20px 22px; background:#FDF2F1; }
+  .alerta h2{ color:var(--no); }
+  .alerta h2 .marca{ background:var(--no); }
+  .alerta ul{ list-style:none; padding:0; margin:0 0 12px; display:grid; gap:7px; }
+  .alerta li{ font-size:14px; line-height:1.4; color:var(--tinta); padding-left:22px; position:relative; }
+  .alerta li::before{ content:"!"; position:absolute; left:0; font-family:var(--display); color:var(--no); }
+  .alerta .cierre{ font-size:13.5px; color:var(--tinta); margin:0; font-weight:600; }
+
+  /* Frase */
+  .frase{
+    background:var(--tinta); color:var(--papel); border-radius:9px;
+    padding:clamp(22px,3.4vw,34px);
+  }
+  .frase p{
+    font-family:var(--display); text-transform:uppercase; color:var(--papel);
+    font-size:clamp(19px,3vw,32px); line-height:1.04; margin:0; max-width:24ch; text-wrap:balance;
+  }
+  .frase em{ font-style:normal; color:var(--cinta); }
+  .frase .sub{
+    font-family:var(--body); font-size:13.5px; text-transform:none; color:#C3CDCF;
+    margin-top:14px; max-width:60ch; line-height:1.5;
+  }
+
+  footer{
+    margin-top:34px; padding-top:20px; border-top:1px solid var(--linea);
+    display:flex; justify-content:space-between; align-items:baseline; gap:16px; flex-wrap:wrap;
+  }
+  footer .nom{ font-family:var(--display); text-transform:uppercase; font-size:15px; }
+  footer .dato{ font-family:var(--mono); font-size:12px; color:var(--presa); letter-spacing:.04em; }
+
+  .imprimir{
+    max-width:940px; margin:0 auto 14px; display:flex; justify-content:flex-end;
+  }
+  .imprimir button{
+    font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase;
+    background:var(--tinta); color:var(--papel); border:0; border-radius:6px;
+    padding:10px 18px; cursor:pointer;
+  }
+  .imprimir button:hover{ background:var(--presa); }
+  .imprimir button:focus-visible{ outline:3px solid var(--cinta); outline-offset:3px; }
+
+  @media (max-width:720px){
+    .reloj, .nutrientes{ grid-template-columns:1fr 1fr; }
+    .lonchera{ grid-template-columns:1fr; }
+  }
+
+  @media print{
+    /* Cae limpio en dos caras de A4: momentos + nutrientes + mochila delante,
+       señales de alerta + cierre detrás. */
+    @page{ size:A4; margin:11mm; }
+    body{ background:#fff; padding:0; }
+    .imprimir{ display:none; }
+    .hoja{ box-shadow:none; border:0; padding:0; max-width:none; }
+    section{ break-inside:avoid; margin-bottom:15px; }
+    header{ margin-bottom:15px; padding-bottom:13px; }
+    header h1{ font-size:32px; }
+    header p{ font-size:12.5px; }
+    /* corte deliberado: delante los tres momentos, nutrientes y mochila;
+       detrás los datos, las señales de alerta y el cierre. */
+    .evidencia{ break-before:page; margin-top:0; }
+    .momento, .nutri, .cifra{ padding:11px; }
+    ul.chk{ gap:6px; }
+    ul.chk li{ font-size:13.5px; }
+    .cifras{ gap:9px; }
+    .alerta{ padding:14px 16px; }
+    .frase{ padding:18px 20px; }
+    .frase .sub{ font-size:12.5px; margin-top:11px; }
+    .fuentes p{ font-size:8.5px; }
+    .fuentes{ margin-top:9px; }
+    footer{ margin-top:14px; padding-top:13px; }
+    *{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  }
+</style>
+
+<div class="imprimir"><button type="button" onclick="window.print()">Imprimir / Guardar PDF</button></div>
+
+<div class="hoja">
+  <header>
+    <p class="eyebrow">Para las familias · Escalada en bloque · 11 a 16 años</p>
+    <h1>Cómo alimentar<br>a un escalador</h1>
+    <p>Su hijo o hija entrena un deporte de fuerza en plena etapa de crecimiento. Lo que come no es un detalle: decide cuánto rinde, qué tan rápido se recupera y —esto es lo importante— cuán seguro está de lesiones. Aquí está lo esencial en una página.</p>
+  </header>
+
+  <section>
+    <h2><span class="marca">1</span> Los tres momentos del día de entreno</h2>
+    <div class="reloj">
+      <div class="momento">
+        <div class="hora">3 h antes</div>
+        <h3>Comida completa</h3>
+        <p>Arroz con pollo, tallarín con carne, menestra con arroz. Carbohidrato + proteína + verdura.</p>
+      </div>
+      <div class="momento">
+        <div class="hora">1 h antes</div>
+        <h3>Snack ligero</h3>
+        <p>Plátano, pan con miel o palta, galletas de soda, fruta. Fácil de digerir. Este es el que más se salta.</p>
+      </div>
+      <div class="momento">
+        <div class="hora">2 h después</div>
+        <h3>Recuperación</h3>
+        <p>Carbohidrato + proteína dentro de las dos horas siguientes. Es lo que decide cómo llega al próximo entreno.</p>
+      </div>
+    </div>
+    <p style="margin-top:14px"><strong>El hueco más común:</strong> almuerza a la 1, sale del colegio, entrena a las 6 y no come nada en el medio. Ahí es donde se pierde el rendimiento y donde empieza el cansancio crónico.</p>
+  </section>
+
+  <section>
+    <h2><span class="marca">2</span> Los cuatro que no pueden faltar</h2>
+    <div class="nutrientes">
+      <div class="nutri">
+        <h3>Carbohidrato</h3>
+        <p>Arroz, papa, camote, pan, avena, fideos, fruta.</p>
+        <span class="para">Es la gasolina</span>
+      </div>
+      <div class="nutri">
+        <h3>Calcio + Vit. D</h3>
+        <p>Leche, yogurt, queso fresco, sardinas con espina, kiwicha. Y sol: 15 min al día.</p>
+        <span class="para">Construye el hueso</span>
+      </div>
+      <div class="nutri">
+        <h3>Hierro</h3>
+        <p>Sangrecita, hígado, carne roja, lentejas con limón. Té y café bloquean: mejor lejos de las comidas.</p>
+        <span class="para">Lleva el oxígeno</span>
+      </div>
+      <div class="nutri">
+        <h3>Proteína</h3>
+        <p>Huevo, pollo, pescado, atún, leche, menestras. Un puño en cada comida principal.</p>
+        <span class="para">Repara el músculo</span>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="marca">3</span> La mochila del gym</h2>
+    <div class="lonchera">
+      <div>
+        <h3 style="color:var(--ok); margin-bottom:10px">Que sí lleve</h3>
+        <ul class="chk">
+          <li>Botella de agua de 750 ml, <strong>a la vista</strong>, no dentro de la mochila</li>
+          <li>Un plátano o una fruta fácil de comer</li>
+          <li>Pan con palta, con huevo o con atún</li>
+          <li>Un puñado de maní o pecanas</li>
+          <li>Yogurt bebible o leche chocolatada para después</li>
+        </ul>
+      </div>
+      <div>
+        <h3 style="color:var(--no); margin-bottom:10px">Que no compre por su cuenta</h3>
+        <ul class="chk mal">
+          <li><strong>Energizantes</strong> (Volt, Red Bull, Monster). No a esta edad, en ningún caso.</li>
+          <li><strong>Pre-entrenos</strong>, quemadores de grasa y "detox"</li>
+          <li>Cualquier producto que prometa <strong>bajar de peso rápido</strong></li>
+          <li><strong>Suplementos por consejo de un amigo o de redes.</strong> Proteína en polvo, creatina, hierro o vitamina D pueden tener sentido en un caso y ninguno en otro: eso se evalúa en consulta</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="evidencia">
+    <h2><span class="marca">4</span> Por qué esto importa: los datos</h2>
+    <div class="cifras">
+      <div class="cifra">
+        <span class="n">25<small>%</small></span>
+        <p>de las peruanas de <strong>15 a 19 años</strong> tiene anemia. Una de cada cuatro.</p>
+        <span class="ref">ENDES 2023</span>
+      </div>
+      <div class="cifra">
+        <span class="n">90<small>%</small></span>
+        <p>de la masa ósea de toda la vida se acumula hasta el final de la adolescencia.</p>
+        <span class="ref">Weaver et al., 2016</span>
+      </div>
+      <div class="cifra">
+        <span class="n">36<small>%</small></span>
+        <p>de escaladores estudiados comía <strong>menos energía</strong> de la que su cuerpo gastaba.</p>
+        <span class="ref">Mora-Fernández et al., 2024</span>
+      </div>
+      <div class="cifra">
+        <span class="n">5,7<small>%</small></span>
+        <p>de 267 jóvenes escaladores sabía a qué edad es seguro el <strong>campus board</strong> (18 años).</p>
+        <span class="ref">Meyers et al., 2020</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="alerta">
+    <h2><span class="marca">!</span> Cuándo conviene consultar</h2>
+    <p style="margin-bottom:12px">En escalada existe una presión real —a veces desde el propio deporte— por estar más ligero. En adolescentes, comer menos de lo que se gasta frena el crecimiento, debilita el hueso y multiplica las lesiones. Estas son las señales que conviene no dejar pasar:</p>
+    <ul>
+      <li>Empieza a saltarse comidas, a contar calorías o a hablar de su peso</li>
+      <li>Se cansa en el calentamiento o le falta el aire haciendo lo de siempre</li>
+      <li>Se estanca o retrocede en su rendimiento pese a entrenar igual</li>
+      <li>Se enferma o se lesiona con más frecuencia de lo normal</li>
+      <li>Dolor en un dedo que dura más de una semana</li>
+      <li>En chicas: la menstruación se atrasa o desaparece</li>
+    </ul>
+    <p class="cierre">Cualquiera de estas justifica una consulta. Se resuelven bien cuando se detectan a tiempo.</p>
+  </section>
+
+  <section class="frase">
+    <p>No se trata de<br>pesar menos.<br><em>Se trata de poder más.</em></p>
+    <p class="sub">Un escalador de 11 a 16 años está construyendo el hueso, el músculo y la estatura que tendrá el resto de su vida. Comer suficiente no lo hace más lento: lo hace más fuerte, y lo mantiene escalando dentro de diez años.</p>
+  </section>
+
+  <div class="fuentes">
+    <p><b>Fuentes:</b> Hernández-Vásquez A, et al. <i>Rev Peru Med Exp Salud Publica</i>. 2024;41(3):324–326 (ENDES 2023) · Weaver CM, et al. <i>Osteoporos Int</i>. 2016 · Mora-Fernández A, et al. <i>Nutrients</i>. 2024;16(17):2974 · Meyers RN, et al. <i>Int J Environ Res Public Health</i>. 2020;17(3):812 · Joubert L, et al. <i>Front Sports Act Living</i>. 2022;4:895588 · Mountjoy M, et al. <i>Br J Sports Med</i>. 2023;57(17):1073–1097 · Schneider MB, Benjamin HJ; AAP. <i>Pediatrics</i>. 2011;127(6):1182–1189 · Sawka MN, et al. <i>Med Sci Sports Exerc</i>. 2007;39(2):377–390.</p>
+  </div>
+
+  <footer>
+    <span class="nom">Franjo Torres Bondy · Nutricionista deportivo</span>
+    <span class="dato">@el_nutricionistafranjo</span>
+  </footer>
+</div>

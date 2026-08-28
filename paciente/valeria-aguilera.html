@@ -585,10 +585,11 @@ function buildWeekSel() {
 
 function buildTrainHead(w) {
   $('trainHead').innerHTML = `<span class="badge" style="background:${w.bg};color:#fff">${w.label} · ${w.faseLabel}</span>
-    <span class="hint" style="color:var(--muted)">Progresión individual por ejercicio según MEV/MRV</span>`;
+    <span class="hint" style="color:var(--muted)">Progresión individual por ejercicio según MEV/MRV</span><button id="saveSessionBtn" onclick="saveSession()" style="margin-left:auto;background:var(--gold);color:#000;border:none;border-radius:8px;padding:7px 16px;font-size:13px;font-weight:700;cursor:pointer;transition:background .2s,color .2s">Guardar sesión</button>`;
 }
 
 function setWeek(n, btn) {
+  document.querySelectorAll('#sessions input[data-key]').forEach(function(inp){if(inp.value!=='')localStorage.setItem(inp.dataset.key,inp.value);});
   currentWeek = n;
   document.querySelectorAll('.wbtn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
@@ -597,6 +598,7 @@ function setWeek(n, btn) {
   $('sessions').innerHTML = buildSessions(n);
   loadTrainValues();
 }
+function saveSession(){document.querySelectorAll('#sessions input[data-key]').forEach(function(inp){if(inp.value!=='')localStorage.setItem(inp.dataset.key,inp.value);});var btn=document.getElementById('saveSessionBtn');if(btn){btn.textContent='✓ Guardado';btn.style.background='#26a69a';setTimeout(function(){btn.textContent='Guardar sesión';btn.style.background='';},2000);}}
 
 function buildThumb(ex) {
   if (ex.img === 'anim') {
@@ -622,7 +624,7 @@ function buildSessions(week) {
       const sets = Array.from({length:series},(_,si2) => {
         const k = trainKey(sess.id, ei, si2);
         return `<div class="setbox"><div class="sl">Serie ${si2+1}</div>
-          <input type="number" inputmode="decimal" placeholder="—" data-key="${k}" oninput="saveTrainInput(this)">
+          <input type="number" inputmode="decimal" placeholder="—" data-key="${k}" oninput="saveTrainInput(this)" onchange="saveTrainInput(this)" onblur="saveTrainInput(this)">
           <div class="un">kg</div></div>`;
       }).join('');
       const notaHtml = ex.nota ? `<span style="font-size:11px;color:var(--faint);display:block;margin-top:3px">${ex.nota}</span>` : '';

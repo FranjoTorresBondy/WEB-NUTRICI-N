@@ -1,0 +1,249 @@
+<title>Reto de los 7 Días</title>
+
+<style>
+  /* Tarjeta para imprimir y repartir. Mundo visual único (papel + cinta de ruta),
+     todos los colores pintados explícitamente. */
+  :root{
+    --papel:#FBF9F5;
+    --papel-2:#F1EDE4;
+    --tinta:#141C1F;
+    --tinta-2:#4A5B60;
+    --linea:#DCD5C8;
+    --presa:#E0431C;
+    --cinta:#E5A400;
+    --ok:#2E7D4F;
+    --display:"Arial Black","Arial Bold",Impact,"Franklin Gothic Heavy",system-ui,sans-serif;
+    --body:"Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+    --mono:"Consolas","Roboto Mono",ui-monospace,"SF Mono",monospace;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--papel-2); color:var(--tinta);
+    font-family:var(--body); -webkit-font-smoothing:antialiased; padding:24px 16px;
+  }
+  .hoja{
+    max-width:900px; margin:0 auto; background:var(--papel);
+    border:1px solid var(--linea); border-radius:4px;
+    padding:clamp(24px,4vw,48px);
+    box-shadow:0 2px 18px rgba(20,28,31,.08);
+  }
+
+  header{ display:flex; justify-content:space-between; align-items:flex-end; gap:20px;
+    border-bottom:3px solid var(--tinta); padding-bottom:18px; margin-bottom:14px; flex-wrap:wrap; }
+  .eyebrow{ font-family:var(--mono); font-size:11px; letter-spacing:.26em; text-transform:uppercase;
+    color:var(--presa); margin:0 0 10px; }
+  h1{ font-family:var(--display); text-transform:uppercase; margin:0;
+    font-size:clamp(28px,5.6vw,52px); line-height:.92; letter-spacing:-.02em; }
+  .grado{ font-family:var(--mono); font-size:12px; letter-spacing:.14em; font-weight:700;
+    background:var(--cinta); color:var(--tinta); padding:6px 11px; border-radius:3px; white-space:nowrap; }
+
+  .intro{ font-size:15px; line-height:1.5; color:var(--tinta-2); margin:0 0 22px; max-width:66ch; }
+  .intro strong{ color:var(--tinta); }
+
+  .nombre{ display:flex; gap:26px; margin-bottom:24px; flex-wrap:wrap; }
+  .campo{ flex:1 1 200px; }
+  .campo span{ font-family:var(--mono); font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--tinta-2); }
+  .campo .linea{ border-bottom:1.5px solid var(--tinta); height:26px; margin-top:2px; }
+
+  /* Tabla del reto */
+  .tabla{ width:100%; overflow-x:auto; }
+  table{ width:100%; border-collapse:collapse; min-width:620px; }
+  th, td{ border:1px solid var(--linea); padding:0; }
+  thead th{
+    font-family:var(--mono); font-size:10.5px; letter-spacing:.1em; text-transform:uppercase;
+    color:var(--tinta-2); font-weight:400; padding:9px 4px; text-align:center; background:var(--papel-2);
+  }
+  thead th.habito{ text-align:left; padding-left:14px; width:38%; }
+  tbody th{
+    text-align:left; font-weight:600; font-size:14px; line-height:1.3;
+    padding:13px 14px; color:var(--tinta);
+  }
+  tbody th small{ display:block; font-weight:400; font-size:11.5px; color:var(--tinta-2); margin-top:3px; line-height:1.35; }
+  td.marca{ text-align:center; padding:0; }
+  td.marca button{
+    width:100%; height:100%; min-height:46px; border:0; background:transparent; cursor:pointer;
+    font-family:var(--display); font-size:19px; color:var(--ok); line-height:1;
+    display:block;
+  }
+  td.marca button:hover{ background:#F6F2E7; }
+  td.marca button:focus-visible{ outline:3px solid var(--cinta); outline-offset:-3px; }
+  td.marca button::after{ content:""; }
+  td.marca button.si::after{ content:"✓"; }
+  td.marca button.si{ background:#E9F3EC; }
+
+  /* Marcador */
+  .marcador{
+    margin-top:24px; display:grid; grid-template-columns:auto 1fr; gap:22px; align-items:center;
+    background:var(--tinta); border-radius:10px; padding:22px clamp(18px,3vw,28px);
+  }
+  .marcador .cifra{
+    font-family:var(--mono); font-size:clamp(38px,7vw,64px); font-weight:700; color:var(--cinta);
+    line-height:1; font-variant-numeric:tabular-nums;
+  }
+  .marcador .cifra em{ font-style:normal; font-size:.42em; color:#8C9B9E; }
+  .marcador .rango{
+    font-family:var(--display); text-transform:uppercase; font-size:clamp(15px,2.2vw,22px);
+    color:var(--papel); margin:0 0 6px; line-height:1.05;
+  }
+  .marcador .detalle{ font-size:13px; color:#B9C4C6; margin:0; line-height:1.5; max-width:52ch; }
+
+  .escala{ display:grid; gap:8px; margin-top:22px; }
+  .nivel{ display:grid; grid-template-columns:70px 1fr; gap:14px; align-items:baseline;
+    font-size:13.5px; color:var(--tinta-2); line-height:1.4; }
+  .nivel b{ font-family:var(--mono); font-size:12px; letter-spacing:.08em; color:var(--presa); }
+
+  footer{
+    margin-top:28px; padding-top:18px; border-top:1px solid var(--linea);
+    display:flex; justify-content:space-between; align-items:baseline; gap:16px; flex-wrap:wrap;
+  }
+  footer .nom{ font-family:var(--display); text-transform:uppercase; font-size:14px; }
+  footer .dato{ font-family:var(--mono); font-size:12px; color:var(--presa); letter-spacing:.04em; }
+
+  .barra-sup{ max-width:900px; margin:0 auto 14px; display:flex; justify-content:flex-end; gap:10px; }
+  .barra-sup button{
+    font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase;
+    background:var(--tinta); color:var(--papel); border:0; border-radius:6px; padding:10px 18px; cursor:pointer;
+  }
+  .barra-sup button.sec{ background:transparent; color:var(--tinta-2); border:1px solid var(--linea); }
+  .barra-sup button:hover{ background:var(--presa); color:var(--papel); }
+  .barra-sup button:focus-visible{ outline:3px solid var(--cinta); outline-offset:3px; }
+
+  @media print{
+    @page{ size:A4 landscape; margin:12mm; }
+    body{ background:#fff; padding:0; }
+    .barra-sup{ display:none; }
+    .hoja{ box-shadow:none; border:0; padding:0; max-width:none; }
+    .marcador{ break-inside:avoid; }
+    td.marca button.si{ background:transparent; }
+    td.marca button.si::after{ content:""; }
+    *{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  }
+</style>
+
+<div class="barra-sup">
+  <button type="button" class="sec" id="limpiar">Limpiar</button>
+  <button type="button" id="imprimir">Imprimir / Guardar PDF</button>
+</div>
+
+<div class="hoja">
+  <header>
+    <div>
+      <p class="eyebrow">Tu proyecto de esta semana</p>
+      <h1>El reto de<br>los 7 días</h1>
+    </div>
+    <span class="grado">V0 → V10</span>
+  </header>
+
+  <p class="intro">Cinco casillas al día, siete días seguidos. No hay dieta, no hay prohibiciones, no hay que pesar nada. Solo <strong>comer suficiente y a tiempo</strong>. Marca cada casilla que cumplas y trae esta tarjeta la próxima semana.</p>
+
+  <div class="nombre">
+    <div class="campo"><span>Nombre</span><div class="linea"></div></div>
+    <div class="campo"><span>Semana del</span><div class="linea"></div></div>
+  </div>
+
+  <div class="tabla">
+    <table id="tabla">
+      <thead>
+        <tr>
+          <th class="habito">Hábito</th>
+          <th>Lun</th><th>Mar</th><th>Mié</th><th>Jue</th><th>Vie</th><th>Sáb</th><th>Dom</th>
+        </tr>
+      </thead>
+      <tbody id="cuerpo"></tbody>
+    </table>
+  </div>
+
+  <div class="marcador">
+    <div class="cifra"><span id="puntos">0</span><em>/35</em></div>
+    <div>
+      <p class="rango" id="rango">Aún sin empezar</p>
+      <p class="detalle" id="detalle">Marca tu primera casilla. Una semana entera de esto se nota en el muro: llegas al intento seis con dedos que todavía responden.</p>
+    </div>
+  </div>
+
+  <div class="escala">
+    <div class="nivel"><b>0 – 17</b><span>Calentando. Elige un solo hábito y clávalo los siete días antes de sumar otro.</span></div>
+    <div class="nivel"><b>18 – 24</b><span>Ya se nota. Estás entrenando con el tanque a más de la mitad.</span></div>
+    <div class="nivel"><b>25 – 31</b><span>Flash. Comes como escalador y tu recuperación lo demuestra.</span></div>
+    <div class="nivel"><b>32 – 35</b><span>Proyecto pegado. Semana perfecta — ven a contármelo.</span></div>
+  </div>
+
+  <footer>
+    <span class="nom">Franjo Torres Bondy · Nutricionista deportivo</span>
+    <span class="dato">@el_nutricionistafranjo</span>
+  </footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var HABITOS = [
+    ["Desayuné antes de salir de casa", "Nada de salir con el tanque vacío."],
+    ["Comí algo 1 hora antes de entrenar", "Plátano, pan con palta, galletas. Lo que sea, pero come."],
+    ["Terminé mi botella de agua en la sesión", "A sorbos, no de golpe al final."],
+    ["Comí carbo + proteína dentro de las 2 h después", "Arroz con pollo, batido, pan con atún."],
+    ["Dormí 8 horas o más", "Aquí es donde de verdad te vuelves fuerte."]
+  ];
+
+  var RANGOS = [
+    { min:32, t:"Proyecto pegado", d:"Semana perfecta. Esto es exactamente lo que hace un escalador que va en serio. Ven a contármelo." },
+    { min:25, t:"Flash", d:"Comes como escalador. Tu recuperación entre sesiones ya no se parece a la de hace una semana." },
+    { min:18, t:"Vas subiendo", d:"Ya se nota: estás entrenando con el tanque a más de la mitad. Ataca el hábito que más se te escapa." },
+    { min:1,  t:"Calentando", d:"Buen arranque. Elige un solo hábito y clávalo los siete días antes de sumar otro." },
+    { min:0,  t:"Aún sin empezar", d:"Marca tu primera casilla. Una semana entera de esto se nota en el muro: llegas al intento seis con dedos que todavía responden." }
+  ];
+
+  var cuerpo = document.getElementById("cuerpo");
+
+  HABITOS.forEach(function(h){
+    var tr = document.createElement("tr");
+    var th = document.createElement("th");
+    th.innerHTML = h[0] + "<small>" + h[1] + "</small>";
+    tr.appendChild(th);
+    for (var d = 0; d < 7; d++){
+      var td = document.createElement("td");
+      td.className = "marca";
+      var b = document.createElement("button");
+      b.type = "button";
+      b.setAttribute("aria-label", h[0] + " — día " + (d + 1));
+      b.addEventListener("click", function(){
+        this.classList.toggle("si");
+        this.setAttribute("aria-pressed", this.classList.contains("si") ? "true" : "false");
+        contar();
+      });
+      td.appendChild(b);
+      tr.appendChild(td);
+    }
+    cuerpo.appendChild(tr);
+  });
+
+  var elPuntos = document.getElementById("puntos");
+  var elRango = document.getElementById("rango");
+  var elDetalle = document.getElementById("detalle");
+
+  function contar(){
+    var n = cuerpo.querySelectorAll("button.si").length;
+    elPuntos.textContent = n;
+    for (var i = 0; i < RANGOS.length; i++){
+      if (n >= RANGOS[i].min){
+        elRango.textContent = RANGOS[i].t;
+        elDetalle.textContent = RANGOS[i].d;
+        break;
+      }
+    }
+  }
+
+  document.getElementById("limpiar").addEventListener("click", function(){
+    Array.prototype.forEach.call(cuerpo.querySelectorAll("button"), function(b){
+      b.classList.remove("si");
+      b.setAttribute("aria-pressed", "false");
+    });
+    contar();
+  });
+
+  document.getElementById("imprimir").addEventListener("click", function(){ window.print(); });
+
+  contar();
+})();
+</script>
