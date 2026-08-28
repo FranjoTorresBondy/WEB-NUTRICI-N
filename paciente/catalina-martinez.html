@@ -261,16 +261,31 @@ const PATIENT = {
     ], nota:'Snack anti-ansiedad de la tarde. Consumir entre las 16:00 y 18:00.' },
 
     { id:'cen', nombre:'🌙 Cena', kcal:415, p:36, c:37, g:16, grupos:[
-      { label:'Opción 01 · Batido Sasha (recomendado)', max:1, ops:[
-        '200 ml leche de almendra + 30 g proteína whey vainilla + 100 g cottage + 1 cdta mantequilla de maní + 100 g arándanos o berries',
+      { label:'Escoge 01 · Proteína (120 g peso crudo)', max:1, ops:[
+        'Pechuga de pollo',
+        'Pechuga de pavo',
+        'Pescado (merluza, reineta, atún fresco)',
+        'Bistec o carne molida de bistec',
+        '1½ lata de atún en agua',
+        '3 huevos',
       ]},
-      { label:'Opción 02 · Cena sólida', max:1, ops:[
-        '120 g pechuga de pollo + 90 g papa o camote + 1 rapidita integral + 60 g palta + 150 g verduras',
-        '150 g pescado + 90 g papa + 150 g verduras + 10 g aceite de oliva (medido)',
-        '3 huevos + 90 g papa o camote + 60 g palta + 1 rebanada pan integral + 150 g verduras',
-        '120 g atún en agua + 60 g arroz + 150 g verduras + 10 g aceite',
+      { label:'Escoge 02 · Carbohidrato (peso cocido)', max:2, ops:[
+        '90 g de papa o camote',
+        '60 g de arroz',
+        '60 g de quinua',
+        '50 g de pasta sin relleno',
+        '1 rapidita integral',
+        '1 rebanada de pan de molde integral (30 g)',
       ]},
-    ], nota:'🔬 Suplementos: Omega 3 (2 cápsulas) + Vitamina D (1 cápsula). NO usar Quark en el batido — solo cottage.' },
+      { label:'Escoge 01 · Verduras', max:1, ops:[
+        '150 g de verduras al gusto (lechuga, tomate, pepino, zucchini, brócoli…)',
+      ]},
+      { label:'Escoge 01 · Grasa', max:1, ops:[
+        '60 g de palta',
+        '10 g de aceite de oliva (1 cda exacta, medido)',
+        '1 porción de frutos secos (Ver especificaciones)',
+      ]},
+    ], nota:'🔬 Suplementos: Omega 3 (2 cápsulas) + Vitamina D (1 cápsula). Ver batidos en Especificaciones como alternativa a la cena sólida.' },
   ],
 
   specs: [
@@ -327,6 +342,11 @@ const PATIENT = {
       '🌙 Cena: Vitamina D — 1 cápsula',
       'Tomar Omega 3 y Vit D siempre con la cena (con grasa para mejor absorción)',
     ]},
+  ],
+
+  batinosCena: [
+    { nombre:'Batido 1 · Vainilla-Berries', desc:'200 ml leche de almendra + 30 g proteína whey vainilla + 100 g cottage + 10 g mantequilla de maní + 1 plátano pequeño (60 g) + 80 g arándanos. Licuar todo con hielo al gusto. ~390 kcal · 39P · 33C · 12G' },
+    { nombre:'Batido 2 · Chocolate-Banana', desc:'200 ml leche de almendra + 30 g proteína whey chocolate + 100 g cottage + 1 plátano mediano (90 g) + 15 g mantequilla de almendras + 10 g cacao en polvo + Stevia. Licuar con hielo. ~415 kcal · 40P · 32C · 16G' },
   ],
 
   vinagretas: [
@@ -519,12 +539,17 @@ function renderSpecs() {
   }).join('');
 
   const vinagHtml = PATIENT.vinagretas?.length
-    ? `<div class="sec-h" style="margin-top:32px"><span class="ix">02</span><h2>Salsas bajas en calorías</h2><div class="rule"></div></div>
+    ? `<div class="sec-h" style="margin-top:32px"><span class="ix">03</span><h2>Salsas bajas en calorías</h2><div class="rule"></div></div>
        <div class="vinag-grid">${PATIENT.vinagretas.map(v=>`<div class="vinag"><div class="vname">${v.nombre}</div><div class="vdesc">${v.desc}</div></div>`).join('')}</div>` : '';
+
+  const batinosHtml = PATIENT.batinosCena?.length
+    ? `<div class="sec-h" style="margin-top:32px"><span class="ix">02</span><h2>Batidos de cena</h2><div class="rule"></div></div>
+       <div class="vinag-grid">${PATIENT.batinosCena.map(v=>`<div class="vinag"><div class="vname">${v.nombre}</div><div class="vdesc">${v.desc}</div></div>`).join('')}</div>` : '';
 
   $('tab-specs').innerHTML = `<div class="wrap"><section>
     <div class="sec-h"><span class="ix">01</span><h2>Especificaciones</h2><div class="rule"></div></div>
     <div class="specs">${specsHtml}</div>
+    ${batinosHtml}
     ${vinagHtml}
 
     <div style="margin-top:32px;background:var(--panel2);border:1px solid var(--line);border-radius:14px;padding:20px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
