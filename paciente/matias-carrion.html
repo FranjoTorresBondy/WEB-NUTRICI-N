@@ -192,35 +192,35 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 const PATIENT = {
   slug:      'matias-carrion',
   nombre:    'Matías\nCarrión',
-  fecha:     '14.07.2026',
+  fecha:     '27.08.2026',
   tipoPlan:  'Hipocalórico · Hiperprotéico',
-  macros:    { kcal: 1975, p: 154, c: 233, g: 46 },
+  macros:    { kcal: 1815, p: 144, c: 195, g: 46 },
   hidratacion: [
     { label:'💧 Entrenamiento', valor:'3.0' },
     { label:'💧 Descanso',      valor:'2.7' },
   ],
   semanas: 1,
   antro: {
-    fecha:    '14.07.2026',
-    peso:     76.0,
+    fecha:    '27.08.2026',
+    peso:     78.8,
     talla:    182.0,
-    imc:      22.9,
-    tri:      5.0,
-    bi:       1.5,
-    sub:      9.0,
-    cresta:   15.0,
-    supra:    12.0,
-    abd:      12.0,
-    pierna:   10.0,
-    pant:     4.0,
-    brazRelaj: 32.4,
-    brazFlex:  34.8,
-    abdom:     77.0,
-    cadera:   100.5,
-    muslo:     53.5,
-    pantPer:   36.8,
+    imc:      23.8,
+    tri:      7.0,
+    bi:       4.0,
+    sub:      10.0,
+    cresta:   20.0,
+    supra:    17.0,
+    abd:      18.0,
+    pierna:   13.0,
+    pant:     7.0,
+    brazRelaj: 32.5,
+    brazFlex:  34.3,
+    abdom:     80.0,
+    cadera:   104.0,
+    muslo:     54.0,
+    pantPer:   37.0,
     diam:{ humero:6.7, biEstiloideo:5.4, femur:9.2 },
-    s6:52.0, s8:68.5,
+    s6:72.0, s8:96.0,
   },
 
   objetivos: [
@@ -249,15 +249,13 @@ const PATIENT = {
         ]},
     ], nota:'* Puedes tomar café. Puedes añadir el snack de media mañana a esta comida. Ver especificaciones para porciones de fruta y frutos secos.' },
 
-    { id:'snk1', nombre:'🍎 Snack mañana', kcal:320, p:14, c:52, g:7, grupos:[
-        { label:'Escoge 02 · Carbohidrato', max:2, ops:[
+    { id:'snk1', nombre:'🍎 Snack mañana', kcal:230, p:12, c:30, g:7, grupos:[
+        { label:'Escoge 01 · Carbohidrato', max:1, ops:[
           '20 g de avena',
-          '1 rebanada de pan molde (30 g)',
+          '1 rapidita integral (30 g)',
+          '1 pan pita (30 g)',
         ]},
-        { label:'Escoge 01 · Lácteo', max:1, ops:[
-          '200 ml de leche Slim o Sbelt',
-        ]},
-        { label:'Escoge 01 · Fruta', max:1, ops:[
+        { label:'Escoge 02 · Fruta', max:2, ops:[
           '1 porción de fruta* (Ver especificaciones)',
         ]},
         { label:'Escoge 01 · Grasa', max:1, ops:[
@@ -293,13 +291,13 @@ const PATIENT = {
         ]},
     ], nota:'* Si comes fuera revisa el cuadro de especificaciones.' },
 
-    { id:'snk2', nombre:'🧀 Snack tarde', kcal:260, p:29, c:23, g:4, grupos:[
+    { id:'snk2', nombre:'🧀 Snack tarde', kcal:180, p:21, c:10, g:4, grupos:[
         { label:'Elige una opción', max:1, ops:[
-          '2 rapiditas o 1 rapidita XL / 2 rebanadas de pan molde + 60 g de queso mozzarella light',
-          '2 rapiditas o 1 rapidita XL / 2 rebanadas de pan molde + 100 g de pechuga de pollo (peso crudo)',
-          '20 g de cereal + 200 g de quark + 100 g de berries*',
+          '1 rapidita o 1 pan pita (30 g) + 60 g de queso mozzarella light CuisineCo',
+          '1 rapidita o 1 pan pita (30 g) + 100 g de pechuga de pollo (peso crudo)',
+          '200 g de quark + 100 g de berries',
         ]},
-    ]},
+    ], nota:'Los lunes: cenar más temprano y usar este snack entre tu última clase y la cena. Puedes reemplazarlo por una barrita Fit Rex.' },
 
     { id:'cen', nombre:'🌙 Cena', kcal:480, p:39, c:55, g:10, grupos:[
         { label:'Escoge 03 · Carbohidrato (peso cocido)', max:3, ops:[
@@ -401,11 +399,13 @@ const PATIENT = {
     { nombre:'Salsa roja',               desc:'Tomate, cebolla, ajo, albahaca, poro + Lakanto o Stevia al gusto + sal, pimienta y tomillo + 1 cda aceite oliva' },
   ],
 
-  notaSpecs: 'Plan base = días de descanso (1975 kcal). Días de entrenamiento de fuerza: agregar Pre Entreno Fuerza (+120 kcal ≈ 2095 kcal total).',
+  notaSpecs: 'Plan base = días de descanso (1815 kcal). Días de entrenamiento de fuerza: agregar Pre Entreno Fuerza (+120 kcal ≈ 1935 kcal total).',
 
   antroHistorial: [
     { fecha:'24.06.2026', peso:76.4, tri:5.5, bi:2.5, sub:10.5, cresta:17.0, supra:12.0, abd:13.0, pierna:12.0, pant:7.0,
       brazRelaj:31.8, brazFlex:34.0, abdom:76.0, cadera:103.5, muslo:56.0, pantPer:36.8, s6:60.0, s8:79.5 },
+    { fecha:'14.07.2026', peso:76.0, tri:5.0, bi:1.5, sub:9.0, cresta:15.0, supra:12.0, abd:12.0, pierna:10.0, pant:4.0,
+      brazRelaj:32.4, brazFlex:34.8, abdom:77.0, cadera:100.5, muslo:53.5, pantPer:36.8, s6:52.0, s8:68.5 },
   ],
 
   entrenamiento: null,
