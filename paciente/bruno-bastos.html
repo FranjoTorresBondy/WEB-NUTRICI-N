@@ -180,7 +180,7 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 const PATIENT = {
   slug:      'bruno-bastos',
   nombre:    'Bruno\nBastos',
-  fecha:     '22.07.2026',
+  fecha:     '28.08.2026',
   tipoPlan:  'Hipocalórico · Hiperprotéico',
   macros:    { kcal: 1914, p: null, c: null, g: null },
   hidratacion: [
@@ -189,30 +189,35 @@ const PATIENT = {
   ],
   semanas: 1,
   antro: {
-    fecha:    '22.07.2026',
-    peso:     95.0,
+    fecha:    '28.08.2026',
+    peso:     92.2,
     talla:    175.0,
-    imc:      31.0,
+    imc:      30.1,
     tri:      11.0,
-    bi:       10.0,
-    sub:      16.0,
-    cresta:   28.0,
-    supra:    15.0,
-    abd:      25.0,
-    pierna:   20.0,
+    bi:       5.0,
+    sub:      15.0,
+    cresta:   25.0,
+    supra:    13.0,
+    abd:      22.0,
+    pierna:   18.0,
     pant:     13.0,
-    brazRelaj: 40.3,
-    brazFlex:  42.5,
-    abdom:     94.0,
-    cadera:   108.8,
-    muslo:     60.0,
-    pantPer:   41.0,
-    diam: { humero: 7.8, biEstiloideo: 5.5, femur: 10.6 },
+    brazRelaj: 39.0,
+    brazFlex:  41.8,
+    abdom:     93.0,
+    cadera:   105.0,
+    muslo:     59.0,
+    pantPer:   40.0,
+    diam: { humero: 6.4, biEstiloideo: 5.1, femur: 9.5 },
+    s6: 92.0,
+    s8: 122.0,
+    fatKg:  19.3,
+    muscKg: 32.6,
   },
 
   antroHistorial: [
     { fecha:'03.07.2026', peso:97.1, tri:11, bi:11, sub:16, cresta:35, supra:20, abd:32, pierna:22, pant:17, brazRelaj:40.6, brazFlex:42.8, abdom:97.0, cadera:110.0, muslo:60.5, pantPer:41.0, s6:118.0, s8:164.0 },
     { fecha:'22.07.2026', peso:95.0, tri:11, bi:10, sub:16, cresta:28, supra:15, abd:25, pierna:20, pant:13, brazRelaj:40.3, brazFlex:42.5, abdom:94.0, cadera:108.8, muslo:60.0, pantPer:41.0, s6:100.0, s8:138.0 },
+    { fecha:'28.08.2026', peso:92.2, tri:11, bi:5,  sub:15, cresta:25, supra:13, abd:22, pierna:18, pant:13, brazRelaj:39.0, brazFlex:41.8, abdom:93.0, cadera:105.0, muslo:59.0, pantPer:40.0, s6:92.0,  s8:122.0 },
   ],
 
   objetivos: [
@@ -476,6 +481,8 @@ function renderEval() {
         <div class="row"><span>Peso</span><span>${a.peso} kg</span></div>
         <div class="row"><span>Talla</span><span>${a.talla} cm</span></div>
         <div class="row"><span>IMC</span><span>${a.imc} kg/m²</span></div>
+        ${a.fatKg != null ? `<div class="row bold"><span>Masa grasa</span><span>${a.fatKg} kg</span></div>` : ''}
+        ${a.muscKg != null ? `<div class="row bold"><span>Masa muscular</span><span>${a.muscKg} kg</span></div>` : ''}
       </div>
       <div class="evgroup">
         <div class="gh">Pliegues cutáneos (mm)</div>
