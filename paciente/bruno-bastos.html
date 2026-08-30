@@ -182,7 +182,7 @@ const PATIENT = {
   nombre:    'Bruno\nBastos',
   fecha:     '28.08.2026',
   tipoPlan:  'Hipocalórico · Hiperprotéico',
-  macros:    { kcal: 1914, p: null, c: null, g: null },
+  macros:    { kcal: 1874, p: null, c: null, g: null },
   hidratacion: [
     { label:'💧 Entrenamiento', valor:'4.0' },
     { label:'💧 Descanso',      valor:'3.0' },
@@ -246,9 +246,9 @@ const PATIENT = {
           '1 scoop de proteína + 1 porción de frutos secos',
           '3 huevos',
         ]},
-      ], nota:'Puedes agregar cebolla y tomate con tu atún. · Puedes reemplazar el desayuno por un pan con chicharrón: en ese caso no consumir las porciones de grasa del almuerzo ni de la cena, y solo consumir 03 porciones de carbohidratos en almuerzo y cena.' },
+      ], nota:'Puedes agregar cebolla y tomate con tu atún. · Puedes reemplazar el desayuno por un pan con chicharrón: en ese caso no consumir las porciones de grasa de la cena, y solo consumir 03 porciones de carbohidratos en almuerzo y cena.' },
 
-    { id:'alm', nombre:'🥗 Almuerzo', kcal:680, p:null, c:null, g:null, grupos:[
+    { id:'alm', nombre:'🥗 Almuerzo', kcal:640, p:null, c:null, g:null, grupos:[
         { label:'Escoge 04 · Carbohidrato (peso cocido)', max:4, ops:[
           '90 g de papa',
           '90 g de camote',
@@ -264,15 +264,13 @@ const PATIENT = {
           'Lomo de res',
           'Lomo de cerdo',
           'Langostinos',
-          '100 g de carne molida de bistec (consumir la mitad de la porción de grasas)',
+          '100 g de carne molida de bistec',
         ]},
         { label:'Escoge 01 · Verdura', max:1, ops:[
           '150 a 180 g de verduras de tu preferencia',
         ]},
-        { label:'Escoge 02 · Grasa', max:2, ops:[
-          '1 cdta de aceite de olivo',
-          '40 g de palta',
-          '10 g de mantequilla de maní',
+        { label:'Escoge 01 · Fruta', max:1, ops:[
+          '1 porción de fruta* (ver especificaciones)',
         ]},
       ], nota:'Si vas a comer fuera, revisar cuadro de especificaciones.' },
 
