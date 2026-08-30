@@ -186,7 +186,7 @@ const PATIENT = {
   nombre:    'Joaquín\nNavarro',
   fecha:     '28.08.2026',
   tipoPlan:  'Hipocalórico · Hiperprotéico',
-  macros:    { kcal: 2200, p: 140, c: 268, g: 66 },
+  macros:    { kcal: 2050, p: 137, c: 236, g: 66 },
   hidratacion: [
     { label:'💧 Entrenamiento', valor:'3.5' },
     { label:'💧 Descanso',      valor:'3.0' },
@@ -194,26 +194,26 @@ const PATIENT = {
   semanas: 1,
   antro: {
     fecha:    '28.08.2026',
-    peso:     87.9,
-    talla:    180.0,
-    imc:      27.1,
-    tri:      7.0,
+    peso:     76.0,
+    talla:    173.0,
+    imc:      25.4,
+    tri:      13.0,
     bi:       6.0,
-    sub:      21.0,
-    cresta:   34.0,
-    supra:    28.0,
-    abd:      29.0,
+    sub:      15.0,
+    cresta:   18.0,
+    supra:    13.0,
+    abd:      25.0,
     pierna:   13.0,
-    pant:     10.0,
-    brazRelaj: 34.8,
-    brazFlex:  37.3,
-    abdom:     91.0,
-    cadera:   109.0,
-    muslo:     58.5,
-    pantPer:   37.3,
-    diam:{ humero:6.5, biEstiloideo:5.0, femur:9.5 },
-    s6: 108.0,
-    s8: 148.0,
+    pant:     11.0,
+    brazRelaj: 33.8,
+    brazFlex:  35.8,
+    abdom:     84.0,
+    cadera:   100.0,
+    muslo:     53.0,
+    pantPer:   41.0,
+    diam:{ humero:6.7, biEstiloideo:5.4, femur:9.8 },
+    s6:  90.0,
+    s8: 114.0,
   },
 
   objetivos: [
@@ -251,9 +251,9 @@ const PATIENT = {
         ]},
     ], nota:'Puedes tomar un vaso de 200 ml de leche fresca slim o sbelt a tus desayunos.' },
 
-    // Almuerzo: 720 kcal · 49P · 79C · 23G
-    { id:'alm', nombre:'🥗 Almuerzo', kcal:720, p:49, c:79, g:23, grupos:[
-        { label:'Escoge 04 · Carbohidrato (peso cocido)', max:4, ops:[
+    // Almuerzo: 570 kcal · 46P · 47C · 23G
+    { id:'alm', nombre:'🥗 Almuerzo', kcal:570, p:46, c:47, g:23, grupos:[
+        { label:'Escoge 02 · Carbohidrato (peso cocido)', max:2, ops:[
           '60 g de arroz',
           '90 g de papa, camote o beterraga',
           '60 g de choclo',
@@ -265,11 +265,10 @@ const PATIENT = {
         ]},
         { label:'Escoge 01 · Proteína (180 g peso crudo)', max:1, ops:[
           'Pechuga de pollo',
-          'Pechuga de pavo',
-          'Pescado',
           'Bistec',
           'Carne molida de bistec',
-          '2 hamburguesas de pavita San Fernando',
+          'Langostinos',
+          '1 lata de atún en agua',
         ]},
         { label:'Escoge 01 · Verduras', max:1, ops:[
           '150 g de verduras a tu preferencia (crudas o cocidas)',
@@ -304,6 +303,7 @@ const PATIENT = {
           '60 g de puré',
           '100 g de locro',
           '1 rapidita integral',
+          '60 g de pan francés (1 pan)',
           '1 rebanada de pan de molde integral (30 g)',
           '20 g de avena (peso crudo)',
           '20 g de cereales',
@@ -311,13 +311,12 @@ const PATIENT = {
         ]},
         { label:'Escoge 01 · Proteína (180 g peso crudo)', max:1, ops:[
           'Pechuga de pollo',
-          'Pechuga de pavo',
-          'Pescado',
           'Bistec',
           'Carne molida de bistec',
-          '200 g de Quark + 1 porción de frutos secos*',
+          'Langostinos',
+          '1 lata de atún en agua',
           '75 g de queso mozzarella light (Cuisine&Co) + 1 huevo',
-          '2 hamburguesas de pavita San Fernando',
+          '1 lata de sardinas o anchoveta en agua',
         ]},
         { label:'Escoge 03 · Grasa', max:3, ops:[
           '40 g de palta',
@@ -326,10 +325,10 @@ const PATIENT = {
           '5 g de mantequilla',
         ]},
         { label:'Escoge 01 · Verduras', max:1, ops:[
-          '150 g verduras cocidas',
+          '150 g de verduras (champiñones, cebolla, espárragos, pimiento, tomate u otras)',
           '1 puñado de berries',
         ]},
-    ], nota:'Si vas a pedir algo en la noche, cuadrarlo con la guía para comer fuera.' },
+    ], nota:'Si eliges mozzarella: puedes combinarlo con rapiditas y verduras (champiñones, cebolla, espárragos, pimiento, tomate). · Si eliges sardinas o anchoveta: acompañar con 2 panes franceses (120 g) y palta. · Si vas a pedir algo en la noche, cuadrarlo con la guía para comer fuera.' },
 
     // Pre entreno (BJJ o GYM)
     { id:'pre', nombre:'⚡ Pre Entreno · BJJ / GYM', kcal:60, p:0, c:15, g:0, grupos:[
@@ -338,6 +337,8 @@ const PATIENT = {
           '20 g de arándanos deshidratados o pasas',
           '½ plátano',
           '1 cda de miel',
+          '20 g de cereales Ángel Mel',
+          '20 g de almohaditas de chocolate Ángel',
         ]},
     ], nota:'* Solo días de entrenamiento (BJJ o gym).' },
   ],
