@@ -699,7 +699,16 @@ const PATIENT = {
       label: 'Viernes · 2320 kcal',
       macros: { kcal:2320, p:136, c:296, g:67 },
       comidas: [
-        { id:'des', nombre:'☀️ Desayuno', kcal:660, p:29, c:100, g:18, grupos:[
+        { id:'pre-bjj', nombre:'⚡ Pre + Intra Entreno BJJ · 5:30 am', kcal:null, p:null, c:null, g:null, grupos:[
+          { label:'Pre-Entreno BJJ', max:1, ops:[
+            '100 ml de jugo de naranja + extracto de 2 betarragas (200 g) + ¼ cdta de sal + 1 cda de miel de abeja',
+          ]},
+          { label:'Intra Entreno BJJ', max:1, ops:[
+            '1 litro de agua de coco natural + ½ cdta de sal + 1 cda de miel de abeja',
+          ]},
+        ]},
+
+        { id:'des', nombre:'☀️ Desayuno · 8:00 am', kcal:660, p:29, c:100, g:18, grupos:[
           { label:'Escoge 01 · Fruta', max:1, ops:[
             '1 porción de fruta* (ver especificaciones) + 100 g de berries + 1 cda de linaza molida',
           ]},
@@ -720,7 +729,8 @@ const PATIENT = {
             '80 g de queso cottage descremado + 2 huevos',
           ]},
         ], nota:'* Puedes tomar café.' },
-        { id:'alm', nombre:'🥗 Almuerzo', kcal:766, p:40, c:102, g:22, grupos:[
+
+        { id:'alm', nombre:'🥗 Almuerzo · 1:00 pm', kcal:766, p:40, c:102, g:22, grupos:[
           { label:'Escoge 05 · Carbohidrato (peso cocido)', max:5, ops:[
             '1/3 taza de arroz blanco o integral (60 g)',
             '1/3 taza de quinua (60 g)',
@@ -746,26 +756,17 @@ const PATIENT = {
             '1 porción de frutos secos o semillas* (ver especificaciones)',
           ]},
         ], nota:'* Puedes comer gelatina light o 100 g de pudding light universal preparado con leche evaporada Gloria light zero lacto.' },
-        { id:'snk', nombre:'🍎 Snack', kcal:287, p:22, c:31, g:9, grupos:[
-          { label:'Escoge 01 · Proteína', max:1, ops:[
-            '220 g de Quark',
-            '120 g de pollo',
-            '1 Helado Vakimú + Pro',
-            '1 pudding HOPP',
-            '80 g de queso mozzarella light',
+
+        { id:'snk', nombre:'🍎 Snack · 4:00 pm', kcal:null, p:null, c:null, g:null, grupos:[
+          { label:'Escoge 01', max:1, ops:[
+            '220 g de Quark + 50 g de berries',
+            '1 pudding HOPP + 50 g de berries',
           ]},
-          { label:'Escoge 01 · Grasa', max:1, ops:[
-            '1 porción de frutos secos o semillas* (ver especificaciones)',
-            '1 cdta de aceite de oliva',
-            '40 g de palta',
-          ]},
-          { label:'Escoge 01 · Carbohidrato', max:1, ops:[
-            '20 g de avena',
-            '1 rebanada de pan molde (30 g)',
-            '1 rapidita integral',
-            '20 g de cereales Dyfferent o Nutri Co',
-            '1 pan pita (30 g)',
-            '3 unidades de salmas',
+        ]},
+
+        { id:'snk-pre-mma', nombre:'⚡ Snack Pre-Entreno MMA · 6:00 pm', kcal:null, p:null, c:null, g:null, grupos:[
+          { label:'Pre-Entreno MMA', max:1, ops:[
+            '1 rebanada de pan de molde + 1 cda de mermelada o miel de abeja',
           ]},
         ]},
         { id:'cen', nombre:'🌙 Cena', kcal:606, p:40, c:82, g:22, grupos:[
