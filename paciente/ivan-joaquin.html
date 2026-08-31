@@ -138,16 +138,20 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 <footer><div class="wrap"><div class="foot-inner"><div class="foot-brand">FRANJO TORRES BONDY · NUTRICIÓN</div><div class="foot-contact">franjo.torres.b@gmail.com · +51 992 832 991</div></div></div></footer>
 <script>
 const PATIENT = {
-  slug:'ivan-joaquin', nombre:'Iván\nJoaquín', fecha:'08.07.2026',
+  slug:'ivan-joaquin', nombre:'Iván\nJoaquín', fecha:'28.08.2026',
   tipoPlan:'Hipocalórico · Hiperprotéico',
   macros:{kcal:2100,p:null,c:null,g:null},
   hidratacion:[{label:'Entrenamiento',valor:'4.2'},{label:'Descanso',valor:'3.2'}],
   antro:{
-    fecha:'08.07.2026',peso:76.5,talla:173.0,imc:25.6,
-    tri:12.0,bi:4.5,sub:12.0,cresta:18.0,supra:12.0,abd:22.0,pierna:15.0,pant:9.0,
-    brazRelaj:32.8,brazFlex:34.2,abdom:79.0,cadera:98.0,muslo:52.0,pantPer:41.0,
+    fecha:'28.08.2026',peso:76.0,talla:173.0,imc:25.4,
+    tri:13.0,bi:6.0,sub:15.0,cresta:18.0,supra:13.0,abd:25.0,pierna:13.0,pant:11.0,
+    brazRelaj:33.8,brazFlex:35.8,abdom:84.0,cadera:100.0,muslo:53.0,pantPer:41.0,
     diam:{humero:6.7,biEstiloideo:5.4,femur:9.8},
+    s6:90.0,s8:114.0,
   },
+  antroHistorial:[
+    {fecha:'08.07.2026',peso:76.5,tri:12,bi:4.5,sub:12,cresta:18,supra:12,abd:22,pierna:15,pant:9,brazRelaj:32.8,brazFlex:34.2,abdom:79,cadera:98,muslo:52,pantPer:41,s6:82,s8:104.5},
+  ],
   objetivos:[
     'Disminución de sumatoria de 8 pliegues a 94.5 mm para la siguiente sesión.',
     'Mínimo 10.000 pasos al día.',
@@ -161,22 +165,22 @@ const PATIENT = {
       {label:'Escoge 02 · Proteína / Grasa',max:2,ops:['1 huevo','50 g de pollo + 40 g de palta','½ lata de atún + 40 g de palta','60 g de queso mozzarella CuisineCo + 10 g de aceite de oliva o mantequilla de maní','150 g de yogurt laive protein + 1 porción de frutos secos* o 10 g mantequilla de maní']},
     ]},
     {id:'alm',nombre:'🥗 Almuerzo',kcal:null,p:null,c:null,g:null,grupos:[
-      {label:'Escoge 05 · Carbohidrato',max:5,ops:['⅓ taza de arroz blanco o integral (60 g, cocido)','⅓ taza de quinua (60 g, cocida)','⅓ taza de pasta cocida sin relleno (50 g)','90 g de papa o camote (cocido)','½ taza de menestras (100 g, cocido)','60 g de plátano (½ und)']},
-      {label:'Escoge · Proteína (250 g crudo)',max:1,ops:['Pechuga de pollo','Pechuga de pavo','Pescado','Bistec (tratar de evitar)','Carne molida de bistec','Lomo de res','Lomo de cerdo','2 latas de atún en agua + 1 huevo']},
+      {label:'Escoge 03 · Carbohidrato',max:3,ops:['⅓ taza de arroz blanco o integral (60 g, cocido)','⅓ taza de quinua (60 g, cocida)','⅓ taza de pasta cocida sin relleno (50 g)','90 g de papa o camote (cocido)','½ taza de menestras (100 g, cocido)','60 g de plátano (½ und)']},
+      {label:'Escoge · Proteína (250 g crudo)',max:1,ops:['Pechuga de pollo','Bistec','Carne molida de bistec','Langostinos','1 lata de atún en agua']},
       {label:'Escoge 01 · Verduras',max:1,ops:['150–170 g de verduras de tu preferencia']},
-      {label:'Escoge 02 · Grasa',max:2,ops:['10 g de mantequilla de maní','40 g de palta','1 cdta de aceite de olivo','1 cdta de aceite de ajonjolí','1 porción de frutos secos* (ver especificaciones)']},
+      {label:'Escoge 02 · Grasa',max:2,ops:['40 g de palta','10 g de mantequilla de maní','1 cdta de aceite de olivo','1 cdta de aceite de ajonjolí','1 porción de frutos secos* (ver especificaciones)']},
     ]},
     {id:'snk',nombre:'🍎 Snack',kcal:null,p:null,c:null,g:null,grupos:[
       {label:'Escoge 01 · Opción',max:1,ops:['Opción 1: 150 g yogurt sbelt + 1 porción de frutas / 15 g de granola clásica','Opción 2: 1 yogurt Vakimu pro + bebible / 1 batido Gloria Pro Day + 1 porción de frutas']},
     ]},
-    {id:'cen',nombre:'🌙 Cena',kcal:null,p:null,c:null,g:null,grupos:[
-      {label:'Escoge 05 · Carbohidrato',max:5,ops:['90 g de papa o camote (cocido)','1 tortilla rapidita pequeña o ½ grande','60 g de plátano (½ und)','8 galletas de arroz costeño']},
-      {label:'Escoge · Proteína (100 g crudo)',max:1,ops:['Pechuga de pollo','Pechuga de pavo','Pescado','60 g de queso mozzarella light CuisineCo','80 g de queso fresco light','1 lata de atún en agua','Carne molida de bistec','Lomo de res','Lomo de cerdo']},
-      {label:'Escoge 01 · Verduras',max:1,ops:['120–150 g de verduras de tu preferencia']},
-      {label:'Escoge 01 · Grasa',max:1,ops:['10 g de mantequilla de maní','40 g de palta','1 cdta de aceite de olivo','1 cdta de aceite de ajonjolí','1 porción de frutos secos* (ver especificaciones)']},
+    {id:'cen',nombre:'🌙 Cena',kcal:null,p:null,c:null,g:null,nota:'Si eliges mozzarella: puedes combinarlo con rapiditas y verduras (champiñones, cebolla, espárragos, pimiento, tomate). · Si eliges sardinas o anchoveta: acompañar con 2 panes franceses (120 g) y palta.',grupos:[
+      {label:'Escoge 05 · Carbohidrato',max:5,ops:['90 g de papa o camote (cocido)','1 tortilla rapidita pequeña o ½ grande','60 g de pan francés (1 pan)','60 g de plátano (½ und)','8 galletas de arroz costeño']},
+      {label:'Escoge · Proteína (100 g crudo)',max:1,ops:['Pechuga de pollo','Bistec','Carne molida de bistec','Langostinos','1 lata de atún en agua','60 g de queso mozzarella light CuisineCo','1 lata de sardinas o anchoveta en agua']},
+      {label:'Escoge 01 · Verduras',max:1,ops:['120–150 g de verduras (champiñones, cebolla, espárragos, pimiento, tomate u otras)']},
+      {label:'Escoge 01 · Grasa',max:1,ops:['40 g de palta','10 g de mantequilla de maní','1 cdta de aceite de olivo','1 cdta de aceite de ajonjolí','1 porción de frutos secos* (ver especificaciones)']},
     ]},
     {id:'pre',nombre:'🏃 Pre Entreno',kcal:150,p:null,c:null,g:null,grupos:[
-      {label:'Escoge 01 · Solo días de entrenamiento',max:1,ops:['1 plátano + 1 cda de miel de abeja']},
+      {label:'Escoge 01 · Solo días de entrenamiento',max:1,ops:['1 plátano + 1 cda de miel de abeja','20 g de cereales Ángel Mel','20 g de almohaditas de chocolate Ángel']},
     ]},
   ],
   specs:[
