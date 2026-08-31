@@ -462,20 +462,22 @@ const PATIENT = {
 
     {
       id: 'mma',
-      label: 'Lunes, miércoles y viernes · 2580 kcal',
+      label: 'Lunes y miércoles · 2580 kcal',
       macros: { kcal:2580, p:170, c:326, g:70 },
       comidas: [
-        { id:'des', nombre:'☀️ Desayuno', kcal:643, p:35, c:86, g:20, grupos:[
+        { id:'pre5', nombre:'⚡ Pre-Entreno · 5:50 am', kcal:null, p:null, c:null, g:null, grupos:[
+          { label:'Pre-Entreno', max:1, ops:[
+            '1 plátano + 1 cda de miel de abeja + 350–500 ml de agua + electrolitos',
+          ]},
+        ]},
+
+        { id:'des', nombre:'☀️ Desayuno · 8:00 am', kcal:643, p:35, c:86, g:20, grupos:[
           { label:'Escoge 01 · Fruta', max:1, ops:[
             '2 porciones de fruta* (ver especificaciones) + 1 cda de linaza molida o ajonjolí molido',
           ]},
           { label:'Escoge 04 · Carbohidrato', max:4, ops:[
             '20 g de avena',
             '1 rebanada de pan molde (30 g)',
-            '1 rapidita integral',
-            '20 g de cereales Dyfferent o Nutri Co',
-            '1 pan pita (30 g)',
-            '3 unidades de salmas',
           ]},
           { label:'Escoge 01 · Proteína', max:1, ops:[
             '3 huevos',
@@ -487,13 +489,10 @@ const PATIENT = {
           ]},
         ], nota:'* Puedes tomar café.' },
 
-        { id:'alm', nombre:'🥗 Almuerzo', kcal:762, p:43, c:96, g:22, grupos:[
+        { id:'alm', nombre:'🥗 Almuerzo · 3:00 pm', kcal:762, p:43, c:96, g:22, grupos:[
           { label:'Escoge 05 · Carbohidrato (peso cocido)', max:5, ops:[
             '1/3 taza de arroz blanco o integral (60 g)',
-            '1/3 taza de quinua (60 g)',
-            '1/3 taza de pasta cocida sin relleno (50 g)',
-            'Papa, camote o betarraga (90 g)',
-            '½ taza de menestras (100 g)',
+            'Papa (90 g)',
             '40 g de ravioles de Verduras Don Italo (peso crudo)',
           ]},
           { label:'Escoge · Proteína (150 g peso crudo)', max:1, ops:[
@@ -514,7 +513,7 @@ const PATIENT = {
           ]},
         ], nota:'* Puedes comer 1 pastilla de La Ibérica o 80 g de helado Hikari.' },
 
-        { id:'snk', nombre:'🍎 Snack', kcal:194, p:27, c:12, g:5, grupos:[
+        { id:'snk', nombre:'🍎 Snack · 5:00 pm', kcal:194, p:27, c:12, g:5, grupos:[
           { label:'Escoge 01 · Proteína', max:1, ops:[
             '220 g de Quark',
             '120 g de pollo',
@@ -529,7 +528,7 @@ const PATIENT = {
           ]},
         ]},
 
-        { id:'cen', nombre:'🌙 Cena', kcal:476, p:40, c:32, g:22, grupos:[
+        { id:'cen', nombre:'🌙 Cena · 7:00 pm', kcal:476, p:40, c:32, g:22, grupos:[
           { label:'Escoge 03 · Carbohidrato (peso cocido)', max:3, ops:[
             '90 g de papa',
             '90 g de camote',
