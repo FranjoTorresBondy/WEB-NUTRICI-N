@@ -264,13 +264,16 @@ const PATIENT = {
   ],
   semanas: 1,
   antro: {
-    fecha:'27.07.2026', peso:87.0, talla:189.0, imc:24.4,
-    tri:11.0, bi:4.0, sub:12.0, cresta:16.0, supra:11.0, abd:13.0, pierna:14.0, pant:12.0,
-    brazRelaj:36.8, brazFlex:40.3, abdom:83.0, cadera:106.0, muslo:55.3, pantPer:37.8,
+    fecha:'01.09.2026', peso:86.0, talla:189.0, imc:24.1,
+    tri:9.0, bi:3.0, sub:11.0, cresta:11.0, supra:10.0, abd:10.0, pierna:12.0, pant:12.0,
+    brazRelaj:35.5, brazFlex:40.0, abdom:78.0, cadera:103.0, muslo:54.8, pantPer:37.5,
     diam:{humero:7.7, biEstiloideo:5.7, femur:10.8},
+    pctGrasa:16.4, fatKg:14.1, pctMusc:42.6, muscKg:36.6, pctOseo:16.5, oseoKg:14.2, imo:2.58, icc:0.76,
+    somato:{endo:2.7, meso:6.0, ecto:2.8},
   },
   antroHistorial: [
     {fecha:'25.06.2026', peso:89.5, tri:12.0, bi:4.5, sub:12.0, cresta:14.0, supra:12.0, abd:14.0, pierna:15.0, pant:12.0, brazRelaj:37.3, brazFlex:40.6, abdom:84.5, cadera:108.0, muslo:55.8, pantPer:38.5},
+    {fecha:'27.07.2026', peso:87.0, tri:11.0, bi:4.0, sub:12.0, cresta:16.0, supra:11.0, abd:13.0, pierna:14.0, pant:12.0, brazRelaj:36.8, brazFlex:40.3, abdom:83.0, cadera:106.0, muslo:55.3, pantPer:37.8},
   ],
 
   objetivos: [
@@ -748,9 +751,16 @@ function getAntroBase() {
   const a = PATIENT.antro;
   const s6 = +(a.tri+a.sub+a.supra+a.abd+a.pierna+a.pant).toFixed(1);
   const s8 = +(s6+a.bi+a.cresta).toFixed(1);
-  return hist.concat([{ fecha:a.fecha, peso:a.peso, tri:a.tri, bi:a.bi, sub:a.sub, cresta:a.cresta, supra:a.supra, abd:a.abd, pierna:a.pierna, pant:a.pant, brazRelaj:a.brazRelaj, brazFlex:a.brazFlex, abdom:a.abdom, cadera:a.cadera, muslo:a.muslo, pantPer:a.pantPer, s6, s8 }]);
+  return hist.concat([{ fecha:a.fecha, peso:a.peso, tri:a.tri, bi:a.bi, sub:a.sub, cresta:a.cresta, supra:a.supra, abd:a.abd, pierna:a.pierna, pant:a.pant, brazRelaj:a.brazRelaj, brazFlex:a.brazFlex, abdom:a.abdom, cadera:a.cadera, muslo:a.muslo, pantPer:a.pantPer, s6, s8, pctGrasa:a.pctGrasa, fatKg:a.fatKg, muscKg:a.muscKg }]);
 }
-function getAntroData() { try { const r=localStorage.getItem(ANTRO_KEY()); return r?JSON.parse(r):getAntroBase(); } catch { return getAntroBase(); } }
+function getAntroData() {
+  const base = getAntroBase();
+  let stored = [];
+  try { const r=localStorage.getItem(ANTRO_KEY()); if(r) stored = JSON.parse(r) || []; } catch { stored = []; }
+  const seen = new Set(base.map(d=>d.fecha));
+  stored.forEach(d => { if (d?.fecha && !seen.has(d.fecha)) { seen.add(d.fecha); base.push(d); } });
+  return base;
+}
 function saveAntroData(d) { localStorage.setItem(ANTRO_KEY(), JSON.stringify(d)); }
 
 let antroInited=false;
@@ -774,10 +784,18 @@ function renderEval() {
   const a = PATIENT.antro;
   const s6 = +(a.tri+a.sub+a.supra+a.abd+a.pierna+a.pant).toFixed(1);
   const s8 = +(s6+a.bi+a.cresta).toFixed(1);
+  const pctG = a.pctGrasa ?? null;
+  const mgKg = a.fatKg ?? (pctG!=null ? +(a.peso*pctG/100).toFixed(1) : null);
+  const mMag = mgKg!=null ? +(a.peso-mgKg).toFixed(1) : null;
+  const musKg = a.muscKg ?? (a.pctMusc!=null ? +(a.peso*a.pctMusc/100).toFixed(1) : null);
+  const oseKg = a.oseoKg ?? (a.pctOseo!=null ? +(a.peso*a.pctOseo/100).toFixed(1) : null);
+  const imo = a.imo ?? (musKg&&oseKg ? +(musKg/oseKg).toFixed(2) : null);
+  const icc = a.icc ?? (a.abdom&&a.cadera ? +(a.abdom/a.cadera).toFixed(2) : null);
   $('tab-eval').innerHTML = `<div class="wrap"><section>
     <div class="sec-h"><span class="ix">01</span><h2>Evaluación Nutricional</h2><div class="rule"></div></div>
     <div class="evalwrap">
       <div class="evgroup"><div class="gh">Antropometría básica</div>
+        <div class="row"><span>Fecha</span><span>${a.fecha}</span></div>
         <div class="row"><span>Peso</span><span>${a.peso} kg</span></div>
         <div class="row"><span>Talla</span><span>${a.talla} cm</span></div>
         <div class="row"><span>IMC</span><span>${a.imc} kg/m²</span></div>
@@ -801,7 +819,27 @@ function renderEval() {
         <div class="row"><span>Cadera</span><span>${a.cadera}</span></div>
         <div class="row"><span>Muslo medio</span><span>${a.muslo}</span></div>
         <div class="row"><span>Pantorrilla</span><span>${a.pantPer}</span></div>
+        ${icc!=null?`<div class="row bold"><span>ICC (cintura/cadera)</span><span>${icc}</span></div>`:''}
       </div>
+      ${mgKg!=null||musKg!=null?`<div class="evgroup"><div class="gh">Composición Corporal</div>
+        ${pctG!=null?`<div class="row"><span>% Grasa (Faulkner)</span><span>${pctG} %</span></div>`:''}
+        ${mgKg!=null?`<div class="row bold"><span>Masa grasa</span><span>${mgKg} kg</span></div>`:''}
+        ${a.pctMusc!=null?`<div class="row"><span>% Músculo (Lee)</span><span>${a.pctMusc} %</span></div>`:''}
+        ${musKg!=null?`<div class="row bold"><span>Masa muscular</span><span>${musKg} kg</span></div>`:''}
+        ${oseKg!=null?`<div class="row"><span>Masa ósea (Rocha)</span><span>${oseKg} kg</span></div>`:''}
+        ${imo!=null?`<div class="row bold"><span>IMO (músculo/hueso)</span><span>${imo}</span></div>`:''}
+        ${mMag!=null?`<div class="row bold"><span>Masa magra</span><span>${mMag} kg</span></div>`:''}
+      </div>`:''}
+      ${a.diam?`<div class="evgroup"><div class="gh">Diámetros óseos (cm)</div>
+        <div class="row"><span>Húmero</span><span>${a.diam.humero}</span></div>
+        <div class="row"><span>Bi-estiloides</span><span>${a.diam.biEstiloideo}</span></div>
+        <div class="row"><span>Fémur</span><span>${a.diam.femur}</span></div>
+      </div>`:''}
+      ${a.somato?`<div class="evgroup"><div class="gh">Somatotipo · Heath-Carter</div>
+        <div class="row"><span>Endomorfia</span><span>${a.somato.endo}</span></div>
+        <div class="row"><span>Mesomorfia</span><span>${a.somato.meso}</span></div>
+        <div class="row"><span>Ectomorfia</span><span>${a.somato.ecto}</span></div>
+      </div>`:''}
     </div>
     <div class="sec-h" style="margin-top:32px"><span class="ix">02</span><h2>Objetivos</h2><div class="rule"></div></div>
     <div class="card" style="max-width:600px"><ul class="obj">${PATIENT.objetivos.map(o=>`<li>${o}</li>`).join('')}</ul></div>
@@ -823,6 +861,7 @@ function renderAntro() {
         <div class="chart-card"><h3>Perímetros musculares</h3><div class="cap">Brazo flex, muslo, pantorrilla (cm)</div><div class="chart-wrap"><canvas id="cMusc"></canvas></div></div>
         <div class="chart-card"><h3>Cintura y cadera</h3><div class="cap">Perímetros (cm)</div><div class="chart-wrap"><canvas id="cCint"></canvas></div></div>
         <div class="chart-card"><h3>Pliegues individuales</h3><div class="cap">Abdominal, cresta, subescapular (mm)</div><div class="chart-wrap"><canvas id="cPl"></canvas></div></div>
+        <div class="chart-card"><h3>Composición corporal</h3><div class="cap">Masa grasa y masa muscular (kg)</div><div class="chart-wrap"><canvas id="cComp"></canvas></div></div>
       </div>
     </section>
     <section style="padding-top:0">
@@ -865,19 +904,21 @@ function drawAntroCharts() {
     {v:last.s8,u:'mm',l:'Σ8 pliegues',d:+(last.s8-first.s8).toFixed(1),good:'down'},
     {v:last.brazFlex,u:'cm',l:'Brazo flex.',d:+(last.brazFlex-first.brazFlex).toFixed(1),good:'up'},
     {v:last.abdom,u:'cm',l:'Cintura',d:+(last.abdom-first.abdom).toFixed(1),good:'down'},
-  ];
+  ].concat(last.fatKg!=null?[{v:last.fatKg,u:'kg',l:'Masa grasa',d:first.fatKg!=null?+(last.fatKg-first.fatKg).toFixed(1):null,good:'down'}]:[])
+   .concat(last.muscKg!=null?[{v:last.muscKg,u:'kg',l:'Masa muscular',d:first.muscKg!=null?+(last.muscKg-first.muscKg).toFixed(1):null,good:'up'}]:[]);
   $('antroKpis').innerHTML=kpis.map(k=>{
     const sign=k.d>0?'+':''; const cls=(k.good==='down'?k.d<0:k.d>0)?'up':(k.d<0?'down':'');
     const arr=k.d>0?'▲':(k.d<0?'▼':'—');
-    return `<div class="kpi"><div class="kv">${k.v}<span style="font-size:14px;opacity:.5"> ${k.u}</span></div><div class="kl">${k.l}</div>${data.length>1?`<div class="kd ${cls}">${arr} ${sign}${k.d} ${k.u}</div>`:''}</div>`;
+    return `<div class="kpi"><div class="kv">${k.v}<span style="font-size:14px;opacity:.5"> ${k.u}</span></div><div class="kl">${k.l}</div>${data.length>1&&k.d!=null?`<div class="kd ${cls}">${arr} ${sign}${k.d} ${k.u}</div>`:''}</div>`;
   }).join('');
   mkChart('cPeso',lbl,[{label:'Peso kg',data:data.map(d=>d.peso),borderColor:CC.gold,pointBackgroundColor:CC.gold}]);
   mkChart('cSigma',lbl,[{label:'Σ6',data:data.map(d=>d.s6),borderColor:CC.coral,pointBackgroundColor:CC.coral},{label:'Σ8',data:data.map(d=>d.s8),borderColor:CC.purple,pointBackgroundColor:CC.purple}]);
   mkChart('cMusc',lbl,[{label:'Brazo flex',data:data.map(d=>d.brazFlex),borderColor:CC.green,pointBackgroundColor:CC.green},{label:'Muslo',data:data.map(d=>d.muslo),borderColor:CC.cyan,pointBackgroundColor:CC.cyan},{label:'Pantorrilla',data:data.map(d=>d.pantPer),borderColor:CC.gold,pointBackgroundColor:CC.gold}]);
   mkChart('cCint',lbl,[{label:'Cintura',data:data.map(d=>d.abdom),borderColor:CC.coral,pointBackgroundColor:CC.coral},{label:'Cadera',data:data.map(d=>d.cadera),borderColor:CC.gold,pointBackgroundColor:CC.gold}]);
   mkChart('cPl',lbl,[{label:'Abdominal',data:data.map(d=>d.abd),borderColor:CC.coral,pointBackgroundColor:CC.coral},{label:'Cresta',data:data.map(d=>d.cresta),borderColor:CC.gold,pointBackgroundColor:CC.gold},{label:'Subescapular',data:data.map(d=>d.sub),borderColor:CC.cyan,pointBackgroundColor:CC.cyan}]);
-  const cols=['fecha','peso','s6','s8','brazFlex','muslo','abdom','cadera'];
-  const heads=['Fecha','Peso kg','Σ6 mm','Σ8 mm','Brazo cm','Muslo cm','Cintura cm','Cadera cm'];
+  mkChart('cComp',lbl,[{label:'Masa grasa kg',data:data.map(d=>d.fatKg??null),borderColor:CC.coral,pointBackgroundColor:CC.coral},{label:'Masa muscular kg',data:data.map(d=>d.muscKg??null),borderColor:CC.green,pointBackgroundColor:CC.green}]);
+  const cols=['fecha','peso','s6','s8','fatKg','muscKg','brazFlex','muslo','abdom','cadera'];
+  const heads=['Fecha','Peso kg','Σ6 mm','Σ8 mm','Grasa kg','Músculo kg','Brazo cm','Muslo cm','Cintura cm','Cadera cm'];
   $('antroTable').innerHTML=`<thead><tr>${heads.map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>`+[...data].reverse().map(d=>`<tr>${cols.map(c=>`<td>${d[c]??'—'}</td>`).join('')}</tr>`).join('')+'</tbody>';
 }
 
