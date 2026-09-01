@@ -272,15 +272,18 @@ const PATIENT = {
     { label:'Descanso',      valor:'2.5' },
   ],
   antro: {
-    fecha:'10.08.2026', peso:69.8, talla:172.0, imc:23.4,
-    tri:2.5, bi:1.0, sub:5.0, cresta:10.0, supra:4.0, abd:9.0, pierna:4.0, pant:1.5,
-    s6:26.0, s8:37.0,
-    brazRelaj:35.8, brazFlex:37.2, abdom:74.0, cadera:95.0, muslo:53.0, pantPer:37.5,
+    fecha:'01.09.2026', peso:69.9, talla:172.0, imc:23.6,
+    tri:1.5, bi:0.5, sub:4.0, cresta:8.0, supra:3.5, abd:7.0, pierna:4.0, pant:1.5,
+    s6:21.5, s8:30.0,
+    brazRelaj:34.0, brazFlex:37.5, abdom:77.0, cadera:95.0, muslo:53.5, pantPer:37.5,
     diam: { humero:6.2, biEstiloideo:5.5, femur:8.5 },
+    comp: { pctGrasa:11.3, pctMusculo:52.5, kgGrasa:7.9, kgMusculo:36.7 },
   },
   antroHistorial: [
     { fecha:'08.07.2026', peso:69.1, tri:3.0, bi:1.5, sub:5.0, cresta:14.0, supra:4.5, abd:10.0, pierna:4.0, pant:1.5,
       brazRelaj:34.7, brazFlex:36.3, abdom:76.0, cadera:96.0, muslo:52.5, pantPer:37.0, s6:28.0, s8:43.5 },
+    { fecha:'10.08.2026', peso:69.8, tri:2.5, bi:1.0, sub:5.0, cresta:10.0, supra:4.0, abd:9.0, pierna:4.0, pant:1.5,
+      brazRelaj:35.8, brazFlex:37.2, abdom:74.0, cadera:95.0, muslo:53.0, pantPer:37.5, s6:26.0, s8:37.0 },
   ],
   objetivos: [
     'Mantenerse estricto con las porciones y horarios de comida',
@@ -713,6 +716,13 @@ function renderEval() {
     '<div class="row"><span>Húmero</span><span>' + (a.diam?fmt(a.diam.humero):'—') + '</span></div>' +
     '<div class="row"><span>Bi-estiloideo</span><span>' + (a.diam?fmt(a.diam.biEstiloideo):'—') + '</span></div>' +
     '<div class="row"><span>Fémur</span><span>' + (a.diam?fmt(a.diam.femur):'—') + '</span></div></div>' +
+    (a.comp ? '<div class="evgroup" style="grid-column:1/-1"><div class="gh">Composición corporal</div>' +
+    '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr))">' +
+    '<div class="row"><span>% Grasa (Faulkner)</span><span>' + a.comp.pctGrasa + ' %</span></div>' +
+    '<div class="row"><span>Masa grasa</span><span style="color:var(--coral)">' + a.comp.kgGrasa + ' kg</span></div>' +
+    '<div class="row"><span>% Músculo (Lee)</span><span>' + a.comp.pctMusculo + ' %</span></div>' +
+    '<div class="row"><span>Masa muscular</span><span style="color:var(--green)">' + a.comp.kgMusculo + ' kg</span></div>' +
+    '</div></div>' : '') +
     '</div>' +
     '<div class="sec-h" style="margin-top:32px"><span class="ix">02</span><h2>Objetivos</h2><div class="rule"></div></div>' +
     '<div class="card" style="max-width:640px"><ul class="obj">' +
