@@ -253,6 +253,7 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 // ════════════════════════════════════════════════════════════════════════════
 const PATIENT = {
   slug:      'valeria-aguilera',
+  sexo:      'f',
   nombre:    'Valeria\nAguilera',
   fecha:     '31.08.2026',
   tipoPlan:  'Hipocalórico · Hiperprotéico',
@@ -265,15 +266,13 @@ const PATIENT = {
     fecha:'31.08.2026', peso:55.5, talla:155.0, imc:23.1,
     tri:9.0, bi:2.0, sub:8.0, cresta:9.0, supra:6.0, abd:8.0, pierna:8.0, pant:5.0,
     brazRelaj:27.8, brazFlex:29.0, abdom:65.0, cadera:97.5, muslo:54.0, pantPer:33.8,
-    pctGrasa:14.2, fatKg:7.9, icc:0.67,
+    icc:0.67,
   },
   antroHistorial: [
     { fecha:'30.07.2026', peso:54.0, tri:7.0, bi:1.0, sub:7.0, cresta:9.0, supra:5.0, abd:7.0, pierna:11.0, pant:5.0,
-      brazRelaj:27.3, brazFlex:28.5, abdom:63.0, cadera:96.0, muslo:50.5, pantPer:33.5, s6:42.0, s8:52.0,
-      pctGrasa:13.7, fatKg:7.4 },
+      brazRelaj:27.3, brazFlex:28.5, abdom:63.0, cadera:96.0, muslo:50.5, pantPer:33.5, s6:42.0, s8:52.0 },
     { fecha:'31.08.2026', peso:55.5, tri:9.0, bi:2.0, sub:8.0, cresta:9.0, supra:6.0, abd:8.0, pierna:8.0, pant:5.0,
-      brazRelaj:27.8, brazFlex:29.0, abdom:65.0, cadera:97.5, muslo:54.0, pantPer:33.8, s6:44.0, s8:55.0,
-      pctGrasa:14.2, fatKg:7.9 },
+      brazRelaj:27.8, brazFlex:29.0, abdom:65.0, cadera:97.5, muslo:54.0, pantPer:33.8, s6:44.0, s8:55.0 },
   ],
 
   objetivos: [
@@ -721,9 +720,9 @@ function renderEval() {
   const a = PATIENT.antro;
   const s6 = +(a.tri+a.sub+a.supra+a.abd+a.pierna+a.pant).toFixed(1);
   const s8 = +(s6+a.bi+a.cresta).toFixed(1);
-  const pctG = a.pctGrasa ?? +(5.783+0.153*s8).toFixed(1);
-  const mgKg = a.fatKg ?? +(a.peso*pctG/100).toFixed(1);
-  const mMag = +(a.peso-mgKg).toFixed(1);
+  const pctG = a.pctGrasa ?? null;
+  const mgKg = a.fatKg ?? (pctG!=null ? +(a.peso*pctG/100).toFixed(1) : null);
+  const mMag = mgKg!=null ? +(a.peso-mgKg).toFixed(1) : null;
   const musKg = a.muscKg ?? (a.pctMusc!=null ? +(a.peso*a.pctMusc/100).toFixed(1) : null);
   const oseKg = a.oseoKg ?? (a.pctOseo!=null ? +(a.peso*a.pctOseo/100).toFixed(1) : null);
   const imo = a.imo ?? (musKg&&oseKg ? +(musKg/oseKg).toFixed(2) : null);
