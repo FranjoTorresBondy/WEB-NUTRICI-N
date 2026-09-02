@@ -201,13 +201,19 @@ const PATIENT = {
   ],
   entrenamiento: null,
   antro: {
-    fecha:'17.08.2026', peso:84.0, talla:174.0, imc:28.6,
+    fecha:'01.09.2026', peso:84.0, talla:174.0, imc:27.3,
     tri:12.0, bi:7.0, sub:15.0, cresta:27.0, supra:17.0, abd:29.0, pierna:16.0, pant:7.0,
-    s6:96.0, s8:130.0,
+    s6:88.0, s8:115.0,
     brazRelaj:35.5, brazFlex:36.0, abdom:91.0, cadera:104.0, muslo:57.7, pantPer:37.0,
     diam: { humero:6.7, biEstiloideo:5.6, femur:8.7 },
+    pctGrasa:22.0, fatKg:18.5, pctMusc:33.3, muscKg:28.0, pctOseo:12.9, oseoKg:10.8,
+    icc:0.89,
+    somato:{ endo:4.1, meso:5.0, ecto:0.9 },
   },
-  antroHistorial: [],
+  antroHistorial: [
+    { fecha:'17.08.2026', peso:84.0, tri:12.0, bi:7.0, sub:15.0, cresta:27.0, supra:17.0, abd:29.0, pierna:16.0, pant:7.0,
+      brazRelaj:35.5, brazFlex:36.0, abdom:91.0, cadera:104.0, muslo:57.7, pantPer:37.0, s6:96.0, s8:130.0 },
+  ],
 
   objetivos: [
     'Disminución de sumatoria de 8 pliegues en 2 semanas',
@@ -483,6 +489,20 @@ function renderEval() {
         <div class="row"><span>Húmero</span><span>${a.diam.humero}</span></div>
         <div class="row"><span>Bi-estiloides</span><span>${a.diam.biEstiloideo}</span></div>
         <div class="row"><span>Fémur</span><span>${a.diam.femur}</span></div>
+      </div>` : ''}
+      ${(a.fatKg!=null||a.muscKg!=null) ? `<div class="evgroup"><div class="gh">Composición Corporal</div>
+        ${a.pctGrasa!=null?`<div class="row"><span>% Grasa (Faulkner)</span><span>${a.pctGrasa} %</span></div>`:''}
+        ${a.fatKg!=null?`<div class="row bold"><span>Masa grasa</span><span>${a.fatKg} kg</span></div>`:''}
+        ${a.pctMusc!=null?`<div class="row"><span>% Músculo (Lee)</span><span>${a.pctMusc} %</span></div>`:''}
+        ${a.muscKg!=null?`<div class="row bold"><span>Masa muscular</span><span>${a.muscKg} kg</span></div>`:''}
+        ${a.pctOseo!=null?`<div class="row"><span>% Óseo (Rocha)</span><span>${a.pctOseo} %</span></div>`:''}
+        ${a.oseoKg!=null?`<div class="row bold"><span>Masa ósea</span><span>${a.oseoKg} kg</span></div>`:''}
+        ${a.icc!=null?`<div class="row"><span>ICC (cintura/cadera)</span><span>${a.icc}</span></div>`:''}
+      </div>` : ''}
+      ${a.somato ? `<div class="evgroup"><div class="gh">Somatotipo · Heath-Carter</div>
+        <div class="row"><span>Endomorfia</span><span>${a.somato.endo}</span></div>
+        <div class="row"><span>Mesomorfia</span><span>${a.somato.meso}</span></div>
+        <div class="row"><span>Ectomorfia</span><span>${a.somato.ecto}</span></div>
       </div>` : ''}
     </div>
     <div class="sec-h" style="margin-top:32px"><span class="ix">02</span><h2>Objetivos</h2><div class="rule"></div></div>
