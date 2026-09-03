@@ -201,12 +201,12 @@ const PATIENT = {
   ],
   entrenamiento: null,
   antro: {
-    fecha:'01.09.2026', peso:84.0, talla:174.0, imc:27.3,
+    fecha:'01.09.2026', peso:82.6, talla:174.0, imc:27.3,
     tri:12.0, bi:7.0, sub:15.0, cresta:27.0, supra:17.0, abd:29.0, pierna:16.0, pant:7.0,
     s6:88.0, s8:115.0,
     brazRelaj:35.5, brazFlex:36.0, abdom:91.0, cadera:104.0, muslo:57.7, pantPer:37.0,
     diam: { humero:6.7, biEstiloideo:5.6, femur:8.7 },
-    pctGrasa:22.0, fatKg:18.5, pctMusc:33.3, muscKg:28.0, pctOseo:12.9, oseoKg:10.8,
+    pctGrasa:22.0, fatKg:18.2, pctMusc:33.3, muscKg:27.5, pctOseo:12.9, oseoKg:10.7,
     icc:0.89,
     somato:{ endo:4.1, meso:5.0, ecto:0.9 },
   },
@@ -584,7 +584,15 @@ function getAntroBase() {
   const current = { fecha:a.fecha, peso:a.peso, tri:a.tri, bi:a.bi, sub:a.sub, cresta:a.cresta, supra:a.supra, abd:a.abd, pierna:a.pierna, pant:a.pant, brazRelaj:a.brazRelaj, brazFlex:a.brazFlex, abdom:a.abdom, cadera:a.cadera, muslo:a.muslo, pantPer:a.pantPer, s6, s8 };
   return [...(PATIENT.antroHistorial || []), current];
 }
-function getAntroData() { try { const r=localStorage.getItem(ANTRO_KEY()); return r?JSON.parse(r):getAntroBase(); } catch { return getAntroBase(); } }
+function getAntroData() {
+  const base = getAntroBase();
+  let stored = [];
+  try { const r=localStorage.getItem(ANTRO_KEY()); if(r) stored=JSON.parse(r)||[]; } catch(e) { stored=[]; }
+  const seen = {};
+  base.forEach(d => { seen[d.fecha]=1; });
+  stored.forEach(d => { if(d&&d.fecha&&!seen[d.fecha]) { seen[d.fecha]=1; base.push(d); } });
+  return base;
+}
 function saveAntroData(d) { localStorage.setItem(ANTRO_KEY(), JSON.stringify(d)); }
 
 let antroInited=false;
