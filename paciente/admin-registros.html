@@ -324,6 +324,28 @@ body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;line-h
 
     <!-- SUB: PESOS -->
     <div id="stab-pesos" style="display:none">
+      <!-- Formulario nuevo registro -->
+      <div style="background:var(--panel2,#1a1a1a);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin-bottom:18px">
+        <div style="font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:12px">Registrar peso</div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end">
+          <div style="display:flex;flex-direction:column;gap:4px">
+            <label style="font-size:11px;color:var(--muted);font-weight:600">Fecha</label>
+            <input type="date" id="peso-fecha" style="background:#111;border:1px solid var(--line);border-radius:8px;padding:8px 12px;color:var(--ink);font-size:13px;font-family:'Inter',sans-serif">
+          </div>
+          <div style="display:flex;flex-direction:column;gap:4px">
+            <label style="font-size:11px;color:var(--muted);font-weight:600">Peso (kg)</label>
+            <input type="number" id="peso-kg" step="0.1" min="30" max="250" placeholder="ej: 78.5" style="background:#111;border:1px solid var(--line);border-radius:8px;padding:8px 12px;color:var(--ink);font-size:14px;font-family:'IBM Plex Mono',monospace;width:110px">
+          </div>
+          <div style="display:flex;flex-direction:column;gap:4px;flex:1;min-width:160px">
+            <label style="font-size:11px;color:var(--muted);font-weight:600">Nota (opcional)</label>
+            <input type="text" id="peso-nota" placeholder="ej: post-entreno, en ayunas…" style="background:#111;border:1px solid var(--line);border-radius:8px;padding:8px 12px;color:var(--ink);font-size:13px;font-family:'Inter',sans-serif;width:100%">
+          </div>
+          <button onclick="guardarPeso()" style="background:var(--amber);color:#000;border:none;border-radius:8px;padding:9px 20px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap">Guardar peso</button>
+        </div>
+      </div>
+      <!-- Gráfico -->
+      <div id="peso-chart-wrap" style="display:none;margin-bottom:18px"></div>
+      <!-- Tabla -->
       <div id="pesos-list"><div class="loading">Cargando...</div></div>
     </div>
 
@@ -867,30 +889,102 @@ async function deleteMonitoreo(id,i){
 /* ══ PESOS DIARIOS ══════════════════════════════════════════ */
 async function loadPesosPac(){
   document.getElementById('pesos-list').innerHTML='<div class="loading">Cargando...</div>';
-  const r=await fetch(SB_URL+'/rest/v1/peso_registro?paciente=eq.'+currentSlug+'&order=fecha.desc',{headers:{apikey:SB_ANON,Authorization:'Bearer '+SB_ANON}});
-  pesosData=r.ok?(await r.json()):[];
+  // Set today's date as default
+  const fi=document.getElementById('peso-fecha');
+  if(fi&&!fi.value) fi.value=today();
+  const r=await _sb.from('registros_peso').select('*').eq('paciente_slug',currentSlug).order('fecha',{ascending:true});
+  pesosData=(r.data||[]);
   renderPesosPac();
+}
+async function guardarPeso(){
+  const fecha=document.getElementById('peso-fecha').value||today();
+  const kg=parseFloat(document.getElementById('peso-kg').value);
+  const nota=document.getElementById('peso-nota').value.trim();
+  if(!kg||kg<30||kg>250){alert('Ingresa un peso válido');return;}
+  const btn=event.target;btn.disabled=true;btn.textContent='Guardando…';
+  const {error}=await _sb.from('registros_peso').insert({paciente_slug:currentSlug,fecha,peso:kg,nota:nota||null});
+  btn.disabled=false;btn.textContent='Guardar peso';
+  if(error){alert('Error: '+error.message);return;}
+  document.getElementById('peso-kg').value='';
+  document.getElementById('peso-nota').value='';
+  subTabLoaded.pesos=false;
+  loadPesosPac();
+}
+async function deletePeso(id,i){
+  if(!confirm('¿Eliminar este registro de peso?'))return;
+  await _sb.from('registros_peso').delete().eq('id',id);
+  pesosData.splice(i,1);renderPesosPac();
 }
 function renderPesosPac(){
   const el=document.getElementById('pesos-list');
-  if(!pesosData.length){el.innerHTML='<div class="empty-msg">Sin registros de peso</div>';return;}
+  const chartWrap=document.getElementById('peso-chart-wrap');
+  if(!pesosData.length){el.innerHTML='<div class="empty-msg">Sin registros de peso aún</div>';chartWrap.style.display='none';return;}
   const MESES=['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
   function fF(d){const[y,m,day]=d.split('-');return `${day} ${MESES[+m-1]} ${y}`;}
-  const rows=pesosData.map((p,i)=>`<tr>
+  // Chart SVG
+  chartWrap.style.display='block';
+  const pesos=pesosData.map(p=>parseFloat(p.peso));
+  const fechas=pesosData.map(p=>p.fecha);
+  const W=560,H=140,PL=44,PR=16,PT=12,PB=28;
+  const minP=Math.min(...pesos)-1,maxP=Math.max(...pesos)+1;
+  const xS=(i)=>PL+(i/(pesos.length-1||1))*(W-PL-PR);
+  const yS=(v)=>PT+(1-(v-minP)/(maxP-minP))*(H-PT-PB);
+  // Grid lines
+  const steps=4;
+  let gridLines='',gridLabels='';
+  for(let i=0;i<=steps;i++){
+    const v=minP+(maxP-minP)*(i/steps);
+    const y=yS(v);
+    gridLines+=`<line x1="${PL}" x2="${W-PR}" y1="${y}" y2="${y}" stroke="#2a2a2a" stroke-width="1"/>`;
+    gridLabels+=`<text x="${PL-4}" y="${y+4}" text-anchor="end" fill="#666" font-size="9" font-family="IBM Plex Mono">${v.toFixed(1)}</text>`;
+  }
+  // Polyline
+  const pts=pesos.map((v,i)=>`${xS(i)},${yS(v)}`).join(' ');
+  const firstX=xS(0),lastX=xS(pesos.length-1);
+  const fillPts=`${firstX},${H-PB} ${pts} ${lastX},${H-PB}`;
+  // X labels (show max 8)
+  let xLabels='';
+  const step=Math.ceil(pesos.length/8);
+  fechas.forEach((f,i)=>{if(i%step===0||i===fechas.length-1){const[,m,day]=f.split('-');xLabels+=`<text x="${xS(i)}" y="${H-4}" text-anchor="middle" fill="#666" font-size="9" font-family="IBM Plex Mono">${day}/${MESES[+m-1]}</text>`;}});
+  // Dots + tooltip data
+  const dots=pesos.map((v,i)=>`<circle cx="${xS(i)}" cy="${yS(v)}" r="3.5" fill="var(--amber)" stroke="#111" stroke-width="1.5"><title>${fF(fechas[i])}: ${v.toFixed(1)} kg${pesosData[i].nota?' — '+pesosData[i].nota:''}</title></circle>`).join('');
+  // Trend line (linear regression)
+  const n=pesos.length;
+  const sumX=pesos.reduce((_,__,i)=>_+i,0),sumY=pesos.reduce((a,v)=>a+v,0);
+  const sumXY=pesos.reduce((a,v,i)=>a+i*v,0),sumX2=pesos.reduce((a,_,i)=>a+i*i,0);
+  const slope=(n*sumXY-sumX*sumY)/(n*sumX2-sumX*sumX||1);
+  const intercept=(sumY-slope*sumX)/n;
+  const tY0=yS(intercept),tY1=yS(intercept+slope*(n-1));
+  const trend=n>2?`<line x1="${xS(0)}" y1="${tY0}" x2="${xS(n-1)}" y2="${tY1}" stroke="#ef5350" stroke-width="1.2" stroke-dasharray="4 3" opacity=".6"/>`:'';
+  // Change badge
+  const delta=pesos[pesos.length-1]-pesos[0];
+  const deltaStr=(delta>0?'+':'')+delta.toFixed(1)+' kg';
+  const deltaCol=delta<0?'#26a69a':delta>0?'#ef5350':'#888';
+  chartWrap.innerHTML=`<div style="background:var(--panel2,#1a1a1a);border:1px solid var(--line);border-radius:12px;padding:16px 18px">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px">
+      <span style="font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)">Tendencia de peso</span>
+      <span style="font-family:'IBM Plex Mono';font-size:13px;font-weight:700;color:${deltaCol}">${deltaStr}</span>
+      <span style="font-size:11px;color:var(--muted)">${pesos.length} registros · ${fF(fechas[0])} → ${fF(fechas[fechas.length-1])}</span>
+    </div>
+    <svg viewBox="0 0 ${W} ${H}" style="width:100%;max-width:${W}px;display:block">
+      ${gridLines}${gridLabels}
+      <polygon points="${fillPts}" fill="rgba(196,151,58,.08)"/>
+      <polyline points="${pts}" fill="none" stroke="var(--amber)" stroke-width="2" stroke-linejoin="round"/>
+      ${trend}${dots}${xLabels}
+    </svg>
+  </div>`;
+  // Table (newest first for display)
+  const sorted=[...pesosData].reverse();
+  const rows=sorted.map((p,i)=>{const realI=pesosData.length-1-i;return `<tr>
     <td style="font-family:'IBM Plex Mono';font-size:12px;color:var(--amber)">${fF(p.fecha)}</td>
     <td style="font-family:'IBM Plex Mono';font-size:14px;font-weight:700">${parseFloat(p.peso).toFixed(1)} kg</td>
     <td style="font-size:12px;color:var(--muted)">${p.nota||'—'}</td>
-    <td><button class="btn btn-sm" style="background:none;border:none;color:var(--red,#ef5350);cursor:pointer;font-size:13px" onclick="deletePeso(${p.id},${i})">✕</button></td>
-  </tr>`).join('');
+    <td><button style="background:none;border:none;color:#ef5350;cursor:pointer;font-size:15px;padding:0 4px" onclick="deletePeso('${p.id}',${realI})">✕</button></td>
+  </tr>`;}).join('');
   el.innerHTML=`<div class="table-wrap"><table class="data-table">
     <thead><tr><th>Fecha</th><th>Peso</th><th>Nota</th><th></th></tr></thead>
     <tbody>${rows}</tbody>
   </table></div>`;
-}
-async function deletePeso(id,i){
-  if(!confirm('¿Eliminar este registro de peso?'))return;
-  await fetch(SB_URL+'/rest/v1/peso_registro?id=eq.'+id,{method:'DELETE',headers:{apikey:SB_ANON,Authorization:'Bearer '+SB_ANON}});
-  pesosData.splice(i,1);renderPesosPac();
 }
 
 /* ══ MEDIDAS ISAK ═══════════════════════════════════════════ */
