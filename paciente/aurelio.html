@@ -1076,7 +1076,15 @@ function getAntroBase() {
   const s8 = +(s6+a.bi+a.cresta).toFixed(1);
   return [{ fecha:a.fecha, peso:a.peso, tri:a.tri, bi:a.bi, sub:a.sub, cresta:a.cresta, supra:a.supra, abd:a.abd, pierna:a.pierna, pant:a.pant, brazRelaj:a.brazRelaj, brazFlex:a.brazFlex, abdom:a.abdom, cadera:a.cadera, muslo:a.muslo, pantPer:a.pantPer, s6, s8 }];
 }
-function getAntroData() { try { const r=localStorage.getItem(ANTRO_KEY()); return r?JSON.parse(r):getAntroBase(); } catch { return getAntroBase(); } }
+function getAntroData() {
+  const base = getAntroBase();
+  let stored = [];
+  try { const r=localStorage.getItem(ANTRO_KEY()); if(r) stored=JSON.parse(r)||[]; } catch(e) { stored=[]; }
+  const seen = {};
+  base.forEach(d => { seen[d.fecha]=1; });
+  stored.forEach(d => { if(d&&d.fecha&&!seen[d.fecha]) { seen[d.fecha]=1; base.push(d); } });
+  return base;
+}
 function saveAntroData(d) { localStorage.setItem(ANTRO_KEY(), JSON.stringify(d)); }
 
 let antroInited=false;

@@ -611,7 +611,15 @@ function getAntroBase() {
   });
   return hist.concat([cur]);
 }
-function getAntroData() { try { const r=localStorage.getItem(ANTRO_KEY()); return r?JSON.parse(r):getAntroBase(); } catch { return getAntroBase(); } }
+function getAntroData() {
+  const base = getAntroBase();
+  let stored = [];
+  try { const r=localStorage.getItem(ANTRO_KEY()); if(r) stored=JSON.parse(r)||[]; } catch(e) { stored=[]; }
+  const seen = {};
+  base.forEach(d => { seen[d.fecha]=1; });
+  stored.forEach(d => { if(d&&d.fecha&&!seen[d.fecha]) { seen[d.fecha]=1; base.push(d); } });
+  return base;
+}
 function saveAntroData(d) { localStorage.setItem(ANTRO_KEY(), JSON.stringify(d)); }
 
 let antroInited=false;
