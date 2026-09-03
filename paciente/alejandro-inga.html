@@ -215,6 +215,37 @@ const PATIENT = {
       brazRelaj:35.5, brazFlex:36.0, abdom:91.0, cadera:104.0, muslo:57.7, pantPer:37.0, s6:96.0, s8:130.0 },
   ],
 
+  carbload: {
+    kcal:2850, p:143, c:504, g:29,
+    choKgPeso:'6 g/kg de peso corporal',
+    comidas:[
+      { nombre:'Desayuno', kcal:809, p:30, c:146, g:9, items:[
+        'Glutamina: 5 g + 1 vaso de 500 ml de agua',
+        '60 g de Nestum + 20 g de miel de abeja o maple',
+        '250 ml de leche chocolatada Laive deslactosada',
+        '1 pan de yema de Don Mamino con 50 g de pechuga de pollo y mayonesa de yogurt griego 20 g (yogurt con ½ cdta de mostaza + sal y pimienta al gusto)',
+        '300 ml de jugo de naranja',
+      ]},
+      { nombre:'Snack 1', kcal:520, p:25, c:93, g:5, items:[
+        '4 rebanadas de pan de molde blanco Don Mamino + 60 g de queso Sbelt + 2 cdas de mermelada (40 g)',
+      ]},
+      { nombre:'Almuerzo', kcal:769, p:54, c:114, g:9, items:[
+        '1 cda de vinagre de manzana + 1 vaso de agua (500 ml)',
+        '350 g de spaghetti cocido + 8 cdas de salsa de tomate + 80 g de bistec molido de Tottus',
+      ]},
+      { nombre:'Snack 2', kcal:503, p:9, c:116, g:3, items:[
+        '80 g de Copix (o cualquier cereal azucarado) + 300 g de Vakimú Pro + 100 g de mix de berries',
+      ]},
+      { nombre:'Cena', kcal:707, p:47, c:108, g:7, items:[
+        '1 cda de vinagre de manzana + 1 vaso de agua (500 ml)',
+        '350 g de spaghetti cocido + 80 g de pechuga de pollo + 30 g de mozzarella light + 1 tomate + albahaca',
+      ]},
+      { nombre:'Pre Carrera / Fondo', kcal:null, p:null, c:null, g:null, items:[
+        '60 g de Nestum o Cerelac + 1 plátano + 1 manjarblanco de bolsa Gloria',
+      ]},
+    ],
+  },
+
   objetivos: [
     'Disminución de sumatoria de 8 pliegues en 2 semanas',
     'Intensidad en entrenamiento de fuerza',
@@ -397,9 +428,10 @@ function renderTabs() {
   if (PATIENT.entrenamiento) tabs.push({id:'train', label:'Entrenamiento'});
   tabs.push({id:'evol-antro', label:'Evolución Física'});
   if (PATIENT.entrenamiento) tabs.push({id:'evol-train', label:'Evolución Entreno'});
+  if (PATIENT.carbload) tabs.push({id:'carbload', label:'Carbload'});
 
   $('tabNav').innerHTML = tabs.map((t,i) => {
-    const extra = t.id==='evol-antro' ? ";initAntro()" : t.id==='evol-train' ? ";initEvolTrain()" : "";
+    const extra = t.id==='evol-antro' ? ";initAntro()" : t.id==='evol-train' ? ";initEvolTrain()" : t.id==='carbload' ? ";renderCarbload()" : "";
     return `<button class="tab${i===0?' active':''}" onclick="showTab('${t.id}',this)${extra}">
       <span class="tnum">0${i+1}</span> ${t.label}
     </button>`;
@@ -701,6 +733,38 @@ function saveSelections(){const data={};document.querySelectorAll('.options').fo
 function loadSelections(){const raw=localStorage.getItem(planKey());document.querySelectorAll('.opt').forEach(o=>{o.dataset.count='0';updateOpt(o);});if(!raw)return;try{const data=JSON.parse(raw);document.querySelectorAll('.options').forEach(g=>{const gid=g.dataset.group;if(!data[gid])return;const opts=g.querySelectorAll('.opt');Object.entries(data[gid]).forEach(([idx,count])=>{if(opts[idx]){opts[idx].dataset.count=count;updateOpt(opts[idx]);}});});}catch(e){}}
 
 function flashSave(){const ind=$('saveind');if(!ind)return;$('saveTxt').textContent='Guardado';ind.classList.add('show');clearTimeout(saveTimer);saveTimer=setTimeout(()=>ind.classList.remove('show'),1800);}
+
+function renderCarbload() {
+  const el = $('tab-carbload');
+  if (!el || !PATIENT.carbload) return;
+  const cb = PATIENT.carbload;
+  const meals = cb.comidas.map(m => {
+    const macStr = m.kcal != null
+      ? `<b>${m.kcal}</b> kcal &nbsp;·&nbsp; ${m.p}P / ${m.c}C / ${m.g}G`
+      : '';
+    const items = m.items.map(it => `<li style="font-size:13px;color:var(--muted);margin:6px 0;padding-left:16px;position:relative"><span style="position:absolute;left:0;color:var(--faint)">—</span>${it}</li>`).join('');
+    return `<div class="meal">
+      <div class="top">
+        <span class="nm">${m.nombre}</span>
+        ${macStr ? `<span class="mac">${macStr}</span>` : ''}
+      </div>
+      <div class="body"><ul style="list-style:none">${items}</ul></div>
+    </div>`;
+  }).join('');
+  el.innerHTML = `<div class="wrap"><section>
+    <div class="sec-h"><span class="ix">01</span><h2>Protocolo de Carbload</h2><div class="rule"></div></div>
+    <div class="note" style="margin-bottom:22px">⚠️ <b>Este protocolo debe realizarse únicamente el día previo a la competencia.</b></div>
+    <div class="macros">
+      <span class="kcal">${cb.kcal.toLocaleString('es')}<small> kcal</small></span>
+      <span class="mtag"><b>${cb.p}g</b> Proteína</span>
+      <span class="mtag"><b>${cb.c}g</b> Carbohidratos</span>
+      <span class="mtag"><b>${cb.g}g</b> Grasas</span>
+      <span class="sep"></span>
+      <span class="tag">${cb.choKgPeso}</span>
+    </div>
+    <div class="meals">${meals}</div>
+  </section></div>`;
+}
 
 renderHero();
 renderTabs();
