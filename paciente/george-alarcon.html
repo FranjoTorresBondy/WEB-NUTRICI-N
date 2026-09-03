@@ -266,7 +266,8 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 const PATIENT = {
   slug:     'george-alarcon',
   nombre:   'George\nAlarcón',
-  fecha:    '22.07.2026',
+  sexo:     'm',
+  fecha:    '03.09.2026',
   tipoPlan: 'Hipocalórico · Hiperprotéico',
   macros:   { kcal: 2010, p: 165, c: 190, g: 60 },
   hidratacion: [
@@ -274,11 +275,19 @@ const PATIENT = {
     { label:'💧 Descanso',      valor:'2.9' },
   ],
   antro: {
-    fecha:'22.07.2026', peso:64.7, talla:167.5, imc:23.1,
-    tri:7.0, bi:3.0, sub:9.0, cresta:12.0, supra:7.0, abd:11.0, pierna:4.0, pant:3.0,
-    brazRelaj:29.5, brazFlex:33.0, abdom:80.0, cadera:95.0, muslo:52.0, pantPer:35.0,
+    fecha:'03.09.2026', peso:64.5, talla:167.5, imc:23.1,
+    tri:7.0, bi:1.5, sub:5.0, cresta:13.0, supra:8.0, abd:11.0, pierna:3.0, pant:4.0,
+    s6:38.0, s8:52.5,
+    brazRelaj:30.0, brazFlex:33.5, abdom:81.0, cadera:96.0, muslo:52.5, pantPer:35.5,
     diam:{ humero:6.1, biEstiloideo:6.0, femur:9.4 },
+    icc:0.84,
   },
+  antroHistorial: [
+    { fecha:'22.07.2026', peso:64.7, tri:7.0, bi:3.0, sub:9.0, cresta:12.0, supra:7.0, abd:11.0, pierna:4.0, pant:3.0,
+      brazRelaj:29.5, brazFlex:33.0, abdom:80.0, cadera:95.0, muslo:52.0, pantPer:35.0, s6:41.0, s8:56.0 },
+    { fecha:'03.09.2026', peso:64.5, tri:7.0, bi:1.5, sub:5.0, cresta:13.0, supra:8.0, abd:11.0, pierna:3.0, pant:4.0,
+      brazRelaj:30.0, brazFlex:33.5, abdom:81.0, cadera:96.0, muslo:52.5, pantPer:35.5, s6:38.0, s8:52.5 },
+  ],
   objetivos: [
     'Adherencia al plan nutricional.',
     'Aumento de masa muscular.',
@@ -288,11 +297,11 @@ const PATIENT = {
     'Tomar peso en ayunas todos los días y registrar en Happy Scale. Mandar registro de peso y fotos cada semana.',
   ],
   comidas: [
-    { id:'des', nombre:'☀️ Desayuno', kcal:480, p:30, c:50, g:18, grupos:[
+    { id:'des', nombre:'☀️ Desayuno', kcal:null, p:null, c:null, g:null, grupos:[
       { label:'Opción · Pudding de chía', max:1, ops:[
         '150 g de yogurt descremado natural (Vakimú) + 2 cdas de chía + 1 cda de miel de abeja + 1 porción de fruta* (ver especificaciones)',
       ]},
-      { label:'Escoge 02 · Carbohidrato', max:2, ops:[
+      { label:'Escoge 03 · Carbohidrato', max:3, ops:[
         '90 g de papa',
         '60 g de arroz',
         '1 rebanada de pan de molde Unión (30 g)',
@@ -308,10 +317,10 @@ const PATIENT = {
         '2 tajadas de jamón artesanal + 40 g de palta',
         '60 g de mozzarella light + 1 huevo',
       ]},
-    ], nota:'Antes de comer: 2 cdas de tocosh + 1 vaso de agua (500 ml) con 1 cda de chía.\n*Fin de semana: 2 rebanadas de pan + 2 cdtas de queso Philadelphia + 2 cdtas de mermelada (en reemplazo del yogurt). Solo la fruta y los huevos.\n*Puedes agregar 1 cdta de mayonesa light al pan con pollo.\n*Agregar canela con las frutas — puedes usar las frutas para hacer jugo.' },
+    ], nota:'Antes de comer: 2 cdas de tocosh + 1 vaso de agua (500 ml) con 1 cda de chía (tomar el agua luego de comer).\n*Puedes comer 2 tajadas de pan de molde Orno como tus 3 porciones de carbohidrato.\n*Para el pudding de chía: dejar remojando desde la noche anterior. Puedes agregarle la avena ahí también.\n*Fin de semana: 2 rebanadas de pan + 2 cdtas de queso Philadelphia + 2 cdtas de mermelada (1 en cada rebanada) y ya no comes el yogurt. Solo la fruta y los huevos.\n*Puedes agregar 1 cdta de mayonesa light al pan con pollo.\n*Agregar canela con las frutas — puedes usar las frutas para hacer jugo sin problema.' },
 
-    { id:'alm', nombre:'🥗 Almuerzo', kcal:600, p:45, c:55, g:16, grupos:[
-      { label:'Escoge 02 · Carbohidrato', max:2, ops:[
+    { id:'alm', nombre:'🥗 Almuerzo', kcal:null, p:null, c:null, g:null, grupos:[
+      { label:'Escoge 04 · Carbohidrato', max:4, ops:[
         '90 g de papa, camote o betarraga',
         '60 g de arroz',
         '100 g de menestra',
@@ -338,22 +347,12 @@ const PATIENT = {
         '40 g de palta',
         '1 porción de frutos secos* (ver especificaciones)',
       ]},
-    ], nota:'*Salsa roja o verde: 2 cdas en reemplazo de la porción de grasa.\n*Intentar llevar el almuerzo desde casa.\n*Puedes acompañar con: refresco de jamaica, agua de piña, limonada con Stevia (ver bebidas bajas en calorías).' },
-
-    { id:'snk', nombre:'🍎 Snack', kcal:280, p:22, c:32, g:7, grupos:[
-      { label:'Escoge 02 · Fruta', max:2, ops:[
+      { label:'Escoge 01 · Fruta', max:1, ops:[
         '1 porción de fruta* (ver especificaciones)',
       ]},
-      { label:'Escoge 02 · Carbohidrato', max:2, ops:[
-        '20 g de avena',
-        '15 g de granola',
-      ]},
-      { label:'Escoge 01 · Proteína', max:1, ops:[
-        '150 g de yogurt griego Vakimú + 1 cda de algarrobina',
-      ]},
-    ], nota:'*Puedes reemplazar este snack completo por: pudín proteico de chocolate HOPP / barrita FITREX + 2 porciones de fruta / Gloria Pro + 2 porciones de fruta / barrita QUEST + 2 porciones de fruta / cookie QUEST + 1 porción de fruta / Wild Protein o Protein Snack + 2 porciones de fruta.' },
+    ], nota:'*Puedes servirte 2 tazas de caldo de pollo y cortar 1 porción de carbohidrato.\n*Puedes servirte 2 tazas de crema de verduras o sopa tipo menestrón y cortar 1 porción de carbohidrato y 1 de grasa.\n*Salsa roja o verde: 2 cdas en reemplazo de la porción de grasa.\n*Intentar llevar el almuerzo desde casa.\n*Puedes acompañar con: refresco de jamaica, agua de piña, limonada con Stevia (ver bebidas bajas en calorías).' },
 
-    { id:'cen', nombre:'🌙 Cena', kcal:650, p:48, c:60, g:19, grupos:[
+    { id:'cen', nombre:'🌙 Cena', kcal:null, p:null, c:null, g:null, grupos:[
       { label:'Escoge 04 · Carbohidrato', max:4, ops:[
         '90 g de papa, camote o betarraga',
         '60 g de arroz',
@@ -384,6 +383,9 @@ const PATIENT = {
         '40 g de palta',
         '1 porción de frutos secos* (ver especificaciones)',
       ]},
+      { label:'Escoge 01 · Fruta', max:1, ops:[
+        '1 porción de fruta* (ver especificaciones)',
+      ]},
     ], nota:'Antes de comer: 1 cda de vinagre de manzana + 1 vaso de agua (500 ml).\n*Puedes usar salsas cero calorías de Delgaé C.\n*Puedes acompañar con refresco de jamaica, agua de piña, limonada con Stevia.' },
   ],
   preEntrenos: [
@@ -392,6 +394,7 @@ const PATIENT = {
       '2 rebanadas de pan + 1 plátano + 1 cdta de miel de abeja',
     ]},
     { tipo:'🏃 Post-Entreno', ops:[
+      '8 g de creatina monohidratada en polvo (fijo, además de la opción que elijas)',
       '1 scoop de proteína aislada',
       '200 g de Quark o Skyr + 200 ml de leche de almendra o agua + 7 g de creatina',
     ]},
@@ -573,7 +576,7 @@ function renderPlan() {
     const notaHtml = m.nota ? m.nota.split('\n').map(l=>`<div class="note2">${l}</div>`).join('') : '';
     return `<div class="meal" data-mealid="${m.id}"><div class="top">
         <div class="nm">${m.nombre}</div>
-        <div class="mac"><b>${m.kcal}</b> kcal<br>${m.p}P · ${m.c}C · ${m.g}G</div>
+        ${m.kcal != null ? `<div class="mac"><b>${m.kcal}</b> kcal${m.p != null ? `<br>${m.p}P · ${m.c}C · ${m.g}G` : ''}</div>` : ''}
       </div><div class="body">${grupos}${notaHtml}</div></div>`;
   }).join('');
 
