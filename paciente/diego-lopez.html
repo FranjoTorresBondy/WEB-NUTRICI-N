@@ -290,7 +290,7 @@ const PATIENT = {
     ], nota:'*Puedes acompañar con una taza de café + stevia al gusto.' },
 
     { id:'c2', nombre:'🍎 Snack 1', kcal:50, p:1, c:13, g:5, grupos:[
-      { label:'Escoge 01 · Fruta', max:1, ops:['1 porción de fruta (ver especificaciones)'] },
+      { label:'Escoge 01 · Opción', max:1, ops:['1 porción de fruta (ver especificaciones)','5 galletas de arroz + 1 cda de mermelada sin azúcar'] },
     ]},
 
     { id:'c3', nombre:'🥗 Almuerzo', kcal:680, p:52, c:75, g:17, grupos:[
@@ -298,28 +298,29 @@ const PATIENT = {
       { label:'Escoge · Proteína (200 g, crudo)', max:1, ops:['Pechuga de pollo','Pechuga de pavo','Pescado','Lomo de res','Langostinos','Carne molida de bistec'] },
       { label:'Escoge 01 · Verduras', max:1, ops:['150 a 180 g de verduras a tu preferencia'] },
       { label:'Escoge 02 · Grasa', max:2, ops:['40 g de palta','1 porción de frutos secos (ver especificaciones)'] },
-    ], nota:'*Puedes comer 2 pastillas de chocolate La Ibérica después de almorzar. Puedes considerar la salsa de los guisos como la porción de verduras.' },
+    ], nota:'*Puedes comer 2 pastillas de chocolate La Ibérica después de almorzar. Puedes considerar la salsa de los guisos como la porción de verduras. Puedes comer 1 taza de gelatina light.' },
 
     { id:'c4', nombre:'🥪 Snack 2', kcal:260, p:24, c:26, g:5, grupos:[
       { label:'Opción 01', max:1, ops:['2 rapiditas cero o 60 g de pan molde integral + 60 g de queso mozzarella light Cuisine&Co'] },
       { label:'Opción 02', max:1, ops:['2 rapiditas cero o 60 g de pan molde integral + 100 g de pechuga de pollo (crudo)'] },
       { label:'Opción 03', max:1, ops:['2 rapiditas cero o 60 g de pan molde integral + 1 lata de atún en agua'] },
       { label:'Opción 04', max:1, ops:['40 g de cereal o avena + 1 scoop de proteína + 250 ml de bebida de almendras'] },
-    ], nota:'*1 vez a la semana puedes comer el tres leches de Protein Food en reemplazo del snack.' },
+      { label:'Opción 05', max:1, ops:['16 galletas de arroz + 1 tajada de jamón de pavita + 30 g de queso mozzarella light'] },
+    ], nota:'*1 vez a la semana puedes reemplazar el snack por un tres leches o alfajor Manjarito de Protein Food.\n*1 vez a la semana puedes reemplazar el snack por un cuchareable La Intensa de Fit Monster.\n🍳 <b>Opción tortilla / soufflé:</b> batir 4 claras de huevo + 120 g de papa en láminas + 30 g de queso mozzarella + espinaca + tomate (puedes agregar más verduras). Cocinar a fuego bajo en sartén tapada.\n*Puedes comer en cualquier momento del día palitos de zanahoria o apio con alguna de las salsas bajas en calorías.\n*Puedes hacerte chips de zucchini en freidora u horno y comerlos en cualquier momento del día.' },
 
     { id:'c5', nombre:'🌙 Cena', kcal:550, p:39, c:62, g:15, grupos:[
-      { label:'Escoge 03 · Carbohidrato', max:3, ops:['90 g de papa','90 g de camote','60 g de arroz','50 g de pasta','1 rebanada de pan de molde integral','1 rapidita cero'] },
+      { label:'Escoge 03 · Carbohidrato', max:3, ops:['90 g de papa','90 g de camote','60 g de arroz','50 g de pasta','1 rebanada de pan de molde integral','1 rapidita cero','8 galletas de arroz Costeño'] },
       { label:'Escoge · Proteína (150 g, crudo)', max:1, ops:['Pechuga de pollo','Pechuga de pavo','Pescado','Lomo de res','Langostinos','Carne molida de bistec'] },
       { label:'Escoge 01 · Grasa', max:1, ops:['80 g de palta','2 porciones de frutos secos (ver especificaciones)'] },
       { label:'Escoge 01 · Verduras', max:1, ops:['120 a 150 g de verduras a tu preferencia'] },
-    ], nota:'*Puedes reemplazar la cena por: Pizzeta (4 rapiditas + 100 g mozz light + 3 cdas salsa pomarola), Hamburguesa (120 g carne molida + pan 60 g), o Tacos (2 rapiditas + 150 g pollo + 120-150 g verduras + 80 g palta).' },
+    ], nota:'🍕 <b>Pizzeta:</b> 4 rapiditas cero + 100 g de queso mozzarella light + 3 cdas de salsa pomarola (puedes añadir albahaca, pimiento, champiñones).\n🍔 <b>Hamburguesa:</b> 120 g de carne molida light + 1 huevo, sal, pimienta y especias al gusto. Formar la hamburguesa y cocinar a la plancha + 1 pan de hamburguesa (60 g) o 2 tajadas de pan de molde o 2 rapiditas.\n🌮 <b>Tacos:</b> 2 rapiditas integrales + 150 g de pechuga de pollo (plancha o deshilachada) + 120–150 g de verduras (lechuga, tomate, cebolla) + 80 g de palta (puedes añadir limón, ají o culantro).\n🌯 <b>Tacos o wrap con frejoles:</b> 1 rapidita XL o 2 rapiditas + 150 g de pollo + 60 g de frejoles + 80 g de palta + verduras de tu preferencia.\n*Puedes escoger cualquier salsa baja en calorías.\n*Puedes comer 1 taza de gelatina light.' },
 
     { id:'pre', nombre:'⚡ Pre Entreno', kcal:300, p:12, c:48, g:5, grupos:[
       { label:'Escoge 01 · Carbohidrato', max:1, ops:['40 g de Nestum o crema de arroz (peso seco)'] },
       { label:'Escoge 01 · Dulce', max:1, ops:['1 cda de miel de abeja'] },
       { label:'Escoge 01 · Proteína', max:1, ops:['½ scoop de proteína','100 g de quark o skyr'] },
       { label:'Escoge 01 · Bebida (opcional)', max:1, ops:['200 ml de leche de almendra'] },
-    ], nota:'* Solo días de entrenamiento con fuerza. Sumar al total del día (+300 kcal ≈ 2 500 kcal).' },
+    ], nota:'* Solo días de entrenamiento con fuerza. Sumar al total del día (+300 kcal ≈ 2 400 kcal).' },
   ],
 
   specs: [
@@ -378,7 +379,7 @@ const PATIENT = {
     { nombre:'Salsa roja',             desc:'Tomate, cebolla, ajo, albahaca, poro + Lakanto o Stevia + sal, pimienta y tomillo + 1 cda aceite oliva' },
   ],
 
-  notaSpecs: 'Plan base = días de descanso (2 200 kcal). Días de entrenamiento fuerza: agregar Pre Entreno (+300 kcal ≈ 2 500 kcal).',
+  notaSpecs: 'Plan base = días de descanso (2 100 kcal · 141 P / 209 C / 51 G). Días de entrenamiento fuerza: agregar Pre Entreno (+300 kcal ≈ 2 400 kcal).',
 
   // ── PLAN DE ENTRENAMIENTO ────────────────────────────────────────────────
   // prog: [series, RIR] — 1 microciclo
