@@ -150,17 +150,24 @@ const PATIENT = {
   macros:{kcal:2640,p:213,c:258,g:82},
   hidratacion:[{label:'Descanso',valor:'3.3'},{label:'Entrenamiento',valor:'3.6'}],
   antro:{
-    fecha:'18.08.2026',peso:113.0,talla:201.0,imc:28.0,
-    tri:13.0,bi:7.0,sub:15.0,cresta:30.0,supra:22.0,abd:35.0,pierna:16.0,pant:9.0,
-    s6:110.0,s8:147.0,
-    brazRelaj:40.0,brazFlex:43.3,abdom:99.0,cadera:113.0,muslo:59.0,pantPer:41.0,
+    fecha:'03.09.2026',peso:112.5,talla:201.0,imc:27.8,
+    tri:11.0,bi:3.5,sub:14.0,cresta:28.0,supra:15.0,abd:31.0,pierna:12.0,pant:12.0,
+    s6:95.0,s8:126.5,
+    brazRelaj:40.3,brazFlex:43.8,abdom:98.0,cadera:111.0,muslo:58.5,pantPer:41.5,
     diam:{humero:7.0,biEstiloideo:6.0,femur:10.3},
+    pctGrasa:23.0,fatKg:25.9,pctMusc:40.9,muscKg:46.0,pctOseo:13.8,oseoKg:15.5,
+    icc:0.88,
+    somato:{endo:3.5,meso:4.9,ecto:1.9},
   },
   antroHistorial:[
     {fecha:'20.07.2026',peso:112.6,talla:201.0,imc:27.9,
      tri:12.0,bi:8.0,sub:16.0,cresta:34.0,supra:25.0,abd:42.0,pierna:20.0,pant:9.0,
      s6:124.0,s8:166.0,
      brazRelaj:39.7,brazFlex:42.0,abdom:100.0,cadera:112.0,muslo:59.8,pantPer:40.5},
+    {fecha:'18.08.2026',peso:113.0,talla:201.0,imc:28.0,
+     tri:13.0,bi:7.0,sub:15.0,cresta:30.0,supra:22.0,abd:35.0,pierna:16.0,pant:9.0,
+     s6:110.0,s8:147.0,
+     brazRelaj:40.0,brazFlex:43.3,abdom:99.0,cadera:113.0,muslo:59.0,pantPer:41.0},
   ],
   objetivos:[
     'Disminución de sumatoria de 8 pliegues en 10 mm en 2 semanas.',
@@ -273,7 +280,7 @@ function renderEval(){var a=PATIENT.antro;var fmt=function(v){return v!=null?v:'
 function renderSpecs(){var html=PATIENT.specs.map(function(s){var items=s.items.map(function(it){return it.indexOf('##')===0?'<div class="sub-title">'+it.slice(2)+'</div>':'<li>'+it+'</li>';}).join('');return '<div class="spec"><h4>'+s.titulo+'</h4><ul>'+items+'</ul></div>';}).join('');var guia='<div style="margin-top:32px;background:var(--panel2);border:1px solid var(--line);border-radius:14px;padding:20px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;"><div><div style="font-family:\'IBM Plex Mono\',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);margin-bottom:6px;">Recurso adicional</div><div style="font-family:\'Libre Franklin\',sans-serif;font-size:16px;font-weight:600;color:var(--ink);">Guia para comer fuera sin salirte del plan</div><div style="font-size:12px;color:var(--muted);margin-top:4px;">10 categorias · 150+ opciones · 25+ restaurantes en Lima</div></div><a href="../guia-restaurante.html" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:var(--navy);color:#000;font-family:\'IBM Plex Mono\',monospace;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:10px 20px;border-radius:10px;text-decoration:none;flex-shrink:0;">Ver guia →</a></div>';$('tab-specs').innerHTML='<div class="wrap"><section><div class="sec-h"><span class="ix">01</span><h2>Especificaciones</h2><div class="rule"></div></div><div class="specs">'+html+'</div>'+guia+'</section></div>';}
 var ANTRO_KEY=PATIENT.slug+'-antro-v1';
 function getAntroBase(){var hist=(PATIENT.antroHistorial||[]).map(function(h){var s6=h.s6!=null?h.s6:(h.tri!=null&&h.sub!=null&&h.supra!=null&&h.abd!=null&&h.pierna!=null&&h.pant!=null?+(h.tri+h.sub+h.supra+h.abd+h.pierna+h.pant).toFixed(1):null);var s8=h.s8!=null?h.s8:(s6!=null&&h.bi!=null&&h.cresta!=null?+(s6+h.bi+h.cresta).toFixed(1):null);return Object.assign({},h,{s6:s6,s8:s8});});var a=PATIENT.antro;var s6=a.s6!=null?a.s6:(a.tri!=null&&a.sub!=null&&a.supra!=null&&a.abd!=null&&a.pierna!=null&&a.pant!=null?+(a.tri+a.sub+a.supra+a.abd+a.pierna+a.pant).toFixed(1):null);var s8=a.s8!=null?a.s8:(s6!=null&&a.bi!=null&&a.cresta!=null?+(s6+a.bi+a.cresta).toFixed(1):null);return hist.concat([{fecha:a.fecha,peso:a.peso,tri:a.tri,bi:a.bi,sub:a.sub,cresta:a.cresta,supra:a.supra,abd:a.abd,pierna:a.pierna,pant:a.pant,brazRelaj:a.brazRelaj,brazFlex:a.brazFlex,abdom:a.abdom,cadera:a.cadera,muslo:a.muslo,pantPer:a.pantPer,s6:s6,s8:s8}]);}
-function getAntroData(){try{var r=localStorage.getItem(ANTRO_KEY);return r?JSON.parse(r):getAntroBase();}catch(e){return getAntroBase();}}
+function getAntroData(){const base=getAntroBase();let stored=[];try{const r=localStorage.getItem(ANTRO_KEY);if(r)stored=JSON.parse(r)||[];}catch(e){stored=[];}const seen={};base.forEach(d=>{seen[d.fecha]=1;});stored.forEach(d=>{if(d&&d.fecha&&!seen[d.fecha]){seen[d.fecha]=1;base.push(d);}});return base;}
 function saveAntroData(d){localStorage.setItem(ANTRO_KEY,JSON.stringify(d));}
 var antroInited=false;
 function initAntro(){if(antroInited)return;antroInited=true;renderAntro();}
