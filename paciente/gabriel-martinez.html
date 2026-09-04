@@ -174,17 +174,32 @@ const PATIENT = {
   nombre:   'Gabriel\nMartínez',
   fecha:    '17.08.2026',
   tipoPlan: 'Hipocalórico · Hiperproteico',
+  sexo:     'm',
   macros:   { kcal: 2700, p: null, c: null, g: null },
   hidratacion: [
     { label:'Entrenamiento', valor:'3.5' },
     { label:'Descanso',      valor:'2.0' },
   ],
   antro: {
-    fecha:'17.08.2026', peso:98.0, talla:182.5, imc:29.4, pctGrasa:17.7,
-    tri:7.0, bi:4.0, sub:12.0, cresta:18.0, supra:11.0, abd:16.0, pierna:6.0, pant:4.0,
-    brazRelaj:38.5, brazFlex:39.8, abdom:93.0, cadera:110.0, muslo:58.5, pantPer:41.0,
-    diam: { humero:8.0, biEstiloideo:6.0, femur:11.5 },
+    fecha:'04.09.2026', peso:98.0, talla:181.5, imc:29.7,
+    tri:10.0, bi:5.0, sub:15.0, cresta:18.0, supra:15.0, abd:20.0, pierna:6.0, pant:5.0,
+    s6:71.0, s8:94.0,
+    brazRelaj:38.0, brazFlex:40.0, abdom:93.0, cadera:110.0, muslo:60.5, pantPer:34.8,
+    diam: { humero:6.0, biEstiloideo:5.0, femur:9.2 },
+    pctGrasa:20.7, fatKg:20.3, pctMusc:33.1, muscKg:32.4, pctOseo:11.1, oseoKg:10.9, imo:2.97, icc:0.85,
+    somato:{ endo:3.8, meso:4.3, ecto:0.6 },
   },
+  antroHistorial: [
+    { fecha:'19.06.2026', peso:97.5, tri:6.0, bi:5.0, sub:10.0, cresta:19.0, supra:9.0, abd:15.0, pierna:6.5, pant:6.0,
+      brazRelaj:38.5, brazFlex:39.5, abdom:95.5, cadera:122.0, muslo:60.3, pantPer:40.5, s6:52.5, s8:76.5 },
+    { fecha:'03.07.2026', peso:100.0, tri:7.0, bi:5.0, sub:11.0, cresta:18.0, supra:11.0, abd:17.0, pierna:7.0, pant:6.0,
+      brazRelaj:38.5, brazFlex:39.0, abdom:96.0, cadera:112.0, muslo:60.5, pantPer:40.5, s6:59.0, s8:82.0 },
+    { fecha:'27.07.2026', peso:98.0, tri:7.0, bi:4.0, sub:12.0, cresta:18.0, supra:11.0, abd:16.0, pierna:6.0, pant:4.0,
+      brazRelaj:38.5, brazFlex:39.8, abdom:93.0, cadera:110.0, muslo:58.5, pantPer:41.0, s6:56.0, s8:78.0 },
+    { fecha:'04.09.2026', peso:98.0, tri:10.0, bi:5.0, sub:15.0, cresta:18.0, supra:15.0, abd:20.0, pierna:6.0, pant:5.0,
+      brazRelaj:38.0, brazFlex:40.0, abdom:93.0, cadera:110.0, muslo:60.5, pantPer:34.8, s6:71.0, s8:94.0,
+      pctGrasa:20.7, fatKg:20.3, muscKg:32.4 },
+  ],
   objetivos: [
     'Disminución de sumatoria de 8 pliegues en 5-10 mm',
     'Cantidad mínima de pasos diarios: 10 000',
@@ -381,7 +396,7 @@ function renderHero() {
   $('heroEyebrow').innerHTML = 'Plan Nutricional &nbsp;·&nbsp; ' + PATIENT.fecha;
   $('heroNombre').innerHTML = PATIENT.nombre.replace('\n','<br>');
   $('heroSub').innerHTML = '<span><b>' + PATIENT.macros.kcal.toLocaleString('es') + '</b> kcal &nbsp;·&nbsp; ' + PATIENT.tipoPlan + '</span>' +
-    '<span><b>' + PATIENT.macros.p + 'P</b> · <b>' + PATIENT.macros.c + 'C</b> · <b>' + PATIENT.macros.g + 'G</b></span>';
+    (PATIENT.macros.p != null ? '<span><b>' + PATIENT.macros.p + 'P</b> · <b>' + PATIENT.macros.c + 'C</b> · <b>' + PATIENT.macros.g + 'G</b></span>' : '');
 }
 
 function renderTabs() {
@@ -415,9 +430,9 @@ function renderNutr() {
   var m = PATIENT.macros;
   var macrosHtml = '<div class="macros">' +
     '<span class="kcal">' + m.kcal + '<small> kcal / día base</small></span>' +
-    '<span class="mtag"><b>' + m.p + 'g</b> Proteína</span>' +
-    '<span class="mtag"><b>' + m.c + 'g</b> Carbohidratos</span>' +
-    '<span class="mtag"><b>' + m.g + 'g</b> Grasas</span>' +
+    (m.p != null ? '<span class="mtag"><b>' + m.p + 'g</b> Proteína</span>' +
+      '<span class="mtag"><b>' + m.c + 'g</b> Carbohidratos</span>' +
+      '<span class="mtag"><b>' + m.g + 'g</b> Grasas</span>' : '') +
     '<span class="sep"></span>' +
     '<span class="tag">' + PATIENT.tipoPlan + '</span></div>';
   var mealsHtml = PATIENT.comidas.map(function(meal){ return buildMeal(meal); }).join('');
@@ -499,10 +514,10 @@ function renderEval() {
     '<div class="sec-h"><span class="ix">01</span><h2>Evaluación Nutricional</h2><div class="rule"></div></div>' +
     '<div class="evalwrap">' +
     '<div class="evgroup"><div class="gh">Antropometría básica</div>' +
+    '<div class="row"><span>Fecha</span><span>' + a.fecha + '</span></div>' +
     '<div class="row"><span>Peso</span><span>' + a.peso + ' kg</span></div>' +
     '<div class="row"><span>Talla</span><span>' + a.talla + ' cm</span></div>' +
-    '<div class="row"><span>IMC</span><span>' + a.imc + ' kg/m²</span></div>' +
-    '<div class="row"><span>% Grasa (Faulkner)</span><span>' + a.pctGrasa + '%</span></div></div>' +
+    '<div class="row"><span>IMC</span><span>' + a.imc + ' kg/m²</span></div></div>' +
     '<div class="evgroup"><div class="gh">Pliegues (mm) · ISAK</div>' +
     '<div class="row"><span>Tricipital</span><span>' + a.tri + '</span></div>' +
     '<div class="row"><span>Bicipital</span><span>' + a.bi + '</span></div>' +
@@ -550,23 +565,21 @@ function renderSpecs() {
 
 var ANTRO_KEY = PATIENT.slug + '-antro-v1';
 function getAntroBase() {
+  if (PATIENT.antroHistorial && PATIENT.antroHistorial.length) return PATIENT.antroHistorial.slice();
   var a = PATIENT.antro;
   var s6 = +(a.tri+a.sub+a.supra+a.abd+a.pierna+a.pant).toFixed(1);
   var s8 = +(s6+a.bi+a.cresta).toFixed(1);
-  return [
-    { fecha:'19.06.2026', peso:97.5, tri:6.0, bi:5.0, sub:10.0, cresta:19.0, supra:9.0, abd:15.0, pierna:6.5, pant:6.0,
-      brazRelaj:38.5, brazFlex:39.5, abdom:95.5, cadera:122.0, muslo:60.3, pantPer:40.5,
-      s6:52.5, s8:76.5 },
-    { fecha:'03.07.2026', peso:100.0, tri:7.0, bi:5.0, sub:11.0, cresta:18.0, supra:11.0, abd:17.0, pierna:7.0, pant:6.0,
-      brazRelaj:38.5, brazFlex:39.0, abdom:96.0, cadera:112.0, muslo:60.5, pantPer:40.5,
-      s6:59.0, s8:82.0 },
-    { fecha:'27.07.2026', peso:98.0, tri:7.0, bi:4.0, sub:12.0, cresta:18.0, supra:11.0, abd:16.0, pierna:6.0, pant:4.0,
-      brazRelaj:38.5, brazFlex:39.8, abdom:93.0, cadera:110.0, muslo:58.5, pantPer:41.0,
-      s6:56.0, s8:78.0 },
-    { fecha:a.fecha, peso:a.peso, tri:a.tri, bi:a.bi, sub:a.sub, cresta:a.cresta, supra:a.supra, abd:a.abd, pierna:a.pierna, pant:a.pant, brazRelaj:a.brazRelaj, brazFlex:a.brazFlex, abdom:a.abdom, cadera:a.cadera, muslo:a.muslo, pantPer:a.pantPer, s6:s6, s8:s8 }
-  ];
+  return [{ fecha:a.fecha, peso:a.peso, tri:a.tri, bi:a.bi, sub:a.sub, cresta:a.cresta, supra:a.supra, abd:a.abd, pierna:a.pierna, pant:a.pant, brazRelaj:a.brazRelaj, brazFlex:a.brazFlex, abdom:a.abdom, cadera:a.cadera, muslo:a.muslo, pantPer:a.pantPer, s6:s6, s8:s8 }];
 }
-function getAntroData() { try { var r=localStorage.getItem(ANTRO_KEY); return r?JSON.parse(r):getAntroBase(); } catch(e) { return getAntroBase(); } }
+function getAntroData() {
+  var base = getAntroBase();
+  var stored = [];
+  try { var r=localStorage.getItem(ANTRO_KEY); if(r) stored = JSON.parse(r) || []; } catch(e) { stored = []; }
+  var seen = {};
+  base.forEach(function(d){ seen[d.fecha] = 1; });
+  stored.forEach(function(d){ if (d && d.fecha && !seen[d.fecha]) { seen[d.fecha] = 1; base.push(d); } });
+  return base;
+}
 function saveAntroData(d) { localStorage.setItem(ANTRO_KEY, JSON.stringify(d)); }
 var antroInited=false;
 function initAntro() { if(antroInited)return; antroInited=true; renderAntro(); }
