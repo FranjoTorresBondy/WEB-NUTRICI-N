@@ -251,7 +251,8 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 const PATIENT = {
   slug:      'arnold-perochena',
   nombre:    'Arnold\nPerochena',
-  fecha:     '13.08.2026',
+  sexo:      'm',
+  fecha:     '04.09.2026',
   tipoPlan:  'Hipocalórico · Hiperprotéico',
   macros:    { kcal: 2340, p: 165, c: 284, g: 62 },
   hidratacion: [
@@ -260,11 +261,18 @@ const PATIENT = {
   ],
   entrenamiento: null,
   antro: {
-    fecha:'13.08.2026', peso:109.6, talla:191.0, imc:30.0,
-    tri:8.0, bi:5.5, sub:13.0, cresta:20.0, supra:4.5, abd:15.0, pierna:32.0, pant:12.0,
-    s6:84.5, s8:110.0,
-    brazRelaj:41.3, brazFlex:42.8, abdom:100.0, cadera:112.0, muslo:60.0, pantPer:42.8,
+    fecha:'04.09.2026', peso:107.5, talla:191.0, imc:29.5,
+    tri:2.5, bi:2.0, sub:11.0, cresta:18.0, supra:10.0, abd:26.0, pierna:10.0, pant:7.0,
+    s6:66.5, s8:86.5,
+    brazRelaj:41.6, brazFlex:43.5, abdom:98.0, cadera:109.5, muslo:60.0, pantPer:42.8,
+    diam:{ humero:8.0, biEstiloideo:7.5, femur:12.0 },
+    pctGrasa:18.4, fatKg:19.8, pctMusc:47.2, muscKg:50.7, pctOseo:17.6, oseoKg:18.9, imo:2.68, icc:0.89,
+    somato:{ endo:2.0, meso:8.5, ecto:1.0 },
   },
+  antroHistorial: [
+    { fecha:'13.08.2026', peso:109.6, tri:8.0, bi:5.5, sub:13.0, cresta:20.0, supra:4.5, abd:15.0, pierna:32.0, pant:12.0,
+      brazRelaj:41.3, brazFlex:42.8, abdom:100.0, cadera:112.0, muslo:60.0, pantPer:42.8, s6:84.5, s8:110.0 },
+  ],
 
   objetivos: [
     'Disminuir sumatoria de 8 pliegues en 8-10 mm',
