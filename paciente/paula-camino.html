@@ -182,7 +182,7 @@ const PATIENT = {
   nombre:   'Paula\nCamino',
   fecha:    '27.07.2026',
   tipoPlan: 'Normocalórico · Hiperprotéico',
-  macros:   { kcal: 1610, p: 102, c: 189, g: 54 },
+  macros:   { kcal: 1760, p: 113, c: 210, g: 57 },
   hidratacion: [
     { label:'💧 Entrenamiento', valor:'2.0' },
     { label:'💧 Descanso',      valor:'1.8' },
@@ -218,6 +218,14 @@ const PATIENT = {
         '2 huevos',
       ]},
     ], nota:null },
+
+    { id:'snk-mm', nombre:'🍎 Media Mañana', kcal:150, p:11, c:21, g:3, grupos:[
+      { label:'Escoge 01', max:1, ops:[
+        '1 rapidita integral + 30 g de queso mozzarella light + tomate o cualquier verdura de tu preferencia',
+        '1 porción de fruta + 80 g de Quark del sabor que prefieras',
+        '1 porción de fruta + 80 g de queso cottage descremado',
+      ]},
+    ]},
 
     { id:'alm', nombre:'🥗 Almuerzo', kcal:482, p:28, c:59, g:15, grupos:[
       { label:'Escoge 03 · Carbohidrato', max:3, ops:[
