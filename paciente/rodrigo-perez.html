@@ -933,6 +933,9 @@ function addAntroEntry() {
   flashSave();
 }
 
+// alias para comer-fuera.js (requiere PATIENT.comidas)
+PATIENT.comidas = PATIENT.planes[0].comidas;
+
 // ── Init ────────────────────────────────────────────────────────────────────
 renderHero();
 renderTabs();
