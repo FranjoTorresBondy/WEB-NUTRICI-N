@@ -41,6 +41,13 @@
     s.textContent = [
       '.fuera-intro{font-size:13px;color:var(--muted);background:var(--panel2);border:1px dashed var(--line);border-radius:12px;padding:14px 16px;margin:6px 0 18px;line-height:1.6}',
       '.fuera-intro b{color:var(--ink)}',
+      '.fdias{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:14px}',
+      '.fdia{appearance:none;cursor:pointer;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:9px 14px;color:var(--muted);font-family:Inter,sans-serif;text-align:left;transition:.2s}',
+      '.fdia:hover{border-color:var(--muted);color:var(--ink)}',
+      '.fdia.active{border-color:var(--navy);background:var(--panel2)}',
+      '.fdia .fdn{font-weight:600;font-size:13px;display:block;line-height:1.1}',
+      '.fdia .fdk{font-family:"IBM Plex Mono",monospace;font-size:10.5px;margin-top:4px;display:block;color:var(--faint)}',
+      '.fdia.active .fdn,.fdia.active .fdk{color:var(--navy)}',
       '.fmeals{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px}',
       '.fmeal{appearance:none;cursor:pointer;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:11px 15px;color:var(--muted);font-family:Inter,sans-serif;text-align:left;transition:.2s}',
       '.fmeal:hover{border-color:var(--muted);color:var(--ink)}',
@@ -286,6 +293,19 @@
         '<span class="fmn">' + esc(m.nombre) + '</span><span class="fmk">~' + m.kcal + ' kcal</span></button>';
     }).join('');
 
+    // Selector de tipo de día: sin él no se ve con qué presupuesto se está
+    // trabajando ni se puede cambiar sin volver a la pestaña del plan.
+    var diasHtml = '';
+    if (USA_PLANES) {
+      var act = planActivo();
+      diasHtml = '<div class="fdias">' + P.planes.map(function (pl, i) {
+        var on = pl === act;
+        return '<button class="fdia' + (on ? ' active' : '') + '" data-pidx="' + i + '">' +
+          '<span class="fdn">' + esc(pl.label) + '</span>' +
+          '<span class="fdk">' + (pl.macros && pl.macros.kcal ? pl.macros.kcal + ' kcal' : esc(pl.sub || '')) + '</span></button>';
+      }).join('') + '</div>';
+    }
+
     var chipsHtml = fCats().map(function (c) {
       return '<button class="fchip' + (st.cat === c ? ' active' : '') + '" data-cat="' + esc(c) + '">' + esc(c) + '</button>';
     }).join('');
@@ -332,6 +352,7 @@
       '<div class="wrap"><section>' +
       '<div class="sec-h"><span class="ix">01</span><h2>Comer fuera sin salirte del plan</h2><div class="rule"></div></div>' +
       '<div class="fuera-intro">Elige <b>una o más comidas</b> (tócalas para juntarlas y sumar su presupuesto, ej. Almuerzo + Snack). Usa <b>− / +</b> para sumar porciones (puedes <b>repetir la misma</b>). Abajo ves cuántas kcal llevas vs. las disponibles. Badge <b style="color:var(--navy)">COMPLETA ✓</b> = te deja justo (±50 kcal).</div>' +
+      diasHtml +
       '<div class="fmeals">' + mealsHtml + '</div>' +
       '<div class="fbudget">Presupuesto de <b>' + esc(mealLabel) + '</b>: <b>~' + budget + ' kcal</b>' + (selMeals.length > 1 ? ' <span style="color:var(--faint)">(' + selMeals.length + ' comidas juntas)</span>' : '') + '</div>' +
       '<div class="fchips">' + chipsHtml + '</div>' +
@@ -346,6 +367,22 @@
       (nPort > 0 ? '<button class="fsave" id="cfSave">Guardar lo que comí</button>' : '') +
       '</div></div>';
 
+    panel.querySelectorAll('.fdia').forEach(function (b) {
+      b.onclick = function () {
+        var idx = parseInt(b.getAttribute('data-pidx'), 10);
+        if (isNaN(idx)) return;
+        // Cambia el plan activo del motor de la página y sincroniza sus
+        // botones, para que la pestaña del plan quede igual al volver.
+        var pb = document.querySelectorAll('.planbtn')[idx];
+        if (typeof setPlan === 'function' && pb) setPlan(idx, pb);
+        else if (typeof currentPlanIdx !== 'undefined') currentPlanIdx = idx;
+        // Las comidas del modo nuevo pueden no existir en el anterior.
+        var ids = COMIDAS().map(function (m) { return m.id; });
+        st.mealIds = st.mealIds.filter(function (i) { return ids.indexOf(i) >= 0; });
+        renderFuera();
+        renderProgress();
+      };
+    });
     panel.querySelectorAll('.fmeal').forEach(function (b) {
       b.onclick = function () {
         var id = b.getAttribute('data-mid'), pos = st.mealIds.indexOf(id);
