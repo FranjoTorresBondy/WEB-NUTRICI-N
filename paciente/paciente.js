@@ -335,12 +335,16 @@ function injectGuardarBtn(mealsContainer) {
   var REF_S6     = { f: [55, 80, 100, 130], m: [40, 60, 80, 110] };
   var REF_ICC    = { f: 0.85, m: 1.00 };
 
+  // Devuelve la frase completa porque el rango más alto se describe por el
+  // valor ("rango elevado") y los demás por el nivel ("rango de atleta
+  // entrenado"). El tramo alto evita la etiqueta "sedentario": el paciente
+  // puede estar entrenando fuerte y aun así tener la sumatoria alta.
   function nivelS6(s6, sexo) {
     var r = REF_S6[sexo];
-    if (s6 > r[3]) return 'sedentario';
-    if (s6 > r[2]) return 'activo / fitness';
-    if (s6 > r[1]) return 'atleta entrenado';
-    return 'deportista de élite';
+    if (s6 > r[3]) return 'rango elevado';
+    if (s6 > r[2]) return 'rango de activo / fitness';
+    if (s6 > r[1]) return 'rango de atleta entrenado';
+    return 'rango de deportista de élite';
   }
 
   function ccInterp(d, prev, sexo) {
@@ -355,7 +359,7 @@ function injectGuardarBtn(mealsContainer) {
     }
 
     if (sexo && d.s6 != null) {
-      out.push({ t: '<b>Σ6 de ' + d.s6 + ' mm</b> te ubica en rango de <b>' + nivelS6(d.s6, sexo) + '</b>.', c: 'ink' });
+      out.push({ t: '<b>Σ6 de ' + d.s6 + ' mm</b> te ubica en <b>' + nivelS6(d.s6, sexo) + '</b>.', c: 'ink' });
     }
 
     if (sexo && d.pctG != null && !d.pctGEstim) {
