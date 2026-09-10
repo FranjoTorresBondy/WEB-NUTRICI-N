@@ -8,7 +8,22 @@
   'use strict';
 
   var P = (typeof PATIENT !== 'undefined') ? PATIENT : (window.PATIENT || null);
-  if (!P || !P.comidas || !P.comidas.length) return;              // no aplica
+  if (!P) return;
+
+  // Hay dos formas de plan: las que traen `comidas` directo y las que las
+  // agrupan en `planes` con selector de tipo de día (descanso / entreno /
+  // fondo). En el segundo caso se trabaja siempre con el plan activo, que
+  // el motor de esas páginas expone en currentPlanIdx.
+  var USA_PLANES = !!(P.planes && P.planes.length);
+  function planActivo() {
+    if (!USA_PLANES) return null;
+    var i = (typeof currentPlanIdx !== 'undefined' && currentPlanIdx != null) ? currentPlanIdx : 0;
+    return P.planes[i] || P.planes[0];
+  }
+  function COMIDAS() { var pl = planActivo(); return (pl ? pl.comidas : P.comidas) || []; }
+  function MACROS() { var pl = planActivo(); return pl ? pl.macros : P.macros; }
+
+  if (!COMIDAS().length) return;                                  // no aplica
 
   var CAT = (typeof GUIA_CATALOG !== 'undefined') ? GUIA_CATALOG : [];
   var TOL = 50;
@@ -161,7 +176,8 @@
     for (var i = 0; i < meals.length; i++) {
       var mid = meals[i].getAttribute('data-mealid');
       var data = null;
-      for (var d = 0; d < P.comidas.length; d++) if (P.comidas[d].id === mid) data = P.comidas[d];
+      var _cs = COMIDAS();
+      for (var d = 0; d < _cs.length; d++) if (_cs[d].id === mid) data = _cs[d];
       if (!data || data.kcal == null) continue;
       var picks = meals[i].querySelectorAll('.pick');
       var tot = 0, got = 0, kcalPerGroup = 0, usePerGroup = true;
@@ -186,11 +202,11 @@
   }
 
   function renderProgress() {
-    var panel = $id('tab-plan'); if (!panel || !P.macros) return;
+    var panel = $id("tab-plan"); if (!panel || !MACROS()) return;
     if (!panel.querySelector('.cf-spacer')) {
       var sp = document.createElement('div'); sp.className = 'cf-spacer'; panel.appendChild(sp);
     }
-    var m = P.macros, t = progressTotals();
+    var m = MACROS(), t = progressTotals();
     var rest = Math.max(0, m.kcal - t.kcal), done = rest === 0 && t.kcal > 0;
     var stTxt = done ? '¡Completaste tu día! 🎯'
       : t.kcal > 0 ? 'Te faltan ' + rest + ' kcal por marcar.'
@@ -215,7 +231,7 @@
 
   /* ── 3) PESTAÑA COMER FUERA ───────────────────────────────────────────── */
   var st = { mealIds: [], cat: 'Todas', soloEntran: true, qty: {} };
-  function fMeals() { return P.comidas.filter(function (m) { return m.kcal != null; }); }
+  function fMeals() { return COMIDAS().filter(function (m) { return m.kcal != null; }); }
   function fCats() {
     var seen = {}, out = ['Todas'];
     for (var i = 0; i < CAT.length; i++) if (!seen[CAT[i].cat]) { seen[CAT[i].cat] = 1; out.push(CAT[i].cat); }
@@ -366,7 +382,7 @@
     }
     if (!items.length) return;
 
-    var selMeals = P.comidas.filter(function (m) { return st.mealIds.indexOf(m.id) >= 0; });
+    var selMeals = COMIDAS().filter(function (m) { return st.mealIds.indexOf(m.id) >= 0; });
     var comidas = selMeals.map(function (m) { return m.nombre; });
 
     btn.disabled = true;
