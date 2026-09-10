@@ -177,6 +177,28 @@
   }
 
   /* ── 2) BARRA DE PROGRESO DEL DÍA ─────────────────────────────────────── */
+  // Peso calórico aproximado de una porción según el tipo de grupo. No se usa
+  // como valor absoluto: solo fija la proporción entre grupos, y luego todo se
+  // escala a las kcal declaradas de la comida. Sin esto, marcar la proteína
+  // (150 g de pollo) pesaba lo mismo que marcar las verduras.
+  var PESO_PORCION = [
+    { re: /carbohidrato|carbo\b/i,  w: 78  },
+    { re: /prote[ií]na/i,           w: 165 },
+    { re: /frutos secos|semillas/i, w: 45  },
+    { re: /grasa/i,                 w: 50  },
+    { re: /fruta|berries/i,         w: 60  },
+    { re: /verdura|ensalada/i,      w: 35  },
+    { re: /l[áa]cteo|yogurt|leche/i, w: 90 },
+  ];
+  function pesoPorcion(label) {
+    for (var i = 0; i < PESO_PORCION.length; i++) if (PESO_PORCION[i].re.test(label)) return PESO_PORCION[i].w;
+    return 80;
+  }
+  function etiquetaGrupo(pick) {
+    var k = pick.querySelector('.k');
+    return k ? k.textContent : '';
+  }
+
   function progressTotals() {
     var out = { kcal: 0, p: 0, c: 0, g: 0 };
     var meals = document.querySelectorAll('#tab-plan .meal[data-mealid]');
@@ -187,21 +209,26 @@
       for (var d = 0; d < _cs.length; d++) if (_cs[d].id === mid) data = _cs[d];
       if (!data || data.kcal == null) continue;
       var picks = meals[i].querySelectorAll('.pick');
-      var tot = 0, got = 0, kcalPerGroup = 0, usePerGroup = true;
+      var totW = 0, gotW = 0, kcalPerGroup = 0, usePerGroup = true;
       for (var q = 0; q < picks.length; q++) {
         var gi = groupInfo(picks[q]);
-        if (!isFinite(gi.max)) continue;
+        if (!isFinite(gi.max) || gi.max <= 0) continue;
         var gKcal = parseFloat(picks[q].dataset.kcal);
         if (!(gKcal > 0)) usePerGroup = false;
-        var gf = gi.max > 0 ? Math.min(gi.count, gi.max) / gi.max : 0;
+        var gf = Math.min(gi.count, gi.max) / gi.max;
         kcalPerGroup += (gKcal > 0 ? gKcal : 0) * gf;
-        tot += gi.max; got += Math.min(gi.count, gi.max);
+        // Cada grupo pesa según el tipo de porción y cuántas admite, así una
+        // porción de proteína no vale lo mismo que una de verduras.
+        var u = pesoPorcion(etiquetaGrupo(picks[q]));
+        totW += u * gi.max;
+        gotW += u * Math.min(gi.count, gi.max);
       }
-      if (!tot) continue;
-      var f = got / tot;
+      if (!totW) continue;
+      var f = gotW / totW;
       out.kcal += usePerGroup ? kcalPerGroup : data.kcal * f;
       out.p += (data.p || 0) * f;
-      out.c += (data.c || 0) * f; out.g += (data.g || 0) * f;
+      out.c += (data.c || 0) * f;
+      out.g += (data.g || 0) * f;
     }
     out.kcal = Math.round(out.kcal); out.p = Math.round(out.p);
     out.c = Math.round(out.c); out.g = Math.round(out.g);
