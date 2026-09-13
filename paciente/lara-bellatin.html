@@ -240,7 +240,7 @@ const PATIENT = {
     {
       id: 'descanso',
       label: 'Descanso · 1940 kcal',
-      macros: { kcal:1940, p:131, c:226, g:54 },
+      macros: { kcal:1940, p:140, c:224, g:52 },
       comidas: [
         { id:'des', nombre:'☀️ Desayuno', kcal:420, p:26, c:48, g:14, grupos:[
           { label:'Bebida base (todos los días)', max:1, ops:[
@@ -261,17 +261,12 @@ const PATIENT = {
           ]},
         ]},
 
-        { id:'mm', nombre:'🍫 Media Mañana', kcal:210, p:12, c:28, g:5, grupos:[
-          { label:'Escoge 01 · Bebida caliente', max:1, ops:[
-            'Infusión o té + 150 ml leche evaporada descremada caliente',
-            'Cocoa: 100 ml leche evaporada descremada + 1 cda cocoa + ½ cdta miel de maple',
-            'Leche Danlac de vainilla caliente (200 ml)',
-          ]},
-          { label:'Escoge 01 · Acompañamiento', max:1, ops:[
-            '1 porción de fruta (ver especificaciones)',
-            '1 Vakimú pro bebible de vainilla (200 ml)',
-            '1 porción de fruta + 6 almendras o nueces',
-            '1 galleta de arroz + 1 cdta de mantequilla de maní',
+        { id:'mm', nombre:'🍫 Media Mañana', kcal:210, p:18, c:26, g:4, grupos:[
+          { label:'Escoge 01 · Opción completa', max:1, ops:[
+            'Danlac de vainilla 200 ml (20 g P) + 1 porción de fruta',
+            'Infusión o té + 150 ml leche evaporada descremada + 1 porción de fruta + 6 almendras o nueces',
+            'Cocoa (100 ml leche evaporada + cocoa + miel de maple) + 1 porción de fruta + 6 almendras',
+            'Infusión o té + 150 ml leche evaporada + 1 galleta de arroz + 1 cdta mantequilla de maní',
           ]},
         ]},
 
@@ -301,13 +296,13 @@ const PATIENT = {
           ]},
         ], nota:'*Puedes preparar pasta con salsa de queso: 50 ml leche evaporada + 30 g queso rallado + 1 cdta mantequilla + sal y pimienta.' },
 
-        { id:'snk', nombre:'🍎 Snack', kcal:220, p:15, c:28, g:5, grupos:[
+        { id:'snk', nombre:'🍎 Snack', kcal:220, p:18, c:28, g:4, grupos:[
           { label:'Escoge 01', max:1, ops:[
+            'Danlac de vainilla 200 ml (20 g P) + 1 porción de fruta',
             '1 Vakimú pro bebible de vainilla (200 ml) + 1 porción de fruta',
             '100 g de Quark o Skyr + 1 porción de fruta',
             '30 g de queso edam o mozzarella + 1 porción de fruta + 6 aceitunas',
             '½ scoop de proteína aislada + 1 porción de fruta + 6 almendras',
-            '200 ml de Danlac vainilla + 1 porción de fruta',
           ]},
         ]},
 
@@ -344,7 +339,7 @@ const PATIENT = {
     {
       id: 'entreno',
       label: 'Entrenamiento · 2240 kcal',
-      macros: { kcal:2240, p:141, c:296, g:57 },
+      macros: { kcal:2240, p:148, c:294, g:55 },
       comidas: [
         { id:'pre-e', nombre:'⚡ Pre-Entreno · 7:00 am', kcal:null, p:null, c:null, g:null, grupos:[
           { label:'Escoge 01 · Pre-Entreno (~300 kcal)', max:1, ops:[
@@ -373,17 +368,12 @@ const PATIENT = {
           ]},
         ]},
 
-        { id:'mm-e', nombre:'🍫 Media Mañana', kcal:210, p:12, c:28, g:5, grupos:[
-          { label:'Escoge 01 · Bebida caliente', max:1, ops:[
-            'Infusión o té + 150 ml leche evaporada descremada caliente',
-            'Cocoa: 100 ml leche evaporada descremada + 1 cda cocoa + ½ cdta miel de maple',
-            'Leche Danlac de vainilla caliente (200 ml)',
-          ]},
-          { label:'Escoge 01 · Acompañamiento', max:1, ops:[
-            '1 porción de fruta (ver especificaciones)',
-            '1 Vakimú pro bebible de vainilla (200 ml)',
-            '1 porción de fruta + 6 almendras o nueces',
-            '1 galleta de arroz + 1 cdta de mantequilla de maní',
+        { id:'mm-e', nombre:'🍫 Media Mañana', kcal:210, p:18, c:26, g:4, grupos:[
+          { label:'Escoge 01 · Opción completa', max:1, ops:[
+            'Danlac de vainilla 200 ml (20 g P) + 1 porción de fruta',
+            'Infusión o té + 150 ml leche evaporada descremada + 1 porción de fruta + 6 almendras o nueces',
+            'Cocoa (100 ml leche evaporada + cocoa + miel de maple) + 1 porción de fruta + 6 almendras',
+            'Infusión o té + 150 ml leche evaporada + 1 galleta de arroz + 1 cdta mantequilla de maní',
           ]},
         ]},
 
