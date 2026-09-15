@@ -233,13 +233,12 @@ const PATIENT = {
   planes: [
     {
       id: 'estandar',
-      label: 'Día Estándar · ~1300 kcal',
+      label: 'Lunes · ~1300 kcal',
       macros: { kcal:1300, p:82, c:189, g:23 },
       comidas: [
-        { id:'pre', nombre:'⚡ Pre-Entreno', kcal:null, p:null, c:null, g:null, grupos:[
-          { label:'Escoge 01 · Según el día de entrenamiento', max:1, ops:[
-            'Lunes · 5:50 am: Jugo de beterraga (2 betarragas medianas + limón + agua)',
-            'MMA · 11:00 am: 1 rebanada de pan blanco + 1 cda de miel de abeja + 20 g de gomitas Haribo',
+        { id:'pre', nombre:'⚡ Pre-Entreno · 5:50 am', kcal:70, p:2, c:16, g:0, grupos:[
+          { label:'Pre-Entreno (fijo)', max:1, ops:[
+            'Jugo de beterraga: 2 betarragas medianas + limón + agua',
           ]},
         ]},
         { id:'intra', nombre:'🧃 Intra-Entreno', kcal:null, p:null, c:null, g:null, grupos:[
