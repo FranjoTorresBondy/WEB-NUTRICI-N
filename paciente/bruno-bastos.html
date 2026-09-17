@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -42,12 +42,15 @@ section{padding:30px 0}
 .sec-h h2{font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:24px}
 .sec-h .ix{font-family:'IBM Plex Mono';color:var(--navy);font-size:13px;font-weight:600}
 .sec-h .rule{flex:1;height:1px;background:var(--line)}
-.macros{display:flex;flex-wrap:wrap;gap:14px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 22px;margin:6px 0 22px;box-shadow:var(--shadow)}
+.macros{display:flex;flex-wrap:wrap;gap:14px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 22px;margin:6px 0 16px;box-shadow:var(--shadow)}
 .macros .kcal{font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:32px;color:var(--amber)}
 .macros .kcal small{font-size:14px;color:var(--muted);font-family:'Inter';font-weight:600}
-.macros .mtag{font-family:'IBM Plex Mono';font-size:12px;border:1px solid var(--line);border-radius:8px;padding:6px 11px;color:var(--ink)}
-.macros .mtag b{color:var(--navy)}
 .macros .sep{flex:1}
+.tag{display:inline-block;font-family:'IBM Plex Mono';font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#000;background:var(--navy);padding:5px 12px;border-radius:999px;font-weight:700}
+.plan-btns{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.plan-btn{appearance:none;background:var(--panel);border:1.5px solid var(--line);border-radius:10px;cursor:pointer;font-family:'IBM Plex Mono';font-size:12px;font-weight:600;color:var(--muted);padding:8px 16px;transition:.2s;white-space:nowrap}
+.plan-btn:hover{border-color:var(--navy);color:var(--ink)}
+.plan-btn.active{background:rgba(196,151,58,.12);border-color:var(--navy);color:var(--navy)}
 .meals{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
 @media(max-width:760px){.meals{grid-template-columns:1fr}}
 .meal{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow)}
@@ -71,6 +74,9 @@ section{padding:30px 0}
 .opt-btn:disabled{opacity:.25;cursor:default}
 .opt-cnt{font-family:'IBM Plex Mono';font-size:14px;font-weight:700;min-width:20px;text-align:center;color:var(--navy)}
 .meal .note2{font-size:11.5px;color:var(--faint);font-style:italic;margin-top:12px;border-top:1px dashed var(--line);padding-top:10px}
+.preentrenamiento{background:rgba(196,151,58,.06);border:1.5px solid rgba(196,151,58,.25);border-radius:14px;padding:18px 22px;margin-top:16px}
+.preentrenamiento h4{font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:16px;color:var(--navy);margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.preentrenamiento h4 .badge{font-family:'IBM Plex Mono';font-size:10px;background:var(--navy);color:#000;padding:3px 8px;border-radius:999px;font-weight:700}
 .evalwrap{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 @media(max-width:760px){.evalwrap{grid-template-columns:1fr}}
 .evgroup{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow)}
@@ -83,6 +89,11 @@ section{padding:30px 0}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px 22px;box-shadow:var(--shadow)}
 .obj li{font-size:13.5px;color:var(--ink);margin:8px 0 8px 4px;list-style:none;padding-left:22px;position:relative}
 .obj li::before{content:"→";position:absolute;left:0;color:var(--navy);font-weight:800}
+.suplem-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-top:4px}
+.suplem-card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 20px;box-shadow:var(--shadow)}
+.suplem-card .s-name{font-family:'IBM Plex Mono';font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--navy);font-weight:600;margin-bottom:8px}
+.suplem-card .s-val{font-family:'Libre Franklin',sans-serif;font-size:15px;font-weight:600;color:var(--ink)}
+.suplem-card .s-note{font-size:11.5px;color:var(--faint);margin-top:4px;font-style:italic}
 .specs{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
 @media(max-width:760px){.specs{grid-template-columns:1fr}}
 .spec{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 20px;box-shadow:var(--shadow)}
@@ -91,14 +102,11 @@ section{padding:30px 0}
 .spec li{font-size:12.5px;color:var(--muted);margin:7px 0;padding-left:16px;position:relative}
 .spec li::before{content:"•";position:absolute;left:0;color:var(--faint)}
 .spec li b{color:var(--ink);font-weight:600}
-.spec .sub-title{font-family:'IBM Plex Mono';font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--navy);margin:12px 0 6px;font-weight:600}
 .vinag-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
 @media(max-width:760px){.vinag-grid{grid-template-columns:1fr}}
 .vinag{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 20px;box-shadow:var(--shadow)}
 .vinag .vname{font-family:'Libre Franklin',sans-serif;font-size:14px;font-weight:600;color:var(--navy);margin-bottom:6px}
 .vinag .vdesc{font-size:12.5px;color:var(--muted);line-height:1.5}
-.note{font-size:12px;color:var(--muted);background:var(--panel2);border:1px dashed var(--line);border-radius:12px;padding:14px 16px;margin:18px 0}
-.note b{color:var(--ink)}
 .hydro{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-top:6px}
 .hcard{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px 22px;text-align:center;box-shadow:var(--shadow)}
 .hcard .l{font-family:'IBM Plex Mono';font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
@@ -110,14 +118,14 @@ section{padding:30px 0}
 .chart-card h3{font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:16px;color:var(--ink);margin-bottom:4px}
 .chart-card .cap{font-size:12px;color:var(--faint);margin-bottom:16px}
 .chart-wrap{position:relative;height:220px}
-.chart-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+.chart-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 @media(max-width:640px){.chart-grid{grid-template-columns:1fr}}
 .kpi-row{display:flex;flex-wrap:wrap;gap:12px;margin:16px 0}
 .kpi{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 18px;flex:1;min-width:120px;box-shadow:var(--shadow)}
 .kpi .kv{font-family:'Chakra Petch',sans-serif;font-size:24px;font-weight:700;color:var(--navy)}
 .kpi .kl{font-family:'IBM Plex Mono';font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin-top:4px}
 .kpi .kd{font-size:12px;margin-top:4px}
-.kpi .kd.up{color:var(--green)} .kpi .kd.down{color:var(--coral)}
+.kpi .kd.up{color:var(--green)}.kpi .kd.down{color:var(--coral)}
 .eval-form{background:var(--panel2);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin-top:20px}
 .eval-form h3{font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:16px;color:var(--ink);margin-bottom:16px}
 .form-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
@@ -145,16 +153,8 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
   .tabbar .wrap::-webkit-scrollbar{display:none}
   .tab{padding:13px 14px;font-size:12px;gap:6px}
   .tab.active::after{left:14px;right:14px}
-  .tab .tnum{font-size:10px}
-  .macros{flex-direction:column;align-items:flex-start;gap:10px;padding:14px 16px}
-  .macros .sep{display:none}
-  .macros .kcal{font-size:26px}
   .evalwrap,.specs,.vinag-grid{grid-template-columns:1fr}
-  .foot-inner{flex-direction:column;align-items:flex-start;gap:6px}
-}
-@media(max-width:400px){
-  h1{font-size:clamp(32px,10vw,56px)}
-  .tab{padding:12px 10px;font-size:11px}
+  .foot-inner{flex-direction:column;align-items:flex-start}
 }
 </style>
 <link rel="stylesheet" href="paciente.css">
@@ -177,368 +177,468 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 </div></div></footer>
 
 <script>
+// ════════════════════════════════════════════════════════════════════════════
+//  DATOS DEL PACIENTE
+// ════════════════════════════════════════════════════════════════════════════
 const PATIENT = {
-  slug:      'bruno-bastos',
-  nombre:    'Bruno\nBastos',
-  fecha:     '15.09.2026',
-  tipoPlan:  'Hipocalórico · Hiperprotéico',
-  macros:    { kcal: 1914, p: null, c: null, g: null },
+  slug:     'bruno-bastos',
+  sexo:     'm',
+  nombre:   'Bruno\nBastos',
+  fecha:    '15.09.2026',
+  tipoPlan: 'Hipocalórico · Hiperprotéico',
+
   hidratacion: [
-    { label:'💧 Entrenamiento', valor:'4.0' },
     { label:'💧 Descanso',      valor:'3.0' },
+    { label:'💧 Entrenamiento', valor:'4.0' },
   ],
-  semanas: 1,
+
   antro: {
     fecha:    '15.09.2026',
     peso:     90.5,
     talla:    175.0,
     imc:      29.6,
-    tri:       7.0,
-    bi:        2.5,
-    sub:      13.0,
-    cresta:   18.0,
-    supra:    10.0,
-    abd:      18.0,
-    pierna:   12.0,
-    pant:     12.0,
-    brazRelaj: 38.8,
-    brazFlex:  42.0,
-    abdom:     90.0,
-    cadera:   105.0,
-    muslo:     58.5,
-    pantPer:   39.8,
-    diam: { humero: 7.8, biEstiloideo: 5.5, femur: 10.6 },
-    s6: 72.0,
-    s8: 92.5,
-    fatKg:  null,
-    muscKg: null,
+    tri:      7.0,  bi:2.5,    sub:13.0,  cresta:18.0, supra:10.0,
+    abd:      18.0, pierna:12.0, pant:12.0,
+    s6:       72.0, s8:92.5,
+    brazRelaj: 38.8, brazFlex:42.0,
+    abdom:     90.0, cadera:105.0, muslo:58.5, pantPer:39.8,
+    diam: { humero:7.8, biestiloideo:5.5, femur:10.6 },
+    icc:      null, somato: null,
+    pctGrasa: null, fatKg: null,
+    pctMusc:  null, muscKg: null,
   },
 
-  antroHistorial: [
-    { fecha:'03.07.2026', peso:97.1, tri:11,  bi:11, sub:16, cresta:35, supra:20, abd:32, pierna:22, pant:17, brazRelaj:40.6, brazFlex:42.8, abdom:97.0, cadera:110.0, muslo:60.5, pantPer:41.0, s6:118.0, s8:164.0 },
-    { fecha:'22.07.2026', peso:95.0, tri:11,  bi:10, sub:16, cresta:28, supra:15, abd:25, pierna:20, pant:13, brazRelaj:40.3, brazFlex:42.5, abdom:94.0, cadera:108.8, muslo:60.0, pantPer:41.0, s6:100.0, s8:138.0 },
-    { fecha:'28.08.2026', peso:92.2, tri:11,  bi:5,  sub:15, cresta:25, supra:13, abd:22, pierna:18, pant:13, brazRelaj:39.0, brazFlex:41.8, abdom:93.0, cadera:105.0, muslo:59.0, pantPer:40.0, s6:92.0,  s8:122.0 },
-    { fecha:'15.09.2026', peso:90.5, tri:7.0, bi:2.5,sub:13, cresta:18, supra:10, abd:18, pierna:12, pant:12, brazRelaj:38.8, brazFlex:42.0, abdom:90.0, cadera:105.0, muslo:58.5, pantPer:39.8, s6:72.0,  s8:92.5  },
-  ],
+  antroHistorial: [],
 
   objetivos: [
-    'Disminución de Σ8 pliegues a 90–95 mm para la próxima sesión',
-    'Pasos mínimos: 5,000 diarios (fines de semana llegar a 8,000)',
-    'Por estas semanas: dejar snacks salados y dulces',
+    'Disminución de sumatoria de 8 pliegues a 90–95 mm para la próxima sesión',
+    'Objetivo de pasos mínimos 5000 diarios, los fines de semana llegar a 8000',
+    'Por estas semanas, dejar snacks salados y dulces',
   ],
 
-  comidas: [
-    { id:'des', nombre:'☀️ Desayuno', kcal:570, p:null, c:null, g:null, grupos:[
-        { label:'Escoge 01 · Fruta (2 porciones)', max:1, ops:[
-          '2 porciones de fruta (puedes hacer jugo con estas porciones)',
-        ]},
-        { label:'Escoge 03 · Carbohidrato', max:3, ops:[
-          '20 g de avena',
-          '20 g de cereales de Dyfferent',
-          '1 rebanada de pan de molde (30 g)',
-          '1 Rapidita integral',
-          '1 Rapidita cero',
-        ]},
-        { label:'Escoge 01 · Proteína + Grasa', max:1, ops:[
-          '100 g de pollo + 60 g de palta',
-          '80 g de queso mozzarella light (Cuisine&amp;Co) + 1 huevo',
-          '1 lata de atún en agua + 60 g de palta',
-          '200 g de Vakimú Quark + 1 porción de frutos secos',
-          '1 scoop de proteína + 1 porción de frutos secos',
-          '3 huevos',
-        ]},
-      ], nota:'Puedes agregar cebolla y tomate con tu atún. · Puedes reemplazar el desayuno por un pan con chicharrón: en ese caso no consumir las porciones de grasa de la cena, y solo consumir 03 porciones de carbohidratos en almuerzo y cena.' },
+  suplementacion: [
+    { nombre:'Multivitamínico', dosis:'1 cápsula al día con el desayuno', nota:'Centrum / Thorne' },
+    { nombre:'Creatina (pre entreno)', dosis:'10 g · POST entrenamiento', nota:'Tomar TODOS LOS DÍAS, entrenes o no' },
+  ],
 
-    { id:'alm', nombre:'🥗 Almuerzo', kcal:640, p:null, c:null, g:null, grupos:[
-        { label:'Escoge 04 · Carbohidrato (peso cocido)', max:4, ops:[
-          '90 g de papa',
-          '90 g de camote',
-          '60 g de arroz',
-          '60 g de quinua',
-          '60 g de choclo',
-          '50 g de pasta',
-        ]},
-        { label:'Escoge · Proteína (180 g, peso crudo)', max:1, ops:[
-          'Pechuga de pollo',
-          'Pechuga de pavo',
-          'Pescado',
-          'Lomo de res',
-          'Lomo de cerdo',
-          'Langostinos',
-          '100 g de carne molida de bistec',
-        ]},
-        { label:'Escoge 01 · Verdura', max:1, ops:[
-          '150 a 180 g de verduras de tu preferencia (cebolla, tomate, lechuga, albahaca)',
-        ]},
-        { label:'Escoge 02 · Grasa', max:2, ops:[
-          '1 cdta de aceite de olivo',
-          '40 g de palta',
-          '10 g de mantequilla de maní',
-        ]},
-      ], nota:'Si vas a comer fuera, revisar cuadro de especificaciones.' },
+  planes: [
+    // ── DÍAS DE DESCANSO ─────────────────────────────────────────────────────
+    {
+      id: 'descanso',
+      label: 'Días de descanso · 1914 kcal',
+      macros: { kcal:1914 },
+      comidas: [
+        { id:'des', nombre:'☀️ Desayuno', kcal:null, grupos:[
+          { label:'Escoge 01 · Fruta', max:1, ops:[
+            '2 porciones de fruta* (ver especificaciones) — puedes hacer jugo con estas porciones',
+          ]},
+          { label:'Escoge 03 · Carbohidrato', max:3, ops:[
+            '20 g de avena',
+            '20 g de cereales Dyfferent',
+            '1 rebanada de pan de molde (30 g)',
+            '1 Rapidita integral',
+            '1 Rapidita cero',
+          ]},
+          { label:'Escoge 01 · Proteína + grasa', max:1, ops:[
+            '100 g de pollo + 60 g de palta',
+            '80 g de queso mozzarella light (Cuisine & Co) + 1 huevo',
+            '1 lata de atún + 60 g de palta',
+            '200 g de Vakimu Quark + 1 porción de frutos secos* (ver especificaciones)',
+            '1 scoop de proteína + 1 porción de frutos secos* (ver especificaciones)',
+            '3 huevos',
+          ]},
+        ], nota:'*Puedes agregar cebolla y tomate con tu atún.\n*Puedes reemplazar el desayuno por un pan con chicharrón: no consumir las porciones de grasa del almuerzo ni de la cena, que el almuerzo-cena sean cárnicos magros (pechuga de pollo o pavo) y solo consumir 03 porciones de carbohidratos en almuerzo y cena.' },
 
-    { id:'cen', nombre:'🌙 Cena', kcal:664, p:null, c:null, g:null, grupos:[
-        { label:'Escoge 04 · Carbohidrato (peso cocido)', max:4, ops:[
-          '90 g de papa',
-          '90 g de camote',
-          '60 g de arroz',
-          '60 g de quinua',
-          '60 g de choclo',
-          '1 Rapidita cero',
-          '1 Rapidita integral',
-          '1 rebanada de pan de molde (30 g)',
+        { id:'alm', nombre:'🥗 Almuerzo', kcal:null, grupos:[
+          { label:'Escoge 04 · Carbohidrato (pesos cocidos)', max:4, ops:[
+            '90 g de papa',
+            '90 g de camote',
+            '60 g de arroz',
+            '60 g de quinua',
+            '60 g de choclo',
+            '50 g de pasta',
+          ]},
+          { label:'Escoge 01 · Proteína (180 g, peso crudo)', max:1, ops:[
+            'Pechuga de pollo',
+            'Pechuga de pavo',
+            'Pescado',
+            'Lomo de res',
+            'Lomo de cerdo',
+            'Langostinos',
+            '100 g de carne molida de bistec*',
+          ]},
+          { label:'Escoge 01 · Verduras', max:1, ops:[
+            '150–180 g de verduras de tu preferencia (cebolla, tomate, lechuga, albahaca)',
+          ]},
+          { label:'Escoge 02 · Grasa', max:2, ops:[
+            '1 cdta de aceite de oliva',
+            '40 g de palta',
+            '10 g de mantequilla de maní',
+          ]},
+        ], nota:'*Si escoges carne molida de bistec, consumir la mitad de la porción de grasas.\n*Si vas a comer fuera revisar cuadro de especificaciones.' },
+
+        { id:'cen', nombre:'🌙 Cena', kcal:null, grupos:[
+          { label:'Escoge 04 · Carbohidrato (pesos cocidos)', max:4, ops:[
+            '90 g de papa',
+            '90 g de camote',
+            '60 g de arroz',
+            '60 g de quinua',
+            '60 g de choclo',
+            '1 Rapidita cero',
+            '1 Rapidita integral',
+            '1 rebanada de pan de molde (30 g)',
+          ]},
+          { label:'Escoge 01 · Proteína (180 g, peso crudo)', max:1, ops:[
+            'Pechuga de pollo',
+            'Pechuga de pavo',
+            'Pescado',
+            'Lomo de res',
+            'Lomo de cerdo',
+            'Langostinos',
+            '100 g de carne molida de bistec*',
+          ]},
+          { label:'Escoge 02 · Grasa', max:2, ops:[
+            '1 cdta de aceite de oliva',
+            '40 g de palta',
+            '10 g de mantequilla de maní',
+          ]},
+          { label:'Escoge 01 · Verduras', max:1, ops:[
+            '120–150 g de verduras de tu preferencia (cebolla, tomate, lechuga, albahaca)',
+          ]},
+        ], nota:'*Si escoges carne molida de bistec, consumir la mitad de la porción de grasas.\n*Si tienes hambre: 1 taza de gelatina light + 1 cda de skyr o quark, o 1 taza de pudín diet + 1 cda de skyr o quark.' },
+      ],
+      preentrenamiento: {
+        badge:'+150 kcal · Entrenamiento de fuerza',
+        grupos:[
+          { label:'Escoge 01 · Carbohidrato', ops:['20 g de nestum o crema de arroz (peso seco)','20 g de cereales','1 rebanada de pan de molde (30 g)'] },
+          { label:'Escoge 01 · Endulzante', ops:['1 cda de miel de abeja','1 cda de mermelada de fresa'] },
+        ],
+      },
+    },
+
+    // ── DÍA DE CUMPLEAÑOS ────────────────────────────────────────────────────
+    {
+      id: 'cumpleanos',
+      label: 'Día de cumpleaños · 2400 kcal',
+      macros: { kcal:2400 },
+      comidas: [
+        { id:'des-c', nombre:'☀️ Desayuno', kcal:null, grupos:[
+          { label:'Escoge 01', max:1, ops:[
+            '1 porción de fruta* (ver especificaciones) + 1 scoop de proteína',
+            '1 porción de fruta* (ver especificaciones) + 100 g de pollo',
+            '1 porción de fruta* (ver especificaciones) + 200 g de Quark',
+          ]},
         ]},
-        { label:'Escoge · Proteína (180 g, peso crudo)', max:1, ops:[
-          'Pechuga de pollo',
-          'Pechuga de pavo',
-          'Pescado',
-          'Lomo de res',
-          'Lomo de cerdo',
-          'Langostinos',
-          '100 g de carne molida de bistec (consumir la mitad de la porción de grasas)',
+        { id:'alm-c', nombre:'🍗 Almuerzo', kcal:null, grupos:[
+          { label:'Opción', max:1, ops:[
+            '20 alitas (puedes acompañarlas con ensalada)',
+          ]},
         ]},
-        { label:'Escoge 02 · Grasa', max:2, ops:[
-          '1 cdta de aceite de olivo',
-          '40 g de palta',
-          '10 g de mantequilla de maní',
+        { id:'cen-c', nombre:'🍔 Cena', kcal:null, grupos:[
+          { label:'Escoge 01', max:1, ops:[
+            '1 hamburguesa clásica con papas fritas',
+            '1 hamburguesa provolone, elemental o francesa sin papas fritas',
+          ]},
         ]},
-        { label:'Escoge 01 · Verdura', max:1, ops:[
-          '120 a 150 g de verduras de tu preferencia',
+      ],
+    },
+
+    // ── DÍAS DE CIENEGUILLA ──────────────────────────────────────────────────
+    {
+      id: 'cieneguilla',
+      label: 'Días de Cieneguilla · 1900 kcal',
+      macros: { kcal:1900 },
+      comidas: [
+        { id:'des-ci', nombre:'☀️ Desayuno', kcal:null, grupos:[
+          { label:'Escoge 01 · Fruta', max:1, ops:[
+            '1 porción de fruta* (ver especificaciones)',
+          ]},
+          { label:'Escoge 02 · Carbohidrato', max:2, ops:[
+            '1 Rapidita integral',
+            '1 pan pita integral (30 g)',
+            '1 rebanada de pan de molde',
+          ]},
+          { label:'Escoge 01 · Proteína + grasa', max:1, ops:[
+            '100 g de pollo + 60 g de palta',
+            '80 g de queso mozzarella light (Cuisine & Co) + 1 huevo',
+            '1 lata de atún + 60 g de palta',
+            '200 g de Vakimu Quark + 1 porción de frutos secos* (ver especificaciones)',
+            '1 scoop de proteína + 1 porción de frutos secos* (ver especificaciones)',
+            '3 huevos',
+          ]},
         ]},
-      ], nota:'Si tienes hambre: 1 taza de gelatina light + 1 cda de skyr o quark, o 1 taza de pudín diet + 1 cda de skyr o quark.' },
+        { id:'alm-ci', nombre:'🥩 Almuerzo', kcal:null, grupos:[
+          { label:'Opción', max:1, ops:[
+            '500 g de carnes (peso crudo) — puedes acompañarlo con ensalada',
+          ]},
+        ]},
+        { id:'cen-ci', nombre:'🌙 Cena', kcal:null, grupos:[
+          { label:'Opción', max:1, ops:[
+            '500 g de Quark + 200 g de berries',
+          ]},
+        ]},
+      ],
+    },
   ],
 
   specs: [
-    { titulo:'Suplementación', items:[
-      '## Multivitamínico',
-      'Dosis: 1 cápsula al día con el desayuno. Marca: Centrum o Thorne.',
-      '## Creatina',
-      'Dosis: 10 g · POST entreno. Tomar TODOS LOS DÍAS, entrenes o no.',
+    { titulo:'🥤 Bebidas', items:[
+      'Agua, infusiones (manzanilla, anís, té, muña, hierba luisa, flor de Jamaica)',
+      'Refrescos no azucarados: emoliente, agua de piña, agua de manzana',
+      'Puedes agregar edulcorantes acalóricos: Stevia, yacón o fruto del monje',
+      'Puedes tomar bebidas gasificadas zero azúcar (no consumir a diario)',
     ]},
-    { titulo:'Opciones si comes fuera', items:[
-      'Poke bowl: sin salsas acevichada/dulces (taré, anguila); solo con soya. Proteína + palta + arroz + verduras + fruta (si deseas).',
-      'Bowl de San Antonio, Don Mamino, Delicass, Freshii: con arroz, verduras, pollo y palta si es posible.',
-      'Wrap de Insólito.',
-      'Pollo a la brasa: pechuga sin pellejo con ensalada y papa al horno o sancochada.',
-      'Ceviche o tiradito con camote y choclo.',
-      'Sushi: nigiris con salsa de soya.',
+    { titulo:'🍎 Porción de fruta', items:[
+      '1 kiwi','½ taza de mango picado (80 g)','1 manzana',
+      '1 plátano pequeño (60 g pelado) / ½ grande (120 g pelado)',
+      '1 taza de papaya picada (160 g)','berries* (150 g)',
+      '¾ taza de piña picada (165 g)','1 granadilla',
+      '1 mandarina mediana','1 pera','1 durazno','10 uvas',
     ]},
-    { titulo:'Bebidas bajas en calorías', items:[
-      'Té negro o verde helado + limón + Stevia + agua regular o con gas + hielo. Puedes agregarle berries.',
-      'Agua de flor de Jamaica + Stevia + agua regular o con gas + hielo. Puedes agregarle berries.',
-      'Matcha + 200 ml de leche de almendra + Stevia + hielo.',
+    { titulo:'🫐 Berries', items:[
+      'Arándano, fresa, aguaymanto, moras, frambuesas',
     ]},
-    { titulo:'Especificaciones generales', items:[
-      '## Bebidas',
-      'Agua, infusiones (manzanilla, anís, té, muña, hierba luisa, flor de Jamaica), refrescos no azucarados (emoliente, agua de piña, agua de manzana). Puedes agregar edulcorantes acalóricos. Bebidas gasificadas zero azúcar: no consumir a diario.',
-      '## Porción de fruta',
-      '1 kiwi / ½ taza mango picado (80 g) / 1 manzana / 1 plátano pequeño (60 g) o ½ grande (120 g) / 1 taza papaya (160 g) / berries (150 g) / ¾ taza piña (165 g) / 1 granadilla / 1 mandarina / 1 pera / 1 durazno / 10 uvas.',
-      '## Berries',
-      'Arándano, fresa, aguaymanto, moras, frambuesas.',
-      '## Frutos secos',
-      '6 cashews, 6 almendras, 4 pecanas, 4 nueces, 15 pistachos, 10 maní, 1 cdta mantequilla de frutos secos (10 g).',
-      'Evitar el consumo de chicles.',
-      'Mantenerse lo más estricto posible con las porciones.',
-      'Intentar consumir los alimentos a la misma hora en los respectivos tiempos de ingesta.',
-      'Puedes hacerte helados con fruta congelada, yogurt skyr o quark y Stevia. Si es de chocolate: cocoa y plátano congelado.',
-      'Evitar café y alcohol por dos semanas.',
+    { titulo:'🥜 Porción de frutos secos', items:[
+      '6 Cashews','6 almendras','4 pecanas','4 nueces',
+      '15 pistachios','10 maní','1 cdta de mantequilla de frutos secos (10 g)',
     ]},
-  ],
-
-  vinagretas: [
-    { nombre:'Mermelada', desc:'200 g de berries + 2 cdas de chía + 4 cdas de monkfruit → microondas u olla.' },
-    { nombre:'Leche condensada light', desc:'Leche en polvo descremada + Stevia + leche evaporada descremada (ir echando en chorro pequeño hasta lograr textura).' },
-    { nombre:'Tzatziki', desc:'2 cdas de yogurt descremado (tipo Vakimú natural) + sal y pimienta + 1 diente de ajo + pepino en trozos pequeños + 1 cdta de aceite de oliva + eneldo, perejil, orégano y menta al gusto.' },
-    { nombre:'Honey Mustard', desc:'1 cda de mostaza + 1 cda de yogurt descremado + sal, pimienta + Stevia al gusto.' },
-    { nombre:'Salsa verde', desc:'1 molde de queso fresco light + 1 atado de albahaca (o espinaca) + 2 dientes de ajo soazados + sal y pimienta + 1 cda de aceite de olivo + leche evaporada light (100–150 ml) + leche fresca Slim hasta lograr textura.' },
-    { nombre:'Salsa roja', desc:'Tomate, cebolla, ajo, albahaca, poro, Lakanto o Stevia (si falta dulzor), sal, pimienta y tomillo + 1 cda de aceite de olivo. Puedes agregar cualquier otra verdura de tu preferencia.' },
-  ],
-
-  diasEspeciales: [
-    { nombre:'🎂 Día de cumpleaños', kcal:2400, comidas:[
-      { nombre:'Desayuno', desc:'1 porción de fruta<br><span style="color:var(--navy);font-weight:600">Escoge 01:</span> 1 scoop de proteína &nbsp;·&nbsp; 100 g de pollo &nbsp;·&nbsp; 200 g de Quark' },
-      { nombre:'Almuerzo', desc:'20 alitas &nbsp;·&nbsp; Puedes acompañarlas con ensalada' },
-      { nombre:'Cena', desc:'<span style="color:var(--navy);font-weight:600">Escoge 01:</span> Hamburguesa clásica con papas fritas &nbsp;·&nbsp; Hamburguesa provolone / elemental / francesa sin papas fritas' },
+    { titulo:'📋 Lineamientos generales', items:[
+      'Evitar el consumo de chicles',
+      'Mantenerse lo más estricto posible con las porciones',
+      'Si vas a comer en restaurante, intentar que la comida tenga alimentos parecidos a alguno de los intercambios del momento',
+      'Intentar consumir los alimentos a la misma hora en los respectivos tiempos de ingesta',
+      'Puedes hacerte helados con fruta congelada, yogurt skyr o quark y Stevia. Si es de chocolate: cocoa y plátano congelado. Puedes usar esencia de vainilla, pizca de sal y canela',
+      'Evitar café y alcohol por dos semanas',
     ]},
-    { nombre:'🏖️ Días de Cieneguilla', kcal:1900, comidas:[
-      { nombre:'Desayuno', desc:'1 porción de fruta<br><span style="color:var(--navy);font-weight:600">Escoge 02 · Carbo:</span> 1 Rapidita integral &nbsp;·&nbsp; 1 pan pita integral (30 g) &nbsp;·&nbsp; 1 rebanada de pan de molde<br><span style="color:var(--navy);font-weight:600">Escoge 01 · Proteína + Grasa:</span> 100 g pollo + 60 g palta &nbsp;·&nbsp; 80 g mozzarella light + 1 huevo &nbsp;·&nbsp; 1 lata atún + 60 g palta &nbsp;·&nbsp; 200 g Quark + frutos secos &nbsp;·&nbsp; 1 scoop proteína + frutos secos &nbsp;·&nbsp; 3 huevos' },
-      { nombre:'Almuerzo', desc:'500 g de carnes a la parrilla (peso crudo) &nbsp;·&nbsp; Puedes acompañarlo con ensalada' },
-      { nombre:'Cena', desc:'500 g de Vakimú Quark + 200 g de berries' },
+    { titulo:'🍽️ Opciones si comes fuera', items:[
+      'Poke bowl: solo con soya (no salsas acevichada ni dulces como taré/anguila). Proteína + palta + arroz + verduras + fruta si deseas',
+      'Bowl de San Antonio, Don Mamino, Delicass, Freshii: con arroz, verduras, pollo y palta si es posible',
+      'Wrap de Insólito',
+      'Pollo a la brasa: pechuga sin pellejo + ensalada + papa al horno o sancochada',
+      'Ceviche o tiradito con camote y choclo',
+      'Sushi: nigiris con salsa de soya',
+    ]},
+    { titulo:'💧 Bebidas bajas en calorías', items:[
+      'Té negro o té verde helado + limón + Stevia + agua regular o con gas + hielo (puedes agregarle berries)',
+      'Agua de flor de Jamaica + Stevia + agua regular o con gas + hielo (puedes agregarle berries)',
+      'Matcha + 200 ml de leche de almendra + Stevia + hielo',
     ]},
   ],
 
-  notaSpecs: null,
-  entrenamiento: null,
+  salsas: [
+    { nombre:'Mermelada',              desc:'200 g de berries + 2 cdas de chía + 4 cdas de monkfruit → microondas u olla' },
+    { nombre:'Leche condensada light', desc:'Leche en polvo descremada + Stevia + leche evaporada descremada — ir echando en chorro pequeño hasta lograr textura' },
+    { nombre:'Tzatziki',               desc:'2 cdas de yogurt descremado (tipo Vakimú natural) + sal y pimienta + 1 diente de ajo + pepino en trozos pequeños + 1 cdta de aceite de oliva + eneldo, perejil, orégano y menta al gusto' },
+    { nombre:'Honey Mustard',          desc:'1 cda de mostaza + 1 cda de yogurt descremado + sal + pimienta + Stevia al gusto' },
+    { nombre:'Salsa verde',            desc:'1 molde de queso fresco light + 1 atado de albahaca (puedes agregarle espinaca) + 2 dientes de ajo soazados + sal y pimienta + 1 cda de aceite de oliva + leche evaporada light (100–150 ml) + leche fresca Slim hasta lograr textura' },
+    { nombre:'Salsa roja',             desc:'Tomate + cebolla + ajo + albahaca + poro + opcional fruto del monje (Lakanto) o Stevia si le falta dulzor + sal + pimienta + tomillo + 1 cda de aceite de oliva para el aderezo. Puedes adicionar cualquier otra verdura de tu preferencia' },
+  ],
 };
 
-const $=id=>document.getElementById(id);
+// ════════════════════════════════════════════════════════════════════════════
+//  RENDER ENGINE
+// ════════════════════════════════════════════════════════════════════════════
+const $ = id => document.getElementById(id);
+let saveTimer = null;
+let activePlanIdx = 0;
+
+function getActivePlan() { return PATIENT.planes[activePlanIdx]; }
 
 function renderHero() {
-  $('heroEyebrow').textContent = 'Plan Nutricional · ' + PATIENT.fecha;
+  const m = getActivePlan().macros;
+  $('heroEyebrow').innerHTML = `Plan Nutricional &nbsp;·&nbsp; ${PATIENT.fecha}`;
   $('heroNombre').innerHTML = PATIENT.nombre.replace('\n','<br>');
-  $('heroSub').innerHTML = `<span>${PATIENT.tipoPlan}</span><span><b>${PATIENT.macros.kcal}</b> kcal · días de descanso</span>`;
+  $('heroSub').innerHTML = `<span><b>${m.kcal.toLocaleString('es')}</b> kcal &nbsp;·&nbsp; ${PATIENT.tipoPlan}</span>`;
 }
 
 function renderTabs() {
   const tabs = [
-    { id:'plan',       label:'Plan de comidas', num:'01' },
-    { id:'eval',       label:'Evaluación',      num:'02' },
-    { id:'specs',      label:'Especificaciones',num:'03' },
-    { id:'evol-antro', label:'Evolución',        num:'04' },
-    { id:'registro',   label:'Registro',         num:'05' },
+    {id:'plan',       label:'Plan Nutricional'},
+    {id:'eval',       label:'Evaluación'},
+    {id:'specs',      label:'Especificaciones'},
+    {id:'evol-antro', label:'Evolución Física'},
   ];
-  $('tabNav').innerHTML = tabs.map((t,i)=>`<button class="tab${i===0?' active':''}" onclick="showTab('${t.id}',this)"><span class="tnum">${t.num}</span>${t.label}</button>`).join('');
-  $('tabPanels').innerHTML = tabs.map((t,i)=>`<div class="panel${i===0?' active':''}" id="tab-${t.id}"></div>`).join('');
+  $('tabNav').innerHTML = tabs.map((t,i) => {
+    const extra = t.id==='evol-antro' ? ";initAntro()" : "";
+    return `<button class="tab${i===0?' active':''}" onclick="showTab('${t.id}',this)${extra}">
+      <span class="tnum">0${i+1}</span> ${t.label}
+    </button>`;
+  }).join('');
+  $('tabPanels').innerHTML = tabs.map((t,i) =>
+    `<div id="tab-${t.id}" class="panel${i===0?' active':''}"></div>`
+  ).join('');
 }
 
-function renderPlan() {
-  const m = PATIENT.macros;
-  let html = `<div class="wrap"><section>
-    <div class="sec-h"><span class="ix">01</span><h2>Calorías del plan</h2><div class="rule"></div></div>
-    <div class="macros">
-      <div class="kcal">${m.kcal}<small> kcal</small></div>
-      <div class="sep"></div>
-      <div class="mtag" style="color:var(--muted)">Días de descanso</div>
-      <div class="mtag"><b>+150 kcal</b> Fuerza</div>
-    </div>
-  </section>
-  <section style="padding-top:0">
-    <div class="sec-h"><span class="ix">02</span><h2>Comidas del día</h2><div class="rule"></div></div>
-    <div class="meals" id="mealsGrid"></div>
-  </section>
-  <section style="padding-top:0">
-    <div class="sec-h"><span class="ix">03</span><h2>Entrenamiento de fuerza · Pre entreno</h2><div class="rule"></div></div>
-    <div class="meals">
-      <div class="meal">
-        <div class="top"><div class="nm">🏋️ Pre entreno <span style="font-family:'IBM Plex Mono';font-size:11px;color:var(--amber);margin-left:8px">+150 kcal</span></div></div>
-        <div class="body">
-          <div class="pick"><div class="k">Escoge 01 · Carbohidrato</div><div class="options" data-group="pre-carbo" data-max="1">
-            <div class="opt" data-count="0"><div class="cb"></div>20 g de nestum (peso seco)</div>
-            <div class="opt" data-count="0"><div class="cb"></div>20 g de crema de arroz (peso seco)</div>
-            <div class="opt" data-count="0"><div class="cb"></div>20 g de cereales</div>
-            <div class="opt" data-count="0"><div class="cb"></div>1 rebanada de pan de molde (30 g)</div>
-          </div></div>
-          <div class="pick"><div class="k">Escoge 01 · Dulce</div><div class="options" data-group="pre-dulce" data-max="1">
-            <div class="opt" data-count="0"><div class="cb"></div>1 cda de miel de abeja</div>
-            <div class="opt" data-count="0"><div class="cb"></div>1 cda de mermelada de fresa</div>
-          </div></div>
-        </div>
-      </div>
-      <div class="meal">
-        <div class="top"><div class="nm">💊 Suplementación</div></div>
-        <div class="body">
-          <div class="pick"><div class="k">Con el desayuno</div><div class="options" data-group="suplem-des" data-max="1">
-            <div class="opt" data-count="0"><div class="cb"></div>Multivitamínico — 1 cápsula (Centrum o Thorne)</div>
-          </div></div>
-          <div class="pick"><div class="k">Post entreno · todos los días</div><div class="options" data-group="suplem-crea" data-max="1">
-            <div class="opt" data-count="0"><div class="cb"></div>Creatina — 10 g (entrenes o no)</div>
-          </div></div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <section style="padding-top:0">
-    <div class="sec-h"><span class="ix">04</span><h2>Hidratación</h2><div class="rule"></div></div>
-    <div class="hydro">${PATIENT.hidratacion.map(h=>`<div class="hcard"><div class="l">${h.label}</div><div class="b">${h.valor}<span style="font-size:18px;opacity:.5"> L</span></div></div>`).join('')}</div>
-  </section>
-  ${PATIENT.diasEspeciales?.length ? `<section style="padding-top:0">
-    <div class="sec-h"><span class="ix">05</span><h2>Días especiales</h2><div class="rule"></div></div>
-    <div class="meals">${PATIENT.diasEspeciales.map(d=>`<div class="meal">
-      <div class="top"><div class="nm">${d.nombre}</div><div class="mac"><b>${d.kcal}</b> kcal</div></div>
-      <div class="body">${d.comidas.map(c=>`<div class="pick"><div class="k">${c.nombre}</div><div style="font-size:12.5px;color:var(--muted);padding:6px 10px">${c.desc}</div></div>`).join('')}</div>
-    </div>`).join('')}</div>
-  </section>` : ''}
+function showTab(id, btn) {
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  $('tab-'+id)?.classList.add('active');
+  btn.classList.add('active');
+}
+
+function flashSave() {
+  const el = $('saveind'); if (!el) return;
+  el.classList.add('show');
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(() => el.classList.remove('show'), 1800);
+}
+
+const planKey = () => `${PATIENT.slug}-plan-${getActivePlan().id}`;
+function getMealState() { try { const r=localStorage.getItem(planKey()); return r?JSON.parse(r):{}; } catch { return {}; } }
+function saveMealState(s) { localStorage.setItem(planKey(), JSON.stringify(s)); flashSave(); }
+let mealState = {};
+
+function renderNutr() {
+  mealState = getMealState();
+  const plan = getActivePlan();
+
+  const planBtns = PATIENT.planes.map((p,i) =>
+    `<button class="plan-btn${i===activePlanIdx?' active':''}" onclick="switchPlan(${i})">${p.label}</button>`
+  ).join('');
+
+  const macrosHtml = `<div class="macros">
+    <span class="kcal">${plan.macros.kcal.toLocaleString('es')}<small> kcal / día</small></span>
+    <span class="sep"></span>
+    <span class="tag">${PATIENT.tipoPlan}</span>
   </div>`;
-  $('tab-plan').innerHTML = html;
 
-  $('mealsGrid').innerHTML = PATIENT.comidas.map(meal => {
-    const grupos = meal.grupos.map((g,gi) => {
-      const gid = `${meal.id}-g${gi}`;
-      const opts = g.ops.map(op => `<div class="opt" data-count="0"><div class="cb"></div>${op}</div>`).join('');
-      return `<div class="pick"><div class="k">${g.label}</div><div class="options" data-group="${gid}" data-max="${g.max}">${opts}</div></div>`;
+  const mealsHtml = plan.comidas.map(meal => buildMeal(meal)).join('');
+
+  const preHtml = plan.preentrenamiento ? buildPreEntrenamiento(plan.preentrenamiento) : '';
+
+  const hydroHtml = `
+  <section style="padding-top:0">
+    <div class="sec-h"><span class="ix">02</span><h2>Requerimientos hídricos</h2><div class="rule"></div></div>
+    <div class="hydro">${PATIENT.hidratacion.map(h=>`<div class="hcard"><div class="l">${h.label}</div><div class="b">${h.valor} L</div></div>`).join('')}</div>
+  </section>`;
+
+  $('tab-plan').innerHTML = `<div class="wrap">
+    <section>
+      <div class="sec-h"><span class="ix">01</span><h2>Plan alimentario</h2><div class="rule"></div></div>
+      <div class="plan-btns">${planBtns}</div>
+      ${macrosHtml}
+      <div class="meals">${mealsHtml}</div>
+      ${preHtml}
+    </section>
+    ${hydroHtml}
+  </div>`;
+}
+
+function switchPlan(idx) {
+  activePlanIdx = idx;
+  renderHero();
+  renderNutr();
+}
+
+function buildMeal(meal) {
+  const groups = meal.grupos.map((g, gi) => {
+    const opts = g.ops.map((op, oi) => {
+      const key = `${meal.id}-${gi}-${oi}`;
+      const cnt = (mealState[key]||0);
+      const sel = cnt > 0;
+      return `<div class="opt${sel?' selected':''}" data-key="${key}" data-max="${g.max}" data-gi="${gi}" data-mid="${meal.id}" onclick="toggleOpt(this)">
+        <div class="cb">${sel?'✓':''}</div>
+        <span class="opt-text">${op}</span>
+        ${g.max>1?`<div class="opt-ctrl">
+          <button class="opt-btn" onclick="event.stopPropagation();adjOpt(this,-1)" ${cnt<1?'disabled':''}>−</button>
+          <span class="opt-cnt">${cnt||0}</span>
+          <button class="opt-btn" onclick="event.stopPropagation();adjOpt(this,1)">+</button>
+        </div>`:''}
+      </div>`;
     }).join('');
-    const nota = meal.nota ? `<div class="note2">${meal.nota}</div>` : '';
-    return `<div class="meal" data-mealid="${meal.id}">
-      <div class="top">
-        <div class="nm">${meal.nombre}</div>
-      </div>
-      <div class="body">${grupos}${nota}</div>
-    </div>`;
+    return `<div class="pick"><div class="k">${g.label}</div><div class="options">${opts}</div></div>`;
   }).join('');
+  const nota = meal.nota ? `<div class="note2">${meal.nota.replace(/\n/g,'<br>')}</div>` : '';
+  return `<div class="meal" data-mealid="${meal.id}"><div class="top">
+    <span class="nm">${meal.nombre}</span>
+    ${meal.kcal?`<span class="mac"><b>${meal.kcal}</b> kcal</span>`:''}
+  </div><div class="body">${groups}${nota}</div></div>`;
+}
 
-  initOpts();
-  loadSelections();
+function buildPreEntrenamiento(pre) {
+  const groups = pre.grupos.map(g => {
+    const opts = g.ops.map(op => `<div style="font-size:12.5px;color:var(--muted);padding:4px 0 4px 16px;position:relative">
+      <span style="position:absolute;left:0;color:var(--faint)">·</span>${op}</div>`).join('');
+    return `<div style="margin-top:10px"><div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--navy);font-weight:600;margin-bottom:4px">${g.label}</div>${opts}</div>`;
+  }).join('');
+  return `<div class="preentrenamiento" style="margin-top:20px">
+    <h4>⚡ Pre entrenamiento <span class="badge">${pre.badge}</span></h4>
+    ${groups}
+  </div>`;
+}
+
+function toggleOpt(el) {
+  if (!el.dataset.key) return;
+  const key = el.dataset.key;
+  const cur = mealState[key]||0;
+  mealState[key] = cur>0 ? 0 : 1;
+  saveMealState(mealState);
+  renderNutr();
+}
+
+function adjOpt(btn, delta) {
+  const opt = btn.closest('.opt');
+  const key = opt.dataset.key;
+  const cur = mealState[key]||0;
+  mealState[key] = Math.max(0, cur+delta);
+  saveMealState(mealState);
+  renderNutr();
 }
 
 function renderEval() {
   const a = PATIENT.antro;
-  const s6 = +(a.tri+a.sub+a.supra+a.abd+a.pierna+a.pant).toFixed(1);
-  const s8 = +(s6+a.bi+a.cresta).toFixed(1);
+  const row = (label, val, unit='') => `<div class="row"><span>${label}</span><span>${val!=null?val+unit:'—'}</span></div>`;
+  const d = a.diam || {};
   $('tab-eval').innerHTML = `<div class="wrap"><section>
     <div class="sec-h"><span class="ix">01</span><h2>Evaluación Nutricional</h2><div class="rule"></div></div>
     <div class="evalwrap">
-      <div class="evgroup">
-        <div class="gh">Composición corporal</div>
-        <div class="row"><span>Peso</span><span>${a.peso} kg</span></div>
-        <div class="row"><span>Talla</span><span>${a.talla} cm</span></div>
-        <div class="row"><span>IMC</span><span>${a.imc} kg/m²</span></div>
-        ${a.fatKg != null ? `<div class="row bold"><span>Masa grasa</span><span>${a.fatKg} kg</span></div>` : ''}
-        ${a.muscKg != null ? `<div class="row bold"><span>Masa muscular</span><span>${a.muscKg} kg</span></div>` : ''}
+      <div class="evgroup"><div class="gh">Antropometría básica</div>
+        ${row('Peso', a.peso, ' kg')}
+        ${row('Talla', a.talla, ' cm')}
+        ${row('IMC', a.imc, ' kg/m²')}
+        <div class="gh" style="margin-top:0;border-top:1px solid var(--line)">Diámetros (cm)</div>
+        ${row('Húmero', d.humero)}
+        ${row('Biestiloideo', d.biestiloideo)}
+        ${row('Fémur', d.femur)}
       </div>
-      <div class="evgroup">
-        <div class="gh">Pliegues cutáneos (mm)</div>
-        <div class="row"><span>Tricipital</span><span>${a.tri}</span></div>
-        <div class="row"><span>Bicipital</span><span>${a.bi}</span></div>
-        <div class="row"><span>Subescapular</span><span>${a.sub}</span></div>
-        <div class="row"><span>Cresta iliaca</span><span>${a.cresta}</span></div>
-        <div class="row"><span>Supra espinal</span><span>${a.supra}</span></div>
-        <div class="row"><span>Abdominal</span><span>${a.abd}</span></div>
-        <div class="row"><span>Pierna media</span><span>${a.pierna}</span></div>
-        <div class="row"><span>Pantorrilla</span><span>${a.pant}</span></div>
-        <div class="row bold"><span>Σ6 pliegues</span><span>${s6} mm</span></div>
-        <div class="row bold"><span>Σ8 pliegues</span><span>${s8} mm</span></div>
+      <div class="evgroup"><div class="gh">Pliegues (mm) · ISAK</div>
+        ${row('Tricipital', a.tri)}${row('Bicipital', a.bi)}${row('Subescapular', a.sub)}
+        ${row('Cresta iliaca', a.cresta)}${row('Supra espinal', a.supra)}${row('Abdominal', a.abd)}
+        ${row('Pierna media', a.pierna)}${row('Pantorrilla', a.pant)}
+        <div class="row bold"><span>Σ6 pliegues</span><span>${a.s6!=null?a.s6+' mm':'—'}</span></div>
+        <div class="row bold"><span>Σ8 pliegues</span><span>${a.s8!=null?a.s8+' mm':'—'}</span></div>
       </div>
-      <div class="evgroup">
-        <div class="gh">Perímetros (cm)</div>
-        <div class="row"><span>Brazo relajado</span><span>${a.brazRelaj}</span></div>
-        <div class="row"><span>Brazo flexionado</span><span>${a.brazFlex}</span></div>
-        <div class="row"><span>Abdominal</span><span>${a.abdom}</span></div>
-        <div class="row"><span>Cadera</span><span>${a.cadera}</span></div>
-        <div class="row"><span>Muslo medio</span><span>${a.muslo}</span></div>
-        <div class="row"><span>Pantorrilla</span><span>${a.pantPer}</span></div>
+      <div class="evgroup"><div class="gh">Perímetros (cm)</div>
+        ${row('Brazo relajado', a.brazRelaj)}${row('Brazo flexionado', a.brazFlex)}
+        ${row('Abdominal (cintura)', a.abdom)}${row('Cadera', a.cadera)}
+        ${row('Muslo medio', a.muslo)}${row('Pantorrilla', a.pantPer)}
       </div>
-      ${a.diam ? `<div class="evgroup">
-        <div class="gh">Diámetros óseos (cm)</div>
-        <div class="row"><span>Húmero</span><span>${a.diam.humero}</span></div>
-        <div class="row"><span>Biestiloideo</span><span>${a.diam.biEstiloideo}</span></div>
-        <div class="row"><span>Fémur</span><span>${a.diam.femur}</span></div>
-      </div>` : ''}
     </div>
-    <div class="sec-h" style="margin-top:30px"><span class="ix">02</span><h2>Objetivos</h2><div class="rule"></div></div>
-    <div class="card"><ul class="obj">${PATIENT.objetivos.map(o=>`<li>${o}</li>`).join('')}</ul></div>
+    <div class="sec-h" style="margin-top:32px"><span class="ix">02</span><h2>Objetivos</h2><div class="rule"></div></div>
+    <div class="card" style="max-width:640px"><ul class="obj">${PATIENT.objetivos.map(o=>`<li>${o}</li>`).join('')}</ul></div>
+    <div class="sec-h" style="margin-top:32px"><span class="ix">03</span><h2>Suplementación</h2><div class="rule"></div></div>
+    <div class="suplem-grid">${PATIENT.suplementacion.map(s=>`<div class="suplem-card">
+      <div class="s-name">${s.nombre}</div>
+      <div class="s-val">${s.dosis}</div>
+      ${s.nota?`<div class="s-note">${s.nota}</div>`:''}
+    </div>`).join('')}</div>
   </section></div>`;
 }
 
 function renderSpecs() {
   const specsHtml = PATIENT.specs.map(s => {
-    const items = s.items.map(it => {
-      if(it.startsWith('##')) return `<div class="sub-title">${it.slice(2).trim()}</div>`;
-      return `<li>${it}</li>`;
-    }).join('');
+    const items = s.items.map(it => `<li>${it}</li>`).join('');
     return `<div class="spec"><h4>${s.titulo}</h4><ul>${items}</ul></div>`;
   }).join('');
 
-  const vinagHtml = PATIENT.vinagretas?.length ? `
-    <section style="padding-top:0">
-      <div class="sec-h"><span class="ix">02</span><h2>Salsas bajas en calorías</h2><div class="rule"></div></div>
-      <div class="vinag-grid">${PATIENT.vinagretas.map(v=>`<div class="vinag"><div class="vname">${v.nombre}</div><div class="vdesc">${v.desc}</div></div>`).join('')}</div>
-    </section>` : '';
+  const salsasHtml = PATIENT.salsas?.length
+    ? `<div class="sec-h" style="margin-top:32px"><span class="ix">02</span><h2>Salsas bajas en calorías</h2><div class="rule"></div></div>
+       <div class="vinag-grid">${PATIENT.salsas.map(v=>`<div class="vinag"><div class="vname">${v.nombre}</div><div class="vdesc">${v.desc}</div></div>`).join('')}</div>` : '';
 
   $('tab-specs').innerHTML = `<div class="wrap"><section>
     <div class="sec-h"><span class="ix">01</span><h2>Especificaciones</h2><div class="rule"></div></div>
     <div class="specs">${specsHtml}</div>
-    ${vinagHtml}
-
+    ${salsasHtml}
     <div style="margin-top:32px;background:var(--panel2);border:1px solid var(--line);border-radius:14px;padding:20px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
       <div>
         <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);margin-bottom:6px;">Recurso adicional</div>
@@ -547,20 +647,25 @@ function renderSpecs() {
       </div>
       <a href="../guia-restaurante.html" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:var(--navy);color:#000;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:10px 20px;border-radius:10px;text-decoration:none;flex-shrink:0;">Ver guía →</a>
     </div>
-  </section></div>`;}
+  </section></div>`;
+}
 
+// ── Evolución Física ───────────────────────────────────────────────────────
 const ANTRO_KEY = () => `${PATIENT.slug}-antro-v1`;
 function getAntroBase() {
-  if (PATIENT.antroHistorial?.length) return PATIENT.antroHistorial;
   const a = PATIENT.antro;
-  const s6 = +(a.tri+a.sub+a.supra+a.abd+a.pierna+a.pant).toFixed(1);
-  const s8 = +(s6+a.bi+a.cresta).toFixed(1);
-  return [{ fecha:a.fecha, peso:a.peso, tri:a.tri, bi:a.bi, sub:a.sub, cresta:a.cresta, supra:a.supra, abd:a.abd, pierna:a.pierna, pant:a.pant, brazRelaj:a.brazRelaj, brazFlex:a.brazFlex, abdom:a.abdom, cadera:a.cadera, muslo:a.muslo, pantPer:a.pantPer, s6, s8 }];
+  const cur = { fecha:a.fecha, peso:a.peso, tri:a.tri, bi:a.bi, sub:a.sub, cresta:a.cresta, supra:a.supra, abd:a.abd, pierna:a.pierna, pant:a.pant, brazRelaj:a.brazRelaj, brazFlex:a.brazFlex, abdom:a.abdom, cadera:a.cadera, muslo:a.muslo, pantPer:a.pantPer, s6:a.s6, s8:a.s8 };
+  const hist = (PATIENT.antroHistorial||[]).map(h => {
+    const hs6 = h.s6!=null ? h.s6 : (h.tri!=null?+(h.tri+h.sub+h.supra+h.abd+h.pierna+h.pant).toFixed(1):null);
+    const hs8 = h.s8!=null ? h.s8 : (hs6!=null&&h.bi!=null?+(hs6+h.bi+h.cresta).toFixed(1):null);
+    return { ...h, s6:hs6, s8:hs8 };
+  });
+  return hist.concat([cur]);
 }
 function getAntroData() {
   const base = getAntroBase();
   let stored = [];
-  try { const r=localStorage.getItem(ANTRO_KEY()); if(r) stored=JSON.parse(r)||[]; } catch(e) { stored=[]; }
+  try { const r=localStorage.getItem(ANTRO_KEY()); if(r) stored=JSON.parse(r)||[]; } catch {}
   const seen = {};
   base.forEach(d => { seen[d.fecha]=1; });
   stored.forEach(d => { if(d&&d.fecha&&!seen[d.fecha]) { seen[d.fecha]=1; base.push(d); } });
@@ -568,7 +673,7 @@ function getAntroData() {
 }
 function saveAntroData(d) { localStorage.setItem(ANTRO_KEY(), JSON.stringify(d)); }
 
-let antroInited=false;
+let antroInited = false;
 function initAntro() { if(antroInited)return; antroInited=true; renderAntro(); }
 
 Chart.defaults.color='#666';
@@ -599,7 +704,7 @@ function renderAntro() {
         <div class="chart-card"><h3>Sumatorias de pliegues</h3><div class="cap">Σ6 y Σ8 (mm)</div><div class="chart-wrap"><canvas id="cSigma"></canvas></div></div>
         <div class="chart-card"><h3>Perímetros musculares</h3><div class="cap">Brazo flex, muslo, pantorrilla (cm)</div><div class="chart-wrap"><canvas id="cMusc"></canvas></div></div>
         <div class="chart-card"><h3>Cintura y cadera</h3><div class="cap">Perímetros (cm)</div><div class="chart-wrap"><canvas id="cCint"></canvas></div></div>
-        <div class="chart-card"><h3>Pliegues individuales</h3><div class="cap">Abdominal, cresta, subescapular (mm)</div><div class="chart-wrap"><canvas id="cPl"></canvas></div></div>
+        <div class="chart-card"><h3>Pliegues individuales</h3><div class="cap">Tricipital, abdominal, pierna (mm)</div><div class="chart-wrap"><canvas id="cPl"></canvas></div></div>
       </div>
     </section>
     <section style="padding-top:0">
@@ -611,7 +716,7 @@ function renderAntro() {
       <div class="eval-form"><h3>Registrar evaluación</h3>
         <div class="form-grid">
           <div class="form-field"><label>Fecha</label><input type="date" id="f-fecha"></div>
-          <div class="form-field"><label>Peso (kg)</label><input type="number" step="0.1" id="f-peso" placeholder="—"></div>
+          <div class="form-field"><label>Peso (kg)</label><input type="number" step="0.1" id="f-peso"></div>
           <div class="form-field"><label>Tricipital (mm)</label><input type="number" step="0.5" id="f-tri"></div>
           <div class="form-field"><label>Bicipital (mm)</label><input type="number" step="0.5" id="f-bi"></div>
           <div class="form-field"><label>Subescapular</label><input type="number" step="0.5" id="f-sub"></div>
@@ -638,189 +743,65 @@ function drawAntroCharts() {
   const data=getAntroData(); const lbl=data.map(d=>d.fecha);
   const first=data[0],last=data[data.length-1];
   const kpis=[
-    {v:last.peso,u:'kg',l:'Peso actual',d:+(last.peso-first.peso).toFixed(1),good:'down'},
-    {v:last.s8,u:'mm',l:'Σ8 pliegues',d:+(last.s8-first.s8).toFixed(1),good:'down'},
-    {v:last.abdom,u:'cm',l:'Cintura',d:+(last.abdom-first.abdom).toFixed(1),good:'down'},
-    {v:last.brazFlex,u:'cm',l:'Brazo flex.',d:+(last.brazFlex-first.brazFlex).toFixed(1),good:'up'},
+    {v:last.peso,u:'kg',l:'Peso actual',d:last.peso&&first.peso?+(last.peso-first.peso).toFixed(1):null,good:'down'},
+    {v:last.s8,u:'mm',l:'Σ8 pliegues',d:last.s8&&first.s8?+(last.s8-first.s8).toFixed(1):null,good:'down'},
+    {v:last.brazFlex,u:'cm',l:'Brazo flex.',d:last.brazFlex&&first.brazFlex?+(last.brazFlex-first.brazFlex).toFixed(1):null,good:'up'},
+    {v:last.abdom,u:'cm',l:'Cintura',d:last.abdom&&first.abdom?+(last.abdom-first.abdom).toFixed(1):null,good:'down'},
   ];
   $('antroKpis').innerHTML=kpis.map(k=>{
-    const sign=k.d>0?'+':''; const cls=(k.good==='down'?k.d<0:k.d>0)?'up':(k.d<0?'down':'');
+    if(!k.v) return `<div class="kpi"><div class="kv" style="font-size:18px;color:var(--faint)">—</div><div class="kl">${k.l}</div></div>`;
+    const sign=k.d>0?'+':''; const cls=k.d==null?'':(k.good==='down'?k.d<0:k.d>0)?'up':(k.d<0?'down':'');
     const arr=k.d>0?'▲':(k.d<0?'▼':'—');
-    return `<div class="kpi"><div class="kv">${k.v}<span style="font-size:14px;opacity:.5"> ${k.u}</span></div><div class="kl">${k.l}</div>${data.length>1?`<div class="kd ${cls}">${arr} ${sign}${k.d} ${k.u}</div>`:''}</div>`;
+    return `<div class="kpi"><div class="kv">${k.v}<span style="font-size:14px;opacity:.5"> ${k.u}</span></div><div class="kl">${k.l}</div>${k.d!=null&&data.length>1?`<div class="kd ${cls}">${arr} ${sign}${k.d} ${k.u}</div>`:''}</div>`;
   }).join('');
   mkChart('cPeso',lbl,[{label:'Peso kg',data:data.map(d=>d.peso),borderColor:CC.gold,pointBackgroundColor:CC.gold}]);
   mkChart('cSigma',lbl,[{label:'Σ6',data:data.map(d=>d.s6),borderColor:CC.coral,pointBackgroundColor:CC.coral},{label:'Σ8',data:data.map(d=>d.s8),borderColor:CC.purple,pointBackgroundColor:CC.purple}]);
   mkChart('cMusc',lbl,[{label:'Brazo flex',data:data.map(d=>d.brazFlex),borderColor:CC.green,pointBackgroundColor:CC.green},{label:'Muslo',data:data.map(d=>d.muslo),borderColor:CC.cyan,pointBackgroundColor:CC.cyan},{label:'Pantorrilla',data:data.map(d=>d.pantPer),borderColor:CC.gold,pointBackgroundColor:CC.gold}]);
   mkChart('cCint',lbl,[{label:'Cintura',data:data.map(d=>d.abdom),borderColor:CC.coral,pointBackgroundColor:CC.coral},{label:'Cadera',data:data.map(d=>d.cadera),borderColor:CC.gold,pointBackgroundColor:CC.gold}]);
-  mkChart('cPl',lbl,[{label:'Abdominal',data:data.map(d=>d.abd),borderColor:CC.coral,pointBackgroundColor:CC.coral},{label:'Cresta',data:data.map(d=>d.cresta),borderColor:CC.gold,pointBackgroundColor:CC.gold},{label:'Subescapular',data:data.map(d=>d.sub),borderColor:CC.cyan,pointBackgroundColor:CC.cyan}]);
-  const cols=['fecha','peso','s6','s8','brazFlex','muslo','abdom','cadera'];
-  const heads=['Fecha','Peso kg','Σ6 mm','Σ8 mm','Brazo cm','Muslo cm','Cintura cm','Cadera cm'];
-  $('antroTable').innerHTML=`<thead><tr>${heads.map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>`+[...data].reverse().map(d=>`<tr>${cols.map(c=>`<td>${d[c]??'—'}</td>`).join('')}</tr>`).join('')+'</tbody>';
+  mkChart('cPl',lbl,[{label:'Tricipital',data:data.map(d=>d.tri),borderColor:CC.coral,pointBackgroundColor:CC.coral},{label:'Abdominal',data:data.map(d=>d.abd),borderColor:CC.purple,pointBackgroundColor:CC.purple},{label:'Pierna',data:data.map(d=>d.pierna),borderColor:CC.cyan,pointBackgroundColor:CC.cyan}]);
+  const cols=['fecha','peso','s6','s8','abdom','cadera','brazFlex','muslo','pantPer'];
+  const heads=['Fecha','Peso kg','Σ6','Σ8','Cintura','Cadera','Braz.Flex','Muslo','Pant.'];
+  const tbl=$('antroTable');
+  if(tbl) tbl.innerHTML=`<thead><tr>${heads.map(h=>`<th>${h}</th>`).join('')}</tr></thead>
+    <tbody>${data.map(d=>`<tr>${cols.map(c=>`<td>${d[c]??'—'}</td>`).join('')}</tr>`).join('')}</tbody>`;
 }
 
 function addAntroEntry() {
-  const gf=id=>{const e=$(id);return e?e.value||null:null};
-  const gn=id=>{const e=$(id);return e?parseFloat(e.value)||null:null};
-  const fecha=gf('f-fecha'); if(!fecha){alert('Ingresa la fecha');return;}
-  const e={fecha:fecha.split('-').reverse().join('.'),peso:gn('f-peso'),tri:gn('f-tri'),bi:gn('f-bi'),sub:gn('f-sub'),cresta:gn('f-cresta'),supra:gn('f-supra'),abd:gn('f-abd'),pierna:gn('f-pierna'),pant:gn('f-pant'),brazRelaj:gn('f-brazRelaj'),brazFlex:gn('f-brazFlex'),abdom:gn('f-abdom'),cadera:gn('f-cadera'),muslo:gn('f-muslo'),pantPer:gn('f-pantPer')};
-  e.s6=+[e.tri,e.sub,e.supra,e.abd,e.pierna,e.pant].filter(Boolean).reduce((a,b)=>a+b,0).toFixed(1);
-  e.s8=+(e.s6+(e.bi||0)+(e.cresta||0)).toFixed(1);
-  const data=getAntroData(); data.push(e); saveAntroData(data);
-  antroInited=false; initAntro();
-  ['fecha','peso','tri','bi','sub','cresta','supra','abd','pierna','pant','brazRelaj','brazFlex','abdom','cadera','muslo','pantPer'].forEach(f=>{const el=$('f-'+f);if(el)el.value='';});
+  const get = id => { const v=($('f-'+id)||{}).value; return v?+v:null; };
+  const fecha = ($('f-fecha')||{}).value;
+  if (!fecha) { alert('Ingresa la fecha'); return; }
+  const tri=get('tri'),bi=get('bi'),sub=get('sub'),cresta=get('cresta'),supra=get('supra'),abd=get('abd'),pierna=get('pierna'),pant=get('pant');
+  const s6 = (tri!=null&&sub!=null&&supra!=null&&abd!=null&&pierna!=null&&pant!=null) ? +(tri+sub+supra+abd+pierna+pant).toFixed(1) : null;
+  const s8 = (s6!=null&&bi!=null&&cresta!=null) ? +(s6+bi+cresta).toFixed(1) : null;
+  const entry = { fecha, peso:get('peso'), tri, bi, sub, cresta, supra, abd, pierna, pant,
+    brazRelaj:get('brazRelaj'), brazFlex:get('brazFlex'), abdom:get('abdom'),
+    cadera:get('cadera'), muslo:get('muslo'), pantPer:get('pantPer'), s6, s8 };
+  const allStored = [];
+  try { const r=localStorage.getItem(ANTRO_KEY()); if(r) JSON.parse(r).forEach(d=>allStored.push(d)); } catch{}
+  const base = getAntroBase().map(d=>d.fecha);
+  const storedFiltered = allStored.filter(d=>!base.includes(d.fecha) && d.fecha!==entry.fecha);
+  storedFiltered.push(entry);
+  saveAntroData(storedFiltered);
+  drawAntroCharts();
   flashSave();
 }
 
-function showTab(id,btn) {
-  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  $('tab-'+id)?.classList.add('active');
-  btn.classList.add('active');
-  if(id==='evol-antro') initAntro();
-  if(id==='registro') initRegistro();
-}
+// alias para comer-fuera.js
+PATIENT.comidas = PATIENT.planes[0].comidas;
 
-let saveTimer=null;
-function initOpts(){
-  document.querySelectorAll('.opt').forEach(opt=>{
-    opt.dataset.count='0';
-    const cb=opt.querySelector('.cb');
-    const textSpan=document.createElement('span');textSpan.className='opt-text';
-    Array.from(opt.childNodes).forEach(n=>{if(n!==cb)textSpan.appendChild(n);});
-    opt.appendChild(textSpan);
-    const ctrl=document.createElement('span');ctrl.className='opt-ctrl';
-    ctrl.innerHTML=`<button class="opt-btn opt-dec" tabindex="-1">−</button><span class="opt-cnt">0</span><button class="opt-btn opt-inc" tabindex="-1">+</button>`;
-    opt.appendChild(ctrl);
-    ctrl.querySelector('.opt-dec').addEventListener('click',e=>{e.stopPropagation();decrOpt(opt);});
-    ctrl.querySelector('.opt-inc').addEventListener('click',e=>{e.stopPropagation();incrOpt(opt);});
-    opt.addEventListener('click',()=>toggleOpt(opt));
-    updateOpt(opt);
-  });
-}
-function groupTotal(g){let t=0;g.querySelectorAll('.opt').forEach(o=>t+=parseInt(o.dataset.count||0));return t;}
-function toggleOpt(opt){const g=opt.closest('.options');const max=parseInt(g.dataset.max)||1;const c=parseInt(opt.dataset.count||0);if(c>0){opt.dataset.count='0';}else{if(groupTotal(g)>=max){if(max===1){g.querySelectorAll('.opt').forEach(o=>{o.dataset.count='0';updateOpt(o);});}else{return;}}opt.dataset.count='1';}updateOpt(opt);saveSelections();}
-function incrOpt(opt){const g=opt.closest('.options');const max=parseInt(g.dataset.max)||1;if(groupTotal(g)>=max)return;opt.dataset.count=parseInt(opt.dataset.count||0)+1;updateOpt(opt);saveSelections();}
-function decrOpt(opt){const c=parseInt(opt.dataset.count||0);if(c<=0)return;opt.dataset.count=c-1;updateOpt(opt);saveSelections();}
-function updateOpt(opt){const c=parseInt(opt.dataset.count||0);opt.classList.toggle('selected',c>0);const cb=opt.querySelector('.cb');if(cb)cb.textContent=c>0?c:'';const cnt=opt.querySelector('.opt-cnt');if(cnt)cnt.textContent=c;const dec=opt.querySelector('.opt-dec');if(dec)dec.disabled=c<=0;}
-
-function planKey(){return `${PATIENT.slug}-plan-v1`;}
-function saveSelections(){const data={};document.querySelectorAll('.options').forEach(g=>{const gid=g.dataset.group;data[gid]={};g.querySelectorAll('.opt').forEach((o,i)=>{const c=parseInt(o.dataset.count||0);if(c>0)data[gid][i]=c;});});localStorage.setItem(planKey(),JSON.stringify(data));flashSave();}
-function loadSelections(){const raw=localStorage.getItem(planKey());document.querySelectorAll('.opt').forEach(o=>{o.dataset.count='0';updateOpt(o);});if(!raw)return;try{const data=JSON.parse(raw);document.querySelectorAll('.options').forEach(g=>{const gid=g.dataset.group;if(!data[gid])return;const opts=g.querySelectorAll('.opt');Object.entries(data[gid]).forEach(([idx,count])=>{if(opts[idx]){opts[idx].dataset.count=count;updateOpt(opts[idx]);}});});}catch(e){}}
-
-function flashSave(){const ind=$('saveind');if(!ind)return;$('saveTxt').textContent='Guardado';ind.classList.add('show');clearTimeout(saveTimer);saveTimer=setTimeout(()=>ind.classList.remove('show'),1800);}
-
-// ── Registro tab ──────────────────────────────────────────────────────────
-let registroInited = false;
-function initRegistro() { if(registroInited)return; registroInited=true; renderRegistro(); }
-
-const _rKey = s => `${PATIENT.slug}-${s}`;
-const _rLoad = k => { try{return JSON.parse(localStorage.getItem(_rKey(k))||'[]');}catch{return[];} };
-const _rSave = (k,d) => localStorage.setItem(_rKey(k), JSON.stringify(d));
-
-let _pendingFotoData = null;
-
-function renderRegistro() {
-  $('tab-registro').innerHTML = `<div class="wrap">
-  <section style="padding-top:24px">
-    <div class="sec-h"><span class="ix">01</span><h2>Peso en ayunas</h2><div class="rule"></div></div>
-    <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;margin-bottom:20px">
-      <div class="form-field"><label>Fecha</label><input type="date" id="rg-fp"></div>
-      <div class="form-field"><label>Peso (kg)</label><input type="number" step="0.1" id="rg-p" placeholder="95.0"></div>
-      <button class="btn-add" onclick="addPesoReg()">Registrar</button>
-    </div>
-    <div class="chart-card"><h3>Evolución de peso</h3><div class="cap">kg · en ayunas</div><div class="chart-wrap"><canvas id="cPesoAyunas"></canvas></div></div>
-    <div class="tbl-scroll" style="margin-top:16px"><table class="antro-table" id="pesoRegTable"></table></div>
-  </section>
-  <section style="padding-top:0">
-    <div class="sec-h"><span class="ix">02</span><h2>Fotos de progreso</h2><div class="rule"></div></div>
-    <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;margin-bottom:20px">
-      <div class="form-field"><label>Fecha</label><input type="date" id="rg-ff"></div>
-      <label class="btn-add" style="cursor:pointer;margin:0">Elegir foto<input type="file" id="rg-fi" accept="image/*" style="display:none" onchange="onFotoSelected(this)"></label>
-      <span id="rg-fn" style="font-size:12px;color:var(--muted);align-self:center;max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"></span>
-      <button class="btn-add" onclick="addFotoReg()">Guardar foto</button>
-    </div>
-    <div id="fotosGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:16px"></div>
-  </section>
-  </div>`;
-  refreshPesosReg();
-  refreshFotosReg();
-}
-
-function addPesoReg() {
-  const fRaw = $('rg-fp')?.value; const p = parseFloat($('rg-p')?.value);
-  if(!fRaw||isNaN(p)){alert('Ingresa fecha y peso.');return;}
-  const f = fRaw.split('-').reverse().join('.');
-  const d = _rLoad('pesos'); const idx = d.findIndex(e=>e.f===f);
-  if(idx>=0) d[idx].p=p; else d.push({f,p});
-  d.sort((a,b)=>a.f.split('.').reverse().join('').localeCompare(b.f.split('.').reverse().join('')));
-  _rSave('pesos',d); $('rg-p').value=''; refreshPesosReg(); flashSave();
-}
-
-function delPesoReg(i) {
-  const d=_rLoad('pesos'); d.splice(i,1); _rSave('pesos',d); refreshPesosReg();
-}
-
-function refreshPesosReg() {
-  const d = _rLoad('pesos');
-  const tbl = $('pesoRegTable');
-  if(tbl) tbl.innerHTML = `<thead><tr><th>Fecha</th><th>Peso kg</th><th></th></tr></thead><tbody>`+
-    [...d].reverse().map((e,ri)=>`<tr><td>${e.f}</td><td style="font-weight:700;text-align:right">${e.p}</td><td style="text-align:right"><button onclick="delPesoReg(${d.length-1-ri})" style="background:none;border:none;color:var(--faint);cursor:pointer;font-size:16px;line-height:1;padding:0">×</button></td></tr>`).join('')+`</tbody>`;
-  if(!$('cPesoAyunas'))return;
-  mkChart('cPesoAyunas', d.map(e=>e.f.slice(0,5)), [{label:'Peso (kg)',data:d.map(e=>e.p),borderColor:CC.gold,backgroundColor:'rgba(196,151,58,.12)',fill:true}]);
-}
-
-function onFotoSelected(input) {
-  const file=input.files[0]; if(!file)return;
-  $('rg-fn').textContent=file.name;
-  const reader=new FileReader();
-  reader.onload=e=>{const img=new Image();img.onload=()=>{
-    const MAX=600,ratio=Math.min(MAX/img.width,MAX/img.height,1);
-    const cv=document.createElement('canvas');cv.width=Math.round(img.width*ratio);cv.height=Math.round(img.height*ratio);
-    cv.getContext('2d').drawImage(img,0,0,cv.width,cv.height);
-    _pendingFotoData=cv.toDataURL('image/jpeg',0.8);
-  };img.src=e.target.result;};
-  reader.readAsDataURL(file);
-}
-
-function addFotoReg() {
-  if(!_pendingFotoData){alert('Selecciona una foto primero.');return;}
-  const fRaw=$('rg-ff')?.value; if(!fRaw){alert('Ingresa la fecha.');return;}
-  const f=fRaw.split('-').reverse().join('.');
-  const d=_rLoad('fotos'); d.push({f,d:_pendingFotoData});
-  d.sort((a,b)=>a.f.split('.').reverse().join('').localeCompare(b.f.split('.').reverse().join('')));
-  _rSave('fotos',d); _pendingFotoData=null; $('rg-fn').textContent=''; $('rg-fi').value='';
-  refreshFotosReg(); flashSave();
-}
-
-function delFotoReg(i) {
-  const d=_rLoad('fotos'); d.splice(i,1); _rSave('fotos',d); refreshFotosReg();
-}
-
-function refreshFotosReg() {
-  const grid=$('fotosGrid'); if(!grid)return;
-  const d=_rLoad('fotos');
-  if(!d.length){grid.innerHTML=`<p style="color:var(--faint);font-size:13px">Aún no hay fotos registradas.</p>`;return;}
-  grid.innerHTML=[...d].reverse().map((foto,ri)=>{const i=d.length-1-ri;return`<div style="background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow)"><img src="${foto.d}" style="width:100%;display:block;aspect-ratio:1;object-fit:cover"><div style="padding:8px 12px;display:flex;justify-content:space-between;align-items:center"><span style="font-family:'IBM Plex Mono';font-size:11px;color:var(--muted)">${foto.f}</span><button onclick="delFotoReg(${i})" style="background:none;border:none;color:var(--faint);cursor:pointer;font-size:18px;line-height:1;padding:0">×</button></div></div>`;}).join('');
-}
-
-// ── Page init ──────────────────────────────────────────────────────────────
+// ── Init ────────────────────────────────────────────────────────────────────
 renderHero();
 renderTabs();
-renderPlan();
+renderNutr();
 renderEval();
 renderSpecs();
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="paciente.js"></script>
-<script>(function(){function _inj(){document.querySelectorAll('.meal[data-mealid]').forEach(function(el){if(typeof injectMealLog==='function')injectMealLog(el);});if(typeof injectGuardarBtn==='function')document.querySelectorAll('.meals').forEach(injectGuardarBtn);}  _inj();setTimeout(_inj,300);setTimeout(_inj,800);})();</script>
+<script>(function(){function _inj(){document.querySelectorAll('.meal[data-mealid]').forEach(function(el){if(typeof injectMealLog==='function')injectMealLog(el);});if(typeof injectGuardarBtn==='function')document.querySelectorAll('.meals').forEach(injectGuardarBtn);}_inj();setTimeout(_inj,300);setTimeout(_inj,800);})();</script>
 <script src="guia-data.js"></script>
 <script src="comer-fuera.js"></script>
 <script src="plan-pdf.js"></script>
 <script src="peso-tracker.js?v=3"></script>
 </body>
 </html>
-
-
-
-
-
