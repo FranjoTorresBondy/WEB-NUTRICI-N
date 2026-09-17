@@ -192,7 +192,7 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 const PATIENT = {
   slug:      'ezio-perez',
   nombre:    'Ezio\nPérez',
-  fecha:     '05.08.2026',
+  fecha:     '15.09.2026',
   tipoPlan:  'Hipocalórico · Hiperprotéico',
   macros:    { kcal: 1900, p: 138, c: 212, g: 55 },
   hidratacion: [
@@ -201,16 +201,23 @@ const PATIENT = {
   ],
   entrenamiento: null,
   antro: {
-    fecha:'24.08.2026', peso:83.1, talla:164.0, imc:30.9,
-    tri:13.0, bi:5.5, sub:22.0, cresta:38.0, supra:20.0, abd:34.0, pierna:18.0, pant:12.0,
-    s6:119.0, s8:162.5,
-    brazRelaj:33.0, brazFlex:35.0, abdom:87.0, cadera:109.0, muslo:60.0, pantPer:38.5,
+    fecha:'15.09.2026', peso:80.5, talla:164.5, imc:29.7,
+    tri:12.0, bi:6.0, sub:20.0, cresta:36.0, supra:18.0, abd:32.0, pierna:18.0, pant:10.0,
+    s6:110.0, s8:152.0,
+    brazRelaj:34.0, brazFlex:36.0, abdom:85.0, cadera:108.0, muslo:59.0, pantPer:39.0,
+    diam:{ humero:6.9, biEstiloideo:5.5, femur:10.5 },
+    icc:0.79, somato:'5.2 · 7.8 · 0.1',
+    pctGrasa:18.3, fatKg:14.7,
+    pctMusc:43.3,  muscKg:34.9,
+    pctOseo:13.8,  oseoKg:11.1,
   },
   antroHistorial: [
     { fecha:'16.07.2026', peso:87.3, tri:17.0, bi:7.0, sub:27.0, cresta:52.0, supra:26.0, abd:45.0, pierna:24.0, pant:17.0,
       brazRelaj:36.0, brazFlex:36.5, abdom:97.0, cadera:113.0, muslo:62.5, pantPer:39.5, s6:156.0, s8:215.0 },
     { fecha:'05.08.2026', peso:83.8, tri:15.0, bi:5.5, sub:22.0, cresta:38.0, supra:20.0, abd:38.0, pierna:21.0, pant:12.0,
       brazRelaj:34.5, brazFlex:36.3, abdom:89.0, cadera:110.0, muslo:60.0, pantPer:39.0, s6:108.0, s8:151.5 },
+    { fecha:'24.08.2026', peso:83.1, tri:13.0, bi:5.5, sub:22.0, cresta:38.0, supra:20.0, abd:34.0, pierna:18.0, pant:12.0,
+      brazRelaj:33.0, brazFlex:35.0, abdom:87.0, cadera:109.0, muslo:60.0, pantPer:38.5, s6:119.0, s8:162.5 },
   ],
 
   objetivos: [
@@ -496,7 +503,36 @@ function renderEval() {
         <div class="row"><span>Fémur</span><span>${a.diam.femur}</span></div>
       </div>` : ''}
     </div>
-    <div class="sec-h" style="margin-top:32px"><span class="ix">02</span><h2>Objetivos</h2><div class="rule"></div></div>
+    ${a.pctGrasa!=null ? `
+    <div class="sec-h" style="margin-top:32px"><span class="ix">02</span><h2>Composición corporal</h2><div class="rule"></div></div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-bottom:8px">
+      <div style="background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 20px">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin-bottom:8px">🔴 Grasa · Faulkner</div>
+        <div style="font-family:'Chakra Petch',sans-serif;font-size:28px;font-weight:700;color:#ef9a9a">${a.pctGrasa}<span style="font-size:14px;opacity:.6">%</span></div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--muted);margin-top:4px">${a.fatKg} kg</div>
+      </div>
+      <div style="background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 20px">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin-bottom:8px">💪 Músculo · Lee</div>
+        <div style="font-family:'Chakra Petch',sans-serif;font-size:28px;font-weight:700;color:#a5d6a7">${a.pctMusc}<span style="font-size:14px;opacity:.6">%</span></div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--muted);margin-top:4px">${a.muscKg} kg</div>
+      </div>
+      <div style="background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 20px">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin-bottom:8px">🦴 Hueso · Rocha</div>
+        <div style="font-family:'Chakra Petch',sans-serif;font-size:28px;font-weight:700;color:#4fc3f7">${a.pctOseo}<span style="font-size:14px;opacity:.6">%</span></div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--muted);margin-top:4px">${a.oseoKg} kg</div>
+      </div>
+      <div style="background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 20px">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin-bottom:8px">⚖️ Residual</div>
+        <div style="font-family:'Chakra Petch',sans-serif;font-size:28px;font-weight:700;color:var(--navy)">${(100-a.pctGrasa-a.pctMusc-a.pctOseo).toFixed(1)}<span style="font-size:14px;opacity:.6">%</span></div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--muted);margin-top:4px">${(a.peso-a.fatKg-a.muscKg-a.oseoKg).toFixed(1)} kg</div>
+      </div>
+    </div>
+    ${a.icc!=null||a.somato ? `<div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:4px">
+      ${a.icc!=null?`<div style="background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 18px"><div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)">ICC</div><div style="font-family:'IBM Plex Mono',monospace;font-size:18px;font-weight:700;color:var(--ink);margin-top:4px">${a.icc}</div></div>`:''}
+      ${a.somato?`<div style="background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 18px"><div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)">Somatotipo Heath-Carter</div><div style="font-family:'IBM Plex Mono',monospace;font-size:18px;font-weight:700;color:var(--ink);margin-top:4px">${a.somato}</div><div style="font-size:11px;color:var(--faint);margin-top:2px">Endo · Meso · Ecto</div></div>`:''}
+    </div>` : ''}
+    ` : ''}
+    <div class="sec-h" style="margin-top:32px"><span class="ix">${a.pctGrasa!=null?'03':'02'}</span><h2>Objetivos</h2><div class="rule"></div></div>
     <div class="card" style="max-width:600px"><ul class="obj">${PATIENT.objetivos.map(o=>`<li>${o}</li>`).join('')}</ul></div>
   </section></div>`;
 }
