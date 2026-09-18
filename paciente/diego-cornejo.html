@@ -249,8 +249,9 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 // ════════════════════════════════════════════════════════════════════════════
 const PATIENT = {
   slug:     'diego-cornejo',
+  sexo:     'm',
   nombre:   'Diego Cornejo',
-  fecha:    '27.07.2026',
+  fecha:    '18.09.2026',
   tipoPlan: 'Hipocalórico · Hiperprotéico',
   macros:   { kcal: 2100, p: 150, c: 250, g: 56 },
   hidratacion: [
@@ -259,14 +260,20 @@ const PATIENT = {
   ],
   semanas: 1,
   antro: {
-    fecha:'27.07.2026', peso:70.0, talla:183.0, imc:21.1,
-    tri:7.0, bi:4.0, sub:9.0, cresta:17.0, supra:9.0, abd:23.0, pierna:16.0, pant:6.0,
-    brazRelaj:32.0, brazFlex:34.4, abdom:78.0, cadera:98.0, muslo:49.8, pantPer:34.0,
+    fecha:'18.09.2026', peso:67.5, talla:183.0, imc:20.2,
+    tri:6.0, bi:2.0, sub:6.0, cresta:15.0, supra:8.0, abd:20.0, pierna:14.0, pant:5.5,
+    s6:59.5, s8:76.5,
+    brazRelaj:31.5, brazFlex:35.0, abdom:75.5, cadera:94.0, muslo:48.3, pantPer:33.3,
+    diam:{ humero:6.1, biEstiloideo:5.5, femur:9.5 },
+    pctGrasa:16.4, fatKg:11.1, pctMusc:45.8, muscKg:30.9, pctOseo:17.9, oseoKg:12.1, imo:2.55, icc:0.80,
+    somato:{ endo:1.8, meso:3.2, ecto:4.3 },
   },
 
   antroHistorial: [
+    { fecha:'06.03.2026', peso:70.8, tri:11.0, bi:5.0, sub:13.0, cresta:29.0, supra:18.0, abd:35.0, pierna:24.0, pant:10.0, s6:111.0, s8:145.0, brazRelaj:32.2, brazFlex:33.7, abdom:81.0, cadera:96.7, muslo:48.2, pantPer:33.5 },
     { fecha:'06.07.2026', peso:70.2, tri:8.0, bi:4.5, sub:10.0, cresta:22.0, supra:11.0, abd:27.0, pierna:18.0, pant:5.5, s6:79.5, s8:106.0, brazRelaj:32.2, brazFlex:34.0, abdom:79.0, cadera:97.5, muslo:49.0, pantPer:33.0 },
     { fecha:'27.07.2026', peso:70.0, tri:7.0, bi:4.0, sub:9.0,  cresta:17.0, supra:9.0,  abd:23.0, pierna:16.0, pant:6.0,  s6:70.0, s8:91.0,  brazRelaj:32.0, brazFlex:34.4, abdom:78.0, cadera:98.0, muslo:49.8, pantPer:34.0 },
+    { fecha:'18.09.2026', peso:67.5, tri:6.0, bi:2.0, sub:6.0,  cresta:15.0, supra:8.0,  abd:20.0, pierna:14.0, pant:5.5,  s6:59.5, s8:76.5, brazRelaj:31.5, brazFlex:35.0, abdom:75.5, cadera:94.0, muslo:48.3, pantPer:33.3, pctGrasa:16.4, fatKg:11.1, muscKg:30.9 },
   ],
 
   objetivos: [
@@ -687,20 +694,9 @@ function renderSpecs() {
 // ── Evolución Física ───────────────────────────────────────────────────────
 const ANTRO_KEY = () => `${PATIENT.slug}-antro-v1`;
 function getAntroBase() {
-  return [
-    {
-      fecha:'06.03.2026', peso:70.8,
-      tri:11.0, bi:5.0, sub:13.0, cresta:29.0, supra:18.0, abd:35.0, pierna:24.0, pant:10.0,
-      brazRelaj:32.2, brazFlex:33.7, abdom:81.0, cadera:96.7, muslo:48.2, pantPer:33.5,
-      s6:111, s8:145,
-    },
-    {
-      fecha:'06.07.2026', peso:70.2,
-      tri:8.0, bi:4.5, sub:10.0, cresta:22.0, supra:11.0, abd:27.0, pierna:18.0, pant:5.5,
-      brazRelaj:32.2, brazFlex:34.0, abdom:79.0, cadera:97.5, muslo:49.0, pantPer:33.0,
-      s6:79.5, s8:106,
-    },
-  ];
+  // Las mediciones viven en PATIENT.antroHistorial; antes estaban duplicadas
+  // acá y la pestaña se quedaba sin las cargas nuevas.
+  return (PATIENT.antroHistorial || []).slice();
 }
 function getAntroData() {
   const base = getAntroBase();
