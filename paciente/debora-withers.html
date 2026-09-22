@@ -216,10 +216,10 @@ function renderTabs() {
   const tabs = [
     {id:'plan',label:'Plan Nutricional'},{id:'eval',label:'Evaluación'},
     {id:'specs',label:'Especificaciones'},{id:'evol-antro',label:'Evolución Física'},
-    {id:'seguimiento',label:'Mi Progreso'},
+    {id:'seguimiento',label:'Mi Progreso'},{id:'entreno',label:'Plan de Entrenamiento'},
   ];
   $('tabNav').innerHTML = tabs.map(function(t,i) {
-    var extra = t.id==='evol-antro' ? ";initAntro()" : t.id==='seguimiento' ? ";initSeguimiento()" : "";
+    var extra = t.id==='evol-antro' ? ";initAntro()" : t.id==='seguimiento' ? ";initSeguimiento()" : t.id==='entreno' ? ";renderEntreno()" : "";
     return '<button class="tab' + (i===0?' active':'') + '" onclick="showTab(\'' + t.id + '\',this)' + extra + '">' +
       '<span class="tnum">0' + (i+1) + '</span> ' + t.label + '</button>';
   }).join('');
@@ -617,6 +617,116 @@ function updateStorageInfo() {
     var pct=Math.min(100,Math.round(used/5e6*100));
     info.innerHTML='<div class="storage-bar"><div class="storage-bar-fill" style="width:'+pct+'%"></div></div><div class="storage-label">Almacenamiento usado: '+(used/1e6).toFixed(2)+' MB de ~5 MB · '+pct+'%</div>';
   }catch(e){}
+}
+
+// ── Plan de Entrenamiento ──────────────────────────────────────────────────
+var entrenoInited = false;
+function renderEntreno() {
+  if (entrenoInited) return; entrenoInited = true;
+  var dias = [
+    {
+      dia: 'Día 1 · Lunes', foco: 'Tren Superior — Empuje', color: '#C4973A',
+      ejercicios: [
+        {nombre:'Press de pecho con mancuernas', series:'4', reps:'10–12', desc:'En banco plano. Codos a 45°, no abrir demasiado.'},
+        {nombre:'Press inclinado con barra o mancuernas', series:'3', reps:'10–12', desc:'Banco a 30–45°. Contrae pecho arriba.'},
+        {nombre:'Aperturas con mancuernas (peck deck)', series:'3', reps:'12–15', desc:'Movimiento controlado, sin arquear espalda.'},
+        {nombre:'Press militar con mancuernas', series:'4', reps:'10–12', desc:'Sentada. Empujar hacia arriba sin bloquear codos.'},
+        {nombre:'Elevaciones laterales', series:'3', reps:'12–15', desc:'Codos ligeramente flexionados, subir hasta hombros.'},
+        {nombre:'Extensiones de tríceps en polea', series:'3', reps:'12–15', desc:'Codos pegados al cuerpo, cuerda o barra V.'},
+        {nombre:'Plancha abdominal', series:'3', reps:'30–45 seg', desc:'Cuerpo recto, ombligo adentro. Descanso 30 seg.'},
+      ]
+    },
+    {
+      dia: 'Día 2 · Martes', foco: 'Tren Inferior — Glúteos y Cuádriceps', color: '#4fc3f7',
+      ejercicios: [
+        {nombre:'Sentadilla con barra o mancuernas', series:'4', reps:'10–12', desc:'Rodillas hacia afuera, espalda recta, bajar a 90°.'},
+        {nombre:'Prensa de piernas', series:'4', reps:'12–15', desc:'Pies al ancho de hombros. No bloquear rodillas arriba.'},
+        {nombre:'Hip thrust (puente de glúteos con barra)', series:'4', reps:'12–15', desc:'Espalda en banco, barra sobre caderas. Apretar glúteos arriba.'},
+        {nombre:'Extensiones de cuádriceps en máquina', series:'3', reps:'12–15', desc:'Movimiento completo, contracción arriba.'},
+        {nombre:'Abducción de cadera en máquina', series:'3', reps:'15–20', desc:'Lenta en la vuelta, no dejar caer el peso.'},
+        {nombre:'Elevación de talones (pantorrillas)', series:'3', reps:'15–20', desc:'Rango completo, pausa arriba 1 seg.'},
+        {nombre:'Cardio intervalos (bicicleta estática)', series:'4', reps:'30 seg intens. / 60 seg baja', desc:'Al finalizar el entreno. Total ~6 minutos.'},
+      ]
+    },
+    {
+      dia: 'Día 3 · Jueves', foco: 'Tren Superior — Jalón y Espalda', color: '#a5d6a7',
+      ejercicios: [
+        {nombre:'Jalón al pecho en polea alta', series:'4', reps:'10–12', desc:'Agarre prono, separado al ancho de hombros. Llevar barra al pecho.'},
+        {nombre:'Remo con barra o mancuerna', series:'4', reps:'10–12', desc:'Espalda recta, codo hacia atrás, contraer escápula.'},
+        {nombre:'Remo en polea baja (cable)', series:'3', reps:'12–15', desc:'Tirón hacia ombligo, codos al cuerpo.'},
+        {nombre:'Face pull con cuerda', series:'3', reps:'15', desc:'Llevar manos hacia la cara, codos arriba. Posteriors.'},
+        {nombre:'Curl de bíceps con mancuernas', series:'3', reps:'12–15', desc:'Supinación en la subida, controlado en la bajada.'},
+        {nombre:'Curl martillo', series:'3', reps:'12', desc:'Agarre neutro, codos fijos.'},
+        {nombre:'Abdominales en banco inclinado', series:'3', reps:'15–20', desc:'Crunch controlado, sin tirar del cuello.'},
+      ]
+    },
+    {
+      dia: 'Día 4 · Viernes', foco: 'Tren Inferior — Isquios y Glúteos', color: '#ce93d8',
+      ejercicios: [
+        {nombre:'Peso muerto rumano con barra', series:'4', reps:'10–12', desc:'Espalda neutra, bajar la barra pegada a las piernas, sentir isquios.'},
+        {nombre:'Curl de isquiotibiales en máquina', series:'4', reps:'12–15', desc:'Movimiento completo, contracción abajo.'},
+        {nombre:'Sentadilla búlgara con mancuernas', series:'3', reps:'10 c/lado', desc:'Pie trasero en banco, rodilla delantera no pasa la punta del pie.'},
+        {nombre:'Hip thrust a una pierna', series:'3', reps:'12 c/lado', desc:'Glúteo contralateral apretado, caderas al mismo nivel.'},
+        {nombre:'Patada de glúteo en polea baja', series:'3', reps:'15 c/lado', desc:'Core activo, no rotar la cadera.'},
+        {nombre:'Abducción de cadera tumbada (mancuerna)', series:'3', reps:'15–20', desc:'Tumbada de lado, peso en el muslo, subir hasta 45°.'},
+        {nombre:'Cardio intervalos (bicicleta estática)', series:'4', reps:'30 seg intens. / 60 seg baja', desc:'Al finalizar el entreno. Total ~6 minutos.'},
+      ]
+    },
+  ];
+
+  var estilosExtra = '<style>' +
+    '.entreno-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}' +
+    '@media(max-width:760px){.entreno-grid{grid-template-columns:1fr}}' +
+    '.entreno-card{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow)}' +
+    '.entreno-card .ec-head{padding:14px 20px;display:flex;justify-content:space-between;align-items:center}' +
+    '.entreno-card .ec-dia{font-family:"Chakra Petch",sans-serif;font-size:15px;font-weight:700;color:#fff}' +
+    '.entreno-card .ec-foco{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;margin-top:2px}' +
+    '.entreno-card .ec-badge{font-family:"IBM Plex Mono",monospace;font-size:10px;font-weight:700;color:#000;padding:4px 10px;border-radius:999px}' +
+    '.entreno-card table{width:100%;border-collapse:collapse}' +
+    '.entreno-card table th{font-family:"IBM Plex Mono",monospace;font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);padding:8px 16px;border-bottom:1px solid var(--line);text-align:left}' +
+    '.entreno-card table th:nth-child(2),.entreno-card table th:nth-child(3){text-align:center}' +
+    '.entreno-card table td{padding:10px 16px;border-bottom:1px solid var(--line);font-size:12.5px;vertical-align:top}' +
+    '.entreno-card table tr:last-child td{border-bottom:none}' +
+    '.entreno-card table td:first-child{color:var(--ink);font-weight:500}' +
+    '.entreno-card table td:nth-child(2),.entreno-card table td:nth-child(3){font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--navy);text-align:center;white-space:nowrap}' +
+    '.entreno-card table td:last-child{color:var(--faint);font-size:11.5px;font-style:italic}' +
+    '.entreno-notas{background:var(--panel2);border:1px solid var(--line);border-radius:14px;padding:18px 22px;margin-top:20px}' +
+    '.entreno-notas h4{font-family:"Libre Franklin",sans-serif;font-weight:600;font-size:15px;color:var(--navy);margin-bottom:12px}' +
+    '.entreno-notas ul{list-style:none}' +
+    '.entreno-notas li{font-size:12.5px;color:var(--muted);margin:8px 0;padding-left:16px;position:relative}' +
+    '.entreno-notas li::before{content:"•";position:absolute;left:0;color:var(--faint)}' +
+    '.entreno-notas li b{color:var(--ink)}' +
+    '</style>';
+
+  var cardsHtml = dias.map(function(d) {
+    var rows = d.ejercicios.map(function(e) {
+      return '<tr><td>' + e.nombre + '</td><td>' + e.series + '</td><td>' + e.reps + '</td><td>' + e.desc + '</td></tr>';
+    }).join('');
+    return '<div class="entreno-card">' +
+      '<div class="ec-head" style="background:' + d.color + '20;border-bottom:1px solid ' + d.color + '40">' +
+        '<div><div class="ec-dia">' + d.dia + '</div><div class="ec-foco" style="color:' + d.color + '">' + d.foco + '</div></div>' +
+        '<div class="ec-badge" style="background:' + d.color + '">' + d.ejercicios.length + ' ej.</div>' +
+      '</div>' +
+      '<table><thead><tr><th>Ejercicio</th><th>Series</th><th>Reps</th><th>Indicaciones</th></tr></thead>' +
+      '<tbody>' + rows + '</tbody></table></div>';
+  }).join('');
+
+  var notasHtml = '<div class="entreno-notas"><h4>📋 Lineamientos del entrenamiento</h4><ul>' +
+    '<li><b>Progresión:</b> si las últimas 2 reps de la última serie se sienten fáciles, sube el peso la siguiente semana.</li>' +
+    '<li><b>Descanso entre series:</b> 60–90 seg en ejercicios de aislamiento · 90–120 seg en compuestos (press, sentadilla, peso muerto).</li>' +
+    '<li><b>Tempo:</b> bajada controlada 2–3 seg, subida explosiva pero segura.</li>' +
+    '<li><b>Calentamiento:</b> 5–10 min de cardio suave + 1 serie de calentamiento por ejercicio compuesto.</li>' +
+    '<li><b>Cardio intervalos:</b> días 2 y 4 al final del entreno — 30 seg máx. intensidad / 60 seg baja × 4 series en bicicleta estática.</li>' +
+    '<li><b>Descanso semanal:</b> Miércoles, Sábado y Domingo — movimiento ligero (caminar, estirar).</li>' +
+    '<li><b>Objetivo de pasos:</b> 8.000 pasos diarios mínimo, incluidos los días de descanso.</li>' +
+    '<li><b>Pre-entreno:</b> 1 plátano + 1 cda de miel, 30–40 min antes. <b>Post-entreno:</b> yogurt Quark o ½ scoop de proteína inmediatamente después.</li>' +
+    '</ul></div>';
+
+  $('tab-entreno').innerHTML = estilosExtra + '<div class="wrap"><section>' +
+    '<div class="sec-h"><span class="ix">01</span><h2>Plan de Entrenamiento · 4 sesiones/semana</h2><div class="rule"></div></div>' +
+    '<div class="entreno-grid">' + cardsHtml + '</div>' +
+    notasHtml +
+    '</section></div>';
 }
 
 function init() { renderHero(); renderTabs(); renderNutr(); renderEval(); renderSpecs(); }
