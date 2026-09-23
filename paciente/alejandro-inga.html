@@ -192,7 +192,7 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 const PATIENT = {
   slug:      'alejandro-inga',
   nombre:    'Alejandro\nInga Ciccia',
-  fecha:     '18.09.2026',
+  fecha:     '22.09.2026',
   tipoPlan:  'Hipocalórico · Hiperprotéico',
   macros:    { kcal: 2000, p: 136, c: 218, g: 66 },
   hidratacion: [
@@ -201,10 +201,10 @@ const PATIENT = {
   ],
   entrenamiento: null,
   antro: {
-    fecha:'18.09.2026', peso:81.8, talla:174.0, imc:27.0,
+    fecha:'22.09.2026', peso:81.8, talla:174.0, imc:27.0,
     tri:12.0, bi:4.5, sub:14.0, cresta:18.0, supra:10.0, abd:19.0, pierna:13.0, pant:5.0,
     s6:73.0, s8:95.5,
-    brazRelaj:35.0, brazFlex:36.0, abdom:88.0, cadera:102.0, muslo:57.0, pantPer:37.0,
+    brazRelaj:35.0, brazFlex:36.0, abdom:87.5, cadera:102.0, muslo:57.8, pantPer:37.0,
     diam: { humero:6.7, biEstiloideo:5.6, femur:8.7 },
     pctGrasa:19.6, fatKg:16.0, pctMusc:42.0, muscKg:34.4, pctOseo:13.1, oseoKg:10.7,
     icc:0.86,
@@ -216,6 +216,8 @@ const PATIENT = {
     { fecha:'01.09.2026', peso:82.6, tri:15.0, bi:7.0, sub:14.0, cresta:20.0, supra:12.0, abd:25.0, pierna:15.0, pant:7.0,
       brazRelaj:35.3, brazFlex:36.0, abdom:89.5, cadera:101.0, muslo:58.0, pantPer:37.0, s6:88.0, s8:115.0,
       pctGrasa:22.0, fatKg:18.2, pctMusc:33.3, muscKg:27.5, pctOseo:12.9, oseoKg:10.7, icc:0.89 },
+    { fecha:'18.09.2026', peso:81.8, tri:12.0, bi:4.5, sub:14.0, cresta:18.0, supra:10.0, abd:19.0, pierna:13.0, pant:5.0,
+      brazRelaj:35.0, brazFlex:36.0, abdom:88.0, cadera:102.0, muslo:57.0, pantPer:37.0, s6:73.0, s8:95.5 },
   ],
 
   carbload: {
@@ -263,6 +265,8 @@ const PATIENT = {
         '20 g de avena (peso crudo)',
         '20 g de cereales Dyfferent o NutriCo',
         '20 g de granola',
+        '3 unidades de salmas',
+        '8 galletas de arroz Costeño',
       ]},
       { label:'Escoge 01 · Proteína', max:1, ops:[
         '100 g de pollo + 60 g de palta',
@@ -291,6 +295,10 @@ const PATIENT = {
         '100 g de menestra (cocida)',
         '50 g de fideos (cocidos)',
         'Ravioles de verduras Don Italo (40 g en crudo)',
+        '100 g de olluco (cocido)',
+        '60 g de choclo (cocido)',
+        '60 g de puré de papa',
+        '80 g de locro (cocido)',
       ]},
       { label:'Proteína (200 g peso crudo)', max:1, ops:[
         'Pechuga de pollo',
@@ -329,6 +337,10 @@ const PATIENT = {
         '20 g de avena (peso crudo)',
         '20 g de cereales Dyfferent o NutriCo',
         '20 g de granola',
+        '60 g de arroz (cocido)',
+        '90 g de papa o camote (cocido)',
+        '60 g de quinua (cocida)',
+        '60 g de choclo (cocido)',
       ]},
       { label:'Escoge 01 · Verduras', max:1, ops:[
         '120 a 150 g de verduras a tu preferencia',
