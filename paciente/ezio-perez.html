@@ -192,24 +192,24 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 const PATIENT = {
   slug:      'ezio-perez',
   nombre:    'Ezio\nPérez',
-  fecha:     '15.09.2026',
+  fecha:     '22.09.2026',
   tipoPlan:  'Hipocalórico · Hiperprotéico',
-  macros:    { kcal: 1900, p: 138, c: 212, g: 55 },
+  macros:    { kcal: 1750, p: 132, c: 193, g: 49 },
   hidratacion: [
     { label:'💧 Entrenamiento', valor:'3.2' },
     { label:'💧 Descanso',      valor:'2.8' },
   ],
   entrenamiento: null,
   antro: {
-    fecha:'15.09.2026', peso:80.5, talla:164.5, imc:29.7,
-    tri:12.0, bi:6.0, sub:20.0, cresta:36.0, supra:18.0, abd:32.0, pierna:18.0, pant:10.0,
-    s6:110.0, s8:152.0,
-    brazRelaj:34.0, brazFlex:36.0, abdom:85.0, cadera:108.0, muslo:59.0, pantPer:39.0,
+    fecha:'22.09.2026', peso:83.8, talla:169.0, imc:29.3,
+    tri:15.0, bi:5.5, sub:22.0, cresta:38.0, supra:20.0, abd:38.0, pierna:21.0, pant:12.0,
+    s6:128.0, s8:171.5,
+    brazRelaj:34.5, brazFlex:36.3, abdom:89.0, cadera:110.0, muslo:60.0, pantPer:39.0,
     diam:{ humero:6.9, biEstiloideo:5.5, femur:10.5 },
-    icc:0.79, somato:'5.2 · 7.8 · 0.1',
-    pctGrasa:18.3, fatKg:14.7,
-    pctMusc:43.3,  muscKg:34.9,
-    pctOseo:13.8,  oseoKg:11.1,
+    icc:0.81, somato:'5.2 · 7.8 · 0.1',
+    pctGrasa:18.3, fatKg:15.3,
+    pctMusc:43.3,  muscKg:36.2,
+    pctOseo:13.8,  oseoKg:11.6,
   },
   antroHistorial: [
     { fecha:'16.07.2026', peso:87.3, tri:17.0, bi:7.0, sub:27.0, cresta:52.0, supra:26.0, abd:45.0, pierna:24.0, pant:17.0,
@@ -218,6 +218,8 @@ const PATIENT = {
       brazRelaj:34.5, brazFlex:36.3, abdom:89.0, cadera:110.0, muslo:60.0, pantPer:39.0, s6:108.0, s8:151.5 },
     { fecha:'24.08.2026', peso:83.1, tri:13.0, bi:5.5, sub:22.0, cresta:38.0, supra:20.0, abd:34.0, pierna:18.0, pant:12.0,
       brazRelaj:33.0, brazFlex:35.0, abdom:87.0, cadera:109.0, muslo:60.0, pantPer:38.5, s6:119.0, s8:162.5 },
+    { fecha:'15.09.2026', peso:80.5, tri:12.0, bi:6.0, sub:20.0, cresta:36.0, supra:18.0, abd:32.0, pierna:18.0, pant:10.0,
+      brazRelaj:34.0, brazFlex:36.0, abdom:85.0, cadera:108.0, muslo:59.0, pantPer:39.0, s6:110.0, s8:152.0 },
   ],
 
   objetivos: [
@@ -254,7 +256,7 @@ const PATIENT = {
       ]},
     ]},
 
-    { id:'alm', nombre:'🥗 Almuerzo', kcal:744, p:53, c:79, g:23, grupos:[
+    { id:'alm', nombre:'🥗 Almuerzo', kcal:680, p:53, c:77, g:17, grupos:[
       { label:'Escoge 04 · Carbohidrato', max:4, ops:[
         '60 g de arroz (cocido)',
         '90 g de papa, camote o beterraga (cocido)',
@@ -273,15 +275,15 @@ const PATIENT = {
       { label:'Escoge 01 · Verduras', max:1, ops:[
         '150 g de verduras a tu preferencia (crudas o cocidas)',
       ]},
-      { label:'Escoge 03 · Grasa', max:3, ops:[
+      { label:'Escoge 02 · Grasa', max:2, ops:[
         '1 cdta de aceite de oliva',
         '40 g de palta',
         '1 porción de frutos secos',
       ]},
     ]},
 
-    { id:'cen', nombre:'🌙 Cena', kcal:680, p:52, c:75, g:17, grupos:[
-      { label:'Escoge 04 · Carbohidrato', max:4, ops:[
+    { id:'cen', nombre:'🌙 Cena', kcal:578, p:46, c:58, g:17, grupos:[
+      { label:'Escoge 03 · Carbohidrato', max:3, ops:[
         '90 g de papa, camote o beterraga (cocido)',
         '60 g de arroz (cocido)',
         '60 g de quinua (cocida)',
@@ -292,7 +294,7 @@ const PATIENT = {
         '20 g de cereales',
         '20 g de granola',
       ]},
-      { label:'Proteína (200 g peso crudo)', max:1, ops:[
+      { label:'Proteína (180 g peso crudo)', max:1, ops:[
         'Pechuga de pollo',
         'Pechuga de pavo',
         'Pescado',
@@ -383,7 +385,7 @@ const PATIENT = {
     { nombre:'Salsa roja',        desc:'Tomate, cebolla, ajo, albahaca, poro, sal, pimienta, tomillo + 1 cda aceite de oliva. Opcional: Lakanto o Stevia si falta dulzor. Puede adicionar otras verduras a preferencia' },
   ],
 
-  notaSpecs: 'Plan base = 3 comidas principales (1 900 kcal). Sin snack intermedio.',
+  notaSpecs: 'Plan base = 3 comidas principales (1 750 kcal). Sin snack intermedio.',
 };
 // ════════════════════════════════════════════════════════════════════════════
 //  FIN DATOS — motor de renderizado
