@@ -128,6 +128,15 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 .foot-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
 .foot-brand{font-family:'IBM Plex Mono';font-size:11px;color:var(--faint);letter-spacing:.1em}.foot-contact{font-size:12px;color:var(--faint)}
 @media(max-width:640px){.wrap{padding:0 16px}header.hero{padding:32px 0 16px}section{padding:20px 0}.tabbar .wrap{overflow-x:auto;padding:0 4px;scrollbar-width:none;-ms-overflow-style:none;flex-wrap:nowrap}.tabbar .wrap::-webkit-scrollbar{display:none}.tab{padding:13px 14px;font-size:12px;gap:6px}.tab.active::after{left:14px;right:14px}.macros{flex-direction:column;align-items:flex-start;gap:10px;padding:14px 16px}.macros .sep{display:none}.macros .kcal{font-size:26px}.evalwrap,.specs{grid-template-columns:1fr}.foot-inner{flex-direction:column;align-items:flex-start;gap:6px}}
+.train-intro{font-size:13px;color:var(--muted);background:var(--panel2);border:1px dashed var(--line);border-radius:12px;padding:14px 16px;margin:6px 0 18px;line-height:1.6}.train-intro b{color:var(--ink)}
+.weeksel{display:flex;flex-wrap:wrap;gap:10px;margin:4px 0 8px}
+.wbtn{appearance:none;cursor:pointer;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px 14px;color:var(--muted);font-family:'Inter';text-align:left;transition:.2s;min-width:110px;position:relative;box-shadow:var(--shadow)}.wbtn:hover{border-color:var(--muted);color:var(--ink)}.wbtn.active{border-color:var(--navy);color:var(--ink);background:var(--panel2)}.wbtn .wn{font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:17px;line-height:1;display:block}.wbtn .wp{font-family:'IBM Plex Mono';font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;margin-top:6px;display:block}.wbtn.active .wn{color:var(--navy)}.wbtn .wdot{position:absolute;top:10px;right:10px;width:8px;height:8px;border-radius:50%}
+.train-head{display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin:18px 0 6px}.train-head .badge{font-family:'IBM Plex Mono';font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#000;padding:6px 13px;border-radius:999px;font-weight:700}.train-head .hint{font-size:12px;color:var(--faint)}
+.sess{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow);margin-bottom:16px}.sess .sh{display:flex;align-items:center;gap:12px;padding:14px 18px;background:var(--panel2);cursor:pointer;user-select:none;transition:background .15s}.sess .sh:hover{background:var(--bg2)}.sess.open .sh{border-bottom:1px solid var(--line)}.sess .sh .snum{font-family:'IBM Plex Mono';font-size:11px;color:var(--navy);font-weight:700;border:1px solid var(--line);border-radius:8px;padding:3px 8px}.sess .sh h3{font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:18px}.sess .sh .scount{margin-left:auto;font-family:'IBM Plex Mono';font-size:11px;color:var(--faint)}.sess .chev{color:var(--faint);font-size:13px;transition:transform .2s}.sess.open .chev{transform:rotate(90deg)}.sbody{display:none}.sess.open .sbody{display:block}
+.exq{display:flex;gap:14px;border-top:1px solid var(--line);padding:15px 18px}.exq:first-child{border-top:none}.exq .thumb{width:90px;height:90px;flex:0 0 90px;border-radius:10px;overflow:hidden;background:var(--panel2);border:1px solid var(--line)}.exq .thumb img{width:100%;height:100%;object-fit:cover;display:block}.exq .ebody{flex:1;min-width:0}@media(max-width:520px){.exq .thumb{width:66px;height:66px;flex-basis:66px}}.exq .nm{font-weight:600;font-size:14.5px;color:var(--ink);margin-bottom:9px}.exq .meta{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:12px}
+.mpill{font-family:'IBM Plex Mono';font-size:10.5px;border:1px solid var(--line);border-radius:7px;padding:4px 9px;color:var(--muted);background:var(--bg)}.mpill b{color:var(--ink);font-weight:600}.mpill.rir b{color:var(--coral)}.mpill.rir-f b{color:#ef5350}.mpill.rest b{color:var(--cyan)}
+.sets{display:grid;grid-template-columns:repeat(auto-fill,minmax(108px,1fr));gap:9px}.setbox{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:8px 10px}.setbox .sl{font-family:'IBM Plex Mono';font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin-bottom:4px}.setbox input{width:100%;background:transparent;border:none;color:var(--ink);font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:21px;padding:0;-moz-appearance:textfield}.setbox input::-webkit-outer-spin-button,.setbox input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}.setbox input:focus{outline:none}.setbox input::placeholder{color:var(--faint);font-weight:400;opacity:.55}.setbox .un{font-family:'Inter';font-size:12px;color:var(--muted);font-weight:600}.setbox.filled{border-color:rgba(196,151,58,.4);background:var(--panel2)}.setbox.filled .sl{color:var(--navy)}
+.no-data{text-align:center;padding:48px 20px;color:var(--faint);font-size:13px;font-style:italic}
 </style>
 <link rel="stylesheet" href="paciente.css">
 </head>
@@ -200,6 +209,48 @@ const PATIENT = {
     {titulo:'🍲 Salsas bajas en calorías',items:['##Dulces','Mermelada: 200 g berries + 2 cdas chía + 4 cdas monkfruit — microondas u olla.','Leche condensada light: leche en polvo descremada + Stevia + leche evaporada descremada.','##Saladas','Tzatziki: 2 cdas yogurt descremado + sal y pimienta + ajo + pepino + aceite de oliva + eneldo/perejil/orégano.','Honey mustard: 1 cda mostaza + 1 cda yogurt descremado + sal y pimienta + Stevia.']},
     {titulo:'📋 Lineamientos generales',items:['Mantenerse lo más estricta posible con las porciones.','Objetivo de pasos: 8.000 pasos diarios como mínimo.','Si vas a comer en algún restaurante, intentar que la comida tenga alimentos parecidos o escribir al WhatsApp para cuadrarlo.','Intervalos en bicicleta 3 veces/semana: 30 seg máxima intensidad / 60 seg baja intensidad × 4 series.','<a href="../guia-restaurante.html" target="_blank" style="color:var(--navy);text-decoration:none;font-weight:600">Ver guía de restaurantes →</a>']},
   ],
+  entrenamiento:{
+    fases:[
+      {label:'Acumulación',    semanas:2, color:'#4fc3f7', bg:'#1a3a4a'},
+      {label:'Intensificación',semanas:2, color:'#C4973A', bg:'#3a2e0a'},
+    ],
+    sesiones:[
+      {id:'s1',icon:'🍑',label:'Lower A · Lunes',nota:'Glúteos + Cuádriceps',ejercicios:[
+        {nombre:'Hip thrust con barra',                  reps:'10',        descanso:'3 min',   img:'anim',   s1:'Barbell_Hip_Thrust/0.jpg',                  s2:'Barbell_Hip_Thrust/1.jpg',                  nota:'2 aprox + 3 efectivas',            prog:[[3,3],[3,2],[4,1],[4,0]]},
+        {nombre:'Sentadilla con barra',                  reps:'10-12',     descanso:'2-3 min', img:'anim',   s1:'Barbell_Full_Squat/0.jpg',                  s2:'Barbell_Full_Squat/1.jpg',                  prog:[[3,3],[3,2],[4,1],[4,0]]},
+        {nombre:'Prensa de piernas',                     reps:'12-15',     descanso:'2 min',   img:'anim',   s1:'Leg_Press/0.jpg',                           s2:'Leg_Press/1.jpg',                           prog:[[3,3],[3,2],[4,1],[4,0]]},
+        {nombre:'Abducción cadera (máquina)',            reps:'15-20',     descanso:'60 seg',  img:'anim',   s1:'Thigh_Abductor/0.jpg',                      s2:'Thigh_Abductor/1.jpg',                      prog:[[3,3],[3,2],[3,1],[3,0]]},
+        {nombre:'Extensiones de cuádriceps',             reps:'12-15',     descanso:'60 seg',  img:'anim',   s1:'Leg_Extensions/0.jpg',                      s2:'Leg_Extensions/1.jpg',                      prog:[[3,3],[3,2],[3,1],[3,0]]},
+      ]},
+      {id:'s2',icon:'💪',label:'Upper A · Martes',nota:'Tirón + Empuje + Core',ejercicios:[
+        {nombre:'Jalón al pecho (agarre ancho)',         reps:'10-12',     descanso:'90 seg',  img:'anim',   s1:'Wide-Grip_Lat_Pulldown/0.jpg',              s2:'Wide-Grip_Lat_Pulldown/1.jpg',              nota:'1 aprox + 3 efectivas',            prog:[[3,3],[3,2],[4,1],[4,0]]},
+        {nombre:'Remo en polea sentado',                 reps:'10-12',     descanso:'90 seg',  img:'anim',   s1:'Seated_Cable_Rows/0.jpg',                   s2:'Seated_Cable_Rows/1.jpg',                   prog:[[3,3],[3,2],[4,1],[4,0]]},
+        {nombre:'Press en máquina pectoral',             reps:'10-12',     descanso:'90 seg',  img:'anim',   s1:'Leverage_Chest_Press/0.jpg',                s2:'Leverage_Chest_Press/1.jpg',                prog:[[3,3],[3,2],[4,1],[4,0]]},
+        {nombre:'Face pull en polea',                    reps:'15',        descanso:'60 seg',  img:'static', s1:'https://img.youtube.com/vi/rep4IFKePfs/hqdefault.jpg', s2:'', prog:[[3,3],[3,2],[3,1],[3,0]]},
+        {nombre:'Elevaciones laterales en polea',        reps:'15',        descanso:'60 seg',  img:'anim',   s1:'Side_Lateral_Raise/0.jpg',                  s2:'Side_Lateral_Raise/1.jpg',                  prog:[[3,3],[3,2],[3,1],[3,0]]},
+        {nombre:'Tríceps en polea (cuerda)',             reps:'12-15',     descanso:'60 seg',  img:'anim',   s1:'Triceps_Pushdown/0.jpg',                    s2:'Triceps_Pushdown/1.jpg',                    prog:[[3,3],[3,2],[3,1],[3,0]]},
+        {nombre:'Curl bíceps con mancuernas',            reps:'12-15',     descanso:'60 seg',  img:'anim',   s1:'Dumbbell_Alternate_Bicep_Curl/0.jpg',       s2:'Dumbbell_Alternate_Bicep_Curl/1.jpg',       prog:[[3,3],[3,2],[3,1],[3,0]]},
+        {nombre:'Crunches banco declinado',              reps:'12-15',     descanso:'60 seg',  img:'anim',   s1:'Decline_Crunch/0.jpg',                      s2:'Decline_Crunch/1.jpg',                      prog:[[3,3],[3,2],[3,1],[3,0]]},
+      ]},
+      {id:'s3',icon:'🔥',label:'Lower B · Jueves',nota:'Isquios + Glúteo posterior',ejercicios:[
+        {nombre:'Peso muerto rumano con barra',          reps:'10',        descanso:'3 min',   img:'anim',   s1:'Romanian_Deadlift/0.jpg',                   s2:'Romanian_Deadlift/1.jpg',                   nota:'2 aprox + 3 efectivas',            prog:[[3,3],[3,2],[4,1],[4,0]]},
+        {nombre:'Hip thrust con barra',                  reps:'12',        descanso:'2-3 min', img:'anim',   s1:'Barbell_Hip_Thrust/0.jpg',                  s2:'Barbell_Hip_Thrust/1.jpg',                  nota:'Mismo peso que lunes · 3 efectivas',prog:[[3,3],[3,2],[4,1],[4,0]]},
+        {nombre:'Sentadilla búlgara con mancuernas',     reps:'10-12 c/lado',descanso:'2 min', img:'static', s1:'https://img.youtube.com/vi/2C-uNgKwPLE/hqdefault.jpg', s2:'', prog:[[3,3],[3,2],[3,1],[3,0]]},
+        {nombre:'Curl femoral acostado (máquina)',       reps:'12-15',     descanso:'60 seg',  img:'anim',   s1:'Seated_Leg_Curl/0.jpg',                     s2:'Seated_Leg_Curl/1.jpg',                     prog:[[3,3],[3,2],[3,1],[3,0]]},
+        {nombre:'Abducción cadera (máquina)',            reps:'15-20',     descanso:'60 seg',  img:'anim',   s1:'Thigh_Abductor/0.jpg',                      s2:'Thigh_Abductor/1.jpg',                      prog:[[3,3],[3,2],[3,1],[3,0]]},
+      ]},
+      {id:'s4',icon:'🏋️',label:'Upper B · Viernes',nota:'Espalda + Hombro + Core',ejercicios:[
+        {nombre:'Jalón unilateral en polea',             reps:'12 c/lado', descanso:'90 seg',  img:'anim',   s1:'One_Arm_Lat_Pulldown/0.jpg',                s2:'One_Arm_Lat_Pulldown/1.jpg',                nota:'1 aprox + 3 efectivas',            prog:[[3,3],[3,2],[4,1],[4,0]]},
+        {nombre:'Jalón agarre cerrado',                  reps:'12',        descanso:'90 seg',  img:'anim',   s1:'Close-Grip_Front_Lat_Pulldown/0.jpg',       s2:'Close-Grip_Front_Lat_Pulldown/1.jpg',       prog:[[3,3],[3,2],[4,1],[4,0]]},
+        {nombre:'Press hombro con mancuernas',           reps:'10-12',     descanso:'90 seg',  img:'anim',   s1:'Dumbbell_Shoulder_Press/0.jpg',             s2:'Dumbbell_Shoulder_Press/1.jpg',             prog:[[3,3],[3,2],[4,1],[4,0]]},
+        {nombre:'Elevaciones laterales con mancuernas', reps:'15',        descanso:'60 seg',  img:'anim',   s1:'Side_Lateral_Raise/0.jpg',                  s2:'Side_Lateral_Raise/1.jpg',                  prog:[[3,3],[3,2],[3,1],[3,0]]},
+        {nombre:'Reverse fly (máquina)',                 reps:'15',        descanso:'60 seg',  img:'anim',   s1:'Reverse_Fly/0.jpg',                         s2:'Reverse_Fly/1.jpg',                         prog:[[3,3],[3,2],[3,1],[3,0]]},
+        {nombre:'Tríceps en polea (cuerda)',             reps:'12-15',     descanso:'60 seg',  img:'anim',   s1:'Triceps_Pushdown/0.jpg',                    s2:'Triceps_Pushdown/1.jpg',                    prog:[[3,3],[3,2],[3,1],[3,0]]},
+        {nombre:'Curl bíceps con mancuernas',            reps:'12-15',     descanso:'60 seg',  img:'anim',   s1:'Dumbbell_Alternate_Bicep_Curl/0.jpg',       s2:'Dumbbell_Alternate_Bicep_Curl/1.jpg',       prog:[[3,3],[3,2],[3,1],[3,0]]},
+        {nombre:'Elevación de piernas banco declinado',  reps:'10-12',     descanso:'60 seg',  img:'anim',   s1:'Flat_Bench_Lying_Leg_Raise/0.jpg',          s2:'Flat_Bench_Lying_Leg_Raise/1.jpg',          prog:[[3,3],[3,2],[3,1],[3,0]]},
+      ]},
+    ],
+  },
 };
 
 const $ = id => document.getElementById(id);
@@ -619,251 +670,37 @@ function updateStorageInfo() {
   }catch(e){}
 }
 
-// ── Plan de Entrenamiento — Mesociclo ─────────────────────────────────────
-var DW_MICROS = {
-  m1:{ label:'Micro 1', fase:'Acumulación',  faseColor:'#C4973A', rir:{C:2,A:1,X:0} },
-  m2:{ label:'Micro 2', fase:'Acumulación',  faseColor:'#C4973A', rir:{C:2,A:1,X:0} },
-  m3:{ label:'Micro 3', fase:'Intensificación', faseColor:'#ef9a9a', rir:{C:1,A:0,X:0} },
-  m4:{ label:'Micro 4', fase:'Intensificación', faseColor:'#ef9a9a', rir:{C:1,A:0,X:0} },
-};
+// ── Plan de Entrenamiento ─────────────────────────────────────────────────
+const BASE_IMG='https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/';
+let DW_WEEKS=[];let dwCurrentWeek=1;
 
-// type: C=compuesto, A=accesorio, X=aislamiento/core
-var DW_SESSIONS = [
-  {
-    id:'upper-push', name:'Sesión A — Upper Push', tag:'Tren superior · Empuje · Lunes',
-    icon:'💪', iconBg:'rgba(196,151,58,0.12)',
-    exercises:[
-      {name:'Press de banca con mancuernas',          sets:3, reps:'10–12', type:'C', rest:'2:00'},
-      {name:'Press inclinado con mancuernas (30°)',   sets:3, reps:'10–12', type:'C', rest:'2:00'},
-      {name:'Peck deck (aperturas en máquina)',        sets:3, reps:'12–15', type:'A', rest:'1:30'},
-      {name:'Press militar con mancuernas',            sets:3, reps:'10–12', type:'C', rest:'2:00'},
-      {name:'Elevaciones laterales',                   sets:3, reps:'12–15', type:'A', rest:'1:00'},
-      {name:'Extensiones tríceps en polea (cuerda)',  sets:3, reps:'12–15', type:'X', rest:'1:00'},
-      {name:'Plancha abdominal',                       sets:3, reps:'30–45s', type:'X', rest:'0:45'},
-    ]
-  },
-  {
-    id:'lower-glutes', name:'Sesión B — Lower Glúteos', tag:'Tren inferior · Glúteos + Cuádriceps · Martes',
-    icon:'🍑', iconBg:'rgba(239,154,154,0.12)',
-    exercises:[
-      {name:'Sentadilla con barra (goblet o libre)',  sets:4, reps:'10–12', type:'C', rest:'2:30'},
-      {name:'Prensa de piernas',                      sets:3, reps:'12–15', type:'A', rest:'2:00'},
-      {name:'Hip thrust con barra',                   sets:4, reps:'12–15', type:'C', rest:'2:00'},
-      {name:'Extensiones de cuádriceps en máquina',   sets:3, reps:'12–15', type:'A', rest:'1:30'},
-      {name:'Abducción de cadera en máquina',         sets:3, reps:'15–20', type:'X', rest:'1:00'},
-      {name:'Pantorrilla en máquina o multipower',    sets:3, reps:'15–20', type:'X', rest:'1:00'},
-      {name:'Cardio intervalos — bicicleta (al final)',sets:4, reps:'30s int / 60s baja', type:'X', rest:'—'},
-    ]
-  },
-  {
-    id:'upper-pull', name:'Sesión C — Upper Pull', tag:'Tren superior · Jalón + Espalda · Jueves',
-    icon:'🏋️', iconBg:'rgba(79,195,247,0.12)',
-    exercises:[
-      {name:'Jalón al pecho en polea alta',           sets:4, reps:'10–12', type:'C', rest:'2:00'},
-      {name:'Remo con mancuerna unilateral',          sets:3, reps:'10–12', type:'C', rest:'2:00'},
-      {name:'Remo en polea baja (cable)',             sets:3, reps:'12–15', type:'A', rest:'1:30'},
-      {name:'Face pull con cuerda',                   sets:3, reps:'15',    type:'X', rest:'1:00'},
-      {name:'Curl de bíceps con mancuernas',          sets:3, reps:'12–15', type:'A', rest:'1:30'},
-      {name:'Curl martillo',                          sets:3, reps:'12',    type:'X', rest:'1:00'},
-      {name:'Crunch en banco inclinado',              sets:3, reps:'15–20', type:'X', rest:'0:45'},
-    ]
-  },
-  {
-    id:'lower-hams', name:'Sesión D — Lower Isquios', tag:'Tren inferior · Isquios + Glúteos · Viernes',
-    icon:'🦵', iconBg:'rgba(165,214,167,0.12)',
-    exercises:[
-      {name:'Peso muerto rumano con barra',           sets:4, reps:'10–12', type:'C', rest:'2:30'},
-      {name:'Curl de isquiotibiales en máquina',     sets:4, reps:'12–15', type:'A', rest:'1:30'},
-      {name:'Sentadilla búlgara con mancuernas',     sets:3, reps:'10 c/l', type:'A', rest:'2:00'},
-      {name:'Hip thrust a una pierna',               sets:3, reps:'12 c/l', type:'A', rest:'1:30'},
-      {name:'Patada de glúteo en polea baja',        sets:3, reps:'15 c/l', type:'X', rest:'1:00'},
-      {name:'Abducción de cadera tumbada',           sets:3, reps:'15–20', type:'X', rest:'1:00'},
-      {name:'Cardio intervalos — bicicleta (al final)',sets:4, reps:'30s int / 60s baja', type:'X', rest:'—'},
-    ]
-  },
-];
+function dw_buildWeeks(){var weeks=[];var n=1;PATIENT.entrenamiento.fases.forEach(function(fase,fi){for(var i=0;i<fase.semanas;i++){weeks.push({n:n,label:'S'+n,fase:fi,faseLabel:fase.label,color:fase.color,bg:fase.bg});n++;}});return weeks;}
 
-function dw_prevMicro(m){ var n=parseInt(m.slice(1)); return n>1?'m'+(n-1):null; }
+function renderEntreno(){if(!PATIENT.entrenamiento)return;DW_WEEKS=dw_buildWeeks();$('tab-entreno').innerHTML='<div class="wrap"><section style="padding-top:24px"><div class="sec-h"><span class="ix">01</span><h2>Mesociclo · 4 Semanas</h2><div class="rule"></div></div><p class="train-intro">Mesociclo de 4 semanas: <b>2 Acumulación + 2 Intensificación</b>. Upper/Lower 4 días a la semana. <b>Anota el peso de cada serie</b> — se guarda automáticamente en tu dispositivo.</p><div class="weeksel" id="dw-weeksel"></div></section><section style="padding-top:6px"><div class="train-head" id="dw-trainHead"></div><div id="dw-sessions"></div></section></div>';dw_buildWeekSel();dw_buildTrainHead(DW_WEEKS[0]);$('dw-sessions').innerHTML=dw_buildSessions(1);dw_loadTrainValues();}
 
-function dw_buildSession(session, micro) {
-  var prev = dw_prevMicro(micro);
-  var rir  = DW_MICROS[micro].rir;
-  var rows = session.exercises.map(function(ex, ei) {
-    var r = rir[ex.type];
-    var cells = Array.from({length:ex.sets},function(_,si){
-      var key  = 'dw-'+micro+'-'+session.id+'-'+ei+'-s'+(si+1);
-      var saved= localStorage.getItem(key)||'';
-      var pKey = prev?('dw-'+prev+'-'+session.id+'-'+ei+'-s'+(si+1)):null;
-      var pVal = pKey?(localStorage.getItem(pKey)||'—'):null;
-      return '<div class="dw-track-set">'+(pVal!==null?'<div class="dw-track-prev" title="Semana anterior">'+pVal+'</div>':'')+'<input class="dw-track-input" placeholder="'+(si+1)+'ª" data-key="'+key+'" value="'+saved+'"/></div>';
-    }).join('');
-    return '<tr><td class="dw-ex-name">'+ex.name+'</td>'
-      +'<td class="center"><span class="dw-badge-s">'+ex.sets+'</span></td>'
-      +'<td class="center"><span class="dw-badge-r">'+ex.reps+'</span></td>'
-      +'<td class="center"><span class="dw-badge-rir">RIR '+r+'</span></td>'
-      +'<td class="center"><span class="dw-badge-rest">'+ex.rest+'</span></td>'
-      +'<td><div class="dw-track-cell">'+cells+'</div></td></tr>';
-  }).join('');
-  var prevLabel = prev?'<span style="font-size:10px;color:var(--faint);margin-left:6px;font-weight:400">sem. ant. → actual</span>':'';
-  return '<div class="dw-session open" id="dws-'+micro+'-'+session.id+'">'
-    +'<div class="dw-session-head" onclick="dw_toggle(\'dws-'+micro+'-'+session.id+'\')">'
-    +'<div style="display:flex;align-items:center;gap:12px">'
-    +'<div style="width:32px;height:32px;border-radius:8px;background:'+session.iconBg+';display:flex;align-items:center;justify-content:center;font-size:15px">'+session.icon+'</div>'
-    +'<div><div class="dw-session-name">'+session.name+'</div><div class="dw-session-tag">'+session.tag+'</div></div></div>'
-    +'<span class="dw-chevron">▲</span></div>'
-    +'<div class="dw-ex-wrap">'
-    +'<table class="dw-ex-table"><thead><tr>'
-    +'<th>Ejercicio</th><th class="center">Series</th><th class="center">Reps</th><th class="center">RIR</th><th class="center">Descanso</th><th>Registro'+prevLabel+'</th>'
-    +'</tr></thead><tbody>'+rows+'</tbody></table>'
-    +'<div class="dw-actions">'
-    +'<button class="dw-btn-clear" onclick="dw_clear(\''+micro+'\',\''+session.id+'\')">Limpiar</button>'
-    +'<button class="dw-btn-save" onclick="dw_save(\''+micro+'\',\''+session.id+'\')">Guardar ✓</button>'
-    +'</div></div></div>';
-}
+function dw_buildWeekSel(){$('dw-weeksel').innerHTML=DW_WEEKS.map(function(w){return '<button class="wbtn'+(w.n===1?' active':'')+'" onclick="dw_setWeek('+w.n+',this)"><span class="wdot" style="background:'+w.color+'"></span><span class="wn">'+w.label+'</span><span class="wp" style="color:'+w.color+'">'+w.faseLabel+'</span></button>';}).join('');}
 
-function dw_renderMicro(m) {
-  var cont = $('dw-sessions-'+m); if(!cont) return;
-  cont.innerHTML = DW_SESSIONS.map(function(s){ return dw_buildSession(s,m); }).join('');
-  cont.querySelectorAll('.dw-track-input').forEach(function(inp){
-    inp.addEventListener('change',function(){ localStorage.setItem(inp.dataset.key, inp.value); });
-  });
-}
+function dw_buildTrainHead(w){$('dw-trainHead').innerHTML='<span class="badge" style="background:'+w.bg+';color:#fff">'+w.label+' · '+w.faseLabel+'</span><span class="hint" style="color:var(--muted)">Progresión de volumen e intensidad semanal</span>';}
 
-function dw_toggle(id){ document.getElementById(id).classList.toggle('open'); }
+function dw_setWeek(n,btn){document.querySelectorAll('#dw-sessions input[data-key]').forEach(function(inp){if(inp.value!=='')localStorage.setItem(inp.dataset.key,inp.value);});dwCurrentWeek=n;document.querySelectorAll('.wbtn').forEach(function(b){b.classList.remove('active');});btn.classList.add('active');var w=DW_WEEKS.find(function(x){return x.n===n;});dw_buildTrainHead(w);$('dw-sessions').innerHTML=dw_buildSessions(n);dw_loadTrainValues();}
 
-function dw_save(m, sid){
-  var b=document.getElementById('dws-'+m+'-'+sid);
-  b.querySelectorAll('.dw-track-input').forEach(function(inp){ localStorage.setItem(inp.dataset.key,inp.value); });
-  dw_toast('Guardado ✓');
-}
-function dw_clear(m, sid){
-  var b=document.getElementById('dws-'+m+'-'+sid);
-  b.querySelectorAll('.dw-track-input').forEach(function(inp){ localStorage.removeItem(inp.dataset.key); inp.value=''; });
-  dw_toast('Limpiado');
-}
-var _dwToastTimer=null;
-function dw_toast(msg){
-  var t=$('dw-toast'); if(!t)return;
-  t.textContent=msg; t.classList.add('show');
-  clearTimeout(_dwToastTimer); _dwToastTimer=setTimeout(function(){ t.classList.remove('show'); },2200);
-}
+function dw_buildThumb(ex){if(ex.img==='anim'){return '<div class="thumb" style="position:relative"><img src="'+BASE_IMG+ex.s1+'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .3s" onmouseover="this.style.opacity=0;this.nextElementSibling.style.opacity=1" onmouseout="this.style.opacity=1;this.nextElementSibling.style.opacity=0" loading="lazy"><img src="'+BASE_IMG+ex.s2+'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .3s" loading="lazy"></div>';}return '<div class="thumb"><img src="'+(ex.gif||ex.s1)+'" loading="lazy" style="width:100%;height:100%;object-fit:cover"></div>';}
 
-var entrenoInited = false;
-function renderEntreno() {
-  if (entrenoInited) return; entrenoInited = true;
+function dw_rirLabel(rir){if(rir==='F')return{text:'A fallo',cls:'rir-f'};if(rir===0)return{text:'RIR 0',cls:'rir'};return{text:'RIR '+rir,cls:''};}
 
-  var styles = '<style>'
-    +'.dw-meso-header{background:var(--panel2);border:1px solid var(--line);border-radius:14px;padding:16px 22px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:24px}'
-    +'.dw-meso-title{font-family:"Chakra Petch",sans-serif;font-size:18px;font-weight:700;color:#fff}'
-    +'.dw-meso-sub{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--navy);margin-top:4px}'
-    +'.dw-meso-badge{font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:700;color:#000;background:var(--navy);padding:6px 14px;border-radius:999px}'
-    +'.dw-tabs-bar{display:flex;gap:6px;border-bottom:1px solid var(--line);margin-bottom:24px;overflow-x:auto;padding-bottom:1px}'
-    +'.dw-tab{appearance:none;background:none;border:none;border-bottom:2px solid transparent;padding:10px 18px;font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);cursor:pointer;transition:color .2s,border-color .2s;white-space:nowrap;margin-bottom:-1px}'
-    +'.dw-tab:hover{color:var(--ink)}'
-    +'.dw-tab.active{color:var(--navy);border-bottom-color:var(--navy)}'
-    +'.dw-tab-panel{display:none}.dw-tab-panel.active{display:block}'
-    +'.dw-rir-banner{background:rgba(196,151,58,.07);border:1px solid rgba(196,151,58,.2);border-radius:10px;padding:10px 16px;font-size:12px;color:var(--muted);margin-bottom:20px;display:flex;align-items:center;gap:10px}'
-    +'.dw-rir-banner b{color:var(--amber)}'
-    +'.dw-rir-dot{width:8px;height:8px;border-radius:50%;background:var(--navy);flex-shrink:0}'
-    +'.dw-session{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:16px;box-shadow:var(--shadow)}'
-    +'.dw-session-head{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid transparent;cursor:pointer;user-select:none;transition:.15s}'
-    +'.dw-session.open .dw-session-head{border-bottom-color:var(--line)}'
-    +'.dw-session-head:hover{background:rgba(255,255,255,.02)}'
-    +'.dw-session-name{font-family:"Libre Franklin",sans-serif;font-weight:600;font-size:14px;color:var(--ink)}'
-    +'.dw-session-tag{font-size:11px;color:var(--faint);margin-top:2px}'
-    +'.dw-chevron{color:var(--faint);transition:transform .25s;font-size:12px}'
-    +'.dw-session.open .dw-chevron{transform:rotate(180deg)}'
-    +'.dw-ex-wrap{display:none;overflow-x:auto}'
-    +'.dw-session.open .dw-ex-wrap{display:block}'
-    +'.dw-ex-table{width:100%;border-collapse:collapse;min-width:680px}'
-    +'.dw-ex-table thead th{padding:9px 14px;font-family:"IBM Plex Mono",monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);background:var(--panel2);border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}'
-    +'.dw-ex-table thead th.center{text-align:center}'
-    +'.dw-ex-table tbody tr{border-bottom:1px solid rgba(255,255,255,.04)}'
-    +'.dw-ex-table tbody tr:last-child{border-bottom:none}'
-    +'.dw-ex-table tbody tr:hover{background:rgba(255,255,255,.02)}'
-    +'.dw-ex-table td{padding:11px 14px;font-size:13px;color:var(--muted);vertical-align:middle}'
-    +'.dw-ex-table td.center{text-align:center}'
-    +'.dw-ex-name{color:var(--ink)!important;font-weight:500;min-width:210px}'
-    +'.dw-badge-s{display:inline-flex;align-items:center;justify-content:center;background:var(--panel2);border-radius:6px;padding:3px 10px;font-size:12px;font-weight:600;color:var(--muted)}'
-    +'.dw-badge-r{display:inline-flex;align-items:center;justify-content:center;background:rgba(196,151,58,.1);border:1px solid rgba(196,151,58,.2);border-radius:6px;padding:3px 10px;font-size:12px;font-weight:600;color:var(--amber)}'
-    +'.dw-badge-rir{display:inline-flex;align-items:center;justify-content:center;background:rgba(165,214,167,.08);border-radius:6px;padding:3px 9px;font-size:11px;font-weight:600;color:var(--green)}'
-    +'.dw-badge-rest{font-size:11px;color:var(--faint);font-family:"IBM Plex Mono",monospace}'
-    +'.dw-track-cell{display:flex;gap:6px;flex-wrap:nowrap}'
-    +'.dw-track-set{display:flex;flex-direction:column;align-items:center;gap:3px}'
-    +'.dw-track-prev{font-size:10px;color:var(--faint);background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:5px;padding:2px 7px;font-family:"IBM Plex Mono",monospace;white-space:nowrap;min-width:44px;text-align:center}'
-    +'.dw-track-input{width:64px;padding:5px 8px;background:var(--panel2);border:1px solid var(--line);border-radius:6px;color:var(--ink);font-size:12px;font-family:"Inter",sans-serif;text-align:center;transition:border-color .2s}'
-    +'.dw-track-input:focus{outline:none;border-color:rgba(196,151,58,.4)}'
-    +'.dw-track-input::placeholder{color:var(--faint);font-size:10px}'
-    +'.dw-actions{display:flex;gap:10px;justify-content:flex-end;padding:14px 20px;border-top:1px solid var(--line)}'
-    +'.dw-btn-save{background:var(--navy);color:#000;font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border:none;border-radius:8px;padding:8px 20px;cursor:pointer;transition:.2s}'
-    +'.dw-btn-save:hover{opacity:.85}'
-    +'.dw-btn-clear{background:transparent;color:var(--muted);font-size:12px;border:1px solid var(--line);border-radius:8px;padding:8px 16px;cursor:pointer;transition:.2s}'
-    +'.dw-btn-clear:hover{border-color:rgba(255,255,255,.2);color:var(--ink)}'
-    +'#dw-toast{position:fixed;bottom:28px;right:28px;z-index:9999;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:11px 20px;font-size:13px;color:var(--ink);box-shadow:0 16px 40px rgba(0,0,0,.5);transform:translateY(20px);opacity:0;transition:all .3s;pointer-events:none}'
-    +'#dw-toast.show{transform:translateY(0);opacity:1}'
-    +'.dw-lineamientos{background:var(--panel2);border:1px solid var(--line);border-radius:14px;padding:18px 22px;margin-top:24px}'
-    +'.dw-lineamientos h4{font-family:"Libre Franklin",sans-serif;font-weight:600;font-size:15px;color:var(--navy);margin-bottom:12px}'
-    +'.dw-lineamientos ul{list-style:none}'
-    +'.dw-lineamientos li{font-size:12.5px;color:var(--muted);margin:8px 0;padding-left:16px;position:relative}'
-    +'.dw-lineamientos li::before{content:"•";position:absolute;left:0;color:var(--faint)}'
-    +'.dw-lineamientos li b{color:var(--ink)}'
-    +'</style>';
+function dw_buildSessions(week){return PATIENT.entrenamiento.sesiones.map(function(sess,si){var exRows=sess.ejercicios.map(function(ex,ei){var prog=ex.prog[week-1];var series=prog[0],rir=prog[1];var rl=dw_rirLabel(rir);var sets=Array.from({length:series},function(_,si2){var k=dw_trainKey(sess.id,ei,si2);return '<div class="setbox"><div class="sl">Serie '+(si2+1)+'</div><input type="number" inputmode="decimal" placeholder="—" data-key="'+k+'" oninput="dw_saveInput(this)" onchange="dw_saveInput(this)" onblur="dw_saveInput(this)"><div class="un">kg</div></div>';}).join('');var notaHtml=ex.nota?'<span style="font-size:11px;color:var(--faint);display:block;margin-top:3px">'+ex.nota+'</span>':'';return '<div class="exq">'+dw_buildThumb(ex)+'<div class="ebody"><div class="nm">'+ex.nombre+notaHtml+'</div><div class="meta"><span class="mpill"><b>'+series+'×'+ex.reps+'</b></span><span class="mpill '+rl.cls+'"><b>'+rl.text+'</b></span><span class="mpill rest">Descanso <b>'+ex.descanso+'</b></span></div><div class="sets">'+sets+'</div></div></div>';}).join('');return '<div class="sess open"><div class="sh" onclick="this.closest(\'.sess\').classList.toggle(\'open\')"><span class="snum">0'+(si+1)+'</span><span style="font-size:20px">'+sess.icon+'</span><h3>'+sess.label+'</h3><span class="scount">'+sess.ejercicios.length+' ejercicios · '+sess.nota+'</span><span class="chev">›</span></div><div class="sbody">'+exRows+'</div></div>';}).join('');}
 
-  var micros = ['m1','m2','m3','m4'];
-  var tabsHtml = micros.map(function(m,i){
-    return '<button class="dw-tab'+(i===0?' active':'')+'" data-m="'+m+'">'+DW_MICROS[m].label+'</button>';
-  }).join('');
-  var panelsHtml = micros.map(function(m,i){
-    var d=DW_MICROS[m];
-    var isIntens = d.fase==='Intensificación';
-    var bannerStyle = isIntens?'background:rgba(239,154,154,.06);border-color:rgba(239,154,154,.2)':'';
-    var dotStyle = isIntens?'background:var(--coral)':'';
-    var bColor = isIntens?'color:var(--coral)':'color:var(--amber)';
-    return '<div class="dw-tab-panel'+(i===0?' active':'')+'" id="dwp-'+m+'">'
-      +'<div class="dw-rir-banner" style="'+bannerStyle+'">'
-      +'<div class="dw-rir-dot" style="'+dotStyle+'"></div>'
-      +'Fase de <b style="'+bColor+'">'+d.fase+'</b> &nbsp;·&nbsp; RIR compuestos <b>'+d.rir.C+'</b> · accesorios <b>'+d.rir.A+'</b> · aislamiento <b>'+d.rir.X+'</b>'
-      +'</div>'
-      +'<div id="dw-sessions-'+m+'"></div>'
-      +'</div>';
-  }).join('');
+function dw_trainKey(sessId,exIdx,setIdx){return PATIENT.slug+'-train-s'+dwCurrentWeek+'-'+sessId+'-'+exIdx+'-s'+setIdx;}
+function dw_saveInput(input){localStorage.setItem(input.dataset.key,input.value);input.closest('.setbox').classList.toggle('filled',input.value!=='');flashSave();}
+function dw_loadTrainValues(){document.querySelectorAll('#dw-sessions input[data-key]').forEach(function(inp){var val=localStorage.getItem(inp.dataset.key)||'';inp.value=val;inp.closest('.setbox').classList.toggle('filled',val!=='');});}
 
-  var lineamientos = '<div class="dw-lineamientos"><h4>📋 Lineamientos</h4><ul>'
-    +'<li><b>Progresión semanal:</b> si las últimas 2 reps se sienten fáciles, sube el peso la semana siguiente.</li>'
-    +'<li><b>Descanso entre series:</b> compuestos 2:00–2:30 min · accesorios 1:30 min · aislamiento/core 0:45–1:00 min.</li>'
-    +'<li><b>Tempo:</b> bajada controlada 2–3 seg · subida explosiva.</li>'
-    +'<li><b>Calentamiento:</b> 5 min de cardio suave + 1 serie de calentamiento por ejercicio compuesto.</li>'
-    +'<li><b>Cardio intervalos (días B y D):</b> 30 seg máx. intensidad / 60 seg baja intensidad × 4 series al final del entreno (~6 min).</li>'
-    +'<li><b>Pasos:</b> 8.000 pasos diarios mínimo, incluidos los días de descanso (Miércoles, Sáb y Dom).</li>'
-    +'<li><b>Pre-entreno:</b> 1 plátano + 1 cda de miel, 30–40 min antes. <b>Post-entreno:</b> yogurt Quark o ½ scoop de proteína inmediatamente después.</li>'
-    +'</ul></div>';
+// (código viejo eliminado)
 
-  $('tab-entreno').innerHTML = styles
-    +'<div id="dw-toast"></div>'
-    +'<div class="wrap"><section style="padding-top:24px">'
-    +'<div class="sec-h"><span class="ix">01</span><h2>Plan de Entrenamiento — Mesociclo</h2><div class="rule"></div></div>'
-    +'<div class="dw-meso-header">'
-    +'<div><div class="dw-meso-title">Debora Withers</div><div class="dw-meso-sub">4 Microciclos · 4 Sesiones / semana</div></div>'
-    +'<div class="dw-meso-badge">Upper / Lower · Sep 2026</div>'
-    +'</div>'
-    +'<div class="dw-tabs-bar">'+tabsHtml+'</div>'
-    +panelsHtml
-    +lineamientos
-    +'</section></div>';
 
-  micros.forEach(dw_renderMicro);
 
-  $('tab-entreno').querySelectorAll('.dw-tab').forEach(function(btn){
-    btn.addEventListener('click',function(){
-      $('tab-entreno').querySelectorAll('.dw-tab').forEach(function(b){b.classList.remove('active');});
-      $('tab-entreno').querySelectorAll('.dw-tab-panel').forEach(function(p){p.classList.remove('active');});
-      btn.classList.add('active');
-      var m=btn.dataset.m;
-      $('dwp-'+m).classList.add('active');
-      dw_renderMicro(m);
-    });
-  });
-}
+// second renderEntreno removed — using dw_ system above
+
+
 
 function init() { renderHero(); renderTabs(); renderNutr(); renderEval(); renderSpecs(); }
 init();
