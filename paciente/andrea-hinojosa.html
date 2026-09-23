@@ -137,7 +137,7 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 <footer><div class="wrap"><div class="foot-inner"><div class="foot-brand">FRANJO TORRES BONDY · NUTRICIÓN</div><div class="foot-contact">franjo.torres.b@gmail.com · +51 992 832 991</div></div></div></footer>
 <script>
 const PATIENT = {
-  slug:'andrea-hinojosa', nombre:'Andrea\nHinojosa', fecha:'24.08.2026',
+  slug:'andrea-hinojosa', nombre:'Andrea\nHinojosa', fecha:'22.09.2026',
   tipoPlan:'Hipocalórico · Hiperprotéico',
   macros:{kcal:1510, p:106, c:157, g:54},
   hidratacion:[
@@ -145,10 +145,12 @@ const PATIENT = {
     {label:'💧 Descanso',      valor:'2.1'},
   ],
   antro:{
-    fecha:'24.08.2026', peso:61.1, talla:162.0, imc:23.3,
+    fecha:'22.09.2026', peso:61.1, talla:162.0, imc:23.3,
     tri:17.0, bi:6.5, sub:8.0, cresta:19.0, supra:12.0, abd:21.0, pierna:22.0, pant:13.0,
-    brazRelaj:29.0, brazFlex:29.7, abdom:68.0, cadera:106.0, muslo:54.0, pantPer:35.0,
+    s6:67.0, s8:85.0,
+    brazRelaj:28.0, brazFlex:30.0, abdom:66.0, cadera:104.5, muslo:52.5, pantPer:34.8,
     diam:{ humero:6.0, biEstiloideo:4.9, femur:8.7 },
+    icc:0.63,
   },
   antroHistorial:[
     { fecha:'30.07.2026', peso:61.1, tri:17.0, bi:6.5, sub:8.0, cresta:19.0, supra:12.0, abd:21.0, pierna:22.0, pant:13.0, s6:93.0, s8:118.5, brazRelaj:29.0, brazFlex:29.7, abdom:68.0, cadera:106.0, muslo:54.0, pantPer:35.0 },
@@ -159,6 +161,9 @@ const PATIENT = {
   ],
   comidas:[
     {id:'des', nombre:'☀️ Desayuno', kcal:347, p:20, c:44, g:12, grupos:[
+      {label:'Al levantarte', max:1, ops:[
+        '1 vaso de agua + 1 shot de suero de Tocosh',
+      ]},
       {label:'Escoge 01 · Fruta', max:1, ops:[
         '1 porción de fruta* (ver especificaciones)',
       ]},
@@ -213,12 +218,16 @@ const PATIENT = {
     ]},
 
     {id:'alm', nombre:'🥗 Almuerzo', kcal:428, p:31, c:41, g:15, grupos:[
+      {label:'Antes de comer', max:1, ops:[
+        '1 vaso de agua + 1 cda de vinagre de manzana',
+      ]},
       {label:'Escoge 02 · Carbohidrato (peso cocido)', max:2, ops:[
         '90 g de papa o camote',
         '60 g de arroz',
         '60 g de menestra',
         '50 g de pasta (sin relleno)',
         '60 g de quinua',
+        '60 g de choclo',
       ]},
       {label:'Escoge · Proteína (120 g, peso crudo)', max:1, ops:[
         'Pechuga de pollo',
@@ -227,9 +236,10 @@ const PATIENT = {
         'Lomo de res o carne molida de bistec',
         'Langostinos',
         'Trucha (si eliges esta opción, cortar 1 porción de grasas)',
+        '1 milanesa de Avinka (en freidora sin aceite)',
       ]},
       {label:'Escoge 01 · Verduras', max:1, ops:[
-        '150 g de verduras cocidas',
+        '150 g de verduras cocidas (zanahoria, vainita, zucchini, pimiento, berenjena, zapallo, tomate)',
       ]},
       {label:'Escoge 02 · Grasa', max:2, ops:[
         '5 g de aceite de oliva',
@@ -238,7 +248,7 @@ const PATIENT = {
         '1 porción de frutos secos* (ver especificaciones)',
         '1 cda de mayonesa light',
       ]},
-    ], nota:'*Puedes comer una pastilla de La Ibérica después del almuerzo. *Puedes tomar las bebidas Mein o Hula.'},
+    ], nota:'*Puedes comer una pastilla de La Ibérica después del almuerzo. *Puedes tomar las bebidas Mein o Hula. *Puedes hacerte mayonesa de yogurt griego o kéfir (ver salsas bajas en calorías).'},
 
     {id:'snk-mt', nombre:'🕑 Snack MT', kcal:50, p:1, c:12, g:0, grupos:[
       {label:'Escoge 01', max:1, ops:[
@@ -252,6 +262,7 @@ const PATIENT = {
       {label:'Escoge 02 · Carbohidrato (peso cocido)', max:2, ops:[
         '90 g de papa o camote',
         '60 g de arroz',
+        '60 g de choclo',
         '1 tortilla rapidita integral',
         '1 rebanada de pan de molde integral (30 g)',
         '20 g de avena (peso crudo)',
@@ -273,7 +284,7 @@ const PATIENT = {
         '1 milanesa de Avinka (en freidora sin aceite)',
       ]},
       {label:'Escoge 01 · Verduras', max:1, ops:[
-        '150 g de verduras cocidas',
+        '150 g de verduras cocidas (zanahoria, vainita, zucchini, pimiento, berenjena, zapallo, tomate)',
       ]},
       {label:'Escoge 02 · Grasa', max:2, ops:[
         '5 g de aceite de oliva',
@@ -283,7 +294,7 @@ const PATIENT = {
         '5 g de mantequilla',
         '1 cda de mayonesa light',
       ]},
-    ]},
+    ], nota:'*Fin de semana: si tomas 1 copa de vino, cortamos el snack de media tarde y 1 porción de carbohidrato de la cena.'},
   ],
   specs:[
     {titulo:'🥤 Bebidas', items:[
