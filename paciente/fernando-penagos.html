@@ -253,8 +253,9 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 // ════════════════════════════════════════════════════════════════════════════
 const PATIENT = {
   slug:      'fernando-penagos',
+  sexo:      'm',
   nombre:    'Fernando\nPenagos',
-  fecha:     '30.07.2026',
+  fecha:     '24.09.2026',
   tipoPlan:  'Hipocalórico · Hiperprotéico',
   macros:    { kcal: 1930, p: 157, c: 209, g: 53 },
   hidratacion: [
@@ -271,11 +272,24 @@ const PATIENT = {
       tri:12.0, bi:11.0, sub:37.0, cresta:33.0, supra:25.0, abd:42.0, pierna:40.0, pant:12.0,
       s6:null, s8:null,
       brazRelaj:38.0, brazFlex:40.0, abdom:118.0, cadera:118.0, muslo:null, pantPer:null },
+    { fecha:'27.08.2026', peso:121.5, talla:187.0, imc:34.7,
+      tri:12.0, bi:10.0, sub:34.0, cresta:27.0, supra:20.0, abd:30.0, pierna:null, pant:null,
+      s6:null, s8:null,
+      brazRelaj:null, brazFlex:39.8, abdom:120.0, cadera:120.0, muslo:null, pantPer:null },
+    { fecha:'24.09.2026', peso:117.0, talla:187.0, imc:33.5,
+      tri:11.0, bi:6.0, sub:35.0, cresta:25.0, supra:20.0, abd:25.0, pierna:13.0, pant:12.0,
+      s6:116.0, s8:147.0,
+      brazRelaj:39.0, brazFlex:40.0, abdom:115.0, cadera:118.0, muslo:59.5, pantPer:41.0,
+      pctGrasa:27.3, fatKg:31.9, muscKg:41.9 },
   ],
   antro: {
-    fecha:'27.08.2026', peso:121.5, talla:187.0, imc:34.7,
-    tri:12.0, bi:10.0, sub:34.0, cresta:27.0, supra:20.0, abd:30.0, pierna:null, pant:null,
-    brazRelaj:null, brazFlex:39.8, abdom:120.0, cadera:120.0, muslo:null, pantPer:null,
+    fecha:'24.09.2026', peso:117.0, talla:187.0, imc:33.5,
+    tri:11.0, bi:6.0, sub:35.0, cresta:25.0, supra:20.0, abd:25.0, pierna:13.0, pant:12.0,
+    s6:116.0, s8:147.0,
+    brazRelaj:39.0, brazFlex:40.0, abdom:115.0, cadera:118.0, muslo:59.5, pantPer:41.0,
+    diam:{ humero:6.8, biEstiloideo:5.8, femur:10.8 },
+    pctGrasa:27.3, fatKg:31.9, pctMusc:35.8, muscKg:41.9, pctOseo:12.1, oseoKg:14.2, imo:2.95, icc:0.97,
+    somato:{ endo:5.8, meso:6.0, ecto:0.1 },
   },
 
   objetivos: [
@@ -638,6 +652,8 @@ function loadTrainValues() {
 // ── Evolución Física ───────────────────────────────────────────────────────
 const ANTRO_KEY = () => `${PATIENT.slug}-antro-v1`;
 function getAntroBase() {
+  // Las mediciones viven en antroHistorial; si está vacío se usa la actual.
+  if (PATIENT.antroHistorial && PATIENT.antroHistorial.length) return PATIENT.antroHistorial.slice();
   const a = PATIENT.antro;
   const s6 = (a.pierna!=null&&a.pant!=null) ? +(a.tri+a.sub+a.supra+a.abd+a.pierna+a.pant).toFixed(1) : null;
   const s8 = s6!=null ? +(s6+a.bi+a.cresta).toFixed(1) : null;
@@ -762,16 +778,19 @@ function renderAntro() {
 function drawAntroCharts() {
   const data=getAntroData(); const lbl=data.map(d=>d.fecha);
   const first=data[0],last=data[data.length-1];
+  // El delta solo tiene sentido si la medición más antigua trae ese dato:
+  // las primeras de Fernando no tienen Σ6/Σ8 ni muslo.
+  const delta=(a,b)=>(a!=null&&b!=null)?+(a-b).toFixed(1):null;
   const kpis=[
-    {v:last.peso,u:'kg',l:'Peso actual',d:+(last.peso-first.peso).toFixed(1),good:'down'},
-    {v:last.s8,u:'mm',l:'Σ8 pliegues',d:+(last.s8-first.s8).toFixed(1),good:'down'},
-    {v:last.brazFlex,u:'cm',l:'Brazo flex.',d:+(last.brazFlex-first.brazFlex).toFixed(1),good:'up'},
-    {v:last.abdom,u:'cm',l:'Cintura',d:+(last.abdom-first.abdom).toFixed(1),good:'down'},
+    {v:last.peso,u:'kg',l:'Peso actual',d:delta(last.peso,first.peso),good:'down'},
+    {v:last.s8,u:'mm',l:'Σ8 pliegues',d:delta(last.s8,first.s8),good:'down'},
+    {v:last.brazFlex,u:'cm',l:'Brazo flex.',d:delta(last.brazFlex,first.brazFlex),good:'up'},
+    {v:last.abdom,u:'cm',l:'Cintura',d:delta(last.abdom,first.abdom),good:'down'},
   ];
   $('antroKpis').innerHTML=kpis.map(k=>{
     const sign=k.d>0?'+':''; const cls=(k.good==='down'?k.d<0:k.d>0)?'up':(k.d<0?'down':'');
     const arr=k.d>0?'▲':(k.d<0?'▼':'—');
-    return `<div class="kpi"><div class="kv">${k.v}<span style="font-size:14px;opacity:.5"> ${k.u}</span></div><div class="kl">${k.l}</div>${data.length>1?`<div class="kd ${cls}">${arr} ${sign}${k.d} ${k.u}</div>`:''}</div>`;
+    return `<div class="kpi"><div class="kv">${k.v??'—'}<span style="font-size:14px;opacity:.5"> ${k.u}</span></div><div class="kl">${k.l}</div>${data.length>1&&k.d!=null?`<div class="kd ${cls}">${arr} ${sign}${k.d} ${k.u}</div>`:''}</div>`;
   }).join('');
   mkChart('cPeso',lbl,[{label:'Peso kg',data:data.map(d=>d.peso),borderColor:CC.gold,pointBackgroundColor:CC.gold}]);
   mkChart('cSigma',lbl,[{label:'Σ6',data:data.map(d=>d.s6),borderColor:CC.coral,pointBackgroundColor:CC.coral},{label:'Σ8',data:data.map(d=>d.s8),borderColor:CC.purple,pointBackgroundColor:CC.purple}]);
