@@ -300,22 +300,29 @@ const PATIENT = {
   slug:     'rodrigo-rivadeneira',
   nombre:   'Rodrigo\nRivadeneira',
   sexo:     'm',
-  fecha:    '09.09.2026',
+  fecha:    '23.09.2026',
   tipoPlan: 'Hipocalórico · Hiperprotéico',
   hidratacion: [
     { label:'💧 Entrenamiento', valor:'3.5' },
     { label:'💧 Descanso',      valor:'3.0' },
   ],
   antro: {
-    fecha:'09.09.2026', peso:88.5, talla:170.0, imc:30.6,
-    tri:13.0, bi:8.0, sub:22.0, cresta:30.0, supra:18.0, abd:37.0, pierna:17.0, pant:16.0,
-    s6:123.0, s8:161.0,
-    brazRelaj:35.3, brazFlex:35.5, abdom:93.0, cadera:106.5, muslo:59.5, pantPer:39.0,
+    fecha:'23.09.2026', peso:88.3, talla:170.0, imc:30.6,
+    tri:10.0, bi:4.5, sub:20.0, cresta:27.0, supra:13.0, abd:28.0, pierna:15.0, pant:10.0,
+    s6:96.0, s8:127.5,
+    brazRelaj:34.5, brazFlex:35.5, abdom:90.0, cadera:105.0, muslo:60.5, pantPer:38.5,
     diam:{ humero:6.5, biEstiloideo:5.2, femur:9.8 },
-    pctGrasa:27.1, fatKg:24.0, pctMusc:37.5, muscKg:33.2, pctOseo:12.1, oseoKg:10.7, imo:3.10, icc:0.87,
-    somato:{ endo:5.3, meso:6.1, ecto:0.1 },
+    pctGrasa:23.0, fatKg:20.3, pctMusc:38.8, muscKg:34.3, pctOseo:12.1, oseoKg:10.7, imo:3.21, icc:0.86,
+    somato:{ endo:4.4, meso:6.2, ecto:0.1 },
   },
-  antroHistorial: [],
+  antroHistorial: [
+    { fecha:'09.09.2026', peso:88.5, tri:13.0, bi:8.0, sub:22.0, cresta:30.0, supra:18.0, abd:37.0, pierna:17.0, pant:16.0,
+      s6:123.0, s8:161.0, brazRelaj:35.3, brazFlex:35.5, abdom:93.0, cadera:106.5, muslo:59.5, pantPer:39.0,
+      pctGrasa:27.1, fatKg:24.0, muscKg:33.2 },
+    { fecha:'23.09.2026', peso:88.3, tri:10.0, bi:4.5, sub:20.0, cresta:27.0, supra:13.0, abd:28.0, pierna:15.0, pant:10.0,
+      s6:96.0, s8:127.5, brazRelaj:34.5, brazFlex:35.5, abdom:90.0, cadera:105.0, muslo:60.5, pantPer:38.5,
+      pctGrasa:23.0, fatKg:20.3, muscKg:34.3 },
+  ],
   objetivos: [
     'Disminución de grasa corporal',
     'Mejorar el rendimiento en bici, carrera y natación',
@@ -605,12 +612,21 @@ function renderSpecs() {
 // ── Evolución Física ───────────────────────────────────────────────────────
 var ANTRO_KEY = PATIENT.slug + '-antro-v1';
 function getAntroBase() {
+  // Las mediciones viven en antroHistorial; si está vacío se usa la actual.
+  if (PATIENT.antroHistorial && PATIENT.antroHistorial.length) return PATIENT.antroHistorial.slice();
   var a = PATIENT.antro;
   var s6 = a.s6 != null ? a.s6 : (a.tri!=null&&a.sub!=null&&a.supra!=null&&a.abd!=null&&a.pierna!=null&&a.pant!=null ? +(a.tri+a.sub+a.supra+a.abd+a.pierna+a.pant).toFixed(1) : null);
   var s8 = a.s8 != null ? a.s8 : (s6!=null&&a.bi!=null&&a.cresta!=null ? +(s6+a.bi+a.cresta).toFixed(1) : null);
   return [{ fecha:a.fecha, peso:a.peso, tri:a.tri, bi:a.bi, sub:a.sub, cresta:a.cresta, supra:a.supra, abd:a.abd, pierna:a.pierna, pant:a.pant, brazRelaj:a.brazRelaj, brazFlex:a.brazFlex, abdom:a.abdom, cadera:a.cadera, muslo:a.muslo, pantPer:a.pantPer, s6:s6, s8:s8 }];
 }
-function getAntroData() { try { var r=localStorage.getItem(ANTRO_KEY); return r?JSON.parse(r):getAntroBase(); } catch(e){ return getAntroBase(); } }
+function getAntroData() {
+  var base = getAntroBase(), stored = [];
+  try { var r=localStorage.getItem(ANTRO_KEY); if(r) stored = JSON.parse(r) || []; } catch(e) { stored = []; }
+  var seen = {};
+  base.forEach(function(d){ seen[d.fecha] = 1; });
+  stored.forEach(function(d){ if (d && d.fecha && !seen[d.fecha]) { seen[d.fecha] = 1; base.push(d); } });
+  return base;
+}
 function saveAntroData(d) { localStorage.setItem(ANTRO_KEY, JSON.stringify(d)); }
 var antroInited=false;
 function initAntro() { if(antroInited)return; antroInited=true; renderAntro(); }
