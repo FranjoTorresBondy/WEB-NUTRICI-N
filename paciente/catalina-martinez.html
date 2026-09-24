@@ -52,6 +52,13 @@ section{padding:30px 0}
 .meals{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
 @media(max-width:760px){.meals{grid-template-columns:1fr}}
 .meal{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow)}
+.meal-col{border-color:var(--amber);border-style:dashed}
+.meal-toggle{cursor:pointer;user-select:none}
+.meal-toggle:hover{background:var(--panel2)}
+.meal-body-col{display:none}
+.chev{margin-left:auto;font-size:18px;color:var(--amber);transition:transform .25s;flex-shrink:0}
+.opt-info{padding:10px 14px;border-bottom:1px solid var(--line);color:var(--ink);font-size:14px}
+.opt-info:last-child{border-bottom:none}
 .meal .top{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:1px solid var(--line);background:var(--panel2)}
 .meal .top .nm{font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:19px}
 .meal .top .mac{font-family:'IBM Plex Mono';font-size:11px;color:var(--muted);text-align:right;line-height:1.5}
@@ -282,6 +289,15 @@ const PATIENT = {
       ]},
     ], nota:'Consumir entre las 16:00 y 18:00.' },
 
+    { id:'intra', nombre:'⚡ Intra-Entreno', kcal:165, p:2, c:40, g:0, colapsable:true, grupos:[
+      { label:'🏋️ Bebida isotónica casera · Consumir durante o entre ambos entrenamientos', max:1, ops:[
+        '300 ml de zumo de naranja natural',
+        '200 ml de agua',
+        '15 g de miel de abeja',
+        '1 g de sal de mesa',
+      ]},
+    ], nota:'Adicional exclusivo para días de doble entreno consecutivo (Crossfit + Fuerza). No aplica días normales.' },
+
     { id:'cen', nombre:'🌙 Cena', kcal:300, p:29, c:18, g:12, grupos:[
       { label:'Escoge 01 · Proteína (100 g peso crudo)', max:1, ops:[
         'Pechuga de pollo',
@@ -361,15 +377,6 @@ const PATIENT = {
       '##Helados proteicos caseros',
       'Fruta congelada + yogurt Skyr o Quark + Stevia. Chocolate: cocoa + plátano congelado',
       'Puedes usar esencia de vainilla, pizca de sal y canela',
-    ]},
-    { titulo:'⚡ Doble Entreno (Crossfit + Fuerza)', items:[
-      '##Bebida isotónica casera · ~165 kcal · 2P · 40C · 0G',
-      'Adicional exclusivo para días de doble entreno consecutivo — no aplica días normales',
-      '300 ml de zumo de naranja natural',
-      '200 ml de agua',
-      '15 g de miel de abeja',
-      '1 g de sal de mesa',
-      'Mezclar todo y consumir durante o entre los dos entrenamientos',
     ]},
     { titulo:'💊 Suplementación', items:[
       '🌅 Desayuno: Creatina 5 g (disuelto en agua, jugo o proteína)',
@@ -472,11 +479,13 @@ function renderNutr() {
 }
 
 function buildMeal(meal) {
+  const col = meal.colapsable;
   const groups = meal.grupos.map((g,gi) => {
     const opts = g.ops.map((op,oi) => {
       const key = `${meal.id}-${gi}-${oi}`;
       const cnt = (mealState[key]||0);
       const sel = cnt > 0;
+      if (col) return `<div class="opt opt-info"><span class="opt-text">${op}</span></div>`;
       return `<div class="opt${sel?' selected':''}" data-key="${key}" data-max="${g.max}" data-gi="${gi}" data-mid="${meal.id}" onclick="toggleOpt(this)">
         <div class="cb">${sel?'✓':''}</div>
         <span class="opt-text">${op}</span>
@@ -490,10 +499,28 @@ function buildMeal(meal) {
     return `<div class="pick"${g.kcal?' data-kcal="'+g.kcal+'"':''}><div class="k">${g.label}</div><div class="options">${opts}</div></div>`;
   }).join('');
   const nota = meal.nota ? `<div class="note2">${meal.nota}</div>` : '';
+  if (col) {
+    return `<div class="meal meal-col" data-mealid="${meal.id}">
+      <div class="top meal-toggle" onclick="toggleMeal(this)">
+        <span class="nm">${meal.nombre}</span>
+        <span class="mac"><b>${meal.kcal}</b> kcal · ${meal.p}P / ${meal.c}C / ${meal.g}G</span>
+        <span class="chev">▾</span>
+      </div>
+      <div class="body meal-body-col">${groups}${nota}</div>
+    </div>`;
+  }
   return `<div class="meal" data-mealid="${meal.id}"><div class="top">
     <span class="nm">${meal.nombre}</span>
     <span class="mac"><b>${meal.kcal}</b> kcal · ${meal.p}P / ${meal.c}C / ${meal.g}G</span>
   </div><div class="body">${groups}${nota}</div></div>`;
+}
+
+function toggleMeal(topEl) {
+  const body = topEl.nextElementSibling;
+  const chev = topEl.querySelector('.chev');
+  const open = body.style.display === 'block';
+  body.style.display = open ? 'none' : 'block';
+  if (chev) chev.style.transform = open ? '' : 'rotate(180deg)';
 }
 
 function toggleOpt(el) {
