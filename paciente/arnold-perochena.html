@@ -252,26 +252,28 @@ const PATIENT = {
   slug:      'arnold-perochena',
   nombre:    'Arnold\nPerochena',
   sexo:      'm',
-  fecha:     '04.09.2026',
+  fecha:     '23.09.2026',
   tipoPlan:  'Hipocalórico · Hiperprotéico',
-  macros:    { kcal: 2340, p: 165, c: 284, g: 62 },
+  macros:    { kcal: 2410, p: 165, c: 299, g: 62 },
   hidratacion: [
     { label:'💧 Entrenamiento', valor:'3.6' },
     { label:'💧 Descanso',      valor:'3.3' },
   ],
   entrenamiento: null,
   antro: {
-    fecha:'04.09.2026', peso:107.5, talla:191.0, imc:29.5,
-    tri:2.5, bi:2.0, sub:11.0, cresta:18.0, supra:10.0, abd:26.0, pierna:10.0, pant:7.0,
-    s6:66.5, s8:86.5,
-    brazRelaj:41.6, brazFlex:43.5, abdom:98.0, cadera:109.5, muslo:60.0, pantPer:42.8,
-    diam:{ humero:8.0, biEstiloideo:7.5, femur:12.0 },
+    fecha:'23.09.2026', peso:106.0, talla:191.0, imc:29.8,
+    tri:3.0, bi:2.0, sub:8.0, cresta:16.0, supra:9.0, abd:24.0, pierna:7.0, pant:7.0,
+    s6:58.0, s8:76.0,
+    brazRelaj:42.0, brazFlex:43.8, abdom:98.0, cadera:109.0, muslo:60.5, pantPer:42.5,
+    diam:{ humero:6.8, biEstiloideo:5.5, femur:10.0 },
     pctGrasa:18.4, fatKg:19.8, pctMusc:47.2, muscKg:50.7, pctOseo:17.6, oseoKg:18.9, imo:2.68, icc:0.89,
     somato:{ endo:2.0, meso:8.5, ecto:1.0 },
   },
   antroHistorial: [
     { fecha:'13.08.2026', peso:109.6, tri:8.0, bi:5.5, sub:13.0, cresta:20.0, supra:4.5, abd:15.0, pierna:32.0, pant:12.0,
       brazRelaj:41.3, brazFlex:42.8, abdom:100.0, cadera:112.0, muslo:60.0, pantPer:42.8, s6:84.5, s8:110.0 },
+    { fecha:'04.09.2026', peso:107.5, tri:2.5, bi:2.0, sub:11.0, cresta:18.0, supra:10.0, abd:26.0, pierna:10.0, pant:7.0,
+      brazRelaj:41.6, brazFlex:43.5, abdom:98.0, cadera:109.5, muslo:60.0, pantPer:42.8, s6:66.5, s8:86.5 },
   ],
 
   objetivos: [
@@ -309,10 +311,21 @@ const PATIENT = {
       ]},
     ], nota:'*Puedes optar por fruta congelada o berries congelados.<br>*Puedes reemplazar todo el desayuno por la <b>Tortilla Proteica</b> (ver receta en Especificaciones).' },
 
-    { id:'snk-mm', nombre:'🌿 Snack mañana', kcal:156, p:4, c:33, g:2, grupos:[
-      { label:'Escoge 01', max:1, ops:[
-        '2 porciones de frutas (ver especificaciones) + 1 porción de frutos secos (ver especificaciones)',
-        '1 pan pita (30 g) / 1 rapidita / 3 unid de salmas + 50 g de palta',
+    { id:'snk-mm', nombre:'🌿 Snack mañana', kcal:226, p:4, c:45, g:2, grupos:[
+      { label:'Elige 01 · Fruta', max:1, ops:[
+        '2 porciones de frutas (ver especificaciones)',
+      ]},
+      { label:'Elige 02 · Carbohidrato', max:1, ops:[
+        '1 pan pita (30 g)',
+        '1 rapidita',
+        '3 unid de salmas',
+        '20 g de cereal',
+        '20 g de avena',
+      ]},
+      { label:'Elige 01 · Grasa', max:1, ops:[
+        '1 porción de frutos secos (ver especificaciones)',
+        '40 g de palta',
+        '8 aceitunas',
       ]},
     ]},
 
@@ -329,9 +342,11 @@ const PATIENT = {
         'Pechuga de pollo',
         'Pechuga de pavo',
         'Pescado',
+        '180 g de hígado de res',
         'Bistec (evitar)',
         'Carne molida de bistec (evitar)',
         '1 milanesa de Avinka (sin aceite en la freidora)',
+        'Lomo de cerdo',
       ]},
       { label:'Escoge 01 · Verduras', max:1, ops:[
         '150–170 g de verduras de tu preferencia',
@@ -358,6 +373,8 @@ const PATIENT = {
         'Pechuga de pollo',
         'Pechuga de pavo',
         'Pescado',
+        'Lomo de cerdo',
+        '180 g de hígado de res',
         'Bistec (tratar de evitar)',
         '50 g de queso mozzarella light Cuisine&Co + 2 huevos',
         '1 milanesa de Avinka (sin aceite en la freidora)',
@@ -490,7 +507,7 @@ const PATIENT = {
     { nombre:'Salsa roja',   desc:'Tomate, cebolla, ajo, albahaca, poro, sal, pimienta, tomillo + 1 cda aceite de oliva. Opcional: Lakanto o Stevia si falta dulzor' },
   ],
 
-  notaSpecs: 'Plan base = días de descanso (2 340 kcal). Hidratación: 3.6 L días de entrenamiento / 3.3 L días de descanso.',
+  notaSpecs: 'Plan base = días de descanso (2 410 kcal). Hidratación: 3.6 L días de entrenamiento / 3.3 L días de descanso.',
 };
 // ════════════════════════════════════════════════════════════════════════════
 //  FIN DATOS — motor de renderizado
