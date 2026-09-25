@@ -42,12 +42,6 @@ section{padding:30px 0}
 .sec-h h2{font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:24px}
 .sec-h .ix{font-family:'IBM Plex Mono';color:var(--navy);font-size:13px;font-weight:600}
 .sec-h .rule{flex:1;height:1px;background:var(--line)}
-.micro-bar{display:flex;align-items:center;gap:12px;margin:0 0 24px;flex-wrap:wrap}
-.micro-bar .mlabel{font-family:'IBM Plex Mono';font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
-.micro-btn{appearance:none;border:1.5px solid var(--line);background:var(--panel);border-radius:999px;padding:7px 16px;font-family:'IBM Plex Mono';font-size:12px;font-weight:600;color:var(--muted);cursor:pointer;transition:.2s}
-.micro-btn:hover{border-color:var(--navy);color:var(--navy)}
-.micro-btn.active{background:var(--navy);border-color:var(--navy);color:#000}
-.micro-note{font-size:12px;color:var(--faint);font-style:italic}
 .macros{display:flex;flex-wrap:wrap;gap:14px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 22px;margin:6px 0 22px;box-shadow:var(--shadow)}
 .macros .kcal{font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:32px;color:var(--amber)}
 .macros .kcal small{font-size:14px;color:var(--muted);font-family:'Inter';font-weight:600}
@@ -165,8 +159,6 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
   .tab{padding:13px 14px;font-size:12px;gap:6px}
   .tab.active::after{left:14px;right:14px}
   .tab .tnum{font-size:10px}
-  .micro-bar{gap:6px}
-  .micro-btn{padding:5px 11px;font-size:11px}
   .macros{flex-direction:column;align-items:flex-start;gap:10px;padding:14px 16px}
   .macros .sep{display:none}
   .macros .kcal{font-size:26px}
@@ -364,9 +356,6 @@ function renderTabs() {
 
 function renderPlan() {
   const el = $('tab-plan');
-  const microBtns = Array.from({length:PATIENT.semanas},(_,i)=>
-    `<button class="micro-btn${i===0?' active':''}" onclick="setMicro(${i+1},this)">S${i+1}</button>`
-  ).join('');
 
   const meals = PATIENT.comidas.map(m => {
     const grupos = m.grupos.map((g,gi) => {
@@ -383,9 +372,6 @@ function renderPlan() {
   }).join('');
 
   el.innerHTML = `<div class="wrap"><section>
-    <div class="sec-h"><span class="ix">01</span><h2>Microciclo activo</h2><div class="rule"></div></div>
-    <div class="micro-bar"><span class="mlabel">Semana</span>${microBtns}
-      <span class="micro-note">Tus selecciones se guardan automáticamente por semana</span></div>
     <div class="macros">
       <div class="kcal">${PATIENT.macros.kcal.toLocaleString('es')} <small>kcal / día</small></div>
       <div class="mtag"><b>${PATIENT.macros.p}</b> g Proteína</div>
@@ -616,12 +602,6 @@ function showTab(id,btn) {
 }
 
 let currentMicro=1, saveTimer=null;
-function setMicro(n,btn){
-  saveSelections();currentMicro=n;
-  document.querySelectorAll('.micro-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');loadSelections();
-}
-
 function initOpts(){
   document.querySelectorAll('.opt').forEach(opt=>{
     opt.dataset.count='0';
