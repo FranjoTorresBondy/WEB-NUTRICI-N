@@ -184,7 +184,7 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 const PATIENT = {
   slug:     'chiara-bitrich',
   nombre:   'Chiara\nBitrich',
-  fecha:    '24.08.2026',
+  fecha:    '23.09.2026',
   tipoPlan: 'Hipocalórico · Hiperprotéico',
   macros:   { kcal: 1470, p: 110, c: 195, g: 57 },
   hidratacion: [
@@ -193,20 +193,22 @@ const PATIENT = {
   ],
   semanas: 1,
   antro: {
-    fecha:'24.08.2026', peso:72.5, talla:173.0, imc:25.2,
-    tri:13.0, bi:4.0, sub:9.0, cresta:12.0, supra:5.0, abd:6.5, pierna:28.0, pant:13.0,
-    brazRelaj:28.0, brazFlex:31.2, abdom:72.0, cadera:105.0, muslo:56.0, pantPer:38.5,
+    fecha:'23.09.2026', peso:72.1, talla:173.0, imc:24.1,
+    tri:13.0, bi:3.0, sub:6.0, cresta:9.0, supra:5.0, abd:6.5, pierna:24.0, pant:10.0,
+    s6:64.5, s8:76.5,
+    brazRelaj:28.0, brazFlex:30.0, abdom:70.0, cadera:105.0, muslo:54.0, pantPer:37.0,
   },
   antroHistorial: [
     { fecha:'03.07.2026', peso:72.3, tri:16.0, bi:10.0, sub:7.0, cresta:20.0, supra:8.0, abd:10.0, pierna:37.0, pant:16.0, s6:94.0, s8:124.0, brazRelaj:30.0, brazFlex:30.5, abdom:76.0, cadera:108.0, muslo:55.0, pantPer:38.5 },
     { fecha:'21.07.2026', peso:72.5, tri:16.0, bi:5.0, sub:9.0, cresta:14.0, supra:6.0, abd:10.0, pierna:30.0, pant:14.0, s6:85.0, s8:104.0, brazRelaj:29.3, brazFlex:30.6, abdom:74.0, cadera:107.0, muslo:54.0, pantPer:38.0 },
     { fecha:'24.08.2026', peso:72.5, tri:13.0, bi:4.0, sub:9.0, cresta:12.0, supra:5.0, abd:6.5, pierna:28.0, pant:13.0, s6:74.5, s8:90.5, brazRelaj:28.0, brazFlex:31.2, abdom:72.0, cadera:105.0, muslo:56.0, pantPer:38.5 },
+    { fecha:'23.09.2026', peso:72.1, tri:13.0, bi:3.0, sub:6.0, cresta:9.0, supra:5.0, abd:6.5, pierna:24.0, pant:10.0, s6:64.5, s8:76.5, brazRelaj:28.0, brazFlex:30.0, abdom:70.0, cadera:105.0, muslo:54.0, pantPer:37.0 },
   ],
 
   objetivos: [
     'Disminuir sumatoria de 8 pliegues en 10 mm',
     'Aumentar intensidad en los entrenamientos de fuerza',
-    'Aumentar cantidad de pasos al día',
+    'Aumentar cantidad de pasos al día: 10 000 pasos',
   ],
 
   comidas: [
@@ -216,7 +218,7 @@ const PATIENT = {
         'Bowl de yogurt: 200g Quark + 2 porciones de fruta + 1 cda mantequilla de maní (10g) o 1 porción de frutos secos + 30g granola o 40g cereales NutriCo, Dyfferent o Corn Flakes',
         'Chía pudding: 300ml leche fresca slim o bebida de almendras + 150g Quark + 3 cdas de chía + edulcorante + canela (refrigerar la noche anterior o 4 h) · acompaña con 2 porciones de fruta + 1 cda mantequilla de maní (10g) o 1 porción de frutos secos',
         '2 rebanadas de pan de molde o 2 panes pita (30g c/u) + 100g de pollo + 60g de palta (puedes mezclar y añadir verduras picadas) + 1 porción de fruta',
-        '2 Rapiditas + 60g de queso mozzarella light + 40g de palta (puedes agregar tomate, albahaca, etc.) + 1 porción de fruta + 1 cda de linaza molida',
+        '2 Rapiditas + 30g de queso mozzarella light + 30g de jamón artesanal + 40g de palta (puedes agregar verduras como tomate, albahaca, etc.) + 1 porción de fruta + 1 cda de linaza molida',
       ]},
     ]},
 
@@ -229,18 +231,19 @@ const PATIENT = {
         '50 g de fideos',
       ]},
       { label:'Escoge 01 · Proteína (150 g, peso crudo)', max:1, ops:[
-        'Pechuga de pollo','Pechuga de pavo o pavita','Pescado',
+        'Pechuga de pollo o pechuga a la pimienta','Pechuga de pavo o pavita','Pescado',
         'Bistec','Carne molida light',
+        '1 milanesa de Avinka en freidora sin aceite',
       ]},
       { label:'Escoge 01 · Verduras', max:1, ops:['150 g de verduras a tu preferencia (crudas o cocidas)'] },
-      { label:'Escoge 01 · Grasa', max:1, ops:[
+      { label:'Escoge 02 · Grasa', max:2, ops:[
         '1 cda de aceite de oliva',
         '40 g de palta',
         '4 aceitunas',
       ]},
     ]},
 
-    { id:'snk', nombre:'🕔 Media Tarde', kcal:280, p:24, c:35, g:6, grupos:[
+    { id:'snk', nombre:'🕔 Media Tarde', kcal:100, p:3, c:15, g:5, grupos:[
       { label:'Escoge 01 · Dulce / Fruta', max:1, ops:[
         '2 pastillas de chocolate La Ibérica',
         '1 porción de fruta (Ver especificaciones)',
@@ -248,7 +251,7 @@ const PATIENT = {
       { label:'Escoge 01 · Frutos secos', max:1, ops:[
         '1 porción de frutos secos o semillas (Ver especificaciones)',
       ]},
-    ], nota:'Puedes reemplazar ocasionalmente por 1 pudín marca Hop o 1 chocoteja. · Cine: 1 canchita grande + 40 g popcorn de casa (eliminar snack y cena).' },
+    ], nota:'🍦 Puedes reemplazar esta comida por <b>1 cono de Pinkberry</b> original o de fresa y cortar 1 porción de carbohidrato del almuerzo.<br>🍿 Cine: 1 canchita grande + 40 g de popcorn de casa (eliminar snack y cena).' },
 
     { id:'cen', nombre:'🌙 Cena', kcal:430, p:31, c:41, g:15, grupos:[
       { label:'Escoge 02 · Carbohidrato', max:2, ops:[
@@ -260,10 +263,11 @@ const PATIENT = {
         '20 g de granola',
       ]},
       { label:'Escoge 01 · Proteína (120 g, peso crudo)', max:1, ops:[
-        'Pechuga de pollo','Pechuga de pavo o pavita','Pescado',
+        'Pechuga de pollo o pechuga a la pimienta','Pechuga de pavo o pavita','Pescado',
         'Bistec','Carne molida light',
         '200 g de Vakimú Quark',
         '80 g de queso mozzarella light (CuisineCo)',
+        '1 milanesa de Avinka en freidora sin aceite (si eliges esta opción cortamos 1 porción de grasas)',
       ]},
       { label:'Escoge 02 · Grasa', max:2, ops:[
         '40 g de palta',
@@ -306,6 +310,7 @@ const PATIENT = {
       'Para salsas de pasta (roja o verde): usar 4 cdas como porción de verduras y eliminar la grasa de esa comida',
     ]},
     { titulo:'🍽️ Opciones fuera de casa', items:[
+      '##Máximo 1 vez por semana',
       'Poke bowl (sin salsas acevichada/dulces como taré o anguila, solo soya). Proteína + palta + mitad arroz/quinua + verduras',
       'Bowl de San Antonio, Don Mamino, Delicass, Freshii: arroz + verduras + pollo + palta',
       'Ensalada Padovana o Emiliana (Rappi Turbo) — si pides balsámico cremoso, solo 1 cda',
