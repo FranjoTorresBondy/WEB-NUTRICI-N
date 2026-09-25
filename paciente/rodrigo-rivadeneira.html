@@ -193,7 +193,7 @@ var DES = { id:'des', nombre:'☀️ Desayuno', kcal:450, p:35, c:45, g:14, grup
   { label:'Escoge 01 · Fruta', max:1, ops:[
     '1 porción de fruta (ver especificaciones)',
   ]},
-], nota:'☕ <b>Café y capuccinos:</b> sin azúcar — usa Stevia o fruto del monje. Los 2 sachets por taza son ~24 g de azúcar al día entre los 3 capuccinos.' };
+], nota:'☕ <b>Café y capuccinos:</b> sin azúcar — usa Stevia o fruto del monje. Los 2 sachets por taza son ~24 g de azúcar al día entre los 3 capuccinos.<br>🥛 Puedes agregar <b>200 ml de leche fresca Slim</b> a tu café.<br>🥤 <b>Jugo de lúcuma:</b> 80 g de pulpa de lúcuma + 200 ml de leche Slim. Reemplaza tu porción de fruta <b>y</b> 1 porción de carbohidrato.' };
 
 var ALM = { id:'alm', nombre:'🥗 Almuerzo', kcal:600, p:45, c:60, g:18, grupos:[
   { label:'Escoge 03 · Carbohidrato', max:3, ops:[
@@ -210,6 +210,7 @@ var ALM = { id:'alm', nombre:'🥗 Almuerzo', kcal:600, p:45, c:60, g:18, grupos
     'Pescado blanco',
     '1 lata de atún en agua',
     'Langostinos',
+    '1 presa de pierna con encuentro, con piel, en freidora de aire (si la eliges, cortar la porción de grasa)',
     'Lomo de res (máximo 1 vez por semana — ver nota)',
   ]},
   { label:'Escoge 01 · Verduras', max:1, ops:[
@@ -226,7 +227,7 @@ var ALM = { id:'alm', nombre:'🥗 Almuerzo', kcal:600, p:45, c:60, g:18, grupos
     '🐟 Ceviche o tiradito con camote y choclo',
     '🍣 Nigiris o sashimi con salsa de soya (sin salsas dulces ni acevichadas)',
   ]},
-], nota:'*Almuerzo ligero a propósito: los platos muy cargados de carbohidrato y grasa son los que dan sueño en la tarde.<br>*Escoge los intercambios <b>o</b> una de las opciones de fuera, no ambas.<br>🩺 <b>Carnes rojas máximo 1 vez por semana</b> por la hemocromatosis. Prioriza pollo, pavita y pescado.<br>📝 Anota si la distensión abdominal aparece los días de wrap: nos sirve para identificar qué la dispara.' };
+], nota:'*Almuerzo ligero a propósito: los platos muy cargados de carbohidrato y grasa son los que dan sueño en la tarde.<br>*Escoge los intercambios <b>o</b> una de las opciones de fuera, no ambas.<br>🩺 <b>Carnes rojas máximo 1 vez por semana</b> por la hemocromatosis. Prioriza pollo, pavita y pescado.<br>📝 Anota si la distensión abdominal aparece los días de wrap: nos sirve para identificar qué la dispara.<br>🐟 <b>Peixe à delícia:</b> puedes comer 1 plato como todo tu almuerzo. Ese día eliminamos el snack de media tarde y en la cena sigues las porciones del plan tal cual.' };
 
 var SNK = { id:'snk', nombre:'🍎 Snack', kcal:300, p:30, c:25, g:9, grupos:[
   { label:'Escoge 01 · Proteína', max:1, ops:[
@@ -263,6 +264,7 @@ var CEN = { id:'cen', nombre:'🌙 Cena', kcal:650, p:40, c:85, g:19, grupos:[
     'Salmón o atún fresco (si lo eliges, cortar la porción de grasa)',
     '1 lata de atún en agua',
     'Langostinos',
+    '1 presa de pierna con encuentro, con piel, en freidora de aire (si la eliges, cortar la porción de grasa)',
     '90 g de queso mozzarella light Cuisine&Co + 1 huevo',
   ]},
   { label:'Escoge 01 · Verduras', max:1, ops:[
@@ -273,7 +275,7 @@ var CEN = { id:'cen', nombre:'🌙 Cena', kcal:650, p:40, c:85, g:19, grupos:[
     '1 cdta de aceite de oliva',
     '1 porción de frutos secos (ver especificaciones)',
   ]},
-], nota:'🍟 <b>Nada de papas fritas en la cena.</b> Pide que te preparen la papa sancochada, al horno o en air fryer — es el cambio que más pesa en tu día.<br>🫒 Que en casa cocinen con <b>aceite de oliva</b> en vez de aceite vegetal.<br>🍲 Si te provoca sopa, entra sin problema: cuenta como la porción de verduras.' };
+], nota:'🍟 <b>Papas fritas:</b> si las comes, que sean <b>110 g</b> y reemplazan tus porciones de carbohidrato <b>y</b> la de grasa de la cena. Fuera de ese cambio, pide la papa sancochada, al horno o en air fryer.<br>🍺 <b>Si tomas cerveza:</b> hasta 4 de 330 ml. Ese día reemplaza el snack de media tarde por solo 1 scoop de proteína, y en la cena corta 1 porción de carbohidrato y la de grasa.<br>🫒 Que en casa cocinen con <b>aceite de oliva</b> en vez de aceite vegetal.<br>🍲 Si te provoca sopa, entra sin problema: cuenta como la porción de verduras.' };
 
 var PRE_ENTRENO = { id:'pre', nombre:'⚡ Pre Entreno', kcal:200, p:3, c:45, g:1, grupos:[
   { label:'Escoge 01 · Tomar 45–30 min antes', max:1, ops:[
@@ -364,6 +366,11 @@ const PATIENT = {
       '##Tus capuccinos',
       'Con leche descremada y Stevia en vez de azúcar. Los 3 al día con 2 sachets suman ~24 g de azúcar.',
       'Después de las 3 pm evita la cafeína: te está costando dormir antes de las 12.',
+      'Puedes agregar 200 ml de leche fresca Slim a tu café.',
+      '##Cerveza',
+      'Hasta 4 de 330 ml. Ese día el snack de media tarde es solo 1 scoop de proteína, y en la cena cortas 1 porción de carbohidrato y 1 de grasa.',
+      '##Jugo de lúcuma',
+      '80 g de pulpa de lúcuma + 200 ml de leche Slim. En el desayuno reemplaza tu porción de fruta y 1 porción de carbohidrato.',
     ]},
     { titulo:'🥝 Porciones de fruta', items:[
       '##Las que más te gustan',
