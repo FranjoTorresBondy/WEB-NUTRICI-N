@@ -190,7 +190,8 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 const PATIENT = {
   slug:     'vasco-sanchez',
   nombre:   'Vasco\nSanchez',
-  fecha:    '24.08.2026',
+  fecha:    '25.09.2026',
+  sexo:     'm',
   tipoPlan: 'Normo-calórico · Hiperprotéico',
   macros:   { kcal: 2230, p: 157, c: 259, g: 52 },
   hidratacion: [
@@ -199,12 +200,18 @@ const PATIENT = {
     { label:'💧 Descanso',           valor:'2.5' },
   ],
   antro: {
-    fecha:'24.08.2026', peso:70.0, talla:177.5, imc:21.1,
-    tri:8.0, bi:1.0, sub:8.0, cresta:11.0, supra:6.0, abd:8.0, pierna:9.0, pant:6.0,
-    brazRelaj:32.0, brazFlex:35.5, abdom:74.0, cadera:94.0, muslo:48.0, pantPer:35.0,
+    fecha:'25.09.2026', peso:68.0, talla:177.5, imc:21.6,
+    tri:6.0, bi:2.0, sub:8.0, cresta:11.0, supra:6.0, abd:8.0, pierna:9.0, pant:4.0,
+    s6:41.0, s8:54.0,
+    brazRelaj:33.0, brazFlex:36.5, abdom:77.0, cadera:94.0, muslo:49.8, pantPer:35.0,
     diam: { humero:6.5, biEstiloideo:5.5, femur:9.2 },
+    pctGrasa:13.9, fatKg:9.5, pctMusc:48.4, muscKg:32.9, pctOseo:16.6, oseoKg:11.3,
+    imo:2.92, icc:0.82,
+    somato:{ endo:1.8, meso:4.7, ecto:3.3 },
   },
-  antroHistorial: [],
+  antroHistorial: [
+    { fecha:'24.08.2026', peso:70.0, tri:8.0, bi:1.0, sub:8.0, cresta:11.0, supra:6.0, abd:8.0, pierna:9.0, pant:6.0, s6:45.0, s8:57.0, brazRelaj:32.0, brazFlex:35.5, abdom:74.0, cadera:94.0, muslo:48.0, pantPer:35.0 },
+  ],
 
   objetivos: [
     'Disminución de Σ8 pliegues en 5-10 mm',
@@ -594,10 +601,15 @@ function renderSpecs() {
 // ── Evolución Física ───────────────────────────────────────────────────────
 const ANTRO_KEY = () => `${PATIENT.slug}-antro-v1`;
 function getAntroBase() {
-  const a = PATIENT.antro;
-  const s6 = +(a.tri+a.sub+a.supra+a.abd+a.pierna+a.pant).toFixed(1);
-  const s8 = +(s6+a.bi+a.cresta).toFixed(1);
-  return [{ fecha:a.fecha, peso:a.peso, tri:a.tri, bi:a.bi, sub:a.sub, cresta:a.cresta, supra:a.supra, abd:a.abd, pierna:a.pierna, pant:a.pant, brazRelaj:a.brazRelaj, brazFlex:a.brazFlex, abdom:a.abdom, cadera:a.cadera, muslo:a.muslo, pantPer:a.pantPer, s6, s8 }];
+  const norm = a => {
+    const s6 = a.s6 != null ? a.s6 : +(a.tri+a.sub+a.supra+a.abd+a.pierna+a.pant).toFixed(1);
+    const s8 = a.s8 != null ? a.s8 : +(s6+a.bi+a.cresta).toFixed(1);
+    return Object.assign({}, a, { s6, s8 });
+  };
+  const out = (PATIENT.antroHistorial || []).map(norm);
+  const cur = norm(PATIENT.antro);
+  if (!out.some(e => e.fecha === cur.fecha)) out.push(cur);
+  return out;
 }
 function getAntroData() {
   const base = getAntroBase();
