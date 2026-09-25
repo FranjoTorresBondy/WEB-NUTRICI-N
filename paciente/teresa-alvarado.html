@@ -192,7 +192,7 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 const PATIENT = {
   slug:      'teresa-alvarado',
   nombre:    'Teresa\nAlvarado',
-  fecha:     '28.08.2026',
+  fecha:     '23.09.2026',
   tipoPlan:  'Hipocalórico · Hiperprotéico',
   macros:    { kcal: 1360, p: 100, c: 146, g: 44 },
   hidratacion: [
@@ -201,26 +201,26 @@ const PATIENT = {
   ],
   semanas: 1,
   antro: {
-    fecha:    '28.08.2026',
-    peso:     54.3,
+    fecha:    '23.09.2026',
+    peso:     52.9,
     talla:    152,
-    imc:      23.5,
-    tri:      16.0,
-    bi:       7.0,
-    sub:      13.0,
-    cresta:   16.0,
-    supra:    11.0,
-    abd:      15.0,
+    imc:      22.9,
+    tri:      12.0,
+    bi:       3.0,
+    sub:      10.0,
+    cresta:   12.0,
+    supra:    7.0,
+    abd:      13.0,
     pierna:   10.0,
     pant:     9.0,
-    brazRelaj: 29.0,
-    brazFlex:  29.0,
-    abdom:     72.0,
-    cadera:    94.0,
-    muslo:     47.2,
+    brazRelaj: 28.5,
+    brazFlex:  29.7,
+    abdom:     70.0,
+    cadera:    95.0,
+    muslo:     47.5,
     pantPer:   34.0,
-    s6: 74.0,
-    s8: 97.0,
+    s6: 61.0,
+    s8: 76.0,
   },
 
   objetivos: [
@@ -262,6 +262,8 @@ const PATIENT = {
           '60 g de quinua',
           '100 g de menestra',
           '50 g de fideos',
+          '60 g de choclo',
+          '50 g de yuca',
         ]},
         { label:'Escoge 01 · Proteína (120 g peso crudo)', max:1, ops:[
           'Pechuga de pollo',
@@ -269,6 +271,10 @@ const PATIENT = {
           'Pescado',
           'Bistec',
           'Carne molida light',
+          '½ milanesa de Avinka',
+          '140 g de langostinos',
+          '1 huevo + 3 claras',
+          '1 lata de atún en agua',
         ]},
         { label:'Escoge 01 · Verduras', max:1, ops:[
           '150 g de verduras a tu preferencia (crudas o cocidas)',
@@ -310,6 +316,9 @@ const PATIENT = {
           '20 g de avena (peso crudo)',
           '20 g de cereales',
           '20 g de granola',
+          '60 g de choclo',
+          '50 g de yuca',
+          '60 g de quinua',
         ]},
         { label:'Escoge 01 · Proteína (100 g peso crudo)', max:1, ops:[
           'Pechuga de pollo',
@@ -319,6 +328,10 @@ const PATIENT = {
           'Carne molida light',
           '150 g de Quark',
           '60 g de queso mozzarella light (Cuisine&Co)',
+          '½ milanesa de Avinka',
+          '140 g de langostinos',
+          '1 huevo + 2 claras',
+          '1 lata de atún en agua',
         ]},
         { label:'Escoge 02 · Grasa', max:2, ops:[
           '40 g de palta',
@@ -403,7 +416,12 @@ const PATIENT = {
 
   notaSpecs: 'Plan base = días de descanso (1360 kcal). Días de entrenamiento: agregar Pre Entreno (+~60 kcal ≈ 1420 kcal total).',
 
-  antroHistorial: [],
+  antroHistorial: [
+    { fecha:'28.08.2026', peso:54.3, talla:152, imc:23.5,
+      tri:16.0, bi:7.0, sub:13.0, cresta:16.0, supra:11.0, abd:15.0, pierna:10.0, pant:9.0,
+      brazRelaj:29.0, brazFlex:29.0, abdom:72.0, cadera:94.0, muslo:47.2, pantPer:34.0,
+      s6:74.0, s8:97.0 },
+  ],
 
   entrenamiento: null,
 };
