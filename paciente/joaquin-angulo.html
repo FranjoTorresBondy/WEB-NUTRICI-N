@@ -192,9 +192,10 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 const PATIENT = {
   slug:      'joaquin-angulo',
   nombre:    'Joaquín\nAngulo',
+  sexo:      'm',
   fecha:     '23.09.2026',
   tipoPlan:  'Hipocalórico · Hiperprotéico',
-  macros:    { kcal: 2300, p: 152, c: 459, g: 76 },
+  macros:    { kcal: 2305, p: 153, c: 262, g: 76 },
   hidratacion: [
     { label:'💧 Entrenamiento', valor:'3.5' },
     { label:'💧 Descanso',      valor:'2.5' },
@@ -569,10 +570,15 @@ function renderSpecs() {
 
 const ANTRO_KEY = () => `${PATIENT.slug}-antro-v1`;
 function getAntroBase() {
-  const a = PATIENT.antro;
-  const s6 = +(a.tri+a.sub+a.supra+a.abd+a.pierna+a.pant).toFixed(1);
-  const s8 = +(s6+a.bi+a.cresta).toFixed(1);
-  return [{ fecha:a.fecha, peso:a.peso, tri:a.tri, bi:a.bi, sub:a.sub, cresta:a.cresta, supra:a.supra, abd:a.abd, pierna:a.pierna, pant:a.pant, brazRelaj:a.brazRelaj, brazFlex:a.brazFlex, abdom:a.abdom, cadera:a.cadera, muslo:a.muslo, pantPer:a.pantPer, s6, s8 }];
+  const norm = a => {
+    const s6 = a.s6 != null ? a.s6 : +(a.tri+a.sub+a.supra+a.abd+a.pierna+a.pant).toFixed(1);
+    const s8 = a.s8 != null ? a.s8 : +(s6+a.bi+a.cresta).toFixed(1);
+    return Object.assign({}, a, { s6, s8 });
+  };
+  const out = (PATIENT.antroHistorial || []).map(norm);
+  const cur = norm(PATIENT.antro);
+  if (!out.some(e => e.fecha === cur.fecha)) out.push(cur);
+  return out;
 }
 function getAntroData() {
   const base = getAntroBase();
