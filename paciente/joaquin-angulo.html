@@ -192,34 +192,39 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 const PATIENT = {
   slug:      'joaquin-angulo',
   nombre:    'Joaquín\nAngulo',
-  fecha:     '30.06.2026',
+  fecha:     '23.09.2026',
   tipoPlan:  'Hipocalórico · Hiperprotéico',
-  macros:    { kcal: 2350, p: 145, c: 308, g: 60 },
+  macros:    { kcal: 2300, p: 152, c: 459, g: 76 },
   hidratacion: [
     { label:'💧 Entrenamiento', valor:'3.5' },
     { label:'💧 Descanso',      valor:'2.5' },
   ],
   semanas:   1,
   antro: {
-    fecha:    '30.06.2026',
-    peso:     57.8,
+    fecha:    '23.09.2026',
+    peso:     59.3,
     talla:    162.5,
-    imc:      21.9,
-    tri:      9.0,
-    bi:       6.5,
-    sub:      5.5,
-    cresta:   18.0,
-    supra:    11.0,
-    abd:      16.0,
-    pierna:   19.0,
-    pant:     10.0,
-    brazRelaj: 30.3,
-    brazFlex:  31.8,
-    abdom:     72.5,
-    cadera:   90.0,
-    muslo:     50.0,
-    pantPer:   33.8,
+    imc:      22.5,
+    tri:      7.0,
+    bi:       1.5,
+    sub:      7.0,
+    cresta:   12.0,
+    supra:    7.0,
+    abd:      12.0,
+    pierna:   15.0,
+    pant:     7.0,
+    brazRelaj: 30.5,
+    brazFlex:  32.5,
+    abdom:     71.0,
+    cadera:    91.0,
+    muslo:     51.5,
+    pantPer:   34.5,
+    diam: { humero: 6.1, biEstiloideo: 5.5, femur: 9.2 },
   },
+  antroHistorial: [
+    { fecha:'30.06.2026', peso:57.8, tri:9.0, bi:6.5, sub:5.5, cresta:18.0, supra:11.0, abd:16.0, pierna:19.0, pant:10.0,
+      brazRelaj:30.3, brazFlex:31.8, abdom:72.5, cadera:90.0, muslo:50.0, pantPer:33.8 },
+  ],
 
   objetivos: [
     'Aumento de masa muscular magra',
@@ -228,138 +233,128 @@ const PATIENT = {
   ],
 
   comidas: [
-    { id:'des', nombre:'☀️ Desayuno', kcal:700, p:42, c:85, g:18, grupos:[
-        { label:'Inicio', max:0, ops:[
-          '50 ml de suero de tocosh + 300–500 ml de agua + enzimas digestivas',
-        ]},
-        { label:'Escoge 01 · Jugo', max:1, ops:[
-          '200 ml de leche de soya + 1 plátano + 1 porción de fruta* + 120 g de arándanos o berries + 40 g de avena',
-        ]},
+    { id:'des', nombre:'☀️ Desayuno', kcal:490, p:32, c:60, g:16, grupos:[
         { label:'Escoge 02 · Carbohidrato', max:2, ops:[
-          '20 g de avena',
-          '20 g de cereal',
-          '1 rebanada de pan de la chola o molde (30 g)',
-          '1 Rapidita integral',
-          '1 unidad de pan pita Bimbo',
-          '15 g de granola',
+          '1 tortilla rapidita integral',
+          '1 rebanada de pan de molde o pan de la chola (30 g)',
+          '20 g de avena (peso crudo)',
+          '20 g de cereales de Dyfferent o NutriCo',
+          '20 g de granola',
+          '1 pan pita Bimbo',
         ]},
         { label:'Escoge 01 · Proteína', max:1, ops:[
+          '100 g de pollo + 40 g de palta',
+          '80 g de queso mozzarella light (Cuisine & Co) + 1 huevo',
+          '1 lata de atún + 40 g de palta',
+          '200 g de Vakimú Quark + 1 porción de frutos secos (Ver especificaciones)',
           '3 huevos',
-          '1 lata de atún en agua + 70 g de palta',
-          '60 g de pechuga de pollo + 2 huevos',
-          '200 g de yogurt Vakimú + 20 g de frutos secos',
-          '2 huevos + 60 g de queso mozzarella light',
         ]},
-        { label:'Escoge 01 · Dulce', max:1, ops:[
-          '20 g de miel de abeja',
+        { label:'Escoge 01 · Grasa', max:1, ops:[
+          '40 g de palta',
+          '4 aceitunas',
+          '1 cdta de aceite de oliva',
+          '1 porción de frutos secos (Ver especificaciones)',
+        ]},
+        { label:'Escoge 01 · Fruta', max:1, ops:[
+          '2 porciones de fruta (Ver especificaciones)',
+        ]},
+    ]},
+
+    { id:'snk1', nombre:'🥪 Snack Mañana', kcal:215, p:19, c:17, g:8, grupos:[
+        { label:'Escoge 01 · Carbohidrato', max:1, ops:[
+          '1 tortilla rapidita integral',
+          '1 rebanada de pan de molde o pan de la chola (30 g)',
+          '20 g de avena (peso crudo)',
+          '20 g de cereales de Dyfferent o NutriCo',
+          '20 g de granola',
+          '1 pan pita Bimbo',
+        ]},
+        { label:'Escoge 01 · Proteína', max:1, ops:[
+          '50 g de pollo',
+          '½ lata de atún',
+          '120 g de Quark',
+          '35 g de mozzarella light',
+        ]},
+    ], nota:'Puedes reemplazar este snack por un Gloria Pro Power.' },
+
+    { id:'alm', nombre:'🥗 Almuerzo', kcal:720, p:49, c:79, g:23, grupos:[
+        { label:'Escoge 04 · Carbohidrato (peso cocido)', max:4, ops:[
+          '60 g de arroz',
+          '90 g de papa, camote o betarraga',
+          '60 g de quinua',
+          '100 g de menestra',
+          '50 g de fideos',
+          'Ravioles de verduras Don Italo (40 g en crudo)',
+        ]},
+        { label:'Escoge 01 · Proteína (180 g, peso crudo)', max:1, ops:[
+          'Pechuga de pollo',
+          'Pechuga de pavo',
+          'Pescado',
+          'Lomo de res',
+          'Carne molida de bistec (puedes hacerte hamburguesas)',
+          '1 milanesa de Avinka (sin aceite en la freidora)',
+          '250 g de langostinos',
+        ]},
+        { label:'Escoge 01 · Verduras', max:1, ops:[
+          '50-170 g de verduras de tu preferencia',
+        ]},
+        { label:'Escoge 03 · Grasa', max:3, ops:[
+          '40 g de palta',
+          '4 aceitunas',
+          '1 cdta de aceite de oliva',
+          '1 porción de frutos secos (Ver especificaciones)',
+        ]},
+    ], nota:'Si quieres comer helado puedes comer los de la marca Hikari 160 g y cortas 2 porciones de grasa del almuerzo.' },
+
+    { id:'snk2', nombre:'🍎 Snack Tarde', kcal:160, p:4, c:27, g:6, grupos:[
+        { label:'Escoge 01 · Grasa', max:1, ops:[
+          '1 porción de frutos secos (Ver especificaciones)',
+        ]},
+        { label:'Escoge 02 · Fruta / Carbo', max:2, ops:[
+          '1 porción de fruta (Ver especificaciones)',
           '20 g de mermelada',
         ]},
-    ], nota:'Mix de pancakes (opción): licuar 80 g de avena + 3 huevos + 1 plátano mediano + 200 ml de leche de soya o descremada → freír con poco aceite. Acompañar con 125 g de berries + 20 g de miel de abeja.' },
+    ]},
 
-    { id:'snk1', nombre:'🥪 Snack Mañana', kcal:350, p:28, c:52, g:8, grupos:[
+    { id:'cen', nombre:'🌙 Cena', kcal:720, p:49, c:79, g:23, grupos:[
+        { label:'Escoge 01 · Proteína (180 g, peso crudo)', max:1, ops:[
+          'Pechuga de pollo',
+          'Pechuga de pavo',
+          'Pescado',
+          'Lomo de res',
+          '70 g de queso mozzarella light Cuisine&Co + 1 huevo',
+          '1 milanesa de Avinka (sin aceite en la freidora)',
+          '300 g de Quark',
+          '250 g de langostinos',
+        ]},
         { label:'Escoge 04 · Carbohidrato', max:4, ops:[
-          '20 g de avena',
-          '20 g de cereal',
-          '1 rebanada de pan de la chola o molde (30 g)',
-          '1 Rapidita integral',
-          '1 unidad de pan pita Bimbo',
-        ]},
-        { label:'Escoge 01 · Proteína', max:1, ops:[
-          '100 g de pechuga de pollo',
-          '1 lata de atún en agua',
-          '60 g de queso mozzarella light Cuisine&Co',
-          '1 scoop de proteína aislada en polvo',
-        ]},
-        { label:'Escoge 01 · Verdura / Fruta', max:1, ops:[
-          '100 g de verduras',
-          '100 g de berries* (Ver especificaciones)',
-        ]},
-    ], nota:'Puedes reemplazar este snack por: 1 Vakimú Pro bebible o Pro Day Gloria (20 g) + 1 porción de fruta* + 40 g de cereales de tu elección.' },
-
-    { id:'alm', nombre:'🥗 Almuerzo', kcal:600, p:35, c:82, g:15, grupos:[
-        { label:'Escoge 05 · Carbohidrato (peso cocido)', max:5, ops:[
-          '90 g de papa',
-          '90 g de camote',
-          '90 g de beterraga',
-          '60 g de arroz',
-          '60 g de quinua',
-          '60 g de choclo',
-          '50 g de pasta',
-          '100 g de menestra',
-          '100 g de olluco',
-          '100 g de locro',
-        ]},
-        { label:'Escoge 01 · Proteína (150 g peso crudo)', max:1, ops:[
-          'Pechuga de pollo',
-          'Pechuga de pavo',
-          'Pescado',
-          'Lomo de res',
-          'Langostinos',
-          '100 g de carne molida de bistec (consumir mitad de porción de grasa)',
-          '2 huevos + 1 clara + 1 lata de atún en agua (si eliges tortilla, no comer las 02 porciones de grasa)',
-        ]},
-        { label:'Escoge 01 · Verdura', max:1, ops:[
-          '150 a 180 g de verduras de tu preferencia',
-        ]},
-        { label:'Escoge 02 · Grasa', max:2, ops:[
-          '1 cdta de aceite de oliva',
-          '40 g de palta',
-          '1 porción de frutos secos* (Ver especificaciones)',
-          '20 g de queso parmesano',
-        ]},
-    ], nota:'1 vez a la semana puedes comer una hamburguesa sin papas (o con papas al airfryer). Puedes prepararla con carne molida de bistec, 2 panes de hamburguesa Bimbo, lechuga, tomate, cebolla y salsa stacker. Ese día procura moverte bastante.' },
-
-    { id:'snk2', nombre:'🍎 Snack Tarde', kcal:250, p:18, c:28, g:5, grupos:[
-        { label:'Escoge 01 · Proteína', max:1, ops:[
-          '220 g de Vakimú Pro',
-          '60 g de mozzarella light',
-        ]},
-        { label:'Escoge 01 · Carbo / Fruta', max:1, ops:[
-          '1 porción de fruta* (Ver especificaciones)',
-          '1 Rapidita',
+          '1 tortilla rapidita integral',
+          '1 rebanada de pan de molde o pan de la chola (30 g)',
+          'Pan de semillas (30 g)',
+          '20 g de avena (peso crudo)',
+          '20 g de cereales de Dyfferent o NutriCo',
           '20 g de granola',
-          '20 g de cereales',
-          '1 unidad de pan pita Bimbo',
-        ]},
-    ], nota:'Puedes reemplazar este snack por: 1 Vakimú Pro bebible o Pro Day Gloria (20 g).' },
-
-    { id:'cen', nombre:'🌙 Cena', kcal:450, p:22, c:61, g:14, grupos:[
-        { label:'Escoge 05 · Carbohidrato (peso cocido)', max:5, ops:[
-          '90 g de papa',
-          '90 g de camote',
-          '90 g de beterraga',
           '60 g de arroz',
+          '90 g de papa o camote',
           '60 g de quinua',
-          '60 g de choclo',
-          '50 g de pasta',
-          '100 g de menestra',
-          '100 g de olluco',
-          '100 g de locro',
+          '50 g de fideos',
         ]},
-        { label:'Escoge 01 · Proteína (150 g peso crudo)', max:1, ops:[
-          'Pechuga de pollo',
-          'Pechuga de pavo',
-          'Pescado',
-          'Lomo de res',
-          'Langostinos',
-          '2 huevos + 1 clara + 1 lata de atún en agua (si eliges tortilla, no comer las 02 porciones de grasa)',
+        { label:'Escoge 01 · Verduras', max:1, ops:[
+          '20-150 g de verduras de tu preferencia',
         ]},
-        { label:'Escoge 02 · Grasa', max:2, ops:[
-          '1 cdta de aceite de oliva',
+        { label:'Escoge 03 · Grasa', max:3, ops:[
           '40 g de palta',
-          '1 porción de frutos secos* (Ver especificaciones)',
-          '20 g de queso parmesano',
+          '4 aceitunas',
+          '1 cdta de aceite de oliva',
+          '1 porción de frutos secos (Ver especificaciones)',
         ]},
-        { label:'Escoge 01 · Verdura', max:1, ops:[
-          '120 a 150 g de verduras de tu preferencia',
-        ]},
-    ], nota:'Al menos 2 horas antes de acostarse.' },
+    ]},
   ],
 
   specs: [
-    { titulo:'🏋️ Entrenamiento de Fuerza (+200 kcal)', items:[
+    { titulo:'🏋️ Entrenamiento de Fuerza (+150 kcal)', items:[
       '##Pre entreno',
-      'Escoge 01: 20 g de Nestum / crema de arroz (peso seco)',
+      'Escoge 01: 1 porción de fruta (*)',
       'Escoge 01: 1 cda de miel de abeja',
       'Escoge 01: 200 ml de leche de almendra (opcional)',
     ]},
@@ -419,7 +414,7 @@ const PATIENT = {
     { nombre:'Salsa roja',             desc:'Tomate, cebolla, ajo, albahaca, poro + Lakanto o Stevia al gusto + sal, pimienta y tomillo + 1 cda de aceite de olivo. Puedes adicionar cualquier otra verdura de tu preferencia' },
   ],
 
-  notaSpecs: 'Plan base = 2,350 kcal / día (días de descanso). Entrenamiento de fuerza: agregar Pre Entreno Fuerza (+200 kcal ≈ 2,550 kcal). Entrenamiento de Thai: agregar Pre Entreno Thai + Intra (+450 kcal ≈ 2,800 kcal). Creatina 10 g POST todos los días, entrenes o no.',
+  notaSpecs: 'Plan base = 2 300 kcal / día (días de descanso). Fuerza: agregar pre entreno (+150 kcal ≈ 2 450 kcal). Thai: agregar pre + intra entreno (+450 kcal ≈ 2 750 kcal). Creatina 10 g POST todos los días, entrenes o no.',
 
   entrenamiento: null,
 };
