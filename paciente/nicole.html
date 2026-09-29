@@ -390,11 +390,11 @@ const PATIENT = {
       ]},
     ], nota:'🍦 Puedes reemplazar alguna porción de fruta por <b>100 g de helado de Galo</b>.<br>🍫 <b>1 Energy ball de Silvestre</b> reemplaza 1 porción de carbohidrato.' },
 
-    { id:'pre', nombre:'⚡ Pre Entreno', kcal:120, p:2, c:30, g:0, grupos:[
-      { label:'Tomar 30–45 min antes de entrenar', max:0, ops:[
+    { id:'pre', nombre:'⚡ Pre Entreno', kcal:null, p:null, c:null, g:null, grupos:[
+      { label:'Pre entreno', max:0, ops:[
         'Extracto o licuado y colado de: 1 betarraga + ½ manzana + 1 cdta de miel + ¼ de cdta de sal + canela + kión',
       ]},
-    ], nota:'* Solo los días que entrenas. Se suma al total (+120 kcal ≈ 1 580 kcal).<br>🥤 Los nitratos de la betarraga mejoran el uso de oxígeno; la sal y el kión ayudan con la hidratación y la digestión.' },
+    ]},
   ],
 
   specs: [
@@ -440,12 +440,11 @@ const PATIENT = {
       'Consumir los alimentos a la misma hora en cada tiempo de ingesta.',
       'Si comes en restaurante, elige lo más parecido a los intercambios de la comida que te toca.',
       'Evitar el consumo de chicles.',
-      'Que tus orinas sean siempre claras, sobre todo antes de los entrenamientos.',
-      'Es normal que la primera orina del día sea más oscura: apenas te levantes, empieza a hidratarte.',
+      'Es normal que la primera orina del día sea un poco más oscura por todas las horas que no has tomado agua. Apenas te levantes, empieza a hidratarte.',
     ]},
   ],
 
-  notaSpecs: 'Plan base = 1 462 kcal. Los días que entrenas, agregar el pre entreno (+120 kcal ≈ 1 580 kcal). Hidratación: 2.5 L entrenando · 2.0 L en descanso.',
+  notaSpecs: 'Las cantidades de agua del cuadro pueden ser variables. Siempre intenta que tus orinas sean claras, sobre todo antes de los entrenamientos, donde debes estar bien hidratada.',
 
   entrenamiento: null,
 };
@@ -545,7 +544,7 @@ function buildMeal(meal) {
   const nota = meal.nota ? `<div class="note2">${meal.nota}</div>` : '';
   return `<div class="meal" data-mealid="${meal.id}"><div class="top">
     <span class="nm">${meal.nombre}</span>
-    <span class="mac"><b>${meal.kcal}</b> kcal · ${meal.p}P / ${meal.c}C / ${meal.g}G</span>
+    ${meal.kcal != null ? `<span class="mac"><b>${meal.kcal}</b> kcal${meal.p != null ? ` · ${meal.p}P / ${meal.c}C / ${meal.g}G` : ''}</span>` : ''}
   </div><div class="body">${groups}${nota}</div></div>`;
 }
 
