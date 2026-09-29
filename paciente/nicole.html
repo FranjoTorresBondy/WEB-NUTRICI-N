@@ -254,6 +254,7 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 const PATIENT = {
   slug:      'nicole',
   sexo:      'f',
+  nacimiento:'16.10.1993',
   nombre:    'Nicole',
   fecha:     '28.09.2026',
   tipoPlan:  'Hipocalórico · Hiperprotéico',
@@ -270,15 +271,19 @@ const PATIENT = {
     s6:60.0, s8:76.0,
     brazRelaj:28.0, brazFlex:28.5, abdom:66.5, cadera:96.0, muslo:52.8, pantPer:32.6,
     diam: { humero:5.5, biEstiloideo:5.1, femur:8.7 },
-    pctGrasa:16.2, fatKg:8.9, pctOseo:15.5, oseoKg:8.6,
-    icc:0.69,
+    // Lee recalculado con su edad real (32.9 años a la fecha de medición).
+    // La hoja imprimió 33.4% porque la fecha de nacimiento estaba vacía y el
+    // Excel tomó la edad como 127 años, restando ~4.6 kg de músculo de más.
+    pctGrasa:16.2, fatKg:8.9, pctMusc:41.6, muscKg:23.0, pctOseo:15.5, oseoKg:8.6,
+    imo:2.68, icc:0.69,
     somato:{ endo:2.9, meso:4.3, ecto:1.4 },
   },
   antroHistorial: [
     { fecha:'28.09.2026', peso:55.2, talla:156.0, imc:22.7,
       tri:10.0, bi:4.0, sub:8.0, cresta:12.0, supra:8.0, abd:13.0, pierna:14.0, pant:7.0,
       brazRelaj:28.0, brazFlex:28.5, abdom:66.5, cadera:96.0, muslo:52.8, pantPer:32.6,
-      s6:60.0, s8:76.0, pctGrasa:16.2, fatKg:8.9, pctOseo:15.5, oseoKg:8.6, icc:0.69 },
+      s6:60.0, s8:76.0, pctGrasa:16.2, fatKg:8.9, pctMusc:41.6, muscKg:23.0,
+      pctOseo:15.5, oseoKg:8.6, imo:2.68, icc:0.69 },
   ],
 
   objetivos: [
