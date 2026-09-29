@@ -274,11 +274,16 @@ function injectGuardarBtn(mealsContainer) {
       if (a.bi != null && a.cresta != null) s8 = f1(s6 + a.bi + a.cresta);
     }
 
-    // % grasa: primero el valor cargado desde la hoja ISAK. Si no hay, se estima
-    // con Faulkner clásico sobre la sumatoria de 4 pliegues y se marca como tal.
+    // % grasa: primero el valor cargado desde la hoja ISAK. Si no hay, se calcula
+    // con Faulkner sobre la sumatoria de 4 pliegues (tri + sub + supra + abd),
+    // con la ecuación que corresponde al sexo — son las mismas dos que usa la
+    // planilla ISAK de la consulta. Sin sexo cargado no se estima nada, porque
+    // aplicar la ecuación equivocada desvía el resultado 3–6 puntos.
+    var sx = (typeof PATIENT !== 'undefined' && PATIENT) ? PATIENT.sexo : null;
     var pctG = num(a.pctGrasa), pctGEstim = false;
-    if (pctG == null && a.tri != null && a.sub != null && a.supra != null && a.abd != null) {
-      pctG = f1(5.783 + 0.153 * (a.tri + a.sub + a.supra + a.abd));
+    if (pctG == null && sx && a.tri != null && a.sub != null && a.supra != null && a.abd != null) {
+      var s4 = a.tri + a.sub + a.supra + a.abd;
+      pctG = f1(sx === 'm' ? 5.783 + 0.153 * s4 : 7.9 + 0.213 * s4);
       pctGEstim = true;
     }
 
