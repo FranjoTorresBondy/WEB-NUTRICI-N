@@ -290,6 +290,13 @@ function injectGuardarBtn(mealsContainer) {
 
     var ose = num(a.oseoKg);
     if (ose == null && num(a.pctOseo) != null) ose = f1(peso * a.pctOseo / 100);
+    // Rocha: MO = 3.02 × (Ht² · R · F · 400)^0.712, con Ht, R y F en metros.
+    // Validada contra 11 hojas ISAK de la consulta: coincide al decimal, así que
+    // se calcula sola cuando hay diámetros y no se cargó el valor de la hoja.
+    if (ose == null && a.diam && num(a.talla) && num(a.diam.biEstiloideo) && num(a.diam.femur)) {
+      var ht = a.talla / 100, dR = a.diam.biEstiloideo / 100, dF = a.diam.femur / 100;
+      ose = f1(3.02 * Math.pow(ht * ht * dR * dF * 400, 0.712));
+    }
 
     var imo = num(a.imo);
     if (imo == null && mus && ose) imo = +(mus / ose).toFixed(2);
@@ -341,9 +348,9 @@ function injectGuardarBtn(mealsContainer) {
   // puede estar entrenando fuerte y aun así tener la sumatoria alta.
   function nivelS6(s6, sexo) {
     var r = REF_S6[sexo];
-    if (s6 > r[3]) return 'rango elevado';
-    if (s6 > r[2]) return 'rango de activo / fitness';
-    if (s6 > r[1]) return 'rango de atleta entrenado';
+    if (s6 > r[2]) return 'rango elevado';
+    if (s6 > r[1]) return 'rango de activo / fitness';
+    if (s6 > r[0]) return 'rango de atleta entrenado';
     return 'rango de deportista de élite';
   }
 
