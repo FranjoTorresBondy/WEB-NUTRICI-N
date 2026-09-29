@@ -270,13 +270,15 @@ const PATIENT = {
     s6:60.0, s8:76.0,
     brazRelaj:28.0, brazFlex:28.5, abdom:66.5, cadera:96.0, muslo:52.8, pantPer:32.6,
     diam: { humero:5.5, biEstiloideo:5.1, femur:8.7 },
+    pctGrasa:16.2, fatKg:8.9, pctOseo:15.5, oseoKg:8.6,
     icc:0.69,
+    somato:{ endo:2.9, meso:4.3, ecto:1.4 },
   },
   antroHistorial: [
     { fecha:'28.09.2026', peso:55.2, talla:156.0, imc:22.7,
       tri:10.0, bi:4.0, sub:8.0, cresta:12.0, supra:8.0, abd:13.0, pierna:14.0, pant:7.0,
       brazRelaj:28.0, brazFlex:28.5, abdom:66.5, cadera:96.0, muslo:52.8, pantPer:32.6,
-      s6:60.0, s8:76.0 },
+      s6:60.0, s8:76.0, pctGrasa:16.2, fatKg:8.9, pctOseo:15.5, oseoKg:8.6, icc:0.69 },
   ],
 
   objetivos: [
@@ -808,6 +810,16 @@ function renderEval() {
         <div class="row"><span>Pantorrilla</span><span>${a.pantPer}</span></div>
         ${icc!=null?`<div class="row bold"><span>ICC (cintura/cadera)</span><span>${icc}</span></div>`:''}
       </div>
+      ${a.diam?`<div class="evgroup"><div class="gh">Diámetros (cm)</div>
+        <div class="row"><span>Húmero</span><span>${a.diam.humero}</span></div>
+        <div class="row"><span>Biestiloideo</span><span>${a.diam.biEstiloideo}</span></div>
+        <div class="row"><span>Fémur</span><span>${a.diam.femur}</span></div>
+      </div>`:''}
+      ${a.somato?`<div class="evgroup"><div class="gh">Somatotipo · Heath-Carter</div>
+        <div class="row"><span>Endomorfia</span><span>${a.somato.endo}</span></div>
+        <div class="row"><span>Mesomorfia</span><span>${a.somato.meso}</span></div>
+        <div class="row"><span>Ectomorfia</span><span>${a.somato.ecto}</span></div>
+      </div>`:''}
       <div class="evgroup"><div class="gh">Composición Corporal</div>
         <div class="row"><span>% Grasa (Faulkner)</span><span>${pctG} %</span></div>
         <div class="row bold"><span>Masa grasa</span><span>${mgKg} kg</span></div>
