@@ -190,10 +190,10 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 const PATIENT = {
   slug:     'vasco-sanchez',
   nombre:   'Vasco\nSanchez',
-  fecha:    '25.09.2026',
+  fecha:    '28.09.2026',
   sexo:     'm',
   tipoPlan: 'Normo-calórico · Hiperprotéico',
-  macros:   { kcal: 2230, p: 157, c: 259, g: 52 },
+  macros:   { kcal: 2500, p: 130, c: 357, g: 57 },
   hidratacion: [
     { label:'💧 MMA + Prep. Fuerza', valor:'4.0' },
     { label:'💧 MMA',                valor:'3.5' },
@@ -219,83 +219,77 @@ const PATIENT = {
   ],
 
   suplementacion: [
-    { nombre:'Multivitamínico', detalle:'<b>1 cápsula al día</b> con el desayuno.' },
+    { nombre:'Multivitamínico', detalle:'<b>1 cápsula al día</b> con el desayuno (Centrum / Thorne).' },
     { nombre:'Creatina monohidratada', detalle:'<b>7 g POST entreno</b> — tomar todos los días, entrenes o no.' },
     { nombre:'Citrato de Magnesio', detalle:'<b>1 cápsula en la noche</b>, antes de acostarse.' },
     { nombre:'Malato de Magnesio', detalle:'<b>1 cápsula en la noche</b>, antes de acostarse.' },
   ],
 
   comidas: [
-    { id:'des', nombre:'☀️ Desayuno', kcal:560, p:42, c:62, g:14, grupos:[
-      { label:'Escoge 01 · Desayuno completo', max:1, ops:[
-        '3 huevos enteros + 1 taza de avena (40 g) cocida con 150 ml leche de almendra sin azúcar + 1 porción de fruta',
-        '1.5 scoops de proteína aislada + 1 taza de avena (40 g) cocida con 200 ml leche de almendra sin azúcar + 1 porción de fruta',
+    { id:'des', nombre:'☀️ Desayuno', kcal:937, p:43, c:147, g:24, grupos:[
+      { label:'Escoge 01', max:1, ops:[
+        '1 plátano + 2 porciones de fruta (Ver especificaciones) + 100 g de berries + 40 g de avena + 200 ml de leche de soya o yogurt Vakimu natural + 20 g de miel de abeja',
+      ]},
+      { label:'Escoge 01', max:1, ops:[
+        '3 huevos + 2 rebanadas de pan (30 g c/u)',
       ]},
     ]},
 
-    { id:'alm', nombre:'🥗 Almuerzo', kcal:700, p:49, c:82, g:15, grupos:[
-      { label:'Pre-comida', max:1, ops:['1 cda de vinagre de manzana + 1 vaso de agua (500 ml)'] },
-      { label:'Escoge 05 · Carbohidrato', max:5, ops:[
+    { id:'alm', nombre:'🥗 Almuerzo', kcal:738, p:42, c:103, g:15, grupos:[
+      { label:'Escoge 06 · Carbohidrato (elige la pasta para comer menos volumen)', max:6, ops:[
         '1/3 taza de arroz blanco o integral (60 g, cocido)',
-        '1/3 taza de quinua (60 g, cocida)',
+        '1/3 taza de quinua (60 g)',
         '1/3 taza de pasta cocida sin relleno (50 g)',
-        '90 g de papa o camote (cocido)',
-        '½ taza de menestras (100 g, cocida)',
-        '½ plátano (airfryer)',
-        '60 g de choclo',
+        'Papa, camote o betarraga (90 g, cocido)',
+        '½ taza de menestras (100 g, cocido)',
       ]},
       { label:'Escoge 01 · Proteína (150 g, peso crudo)', max:1, ops:[
         'Pechuga de pollo','Pechuga de pavo','Pescado',
-        'Bistec','Lomo de res','Langostinos','Carne molida bistec',
+        'Lomo de res','Langostinos','Carne molida de bistec',
+        'Salmón o trucha (si eliges esta opción, corta la porción de grasas)',
       ]},
-      { label:'Escoge 01 · Verduras', max:1, ops:['150-170 g de verduras a tu preferencia'] },
+      { label:'Escoge 01 · Verduras', max:1, ops:['150 a 180 g de verduras de tu preferencia'] },
       { label:'Escoge 01 · Grasa', max:1, ops:[
-        '1 cdta de aceite de oliva',
-        '1 cdta de aceite de ajonjolí',
-        '40 g de palta',
-        '1 porción de frutos secos (Ver especificaciones)',
-        '1 porción de semillas (Ver especificaciones)',
+        '2 cdtas de aceite de oliva',
+        '80 g de palta',
+        '2 porciones de frutos secos (Ver especificaciones)',
+        '10 aceitunas',
+        '1 cda de ají o Tarí Alacena (15 g)',
       ]},
-    ], nota:'Si sales a comer a la calle, trata que la porción que te den sea parecida a la del plan nutricional.' },
+    ], nota:'Si vas a comer fuera revisa el cuadro de especificaciones. Opta por pasta para que no te llenes tanto. Puedes escoger 2 cdas de las salsas bajas en calorías (ver especificaciones).<br><b>Ají casero (hasta 2 cdas):</b> licúa 2 ajíes amarillos sin venas ni pepas, ½ cebolla roja pequeña, 1 diente de ajo, 3 cdas de yogur griego natural sin azúcar (o queso fresco light), un chorrito de agua o caldo desgrasado, huacatay o culantro al gusto, sal, pimienta y unas gotas de limón hasta obtener una salsa cremosa.' },
 
-    { id:'snk', nombre:'🕔 Snack Media Tarde', kcal:390, p:28, c:45, g:10, grupos:[
+    { id:'snk', nombre:'🕔 Snack', kcal:307, p:25, c:39, g:6, grupos:[
       { label:'Escoge 01 · Snack completo', max:1, ops:[
-        '1 Vakimu Pro + 30 g de granola sin azúcar',
-        '200 g de yogurt Skyr sin lactosa + 20 g de granola sin azúcar + 1 porción de fruta + Stevia',
-        '1 scoop de proteína aislada + 200 ml leche de almendra sin azúcar + 1 porción de fruta + 1 rebanada de pan integral',
-        '1 barrita Fitrex + 1 porción de fruta',
+        '1 Rapidita XL o 60 g de pan (2 rebanadas) + 60 g de queso mozzarella light CuisineCo + 1 porción de fruta',
+        '1 Rapidita XL o 60 g de pan (2 rebanadas) + 100 g de pechuga de pollo (peso crudo) + 1 porción de fruta',
+        '40 g de cereal o avena + 300 ml de leche Slim + ½ scoop de proteína + 1 porción de fruta',
+        '1 botella de Vakimu +Pro / 1 botella de PRO de Gloria / 200 g de quark + 40 g de cereal o avena + 1 porción de fruta',
       ]},
     ]},
 
-    { id:'cen', nombre:'🌙 Cena', kcal:580, p:38, c:70, g:13, grupos:[
-      { label:'Pre-comida', max:1, ops:['1 cda de vinagre de manzana + 1 vaso de agua (500 ml)'] },
-      { label:'Escoge 04 · Carbohidrato', max:4, ops:[
-        '1/3 taza de arroz blanco o integral (60 g, cocido)',
-        '1/3 taza de quinua (60 g, cocida)',
-        '1/3 taza de pasta cocida sin relleno (50 g)',
-        '90 g de papa o camote (cocido)',
-        '½ taza de menestras (100 g, cocida)',
-        '1 tortilla rapidita pequeña o ½ grande',
-        '1 pan francés (20 g)',
-        '1 rebanada de pan de molde (de preferencia integral)',
-        '½ plátano (airfryer)',
-        '60 g de choclo',
-        '20 g de popcorn crudo (cocinar sin aceite)',
+    { id:'cen', nombre:'🌙 Cena', kcal:522, p:28, c:69, g:13, grupos:[
+      { label:'Escoge 04 · Carbohidrato (elige la pasta para comer menos volumen)', max:4, ops:[
+        '90 g de papa',
+        '90 g de camote',
+        '90 g de betarraga',
+        '60 g de arroz',
+        '50 g de pasta',
+        '1 rebanada de pan',
       ]},
       { label:'Escoge 01 · Proteína (100 g, peso crudo)', max:1, ops:[
         'Pechuga de pollo','Pechuga de pavo','Pescado',
-        'Bistec','Lomo de res','Langostinos',
-        'Carne molida bistec','Lomo de cerdo',
+        'Lomo de res','Langostinos','Carne molida de bistec',
+        'Salmón o trucha (si eliges esta opción, corta la porción de grasas)',
       ]},
-      { label:'Escoge 01 · Verduras', max:1, ops:['150-170 g de verduras a tu preferencia'] },
       { label:'Escoge 01 · Grasa', max:1, ops:[
-        '1 cdta de aceite de oliva',
-        '1 cdta de aceite de ajonjolí',
-        '40 g de palta',
+        '2 cdtas de aceite de oliva',
+        '80 g de palta',
         '1 porción de frutos secos (Ver especificaciones)',
-        '1 porción de semillas (Ver especificaciones)',
+        '10 aceitunas',
+        '1 cda de ají o Tarí Alacena (15 g)',
       ]},
-    ], nota:'Puedes sumar fideos o arroz Konjac Zero Carbo a tu porción de carbos.' },
+      { label:'Escoge 01 · Verduras', max:1, ops:['120 a 150 g de verduras de tu preferencia'] },
+    ], nota:'Puedes escoger 2 cdas de cualquier salsa baja en calorías (ver especificaciones). Opta por pasta para que no te llenes tanto.' },
   ],
 
   specs: [
@@ -303,54 +297,52 @@ const PATIENT = {
       'Agua, infusiones (manzanilla, anís, té, muña, hierba luisa, flor de Jamaica)',
       'Refrescos no azucarados (emoliente, agua de piña, agua de manzana)',
       'Puedes agregar edulcorantes acalóricos: Stevia, yacón o fruto del monje',
-      'No tomar café o productos con cafeína luego de las 3 pm',
+      'Evitar café y alcohol por dos semanas',
       'Evitar el consumo de chicles',
       '##Opciones de bebidas bajas en calorías',
-      'Té negro o verde helado + limón + Stevia + agua regular o con gas + hielo',
-      'Agua de flor de Jamaica + Stevia + agua regular o con gas + hielo',
-      'Coldbrew: café pasado + zumo de ½ naranja + Stevia + hielo',
-      'Si estás fuera, puedes tomar un Freetea light',
+      'Té negro o verde helado + limón + Stevia + agua regular o con gas + hielo. Puedes agregarle berries',
+      'Agua de flor de Jamaica + Stevia + agua regular o con gas + hielo. Puedes agregarle berries',
+      'Matcha + 200 ml de leche de almendra + Stevia + hielo',
     ]},
     { titulo:'🥝 Porciones de fruta y berries', items:[
       '1 kiwi','½ taza mango picado (80 g)','1 manzana',
       '1 plátano pequeño (60 g pelado) / ½ grande (120 g pelado)',
       '1 taza papaya picada (160 g)','Berries 150 g: arándano, fresa, aguaymanto, moras, frambuesas',
       '¾ taza piña picada (165 g)','1 granadilla / 1 mandarina mediana / 1 pera / 1 durazno / 10 uvas',
-      '200 g de sandía','70 g de pulpa de lúcuma','90 g de chirimoya',
     ]},
-    { titulo:'🥜 Frutos secos y semillas', items:[
+    { titulo:'🥜 Porción de frutos secos', items:[
       '6 cashews','6 almendras','4 pecanas','4 nueces','15 pistachos','10 maní',
       '1 cdta de mantequilla de frutos secos (10 g)',
-      '##Porciones de semillas',
-      '1 cda de chía / linaza / ajonjolí / semillas de girasol / semillas de calabaza',
     ]},
-    { titulo:'🍽️ Opciones fuera de casa', items:[
-      'Burrito o Bowl de Xipe',
-      'Bowl de San Antonio, Don Mamino, Delicass, Freshii: arroz + verduras + pollo + palta',
-      'Poke bowl (sin salsas acevichada o dulces). Proteína + palta + arroz + verduras',
+    { titulo:'🍽️ Opciones si comes fuera', items:[
+      'Poke bowl (sin salsas acevichada ni dulces como tarí o anguila), solo con soya. Ingredientes saludables, nada de frituras: proteína + palta + arroz + verduras + fruta (si deseas)',
+      'Bowl de San Antonio, Don Mamino, Delicass, Freshii: arroz + verduras + pollo + palta si es posible',
       'Wrap de Insólito',
       'Pollo a la brasa: pechuga sin pellejo + ensalada + papa al horno o sancochada',
-      'Si tienes una bodega cerca: 1 PRO de Gloria + cereal no azucarado o plátano + frutos secos',
+      'Ceviche o tiradito con camote y choclo',
+      'Sushi: nigiris con salsa de soya',
     ]},
     { titulo:'📋 Lineamientos generales', items:[
       'Mantenerse lo más estricto posible con las porciones',
       'Consumir los alimentos a la misma hora en cada tiempo de ingesta',
-      'Si comes en restaurante, elige alimentos parecidos a los intercambios del momento',
-      'Llegar bien hidratado a los entrenamientos. Que tus orinas sean siempre claras',
-      'Monitorear el peso diariamente en ayunas y registrar en Happyscale',
+      'Si comes en restaurante, elige alimentos parecidos a los intercambios de la comida que te toca',
+      'Helados caseros: fruta congelada + yogurt Skyr o quark + Stevia. De chocolate: cocoa + plátano congelado. Puedes usar esencia o vaina de vainilla, pizca de sal y canela',
+      'Bebe líquido durante el día frecuentemente; que tus orinas sean siempre claras. Llega bien hidratado a los entrenamientos',
     ]},
   ],
 
   vinagretas: [
-    { nombre:'Mermelada de berries',     desc:'200 g berries + 2 cdas chía + 4 cdas monkfruit → microondas u olla' },
-    { nombre:'Leche condensada light',   desc:'Leche en polvo descremada + Stevia + leche evaporada descremada (chorro pequeño hasta lograr textura)' },
-    { nombre:'Tzatziki',                 desc:'2 cdas yogurt descremado + sal y pimienta + 1 diente ajo + pepino en trozos + 1 cdta aceite de oliva + eneldo, perejil, orégano y menta al gusto' },
-    { nombre:'Honey Mustard',            desc:'2 cdas yogurt descremado + sal, pimienta + 1 cda mostaza + 1 cdta miel + Stevia al gusto + 1 cda vinagre de manzana' },
-    { nombre:'Vinagreta Ranch',          desc:'2 cdas yogurt descremado + sal, pimienta + 1 cda vinagre blanco + 1 cda agua + finas hierbas' },
-    { nombre:'Pico de gallo',            desc:'Tomate, cebolla, culantro, ají o rocoto, limón, ajo opcional, sal y pimienta al gusto' },
+    { nombre:'Mermelada',                desc:'200 g de berries + 2 cdas de chía + 4 cdas de monk fruit → microondas u olla' },
+    { nombre:'Leche condensada light',   desc:'Leche en polvo descremada + Stevia + leche evaporada descremada (ir echando en chorro pequeño hasta lograr textura)' },
+    { nombre:'Tzatziki',                 desc:'2 cdas de yogurt descremado (tipo Vakimu natural) + sal y pimienta + 1 diente de ajo + pepino en trozos pequeños + 1 cdta de aceite de oliva + eneldo, perejil, orégano y menta (al gusto, opcional)' },
+    { nombre:'Honey Mustard',            desc:'1 cda de mostaza + 1 cda de yogurt descremado + sal, pimienta + Stevia al gusto' },
+    { nombre:'Salsa verde',              desc:'½ molde de queso fresco light + 1 atado de albahaca (puedes agregar espinaca) + 2 dientes de ajo asados, sal y pimienta + 1 cda de aceite de oliva + leche evaporada light (100-150 ml) + leche fresca Slim hasta lograr textura' },
+    { nombre:'Salsa roja',               desc:'Tomate, cebolla, ajo, albahaca, poro, opcional fruto del monje (Lakanto) o Stevia si le falta dulzor, sal, pimienta y tomillo + 1 cda de aceite de oliva para el aderezo. Puedes añadir cualquier otra verdura' },
+    { nombre:'Salsa de ají amarillo',    desc:'2 ajíes amarillos sin venas ni semillas + jugo de 1 limón + 2 cdas de yogurt griego Vakimu + 1 diente de ajo pequeño + sal al gusto' },
+    { nombre:'Salsa de rocoto ligera',   desc:'1 rocoto sin semillas + 2 cdas de yogurt griego Vakimu + jugo de limón + culantro o perejil al gusto + sal' },
   ],
 
-  notaSpecs: 'Plan base = días de descanso (2230 kcal). Días de entrenamiento: agregar pre-entreno (Fuerza +300 kcal / MMA +420 kcal).',
+  notaSpecs: 'Plan base = días de descanso (2500 kcal). Días de entrenamiento: agregar Fuerza +300 kcal / MMA +420 kcal.',
   entrenamiento: null,
 };
 
@@ -393,7 +385,7 @@ function showTab(id,btn) {
 }
 
 // ── Nutrición ──────────────────────────────────────────────────────────────
-const MEAL_KEY = () => `${PATIENT.slug}-meals-v1`;
+const MEAL_KEY = () => `${PATIENT.slug}-meals-v2`;
 function getMealState() { try { const r=localStorage.getItem(MEAL_KEY()); return r?JSON.parse(r):{}; } catch { return {}; } }
 function saveMealState(s) { localStorage.setItem(MEAL_KEY(), JSON.stringify(s)); flashSave(); }
 let mealState = getMealState();
@@ -421,9 +413,9 @@ function renderNutr() {
           <div class="mac"><b>+300</b> kcal</div>
         </div>
         <div class="body">
-          <div class="pick"><div class="k">Pre entreno (60 min antes)</div>
+          <div class="pick"><div class="k">Pre entreno</div>
             <div class="options" data-group="train-fuerza" data-max="1">
-              <div class="opt" onclick="toggleOpt(this)"><span class="cb"></span><span class="opt-text">40 g de Nestum, Cerelac o crema de arroz + 1 cda de miel de abeja + ½ scoop de proteína + 200 ml leche de almendra sin azúcar</span></div>
+              <div class="opt" onclick="toggleOpt(this)"><span class="cb"></span><span class="opt-text">40 g de Nestum o crema de arroz (peso seco) + 1 cda de miel de abeja + ½ scoop de proteína + 200 ml de leche de almendra (opcional)</span></div>
             </div>
           </div>
         </div>
@@ -434,20 +426,21 @@ function renderNutr() {
           <div class="mac"><b>+420</b> kcal</div>
         </div>
         <div class="body">
-          <div class="pick"><div class="k">Pre entreno (60 min antes) · Escoge 01</div>
+          <div class="pick"><div class="k">Pre entreno · Escoge 01</div>
             <div class="options" data-group="train-mma-pre" data-max="1">
               <div class="opt" onclick="toggleOpt(this)"><span class="cb"></span><span class="opt-text">1 plátano + 1 cda de miel de abeja</span></div>
-              <div class="opt" onclick="toggleOpt(this)"><span class="cb"></span><span class="opt-text">1 vaso de jugo de betarraga + jugo de naranja (300 ml)</span></div>
+              <div class="opt" onclick="toggleOpt(this)"><span class="cb"></span><span class="opt-text">2 betarragas + 1 naranja + agua (extracto o jugo licuado y colado)</span></div>
             </div>
           </div>
           <div class="pick"><div class="k">Intra entreno</div>
             <div class="options" data-group="train-mma-intra" data-max="1">
-              <div class="opt" onclick="toggleOpt(this)"><span class="cb"></span><span class="opt-text">1 Hydralite + 1 cda de miel de abeja + ½ Gatorade 500 ml</span></div>
+              <div class="opt" onclick="toggleOpt(this)"><span class="cb"></span><span class="opt-text">1 serving de Hydralite de Maxx Nutrition + 1 cda de miel de abeja en 1 litro de agua</span></div>
+              <div class="opt" onclick="toggleOpt(this)"><span class="cb"></span><span class="opt-text">+ 500 ml de Gatorade o Sporade (añadir si el entreno es muy intenso)</span></div>
             </div>
           </div>
           <div class="pick"><div class="k">Post entreno</div>
             <div class="options" data-group="train-mma-post" data-max="1">
-              <div class="opt" onclick="toggleOpt(this)"><span class="cb"></span><span class="opt-text">1 porción de fruta + 1 scoop de proteína aislada (con 200 ml agua o leche de almendra)</span></div>
+              <div class="opt" onclick="toggleOpt(this)"><span class="cb"></span><span class="opt-text">1 porción de fruta (Ver especificaciones) + 1 scoop de proteína</span></div>
             </div>
           </div>
         </div>
