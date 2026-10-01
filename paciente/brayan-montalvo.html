@@ -194,7 +194,7 @@ const PATIENT = {
   nombre:    'Brayan\nMontalvo',
   fecha:     '25.09.2026',
   tipoPlan:  'Corte · Pre-Pelea MMA',
-  macros:    { kcal: 2100, p: 162, c: 247, g: 56 },
+  macros:    { kcal: 1983, p: 162, c: 218, g: 56 },
   hidratacion: [
     { label:'💧 Entrenamiento', valor:'4.5' },
     { label:'💧 Descanso',      valor:'3.5' },
@@ -270,13 +270,10 @@ const PATIENT = {
         ]},
     ]},
 
-    { id:'alm', nombre:'🥗 Almuerzo', kcal:600, p:55, c:68, g:13, grupos:[
-        { label:'Escoge 03 · Carbohidrato (peso cocido)', max:3, ops:[
-          '100 g de arroz cocido',
-          '90 g de papa o camote sancochado',
-          '1 rebanada de pan Bimbo blanco (25 g)',
-          '30 g de avena preparada con agua',
-          '1 porción de fruta',
+    { id:'alm', nombre:'🥗 Almuerzo', kcal:455, p:55, c:32, g:13, grupos:[
+        { label:'Escoge 01 · Carbohidrato (peso cocido)', max:1, ops:[
+          '100 g de arroz cocido — 28 C',
+          '180 g de papa sancochada — 36 C',
         ]},
         { label:'Escoge 01 · Proteína (180 g, peso crudo)', max:1, ops:[
           'Pechuga de pollo',
@@ -310,15 +307,17 @@ const PATIENT = {
         ]},
     ], nota:'Consumir 30–45 min antes del boxeo de la tarde. Si el entreno es muy cercano, solo el carbo.' },
 
-    { id:'cen', nombre:'🌙 Cena', kcal:405, p:40, c:26, g:16, grupos:[
+    { id:'cen', nombre:'🌙 Cena', kcal:433, p:40, c:33, g:16, grupos:[
         { label:'Escoge 01 · Proteína', max:1, ops:[
           '150 g de pechuga de pollo cocida',
           '150 g de tilapia cocida',
           '1 lata de atún en agua (180 g)',
           '1 scoop de proteína en polvo (30 g) + 2 huevos',
+          '11 claras de huevo (≈ 365 g) — 40 g de proteína',
         ]},
         { label:'Escoge 01 · Carbohidrato', max:1, ops:[
-          '100 g de arroz cocido',
+          '120 g de arroz cocido — 34 C',
+          '2 rapiditas integrales — 31 C',
           '2 rebanadas de pan Bimbo blanco (50 g)',
           '1 plátano pequeño (60 g pelado)',
         ]},
