@@ -194,7 +194,7 @@ const PATIENT = {
   nombre:    'Brayan\nMontalvo',
   fecha:     '25.09.2026',
   tipoPlan:  'Corte · Pre-Pelea MMA',
-  macros:    { kcal: 1983, p: 162, c: 218, g: 56 },
+  macros:    { kcal: 1968, p: 165, c: 218, g: 51 },
   hidratacion: [
     { label:'💧 Entrenamiento', valor:'4.5' },
     { label:'💧 Descanso',      valor:'3.5' },
@@ -231,14 +231,14 @@ const PATIENT = {
   ],
 
   comidas: [
-    { id:'pre', nombre:'⚡ Pre-Entreno Mañana', kcal:235, p:4, c:44, g:6, grupos:[
+    { id:'pre', nombre:'⚡ Pre-Entreno Mañana', kcal:220, p:4, c:45, g:4, grupos:[
         { label:'Escoge 01 · Opción completa', max:1, ops:[
-          '2 rebanadas de pan de molde blanco (50 g) + 1 cda de miel de abeja o mermelada — 185 kcal · 38 C',
-          '50 g de dátiles, unos 6 pequeños o 2 Medjool — 140 kcal · 38 C',
-          '3 galletas de arroz + 1 cda de miel de abeja o mermelada — 170 kcal · 39 C',
-          '30 g de avena instantánea preparada con agua caliente + 1 cda de miel de abeja — 175 kcal · 37 C',
-          'Jugo de betarraga con naranja — 100 g de betarraga + 1 naranja mediana + 1 cda de miel de abeja + agua al gusto — 170 kcal · 42 C',
-          '1 plátano pequeño (60 g pelado) + 1 cda de miel de abeja — 115 kcal · 31 C',
+          '2 rebanadas de pan de molde blanco (50 g) + 15 g de miel de abeja o mermelada — 180 kcal · 37 C',
+          '50 g de dátiles (6 pequeños o 2 Medjool) + 6 g de mantequilla de maní — 175 kcal · 39 C',
+          '4 galletas de arroz (36 g) + 10 g de miel de abeja o mermelada — 170 kcal · 38 C',
+          '30 g de avena instantánea con agua caliente + 20 g de miel de abeja — 175 kcal · 37 C',
+          'Jugo: 100 g de betarraga + 1 naranja mediana + 20 g de miel de abeja + agua al gusto — 165 kcal · 40 C',
+          '1 plátano (140 g pelado) + 10 g de miel de abeja — 155 kcal · 40 C',
         ]},
         { label:'Adicional · va con cualquier opción', max:0, ops:[
           '10 g de chispas de chocolate — 50 kcal · 6 C',
@@ -291,21 +291,21 @@ const PATIENT = {
         ]},
     ]},
 
-    { id:'pre2', nombre:'🥊 Pre-Entreno Tarde', kcal:315, p:13, c:49, g:8, grupos:[
-        { label:'Escoge 01 · Carbohidrato + Adicional', max:1, ops:[
-          '2 rebanadas de pan Bimbo blanco (50 g) + 1 cda de miel de abeja',
-          '3 galletas de arroz (45 g) + 1 cda de miel de abeja',
-          '30 g de avena con agua + 1 cda de miel de abeja + ½ plátano',
+    { id:'pre2', nombre:'🥊 Pre-Entreno Tarde', kcal:315, p:16, c:48, g:5, grupos:[
+        { label:'Escoge 01 · Carbohidrato', max:1, ops:[
+          '2 rebanadas de pan Bimbo blanco (50 g) + 20 g de miel de abeja — 195 kcal · 41 C',
+          '3 galletas de arroz (45 g) + 1 cdta de miel de abeja (7 g) — 195 kcal · 43 C',
+          '30 g de avena con agua + ½ plátano (70 g) + 10 g de miel de abeja — 205 kcal · 44 C',
         ]},
         { label:'Escoge 01 · Proteína', max:1, ops:[
-          '30 g de queso edam',
-          '½ lata de atún en agua (90 g)',
-          '120 g de Vakimú Quark',
+          '½ lata de atún en agua (90 g) — 13 P · 60 kcal',
+          '120 g de Vakimú Quark — 12 P · 70 kcal',
+          '50 g de queso edam — 12 P · 180 kcal (sube 13 g de grasa, ver nota)',
         ]},
         { label:'Adicional · va con cualquier opción', max:0, ops:[
           '10 g de chispas de chocolate — 50 kcal · 6 C',
         ]},
-    ], nota:'Consumir 30–45 min antes del boxeo de la tarde. Si el entreno es muy cercano, solo el carbo.' },
+    ], nota:'Consumir 30–45 min antes del boxeo de la tarde. Si el entreno es muy cercano, solo el carbo.<br>🧀 El edam cubre la misma proteína que el atún o el Quark, pero con 13 g de grasa en vez de 1. Déjalo para los días que entrenas más tarde: la grasa enlentece la digestión.' },
 
     { id:'cen', nombre:'🌙 Cena', kcal:433, p:40, c:33, g:16, grupos:[
         { label:'Escoge 01 · Proteína', max:1, ops:[
