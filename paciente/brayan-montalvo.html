@@ -194,7 +194,7 @@ const PATIENT = {
   nombre:    'Brayan\nMontalvo',
   fecha:     '25.09.2026',
   tipoPlan:  'Corte · Pre-Pelea MMA',
-  macros:    { kcal: 2000, p: 160, c: 215, g: 50 },
+  macros:    { kcal: 2100, p: 162, c: 247, g: 56 },
   hidratacion: [
     { label:'💧 Entrenamiento', valor:'4.5' },
     { label:'💧 Descanso',      valor:'3.5' },
@@ -231,7 +231,7 @@ const PATIENT = {
   ],
 
   comidas: [
-    { id:'pre', nombre:'⚡ Pre-Entreno Mañana', kcal:185, p:3, c:38, g:3, grupos:[
+    { id:'pre', nombre:'⚡ Pre-Entreno Mañana', kcal:235, p:4, c:44, g:6, grupos:[
         { label:'Escoge 01 · Opción completa', max:1, ops:[
           '2 rebanadas de pan de molde blanco (50 g) + 1 cda de miel de abeja o mermelada — 185 kcal · 38 C',
           '50 g de dátiles, unos 6 pequeños o 2 Medjool — 140 kcal · 38 C',
@@ -239,6 +239,9 @@ const PATIENT = {
           '30 g de avena instantánea preparada con agua caliente + 1 cda de miel de abeja — 175 kcal · 37 C',
           'Jugo de betarraga con naranja — 100 g de betarraga + 1 naranja mediana + 1 cda de miel de abeja + agua al gusto — 170 kcal · 42 C',
           '1 plátano pequeño (60 g pelado) + 1 cda de miel de abeja — 115 kcal · 31 C',
+        ]},
+        { label:'Adicional · va con cualquier opción', max:0, ops:[
+          '10 g de chispas de chocolate — 50 kcal · 6 C',
         ]},
     ], nota:'Consumir 15–20 min antes de salir a entrenar. Si no hay tiempo, solo el plátano + miel.<br>⚡ Cada opción ya incluye su miel o mermelada: no le sumes otra encima. Todas rondan los 38 g de carbohidrato, que es lo que buscamos antes de entrenar.' },
 
@@ -291,7 +294,7 @@ const PATIENT = {
         ]},
     ]},
 
-    { id:'pre2', nombre:'🥊 Pre-Entreno Tarde', kcal:265, p:12, c:43, g:5, grupos:[
+    { id:'pre2', nombre:'🥊 Pre-Entreno Tarde', kcal:315, p:13, c:49, g:8, grupos:[
         { label:'Escoge 01 · Carbohidrato + Adicional', max:1, ops:[
           '2 rebanadas de pan Bimbo blanco (50 g) + 1 cda de miel de abeja',
           '3 galletas de arroz (45 g) + 1 cda de miel de abeja',
@@ -301,6 +304,9 @@ const PATIENT = {
           '30 g de queso edam',
           '½ lata de atún en agua (90 g)',
           '120 g de Vakimú Quark',
+        ]},
+        { label:'Adicional · va con cualquier opción', max:0, ops:[
+          '10 g de chispas de chocolate — 50 kcal · 6 C',
         ]},
     ], nota:'Consumir 30–45 min antes del boxeo de la tarde. Si el entreno es muy cercano, solo el carbo.' },
 
