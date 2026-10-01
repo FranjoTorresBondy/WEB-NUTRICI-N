@@ -1,0 +1,1334 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brayan Montalvo — Fight Week & Rebound</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Chakra+Petch:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0a;
+  --bg2: #111111;
+  --bg3: #1a1a1a;
+  --gold: #d4af37;
+  --red: #e53e3e;
+  --blue: #4299e1;
+  --green: #48bb78;
+  --orange: #ed8936;
+  --purple: #9f7aea;
+  --teal: #38b2ac;
+  --text: #f0f0f0;
+  --muted: #888888;
+  --border: #2a2a2a;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* ─── HERO ─── */
+.hero {
+  background: linear-gradient(135deg, #0d0d0d 0%, #1a1000 50%, #0d0d0d 100%);
+  border-bottom: 1px solid var(--border);
+  padding: 32px 24px 24px;
+  text-align: center;
+}
+.hero-name {
+  font-family: 'Chakra Petch', sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.hero-sub {
+  font-size: 0.85rem;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.hero-badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.badge {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-size: 0.8rem;
+  line-height: 1.3;
+}
+.badge-label { color: var(--muted); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.06em; display: block; }
+.badge-value { color: var(--text); font-weight: 600; }
+.badge.gold   { border-color: var(--gold);   }
+.badge.red    { border-color: var(--red);     }
+.badge.blue   { border-color: var(--blue);    }
+.badge.green  { border-color: var(--green);   }
+.badge.orange { border-color: var(--orange);  }
+
+/* ─── TABS ─── */
+.tabs {
+  display: flex;
+  overflow-x: auto;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  padding: 0 16px;
+  gap: 2px;
+  scrollbar-width: none;
+}
+.tabs::-webkit-scrollbar { display: none; }
+.tab-btn {
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding: 14px 14px 11px;
+  white-space: nowrap;
+  transition: color 0.2s;
+}
+.tab-btn:hover { color: var(--text); }
+.tab-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+/* ─── CONTENT ─── */
+.tab-content { display: none; max-width: 860px; margin: 0 auto; padding: 24px 16px 48px; }
+.tab-content.active { display: block; }
+
+/* ─── SECTIONS ─── */
+.section { margin-bottom: 28px; }
+.section-title {
+  font-family: 'Chakra Petch', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--gold);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* ─── CARDS ─── */
+.card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px 18px;
+  margin-bottom: 12px;
+}
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.card-time {
+  font-family: 'Chakra Petch', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--gold);
+  min-width: 52px;
+}
+.card-label {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--text);
+}
+.card-badge {
+  margin-left: auto;
+  font-size: 0.7rem;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.cb-water  { background: #1a3a4a; color: var(--blue); }
+.cb-carb   { background: #3a2a00; color: var(--gold); }
+.cb-protein{ background: #1a3a2a; color: var(--green); }
+.cb-electr { background: #3a1a2a; color: var(--purple); }
+.cb-key    { background: #3a1a1a; color: var(--red); }
+
+.meal-list { list-style: none; padding: 0; }
+.meal-list li {
+  padding: 4px 0;
+  font-size: 0.88rem;
+  color: #ccc;
+  border-bottom: 1px solid #1e1e1e;
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+.meal-list li:last-child { border-bottom: none; }
+.meal-list li strong { color: var(--text); font-weight: 600; }
+.meal-list li .dot { color: var(--gold); font-size: 0.6rem; flex-shrink: 0; margin-top: 3px; }
+
+.water-bar {
+  background: var(--bg3);
+  border-radius: 4px;
+  height: 6px;
+  margin-top: 10px;
+  overflow: hidden;
+}
+.water-fill {
+  background: linear-gradient(90deg, var(--blue), var(--teal));
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.5s ease;
+}
+
+/* ─── PHASE OVERVIEW CARD ─── */
+.phase-card {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px;
+  margin-bottom: 12px;
+  border-left: 3px solid var(--gold);
+}
+.phase-card.phase-red    { border-left-color: var(--red); }
+.phase-card.phase-blue   { border-left-color: var(--blue); }
+.phase-card.phase-green  { border-left-color: var(--green); }
+.phase-card.phase-orange { border-left-color: var(--orange); }
+.phase-card h3 {
+  font-family: 'Chakra Petch', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* ─── STATS GRID ─── */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.stat-box {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px;
+  text-align: center;
+}
+.stat-val { font-family: 'Chakra Petch', sans-serif; font-size: 1.3rem; font-weight: 700; color: var(--gold); }
+.stat-lbl { font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 2px; }
+
+/* ─── ALERT BOXES ─── */
+.alert {
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-bottom: 12px;
+  font-size: 0.85rem;
+}
+.alert-warning { background: #2a1f00; border: 1px solid #6b4f00; color: #fbbf24; }
+.alert-info    { background: #001a2a; border: 1px solid #004466; color: #60c4f7; }
+.alert-danger  { background: #2a0000; border: 1px solid #660000; color: #f87171; }
+.alert-success { background: #002a10; border: 1px solid #006622; color: #6ee7b7; }
+.alert strong  { font-weight: 700; }
+
+/* ─── TWO-COL ─── */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 540px) { .two-col { grid-template-columns: 1fr; } }
+
+/* ─── DAY HEADER ─── */
+.day-header {
+  background: linear-gradient(90deg, var(--bg3), var(--bg2));
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--gold);
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.day-header.day-red    { border-left-color: var(--red); }
+.day-header.day-blue   { border-left-color: var(--blue); }
+.day-header.day-green  { border-left-color: var(--green); }
+.day-header.day-orange { border-left-color: var(--orange); }
+.day-header .day-name {
+  font-family: 'Chakra Petch', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.day-header .day-desc { font-size: 0.8rem; color: var(--muted); }
+.day-header .day-water {
+  margin-left: auto;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--blue);
+}
+
+/* ─── SHOPPING ─── */
+.shop-category { margin-bottom: 20px; }
+.shop-category h3 {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--gold);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 6px 12px;
+  background: var(--bg3);
+  border-radius: 6px;
+  margin-bottom: 8px;
+}
+.shop-list { list-style: none; padding: 0; }
+.shop-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.87rem;
+}
+.shop-list li:last-child { border-bottom: none; }
+.shop-list .item-name { color: var(--text); }
+.shop-list .item-qty  { color: var(--gold); font-weight: 600; font-size: 0.82rem; }
+.shop-list .item-note { color: var(--muted); font-size: 0.75rem; margin-left: 8px; }
+
+/* ─── CONTROL ─── */
+.control-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.88rem;
+}
+.control-row:last-child { border-bottom: none; }
+.control-label { color: var(--muted); }
+.control-value { font-weight: 600; color: var(--text); }
+.control-value.ok  { color: var(--green); }
+.control-value.warn { color: var(--orange); }
+.control-value.bad  { color: var(--red); }
+
+.spec-item {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.87rem;
+}
+.spec-item:last-child { border-bottom: none; }
+.spec-item strong { color: var(--gold); display: block; margin-bottom: 2px; font-size: 0.8rem; text-transform: uppercase; }
+
+/* ─── TIMELINE CONNECTOR ─── */
+.timeline { position: relative; }
+.timeline-item { position: relative; padding-left: 28px; margin-bottom: 4px; }
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: 8px;
+  top: 20px;
+  width: 2px;
+  height: calc(100% + 4px);
+  background: var(--border);
+}
+.timeline-item:last-child::before { display: none; }
+.timeline-item::after {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 16px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--gold);
+  border: 2px solid var(--bg2);
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-name">Brayan Montalvo</div>
+  <div class="hero-sub">MMA / Boxeo — Protocolo Fightweek &amp; Rebound</div>
+  <div class="hero-badges">
+    <div class="badge gold">
+      <span class="badge-label">Peso Actual</span>
+      <span class="badge-value">70.5 kg</span>
+    </div>
+    <div class="badge red">
+      <span class="badge-label">Peso de Pelea</span>
+      <span class="badge-value">62 kg</span>
+    </div>
+    <div class="badge orange">
+      <span class="badge-label">Corte Total</span>
+      <span class="badge-value">~8.5 kg</span>
+    </div>
+    <div class="badge blue">
+      <span class="badge-label">Pesaje</span>
+      <span class="badge-value">Lun 12 Oct</span>
+    </div>
+    <div class="badge green">
+      <span class="badge-label">Pelea</span>
+      <span class="badge-value">Mar 13 Oct</span>
+    </div>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="tabs">
+  <button class="tab-btn active" onclick="showTab('protocolo')">📋 Protocolo</button>
+  <button class="tab-btn" onclick="showTab('fase1')">💧 Fase 1 — Carga Hídrica</button>
+  <button class="tab-btn" onclick="showTab('fase2')">🔻 Fase 2 — Restricción</button>
+  <button class="tab-btn" onclick="showTab('rebound1')">⚖️ Rebound — Lun 12</button>
+  <button class="tab-btn" onclick="showTab('rebound2')">⚔️ Pelea — Mar 13</button>
+  <button class="tab-btn" onclick="showTab('control')">📊 Control</button>
+  <button class="tab-btn" onclick="showTab('compras')">🛒 Compras</button>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     TAB: PROTOCOLO
+═══════════════════════════════════════════════ -->
+<div id="tab-protocolo" class="tab-content active">
+
+  <div class="section">
+    <div class="section-title">Datos del Atleta</div>
+    <div class="stats-grid">
+      <div class="stat-box"><div class="stat-val">70.5 kg</div><div class="stat-lbl">Peso Actual</div></div>
+      <div class="stat-box"><div class="stat-val">62 kg</div><div class="stat-lbl">Peso Pelea</div></div>
+      <div class="stat-box"><div class="stat-val">172 cm</div><div class="stat-lbl">Talla</div></div>
+      <div class="stat-box"><div class="stat-val">8.5 kg</div><div class="stat-lbl">Corte</div></div>
+      <div class="stat-box"><div class="stat-val">24.1</div><div class="stat-lbl">IMC</div></div>
+      <div class="stat-box"><div class="stat-val">10.3%</div><div class="stat-lbl">% Grasa</div></div>
+      <div class="stat-box"><div class="stat-val">1.3/4.8/1.8</div><div class="stat-lbl">Somatotipo E/M/E</div></div>
+      <div class="stat-box"><div class="stat-val">29 mm</div><div class="stat-lbl">Σ6 Pliegues</div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Línea de Tiempo</div>
+
+    <div class="phase-card phase-blue">
+      <h3 style="color:var(--blue)">💧 Fase 1 — Carga Hídrica</h3>
+      <p style="font-size:0.87rem;color:#ccc;margin-bottom:6px;">Lunes 6 → Viernes 9 de Octubre</p>
+      <p style="font-size:0.85rem;color:var(--muted)">Hiperhydration con 7–8 litros/día. Alimentación normal con alta carga de carbohidratos para maximizar glucógeno muscular. Mantener sodio y electrolitos normales. Sin restricciones alimentarias.</p>
+    </div>
+
+    <div class="phase-card phase-red">
+      <h3 style="color:var(--red)">🔻 Fase 2 — Restricción Hídrica</h3>
+      <p style="font-size:0.87rem;color:#ccc;margin-bottom:6px;">Sábado 10 → Domingo 11 de Octubre</p>
+      <p style="font-size:0.85rem;color:var(--muted)">Sábado: reducir a 1.0–1.5L. Eliminar carbohidratos en la tarde-noche, lácteos y fruta. Domingo: máximo 400–500 mL. Solo proteína magra. Sauna / baño caliente domingo noche para terminar el corte.</p>
+    </div>
+
+    <div class="phase-card" style="border-left-color:var(--gold)">
+      <h3 style="color:var(--gold)">⚖️ Pesaje</h3>
+      <p style="font-size:0.87rem;color:#ccc;margin-bottom:6px;">Lunes 12 de Octubre — mañana (hora a confirmar)</p>
+      <p style="font-size:0.85rem;color:var(--muted)">Objetivo: presentarse a 62.0 kg. Inmediatamente post-pesaje inicia el protocolo de rehidratación y rebound.</p>
+    </div>
+
+    <div class="phase-card phase-green">
+      <h3 style="color:var(--green)">⚡ Rebound — Día 1</h3>
+      <p style="font-size:0.87rem;color:#ccc;margin-bottom:6px;">Lunes 12 de Octubre — post-pesaje</p>
+      <p style="font-size:0.85rem;color:var(--muted)">Rehidratación oral con Ceralyte 70. Carga rápida de glucógeno con carbohidratos simples y complejos. Objetivo: recuperar 5–7 kg antes de dormir (~68–69 kg).</p>
+    </div>
+
+    <div class="phase-card phase-orange">
+      <h3 style="color:var(--orange)">⚔️ Día de Pelea — Día 2</h3>
+      <p style="font-size:0.87rem;color:#ccc;margin-bottom:6px;">Martes 13 de Octubre</p>
+      <p style="font-size:0.85rem;color:var(--muted)">Desayuno y comidas pre-pelea ricas en carbohidratos. Timing estratégico de comidas según hora de pelea. Mantenerse hidratado.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Suplementos Actuales</div>
+    <div class="card">
+      <ul class="meal-list">
+        <li><span class="dot">▸</span> <strong>Omega 3</strong> — mantener durante todo el protocolo</li>
+        <li><span class="dot">▸</span> <strong>Proteína en polvo</strong> — útil en fase de restricción (sin lactosa si es posible)</li>
+        <li><span class="dot">▸</span> <strong>BCAA</strong> — puede incluirse en entrenamiento fase 2</li>
+        <li><span class="dot">▸</span> <strong>Glicinato de Magnesio</strong> — mantener, ayuda al sueño y recuperación</li>
+        <li><span class="dot">▸</span> <strong>Creatina</strong> — pausar desde sábado 10 Oct (retiene agua); reanudar post-pesaje</li>
+      </ul>
+    </div>
+    <div class="alert alert-warning">
+      <strong>⚠ Creatina:</strong> pausar desde el sábado 10 para no dificultar el corte. Reanudar con el rebound del lunes 12.
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Notas Importantes</div>
+    <div class="alert alert-info">
+      <strong>Sin stevia:</strong> Brayan no tolera la stevia. No incluir en ninguna preparación.
+    </div>
+    <div class="alert alert-info">
+      <strong>Almacenamiento:</strong> Brayan congela su comida en frigobar. Preparar proteínas (pollo) en batch para la semana de restricción.
+    </div>
+    <div class="alert alert-success">
+      <strong>Tradición post-pesaje:</strong> limonada casera con pizca de sal — excelente rehidratación. Incluirla en el protocolo de rebound.
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     TAB: FASE 1 — CARGA HÍDRICA
+═══════════════════════════════════════════════ -->
+<div id="tab-fase1" class="tab-content">
+
+  <div class="day-header day-blue">
+    <div>
+      <div class="day-name">💧 Fase 1 — Carga Hídrica</div>
+      <div class="day-desc">Lunes 6 → Viernes 9 de Octubre</div>
+    </div>
+    <div class="day-water">7–8 L / día</div>
+  </div>
+
+  <div class="alert alert-info">
+    <strong>Objetivo:</strong> saturar reservas de glucógeno muscular e hígado. Mantener hidrataciónóptima. Estos 5 días determinan cuánto glucógeno disponible tendrá para el corte y la pelea.
+  </div>
+
+  <div class="section">
+    <div class="section-title">Indicaciones Generales</div>
+    <div class="card">
+      <ul class="meal-list">
+        <li><span class="dot">▸</span> <strong>Agua:</strong> 7–8 litros distribuidos durante el día (sin forzar en las noches)</li>
+        <li><span class="dot">▸</span> <strong>Sodio:</strong> normal-alto (no restringir) — ayuda a retener agua en esta fase</li>
+        <li><span class="dot">▸</span> <strong>Carbohidratos:</strong> ↑ a 6–8 g/kg/día (~400–560 g CHO/día)</li>
+        <li><span class="dot">▸</span> <strong>Proteína:</strong> 1.6–2.0 g/kg → ~110–140 g/día</li>
+        <li><span class="dot">▸</span> <strong>Grasas:</strong> moderadas, sin eliminar</li>
+        <li><span class="dot">▸</span> <strong>Creatina:</strong> mantener dosis normal</li>
+        <li><span class="dot">▸</span> <strong>Entrenamiento:</strong> seguir rutina normal (doble sesión: MMA 12:00, Boxeo 7 pm)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Plan de Alimentación Diario</div>
+    <p style="font-size:0.82rem;color:var(--muted);margin-bottom:12px;">Mismo plan los 5 días. Ajustar porciones si el peso sube más de 1 kg respecto al lunes.</p>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-time">06:00</div>
+        <div class="card-label">Desayuno</div>
+        <span class="card-badge cb-carb">CHO</span>
+      </div>
+      <ul class="meal-list">
+        <li><span class="dot">▸</span> <strong>40 g</strong> avena en hojuelas</li>
+        <li><span class="dot">▸</span> <strong>10 g</strong> semillas de chía</li>
+        <li><span class="dot">▸</span> Maca negra + canela al gusto</li>
+        <li><span class="dot">▸</span> <strong>1 cucharada</strong> miel de maple</li>
+        <li><span class="dot">▸</span> <strong>1</strong> plátano mediano (120 g)</li>
+        <li><span class="dot">▸</span> <strong>30 g</strong> proteína en polvo (disuelto en agua o leche Danlac vainilla 200 mL)</li>
+        <li><span class="dot">▸</span> <strong>500 mL</strong> agua</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-time">09:00</div>
+        <div class="card-label">Snack Pre-Entrenamiento</div>
+        <span class="card-badge cb-carb">Pre-Gym</span>
+      </div>
+      <ul class="meal-list">
+        <li><span class="dot">▸</span> <strong>3</strong> galletas de arroz</li>
+        <li><span class="dot">▸</span> <strong>2 cucharadas</strong> miel de maple</li>
+        <li><span class="dot">▸</span> <strong>20 g</strong> nueces o mantequilla de nueces</li>
+        <li><span class="dot">▸</span> <strong>500 mL</strong> agua</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-time">12:00</div>
+        <div class="card-label">MMA / Lucha — Durante Entrenamiento</div>
+        <span class="card-badge cb-water">Hidratación</span>
+      </div>
+      <ul class="meal-list">
+        <li><span class="dot">▸</span> <strong>750 mL–1 L</strong> agua con electrolitos (o agua sola)</li>
+        <li><span class="dot">▸</span> <strong>1</strong> plátano o 30 g gomitas (si entrena más de 90 min)</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-time">14:00</div>
+        <div class="card-label">Almuerzo Post-Entrenamiento</div>
+        <span class="card-badge cb-protein">Proteína</span>
+      </div>
+      <ul class="meal-list">
+        <li><span class="dot">▸</span> <strong>180–200 g</strong> arroz blanco cocido</li>
+        <li><span class="dot">▸</span> <strong>180 g</strong> pechuga de pollo</li>
+        <li><span class="dot">▸</span> <strong>50 g</strong> aceitunas</li>
+        <li><span class="dot">▸</span> <strong>30 g</strong> queso mozzarella o fresco</li>
+        <li><span class="dot">▸</span> <strong>750 mL</strong> agua</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-time">17:00</div>
+        <div class="card-label">Snack Pre-Boxeo</div>
+        <span class="card-badge cb-carb">Pre-Gym</span>
+      </div>
+      <ul class="meal-list">
+        <li><span class="dot">▸</span> <strong>2</strong> rebanadas de pan con <strong>1 cucharada</strong> miel</li>
+        <li><span class="dot">▸</span> <strong>1</strong> plátano</li>
+        <li><span class="dot">▸</span> <strong>500 mL</strong> agua</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-time">19:00</div>
+        <div class="card-label">Boxeo — Durante Entrenamiento</div>
+        <span class="card-badge cb-water">Hidratación</span>
+      </div>
+      <ul class="meal-list">
+        <li><span class="dot">▸</span> <strong>500–750 mL</strong> agua</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-time">21:00</div>
+        <div class="card-label">Cena Post-Boxeo</div>
+        <span class="card-badge cb-protein">Proteína + CHO</span>
+      </div>
+      <ul class="meal-list">
+        <li><span class="dot">▸</span> <strong>150 g</strong> arroz cocido</li>
+        <li><span class="dot">▸</span> <strong>150 g</strong> pechuga de pollo</li>
+        <li><span class="dot">▸</span> <strong>30 g</strong> queso edam o mozzarella</li>
+        <li><span class="dot">▸</span> Aceitunas al gusto</li>
+        <li><span class="dot">▸</span> <strong>500 mL</strong> agua</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-time">23:00</div>
+        <div class="card-label">Snack Nocturno (opcional)</div>
+        <span class="card-badge cb-protein">Recuperación</span>
+      </div>
+      <ul class="meal-list">
+        <li><span class="dot">▸</span> <strong>200 mL</strong> leche Danlac vainilla</li>
+        <li><span class="dot">▸</span> <strong>2</strong> galletas de arroz con miel</li>
+        <li><span class="dot">▸</span> Glicinato de magnesio (suplemento nocturno)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Control de Hidratación Diario</div>
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <span style="font-size:0.85rem;color:var(--muted)">Meta: 7–8 litros/día</span>
+        <span style="font-size:0.85rem;color:var(--blue);font-weight:600;">💧 7–8 L</span>
+      </div>
+      <div class="water-bar"><div class="water-fill" style="width:90%"></div></div>
+      <ul class="meal-list" style="margin-top:12px;">
+        <li><span class="dot">▸</span> Desayuno + pre-gym: <strong>1.0 L</strong></li>
+        <li><span class="dot">▸</span> Entrenamiento MMA: <strong>1.0 L</strong></li>
+        <li><span class="dot">▸</span> Post-almuerzo: <strong>1.5 L</strong></li>
+        <li><span class="dot">▸</span> Pre-boxeo + durante: <strong>1.5 L</strong></li>
+        <li><span class="dot">▸</span> Post-cena + noche: <strong>2.0 L</strong></li>
+        <li><span class="dot">▸</span> <strong>Total: ~7.0–8.0 L</strong></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     TAB: FASE 2 — RESTRICCIÓN
+═══════════════════════════════════════════════ -->
+<div id="tab-fase2" class="tab-content">
+
+  <div class="alert alert-danger">
+    <strong>⚠ Fase crítica.</strong> El corte de ~8.5 kg requiere disciplina estricta. No saltear comidas de proteína para preservar masa muscular.
+  </div>
+
+  <!-- SÁBADO 10 -->
+  <div class="day-header day-orange">
+    <div>
+      <div class="day-name">Sábado 10 de Octubre</div>
+      <div class="day-desc">Restricción moderada — últimos carbohidratos AM</div>
+    </div>
+    <div class="day-water" style="color:var(--orange)">~1.0–1.5 L</div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-time">07:00</div>
+      <div class="card-label">Desayuno</div>
+      <span class="card-badge cb-carb">Último CHO mañana</span>
+    </div>
+    <ul class="meal-list">
+      <li><span class="dot">▸</span> <strong>40 g</strong> avena (último día con avena)</li>
+      <li><span class="dot">▸</span> <strong>3</strong> claras de huevo + <strong>1</strong> huevo entero</li>
+      <li><span class="dot">▸</span> <strong>250 mL</strong> agua</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-time">10:00</div>
+      <div class="card-label">Media Mañana</div>
+      <span class="card-badge cb-carb">Últimos CHO día</span>
+    </div>
+    <ul class="meal-list">
+      <li><span class="dot">▸</span> <strong>120 g</strong> pechuga de pollo</li>
+      <li><span class="dot">▸</span> <strong>2</strong> galletas de arroz (últimos carbohidratos del día)</li>
+      <li><span class="dot">▸</span> <strong>250 mL</strong> agua</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-time">13:00</div>
+      <div class="card-label">Almuerzo</div>
+      <span class="card-badge cb-protein">Solo proteína</span>
+    </div>
+    <ul class="meal-list">
+      <li><span class="dot">▸</span> <strong>200 g</strong> pechuga de pollo (sin sal)</li>
+      <li><span class="dot">▸</span> Lechuga / pepino / tomate (sin aliño, solo unas gotas de limón)</li>
+      <li><span class="dot">▸</span> <strong>250 mL</strong> agua (sorbos pequeños)</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-time">16:00</div>
+      <div class="card-label">Pre-Entrenamiento (si hay)</div>
+      <span class="card-badge cb-protein">Proteína</span>
+    </div>
+    <ul class="meal-list">
+      <li><span class="dot">▸</span> <strong>30 g</strong> proteína en polvo disuelto en <strong>150 mL</strong> agua fría</li>
+      <li><span class="dot">▸</span> BCAA si entrena</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-time">19:00</div>
+      <div class="card-label">Cena</div>
+      <span class="card-badge cb-protein">Proteína</span>
+    </div>
+    <ul class="meal-list">
+      <li><span class="dot">▸</span> <strong>180 g</strong> pechuga de pollo (sin sal)</li>
+      <li><span class="dot">▸</span> <strong>150 mL</strong> agua (último trago del día si es posible)</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-time">22:00</div>
+      <div class="card-label">Snack Nocturno</div>
+      <span class="card-badge cb-protein">Opcional</span>
+    </div>
+    <ul class="meal-list">
+      <li><span class="dot">▸</span> <strong>3–4</strong> claras de huevo cocidas (si hay hambre)</li>
+      <li><span class="dot">▸</span> Mínimo agua — sólo si es necesario</li>
+    </ul>
+  </div>
+
+  <div class="alert alert-warning" style="margin-top:16px;">
+    <strong>Sábado noche:</strong> si el peso está lejos del objetivo, considerar 15–20 min de baño caliente / sauna para sudar. Registrar peso en ayunas al despertar el domingo.
+  </div>
+
+  <!-- DOMINGO 11 -->
+  <div class="day-header day-red" style="margin-top:28px;">
+    <div>
+      <div class="day-name">Domingo 11 de Octubre</div>
+      <div class="day-desc">Restricción máxima — día de sauna</div>
+    </div>
+    <div class="day-water" style="color:var(--red)">400–500 mL</div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-time">08:00</div>
+      <div class="card-label">Desayuno</div>
+      <span class="card-badge cb-protein">Solo proteína</span>
+    </div>
+    <ul class="meal-list">
+      <li><span class="dot">▸</span> <strong>4</strong> claras de huevo cocidas (o 150 g pechuga)</li>
+      <li><span class="dot">▸</span> <strong>100–150 mL</strong> agua (sorbos pequeños)</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-time">12:00</div>
+      <div class="card-label">Almuerzo</div>
+      <span class="card-badge cb-protein">Solo proteína</span>
+    </div>
+    <ul class="meal-list">
+      <li><span class="dot">▸</span> <strong>150 g</strong> pechuga de pollo (sin sal, sin condimentos)</li>
+      <li><span class="dot">▸</span> Enjuagar boca si hay sed extrema — mínima ingesta</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-time">15:00</div>
+      <div class="card-label">Tarde</div>
+      <span class="card-badge cb-protein">Opcional</span>
+    </div>
+    <ul class="meal-list">
+      <li><span class="dot">▸</span> <strong>100 g</strong> pechuga (si hay mucha hambre)</li>
+      <li><span class="dot">▸</span> No agua</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-time">18:00</div>
+      <div class="card-label">Sauna / Baño Caliente</div>
+      <span class="card-badge cb-key">Corte final</span>
+    </div>
+    <ul class="meal-list">
+      <li><span class="dot">▸</span> <strong>20–30 min</strong> sauna o baño muy caliente</li>
+      <li><span class="dot">▸</span> Traje de sudoración si es necesario</li>
+      <li><span class="dot">▸</span> Salir inmediatamente si hay mareos o náuseas</li>
+      <li><span class="dot">▸</span> Registrar peso post-sauna</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-time">21:00</div>
+      <div class="card-label">Cena Ligera</div>
+      <span class="card-badge cb-protein">Proteína</span>
+    </div>
+    <ul class="meal-list">
+      <li><span class="dot">▸</span> <strong>3–4</strong> claras de huevo cocidas</li>
+      <li><span class="dot">▸</span> Sin agua — dormir con el menor peso posible</li>
+    </ul>
+  </div>
+
+  <div class="alert alert-danger" style="margin-top:16px;">
+    <strong>⚠ Domingo noche:</strong> pesarse antes de dormir. Objetivo: estar entre 62.5–63.5 kg para el pesaje del lunes. Si hay mucho margen, sauna adicional. Si ya está en 62 kg, no hacer más sauna.
+  </div>
+
+  <div class="section">
+    <div class="section-title">Checklist Fase 2</div>
+    <div class="card">
+      <ul class="meal-list">
+        <li><span class="dot">▸</span> Pausar <strong>creatina</strong> desde el sábado</li>
+        <li><span class="dot">▸</span> Sin <strong>lácteos</strong> desde el viernes noche</li>
+        <li><span class="dot">▸</span> Sin <strong>fibra</strong> (sin verduras crudas, sin chía, sin frutas)</li>
+        <li><span class="dot">▸</span> Sin <strong>sal</strong> en las comidas del domingo</li>
+        <li><span class="dot">▸</span> Sin <strong>carbohidratos</strong> desde el sábado tarde</li>
+        <li><span class="dot">▸</span> Registrar peso cada mañana en ayunas</li>
+        <li><span class="dot">▸</span> Preparar ropa de pesaje: ropa interior mínima</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     TAB: REBOUND DÍA 1 — LUNES 12
+═══════════════════════════════════════════════ -->
+<div id="tab-rebound1" class="tab-content">
+
+  <div class="day-header day-green">
+    <div>
+      <div class="day-name">⚖️ Lunes 12 de Octubre — Post Pesaje</div>
+      <div class="day-desc">Rehidratación · Carga de glucógeno</div>
+    </div>
+    <div class="day-water">Objetivo: ~69 kg al dormir</div>
+  </div>
+
+  <div class="alert alert-success">
+    <strong>¡Pesaje listo!</strong> Inicia el protocolo inmediatamente. Objetivo: recuperar 7 kg antes de dormir. No forzar comer si hay náuseas — priorizar líquidos primero.
+  </div>
+
+  <div class="section">
+    <div class="section-title">Protocolo de Rehidratación</div>
+    <div class="card">
+      <ul class="meal-list">
+        <li><span class="dot">▸</span> Iniciar con <strong>1 litro de Ceralyte 70</strong> — tomar 250 mL cada 15 minutos</li>
+        <li><span class="dot">▸</span> Luego alternar Ceralyte 70 con agua y alimentos</li>
+        <li><span class="dot">▸</span> Limonada casera con pizca de sal (tradición post-pesaje) ✓</li>
+        <li><span class="dot">▸</span> Total líquidos objetivo: <strong>4.5–5.5 L</strong> durante el día</li>
+        <li><span class="dot">▸</span> <strong>Sin IV</strong> — solo rehidratación oral</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Timeline Post-Pesaje</div>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-label">🏆 Post Pesaje — Rehidratación Inicial</div>
+            <span class="card-badge cb-electr">Electrolitos</span>
+          </div>
+          <ul class="meal-list">
+            <li><span class="dot">▸</span> <strong>1 L</strong> Ceralyte 70 (250 mL c/15 min)</li>
+            <li><span class="dot">▸</span> <strong>1 vaso</strong> limonada casera con pizca de sal</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-time">+60 min</div>
+            <div class="card-label">Comida 1 — Primera Sólida</div>
+            <span class="card-badge cb-carb">CHO Simple</span>
+          </div>
+          <ul class="meal-list">
+            <li><span class="dot">▸</span> <strong>3</strong> King's Hawaiian rolls</li>
+            <li><span class="dot">▸</span> <strong>2 cucharadas</strong> mermelada</li>
+            <li><span class="dot">▸</span> <strong>1</strong> plátano mediano</li>
+            <li><span class="dot">▸</span> <strong>15 g</strong> pretzels</li>
+            <li><span class="dot">▸</span> <strong>1 botella (473 mL)</strong> Whole Foods Organic Booming Beets (jugo de beterraga)</li>
+            <li><span class="dot">▸</span> <strong>1 L</strong> Ceralyte 70</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-time">+2 h</div>
+            <div class="card-label">Comida 2 — Panqueques</div>
+            <span class="card-badge cb-carb">CHO + Proteína</span>
+          </div>
+          <ul class="meal-list">
+            <li><span class="dot">▸</span> <strong>3 panqueques</strong> Hungry Jack's (43 g mezcla)</li>
+            <li><span class="dot">▸</span> <strong>30 mL</strong> miel de maple</li>
+            <li><span class="dot">▸</span> <strong>100 g</strong> berries (frutillas/arándanos)</li>
+            <li><span class="dot">▸</span> <strong>2</strong> huevos revueltos</li>
+            <li><span class="dot">▸</span> <strong>1 L</strong> Ceralyte 70</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-time">+4 h</div>
+            <div class="card-label">Almuerzo — Carbohidratos Complejos</div>
+            <span class="card-badge cb-carb">CHO Complejo</span>
+          </div>
+          <ul class="meal-list">
+            <li><span class="dot">▸</span> <strong>250 g</strong> pasta o arroz cocido</li>
+            <li><span class="dot">▸</span> Salsa de tomate</li>
+            <li><span class="dot">▸</span> <strong>80 g</strong> pechuga de pollo</li>
+            <li><span class="dot">▸</span> <strong>750 mL</strong> agua</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-time">+6 h</div>
+            <div class="card-label">Snack 1</div>
+            <span class="card-badge cb-carb">CHO Simple</span>
+          </div>
+          <ul class="meal-list">
+            <li><span class="dot">▸</span> <strong>75 g</strong> Cap'n Crunch cereal</li>
+            <li><span class="dot">▸</span> <strong>250 mL</strong> leche descremada deslactosada</li>
+            <li><span class="dot">▸</span> <strong>1 L</strong> agua</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-time">+8 h</div>
+            <div class="card-label">Snack 2</div>
+            <span class="card-badge cb-carb">CHO + Electrolitos</span>
+          </div>
+          <ul class="meal-list">
+            <li><span class="dot">▸</span> <strong>3</strong> King's Hawaiian rolls</li>
+            <li><span class="dot">▸</span> <strong>2 cucharadas</strong> mermelada</li>
+            <li><span class="dot">▸</span> <strong>1</strong> plátano</li>
+            <li><span class="dot">▸</span> <strong>20 g</strong> gomitas Haribo</li>
+            <li><span class="dot">▸</span> <strong>500 mL</strong> agua</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-time">+10 h</div>
+            <div class="card-label">Snack 3</div>
+            <span class="card-badge cb-carb">CHO</span>
+          </div>
+          <ul class="meal-list">
+            <li><span class="dot">▸</span> <strong>1</strong> plátano grande</li>
+            <li><span class="dot">▸</span> <strong>1 cucharada</strong> miel de maple</li>
+            <li><span class="dot">▸</span> <strong>500 mL</strong> agua</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-time">Noche</div>
+            <div class="card-label">Cena</div>
+            <span class="card-badge cb-carb">CHO Complejo</span>
+          </div>
+          <ul class="meal-list">
+            <li><span class="dot">▸</span> <strong>200 g</strong> ravioles o pasta rellena</li>
+            <li><span class="dot">▸</span> Salsa de tomate</li>
+            <li><span class="dot">▸</span> <strong>80 g</strong> pechuga de pollo</li>
+            <li><span class="dot">▸</span> <strong>30 g</strong> queso mozzarella</li>
+            <li><span class="dot">▸</span> <strong>40 g</strong> pretzels</li>
+            <li><span class="dot">▸</span> <strong>250 mL</strong> Ceralyte 70</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-time">Noche</div>
+            <div class="card-label">Snack Nocturno</div>
+            <span class="card-badge cb-carb">CHO</span>
+          </div>
+          <ul class="meal-list">
+            <li><span class="dot">▸</span> <strong>75 g</strong> Cap'n Crunch cereal</li>
+            <li><span class="dot">▸</span> <strong>250 mL</strong> leche descremada deslactosada</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Resumen Nutricional Rebound Día 1</div>
+    <div class="card">
+      <ul class="meal-list">
+        <li><span class="dot">▸</span> <strong>CHO estimado:</strong> ~480–540 g (~7.7–8.7 g/kg a 62 kg)</li>
+        <li><span class="dot">▸</span> <strong>Proteína estimada:</strong> ~80–100 g</li>
+        <li><span class="dot">▸</span> <strong>Líquidos totales:</strong> ~4.5–5.5 L</li>
+        <li><span class="dot">▸</span> <strong>Ceralyte 70:</strong> 3–3.5 L (solución de rehidratación oral)</li>
+        <li><span class="dot">▸</span> <strong>Peso esperado al dormir:</strong> ~68–70 kg</li>
+      </ul>
+    </div>
+    <div class="alert alert-warning">
+      <strong>Si hay náuseas o distensión:</strong> parar sólidos, continuar solo con Ceralyte 70 a sorbos pequeños hasta que pase.
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     TAB: REBOUND DÍA 2 — MARTES 13 (PELEA)
+═══════════════════════════════════════════════ -->
+<div id="tab-rebound2" class="tab-content">
+
+  <div class="day-header day-orange">
+    <div>
+      <div class="day-name">⚔️ Martes 13 de Octubre — Día de Pelea</div>
+      <div class="day-desc">Pelea aprox. 16:00 (confirmar horario)</div>
+    </div>
+    <div class="day-water" style="color:var(--orange)">Objetivo: ~70 kg</div>
+  </div>
+
+  <div class="alert alert-info">
+    <strong>Horario tentativo.</strong> Ajustar timing de comidas según hora exacta de pelea. La regla base: <strong>última comida sólida 3.5–4 h antes</strong>, snack de carbohidratos simples 15–20 min antes del shakeout.
+  </div>
+
+  <div class="section">
+    <div class="section-title">Plan Día de Pelea</div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-time">06:30</div>
+        <div class="card-label">Desayuno</div>
+        <span class="card-badge cb-carb">CHO + Proteína</span>
+      </div>
+      <ul class="meal-list">
+        <li><span class="dot">▸</span> <strong>3 panqueques</strong> Hungry Jack's (43 g mezcla)</li>
+        <li><span class="dot">▸</span> <strong>30 mL</strong> miel de maple</li>
+        <li><span class="dot">▸</span> <strong>1</strong> plátano mediano</li>
+        <li><span class="dot">▸</span> <strong>2</strong> huevos revueltos</li>
+        <li><span class="dot">▸</span> <strong>2</strong> King's Hawaiian rolls</li>
+        <li><span class="dot">▸</span> <strong>500 mL</strong> agua</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-time">08:00</div>
+        <div class="card-label">Snack Media Mañana</div>
+        <span class="card-badge cb-carb">CHO + Electrolitos</span>
+      </div>
+      <ul class="meal-list">
+        <li><span class="dot">▸</span> <strong>3</strong> King's Hawaiian rolls</li>
+        <li><span class="dot">▸</span> <strong>2 cucharadas</strong> mermelada</li>
+        <li><span class="dot">▸</span> <strong>1 barra</strong> Yasso Greek Yogurt helado</li>
+        <li><span class="dot">▸</span> <strong>1 botella (473 mL)</strong> Booming Beets (jugo beterraga)</li>
+        <li><span class="dot">▸</span> <strong>500 mL</strong> agua</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-time">10:30</div>
+        <div class="card-label">Snack Ligero (opcional)</div>
+        <span class="card-badge cb-carb">CHO</span>
+      </div>
+      <ul class="meal-list">
+        <li><span class="dot">▸</span> <strong>1</strong> plátano + <strong>2</strong> galletas de arroz con miel</li>
+        <li><span class="dot">▸</span> <strong>250–500 mL</strong> agua</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-time">12:00</div>
+        <div class="card-label">Almuerzo Pre-Pelea (4 h antes)</div>
+        <span class="card-badge cb-carb">CHO Complejo + Proteína</span>
+      </div>
+      <ul class="meal-list">
+        <li><span class="dot">▸</span> <strong>250 g</strong> fideos / pasta con salsa de tomate</li>
+        <li><span class="dot">▸</span> <strong>100 g</strong> pechuga de pollo (fácil digestión)</li>
+        <li><span class="dot">▸</span> Sin grasas, sin fibra alta, sin lácteos</li>
+        <li><span class="dot">▸</span> <strong>500 mL</strong> agua</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-time">~15:45</div>
+        <div class="card-label">Pre-Shakeout (15 min antes del calentamiento)</div>
+        <span class="card-badge cb-carb">Activación</span>
+      </div>
+      <ul class="meal-list">
+        <li><span class="dot">▸</span> <strong>2</strong> Quaker Chewy Chocolate Chip (barras)</li>
+        <li><span class="dot">▸</span> <strong>20 g</strong> gomitas Haribo</li>
+        <li><span class="dot">▸</span> Sorbos de agua — no tomar de más</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-time">Entre rounds</div>
+        <div class="card-label">Durante Pelea</div>
+        <span class="card-badge cb-water">Hidratación</span>
+      </div>
+      <ul class="meal-list">
+        <li><span class="dot">▸</span> Solo agua o bebida deportiva — sorbos pequeños</li>
+        <li><span class="dot">▸</span> Enjuague bucal si hay náuseas</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Post Pelea</div>
+    <div class="card">
+      <ul class="meal-list">
+        <li><span class="dot">▸</span> <strong>Limonada casera con pizca de sal</strong> (tradición) — excelente rehidratación</li>
+        <li><span class="dot">▸</span> Comer lo que el cuerpo pida, sin restricciones</li>
+        <li><span class="dot">▸</span> Priorizar hidratación antes de sólidos si hay mucho calor</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     TAB: CONTROL
+═══════════════════════════════════════════════ -->
+<div id="tab-control" class="tab-content">
+
+  <div class="section">
+    <div class="section-title">Peso Esperado</div>
+    <div class="card">
+      <div class="control-row">
+        <span class="control-label">Lunes 6 Oct — Inicio fightweek (ayunas)</span>
+        <span class="control-value">~70.5 kg</span>
+      </div>
+      <div class="control-row">
+        <span class="control-label">Viernes 9 Oct — Fin carga hídrica (ayunas)</span>
+        <span class="control-value warn">~72–73 kg</span>
+      </div>
+      <div class="control-row">
+        <span class="control-label">Sábado 10 Oct — Inicio restricción (ayunas)</span>
+        <span class="control-value warn">~70–71 kg</span>
+      </div>
+      <div class="control-row">
+        <span class="control-label">Domingo 11 Oct — Post sauna (noche)</span>
+        <span class="control-value warn">~62.5–63.5 kg</span>
+      </div>
+      <div class="control-row">
+        <span class="control-label">Lunes 12 Oct — Pesaje oficial</span>
+        <span class="control-value ok">62.0 kg ✓</span>
+      </div>
+      <div class="control-row">
+        <span class="control-label">Lunes 12 Oct — Antes de dormir</span>
+        <span class="control-value ok">~68–70 kg</span>
+      </div>
+      <div class="control-row">
+        <span class="control-label">Martes 13 Oct — 07:30 ayunas</span>
+        <span class="control-value ok">~67–69 kg</span>
+      </div>
+      <div class="control-row">
+        <span class="control-label">Martes 13 Oct — Hora de pelea (~16:00)</span>
+        <span class="control-value ok">~70 kg</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Especificaciones</div>
+    <div class="card">
+      <div class="spec-item">
+        <strong>Orina</strong>
+        Color objetivo: amarillo paja (claro) durante la carga hídrica. Durante restricción: amarillo oscuro o ámbar es esperado — no alarmarse. Al iniciar rebound: observar que la orina vuelva a aclararse como señal de rehidratación adecuada.
+      </div>
+      <div class="spec-item">
+        <strong>Náuseas o Distensión</strong>
+        Si aparecen durante el rebound, pausar sólidos por 20–30 min. Continuar solo con Ceralyte 70 a sorbos pequeños (50–100 mL cada 10 min). Retomar sólidos cuando se tolere. No forzar la carga de CHO si hay malestar gastrointestinal — es contraproducente.
+      </div>
+      <div class="spec-item">
+        <strong>Sin IV</strong>
+        Rehidratación exclusivamente oral. Ceralyte 70 provee la misma absorción efectiva que suero IV cuando se toma correctamente (250 mL c/15 min) — protocolo basado en evidencia ISSN/UFC PI.
+      </div>
+      <div class="spec-item">
+        <strong>Señales de Alerta</strong>
+        Detener corte y consultar si: frecuencia cardíaca en reposo &gt;100 lpm, mareos al pararse, calambres severos, orina oscura tipo té o ausencia total de orina por más de 6 horas.
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Datos Antropométricos (23 Sep 2026)</div>
+    <div class="two-col">
+      <div class="card">
+        <p style="font-size:0.75rem;color:var(--gold);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:10px;">Composición Corporal</p>
+        <ul class="meal-list">
+          <li><span class="dot">▸</span> Peso: <strong>71.3 kg</strong></li>
+          <li><span class="dot">▸</span> Talla: <strong>172.0 cm</strong></li>
+          <li><span class="dot">▸</span> IMC: <strong>24.1</strong></li>
+          <li><span class="dot">▸</span> % Grasa (Slaughter): <strong>10.3%</strong></li>
+          <li><span class="dot">▸</span> % Grasa (Faulkner): <strong>12.2%</strong></li>
+          <li><span class="dot">▸</span> % Grasa (Carter): <strong>8.1%</strong></li>
+          <li><span class="dot">▸</span> % Músculo (Lee): <strong>37.3%</strong></li>
+          <li><span class="dot">▸</span> % Hueso (Rocha): <strong>17.7%</strong></li>
+          <li><span class="dot">▸</span> Somatotipo: <strong>1.3 / 4.8 / 1.8</strong></li>
+          <li><span class="dot">▸</span> R C/C: <strong>0.83</strong></li>
+        </ul>
+      </div>
+      <div class="card">
+        <p style="font-size:0.75rem;color:var(--gold);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:10px;">Pliegues &amp; Perímetros</p>
+        <ul class="meal-list">
+          <li><span class="dot">▸</span> Σ6: <strong>29.0 mm</strong></li>
+          <li><span class="dot">▸</span> Σ8: <strong>37.5 mm</strong></li>
+          <li><span class="dot">▸</span> Bíceps: <strong>1.5 mm</strong></li>
+          <li><span class="dot">▸</span> Tríceps: <strong>5.0 mm</strong></li>
+          <li><span class="dot">▸</span> Subescapular: <strong>5.0 mm</strong></li>
+          <li><span class="dot">▸</span> Abdominal: <strong>5.0 mm</strong></li>
+          <li><span class="dot">▸</span> Suprailíaco: <strong>7.0 mm</strong></li>
+          <li><span class="dot">▸</span> Muslo: <strong>5.5 mm</strong></li>
+          <li><span class="dot">▸</span> Pierna: <strong>3.5 mm</strong></li>
+          <li><span class="dot">▸</span> Brazo relajado: <strong>30.5 cm</strong></li>
+          <li><span class="dot">▸</span> Brazo contraído: <strong>34.0 cm</strong></li>
+          <li><span class="dot">▸</span> Cintura: <strong>79.0 cm</strong></li>
+          <li><span class="dot">▸</span> Cadera: <strong>95.5 cm</strong></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     TAB: COMPRAS
+═══════════════════════════════════════════════ -->
+<div id="tab-compras" class="tab-content">
+
+  <div class="alert alert-info">
+    <strong>Comprar antes del lunes 6 oct.</strong> Los productos de rebound deben estar listos antes del pesaje.
+  </div>
+
+  <div class="shop-category">
+    <h3>💧 Rehidratación</h3>
+    <ul class="shop-list">
+      <li><span class="item-name">Ceralyte 70</span><span class="item-qty">4–5 sobres / botellas</span><span class="item-note">solución de rehidratación oral</span></li>
+      <li><span class="item-name">Booming Beets — Whole Foods Organic</span><span class="item-qty">2 botellas (473 mL c/u)</span><span class="item-note">jugo beterraga para rebound</span></li>
+      <li><span class="item-name">Limones</span><span class="item-qty">6–8 unidades</span><span class="item-note">limonada casera post-pesaje</span></li>
+    </ul>
+  </div>
+
+  <div class="shop-category">
+    <h3>🥞 Rebound — CHO Simples</h3>
+    <ul class="shop-list">
+      <li><span class="item-name">King's Hawaiian Original Sweet Rolls</span><span class="item-qty">2 paquetes (12 unidades)</span><span class="item-note">pan dulce para rebound días 1 y 2</span></li>
+      <li><span class="item-name">Hungry Jack's Pancake Mix</span><span class="item-qty">1 caja</span><span class="item-note">43 g de mezcla × 2 usos</span></li>
+      <li><span class="item-name">Cap'n Crunch cereal</span><span class="item-qty">1 caja grande</span><span class="item-note">150 g total para 2 snacks</span></li>
+      <li><span class="item-name">Miel de maple</span><span class="item-qty">1 botella (250 mL)</span><span class="item-note">preferencia del atleta sobre miel de abeja</span></li>
+      <li><span class="item-name">Mermelada (frutilla o mixta)</span><span class="item-qty">1 frasco</span><span class="item-note">sin stevia en ingredientes</span></li>
+      <li><span class="item-name">Plátanos</span><span class="item-qty">6–8 unidades</span><span class="item-note">para rebound días 1 y 2</span></li>
+      <li><span class="item-name">Berries (frutillas / arándanos)</span><span class="item-qty">200 g</span><span class="item-note">para panqueques Comida 2</span></li>
+      <li><span class="item-name">Gomitas Haribo</span><span class="item-qty">1 bolsa (80 g)</span><span class="item-note">para snacks y pre-shakeout</span></li>
+      <li><span class="item-name">Pretzels</span><span class="item-qty">1 bolsa (150 g)</span><span class="item-note">sodio + CHO en rebound</span></li>
+      <li><span class="item-name">Quaker Chewy Chocolate Chip (barras)</span><span class="item-qty">4 barras</span><span class="item-note">pre-shakeout día de pelea</span></li>
+      <li><span class="item-name">Yasso Greek Yogurt Bar</span><span class="item-qty">2–3 barras</span><span class="item-note">snack día de pelea</span></li>
+    </ul>
+  </div>
+
+  <div class="shop-category">
+    <h3>🍝 Rebound — CHO Complejos</h3>
+    <ul class="shop-list">
+      <li><span class="item-name">Pasta / fideos (spaghetti)</span><span class="item-qty">500 g</span><span class="item-note">almuerzo y cena rebound</span></li>
+      <li><span class="item-name">Ravioles frescos</span><span class="item-qty">1 paquete (250 g)</span><span class="item-note">cena rebound noche</span></li>
+      <li><span class="item-name">Salsa de tomate (sin azúcar añadida)</span><span class="item-qty">2 latas</span><span class="item-note">para pasta</span></li>
+      <li><span class="item-name">Arroz blanco</span><span class="item-qty">500 g</span><span class="item-note">alternativa a pasta</span></li>
+    </ul>
+  </div>
+
+  <div class="shop-category">
+    <h3>🍗 Proteínas</h3>
+    <ul class="shop-list">
+      <li><span class="item-name">Pechuga de pollo</span><span class="item-qty">1.5–2 kg</span><span class="item-note">para toda la fightweek — preparar en batch</span></li>
+      <li><span class="item-name">Huevos</span><span class="item-qty">1 docena</span><span class="item-note">claras fase 2, revueltos en rebound</span></li>
+      <li><span class="item-name">Leche deslactosada descremada</span><span class="item-qty">1 litro</span><span class="item-note">para cereal en rebound</span></li>
+      <li><span class="item-name">Queso mozzarella o fresco</span><span class="item-qty">150 g</span><span class="item-note">cena rebound</span></li>
+    </ul>
+  </div>
+
+  <div class="shop-category">
+    <h3>🥣 Fase 1 — Carga Hídrica</h3>
+    <ul class="shop-list">
+      <li><span class="item-name">Avena en hojuelas</span><span class="item-qty">500 g</span><span class="item-note">desayuno diario</span></li>
+      <li><span class="item-name">Semillas de chía</span><span class="item-qty">100 g</span><span class="item-note">desayuno diario</span></li>
+      <li><span class="item-name">Leche Danlac vainilla</span><span class="item-qty">1 litro</span><span class="item-note">snack nocturno fase 1</span></li>
+      <li><span class="item-name">Galletas de arroz</span><span class="item-qty">1 paquete</span><span class="item-note">snacks fase 1 y restricción AM</span></li>
+      <li><span class="item-name">Pan de molde</span><span class="item-qty">1 bolsa</span><span class="item-note">snack tarde fase 1</span></li>
+      <li><span class="item-name">Aceitunas</span><span class="item-qty">200 g</span><span class="item-note">favorito del atleta, para almuerzo fase 1</span></li>
+      <li><span class="item-name">Nueces o mantequilla de nueces</span><span class="item-qty">150 g</span><span class="item-note">snack pre-gym fase 1</span></li>
+    </ul>
+  </div>
+
+</div>
+
+<script>
+function showTab(id) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  event.currentTarget.classList.add('active');
+}
+</script>
+</body>
+</html>
