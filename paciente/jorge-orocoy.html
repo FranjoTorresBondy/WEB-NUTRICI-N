@@ -336,9 +336,7 @@ function renderPlan() {
   }).join('');
 
   el.innerHTML = `<div class="wrap"><section>
-    <div class="sec-h"><span class="ix">01</span><h2>Microciclo activo</h2><div class="rule"></div></div>
-    <div class="micro-bar"><span class="mlabel">Semana</span>${microBtns}
-      <span class="micro-note">Tus selecciones se guardan automáticamente por semana</span></div>
+    <div class="sec-h"><span class="ix">01</span><h2>Plan diario</h2><div class="rule"></div></div>
     <div class="macros">
       <div class="kcal">${PATIENT.macros.kcal.toLocaleString('es')} <small>kcal / día</small></div>
       <div class="mtag"><b>${PATIENT.macros.p}</b> g Proteína</div>
