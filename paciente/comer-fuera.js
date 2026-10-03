@@ -104,7 +104,10 @@
       '.gcount{font-family:"IBM Plex Mono",monospace;font-size:10px;font-weight:600;color:var(--faint);margin-left:4px}',
       '.gcount.full{color:var(--navy)}',
       '.opt.cf-block{opacity:.45}',
-      '#tab-plan .cf-spacer,#tab-fuera .cf-spacer{height:104px}'
+      '#tab-plan .cf-spacer,#tab-fuera .cf-spacer{height:104px}',
+      '.meal-done-btn{width:34px;height:34px;border-radius:50%;background:transparent;border:1.5px solid var(--line);color:var(--faint);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.2s;flex-shrink:0;padding:0;margin-left:10px}',
+      '.meal-done-btn:hover{border-color:var(--navy);color:var(--navy)}',
+      '.meal-done-btn.on{background:rgba(196,151,58,.18);border-color:var(--navy);color:var(--navy)}'
     ].join('\n');
     document.head.appendChild(s);
   }
@@ -203,32 +206,16 @@
     var out = { kcal: 0, p: 0, c: 0, g: 0 };
     var meals = document.querySelectorAll('#tab-plan .meal[data-mealid]');
     for (var i = 0; i < meals.length; i++) {
+      if (meals[i].dataset.mealDone !== '1') continue;
       var mid = meals[i].getAttribute('data-mealid');
       var data = null;
       var _cs = COMIDAS();
       for (var d = 0; d < _cs.length; d++) if (_cs[d].id === mid) data = _cs[d];
       if (!data || data.kcal == null) continue;
-      var picks = meals[i].querySelectorAll('.pick');
-      var totW = 0, gotW = 0, kcalPerGroup = 0, usePerGroup = true;
-      for (var q = 0; q < picks.length; q++) {
-        var gi = groupInfo(picks[q]);
-        if (!isFinite(gi.max) || gi.max <= 0) continue;
-        var gKcal = parseFloat(picks[q].dataset.kcal);
-        if (!(gKcal > 0)) usePerGroup = false;
-        var gf = Math.min(gi.count, gi.max) / gi.max;
-        kcalPerGroup += (gKcal > 0 ? gKcal : 0) * gf;
-        // Cada grupo pesa según el tipo de porción y cuántas admite, así una
-        // porción de proteína no vale lo mismo que una de verduras.
-        var u = pesoPorcion(etiquetaGrupo(picks[q]));
-        totW += u * gi.max;
-        gotW += u * Math.min(gi.count, gi.max);
-      }
-      if (!totW) continue;
-      var f = gotW / totW;
-      out.kcal += usePerGroup ? kcalPerGroup : data.kcal * f;
-      out.p += (data.p || 0) * f;
-      out.c += (data.c || 0) * f;
-      out.g += (data.g || 0) * f;
+      out.kcal += data.kcal;
+      out.p += (data.p || 0);
+      out.c += (data.c || 0);
+      out.g += (data.g || 0);
     }
     out.kcal = Math.round(out.kcal); out.p = Math.round(out.p);
     out.c = Math.round(out.c); out.g = Math.round(out.g);
@@ -481,8 +468,47 @@
     });
   }
 
+  /* ── Toggle "comida marcada" ──────────────────────────────────────────── */
+  function mealDoneKey() {
+    var d = new Date();
+    return SLUG + '-meal-done-' + d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+  }
+  function loadMealDone() { try { return JSON.parse(localStorage.getItem(mealDoneKey()) || '{}'); } catch(e) { return {}; } }
+  function saveMealDone(s) { try { localStorage.setItem(mealDoneKey(), JSON.stringify(s)); } catch(e) {} }
+
+  function injectMealDones() {
+    var state = loadMealDone();
+    var meals = document.querySelectorAll('#tab-plan .meal[data-mealid]');
+    for (var i = 0; i < meals.length; i++) {
+      var meal = meals[i];
+      var mid = meal.getAttribute('data-mealid');
+      meal.dataset.mealDone = state[mid] ? '1' : '0';
+      var existing = meal.querySelector('.meal-done-btn');
+      if (existing) { existing.classList.toggle('on', !!state[mid]); continue; }
+      var top = meal.querySelector('.top');
+      if (!top) continue;
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'meal-done-btn' + (state[mid] ? ' on' : '');
+      btn.title = 'Marcar comida como consumida';
+      btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+      (function(m, b) {
+        b.addEventListener('click', function(e) {
+          e.stopPropagation(); e.preventDefault();
+          var s = loadMealDone(), id = m.getAttribute('data-mealid');
+          s[id] = !s[id];
+          m.dataset.mealDone = s[id] ? '1' : '0';
+          b.classList.toggle('on', !!s[id]);
+          saveMealDone(s);
+          redecorate();
+        });
+      })(meal, btn);
+      top.appendChild(btn);
+    }
+  }
+
   /* ── Arranque ─────────────────────────────────────────────────────────── */
-  function redecorate() { try { decorateGroups(); renderProgress(); } catch (e) {} }
+  function redecorate() { try { decorateGroups(); injectMealDones(); renderProgress(); } catch (e) {} }
 
   function boot() {
     injectCSS();
