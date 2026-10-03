@@ -191,7 +191,7 @@ const PATIENT = {
   nombre:    'Christian\nLindley',
   fecha:     '01.10.2026',
   tipoPlan:  'Hipocalórico · Hiperprotéico',
-  macros:    { kcal: 1800, p: 145, c: 200, g: 47 },
+  macros:    { kcal: 1800, p: 136, c: 200, g: 50 },
   hidratacion: [
     { label:'💧 Entrenamiento', valor:'3.0' },
     { label:'💧 Descanso',      valor:'2.5' },
@@ -228,8 +228,19 @@ const PATIENT = {
   ],
 
   comidas: [
-    { id:'alm', nombre:'🥗 Almuerzo', kcal:700, p:55, c:75, g:20, grupos:[
-        { label:'Escoge 04 · Carbohidrato', max:4, ops:[
+    { id:'des', nombre:'🌅 Desayuno', kcal:320, p:15, c:41, g:12, grupos:[
+        { label:'Tazón matutino · Todo incluido', max:6, ops:[
+          '150 g de yogurt griego Vakimu natural',
+          '1 cda de harina de nopal (disolver en el yogurt)',
+          '1 cda de chía molida',
+          '1 cda de linaza molida',
+          '1 porción de fruta* (ver especificaciones)',
+          '50 g de berries',
+        ]},
+    ], nota:'*Tomar la harina de nopal disuelta en el yogurt, antes del resto del tazón. Comer despacio, masticando bien.' },
+
+    { id:'alm', nombre:'🥗 Almuerzo', kcal:570, p:46, c:60, g:18, grupos:[
+        { label:'Escoge 03 · Carbohidrato', max:3, ops:[
           '½ taza de arroz blanco o integral (90 g cocido)',
           '90 g de papa, camote o beterraga (cocido)',
           '½ taza de menestras (100 g cocido)',
@@ -237,7 +248,7 @@ const PATIENT = {
           '½ taza de quinua (90 g cocida)',
           '50 g de pasta sin relleno (cocida)',
         ]},
-        { label:'Escoge 01 · Proteína (150 g peso crudo)', max:1, ops:[
+        { label:'Escoge 01 · Proteína (130 g peso crudo)', max:1, ops:[
           'Pechuga de pollo',
           'Filete de res magro',
           'Pescado (filete)',
@@ -254,7 +265,7 @@ const PATIENT = {
         ]},
     ], nota:'Comer despacio, masticar bien. Tomar agua antes de la comida, no durante ni hasta 30 min después.' },
 
-    { id:'snk', nombre:'🧀 Snack', kcal:400, p:35, c:50, g:7, grupos:[
+    { id:'snk', nombre:'🧀 Snack', kcal:360, p:30, c:44, g:7, grupos:[
         { label:'Escoge 01 · Proteína / Lácteo', max:1, ops:[
           '200 g de yogurt Quark natural (sin azúcar)',
           '1 yogurt PRO de Gloria Pro Day bebible',
@@ -280,8 +291,8 @@ const PATIENT = {
         ]},
     ], nota:'Adicional exclusivo para días de entrenamiento de fuerza. No incluido en las 1,800 kcal base del día.' },
 
-    { id:'cen', nombre:'🌙 Cena', kcal:700, p:55, c:75, g:20, grupos:[
-        { label:'Escoge 04 · Carbohidrato', max:4, ops:[
+    { id:'cen', nombre:'🌙 Cena', kcal:550, p:45, c:55, g:13, grupos:[
+        { label:'Escoge 03 · Carbohidrato', max:3, ops:[
           '½ taza de arroz blanco o integral (90 g cocido)',
           '90 g de papa, camote o beterraga (cocido)',
           '½ taza de menestras (100 g cocido)',
@@ -289,11 +300,11 @@ const PATIENT = {
           '½ taza de quinua (90 g cocida)',
           '50 g de pasta sin relleno (cocida)',
         ]},
-        { label:'Escoge 01 · Proteína (150 g peso crudo)', max:1, ops:[
+        { label:'Escoge 01 · Proteína (120 g peso crudo)', max:1, ops:[
           'Pechuga de pollo',
           'Filete de res magro',
           'Pescado (filete)',
-          'Langostinos o mariscos mixtos (200 g)',
+          'Langostinos o mariscos mixtos (160 g)',
           '1 lata de atún en agua',
           '80 g de queso mozzarella descremado + 1 huevo + 2 claras',
           '1 milanesa de Avinka (freidora de aire)',
@@ -302,7 +313,7 @@ const PATIENT = {
           '100 g de verduras cocidas o en ensalada',
         ]},
         { label:'Escoge 01 · Grasa', max:1, ops:[
-          '40 g de palta',
+          '30 g de palta',
           '1 cdta de aceite de oliva',
         ]},
     ], nota:'Iniciar con 1 cda de vinagre de manzana + 500 ml de agua. No beber más líquidos hasta 30 min después de terminar.' },
@@ -393,7 +404,7 @@ const PATIENT = {
     { nombre:'Aderezo de limón',           desc:'Jugo de 2 limones + 1 cdta de aceite de oliva + sal, pimienta y orégano al gusto + toque de Stevia' },
   ],
 
-  notaSpecs: 'Plan base = 1,800 kcal / día (día de descanso). Día de entrenamiento de fuerza: agregar +200 kcal con la tarjeta Pre-Entreno. Tomar creatina todos los días, entrenes o no.',
+  notaSpecs: 'Plan base = 1,800 kcal / día (día de descanso): Desayuno 320 + Almuerzo 570 + Snack 360 + Cena 550. Día de entrenamiento de fuerza: agregar +200 kcal con la tarjeta Pre-Entreno. Tomar creatina todos los días, entrenes o no.',
 
   entrenamiento: null,
 };
