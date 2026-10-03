@@ -191,7 +191,7 @@ const PATIENT = {
   nombre:    'Christian\nLindley',
   fecha:     '01.10.2026',
   tipoPlan:  'Hipocalórico · Hiperprotéico',
-  macros:    { kcal: 1800, p: 136, c: 200, g: 50 },
+  macros:    { kcal: 1800, p: 132, c: 187, g: 49 },
   hidratacion: [
     { label:'💧 Entrenamiento', valor:'3.0' },
     { label:'💧 Descanso',      valor:'2.2' },
@@ -234,8 +234,8 @@ const PATIENT = {
         ]},
     ], nota:'Disolver la harina de nopal en el yogurt. Comer despacio, masticando bien.' },
 
-    { id:'alm', nombre:'🥗 Almuerzo', kcal:570, p:46, c:60, g:18, grupos:[
-        { label:'Escoge 03 · Carbohidrato', max:3, ops:[
+    { id:'alm', nombre:'🥗 Almuerzo', kcal:610, p:48, c:68, g:19, grupos:[
+        { label:'Escoge 04 · Carbohidrato', max:4, ops:[
           '½ taza de arroz blanco o integral (90 g cocido)',
           '90 g de papa, camote o beterraga (cocido)',
           '½ taza de menestras (100 g cocido)',
@@ -262,19 +262,19 @@ const PATIENT = {
         ]},
     ], nota:'Comer despacio, masticar bien. Tomar agua antes de la comida, no durante ni hasta 30 min después.' },
 
-    { id:'snk', nombre:'🧀 Snack', kcal:280, p:29, c:31, g:4, grupos:[
+    { id:'snk', nombre:'🧀 Snack', kcal:240, p:24, c:23, g:5, grupos:[
         { label:'Escoge 01 · Proteína / Lácteo', max:1, ops:[
-          '200 g de yogurt Quark natural (sin azúcar)',
-          '1 yogurt PRO de Gloria Pro Day bebible',
-          '1 scoop de proteína en polvo + 200 ml de leche descremada',
-          '80 g de queso mozzarella light La Cuisine & Co',
-          '100 g de queso fresco light',
+          '250 g de yogurt Quark natural (sin azúcar)',
+          '1 yogurt PRO de Gloria Pro Day bebible (sin carbo adicional)',
+          '20 g de proteína en polvo + 150 ml de leche descremada',
+          '100 g de queso mozzarella light La Cuisine & Co',
+          '150 g de queso fresco light',
         ]},
         { label:'Escoge 01 · Carbohidrato / Fruta', max:1, ops:[
           '1 porción de fruta (ver especificaciones)',
-          '2 rebanadas de pan de molde (30 g c/u)',
+          '1 rebanada de pan de molde (30 g)',
           '1 unidad de pan francés',
-          '40 g de cereales (avena, cornflakes, granola sin azúcar)',
+          '30 g de cereales (avena, cornflakes, granola sin azúcar)',
         ]},
     ], nota:'Combina bien: queso fresco + fruta, o yogurt + cereales. Comer sin apuro, masticando bien.' },
 
@@ -411,7 +411,7 @@ const PATIENT = {
     { nombre:'Aderezo de limón',           desc:'Jugo de 2 limones + 1 cdta de aceite de oliva + sal, pimienta y orégano al gusto + toque de Stevia' },
   ],
 
-  notaSpecs: 'Plan base = 1,800 kcal / día (día de descanso): Desayuno 320 + Almuerzo 570 + Snack 360 + Cena 550. Día de entrenamiento de fuerza: agregar +200 kcal con la tarjeta Pre-Entreno. Tomar creatina todos los días, entrenes o no.',
+  notaSpecs: 'Plan base = 1,800 kcal / día (día de descanso): Desayuno 320 + Almuerzo 610 + Snack 240 + Cena 550 + café c/leche de avena 80. Día de entrenamiento de fuerza: agregar +200 kcal con la tarjeta Pre-Entreno. Tomar creatina todos los días, entrenes o no.',
 
   entrenamiento: null,
 };
