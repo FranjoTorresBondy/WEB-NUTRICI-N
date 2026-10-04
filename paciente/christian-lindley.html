@@ -963,6 +963,9 @@ function buildThumb(ex) {
       '<img src="' + BASE_IMG + ex.s1 + '" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .3s" onmouseover="this.style.opacity=0;this.nextElementSibling.style.opacity=1" onmouseout="this.style.opacity=1;this.nextElementSibling.style.opacity=0" loading="lazy">' +
       '<img src="' + BASE_IMG + ex.s2 + '" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .3s" loading="lazy"></div>';
   }
+  if (ex.img === 'local') {
+    return '<div class="thumb"><img src="' + ex.s1 + '" style="width:100%;height:100%;object-fit:cover" loading="lazy"></div>';
+  }
   return '<div class="thumb no-img" style="display:flex;align-items:center;justify-content:center;color:var(--faint);font-size:11px">—</div>';
 }
 
