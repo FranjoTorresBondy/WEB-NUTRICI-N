@@ -192,35 +192,39 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 const PATIENT = {
   slug:      'matias-carrion',
   nombre:    'Matías\nCarrión',
-  fecha:     '27.08.2026',
+  fecha:     '01.10.2026',
   tipoPlan:  'Hipocalórico · Hiperprotéico',
-  macros:    { kcal: 1815, p: 144, c: 195, g: 46 },
+  macros:    { kcal: 1985, p: 144, c: 230, g: 46 },
   hidratacion: [
     { label:'💧 Entrenamiento', valor:'3.0' },
     { label:'💧 Descanso',      valor:'2.7' },
   ],
   semanas: 1,
+  antroHistorial: [
+    { fecha:'27.08.2026', peso:78.8, talla:182.0, imc:23.8,
+      tri:7.0, bi:4.0, sub:10.0, cresta:20.0, supra:17.0, abd:18.0, pierna:13.0, pant:7.0,
+      brazRelaj:32.5, brazFlex:34.3, abdom:80.0, cadera:104.0, muslo:54.0, pantPer:37.0 },
+  ],
   antro: {
-    fecha:    '27.08.2026',
-    peso:     78.8,
+    fecha:    '01.10.2026',
+    peso:     76.5,
     talla:    182.0,
-    imc:      23.8,
-    tri:      7.0,
-    bi:       4.0,
+    imc:      23.1,
+    tri:      6.0,
+    bi:       2.0,
     sub:      10.0,
-    cresta:   20.0,
-    supra:    17.0,
-    abd:      18.0,
-    pierna:   13.0,
+    cresta:   10.0,
+    supra:    10.0,
+    abd:      12.0,
+    pierna:   10.0,
     pant:     7.0,
     brazRelaj: 32.5,
-    brazFlex:  34.3,
-    abdom:     80.0,
-    cadera:   104.0,
+    brazFlex:  34.6,
+    abdom:     75.0,
+    cadera:   102.0,
     muslo:     54.0,
-    pantPer:   37.0,
+    pantPer:   37.5,
     diam:{ humero:6.7, biEstiloideo:5.4, femur:9.2 },
-    s6:72.0, s8:96.0,
   },
 
   objetivos: [
@@ -291,13 +295,21 @@ const PATIENT = {
         ]},
     ], nota:'* Si comes fuera revisa el cuadro de especificaciones.' },
 
-    { id:'snk2', nombre:'🧀 Snack tarde', kcal:180, p:21, c:10, g:4, grupos:[
-        { label:'Elige una opción', max:1, ops:[
-          '1 rapidita o 1 pan pita (30 g) + 60 g de queso mozzarella light CuisineCo',
-          '1 rapidita o 1 pan pita (30 g) + 100 g de pechuga de pollo (peso crudo)',
-          '200 g de quark + 100 g de berries',
+    { id:'snk2', nombre:'🧀 Snack tarde', kcal:350, p:21, c:45, g:4, grupos:[
+        { label:'Escoge 02 · Carbohidrato', max:2, ops:[
+          '20 g de avena',
+          '1 rebanada de pan molde o pan pita (30 g)',
+          '1 rapidita integral o ½ rapidita XL',
         ]},
-    ], nota:'Los lunes: cenar más temprano y usar este snack entre tu última clase y la cena. Puedes reemplazarlo por una barrita Fit Rex.' },
+        { label:'Escoge 02 · Fruta', max:2, ops:[
+          '1 porción de fruta* (Ver especificaciones)',
+        ]},
+        { label:'Escoge 01 · Proteína', max:1, ops:[
+          '100 g de pechuga de pollo (peso crudo)',
+          '200 g de quark',
+          '60 g de mozzarella light',
+        ]},
+    ], nota:'Los lunes: cenar más temprano y usar este snack entre tu última clase y la cena. Puedes reemplazarlo por una barrita Fit Rex + 2 porciones de fruta.' },
 
     { id:'cen', nombre:'🌙 Cena', kcal:480, p:39, c:55, g:10, grupos:[
         { label:'Escoge 03 · Carbohidrato (peso cocido)', max:3, ops:[
@@ -385,6 +397,7 @@ const PATIENT = {
       'Llegar bien hidratado a los entrenamientos. Que tus orinas sean siempre claras',
       'Monitorear peso diario en AYUNAS y registrar en la app "Happy Scale"',
       'Tomarse fotos frontal y perfil posterior. Mandar reporte semanal con ambos datos',
+      '<b>Comenzar todos los entrenamientos con press banca inclinado</b>',
     ]},
   ],
 
