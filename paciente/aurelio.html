@@ -353,7 +353,7 @@ const NOTA_DES = '* Puedes cambiar los 40 g de palta por 5 g de aceite de oliva.
 function baseComidas(pfx) {
   return [
     { id:pfx+'c1', nombre:'☀️ Comida 1 · Desayuno', kcal:506, p:26, c:81, g:10, grupos:DES_GRUPOS, nota:NOTA_DES },
-    { id:pfx+'c2', nombre:'🥪 Comida 2 · Snack',    kcal:446, p:32, c:55, g:11, grupos:SNK_GRUPOS },
+    { id:pfx+'c2', nombre:'🥪 Comida 2 · Snack',    kcal:476, p:30, c:66, g:10, grupos:SNK_GRUPOS },
     { id:pfx+'c3', nombre:'🥗 Comida 3 · Almuerzo', kcal:730, p:49, c:93, g:17, grupos:ALM_GRUPOS },
     { id:pfx+'c4', nombre:'🌙 Comida 4 · Cena',     kcal:656, p:48, c:75, g:17, grupos:CEN_GRUPOS },
   ];
@@ -365,7 +365,7 @@ const PATIENT = {
   nombre:   'Aurelio',
   fecha:    '05.08.2026',
   tipoPlan: 'Hipercalórico · Hiperprotéico',
-  macros:   { kcal: 2338, p: 155, c: 304, g: 55 },
+  macros:   { kcal: 2368, p: 153, c: 315, g: 54 },
 
   hidratacion: [
     { label: 'Entrenamiento', valor: '3.6' },
@@ -376,8 +376,8 @@ const PATIENT = {
     fecha: '05.08.2026',
     peso: 78.5, talla: 181.0, imc: 24.0,
     tri: 6.0, bi: 2.0, sub: 5.0, cresta: 15.0, supra: 6.0,
-    abd: 8.0, pierna: 10.0, pant: 5.0,
-    s6: 40.0, s8: 57.0,
+    abd: 8.0, pierna: 10.6, pant: 5.0,
+    s6: 40.6, s8: 57.6,
     brazRelaj: 34.0, brazFlex: 37.5, abdom: 78.5, cadera: 103.0, muslo: 55.0, pantPer: 37.5,
     diam: { humero: 6.6, biEstiloideo: 5.5, femur: 9.6 },
     icc: 0.76,
@@ -388,9 +388,9 @@ const PATIENT = {
       brazRelaj:35.0, brazFlex:39.6, abdom:79.0, cadera:102.0, muslo:54.5, pantPer:38.0,
       s6:35.6, s8:52.6 },
     { fecha:'05.08.2026', peso:78.5, talla:181.0, imc:24.0,
-      tri:6.0, bi:2.0, sub:5.0, cresta:15.0, supra:6.0, abd:8.0, pierna:10.0, pant:5.0,
+      tri:6.0, bi:2.0, sub:5.0, cresta:15.0, supra:6.0, abd:8.0, pierna:10.6, pant:5.0,
       brazRelaj:34.0, brazFlex:37.5, abdom:78.5, cadera:103.0, muslo:55.0, pantPer:37.5,
-      s6:40.0, s8:57.0 },
+      s6:40.6, s8:57.6 },
   ],
 
   objetivos: [
@@ -403,15 +403,15 @@ const PATIENT = {
     {
       id: 'descanso',
       label: 'Día de descanso',
-      sub: '2338 kcal',
-      macros: { kcal: 2338, p: 155, c: 304, g: 55 },
+      sub: '2368 kcal',
+      macros: { kcal: 2368, p: 153, c: 315, g: 54 },
       comidas: baseComidas('d-'),
     },
     {
       id: 'fuerza',
       label: 'Entrenamiento de fuerza',
       sub: 'Base + pre y post',
-      macros: { kcal: 2338, p: 155, c: 304, g: 55 },
+      macros: { kcal: 2368, p: 153, c: 315, g: 54 },
       comidas: [
         { id:'f-pre', nombre:'⚡ Pre Entreno', kcal:null, p:null, c:null, g:null, grupos:[
           { label:'Escoge 01', max:1, ops:['1 plátano + 1 cda de miel de abeja'] },
@@ -424,8 +424,8 @@ const PATIENT = {
     {
       id: 'surf',
       label: 'Surf / Tennis',
-      sub: '+400 kcal · 2738',
-      macros: { kcal: 2738, p: 155, c: 304, g: 55 },
+      sub: '+400 kcal · 2768',
+      macros: { kcal: 2768, p: 153, c: 315, g: 54 },
       comidas: [
         { id:'s-pre', nombre:'🏄 Pre Entreno', kcal:null, p:null, c:null, g:null, grupos:[
           { label:'Escoge 01', max:1, ops:['40 g de Cerelac, Nestum o crema de arroz + 1 cda de miel de abeja'] },
