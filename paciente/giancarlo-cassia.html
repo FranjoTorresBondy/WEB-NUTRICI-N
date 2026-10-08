@@ -269,16 +269,21 @@ const PATIENT = {
     s6:70.0, s8:94.0,
     brazRelaj:30.2, brazFlex:33.2, abdom:75.0, cadera:98.0, muslo:52.0, pantPer:35.5,
     diam: { humero:6.3, biEstiloideo:5.8, femur:9.8 },
-    pctOseo:18.0, oseoKg:12.7,
-    icc:0.77,
+    // Lee recalculado con la ecuación masculina y edad 32 (la hoja lo imprimió
+    // con la femenina y con la fecha de nacimiento mal puesta). Entre 25 y 40
+    // años el resultado solo se mueve 0.8 kg.
+    pctGrasa:13.6, fatKg:9.6, pctMusc:44.1, muscKg:31.1, pctOseo:18.0, oseoKg:12.7,
+    imo:2.45, icc:0.77,
     somato:{ endo:3.4, meso:3.6, ecto:3.7 },
   },
   antroHistorial: [
     { fecha:'22.07.2026', peso:72.0, tri:17.0, bi:3.5, sub:17.0, cresta:28.0, supra:11.0, abd:22.0, pierna:21.0, pant:7.0,
-      brazRelaj:30.9, brazFlex:32.1, abdom:76.5, cadera:98.0, muslo:51.8, pantPer:34.5, s6:95.0, s8:126.5 },
+      brazRelaj:30.9, brazFlex:32.1, abdom:76.5, cadera:98.0, muslo:51.8, pantPer:34.5, s6:95.0, s8:126.5,
+      pctGrasa:16.0, fatKg:11.5, pctMusc:40.5, muscKg:29.2, pctOseo:17.7, oseoKg:12.7, imo:2.30, icc:0.78 },
     { fecha:'17.08.2026', peso:72.0, talla:182.0, imc:21.7,
       tri:13.0, bi:3.0, sub:15.0, cresta:25.0, supra:11.0, abd:18.0, pierna:16.0, pant:5.0,
-      brazRelaj:31.0, brazFlex:33.0, abdom:77.0, cadera:98.0, muslo:51.9, pantPer:35.5, s6:78.0, s8:106.0 },
+      brazRelaj:31.0, brazFlex:33.0, abdom:77.0, cadera:98.0, muslo:51.9, pantPer:35.5, s6:78.0, s8:106.0,
+      pctGrasa:14.5, fatKg:10.4, pctMusc:43.4, muscKg:31.2, pctOseo:17.7, oseoKg:12.7, imo:2.46, icc:0.79 },
   ],
   objetivos: [
     'Recomposición corporal: aumentar masa muscular.',
