@@ -202,20 +202,81 @@
     return k ? k.textContent : '';
   }
 
+  // Peso aproximado en kcal de una porción de cada grupo. Sirve para repartir
+  // las kcal de la comida entre sus grupos: una porción de proteína pesa mucho
+  // más que una de verduras, así que marcarlas no puede valer lo mismo.
+  // El orden importa: las etiquetas más específicas van primero.
+  var PESO_PORCION = [
+    { re: /frutos secos|semillas/i,  w: 45 },
+    { re: /l[áa]cteo|yogurt|leche/i, w: 90 },
+    { re: /carbohidrato|carbo\b/i,   w: 80 },
+    { re: /prote[ií]na/i,            w: 165 },
+    { re: /grasa/i,                  w: 50 },
+    { re: /verdura|ensalada/i,       w: 35 },
+    { re: /fruta|berries|dulce/i,    w: 60 },
+  ];
+  function pesoPorcion(label) {
+    for (var i = 0; i < PESO_PORCION.length; i++) {
+      if (PESO_PORCION[i].re.test(label)) return PESO_PORCION[i].w;
+    }
+    return 60;
+  }
+
+  // Qué fracción de la comida lleva marcada. Devuelve null cuando la comida no
+  // tiene grupos elegibles (p. ej. un pre entreno de un solo item con max:0),
+  // y en ese caso se decide solo con el botón de comida consumida.
+  function mealFraction(mealEl) {
+    var picks = mealEl.querySelectorAll('.pick');
+    var totW = 0, gotW = 0;
+    for (var i = 0; i < picks.length; i++) {
+      var kEl = picks[i].querySelector('.k');
+      if (!kEl) continue;
+      var max = 0, cnt = 0;
+      var gc = kEl.querySelector('.gcount');
+      if (gc) {
+        var m = gc.textContent.match(/(\d+)\s*\/\s*(\d+)/);
+        if (m) { cnt = +m[1]; max = +m[2]; }
+      }
+      if (!max) {
+        var opts = picks[i].querySelectorAll('.opt');
+        for (var o = 0; o < opts.length; o++) {
+          var dm = +(opts[o].getAttribute('data-max') || 0);
+          if (dm > max) max = dm;
+        }
+        var conCont = picks[i].querySelectorAll('.opt[data-count]');
+        if (conCont.length) {
+          cnt = 0;
+          for (var d2 = 0; d2 < conCont.length; d2++) cnt += +(conCont[d2].getAttribute('data-count') || 0);
+        } else {
+          cnt = picks[i].querySelectorAll('.opt.selected').length;
+        }
+      }
+      if (!max) continue;
+      var w = pesoPorcion(kEl.textContent.replace(/\d+\s*\/\s*\d+/, ''));
+      totW += max * w;
+      gotW += Math.min(cnt, max) * w;
+    }
+    if (totW === 0) return null;
+    return gotW / totW;
+  }
+
   function progressTotals() {
     var out = { kcal: 0, p: 0, c: 0, g: 0 };
     var meals = document.querySelectorAll('#tab-plan .meal[data-mealid]');
     for (var i = 0; i < meals.length; i++) {
-      if (meals[i].dataset.mealDone !== '1') continue;
       var mid = meals[i].getAttribute('data-mealid');
       var data = null;
       var _cs = COMIDAS();
       for (var d = 0; d < _cs.length; d++) if (_cs[d].id === mid) data = _cs[d];
       if (!data || data.kcal == null) continue;
-      out.kcal += data.kcal;
-      out.p += (data.p || 0);
-      out.c += (data.c || 0);
-      out.g += (data.g || 0);
+      // El botón de "comida consumida" cuenta la comida completa; si no, se
+      // suma la parte proporcional de lo que lleve marcado.
+      var f = meals[i].dataset.mealDone === '1' ? 1 : (mealFraction(meals[i]) || 0);
+      if (f <= 0) continue;
+      out.kcal += data.kcal * f;
+      out.p += (data.p || 0) * f;
+      out.c += (data.c || 0) * f;
+      out.g += (data.g || 0) * f;
     }
     out.kcal = Math.round(out.kcal); out.p = Math.round(out.p);
     out.c = Math.round(out.c); out.g = Math.round(out.g);
