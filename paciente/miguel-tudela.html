@@ -195,24 +195,9 @@ var GRASA_3 = [
   '8 aceitunas',
   '1 cdta de ghee o manteca para cocinar',
 ];
-var CARBO_CENA = [
-  '90 g de papa o camote',
-  '60 g de arroz',
-  '60 g de quinua',
-  '1 rapidita integral',
-  '1 rebanada de pan de molde integral (30 g)',
-  '1 rebanada de pan de camote (30 g)',
-  '20 g de avena (peso crudo)',
-  '20 g de cereales',
-];
-var PROTE_CENA = [
-  'Pechuga de pollo',
-  'Pechuga de pavo o pavita',
-  'Pescado',
-  'Bistec o lomo',
-  'Carne molida light',
-  '3 huevos + 30 g de queso edam',
-  '80 g de queso mozzarella light (Cuisine&Co)',
+var VERDURAS = [
+  '150 g de verduras a tu preferencia (crudas o cocidas)',
+  '150 g de crudos: rabanito, apio, pepino, con limón y sal',
 ];
 var CARBO_ALM = [
   '60 g de arroz',
@@ -266,21 +251,15 @@ var SNK = { id:'snk', nombre:'🥪 Snack', kcal:290, p:17, c:50, g:3, grupos:[
 var ALM = { id:'alm', nombre:'🥗 Almuerzo', kcal:770, p:48, c:99, g:21, grupos:[
   { label:'Escoge 05 · Carbohidrato', max:5, ops:CARBO_ALM },
   { label:'Escoge 01 · Proteína (150 g, peso crudo)', max:1, ops:PROTE_ALM },
-  { label:'Escoge 01 · Verduras', max:1, ops:[
-    '150 g de verduras a tu preferencia (crudas o cocidas)',
-    '150 g de crudos: rabanito, apio, pepino, con limón y sal',
-  ]},
+  { label:'Escoge 01 · Verduras', max:1, ops:VERDURAS },
   { label:'Escoge 03 · Grasa', max:3, ops:GRASA_3 },
 ], nota:NOTA_ALM };
 
 var CEN = { id:'cen', nombre:'🌙 Cena', kcal:770, p:48, c:99, g:21, grupos:[
-  { label:'Escoge 05 · Carbohidrato', max:5, ops:CARBO_CENA },
-  { label:'Escoge 01 · Proteína (150 g, peso crudo)', max:1, ops:PROTE_CENA },
+  { label:'Escoge 05 · Carbohidrato', max:5, ops:CARBO_ALM },
+  { label:'Escoge 01 · Proteína (150 g, peso crudo)', max:1, ops:PROTE_ALM },
+  { label:'Escoge 01 · Verduras', max:1, ops:VERDURAS },
   { label:'Escoge 03 · Grasa', max:3, ops:GRASA_3 },
-  { label:'Escoge 01 · Verduras / Berries', max:1, ops:[
-    '150 g de verduras cocidas',
-    '1 puñado de berries',
-  ]},
 ], nota:NOTA_CENA };
 
 // ── PRE ENTRENOS ────────────────────────────────────────────────────────────
