@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nuevo Paciente (M) — Evaluación Nutricional</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Libre+Franklin:wght@500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&family=Chakra+Petch:wght@600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+:root{
+  --bg:#080808;--bg2:#111111;--panel:#141414;--panel2:#1c1c1c;
+  --line:#2a2a2a;--ink:#f0f0f0;--muted:#888;--faint:#555;
+  --navy:#C4973A;--amber:#C4973A;--coral:#ef9a9a;--coral2:#ef5350;
+  --cyan:#4fc3f7;--green:#a5d6a7;
+  --shadow:0 1px 4px rgba(0,0,0,.5),0 1px 2px rgba(0,0,0,.4);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased;
+  background-image:radial-gradient(1100px 520px at 50% -12%,rgba(196,151,58,.06),transparent 62%);background-attachment:fixed}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.03;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px;position:relative;z-index:2}
+header.hero{padding:60px 0 22px}
+.eyebrow{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--navy);font-weight:600;display:flex;align-items:center;gap:12px}
+.eyebrow::before{content:"";width:30px;height:1px;background:var(--navy)}
+h1{font-family:'Chakra Petch',sans-serif;font-weight:700;line-height:1.02;font-size:clamp(40px,7vw,84px);margin:14px 0 6px;color:#fff;letter-spacing:.02em;text-transform:uppercase}
+.subhead{display:flex;flex-wrap:wrap;gap:8px 26px;color:var(--muted);font-size:14px;margin-top:14px}
+.subhead b{color:var(--ink);font-weight:600}
+.tabbar{position:sticky;top:0;z-index:20;background:rgba(8,8,8,.92);backdrop-filter:blur(12px);border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:24px}
+.tabbar .wrap{display:flex;gap:6px}
+.tab{appearance:none;background:none;border:none;cursor:pointer;font-family:'Inter';font-weight:600;font-size:14px;letter-spacing:.01em;color:var(--muted);padding:17px 22px;position:relative;transition:color .25s;display:flex;align-items:center;gap:10px;flex-shrink:0;white-space:nowrap}
+.tab .tnum{font-family:'IBM Plex Mono';font-size:11px;color:var(--faint)}
+.tab:hover{color:var(--ink)}
+.tab.active{color:var(--navy)}
+.tab.active::after{content:"";position:absolute;left:22px;right:22px;bottom:-1px;height:3px;background:var(--navy);border-radius:3px 3px 0 0}
+.panel{display:none;animation:fade .5s ease}
+.panel.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+section{padding:30px 0}
+.sec-h{display:flex;align-items:baseline;gap:16px;margin:8px 0 20px}
+.sec-h h2{font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:24px}
+.sec-h .ix{font-family:'IBM Plex Mono';color:var(--navy);font-size:13px;font-weight:600}
+.sec-h .rule{flex:1;height:1px;background:var(--line)}
+.evalwrap{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:760px){.evalwrap{grid-template-columns:1fr}}
+.evgroup{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow)}
+.evgroup .gh{background:var(--panel2);padding:11px 16px;font-family:'IBM Plex Mono';font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--navy)}
+.evgroup .row{display:flex;justify-content:space-between;padding:9px 16px;font-size:13px;border-top:1px solid var(--line)}
+.evgroup .row span:first-child{color:var(--muted)}
+.evgroup .row span:last-child{font-family:'IBM Plex Mono';font-weight:600;color:var(--ink)}
+.evgroup .row.bold span{font-weight:700}
+.evgroup .row.bold span:last-child{color:var(--coral)}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px 22px;box-shadow:var(--shadow)}
+.obj li{font-size:13.5px;color:var(--ink);margin:8px 0 8px 4px;list-style:none;padding-left:22px;position:relative}
+.obj li::before{content:"→";position:absolute;left:0;color:var(--navy);font-weight:800}
+.chart-card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px 22px;box-shadow:var(--shadow);margin-bottom:16px}
+.chart-card h3{font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:16px;color:var(--ink);margin-bottom:4px}
+.chart-card .cap{font-size:12px;color:var(--faint);margin-bottom:16px}
+.chart-wrap{position:relative;height:220px}
+.chart-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+@media(max-width:640px){.chart-grid{grid-template-columns:1fr}}
+.kpi-row{display:flex;flex-wrap:wrap;gap:12px;margin:16px 0}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 18px;flex:1;min-width:120px;box-shadow:var(--shadow)}
+.kpi .kv{font-family:'Chakra Petch',sans-serif;font-size:24px;font-weight:700;color:var(--navy)}
+.kpi .kl{font-family:'IBM Plex Mono';font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin-top:4px}
+.kpi .kd{font-size:12px;margin-top:4px}
+.kpi .kd.up{color:var(--green)} .kpi .kd.down{color:var(--coral)}
+.eval-form{background:var(--panel2);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin-top:20px}
+.eval-form h3{font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:16px;color:var(--ink);margin-bottom:16px}
+.form-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
+.form-field label{font-family:'IBM Plex Mono';font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);display:block;margin-bottom:5px}
+.form-field input{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px 10px;color:var(--ink);font-family:'Libre Franklin',sans-serif;font-size:15px;font-weight:600}
+.form-field input:focus{outline:none;border-color:var(--navy)}
+.btn-add{margin-top:16px;background:var(--navy);color:#000;border:none;border-radius:10px;padding:10px 22px;font-family:'IBM Plex Mono';font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:.2s}
+.btn-add:hover{opacity:.85}
+.antro-table{width:100%;border-collapse:collapse;font-size:12px;margin-top:16px}
+.antro-table th{background:var(--panel2);color:var(--faint);font-family:'IBM Plex Mono';font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;padding:8px 12px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+.antro-table th:first-child{text-align:left}
+.antro-table td{padding:8px 12px;border-bottom:1px solid var(--line);text-align:right;font-family:'IBM Plex Mono';color:var(--ink)}
+.antro-table td:first-child{text-align:left;color:var(--muted)}
+.antro-table tr:last-child td{border-bottom:none;color:var(--navy);font-weight:700}
+.tbl-scroll{overflow-x:auto;border-radius:12px;border:1px solid var(--line)}
+.saveind{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(60px);background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:9px 18px;font-family:'IBM Plex Mono';font-size:12px;color:var(--ink);box-shadow:0 8px 30px rgba(0,0,0,.4);z-index:80;transition:transform .3s;display:flex;align-items:center;gap:8px}
+.saveind.show{transform:translateX(-50%) translateY(0)}
+.saveind .sdot{width:8px;height:8px;border-radius:50%;background:var(--green)}
+footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
+.foot-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.foot-brand{font-family:'IBM Plex Mono';font-size:11px;color:var(--faint);letter-spacing:.1em}
+.foot-contact{font-size:12px;color:var(--faint)}
+@media(max-width:640px){
+  .wrap{padding:0 16px}
+  header.hero{padding:32px 0 16px}
+  section{padding:20px 0}
+  .tabbar .wrap{overflow-x:auto;padding:0 4px;scrollbar-width:none;-ms-overflow-style:none;flex-wrap:nowrap}
+  .tabbar .wrap::-webkit-scrollbar{display:none}
+  .tab{padding:13px 14px;font-size:12px;gap:6px}
+  .tab.active::after{left:14px;right:14px}
+  .tab .tnum{font-size:10px}
+  .evalwrap{grid-template-columns:1fr}
+  .foot-inner{flex-direction:column;align-items:flex-start;gap:6px}
+}
+</style>
+<link rel="stylesheet" href="paciente.css">
+</head>
+<body>
+
+<div class="wrap">
+  <header class="hero">
+    <div class="eyebrow" id="heroEyebrow"></div>
+    <h1 id="heroNombre"></h1>
+    <div class="subhead" id="heroSub"></div>
+  </header>
+</div>
+<nav class="tabbar"><div class="wrap" id="tabNav"></div></nav>
+<div id="tabPanels"></div>
+<div class="saveind" id="saveind"><span class="sdot"></span><span id="saveTxt">Guardado</span></div>
+<footer><div class="wrap"><div class="foot-inner">
+  <div class="foot-brand">FRANJO TORRES BONDY · NUTRICIÓN</div>
+  <div class="foot-contact">franjo.torres.b@gmail.com &nbsp;·&nbsp; +51 992 832 991</div>
+</div></div></footer>
+
+<script>
+const PATIENT = {
+  slug:             'nuevo-paciente-m',
+  nombre:           'Nuevo\nPaciente',
+  fechaNacimiento:  '02.09.2013',
+  sexo:             'M',
+  fecha:            '10.10.2026',
+  tipoPlan:         'Evaluación inicial',
+
+  antro: {
+    fecha:'10.10.2026', peso:51.4, talla:154.5, imc:21.5,
+    tri:16.0, bi:8.0, sub:13.0, cresta:32.0, supra:17.0, abd:30.0, pierna:23.0, pant:13.0,
+    brazRelaj:27.5, brazFlex:27.8, abdom:70.5, cadera:88.0, muslo:47.0, pantPer:31.5,
+    diam:{ humero:6.0, biEstiloideo:5.0, femur:9.0 },
+  },
+
+  objetivos: [
+    'Evaluación inicial — plan nutricional pendiente',
+  ],
+};
+
+const $ = id => document.getElementById(id);
+let saveTimer = null;
+
+function calcEdad(fechaNac, fechaMed) {
+  const [dm,mm,ym] = fechaMed.split('.').map(Number);
+  const [dn,mn,yn] = fechaNac.split('.').map(Number);
+  let edad = ym - yn;
+  if (mm < mn || (mm === mn && dm < dn)) edad--;
+  return edad;
+}
+
+function renderHero() {
+  const edad = calcEdad(PATIENT.fechaNacimiento, PATIENT.fecha);
+  $('heroEyebrow').innerHTML = `Evaluación Nutricional &nbsp;·&nbsp; ${PATIENT.fecha}`;
+  $('heroNombre').innerHTML = PATIENT.nombre.replace('\n','<br>');
+  $('heroSub').innerHTML = `<span><b>${edad} años</b> · ${PATIENT.sexo === 'M' ? 'Masculino' : 'Femenino'}</span>
+    <span>Fecha de nacimiento: <b>${PATIENT.fechaNacimiento}</b></span>
+    <span><b>${PATIENT.antro.peso} kg</b> · <b>${PATIENT.antro.talla} cm</b> · IMC <b>${PATIENT.antro.imc}</b></span>`;
+}
+
+function renderTabs() {
+  const tabs = [
+    { id:'eval',       label:'Evaluación' },
+    { id:'evol-antro', label:'Evolución Física' },
+  ];
+  $('tabNav').innerHTML = tabs.map((t,i) => {
+    const extra = t.id==='evol-antro' ? ';initAntro()' : '';
+    return `<button class="tab${i===0?' active':''}" onclick="showTab('${t.id}',this)${extra}">
+      <span class="tnum">0${i+1}</span> ${t.label}
+    </button>`;
+  }).join('');
+  $('tabPanels').innerHTML = tabs.map((t,i) =>
+    `<div id="tab-${t.id}" class="panel${i===0?' active':''}"></div>`
+  ).join('');
+}
+
+function showTab(id, btn) {
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  $('tab-'+id)?.classList.add('active'); btn.classList.add('active');
+}
+
+function renderEval() {
+  const a = PATIENT.antro;
+  const s6 = +(a.tri+a.sub+a.supra+a.abd+a.pierna+a.pant).toFixed(1);
+  const s8 = +(s6+a.bi+a.cresta).toFixed(1);
+  const edad = calcEdad(PATIENT.fechaNacimiento, PATIENT.fecha);
+  $('tab-eval').innerHTML = `<div class="wrap"><section>
+    <div class="sec-h"><span class="ix">01</span><h2>Evaluación Antropométrica</h2><div class="rule"></div></div>
+    <div class="evalwrap">
+      <div class="evgroup"><div class="gh">Antropometría básica</div>
+        <div class="row"><span>Edad</span><span>${edad} años</span></div>
+        <div class="row"><span>Peso</span><span>${a.peso} kg</span></div>
+        <div class="row"><span>Talla</span><span>${a.talla} cm</span></div>
+        <div class="row"><span>IMC</span><span>${a.imc} kg/m²</span></div>
+        ${a.diam ? `<div class="row"><span>Diám. húmero</span><span>${a.diam.humero ?? '—'} cm</span></div>
+        <div class="row"><span>Diám. biestil.</span><span>${a.diam.biEstiloideo ?? '—'} cm</span></div>
+        <div class="row"><span>Diám. fémur</span><span>${a.diam.femur ?? '—'} cm</span></div>` : ''}
+      </div>
+      <div class="evgroup"><div class="gh">Pliegues (mm) · ISAK</div>
+        <div class="row"><span>Tricipital</span><span>${a.tri}</span></div>
+        <div class="row"><span>Bicipital</span><span>${a.bi}</span></div>
+        <div class="row"><span>Subescapular</span><span>${a.sub}</span></div>
+        <div class="row"><span>Cresta iliaca</span><span>${a.cresta}</span></div>
+        <div class="row"><span>Supra espinal</span><span>${a.supra}</span></div>
+        <div class="row"><span>Abdominal</span><span>${a.abd}</span></div>
+        <div class="row"><span>Pierna media</span><span>${a.pierna}</span></div>
+        <div class="row"><span>Pantorrilla</span><span>${a.pant}</span></div>
+        <div class="row bold"><span>Σ6 pliegues</span><span>${s6} mm</span></div>
+        <div class="row bold"><span>Σ8 pliegues</span><span>${s8} mm</span></div>
+      </div>
+      <div class="evgroup"><div class="gh">Perímetros (cm)</div>
+        <div class="row"><span>Brazo relajado</span><span>${a.brazRelaj}</span></div>
+        <div class="row"><span>Brazo flexionado</span><span>${a.brazFlex}</span></div>
+        <div class="row"><span>Abdominal</span><span>${a.abdom}</span></div>
+        <div class="row"><span>Cadera</span><span>${a.cadera}</span></div>
+        <div class="row"><span>Muslo medio</span><span>${a.muslo}</span></div>
+        <div class="row"><span>Pantorrilla</span><span>${a.pantPer}</span></div>
+      </div>
+    </div>
+    <div class="sec-h" style="margin-top:32px"><span class="ix">02</span><h2>Objetivos</h2><div class="rule"></div></div>
+    <div class="card" style="max-width:600px"><ul class="obj">${PATIENT.objetivos.map(o=>`<li>${o}</li>`).join('')}</ul></div>
+  </section></div>`;
+}
+
+const ANTRO_KEY = () => `${PATIENT.slug}-antro-v1`;
+function getAntroBase() {
+  const norm = a => {
+    const s6=+(a.tri+a.sub+a.supra+a.abd+a.pierna+a.pant).toFixed(1);
+    const s8=+(s6+a.bi+a.cresta).toFixed(1);
+    return Object.assign({},a,{s6,s8});
+  };
+  const out=(PATIENT.antroHistorial||[]).map(norm);
+  const cur=norm(PATIENT.antro);
+  if(!out.some(e=>e.fecha===cur.fecha))out.push(cur);
+  return out;
+}
+function getAntroData() {
+  const base=getAntroBase(); let stored=[];
+  try{const r=localStorage.getItem(ANTRO_KEY());if(r)stored=JSON.parse(r)||[];}catch(e){stored=[];}
+  const seen={}; base.forEach(d=>{seen[d.fecha]=1;});
+  stored.forEach(d=>{if(d&&d.fecha&&!seen[d.fecha]){seen[d.fecha]=1;base.push(d);}});
+  return base;
+}
+function saveAntroData(d){try{localStorage.setItem(ANTRO_KEY(),JSON.stringify(d));}catch(e){}}
+
+let antroInited=false;
+function initAntro(){if(antroInited)return;antroInited=true;renderAntro();}
+
+Chart.defaults.color='#666'; Chart.defaults.borderColor='rgba(255,255,255,0.07)';
+Chart.defaults.font.family="'IBM Plex Mono',monospace"; Chart.defaults.font.size=11;
+const CC={gold:'#C4973A',cyan:'#4fc3f7',coral:'#ef9a9a',green:'#a5d6a7',purple:'#ce93d8'};
+
+function mkChart(id,labels,datasets){
+  const ctx=$(id);if(!ctx)return;if(ctx._ch)ctx._ch.destroy();
+  ctx._ch=new Chart(ctx,{type:'line',data:{labels,datasets:datasets.map(d=>({tension:.35,pointRadius:5,borderWidth:2,fill:false,spanGaps:true,...d}))},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{boxWidth:12,padding:14,color:'#888'}},tooltip:{mode:'index',intersect:false}},
+    scales:{x:{grid:{color:'rgba(255,255,255,0.06)'},ticks:{color:'#666'}},y:{grid:{color:'rgba(255,255,255,0.06)'},ticks:{color:'#666'}}}}});
+}
+
+function renderAntro(){
+  const el=$('tab-evol-antro');if(!el)return;
+  el.innerHTML=`<div class="wrap">
+    <section style="padding-top:24px"><div class="sec-h"><span class="ix">01</span><h2>Evolución Antropométrica</h2><div class="rule"></div></div><div class="kpi-row" id="antroKpis"></div></section>
+    <section style="padding-top:0"><div class="sec-h"><span class="ix">02</span><h2>Gráficos</h2><div class="rule"></div></div>
+      <div class="chart-card"><h3>Peso corporal</h3><div class="cap">kg</div><div class="chart-wrap"><canvas id="cPeso"></canvas></div></div>
+      <div class="chart-grid">
+        <div class="chart-card"><h3>Sumatorias de pliegues</h3><div class="cap">Σ6 y Σ8 (mm)</div><div class="chart-wrap"><canvas id="cSigma"></canvas></div></div>
+        <div class="chart-card"><h3>Perímetros musculares</h3><div class="cap">Brazo flex, muslo, pantorrilla (cm)</div><div class="chart-wrap"><canvas id="cMusc"></canvas></div></div>
+        <div class="chart-card"><h3>Cintura y cadera</h3><div class="cap">Perímetros (cm)</div><div class="chart-wrap"><canvas id="cCint"></canvas></div></div>
+        <div class="chart-card"><h3>Pliegues individuales</h3><div class="cap">Abdominal, cresta, tricipital (mm)</div><div class="chart-wrap"><canvas id="cPl"></canvas></div></div>
+      </div>
+    </section>
+    <section style="padding-top:0"><div class="sec-h"><span class="ix">03</span><h2>Historial</h2><div class="rule"></div></div>
+      <div class="tbl-scroll"><table class="antro-table" id="antroTable"></table></div>
+    </section>
+    <section style="padding-top:0"><div class="sec-h"><span class="ix">04</span><h2>Nueva medición</h2><div class="rule"></div></div>
+      <div class="eval-form"><h3>Registrar evaluación</h3>
+        <div class="form-grid">
+          <div class="form-field"><label>Fecha</label><input type="date" id="f-fecha"></div>
+          <div class="form-field"><label>Peso (kg)</label><input type="number" step="0.1" id="f-peso"></div>
+          <div class="form-field"><label>Tricipital</label><input type="number" step="0.5" id="f-tri"></div>
+          <div class="form-field"><label>Bicipital</label><input type="number" step="0.5" id="f-bi"></div>
+          <div class="form-field"><label>Subescapular</label><input type="number" step="0.5" id="f-sub"></div>
+          <div class="form-field"><label>Cresta iliaca</label><input type="number" step="0.5" id="f-cresta"></div>
+          <div class="form-field"><label>Supra espinal</label><input type="number" step="0.5" id="f-supra"></div>
+          <div class="form-field"><label>Abdominal (pl.)</label><input type="number" step="0.5" id="f-abd"></div>
+          <div class="form-field"><label>Pierna media</label><input type="number" step="0.5" id="f-pierna"></div>
+          <div class="form-field"><label>Pantorrilla pl.</label><input type="number" step="0.5" id="f-pant"></div>
+          <div class="form-field"><label>Brazo relajado</label><input type="number" step="0.1" id="f-brazRelaj"></div>
+          <div class="form-field"><label>Brazo flex.</label><input type="number" step="0.1" id="f-brazFlex"></div>
+          <div class="form-field"><label>Cintura (cm)</label><input type="number" step="0.1" id="f-abdom"></div>
+          <div class="form-field"><label>Cadera (cm)</label><input type="number" step="0.1" id="f-cadera"></div>
+          <div class="form-field"><label>Muslo medio</label><input type="number" step="0.1" id="f-muslo"></div>
+          <div class="form-field"><label>Pantorrilla per.</label><input type="number" step="0.1" id="f-pantPer"></div>
+        </div>
+        <button class="btn-add" onclick="addAntroEntry()">+ Guardar medición</button>
+      </div>
+    </section>
+  </div>`;
+  drawAntroCharts();
+}
+
+function drawAntroCharts(){
+  const data=getAntroData();const lbl=data.map(d=>d.fecha);
+  const first=data[0],last=data[data.length-1];
+  const kpis=[
+    {v:last.peso,u:'kg',l:'Peso actual',d:+(last.peso-first.peso).toFixed(1),good:'down'},
+    {v:last.s8,u:'mm',l:'Σ8 pliegues',d:+(last.s8-first.s8).toFixed(1),good:'down'},
+    {v:last.brazFlex,u:'cm',l:'Brazo flex.',d:+(last.brazFlex-first.brazFlex).toFixed(1),good:'up'},
+    {v:last.abdom,u:'cm',l:'Cintura',d:+(last.abdom-first.abdom).toFixed(1),good:'down'},
+  ];
+  $('antroKpis').innerHTML=kpis.map(k=>{const sign=k.d>0?'+':'';const cls=(k.good==='down'?k.d<0:k.d>0)?'up':(k.d<0?'down':'');const arr=k.d>0?'▲':(k.d<0?'▼':'—');return `<div class="kpi"><div class="kv">${k.v}<span style="font-size:14px;opacity:.5"> ${k.u}</span></div><div class="kl">${k.l}</div>${data.length>1?`<div class="kd ${cls}">${arr} ${sign}${k.d} ${k.u}</div>`:''}</div>`;}).join('');
+  mkChart('cPeso',lbl,[{label:'Peso kg',data:data.map(d=>d.peso),borderColor:CC.gold,pointBackgroundColor:CC.gold}]);
+  mkChart('cSigma',lbl,[{label:'Σ6',data:data.map(d=>d.s6),borderColor:CC.coral,pointBackgroundColor:CC.coral},{label:'Σ8',data:data.map(d=>d.s8),borderColor:CC.purple,pointBackgroundColor:CC.purple}]);
+  mkChart('cMusc',lbl,[{label:'Brazo flex',data:data.map(d=>d.brazFlex),borderColor:CC.green,pointBackgroundColor:CC.green},{label:'Muslo',data:data.map(d=>d.muslo),borderColor:CC.cyan,pointBackgroundColor:CC.cyan},{label:'Pantorrilla',data:data.map(d=>d.pantPer),borderColor:CC.gold,pointBackgroundColor:CC.gold}]);
+  mkChart('cCint',lbl,[{label:'Cintura',data:data.map(d=>d.abdom),borderColor:CC.coral,pointBackgroundColor:CC.coral},{label:'Cadera',data:data.map(d=>d.cadera),borderColor:CC.gold,pointBackgroundColor:CC.gold}]);
+  mkChart('cPl',lbl,[{label:'Tricipital',data:data.map(d=>d.tri),borderColor:CC.coral,pointBackgroundColor:CC.coral},{label:'Cresta',data:data.map(d=>d.cresta),borderColor:CC.gold,pointBackgroundColor:CC.gold},{label:'Abdominal',data:data.map(d=>d.abd),borderColor:CC.cyan,pointBackgroundColor:CC.cyan}]);
+  const cols=['fecha','peso','s6','s8','brazFlex','muslo','abdom','cadera'];
+  const heads=['Fecha','Peso kg','Σ6 mm','Σ8 mm','Brazo cm','Muslo cm','Cintura cm','Cadera cm'];
+  $('antroTable').innerHTML=`<thead><tr>${heads.map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>`+[...data].reverse().map(d=>`<tr>${cols.map(c=>`<td>${d[c]??'—'}</td>`).join('')}</tr>`).join('')+'</tbody>';
+}
+
+function addAntroEntry(){
+  const gf=id=>{const e=$(id);return e?e.value||null:null};
+  const gn=id=>{const e=$(id);return e?parseFloat(e.value)||null:null};
+  const fecha=gf('f-fecha');if(!fecha){alert('Ingresa la fecha');return;}
+  const e={fecha:fecha.split('-').reverse().join('.'),peso:gn('f-peso'),tri:gn('f-tri'),bi:gn('f-bi'),sub:gn('f-sub'),cresta:gn('f-cresta'),supra:gn('f-supra'),abd:gn('f-abd'),pierna:gn('f-pierna'),pant:gn('f-pant'),brazRelaj:gn('f-brazRelaj'),brazFlex:gn('f-brazFlex'),abdom:gn('f-abdom'),cadera:gn('f-cadera'),muslo:gn('f-muslo'),pantPer:gn('f-pantPer')};
+  e.s6=+[e.tri,e.sub,e.supra,e.abd,e.pierna,e.pant].filter(Boolean).reduce((a,b)=>a+b,0).toFixed(1);
+  e.s8=+(e.s6+(e.bi||0)+(e.cresta||0)).toFixed(1);
+  const data=getAntroData();data.push(e);saveAntroData(data);
+  antroInited=false;initAntro();
+  ['fecha','peso','tri','bi','sub','cresta','supra','abd','pierna','pant','brazRelaj','brazFlex','abdom','cadera','muslo','pantPer'].forEach(f=>{const el=$('f-'+f);if(el)el.value='';});
+  flashSave();
+}
+
+function flashSave(){const ind=$('saveind');if(!ind)return;$('saveTxt').textContent='Guardado';ind.classList.add('show');clearTimeout(saveTimer);saveTimer=setTimeout(()=>ind.classList.remove('show'),1800);}
+
+renderHero();
+renderTabs();
+renderEval();
+</script>
+</body>
+</html>
