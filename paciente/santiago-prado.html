@@ -50,17 +50,32 @@ section{padding:30px 0}
 .macros .sep{flex:1}
 .tag{display:inline-block;font-family:'IBM Plex Mono';font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#000;background:var(--navy);padding:5px 12px;border-radius:999px;font-weight:700}
 
-/* ── Toggles de entrenamiento ── */
-.entreno-toggles{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:24px}
-.entreno-toggle{display:flex;align-items:center;gap:12px;padding:14px 20px;background:var(--panel);border:2px solid var(--line);border-radius:14px;cursor:pointer;transition:.2s;user-select:none;box-shadow:var(--shadow)}
-.entreno-toggle:hover{border-color:var(--muted)}
-.entreno-toggle.active{border-color:var(--navy);background:var(--panel2)}
-.entreno-toggle .et-icon{font-size:22px;line-height:1}
-.entreno-toggle .et-text .et-name{font-family:'Libre Franklin',sans-serif;font-weight:700;font-size:15px;color:var(--ink)}
-.entreno-toggle .et-text .et-sub{font-family:'IBM Plex Mono';font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--faint);margin-top:2px}
-.entreno-toggle.active .et-text .et-sub{color:var(--navy)}
-.entreno-toggle .et-check{width:22px;height:22px;border-radius:7px;border:2px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;font-family:'IBM Plex Mono';color:var(--faint);transition:.2s;flex-shrink:0}
-.entreno-toggle.active .et-check{background:var(--navy);border-color:var(--navy);color:#000}
+/* ── Bloques de entrenamiento ── */
+.entreno-blocks{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px;margin-bottom:24px}
+.entreno-block{background:var(--panel);border:2px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow);transition:border-color .2s}
+.entreno-block.active{border-color:var(--navy)}
+.entreno-block .eb-header{display:flex;align-items:center;gap:12px;padding:14px 18px;cursor:pointer;user-select:none;background:var(--panel2)}
+.entreno-block.active .eb-header{background:rgba(196,151,58,.08)}
+.entreno-block .eb-icon{font-size:22px;line-height:1}
+.entreno-block .eb-text{flex:1}
+.entreno-block .eb-name{font-family:'Libre Franklin',sans-serif;font-weight:700;font-size:15px;color:var(--ink)}
+.entreno-block .eb-sub{font-family:'IBM Plex Mono';font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--faint);margin-top:2px}
+.entreno-block.active .eb-sub{color:var(--navy)}
+.entreno-block .eb-check{width:24px;height:24px;border-radius:7px;border:2px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;font-family:'IBM Plex Mono';color:var(--faint);transition:.2s;flex-shrink:0}
+.entreno-block.active .eb-check{background:var(--navy);border-color:var(--navy);color:#000}
+.entreno-block .eb-body{padding:14px 18px 16px;border-top:1px solid var(--line)}
+.entreno-block .eb-meal{margin-bottom:14px}
+.entreno-block .eb-meal:last-child{margin-bottom:0}
+.entreno-block .eb-meal-name{font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:14px;color:var(--ink);margin-bottom:2px}
+.entreno-block .eb-meal-mac{font-family:'IBM Plex Mono';font-size:10.5px;color:var(--muted);margin-bottom:8px}
+.entreno-block .eb-meal-mac b{color:var(--amber)}
+.entreno-block .eb-pick-label{font-family:'IBM Plex Mono';font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--navy);font-weight:600;margin:8px 0 5px}
+.entreno-block .eb-opt{display:flex;align-items:flex-start;gap:8px;padding:6px 8px;border-radius:8px;cursor:pointer;border:1.5px solid transparent;font-size:12.5px;color:var(--muted);line-height:1.4;user-select:none;transition:.15s}
+.entreno-block .eb-opt:hover{background:var(--bg2)}
+.entreno-block .eb-opt.selected{background:rgba(196,151,58,.1);border-color:rgba(196,151,58,.3);color:var(--ink)}
+.entreno-block .eb-opt .cb{width:18px;height:18px;border-radius:5px;border:1.5px solid var(--line);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;font-family:'IBM Plex Mono';background:var(--panel);margin-top:1px}
+.entreno-block .eb-opt.selected .cb{background:var(--navy);border-color:var(--navy);color:#000}
+.entreno-block .eb-sep{height:1px;background:var(--line);margin:12px 0}
 
 /* ── Meals ── */
 .meals{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
@@ -500,14 +515,35 @@ function calcMacros() {
 function renderNutr() {
   var m = calcMacros();
 
-  // Toggles
-  var togglesHtml = '<div class="entreno-toggles">' +
+  // Bloques de pre-entrenamiento (siempre visibles, toggle activa/desactiva inclusión en macros)
+  var bloquesPre = '<div class="entreno-blocks">' +
     PATIENT.preEntrenos.map(function(pe) {
       var on = toggleState[pe.id];
-      return '<div class="entreno-toggle' + (on?' active':'') + '" onclick="toggleEntreno(\'' + pe.id + '\')">' +
-        '<span class="et-icon">' + pe.icon + '</span>' +
-        '<div class="et-text"><div class="et-name">' + pe.label + '</div><div class="et-sub">' + pe.sub + '</div></div>' +
-        '<div class="et-check">' + (on?'✓':'') + '</div>' +
+      // Contenido de cada comida dentro del bloque
+      var mealsInner = pe.comidas.map(function(meal, mi) {
+        var mac = '<div class="eb-meal-mac"><b>' + meal.kcal + '</b> kcal · ' + meal.p + 'P / ' + meal.c + 'C / ' + meal.g + 'G</div>';
+        var picks = meal.grupos.map(function(g, gi) {
+          var mealKey = pe.id + '-' + meal.id;
+          var opts = g.ops.map(function(op, oi) {
+            var key = mealKey + '-' + gi + '-' + oi;
+            var sel = (mealState[key]||0) > 0;
+            return '<div class="eb-opt' + (sel?' selected':'') + '" onclick="toggleEbOpt(this,\'' + key + '\')">' +
+              '<div class="cb">' + (sel?'✓':'') + '</div>' +
+              '<span>' + op + '</span></div>';
+          }).join('');
+          return '<div class="eb-pick-label">' + g.label + '</div>' + opts;
+        }).join('');
+        var sep = mi > 0 ? '<div class="eb-sep"></div>' : '';
+        return sep + '<div class="eb-meal"><div class="eb-meal-name">' + meal.nombre + '</div>' + mac + picks + '</div>';
+      }).join('');
+
+      return '<div class="entreno-block' + (on?' active':'') + '" id="eb-' + pe.id + '">' +
+        '<div class="eb-header" onclick="toggleEntreno(\'' + pe.id + '\')">' +
+        '<span class="eb-icon">' + pe.icon + '</span>' +
+        '<div class="eb-text"><div class="eb-name">' + pe.label + '</div><div class="eb-sub">' + pe.sub + (on?' · Activo':'') + '</div></div>' +
+        '<div class="eb-check">' + (on?'✓':'') + '</div>' +
+        '</div>' +
+        '<div class="eb-body">' + mealsInner + '</div>' +
         '</div>';
     }).join('') + '</div>';
 
@@ -519,15 +555,7 @@ function renderNutr() {
     '<span class="sep"></span>' +
     '<span class="tag">' + PATIENT.tipoPlan + '</span></div>';
 
-  // Comidas base
   var baseHtml = PATIENT.planBase.comidas.map(function(meal){ return buildMeal(meal, 'base', false); }).join('');
-
-  // Pre-entrenos activos
-  var extrasHtml = '';
-  PATIENT.preEntrenos.forEach(function(pe) {
-    if (!toggleState[pe.id]) return;
-    extrasHtml += pe.comidas.map(function(meal){ return buildMeal(meal, pe.id, true); }).join('');
-  });
 
   var suplHtml = '<section style="padding-top:0"><div class="sec-h"><span class="ix">02</span><h2>Suplementación</h2><div class="rule"></div></div>' +
     '<div class="supl-grid">' + PATIENT.suplementacion.map(function(s) {
@@ -543,10 +571,12 @@ function renderNutr() {
     '<div class="note" style="margin-top:16px">Siempre intenta que tus orinas sean claras, especialmente antes de los entrenamientos. La primera orina puede ser más oscura — a penas te levantes empieza a hidratarte.</div></section>';
 
   $('tab-plan').innerHTML = '<div class="wrap"><section>' +
-    '<div class="sec-h"><span class="ix">01</span><h2>Plan alimentario</h2><div class="rule"></div></div>' +
-    '<div class="note" style="margin-bottom:8px"><b>💡 Este es tu plan todos los días.</b> Si entrenas, activa el bloque correspondiente abajo y súmalo al plan base. Si haces tenis y pesas el mismo día, activa los dos.</div>' +
-    togglesHtml + macrosHtml +
-    '<div class="meals">' + baseHtml + extrasHtml + '</div></section>' +
+    '<div class="sec-h"><span class="ix">01</span><h2>Pre-entrenamientos</h2><div class="rule"></div></div>' +
+    '<div class="note" style="margin-bottom:16px"><b>💡 Marca los entrenamientos del día</b> — se suman al total de macros. Si haces tenis y pesas el mismo día, activa los dos.</div>' +
+    bloquesPre +
+    '<div class="sec-h" style="margin-top:24px"><span class="ix">02</span><h2>Plan base diario</h2><div class="rule"></div></div>' +
+    macrosHtml +
+    '<div class="meals">' + baseHtml + '</div></section>' +
     suplHtml + hydroHtml + '</div>';
 }
 
@@ -555,6 +585,13 @@ function toggleEntreno(id) {
   saveToggles(toggleState);
   renderNutr();
   flashSave();
+}
+
+function toggleEbOpt(el, key) {
+  var cur = mealState[key]||0;
+  mealState[key] = cur>0 ? 0 : 1;
+  saveMealState(mealState);
+  renderNutr();
 }
 
 function buildMeal(meal, planId, isExtra) {
