@@ -438,6 +438,9 @@ const PATIENT = {
     { nombre:'Glutamina', dosis:'5 g/día', marca:'En ayunas', cuando:'Ayunas · Tentativa' },
   ],
 };
+// Alias para que comer-fuera.js encuentre comidas y macros del plan base
+PATIENT.comidas = PATIENT.planBase.comidas;
+PATIENT.macros  = PATIENT.planBase.macros;
 
 // ════════════════════════════════════════════════════════════════════════════
 //  STATE
