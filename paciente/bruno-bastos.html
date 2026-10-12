@@ -199,7 +199,9 @@ const PATIENT = {
     imc:      28.9,
     tri:      6.0,  bi:3.0,    sub:10.0,  cresta:13.0, supra:9.0,
     abd:      16.0, pierna:12.0, pant:10.0,
-    s6:       63.0, s8:79.0,
+    pectoral: 12.0, axilar:10.0,
+    s6:       63.0, s8:79.0, s7:79.0,
+    hombros:  131.0,
     brazRelaj: 38.0, brazFlex:41.9,
     abdom:     87.0, cadera:104.0, muslo:58.5, pantPer:39.8,
     diam: { humero:6.4, biEstiloideo:5.1, femur:9.5 },
@@ -621,10 +623,13 @@ function renderEval() {
         ${row('Tricipital', a.tri)}${row('Bicipital', a.bi)}${row('Subescapular', a.sub)}
         ${row('Cresta iliaca', a.cresta)}${row('Supra espinal', a.supra)}${row('Abdominal', a.abd)}
         ${row('Pierna media', a.pierna)}${row('Pantorrilla', a.pant)}
+        ${a.pectoral!=null?row('Pectoral', a.pectoral):''}${a.axilar!=null?row('Axilar medio', a.axilar):''}
         <div class="row bold"><span>Σ6 pliegues</span><span>${a.s6!=null?a.s6+' mm':'—'}</span></div>
         <div class="row bold"><span>Σ8 pliegues</span><span>${a.s8!=null?a.s8+' mm':'—'}</span></div>
+        ${a.s7!=null?`<div class="row bold"><span>Σ7 Jackson-Pollock</span><span>${a.s7} mm</span></div>`:''}
       </div>
       <div class="evgroup"><div class="gh">Perímetros (cm)</div>
+        ${a.hombros!=null?row('Hombros', a.hombros):''}
         ${row('Brazo relajado', a.brazRelaj)}${row('Brazo flexionado', a.brazFlex)}
         ${row('Abdominal (cintura)', a.abdom)}${row('Cadera', a.cadera)}
         ${row('Muslo medio', a.muslo)}${row('Pantorrilla', a.pantPer)}
