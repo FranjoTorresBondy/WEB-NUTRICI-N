@@ -193,20 +193,24 @@ const PATIENT = {
   ],
 
   antro: {
-    fecha:    '29.09.2026',
-    peso:     89.6,
+    fecha:    '12.10.2026',
+    peso:     88.5,
     talla:    175.0,
-    imc:      29.3,
-    tri:      6.0,  bi:2.0,    sub:12.0,  cresta:14.0, supra:10.0,
-    abd:      17.0, pierna:12.0, pant:10.0,
-    s6:       67.0, s8:83.0,
-    brazRelaj: 39.5, brazFlex:42.0,
-    abdom:     89.0, cadera:103.0, muslo:58.5, pantPer:39.5,
+    imc:      28.9,
+    tri:      7.0,  bi:3.0,    sub:10.0,  cresta:13.0, supra:8.0,
+    abd:      16.0, pierna:12.0, pant:10.0,
+    s6:       63.0, s8:79.0,
+    brazRelaj: 38.0, brazFlex:41.9,
+    abdom:     87.0, cadera:104.0, muslo:58.5, pantPer:40.5,
     diam: { humero:6.4, biEstiloideo:5.1, femur:9.5 },
-    icc:      0.86, somato: { endo:2.8, meso:6.8, ecto:0.5 },
-    pctGrasa: 12.7, fatKg: 11.4,
-    pctOseo:  12.0, oseoKg: 10.7,
-    pctMusc:  null, muscKg: null,
+    icc:      0.84, somato: { endo:2.4, meso:6.9, ecto:0.6 },
+    // Faulkner y Lee con las ecuaciones masculinas; la hoja los imprimió con
+    // las femeninas (16.6% y 45.1%) porque la celda de sexo quedó sin poner
+    // en 1. Lee asume 32 años: entre 25 y 40 el resultado varía 0.7 kg.
+    pctGrasa: 12.1, fatKg: 10.7,
+    pctOseo:  12.1, oseoKg: 10.7,
+    pctMusc:  46.0, muscKg: 40.7,
+    imo: 3.80,
   },
 
   antroHistorial: [
@@ -214,7 +218,12 @@ const PATIENT = {
       tri:7.0, bi:2.5, sub:13.0, cresta:18.0, supra:10.0, abd:18.0, pierna:12.0, pant:12.0,
       s6:72.0, s8:92.5,
       brazRelaj:38.8, brazFlex:42.0, abdom:90.0, cadera:105.0, muslo:58.5, pantPer:39.8,
-      pctGrasa:13.1, fatKg:11.9, icc:0.86 },
+      pctGrasa:13.1, fatKg:11.9, pctMusc:45.0, muscKg:40.7, pctOseo:11.9, oseoKg:10.7, imo:3.80, icc:0.86 },
+    { fecha:'29.09.2026', peso:89.6, talla:175.0, imc:29.3,
+      tri:6.0, bi:2.0, sub:12.0, cresta:14.0, supra:10.0, abd:17.0, pierna:12.0, pant:10.0,
+      s6:67.0, s8:83.0,
+      brazRelaj:39.5, brazFlex:42.0, abdom:89.0, cadera:103.0, muslo:58.5, pantPer:39.5,
+      pctGrasa:12.7, fatKg:11.4, pctMusc:46.8, muscKg:41.9, pctOseo:12.0, oseoKg:10.7, imo:3.92, icc:0.86 },
   ],
 
   objetivos: [
