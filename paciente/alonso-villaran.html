@@ -476,7 +476,96 @@ const PATIENT = {
 
   notaSpecs: 'Las cantidades de agua del cuadro pueden ser variables. Siempre intenta que tus orinas sean claras, sobre todo antes de los entrenamientos, donde debes estar bien hidratado.',
 
-  entrenamiento: null,
+  entrenamiento: {
+    fases: [
+      { label:'Adaptación',      semanas:2, color:'#4fc3f7', bg:'#1a3a4a' },
+      { label:'Acumulación',     semanas:3, color:'#C4973A', bg:'#3a2e0a' },
+      { label:'Intensificación', semanas:2, color:'#ef9a9a', bg:'#3a1a1a' },
+      { label:'Deload',          semanas:1, color:'#a5d6a7', bg:'#1a3a1a' },
+    ],
+    sesiones: [
+
+      // ── SESIÓN 1 · FUNDO ──────────────────────────────────────────────────
+      { id:'s1', icon:'🏋️', label:'Sesión 1 — Fundo', nota:'Fuerza en repeticiones bajas · Bombeo de brazos y deltoides al cierre', ejercicios:[
+
+        { nombre:'Sentadilla con barra', img:'anim', s1:'Barbell_Squat/0.jpg', s2:'Barbell_Squat/1.jpg',
+          reps:'5', descanso:'3:00', nota:'En el squat stand. Baja controlado, sube rápido.',
+          prog:[[4,3],[4,3],[4,2],[4,2],[4,2],[4,1],[5,1],[2,4]] },
+
+        { nombre:'Peso muerto con barra hexagonal', img:'anim', s1:'Barbell_Deadlift/0.jpg', s2:'Barbell_Deadlift/1.jpg',
+          reps:'5', descanso:'3:00', nota:'Con la barra hexagonal: el tirón sale más vertical y te cuida la espalda baja.',
+          prog:[[4,3],[4,3],[4,2],[4,2],[4,2],[4,1],[5,1],[2,4]] },
+
+        { nombre:'Press inclinado con mancuernas', img:'anim', s1:'Incline_Dumbbell_Press/0.jpg', s2:'Incline_Dumbbell_Press/1.jpg',
+          reps:'6', descanso:'2:30', nota:'Banca a 30°. Las de 40 lb.',
+          prog:[[4,3],[4,3],[4,2],[4,2],[4,2],[4,1],[5,1],[2,4]] },
+
+        { nombre:'Remo con barra', img:'anim', s1:'Bent_Over_Barbell_Row/0.jpg', s2:'Bent_Over_Barbell_Row/1.jpg',
+          reps:'6', descanso:'2:30', nota:'Tronco a 45°, lleva la barra al ombligo.',
+          prog:[[4,3],[4,3],[4,2],[4,2],[4,2],[4,1],[5,1],[2,4]] },
+
+        { nombre:'Press militar de pie con barra', img:'anim', s1:'Standing_Military_Press/0.jpg', s2:'Standing_Military_Press/1.jpg',
+          reps:'6', descanso:'2:00', nota:'Glúteo y abdomen apretados para no arquear la espalda.',
+          prog:[[4,3],[4,3],[4,2],[4,2],[4,2],[4,1],[5,1],[2,4]] },
+
+        { nombre:'Curl de bíceps con mancuernas', img:'anim', s1:'Dumbbell_Bicep_Curl/0.jpg', s2:'Dumbbell_Bicep_Curl/1.jpg',
+          reps:'12-15', descanso:'1:00',
+          prog:[[3,2],[3,2],[3,1],[3,1],[3,1],[3,0],[3,'F'],[2,3]] },
+
+        { nombre:'Extensión de tríceps sobre la cabeza con mancuerna', img:'anim', s1:'Seated_Triceps_Press/0.jpg', s2:'Seated_Triceps_Press/1.jpg',
+          reps:'12-15', descanso:'1:00',
+          prog:[[3,2],[3,2],[3,1],[3,1],[3,1],[3,0],[3,'F'],[2,3]] },
+
+        { nombre:'Elevaciones laterales con mancuernas', img:'anim', s1:'Side_Lateral_Raise/0.jpg', s2:'Side_Lateral_Raise/1.jpg',
+          reps:'15-20', descanso:'0:45', nota:'Las de 15 lb. Sube hasta la altura del hombro y baja lento.',
+          prog:[[3,2],[3,2],[3,1],[3,1],[3,1],[3,0],[3,'F'],[2,3]] },
+
+        { nombre:'Deltoide posterior con mancuernas en banco', img:'anim', s1:'Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench/0.jpg', s2:'Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench/1.jpg',
+          reps:'15-20', descanso:'0:45', nota:'Pecho apoyado en la banca inclinada. Abre con los codos, no con las manos.',
+          prog:[[3,2],[3,2],[3,1],[3,1],[3,1],[3,0],[3,'F'],[2,3]] },
+      ]},
+
+      // ── SESIÓN 2 · REGATAS ────────────────────────────────────────────────
+      { id:'s2', icon:'💪', label:'Sesión 2 — Regatas', nota:'Sábado · Arranca en fuerza y cierra con hipertrofia en máquinas', ejercicios:[
+
+        { nombre:'Press banca con barra', img:'anim', s1:'Barbell_Bench_Press_-_Medium_Grip/0.jpg', s2:'Barbell_Bench_Press_-_Medium_Grip/1.jpg',
+          reps:'5', descanso:'3:00', nota:'Agarre medio. Codos a 45°, no abiertos del todo.',
+          prog:[[4,3],[4,3],[4,2],[4,2],[4,2],[4,1],[5,1],[2,4]] },
+
+        { nombre:'Dominadas con lastre', img:'anim', s1:'Weighted_Pull_Ups/0.jpg', s2:'Weighted_Pull_Ups/1.jpg',
+          reps:'5', descanso:'3:00', nota:'Si aún no salen 5 con lastre, hazlas a peso corporal y suma repeticiones.',
+          prog:[[4,3],[4,3],[4,2],[4,2],[4,2],[4,1],[5,1],[2,4]] },
+
+        { nombre:'Prensa de piernas', img:'anim', s1:'Leg_Press/0.jpg', s2:'Leg_Press/1.jpg',
+          reps:'8', descanso:'2:30', nota:'Baja hasta que el muslo pase los 90° sin despegar la cadera.',
+          prog:[[4,3],[4,3],[4,2],[4,2],[4,2],[4,1],[5,1],[2,4]] },
+
+        { nombre:'Press convergente en Hammer', img:'anim', s1:'Leverage_Chest_Press/0.jpg', s2:'Leverage_Chest_Press/1.jpg',
+          reps:'10', descanso:'2:00',
+          prog:[[3,2],[3,2],[4,2],[4,1],[4,1],[4,0],[4,0],[2,3]] },
+
+        { nombre:'Jalón al pecho agarre ancho', img:'anim', s1:'Wide-Grip_Lat_Pulldown/0.jpg', s2:'Wide-Grip_Lat_Pulldown/1.jpg',
+          reps:'10', descanso:'2:00', nota:'Lleva la barra al pecho, no detrás de la nuca.',
+          prog:[[3,2],[3,2],[4,2],[4,1],[4,1],[4,0],[4,0],[2,3]] },
+
+        { nombre:'Aducción de pecho en pec deck', img:'anim', s1:'Butterfly/0.jpg', s2:'Butterfly/1.jpg',
+          reps:'12', descanso:'1:30',
+          prog:[[3,2],[3,2],[4,2],[4,1],[4,1],[4,0],[4,0],[2,3]] },
+
+        { nombre:'Extensión de rodilla en máquina', img:'anim', s1:'Leg_Extensions/0.jpg', s2:'Leg_Extensions/1.jpg',
+          reps:'12', descanso:'1:30', nota:'Aprieta arriba 1 segundo antes de bajar.',
+          prog:[[3,2],[3,2],[4,2],[4,1],[4,1],[4,0],[4,0],[2,3]] },
+
+        { nombre:'Flexión de rodilla sentado', img:'anim', s1:'Seated_Leg_Curl/0.jpg', s2:'Seated_Leg_Curl/1.jpg',
+          reps:'12', descanso:'1:30',
+          prog:[[3,2],[3,2],[4,2],[4,1],[4,1],[4,0],[4,0],[2,3]] },
+
+        { nombre:'Elevación de talones de pie', img:'anim', s1:'Standing_Calf_Raises/0.jpg', s2:'Standing_Calf_Raises/1.jpg',
+          reps:'15', descanso:'1:00', nota:'Rango completo: estira abajo, sube hasta la punta del pie.',
+          prog:[[3,2],[3,2],[4,2],[4,1],[4,1],[4,0],[4,0],[2,3]] },
+      ]},
+    ],
+  },
 };
 
 // ════════════════════════════════════════════════════════════════════════════
