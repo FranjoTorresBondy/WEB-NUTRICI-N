@@ -177,10 +177,16 @@ const PATIENT = {
     { label:'💧 Diario (lactancia)', valor:'3.5' },
   ],
   antro: {
-    fecha:  '12.10.2026',
-    peso:   62.0,
+    fecha:  '13.10.2026',
+    peso:   62.7,
     talla:  160.0,
-    imc:    24.2,
+    imc:    24.5,
+    tri:13.0, bi:4.5, sub:12.0, cresta:28.0, supra:13.0, abd:28.0, pierna:30.0, pant:10.0,
+    s6:106.0, s8:138.5,
+    brazRelaj:29.0, brazFlex:28.5, abdom:80.0, cadera:103.0, muslo:51.8, pantPer:32.5,
+    diam:{ humero:6.0, biEstiloideo:4.9, femur:9.1 },
+    pctGrasa:22.0, fatKg:13.8, pctMusc:28.3, muscKg:17.7, pctOseo:14.2, oseoKg:8.9,
+    icc:0.78, somato:'4.1 · 4.3 · 1.0',
   },
 
   objetivos: [
@@ -436,19 +442,44 @@ function renderEval() {
   $('tab-eval').innerHTML = `<div class="wrap"><section>
     <div class="sec-h"><span class="ix">01</span><h2>Evaluación Nutricional</h2><div class="rule"></div></div>
     <div class="evalwrap">
-      <div class="evgroup"><div class="gh">Antropometría básica</div>
-        <div class="row"><span>Peso actual</span><span>${a.peso} kg</span></div>
+      <div class="evgroup"><div class="gh">Antropometría · ${a.fecha}</div>
+        <div class="row"><span>Peso</span><span>${a.peso} kg</span></div>
         <div class="row"><span>Peso habitual</span><span>52.0 kg</span></div>
-        <div class="row"><span>Peso máximo embarazo</span><span>72.0 kg</span></div>
+        <div class="row"><span>Peso máx. embarazo</span><span>72.0 kg</span></div>
         <div class="row"><span>Talla</span><span>${a.talla} cm</span></div>
         <div class="row"><span>IMC</span><span>${a.imc} kg/m²</span></div>
+        <div class="row"><span>ICC</span><span>${a.icc}</span></div>
+        <div class="row bold"><span>Somatotipo</span><span>${a.somato}</span></div>
       </div>
-      <div class="evgroup"><div class="gh">Contexto clínico</div>
-        <div class="row"><span>Semanas posparto</span><span>~4 semanas</span></div>
-        <div class="row"><span>Tipo de parto</span><span>Cesárea</span></div>
-        <div class="row"><span>Lactancia</span><span>Exclusiva ~1 L/día</span></div>
-        <div class="row"><span>Actividad</span><span>Muy leve (brazos/pant.)</span></div>
-        <div class="row"><span>Medidas ISAK</span><span>Pendientes</span></div>
+      <div class="evgroup"><div class="gh">Composición corporal</div>
+        <div class="row"><span>% Grasa (Faulkner)</span><span>${a.pctGrasa} %</span></div>
+        <div class="row"><span>Masa grasa</span><span>${a.fatKg} kg</span></div>
+        <div class="row"><span>% Músculo (Lee)</span><span>${a.pctMusc} %</span></div>
+        <div class="row"><span>Masa muscular</span><span>${a.muscKg} kg</span></div>
+        <div class="row"><span>% Óseo (Rocha)</span><span>${a.pctOseo} %</span></div>
+        <div class="row"><span>Masa ósea</span><span>${a.oseoKg} kg</span></div>
+      </div>
+      <div class="evgroup"><div class="gh">Pliegues cutáneos (mm)</div>
+        <div class="row"><span>Tricipital</span><span>${a.tri}</span></div>
+        <div class="row"><span>Bicipital</span><span>${a.bi}</span></div>
+        <div class="row"><span>Subescapular</span><span>${a.sub}</span></div>
+        <div class="row"><span>Cresta ilíaca</span><span>${a.cresta}</span></div>
+        <div class="row"><span>Supraespinal</span><span>${a.supra}</span></div>
+        <div class="row"><span>Abdominal</span><span>${a.abd}</span></div>
+        <div class="row"><span>Muslo anterior</span><span>${a.pierna}</span></div>
+        <div class="row"><span>Pantorrilla med.</span><span>${a.pant}</span></div>
+        <div class="row bold"><span>Σ6 / Σ8</span><span>${a.s6} / ${a.s8}</span></div>
+      </div>
+      <div class="evgroup"><div class="gh">Perímetros (cm) · Diámetros (cm)</div>
+        <div class="row"><span>Brazo relajado</span><span>${a.brazRelaj}</span></div>
+        <div class="row"><span>Brazo flexionado</span><span>${a.brazFlex}</span></div>
+        <div class="row"><span>Abdomen</span><span>${a.abdom}</span></div>
+        <div class="row"><span>Cadera</span><span>${a.cadera}</span></div>
+        <div class="row"><span>Muslo medio</span><span>${a.muslo}</span></div>
+        <div class="row"><span>Pantorrilla</span><span>${a.pantPer}</span></div>
+        <div class="row"><span>Húmero</span><span>${a.diam.humero}</span></div>
+        <div class="row"><span>Biestiloides</span><span>${a.diam.biEstiloideo}</span></div>
+        <div class="row"><span>Fémur</span><span>${a.diam.femur}</span></div>
       </div>
     </div>
     <div class="sec-h" style="margin-top:32px"><span class="ix">02</span><h2>Objetivos</h2><div class="rule"></div></div>
