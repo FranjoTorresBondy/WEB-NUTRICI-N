@@ -127,6 +127,27 @@ section{padding:30px 0}
 .antro-table td:first-child{text-align:left;color:var(--muted)}
 .antro-table tr:last-child td{border-bottom:none;color:var(--navy);font-weight:700}
 .tbl-scroll{overflow-x:auto;border-radius:12px;border:1px solid var(--line)}
+.etrain-note{font-size:12.5px;color:var(--muted);background:var(--panel2);border:1px dashed var(--line);border-radius:12px;padding:12px 16px;margin-bottom:20px}
+.scards{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+@media(max-width:760px){.scards{grid-template-columns:1fr}}
+.scard{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow)}
+.scard-head{display:flex;align-items:center;gap:14px;padding:16px 20px;background:var(--panel2);border-bottom:1px solid var(--line)}
+.scard-icon{font-size:22px;line-height:1}
+.scard-nombre{font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:17px}
+.scard-tag{font-family:'IBM Plex Mono';font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--navy);margin-top:3px}
+.stable-wrap{overflow-x:auto}
+.stable{width:100%;border-collapse:collapse;min-width:320px}
+.stable thead th{background:var(--bg2);color:var(--faint);font-family:'IBM Plex Mono';font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;padding:8px 14px;border-bottom:1px solid var(--line);text-align:left}
+.stable thead th.ex-center{text-align:center}
+.stable tbody tr{border-bottom:1px solid rgba(255,255,255,.04)}
+.stable tbody tr:last-child{border-bottom:none}
+.stable td{padding:11px 14px;font-size:13px;color:var(--muted);vertical-align:middle}
+.stable td.ex-num{color:var(--faint);font-family:'IBM Plex Mono';font-size:11px;width:32px}
+.stable td.ex-name{color:var(--ink);font-weight:500}
+.ex-nota{font-size:11px;color:var(--faint);font-style:italic;margin-top:2px}
+.stable td.ex-center{text-align:center}
+.badge-series{display:inline-flex;align-items:center;justify-content:center;background:var(--panel2);border-radius:6px;padding:3px 10px;font-size:12px;font-weight:600;color:var(--muted)}
+.badge-reps{display:inline-flex;align-items:center;justify-content:center;background:rgba(196,151,58,.1);border:1px solid rgba(196,151,58,.2);border-radius:6px;padding:3px 10px;font-size:12px;font-weight:600;color:var(--navy)}
 footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 .foot-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
 .foot-brand{font-family:'IBM Plex Mono';font-size:11px;color:var(--faint);letter-spacing:.1em}
@@ -365,6 +386,7 @@ function renderTabs() {
     {id:'eval',       label:'Evaluación'},
     {id:'specs',      label:'Especificaciones'},
     {id:'evol-antro', label:'Evolución Física'},
+    {id:'entrenamiento', label:'Entrenamiento'},
   ];
   $('tabNav').innerHTML = tabs.map((t,i) => {
     const extra = t.id==='evol-antro' ? ';initAntro()' : '';
@@ -577,11 +599,67 @@ function addEntry(){
   flashSave();
 }
 
+const SESSIONS_LOLITA = [
+  {
+    id:'s1', nombre:'Sesión 1', tag:'Antebrazos · Brazos · Pantorrillas', icon:'💪',
+    ejercicios:[
+      { nombre:'Extensión de muñeca unilateral',                    series:4, reps:'20', nota:'' },
+      { nombre:'Flexión de muñeca unilateral',                      series:4, reps:'20', nota:'' },
+      { nombre:'Bíceps con mancuerna sentado alternado',            series:4, reps:'15', nota:'' },
+      { nombre:'Pantorrilla desde el suelo con apoyo en pared',     series:4, reps:'15', nota:'Bipodal' },
+    ]
+  },
+  {
+    id:'s2', nombre:'Sesión 2', tag:'Hombros · Pantorrillas', icon:'🏋️',
+    ejercicios:[
+      { nombre:'Elevaciones laterales con mancuerna',               series:4, reps:'15', nota:'' },
+      { nombre:'Elevaciones frontales con mancuerna',               series:4, reps:'15', nota:'' },
+      { nombre:'Elevaciones posteriores con mancuerna',             series:4, reps:'15', nota:'' },
+      { nombre:'Rotación externa',                                  series:2, reps:'10', nota:'' },
+      { nombre:'Rotación interna',                                  series:2, reps:'10', nota:'' },
+      { nombre:'Pantorrilla desde el suelo con apoyo en pared',     series:4, reps:'15', nota:'Bipodal · superserie con tibiales' },
+      { nombre:'Tibiales con espalda en pared (elevación de puntas)',series:4, reps:'10', nota:'Superserie con anterior' },
+    ]
+  },
+];
+
+function renderEntrenamiento() {
+  const el = $('tab-entrenamiento'); if(!el) return;
+  const sesiones = SESSIONS_LOLITA.map(s => {
+    const rows = s.ejercicios.map((e,i) => `
+      <tr>
+        <td class="ex-num">${i+1}</td>
+        <td class="ex-name">${e.nombre}${e.nota?`<div class="ex-nota">${e.nota}</div>`:''}</td>
+        <td class="ex-center"><span class="badge-series">${e.series}</span></td>
+        <td class="ex-center"><span class="badge-reps">${e.reps}</span></td>
+      </tr>`).join('');
+    return `<div class="scard">
+      <div class="scard-head"><span class="scard-icon">${s.icon}</span>
+        <div><div class="scard-nombre">${s.nombre}</div><div class="scard-tag">${s.tag}</div></div>
+      </div>
+      <div class="stable-wrap"><table class="stable">
+        <thead><tr>
+          <th style="width:32px">#</th><th>Ejercicio</th>
+          <th class="ex-center" style="width:90px">Series</th>
+          <th class="ex-center" style="width:90px">Reps</th>
+        </tr></thead>
+        <tbody>${rows}</tbody>
+      </table></div>
+    </div>`;
+  }).join('');
+  el.innerHTML = `<div class="wrap"><section>
+    <div class="sec-h"><span class="ix">01</span><h2>Plan de Entrenamiento Posparto</h2><div class="rule"></div></div>
+    <div class="etrain-note">Lejos del fallo · Sin ejercicios de core ni tren inferior por ahora · Solo brazos y pantorrillas</div>
+    <div class="scards">${sesiones}</div>
+  </section></div>`;
+}
+
 renderHero();
 renderTabs();
 renderPlan();
 renderEval();
 renderSpecs();
+renderEntrenamiento();
 </script>
 <script src="guia-data.js"></script>
 <script src="comer-fuera.js"></script>
