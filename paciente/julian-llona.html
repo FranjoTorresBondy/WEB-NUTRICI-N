@@ -399,13 +399,21 @@ const PATIENT = {
     s6:80.0, s8:108.0,
     brazRelaj:25.0, brazFlex:25.0, abdom:67.5, cadera:93.0, muslo:45.0, pantPer:31.0,
     diam: { humero:5.0, biEstiloideo:4.5, femur:8.5 },
+    // Slaughter (1988) para niños y adolescentes, versión tríceps + subescapular
+    // con intercepto púber: %G = 1.21·(T+S) − 0.008·(T+S)² − 3.4
+    //                          = 1.21·22 − 0.008·484 − 3.4 = 19.3 %
+    // Faulkner lo subestimaba en 6.5 puntos por estar validada solo en adultos.
+    metodoGrasa:'Slaughter púber',
+    pctGrasa:19.3, fatKg:9.1,
+    pctOseo:15.9, oseoKg:7.5,
     icc:0.73,
   },
   antroHistorial: [
     { fecha:'12.10.2026', peso:47.4, talla:153.5, imc:20.1,
       tri:7.0, bi:8.0, sub:15.0, cresta:20.0, supra:10.0, abd:14.0, pierna:21.0, pant:13.0,
       brazRelaj:25.0, brazFlex:25.0, abdom:67.5, cadera:93.0, muslo:45.0, pantPer:31.0,
-      s6:80.0, s8:108.0 },
+      s6:80.0, s8:108.0,
+      pctGrasa:19.3, fatKg:9.1, pctOseo:15.9, oseoKg:7.5, icc:0.73 },
   ],
 
   objetivos: [

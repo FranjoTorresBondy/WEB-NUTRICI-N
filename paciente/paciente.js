@@ -313,6 +313,9 @@ function injectGuardarBtn(mealsContainer) {
 
     return {
       fecha: a.fecha, peso: peso, talla: num(a.talla), imc: num(a.imc),
+      // Qué ecuación de grasa se usó. Por defecto Faulkner, pero en niños y
+      // adolescentes corresponde Slaughter, que es la validada en 8–18 años.
+      metodoGrasa: a.metodoGrasa || 'Faulkner',
       s6: s6, s8: s8, pctG: pctG, pctGEstim: pctGEstim,
       pctMusc: num(a.pctMusc), pctOseo: num(a.pctOseo),
       fat: fat, mus: mus, ose: ose, imo: imo,
@@ -327,7 +330,7 @@ function injectGuardarBtn(mealsContainer) {
   }
 
   function ccBox(d) {
-    var html = row('% Grasa (Faulkner)' + (d.pctGEstim ? ' *' : ''), d.pctG != null ? d.pctG + ' %' : null)
+    var html = row('% Grasa (' + d.metodoGrasa + ')' + (d.pctGEstim ? ' *' : ''), d.pctG != null ? d.pctG + ' %' : null)
       + row('Masa grasa', d.fat != null ? d.fat + ' kg' : null, true)
       + row('% Músculo (Lee)', d.pctMusc != null ? d.pctMusc + ' %' : null)
       + row('Masa muscular', d.mus != null ? d.mus + ' kg' : null, true)
@@ -374,7 +377,11 @@ function injectGuardarBtn(mealsContainer) {
       out.push({ t: '<b>Σ6 de ' + d.s6 + ' mm</b> te ubica en <b>' + nivelS6(d.s6, sexo) + '</b>.', c: 'ink' });
     }
 
-    if (sexo && d.pctG != null && !d.pctGEstim) {
+    // Los rangos de META_GRASA son de adulto. En niños y adolescentes (los que
+    // van con Slaughter) no aplican: un 19 % a los 13 años es normal, y decirle
+    // que "le faltan 2 kg de grasa" sería un mensaje equivocado.
+    var esPediatrico = /slaughter/i.test(d.metodoGrasa || '');
+    if (sexo && d.pctG != null && !d.pctGEstim && !esPediatrico) {
       var meta = META_GRASA[sexo];
       if (d.pctG > meta[1]) {
         var faltan = ((d.pctG - meta[1]) / 100 * d.peso).toFixed(1);
