@@ -486,44 +486,45 @@ const PATIENT = {
     sesiones: [
 
       // ── SESIÓN 1 · FUNDO ──────────────────────────────────────────────────
-      { id:'s1', icon:'🏋️', label:'Sesión 1 — Fundo', nota:'Fuerza en repeticiones bajas · Bombeo de brazos y deltoides al cierre', ejercicios:[
+      { id:'s1', icon:'🏋️', label:'Sesión 1 — Fundo', nota:'Fuerza en 5-7 reps · Cierre de hipertrofia en superserie y biserie', ejercicios:[
 
-        { nombre:'Sentadilla con barra', img:'anim', s1:'Barbell_Squat/0.jpg', s2:'Barbell_Squat/1.jpg',
-          reps:'5', descanso:'3:00', nota:'En el squat stand. Baja controlado, sube rápido.',
-          prog:[[4,3],[4,3],[4,2],[4,2],[4,2],[4,1],[5,1],[2,4]] },
+        { nombre:'Back squat con barra', img:'anim', s1:'Barbell_Squat/0.jpg', s2:'Barbell_Squat/1.jpg',
+          reps:'5-7', descanso:'3:00', nota:'En el squat stand. Baja controlado, sube rápido.',
+          prog:[[2,3],[2,3],[2,2],[3,2],[3,2],[3,1],[3,1],[2,4]] },
+
+        { nombre:'Press banca inclinado con barra', img:'anim', s1:'Barbell_Incline_Bench_Press_-_Medium_Grip/0.jpg', s2:'Barbell_Incline_Bench_Press_-_Medium_Grip/1.jpg',
+          reps:'5-7', descanso:'3:00', nota:'Banca a 30°. Si no puedes montar la barra solo, hazlo con las mancuernas de 40 lb.',
+          prog:[[2,3],[2,3],[2,2],[3,2],[3,2],[3,1],[3,1],[2,4]] },
 
         { nombre:'Peso muerto con barra hexagonal', img:'anim', s1:'Barbell_Deadlift/0.jpg', s2:'Barbell_Deadlift/1.jpg',
-          reps:'5', descanso:'3:00', nota:'Con la barra hexagonal: el tirón sale más vertical y te cuida la espalda baja.',
-          prog:[[4,3],[4,3],[4,2],[4,2],[4,2],[4,1],[5,1],[2,4]] },
+          reps:'5-7', descanso:'3:00', nota:'Con la barra hexagonal: el tirón sale más vertical y te cuida la espalda baja.',
+          prog:[[2,3],[2,3],[2,2],[3,2],[3,2],[3,1],[3,1],[2,4]] },
 
-        { nombre:'Press inclinado con mancuernas', img:'anim', s1:'Incline_Dumbbell_Press/0.jpg', s2:'Incline_Dumbbell_Press/1.jpg',
-          reps:'6', descanso:'2:30', nota:'Banca a 30°. Las de 40 lb.',
-          prog:[[4,3],[4,3],[4,2],[4,2],[4,2],[4,1],[5,1],[2,4]] },
+        { nombre:'Press militar parado con barra', img:'anim', s1:'Standing_Military_Press/0.jpg', s2:'Standing_Military_Press/1.jpg',
+          reps:'5-7', descanso:'2:30', nota:'Glúteo y abdomen apretados para no arquear la espalda.',
+          prog:[[2,3],[2,3],[2,2],[3,2],[3,2],[3,1],[3,1],[2,4]] },
 
         { nombre:'Remo con barra', img:'anim', s1:'Bent_Over_Barbell_Row/0.jpg', s2:'Bent_Over_Barbell_Row/1.jpg',
-          reps:'6', descanso:'2:30', nota:'Tronco a 45°, lleva la barra al ombligo.',
-          prog:[[4,3],[4,3],[4,2],[4,2],[4,2],[4,1],[5,1],[2,4]] },
+          reps:'5-7', descanso:'2:30', nota:'Tronco a 45°, lleva la barra al ombligo.',
+          prog:[[2,3],[2,3],[2,2],[3,2],[3,2],[3,1],[3,1],[2,4]] },
 
-        { nombre:'Press militar de pie con barra', img:'anim', s1:'Standing_Military_Press/0.jpg', s2:'Standing_Military_Press/1.jpg',
-          reps:'6', descanso:'2:00', nota:'Glúteo y abdomen apretados para no arquear la espalda.',
-          prog:[[4,3],[4,3],[4,2],[4,2],[4,2],[4,1],[5,1],[2,4]] },
-
-        { nombre:'Curl de bíceps con mancuernas', img:'anim', s1:'Dumbbell_Bicep_Curl/0.jpg', s2:'Dumbbell_Bicep_Curl/1.jpg',
-          reps:'12-15', descanso:'1:00',
+        { nombre:'A1 · Elevaciones laterales con mancuernas', img:'anim', s1:'Side_Lateral_Raise/0.jpg', s2:'Side_Lateral_Raise/1.jpg',
+          reps:'10-12', descanso:'0:00', nota:'🔗 SUPERSERIE con A2 — pasa directo al siguiente, sin descanso.',
           prog:[[3,2],[3,2],[3,1],[3,1],[3,1],[3,0],[3,'F'],[2,3]] },
 
-        { nombre:'Extensión de tríceps sobre la cabeza con mancuerna', img:'anim', s1:'Seated_Triceps_Press/0.jpg', s2:'Seated_Triceps_Press/1.jpg',
-          reps:'12-15', descanso:'1:00',
+        { nombre:'A2 · Deltoide posterior con mancuernas', img:'anim', s1:'Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench/0.jpg', s2:'Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench/1.jpg',
+          reps:'10-12', descanso:'1:30', nota:'🔗 Cierra la superserie. Pecho apoyado en la banca inclinada, abre con los codos. Recién aquí descansas 1:30 y vuelves a A1.',
           prog:[[3,2],[3,2],[3,1],[3,1],[3,1],[3,0],[3,'F'],[2,3]] },
 
-        { nombre:'Elevaciones laterales con mancuernas', img:'anim', s1:'Side_Lateral_Raise/0.jpg', s2:'Side_Lateral_Raise/1.jpg',
-          reps:'15-20', descanso:'0:45', nota:'Las de 15 lb. Sube hasta la altura del hombro y baja lento.',
+        { nombre:'B1 · Press francés con barra', img:'anim', s1:'EZ-Bar_Skullcrusher/0.jpg', s2:'EZ-Bar_Skullcrusher/1.jpg',
+          reps:'10-12', descanso:'0:00', nota:'🔗 BISERIE con B2 — pasa directo al siguiente, sin descanso.',
           prog:[[3,2],[3,2],[3,1],[3,1],[3,1],[3,0],[3,'F'],[2,3]] },
 
-        { nombre:'Deltoide posterior con mancuernas en banco', img:'anim', s1:'Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench/0.jpg', s2:'Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench/1.jpg',
-          reps:'15-20', descanso:'0:45', nota:'Pecho apoyado en la banca inclinada. Abre con los codos, no con las manos.',
+        { nombre:'B2 · Curl de bíceps en banco a 45°', img:'anim', s1:'Alternate_Incline_Dumbbell_Curl/0.jpg', s2:'Alternate_Incline_Dumbbell_Curl/1.jpg',
+          reps:'10-12', descanso:'1:30', nota:'🔗 Cierra la biserie. Recostado en la banca a 45°, con los codos detrás del cuerpo: así el bíceps arranca estirado. Recién aquí descansas 1:30 y vuelves a B1.',
           prog:[[3,2],[3,2],[3,1],[3,1],[3,1],[3,0],[3,'F'],[2,3]] },
       ]},
+
 
       // ── SESIÓN 2 · REGATAS ────────────────────────────────────────────────
       { id:'s2', icon:'💪', label:'Sesión 2 — Regatas', nota:'Sábado · Arranca en fuerza y cierra con hipertrofia en máquinas', ejercicios:[
