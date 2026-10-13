@@ -350,10 +350,13 @@ const PATIENT = {
 const $ = id => document.getElementById(id);
 
 function renderHero() {
+  const a = PATIENT.antro;
   $('heroEyebrow').innerHTML = `Plan Nutricional &nbsp;·&nbsp; ${PATIENT.fecha}`;
   $('heroNombre').innerHTML = PATIENT.nombre.replace('\n','<br>');
   $('heroSub').innerHTML = `<span><b>${PATIENT.macros.kcal.toLocaleString('es')}</b> kcal &nbsp;·&nbsp; ${PATIENT.tipoPlan}</span>
-    <span><b>${PATIENT.macros.p}P</b> · <b>${PATIENT.macros.c}C</b> · <b>${PATIENT.macros.g}G</b></span>`;
+    <span><b>${PATIENT.macros.p}P</b> · <b>${PATIENT.macros.c}C</b> · <b>${PATIENT.macros.g}G</b></span>
+    <span>IMC <b>${a.imc}</b></span>
+    <span>Grasa <b>${a.fatKg} kg</b> · Músculo <b>${a.muscKg} kg</b> · Óseo <b>${a.oseoKg} kg</b></span>`;
 }
 
 function renderTabs() {
