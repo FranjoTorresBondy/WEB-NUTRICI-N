@@ -8,7 +8,13 @@
   'use strict';
 
   var P = (typeof PATIENT !== 'undefined') ? PATIENT : (window.PATIENT || null);
-  if (!P || !P.comidas || !P.comidas.length) return;
+  if (!P) return;
+  // Planes con dos tipos de día (colegio / fin de semana) traen las comidas en
+  // comidasColegio y comidasFinde en lugar de comidas.
+  var SETS = [];
+  if (P.comidasColegio && P.comidasColegio.length) SETS.push({ titulo: 'Días de colegio', comidas: P.comidasColegio, macros: P.macros });
+  if (P.comidasFinde && P.comidasFinde.length) SETS.push({ titulo: 'Fin de semana', comidas: P.comidasFinde, macros: P.macrosFinde });
+  if ((!P.comidas || !P.comidas.length) && !SETS.length) return;
 
   var $id = function (i) { return document.getElementById(i); };
   function esc(s) {
@@ -60,7 +66,7 @@
         P.objetivos.map(function (o) { return '<li>' + o + '</li>'; }).join('') + '</ul></div>';
     }
 
-    var meals = P.comidas.map(function (meal) {
+    var mealsOf = function (list) { return list.map(function (meal) {
       var mac = (meal.kcal != null)
         ? '<span class="mmac">' + meal.kcal + ' kcal' + (meal.p != null ? ' · ' + meal.p + 'P / ' + meal.c + 'C / ' + meal.g + 'G' : '') + '</span>'
         : '';
@@ -70,7 +76,14 @@
       }).join('');
       var nota = meal.nota ? '<div class="mnota">' + meal.nota + '</div>' : '';
       return '<div class="pmeal"><div class="pmhead"><h3>' + esc(meal.nombre) + '</h3>' + mac + '</div>' + groups + nota + '</div>';
-    }).join('');
+    }).join(''); };
+    var planHtml = SETS.length
+      ? SETS.map(function (s) {
+          var sm = s.macros || {};
+          var tot = (sm.kcal != null) ? ' · ' + sm.kcal + ' kcal' + (sm.p != null ? ' · ' + sm.p + 'P / ' + sm.c + 'C / ' + sm.g + 'G' : '') : '';
+          return '<div class="pblock"><h2>' + esc(s.titulo + tot) + '</h2><div class="pmeals">' + mealsOf(s.comidas) + '</div></div>';
+        }).join('')
+      : '<div class="pblock"><h2>Plan alimentario diario</h2><div class="pmeals">' + mealsOf(P.comidas) + '</div></div>';
 
     var hidro = '';
     if (P.hidratacion && P.hidratacion.length) {
@@ -95,6 +108,13 @@
     if (P.vinagretas && P.vinagretas.length) {
       vin = '<div class="pblock"><h2>Salsas y aderezos</h2><div class="pvingrid">' +
         P.vinagretas.map(function (v) { return '<div class="pvin"><div class="pvname">' + esc(v.nombre) + '</div><div class="pvdesc">' + (v.desc || '') + '</div></div>'; }).join('') +
+        '</div></div>';
+    }
+
+    var sal = '';
+    if (P.salsas && P.salsas.length) {
+      sal = '<div class="pblock"><h2>Salsas bajas en calorías</h2><div class="pvingrid">' +
+        P.salsas.map(function (v) { return '<div class="pvin"><div class="pvname">' + esc(v.nombre) + '</div><div class="pvdesc">' + (v.desc || '') + '</div></div>'; }).join('') +
         '</div></div>';
     }
 
@@ -133,8 +153,8 @@
       '<title>Plan Nutricional - ' + esc(nombre) + (fecha ? ' - ' + esc(fecha) : '') + '</title>' +
       '<style>' + css + '</style></head><body>' +
       head + obj +
-      '<div class="pblock"><h2>Plan alimentario diario</h2><div class="pmeals">' + meals + '</div></div>' +
-      hidro + specs + vin + notaSpecs +
+      planHtml +
+      hidro + specs + vin + sal + notaSpecs +
       '<div class="pfoot"><span>FRANJO TORRES BONDY · NUTRICIÓN</span><span>franjo.torres.b@gmail.com · +51 992 832 991</span></div>' +
       '</body></html>';
   }
