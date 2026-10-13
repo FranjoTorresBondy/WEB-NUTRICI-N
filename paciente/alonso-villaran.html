@@ -529,41 +529,49 @@ const PATIENT = {
       // ── SESIÓN 2 · REGATAS ────────────────────────────────────────────────
       { id:'s2', icon:'💪', label:'Sesión 2 — Regatas', nota:'Sábado · Arranca en fuerza y cierra con hipertrofia en máquinas', ejercicios:[
 
-        { nombre:'Press banca con barra', img:'anim', s1:'Barbell_Bench_Press_-_Medium_Grip/0.jpg', s2:'Barbell_Bench_Press_-_Medium_Grip/1.jpg',
-          reps:'5', descanso:'3:00', nota:'Agarre medio. Codos a 45°, no abiertos del todo.',
-          prog:[[4,3],[4,3],[4,2],[4,2],[4,2],[4,1],[5,1],[2,4]] },
+        { nombre:'Squat con talón elevado en multipower', img:'anim', s1:'Smith_Machine_Squat/0.jpg', s2:'Smith_Machine_Squat/1.jpg',
+          reps:'6-8', descanso:'3:00', nota:'Talones sobre discos de 5 kg: carga más el cuádriceps y te deja bajar más profundo.',
+          prog:[[2,3],[2,3],[2,2],[3,2],[3,2],[3,1],[3,1],[2,4]] },
+
+        { nombre:'Peso muerto rumano (RDL)', img:'anim', s1:'Romanian_Deadlift/0.jpg', s2:'Romanian_Deadlift/1.jpg',
+          reps:'6-8', descanso:'3:00', nota:'Cadera atrás, rodillas casi fijas. Baja hasta sentir el isquio estirado, no más.',
+          prog:[[2,3],[2,3],[2,2],[3,2],[3,2],[3,1],[3,1],[2,4]] },
+
+        { nombre:'Fondos en paralelas con lastre', img:'anim', s1:'Dips_-_Chest_Version/0.jpg', s2:'Dips_-_Chest_Version/1.jpg',
+          reps:'5-7', descanso:'2:30', nota:'Tronco algo inclinado adelante para cargar el pecho.',
+          prog:[[2,3],[2,3],[2,2],[3,2],[3,2],[3,1],[3,1],[2,4]] },
 
         { nombre:'Dominadas con lastre', img:'anim', s1:'Weighted_Pull_Ups/0.jpg', s2:'Weighted_Pull_Ups/1.jpg',
-          reps:'5', descanso:'3:00', nota:'Si aún no salen 5 con lastre, hazlas a peso corporal y suma repeticiones.',
-          prog:[[4,3],[4,3],[4,2],[4,2],[4,2],[4,1],[5,1],[2,4]] },
+          reps:'5-7', descanso:'2:30', nota:'Si aún no salen 5 con lastre, hazlas a peso corporal y suma repeticiones.',
+          prog:[[2,3],[2,3],[2,2],[3,2],[3,2],[3,1],[3,1],[2,4]] },
 
-        { nombre:'Prensa de piernas', img:'anim', s1:'Leg_Press/0.jpg', s2:'Leg_Press/1.jpg',
-          reps:'8', descanso:'2:30', nota:'Baja hasta que el muslo pase los 90° sin despegar la cadera.',
-          prog:[[4,3],[4,3],[4,2],[4,2],[4,2],[4,1],[5,1],[2,4]] },
+        { nombre:'Press banca inclinado con mancuernas', img:'anim', s1:'Incline_Dumbbell_Press/0.jpg', s2:'Incline_Dumbbell_Press/1.jpg',
+          reps:'6-8', descanso:'2:30', nota:'Banca a 30°. Acá sí hay mancuernas pesadas: aprovéchalas.',
+          prog:[[2,3],[2,3],[2,2],[3,2],[3,2],[3,1],[3,1],[2,4]] },
 
-        { nombre:'Press convergente en Hammer', img:'anim', s1:'Leverage_Chest_Press/0.jpg', s2:'Leverage_Chest_Press/1.jpg',
-          reps:'10', descanso:'2:00',
-          prog:[[3,2],[3,2],[4,2],[4,1],[4,1],[4,0],[4,0],[2,3]] },
-
-        { nombre:'Jalón al pecho agarre ancho', img:'anim', s1:'Wide-Grip_Lat_Pulldown/0.jpg', s2:'Wide-Grip_Lat_Pulldown/1.jpg',
-          reps:'10', descanso:'2:00', nota:'Lleva la barra al pecho, no detrás de la nuca.',
-          prog:[[3,2],[3,2],[4,2],[4,1],[4,1],[4,0],[4,0],[2,3]] },
+        { nombre:'Remo en máquina unilateral', img:'anim', s1:'Leverage_High_Row/0.jpg', s2:'Leverage_High_Row/1.jpg',
+          reps:'10-12', descanso:'2:00', nota:'Un brazo a la vez. Lleva el codo atrás y pegado al cuerpo.',
+          prog:[[3,2],[3,2],[3,1],[3,1],[3,1],[3,0],[3,'F'],[2,3]] },
 
         { nombre:'Aducción de pecho en pec deck', img:'anim', s1:'Butterfly/0.jpg', s2:'Butterfly/1.jpg',
-          reps:'12', descanso:'1:30',
-          prog:[[3,2],[3,2],[4,2],[4,1],[4,1],[4,0],[4,0],[2,3]] },
+          reps:'10-12', descanso:'1:30', nota:'Junta hasta que las manos casi se toquen y aprieta 1 segundo.',
+          prog:[[3,2],[3,2],[3,1],[3,1],[3,1],[3,0],[3,'F'],[2,3]] },
 
-        { nombre:'Extensión de rodilla en máquina', img:'anim', s1:'Leg_Extensions/0.jpg', s2:'Leg_Extensions/1.jpg',
-          reps:'12', descanso:'1:30', nota:'Aprieta arriba 1 segundo antes de bajar.',
-          prog:[[3,2],[3,2],[4,2],[4,1],[4,1],[4,0],[4,0],[2,3]] },
+        { nombre:'A1 · Elevaciones laterales con mancuernas', img:'anim', s1:'Side_Lateral_Raise/0.jpg', s2:'Side_Lateral_Raise/1.jpg',
+          reps:'10-12', descanso:'0:00', nota:'🔗 SUPERSERIE con A2 — pasa directo al siguiente, sin descanso.',
+          prog:[[3,2],[3,2],[3,1],[3,1],[3,1],[3,0],[3,'F'],[2,3]] },
 
-        { nombre:'Flexión de rodilla sentado', img:'anim', s1:'Seated_Leg_Curl/0.jpg', s2:'Seated_Leg_Curl/1.jpg',
-          reps:'12', descanso:'1:30',
-          prog:[[3,2],[3,2],[4,2],[4,1],[4,1],[4,0],[4,0],[2,3]] },
+        { nombre:'A2 · Deltoide posterior con mancuernas', img:'anim', s1:'Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench/0.jpg', s2:'Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench/1.jpg',
+          reps:'10-12', descanso:'1:30', nota:'🔗 Cierra la superserie. Pecho apoyado en la banca, abre con los codos. Recién aquí descansas 1:30 y vuelves a A1.',
+          prog:[[3,2],[3,2],[3,1],[3,1],[3,1],[3,0],[3,'F'],[2,3]] },
 
-        { nombre:'Elevación de talones de pie', img:'anim', s1:'Standing_Calf_Raises/0.jpg', s2:'Standing_Calf_Raises/1.jpg',
-          reps:'15', descanso:'1:00', nota:'Rango completo: estira abajo, sube hasta la punta del pie.',
-          prog:[[3,2],[3,2],[4,2],[4,1],[4,1],[4,0],[4,0],[2,3]] },
+        { nombre:'Extensión de tríceps katana en polea', img:'anim', s1:'Cable_One_Arm_Tricep_Extension/0.jpg', s2:'Cable_One_Arm_Tricep_Extension/1.jpg',
+          reps:'12-15', descanso:'1:00', nota:'Un brazo cruzando el cuerpo, como desenvainando. El codo se queda quieto: solo se mueve el antebrazo.',
+          prog:[[3,2],[3,2],[3,1],[3,1],[3,1],[3,0],[3,'F'],[2,3]] },
+
+        { nombre:'Curl de bíceps en máquina predicador', img:'anim', s1:'Preacher_Curl/0.jpg', s2:'Preacher_Curl/1.jpg',
+          reps:'10-12', descanso:'1:00', nota:'Axila bien pegada al apoyo. Baja hasta estirar del todo.',
+          prog:[[3,2],[3,2],[3,1],[3,1],[3,1],[3,0],[3,'F'],[2,3]] },
       ]},
     ],
   },
