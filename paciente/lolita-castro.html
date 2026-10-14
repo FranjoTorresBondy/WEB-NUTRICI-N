@@ -127,42 +127,50 @@ section{padding:30px 0}
 .antro-table td:first-child{text-align:left;color:var(--muted)}
 .antro-table tr:last-child td{border-bottom:none;color:var(--navy);font-weight:700}
 .tbl-scroll{overflow-x:auto;border-radius:12px;border:1px solid var(--line)}
-.micro-bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.micro-bar .mlabel{font-family:'IBM Plex Mono';font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
-.micro-btn{appearance:none;border:1.5px solid var(--line);background:var(--panel);border-radius:999px;padding:7px 16px;font-family:'IBM Plex Mono';font-size:12px;font-weight:600;color:var(--muted);cursor:pointer;transition:.2s}
-.micro-btn:hover{border-color:var(--navy);color:var(--navy)}
-.micro-btn.active{background:var(--navy);border-color:var(--navy);color:#000}
-.etrain-note{font-size:12.5px;color:var(--muted);background:var(--panel2);border:1px dashed var(--line);border-radius:12px;padding:12px 16px;margin-bottom:20px}
-.scards{display:flex;flex-direction:column;gap:16px}
-.scard{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow)}
-.scard-head{display:flex;align-items:center;gap:14px;padding:16px 20px;background:var(--panel2);border-bottom:1px solid var(--line)}
-.scard-icon{font-size:22px;line-height:1}
-.scard-nombre{font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:17px}
-.scard-tag{font-family:'IBM Plex Mono';font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--navy);margin-top:3px}
-.stable-wrap{overflow-x:auto}
-.stable{width:100%;border-collapse:collapse;min-width:420px}
-.stable thead th{background:var(--bg2);color:var(--faint);font-family:'IBM Plex Mono';font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;padding:8px 14px;border-bottom:1px solid var(--line);text-align:left}
-.stable thead th.ex-center{text-align:center}
-.stable tbody tr{border-bottom:1px solid rgba(255,255,255,.04)}
-.stable tbody tr:last-child{border-bottom:none}
-.stable td{padding:10px 14px;font-size:13px;color:var(--muted);vertical-align:middle}
-.stable td.ex-num{color:var(--faint);font-family:'IBM Plex Mono';font-size:11px;width:32px}
-.stable td.ex-name{color:var(--ink);font-weight:500}
-.ex-nota{font-size:11px;color:var(--faint);font-style:italic;margin-top:2px}
-.stable td.ex-center{text-align:center}
-.badge-series{display:inline-flex;align-items:center;justify-content:center;background:var(--panel2);border-radius:6px;padding:3px 10px;font-size:12px;font-weight:600;color:var(--muted)}
-.badge-reps{display:inline-flex;align-items:center;justify-content:center;background:rgba(196,151,58,.1);border:1px solid rgba(196,151,58,.2);border-radius:6px;padding:3px 10px;font-size:12px;font-weight:600;color:var(--navy)}
-.track-cell{display:flex;gap:6px;flex-wrap:nowrap}
-.track-set{display:flex;flex-direction:column;align-items:center;gap:3px}
-.track-prev{font-size:10px;color:var(--faint);background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:5px;padding:2px 7px;white-space:nowrap;min-width:44px;text-align:center;font-family:'IBM Plex Mono'}
-.track-input{width:62px;padding:6px 8px;background:var(--bg2);border:1px solid var(--line);border-radius:7px;color:var(--ink);font-size:12px;font-family:'IBM Plex Mono';text-align:center;transition:border-color .2s}
-.track-input:focus{outline:none;border-color:rgba(196,151,58,.5)}
-.track-input::placeholder{color:var(--faint);font-size:10px}
-.track-actions{display:flex;gap:8px;justify-content:flex-end;padding:12px 16px;border-top:1px solid var(--line)}
-.btn-track-save{background:var(--navy);color:#000;border:none;border-radius:8px;padding:8px 20px;font-family:'IBM Plex Mono';font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:opacity .2s}
-.btn-track-save:hover{opacity:.85}
-.btn-track-clear{background:transparent;color:var(--muted);border:1px solid var(--line);border-radius:8px;padding:8px 14px;font-size:12px;cursor:pointer;transition:border-color .2s,color .2s}
-.btn-track-clear:hover{border-color:var(--navy);color:var(--ink)}
+.train-intro{font-size:13px;color:var(--muted);background:var(--panel2);border:1px dashed var(--line);border-radius:12px;padding:14px 16px;margin:6px 0 18px;line-height:1.6}
+.train-intro b{color:var(--ink)}
+.weeksel{display:flex;flex-wrap:wrap;gap:10px;margin:4px 0 8px}
+.wbtn{appearance:none;cursor:pointer;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px 14px;color:var(--muted);font-family:'Inter';text-align:left;transition:.2s;min-width:110px;position:relative;box-shadow:var(--shadow)}
+.wbtn:hover{border-color:var(--muted);color:var(--ink)}
+.wbtn.active{border-color:var(--navy);color:var(--ink);background:var(--panel2)}
+.wbtn .wn{font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:17px;line-height:1;display:block}
+.wbtn .wp{font-family:'IBM Plex Mono';font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;margin-top:6px;display:block}
+.wbtn.active .wn{color:var(--navy)}
+.wbtn .wdot{position:absolute;top:10px;right:10px;width:8px;height:8px;border-radius:50%}
+.train-head{display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin:18px 0 6px}
+.train-head .badge{font-family:'IBM Plex Mono';font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#fff;padding:6px 13px;border-radius:999px;font-weight:700}
+.train-head .hint{font-size:12px;color:var(--faint)}
+.sess{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow);margin-bottom:16px}
+.sess .sh{display:flex;align-items:center;gap:12px;padding:14px 18px;background:var(--panel2);cursor:pointer;user-select:none;transition:background .15s}
+.sess .sh:hover{background:var(--bg2)}
+.sess.open .sh{border-bottom:1px solid var(--line)}
+.sess .sh .snum{font-family:'IBM Plex Mono';font-size:11px;color:var(--navy);font-weight:700;border:1px solid var(--line);border-radius:8px;padding:3px 8px}
+.sess .sh h3{font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:18px}
+.sess .sh .scount{margin-left:auto;font-family:'IBM Plex Mono';font-size:11px;color:var(--faint)}
+.sess .chev{color:var(--faint);font-size:13px;transition:transform .2s}
+.sess.open .chev{transform:rotate(90deg)}
+.sbody{display:none}
+.sess.open .sbody{display:block}
+.exq{display:flex;gap:14px;border-top:1px solid var(--line);padding:15px 18px}
+.exq:first-child{border-top:none}
+.exq .thumb{width:90px;height:90px;flex:0 0 90px;border-radius:10px;overflow:hidden;background:var(--panel2);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:32px}
+.exq .ebody{flex:1;min-width:0}
+@media(max-width:520px){.exq .thumb{width:66px;height:66px;flex-basis:66px}}
+.exq .enm{font-weight:600;font-size:14.5px;color:var(--ink);margin-bottom:9px}
+.exq .meta{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:12px}
+.mpill{font-family:'IBM Plex Mono';font-size:10.5px;border:1px solid var(--line);border-radius:7px;padding:4px 9px;color:var(--muted);background:var(--bg)}
+.mpill b{color:var(--ink);font-weight:600}
+.mpill.rest b{color:var(--cyan)}
+.sets{display:grid;grid-template-columns:repeat(auto-fill,minmax(108px,1fr));gap:9px}
+.setbox{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:8px 10px}
+.setbox .sl{font-family:'IBM Plex Mono';font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin-bottom:4px}
+.setbox input{width:100%;background:transparent;border:none;color:var(--ink);font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:21px;padding:0;-moz-appearance:textfield}
+.setbox input::-webkit-outer-spin-button,.setbox input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.setbox input:focus{outline:none}
+.setbox input::placeholder{color:var(--faint);font-weight:400;opacity:.55}
+.setbox .un{font-family:'Inter';font-size:12px;color:var(--muted);font-weight:600}
+.setbox.filled{border-color:rgba(196,151,58,.4);background:var(--panel2)}
+.setbox.filled .sl{color:var(--navy)}
 footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 .foot-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
 .foot-brand{font-family:'IBM Plex Mono';font-size:11px;color:var(--faint);letter-spacing:.1em}
@@ -616,127 +624,159 @@ function addEntry(){
 
 const SESSIONS_LOLITA = [
   {
-    id:'s1', nombre:'Sesión 1', tag:'Antebrazos · Brazos · Pantorrillas', icon:'💪',
+    id:'s1', label:'Sesión 1', nota:'Antebrazos · Brazos · Pantorrillas', icon:'💪',
     ejercicios:[
-      { nombre:'Extensión de muñeca unilateral',                    series:4, reps:'20', nota:'' },
-      { nombre:'Flexión de muñeca unilateral',                      series:4, reps:'20', nota:'' },
-      { nombre:'Bíceps con mancuerna sentado alternado',            series:4, reps:'15', nota:'' },
-      { nombre:'Pantorrilla desde el suelo con apoyo en pared',     series:4, reps:'15', nota:'Bipodal' },
+      { nombre:'Extensión de muñeca unilateral',                     series:4, reps:'20', descanso:'1:00', nota:'' },
+      { nombre:'Flexión de muñeca unilateral',                       series:4, reps:'20', descanso:'1:00', nota:'' },
+      { nombre:'Bíceps con mancuerna sentado alternado',             series:4, reps:'15', descanso:'1:30', nota:'' },
+      { nombre:'Pantorrilla desde el suelo con apoyo en pared',      series:4, reps:'15', descanso:'1:00', nota:'Bipodal' },
     ]
   },
   {
-    id:'s2', nombre:'Sesión 2', tag:'Hombros · Pantorrillas', icon:'🏋️',
+    id:'s2', label:'Sesión 2', nota:'Hombros · Pantorrillas', icon:'🏋️',
     ejercicios:[
-      { nombre:'Elevaciones laterales con mancuerna',               series:4, reps:'15', nota:'' },
-      { nombre:'Elevaciones frontales con mancuerna',               series:4, reps:'15', nota:'' },
-      { nombre:'Elevaciones posteriores con mancuerna',             series:4, reps:'15', nota:'' },
-      { nombre:'Rotación externa',                                  series:2, reps:'10', nota:'' },
-      { nombre:'Rotación interna',                                  series:2, reps:'10', nota:'' },
-      { nombre:'Pantorrilla desde el suelo con apoyo en pared',     series:4, reps:'15', nota:'Bipodal · superserie con tibiales' },
-      { nombre:'Tibiales con espalda en pared (elevación de puntas)',series:4, reps:'10', nota:'Superserie con anterior' },
+      { nombre:'Elevaciones laterales con mancuerna',                series:4, reps:'15', descanso:'1:30', nota:'' },
+      { nombre:'Elevaciones frontales con mancuerna',                series:4, reps:'15', descanso:'1:30', nota:'' },
+      { nombre:'Elevaciones posteriores con mancuerna',              series:4, reps:'15', descanso:'1:30', nota:'' },
+      { nombre:'Rotación externa',                                   series:2, reps:'10', descanso:'1:00', nota:'' },
+      { nombre:'Rotación interna',                                   series:2, reps:'10', descanso:'1:00', nota:'' },
+      { nombre:'Pantorrilla desde el suelo con apoyo en pared',      series:4, reps:'15', descanso:'0:00', nota:'🔗 Superserie con tibiales — pasa directo, sin descanso' },
+      { nombre:'Tibiales con espalda en pared (elevación de puntas)',series:4, reps:'10', descanso:'1:00', nota:'🔗 Cierra la superserie. Recién aquí descansas.' },
     ]
   },
 ];
 
-const MICROS_LOLITA = ['m1','m2','m3'];
-const MICRO_LABELS  = { m1:'Micro 1', m2:'Micro 2', m3:'Micro 3' };
-let currentMicroTrain = 'm1';
+const FASES_LOLITA = [
+  { label:'Micro 1', semanas:1, color:'#4fc3f7', bg:'#1a3a4a' },
+  { label:'Micro 2', semanas:1, color:'#C4973A', bg:'#3a2e0a' },
+  { label:'Micro 3', semanas:1, color:'#a5d6a7', bg:'#1a3a1a' },
+];
 
-const ETRAIN_KEY = (micro, sid) => `${PATIENT.slug}-train-${micro}-${sid}`;
-function getTrainData(micro, sid){ try{ return JSON.parse(localStorage.getItem(ETRAIN_KEY(micro,sid))||'{}'); }catch(e){ return {}; } }
-function saveTrainData(micro, sid, data){ try{ localStorage.setItem(ETRAIN_KEY(micro,sid),JSON.stringify(data)); }catch(e){} }
-function prevMicroTrain(micro){ const n=parseInt(micro.slice(1)); return n>1?'m'+(n-1):null; }
+let WEEKS_LOLITA = [];
+let currentWeekL = 1;
 
-function buildTrackRow(micro, sid, ei, sets) {
-  const cur  = getTrainData(micro, sid);
-  const prev = getTrainData(prevMicroTrain(micro)||'__none__', sid);
-  const cells = Array.from({length: sets}, (_,si) => {
-    const key = `${ei}-s${si+1}`;
-    const pv  = prevMicroTrain(micro) ? (prev[key]||'—') : null;
-    return `<div class="track-set">
-      ${pv!==null?`<div class="track-prev">${pv}</div>`:''}
-      <input class="track-input" placeholder="${si+1}ª" data-micro="${micro}" data-sid="${sid}" data-key="${key}" value="${cur[key]||''}">
-    </div>`;
-  }).join('');
-  return `<div class="track-cell">${cells}</div>`;
-}
-
-function buildMicroSesiones(micro) {
-  return SESSIONS_LOLITA.map(s => {
-    const rows = s.ejercicios.map((e,i) => `
-      <tr>
-        <td class="ex-num">${i+1}</td>
-        <td class="ex-name">${e.nombre}${e.nota?`<div class="ex-nota">${e.nota}</div>`:''}</td>
-        <td class="ex-center"><span class="badge-series">${e.series}</span></td>
-        <td class="ex-center"><span class="badge-reps">${e.reps}</span></td>
-        <td>${buildTrackRow(micro, s.id, i, e.series)}</td>
-      </tr>`).join('');
-    return `<div class="scard">
-      <div class="scard-head"><span class="scard-icon">${s.icon}</span>
-        <div><div class="scard-nombre">${s.nombre}</div><div class="scard-tag">${s.tag}</div></div>
-      </div>
-      <div class="stable-wrap"><table class="stable">
-        <thead><tr>
-          <th style="width:32px">#</th><th>Ejercicio</th>
-          <th class="ex-center" style="width:76px">Series</th>
-          <th class="ex-center" style="width:76px">Reps</th>
-          <th>Registro ${prevMicroTrain(micro)?'<span style="font-size:10px;color:var(--faint);font-weight:400">micro ant. → actual</span>':''}</th>
-        </tr></thead>
-        <tbody>${rows}</tbody>
-      </table></div>
-      <div class="track-actions">
-        <button class="btn-track-clear" onclick="clearTrain('${micro}','${s.id}')">Limpiar</button>
-        <button class="btn-track-save" onclick="saveTrain('${micro}','${s.id}')">Guardar ✓</button>
-      </div>
-    </div>`;
-  }).join('');
+function buildWeeksLolita() {
+  const weeks = [];
+  let n = 1;
+  FASES_LOLITA.forEach(fase => {
+    for (let i = 0; i < fase.semanas; i++) {
+      weeks.push({ n, label:`S${n}`, faseLabel: fase.label, color: fase.color, bg: fase.bg });
+      n++;
+    }
+  });
+  return weeks;
 }
 
 function renderEntrenamiento() {
+  WEEKS_LOLITA = buildWeeksLolita();
   const el = $('tab-entrenamiento'); if(!el) return;
-  const microBtns = MICROS_LOLITA.map(m =>
-    `<button class="micro-btn${m===currentMicroTrain?' active':''}" onclick="switchMicroTrain('${m}',this)">${MICRO_LABELS[m]}</button>`
-  ).join('');
-  const microPanels = MICROS_LOLITA.map(m =>
-    `<div id="mpanel-${m}" class="mpanel" style="display:${m===currentMicroTrain?'block':'none'}">
-      <div class="scards">${buildMicroSesiones(m)}</div>
-    </div>`
-  ).join('');
-  el.innerHTML = `<div class="wrap"><section>
-    <div class="sec-h"><span class="ix">01</span><h2>Plan de Entrenamiento Posparto</h2><div class="rule"></div></div>
-    <div class="etrain-note">Lejos del fallo · Sin ejercicios de core ni tren inferior · Solo brazos y pantorrillas</div>
-    <div class="micro-bar" style="margin-bottom:20px">
-      <span class="mlabel">Semana</span>${microBtns}
-    </div>
-    ${microPanels}
-  </section></div>`;
-  el.querySelectorAll('.track-input').forEach(inp => {
-    inp.addEventListener('input', () => {
-      const d = getTrainData(inp.dataset.micro, inp.dataset.sid);
-      d[inp.dataset.key] = inp.value;
-      saveTrainData(inp.dataset.micro, inp.dataset.sid, d);
-    });
-  });
+  el.innerHTML = `<div class="wrap">
+    <section style="padding-top:24px">
+      <div class="sec-h"><span class="ix">01</span><h2>Plan de Entrenamiento Posparto</h2><div class="rule"></div></div>
+      <p class="train-intro">Lejos del fallo en todas las series. <b>Sin core ni tren inferior</b> por cesárea reciente. Solo brazos, hombros y pantorrillas. <b>Anota el peso de cada serie</b> — se guarda automáticamente.</p>
+      <div class="weeksel" id="weekselL"></div>
+    </section>
+    <section style="padding-top:6px">
+      <div class="train-head" id="trainHeadL"></div>
+      <div id="sessionsL"></div>
+    </section>
+  </div>`;
+  buildWeekSelLolita();
+  buildTrainHeadLolita(WEEKS_LOLITA[0]);
+  $('sessionsL').innerHTML = buildSessionsLolita(1);
+  loadTrainValuesLolita();
 }
 
-function switchMicroTrain(micro, btn) {
-  currentMicroTrain = micro;
-  document.querySelectorAll('.micro-btn').forEach(b=>b.classList.remove('active'));
+function buildWeekSelLolita() {
+  $('weekselL').innerHTML = WEEKS_LOLITA.map(w =>
+    `<button class="wbtn${w.n===1?' active':''}" onclick="setWeekLolita(${w.n},this)">
+      <span class="wdot" style="background:${w.color}"></span>
+      <span class="wn">${w.label}</span>
+      <span class="wp" style="color:${w.color}">${w.faseLabel}</span>
+    </button>`
+  ).join('');
+}
+
+function buildTrainHeadLolita(w) {
+  $('trainHeadL').innerHTML = `<span class="badge" style="background:${w.bg};border:1px solid ${w.color}40;color:${w.color}">${w.label} · ${w.faseLabel}</span>
+    <span class="hint">Lejos del fallo · Solo brazos, hombros y pantorrillas</span>
+    <button id="saveSessionBtnL" onclick="saveSessionLolita()" style="margin-left:auto;background:var(--navy);color:#000;border:none;border-radius:8px;padding:7px 16px;font-size:13px;font-weight:700;cursor:pointer;transition:background .2s">Guardar sesión</button>`;
+}
+
+function setWeekLolita(n, btn) {
+  $('sessionsL').querySelectorAll('input[data-key]').forEach(function(inp){ if(inp.value!=='') localStorage.setItem(inp.dataset.key, inp.value); });
+  currentWeekL = n;
+  document.querySelectorAll('.wbtn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
-  MICROS_LOLITA.forEach(m => {
-    const p = $('mpanel-'+m); if(p) p.style.display = m===micro?'block':'none';
+  const w = WEEKS_LOLITA.find(x=>x.n===n);
+  buildTrainHeadLolita(w);
+  $('sessionsL').innerHTML = buildSessionsLolita(n);
+  loadTrainValuesLolita();
+}
+
+function saveSessionLolita() {
+  $('sessionsL').querySelectorAll('input[data-key]').forEach(function(inp){ if(inp.value!=='') localStorage.setItem(inp.dataset.key, inp.value); });
+  const btn = $('saveSessionBtnL');
+  if(btn){ btn.textContent='✓ Guardado'; btn.style.background='#26a69a'; setTimeout(function(){ btn.textContent='Guardar sesión'; btn.style.background=''; },2000); }
+}
+
+function buildSessionsLolita(week) {
+  const prev = week > 1 ? week - 1 : null;
+  return SESSIONS_LOLITA.map((sess, si) => {
+    const exRows = sess.ejercicios.map((ex, ei) => {
+      const sets = Array.from({length: ex.series}, (_, si2) => {
+        const k = trainKeyL(sess.id, ei, si2, week);
+        const pk = prev ? trainKeyL(sess.id, ei, si2, prev) : null;
+        let saved = ''; try { saved = localStorage.getItem(k) || ''; } catch(e){}
+        let prevVal = ''; try { prevVal = pk ? (localStorage.getItem(pk) || '') : ''; } catch(e){}
+        return `<div class="setbox${saved?' filled':''}">
+          <div class="sl">${prevVal ? `<span style="color:var(--faint)">${prevVal} →</span> ` : ''}Serie ${si2+1}</div>
+          <input type="number" inputmode="decimal" placeholder="—" data-key="${k}" value="${saved}" oninput="saveTrainInputL(this)" onchange="saveTrainInputL(this)">
+          <div class="un">kg</div>
+        </div>`;
+      }).join('');
+      const notaHtml = ex.nota ? `<span style="font-size:11px;color:var(--faint);display:block;margin-top:3px">${ex.nota}</span>` : '';
+      return `<div class="exq">
+        <div class="thumb">${sess.icon}</div>
+        <div class="ebody">
+          <div class="enm">${ex.nombre}${notaHtml}</div>
+          <div class="meta">
+            <span class="mpill"><b>${ex.series}×${ex.reps}</b></span>
+            <span class="mpill rest">Descanso <b>${ex.descanso}</b></span>
+          </div>
+          <div class="sets">${sets}</div>
+        </div>
+      </div>`;
+    }).join('');
+    return `<div class="sess open">
+      <div class="sh" onclick="this.closest('.sess').classList.toggle('open')">
+        <span class="snum">0${si+1}</span>
+        <span style="font-size:20px">${sess.icon}</span>
+        <h3>${sess.label}</h3>
+        <span class="scount">${sess.ejercicios.length} ejercicios · ${sess.nota}</span>
+        <span class="chev">›</span>
+      </div>
+      <div class="sbody">${exRows}</div>
+    </div>`;
+  }).join('');
+}
+
+function trainKeyL(sessId, exIdx, setIdx, week) {
+  return `${PATIENT.slug}-train-s${week}-${sessId}-${exIdx}-s${setIdx}`;
+}
+
+function saveTrainInputL(input) {
+  try { localStorage.setItem(input.dataset.key, input.value); } catch(e){}
+  input.closest('.setbox').classList.toggle('filled', input.value !== '');
+}
+
+function loadTrainValuesLolita() {
+  const el = $('sessionsL'); if(!el) return;
+  el.querySelectorAll('input[data-key]').forEach(inp => {
+    let val = ''; try { val = localStorage.getItem(inp.dataset.key) || ''; } catch(e){}
+    inp.value = val;
+    inp.closest('.setbox').classList.toggle('filled', val !== '');
   });
-}
-
-function saveTrain(micro, sid) {
-  flashSave();
-}
-
-function clearTrain(micro, sid) {
-  saveTrainData(micro, sid, {});
-  const panel = $('mpanel-'+micro); if(!panel) return;
-  panel.querySelectorAll(`.track-input[data-micro="${micro}"][data-sid="${sid}"]`).forEach(i=>{ i.value=''; });
-  flashSave();
 }
 
 renderHero();
