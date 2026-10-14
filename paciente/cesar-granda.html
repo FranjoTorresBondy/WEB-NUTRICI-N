@@ -185,6 +185,7 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 const PATIENT = {
   slug:     'cesar-granda',
   sexo:     'm',
+  nacimiento:'04.03.1996',
   nombre:   'Cesar\nGranda',
   fecha:    '24.08.2026',
   tipoPlan: 'Hipocalórico · Hiperprotéico',
@@ -194,15 +195,24 @@ const PATIENT = {
     { label:'💧 Descanso',      valor:'3.0' },
   ],
   antro: {
-    fecha:'24.08.2026', peso:90.7, talla:170.0, imc:31.4,
-    tri:12.0, bi:5.0, sub:21.0, cresta:44.0, supra:22.0, abd:37.0, pierna:35.0, pant:12.0,
-    brazRelaj:38.0, brazFlex:39.0, abdom:94.5, cadera:111.0, muslo:59.5, pantPer:39.5,
+    fecha:'09.10.2026', peso:85.4, talla:170.0, imc:29.6,
+    tri:10.0, bi:3.0, sub:15.0, cresta:32.0, supra:13.0, abd:26.0, pierna:28.0, pant:12.0,
+    brazRelaj:37.0, brazFlex:39.3, abdom:88.0, cadera:108.0, muslo:60.2, pantPer:39.0,
     diam: { humero:7.2, biEstiloideo:5.2, femur:10.7 },
-    s6:139.0, s8:188.0,
-    pctGrasa:27.5, fatKg:24.9, pctMusc:39.4, muscKg:35.7, pctOseo:12.5, oseoKg:11.3, imo:3.16, icc:0.85,
-    somato:{ endo:5.4, meso:8.1, ecto:0.1 },
+    s6:104.0, s8:139.0,
+    // Faulkner y Lee con las ecuaciones de hombre y su edad real (30.6 años).
+    // La hoja ISAK venía sin sexo ni fecha de nacimiento: daba 21.5% de grasa.
+    pctGrasa:15.6, fatKg:13.3, pctMusc:42.7, muscKg:36.5, pctOseo:13.3, oseoKg:11.3, imo:3.23, icc:0.81,
+    somato:{ endo:3.9, meso:8.1, ecto:0.2 },
   },
-  antroHistorial: [],
+  antroHistorial: [
+    // Corregido a ecuaciones de hombre (antes 27.5% / 24.9 kg grasa y 35.7 kg músculo).
+    { fecha:'24.08.2026', peso:90.7, talla:170.0, imc:31.4,
+      tri:12.0, bi:5.0, sub:21.0, cresta:44.0, supra:22.0, abd:37.0, pierna:35.0, pant:12.0,
+      brazRelaj:38.0, brazFlex:39.0, abdom:94.5, cadera:111.0, muslo:59.5, pantPer:39.5,
+      s6:139.0, s8:188.0,
+      pctGrasa:19.9, fatKg:18.0, pctMusc:40.4, muscKg:36.7, pctOseo:12.5, oseoKg:11.3, imo:3.24, icc:0.85 },
+  ],
 
   objetivos: [
     'Disminución de sumatoria de 8 pliegues en 2 semanas',
@@ -259,7 +269,7 @@ const PATIENT = {
         '1 porción de frutos secos (ver especificaciones)',
       ]},
       { label:'Escoge 01 · Fruta', max:1, ops:['1 porción de fruta (ver especificaciones)'] },
-    ]},
+    ], nota:'🍦 <b>Domingos:</b> reemplaza este snack por <b>1 bola de helado de Galo</b>.' },
 
     { id:'cen', nombre:'🌙 Cena', kcal:792, p:54, c:91, g:24, grupos:[
       { label:'Escoge 01 · Proteína (180 g, peso crudo)', max:1, ops:[
@@ -583,7 +593,7 @@ function getAntroBase() {
   const a = PATIENT.antro;
   const s6 = +(a.tri+a.sub+a.supra+a.abd+a.pierna+a.pant).toFixed(1);
   const s8 = +(s6+a.bi+a.cresta).toFixed(1);
-  return [{ fecha:a.fecha, peso:a.peso, tri:a.tri, bi:a.bi, sub:a.sub, cresta:a.cresta, supra:a.supra, abd:a.abd, pierna:a.pierna, pant:a.pant, brazRelaj:a.brazRelaj, brazFlex:a.brazFlex, abdom:a.abdom, cadera:a.cadera, muslo:a.muslo, pantPer:a.pantPer, s6, s8 }];
+  return [...(PATIENT.antroHistorial||[]), { fecha:a.fecha, peso:a.peso, tri:a.tri, bi:a.bi, sub:a.sub, cresta:a.cresta, supra:a.supra, abd:a.abd, pierna:a.pierna, pant:a.pant, brazRelaj:a.brazRelaj, brazFlex:a.brazFlex, abdom:a.abdom, cadera:a.cadera, muslo:a.muslo, pantPer:a.pantPer, s6, s8, pctGrasa:a.pctGrasa, fatKg:a.fatKg, muscKg:a.muscKg }];
 }
 function getAntroData() {
   const base = getAntroBase();
