@@ -269,13 +269,20 @@ const PATIENT = {
     s6:99.0, s8:137.0,
     brazRelaj:38.0, brazFlex:40.5, abdom:97.5, cadera:112.0, muslo:61.0, pantPer:41.0,
     diam:{ humero:7.2, biEstiloideo:5.8, femur:10.8 },
-    pctGrasa:23.0, fatKg:23.0, pctMusc:34.3, muscKg:34.3, pctOseo:13.8, oseoKg:13.8,
+    // Faulkner y Lee con ecuaciones de hombre y su edad real (30.6 años, nac. 22.02.1996).
+    pctGrasa:16.7, fatKg:16.7, pctMusc:41.3, muscKg:41.3, pctOseo:13.8, oseoKg:13.8,
     icc:0.87, somato:'4.3 · 6.9 · 0.7',
   },
 
   antroHistorial: [
+    // Medidas de la hoja ISAK (hojas 1 a 7). La hoja 6 no tiene fecha: se asume 11.08 (monitoreo).
+    { fecha:'05.03.2026', peso:100.5, tri:12.0, bi:7.0, sub:20.0, cresta:43.0, supra:20.0, abd:37.0, pierna:27.0, pant:8.0, s6:124.0, s8:174.0, brazRelaj:37.0, brazFlex:40.0, abdom:101.0, cadera:115.0, muslo:60.5, pantPer:41.5 },
+    { fecha:'02.06.2026', peso:97.5, tri:12.0, bi:5.0, sub:18.0, cresta:35.0, supra:17.0, abd:34.0, pierna:22.0, pant:7.0, s6:110.0, s8:150.0, brazRelaj:37.5, brazFlex:40.2, abdom:96.0, cadera:110.0, muslo:60.5, pantPer:41.2 },
+    { fecha:'16.06.2026', peso:99.4, tri:12.0, bi:5.0, sub:18.0, cresta:35.0, supra:16.0, abd:32.0, pierna:22.0, pant:7.0, s6:107.0, s8:147.0, brazRelaj:37.4, brazFlex:40.0, abdom:95.0, cadera:109.0, muslo:61.0, pantPer:41.0 },
     { fecha:'30.06.2026', peso:98.4, tri:12.0, bi:5.0, sub:18.0, cresta:34.0, supra:17.0, abd:31.0, pierna:22.0, pant:5.0, s6:105.0, s8:144.0, brazRelaj:37.5, brazFlex:40.8, abdom:96.0, cadera:111.0, muslo:60.0, pantPer:41.0 },
-    { fecha:'15.07.2026', peso:97.5, tri:9.0, bi:5.5, sub:10.0, cresta:29.0, supra:15.0, abd:28.0, pierna:20.0, pant:6.5, s6:88.5, s8:123.0, brazRelaj:39.5, brazFlex:41.8, abdom:88.0, cadera:109.0, muslo:60.0, pantPer:40.5, pctGrasa:21.1 },
+    { fecha:'09.07.2026', peso:97.8, tri:14.0, bi:5.0, sub:17.0, cresta:31.0, supra:13.0, abd:30.0, pierna:20.0, pant:3.5, s6:97.5, s8:133.5, brazRelaj:37.2, brazFlex:40.6, abdom:93.0, cadera:111.0, muslo:60.0, pantPer:40.5 },
+    { fecha:'14.07.2026', peso:97.5, tri:9.0, bi:5.5, sub:10.0, cresta:29.0, supra:15.0, abd:28.0, pierna:20.0, pant:6.5, s6:88.5, s8:123.0, brazRelaj:39.5, brazFlex:41.8, abdom:88.0, cadera:109.0, muslo:60.0, pantPer:40.5 },
+    { fecha:'11.08.2026', peso:99.9, tri:12.0, bi:4.0, sub:16.0, cresta:35.0, supra:15.0, abd:31.0, pierna:22.0, pant:8.0, s6:104.0, s8:143.0, brazRelaj:37.3, brazFlex:40.5, abdom:98.0, cadera:112.0, muslo:61.0, pantPer:41.0 },
   ],
 
   objetivos: [
