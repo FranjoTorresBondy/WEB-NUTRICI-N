@@ -282,7 +282,7 @@ const PATIENT = {
   nombre:    'Joaquín\nEstrada',
   fecha:     '15.10.2026',
   tipoPlan:  'Hiperprotéico',
-  macros:    { kcal: 2260, p: 132, c: 311, g: 55 },
+  macros:    { kcal: 2420, p: 136, c: 341, g: 57 },
   hidratacion: [
     { label:'💧 Entrenamiento', valor:'3.0' },
     { label:'💧 Descanso',      valor:'2.5' },
@@ -307,11 +307,11 @@ const PATIENT = {
   ],
 
   comidas: [
-    { id:'des', nombre:'☀️ Desayuno', kcal:570, p:27, c:84, g:16, grupos:[
+    { id:'des', nombre:'☀️ Desayuno', kcal:650, p:29, c:99, g:17, grupos:[
       { label:'Escoge 01 · Fruta', max:1, ops:[
         '2 porciones de fruta (ver especificaciones)',
       ]},
-      { label:'Escoge 04 · Carbohidrato', max:4, ops:CARBO_DES },
+      { label:'Escoge 05 · Carbohidrato', max:5, ops:CARBO_DES },
       { label:'Escoge 01 · Proteína', max:1, ops:[
         '50 g de pollo + 40 g de palta',
         '½ lata de atún en agua + 40 g de palta',
@@ -338,7 +338,7 @@ const PATIENT = {
       ]},
     ], nota:'*Si comes salmón, cortar la porción de grasas del almuerzo y la cena.' },
 
-    { id:'snk', nombre:'🥤 Snack', kcal:290, p:21, c:41, g:7, grupos:[
+    { id:'snk', nombre:'🥤 Snack', kcal:370, p:23, c:56, g:8, grupos:[
       { label:'Escoge 01 · Fruta', max:1, ops:[
         '2 porciones de fruta (ver especificaciones)',
       ]},
@@ -352,7 +352,7 @@ const PATIENT = {
         '30 g de mozzarella light',
         '½ scoop de proteína',
       ]},
-      { label:'Escoge 01 · Carbohidrato', max:1, ops:CARBO_DES },
+      { label:'Escoge 02 · Carbohidrato', max:2, ops:CARBO_DES },
     ]},
 
     { id:'cen', nombre:'🌙 Cena', kcal:700, p:42, c:93, g:16, grupos:[
@@ -441,7 +441,7 @@ const PATIENT = {
     ]},
   ],
 
-  notaSpecs: 'Plan base = 2 260 kcal (días de descanso). Los días de entrenamiento de fuerza se agrega el pre entreno.',
+  notaSpecs: 'Plan base = 2 420 kcal (días de descanso). Los días de entrenamiento de fuerza se agrega el pre entreno.',
 
   entrenamiento: {
     fases: [
