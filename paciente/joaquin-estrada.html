@@ -443,7 +443,54 @@ const PATIENT = {
 
   notaSpecs: 'Plan base = 2 260 kcal (días de descanso). Los días de entrenamiento de fuerza se agrega el pre entreno.',
 
-  entrenamiento: null,
+  entrenamiento: {
+    fases: [
+      { label:'Semana 1', semanas:1, color:'#4fc3f7', bg:'#0d3d50' },
+      { label:'Semana 2', semanas:1, color:'#29b6f6', bg:'#0d3d50' },
+      { label:'Semana 3', semanas:1, color:'#C4973A', bg:'#4d3a0d' },
+      { label:'Semana 4', semanas:1, color:'#e0a93e', bg:'#4d3a0d' },
+      { label:'Semana 5', semanas:1, color:'#ef9a9a', bg:'#5c2020' },
+    ],
+    sesiones: [
+      { id:'s1', icon:'🦵', label:'Sesión 1', nota:'Cuádriceps · Pecho · Espalda · Hombro · Brazos', ejercicios:[
+        { nombre:'Sentadilla jaca',                            img:'anim', s1:'Hack_Squat/0.jpg',                        s2:'Hack_Squat/1.jpg',                        reps:'9',  prog:[[3,null],[3,null],[3,null],[3,null],[3,null]] },
+        { nombre:'Aperturas de pecho pec deck (máquina)',       img:'anim', s1:'Butterfly/0.jpg',                         s2:'Butterfly/1.jpg',                         reps:'9',  prog:[[3,null],[3,null],[3,null],[3,null],[3,null]] },
+        { nombre:'Jalón al pecho agarre prono (máquina)',       img:'anim', s1:'Wide-Grip_Lat_Pulldown/0.jpg',            s2:'Wide-Grip_Lat_Pulldown/1.jpg',            reps:'11', prog:[[3,null],[3,null],[3,null],[3,null],[3,null]] },
+        { nombre:'Press de hombros (máquina)',                  img:'anim', s1:'Standing_Military_Press/0.jpg',              s2:'Standing_Military_Press/1.jpg',              reps:'8',  prog:[[3,null],[3,null],[3,null],[3,null],[3,null]] },
+        { nombre:'Press francés tumbado (barra EZ)',            img:'anim', s1:'EZ-Bar_Skullcrusher/0.jpg',               s2:'EZ-Bar_Skullcrusher/1.jpg',               reps:'12', prog:[[3,null],[3,null],[3,null],[3,null],[3,null]] },
+        { nombre:'Curl predicador agarre abierto (barra EZ)',   img:'anim', s1:'Preacher_Curl/0.jpg',              s2:'Preacher_Curl/1.jpg',              reps:'12', prog:[[3,null],[3,null],[3,null],[3,null],[3,null]] },
+        { nombre:'Hiperextensiones de espalda',                 img:'anim', s1:'Hyperextensions_Back_Extensions/0.jpg',  s2:'Hyperextensions_Back_Extensions/1.jpg',  reps:'12', prog:[[3,null],[3,null],[3,null],[3,null],[3,null]] },
+      ]},
+      { id:'s2', icon:'💪', label:'Sesión 2', nota:'Pierna · Pecho · Espalda · Hombro · Brazos', ejercicios:[
+        { nombre:'Extensión de rodilla (máquina)',              img:'anim', s1:'Leg_Extensions/0.jpg',                    s2:'Leg_Extensions/1.jpg',                    reps:'10', prog:[[3,null],[3,null],[3,null],[3,null],[3,null]] },
+        { nombre:'Press de banca inclinado (mancuerna)',        img:'anim', s1:'Incline_Dumbbell_Press/0.jpg',            s2:'Incline_Dumbbell_Press/1.jpg',            reps:'8',  prog:[[3,null],[3,null],[3,null],[3,null],[3,null]] },
+        { nombre:'Remo con pecho apoyado (mancuerna)',          img:'anim', s1:'Dumbbell_Incline_Row/0.jpg',              s2:'Dumbbell_Incline_Row/1.jpg',              reps:'12', prog:[[3,null],[3,null],[3,null],[3,null],[3,null]] },
+        { nombre:'Elevaciones laterales (mancuerna)',           img:'anim', s1:'Side_Lateral_Raise/0.jpg',                s2:'Side_Lateral_Raise/1.jpg',                reps:'13', prog:[[3,null],[3,null],[3,null],[3,null],[3,null]] },
+        { nombre:'Curl predicador agarre abierto (barra EZ)',   img:'anim', s1:'Preacher_Curl/0.jpg',              s2:'Preacher_Curl/1.jpg',              reps:'12', prog:[[3,null],[3,null],[3,null],[3,null],[3,null]] },
+        { nombre:'Extensión de tríceps en barra V (cable)',     img:'anim', s1:'Triceps_Pushdown/0.jpg',                  s2:'Triceps_Pushdown/1.jpg',                  reps:'12', prog:[[3,null],[3,null],[3,null],[3,null],[3,null]] },
+        { nombre:'Curl femoral sentado (máquina)',              img:'anim', s1:'Seated_Leg_Curl/0.jpg',                   s2:'Seated_Leg_Curl/1.jpg',                   reps:'8',  prog:[[3,null],[3,null],[3,null],[3,null],[3,null]] },
+      ]},
+      { id:'s3', icon:'⚡', label:'Sesión 3', nota:'Espalda · Pecho · Hombro · Brazos · Pantorrilla · Core', ejercicios:[
+        { nombre:'Jalón al pecho agarre prono (máquina)',       img:'anim', s1:'Wide-Grip_Lat_Pulldown/0.jpg',            s2:'Wide-Grip_Lat_Pulldown/1.jpg',            reps:'11', prog:[[3,null],[3,null],[3,null],[3,null],[3,null]] },
+        { nombre:'Aperturas de pecho pec deck (máquina)',       img:'anim', s1:'Butterfly/0.jpg',                         s2:'Butterfly/1.jpg',                         reps:'9',  prog:[[3,null],[3,null],[3,null],[3,null],[3,null]] },
+        { nombre:'Aperturas inversas pec deck (máquina)',       img:'anim', s1:'Reverse_Machine_Flyes/0.jpg',             s2:'Reverse_Machine_Flyes/1.jpg',             reps:'12', prog:[[4,null],[4,null],[4,null],[4,null],[4,null]] },
+        { nombre:'Elevación de talones en prensa (máquina)',    img:'anim', s1:'Calf_Press_On_The_Leg_Press_Machine/0.jpg', s2:'Calf_Press_On_The_Leg_Press_Machine/1.jpg', reps:'14', prog:[[3,null],[3,null],[3,null],[3,null],[3,null]] },
+        { nombre:'Press francés tumbado (barra EZ)',            img:'anim', s1:'EZ-Bar_Skullcrusher/0.jpg',               s2:'EZ-Bar_Skullcrusher/1.jpg',               reps:'12', prog:[[3,null],[3,null],[3,null],[3,null],[3,null]] },
+        { nombre:'Curl de bíceps inclinado agarre supino (mancuerna)', img:'anim', s1:'Incline_Dumbbell_Curl/0.jpg',      s2:'Incline_Dumbbell_Curl/1.jpg',             reps:'10', prog:[[3,null],[3,null],[3,null],[3,null],[3,null]] },
+        { nombre:'Elevaciones laterales (mancuerna)',           img:'anim', s1:'Side_Lateral_Raise/0.jpg',                s2:'Side_Lateral_Raise/1.jpg',                reps:'13', prog:[[3,null],[3,null],[3,null],[3,null],[3,null]] },
+        { nombre:'Crunch abdominal en polea alta (cuerda)',     img:'anim', s1:'Cable_Crunch/0.jpg',                      s2:'Cable_Crunch/1.jpg',                      reps:'20', prog:[[3,null],[3,null],[3,null],[3,null],[3,null]] },
+      ]},
+      { id:'s4', icon:'🔥', label:'Sesión 4', nota:'Pecho · Espalda · Hombro · Brazos · Core', ejercicios:[
+        { nombre:'Press de banca inclinado (mancuerna)',        img:'anim', s1:'Incline_Dumbbell_Press/0.jpg',            s2:'Incline_Dumbbell_Press/1.jpg',            reps:'8',  prog:[[3,null],[3,null],[3,null],[3,null],[3,null]] },
+        { nombre:'Remo con pecho apoyado (mancuerna)',          img:'anim', s1:'Dumbbell_Incline_Row/0.jpg',              s2:'Dumbbell_Incline_Row/1.jpg',              reps:'11', prog:[[3,null],[3,null],[3,null],[3,null],[3,null]] },
+        { nombre:'Elevaciones laterales (mancuerna)',           img:'anim', s1:'Side_Lateral_Raise/0.jpg',                s2:'Side_Lateral_Raise/1.jpg',                reps:'12', prog:[[3,null],[3,null],[3,null],[3,null],[3,null]] },
+        { nombre:'Hiperextensiones de espalda',                 img:'anim', s1:'Hyperextensions_Back_Extensions/0.jpg',  s2:'Hyperextensions_Back_Extensions/1.jpg',  reps:'12', prog:[[3,null],[3,null],[3,null],[3,null],[3,null]] },
+        { nombre:'Curl de bíceps agarre prono (barra EZ)',      img:'anim', s1:'Reverse_Barbell_Curl/0.jpg',              s2:'Reverse_Barbell_Curl/1.jpg',              reps:'12', prog:[[3,null],[3,null],[3,null],[3,null],[3,null]] },
+        { nombre:'Extensión de tríceps en barra V (cable)',     img:'anim', s1:'Triceps_Pushdown/0.jpg',                  s2:'Triceps_Pushdown/1.jpg',                  reps:'12', prog:[[3,null],[3,null],[3,null],[3,null],[3,null]] },
+        { nombre:'Crunch abdominal en polea alta (cuerda)',     img:'anim', s1:'Cable_Crunch/0.jpg',                      s2:'Cable_Crunch/1.jpg',                      reps:'20', prog:[[3,null],[3,null],[3,null],[3,null],[3,null]] },
+      ]},
+    ],
+  },
 };
 
 // ════════════════════════════════════════════════════════════════════════════
@@ -619,8 +666,8 @@ function renderTrain() {
   WEEKS = buildWeeks();
   $('tab-train').innerHTML = `<div class="wrap">
     <section style="padding-top:24px">
-      <div class="sec-h"><span class="ix">01</span><h2>Mesociclo 1 · 6 Semanas</h2><div class="rule"></div></div>
-      <p class="train-intro">Progresión basada en Israetel et al. (MEV/MRV). Volumen incrementa semana a semana en músculos de alta tolerancia: deltoides, bíceps, tríceps, espalda (isolaciones), pantorrilla y core. Compuestos pesados progresan via RIR. <b>Anota el peso de cada serie</b> — se guarda automáticamente.</p>
+      <div class="sec-h"><span class="ix">01</span><h2>Rutina actual · 4 sesiones</h2><div class="rule"></div></div>
+      <p class="train-intro">Series y repeticiones de tu rutina actual. <b>Anota el peso de cada serie</b> — se guarda automáticamente y lo ves graficado en Evolución Entreno.</p>
       <div class="weeksel" id="weeksel"></div>
     </section>
     <section style="padding-top:6px">
@@ -646,7 +693,7 @@ function buildWeekSel() {
 
 function buildTrainHead(w) {
   $('trainHead').innerHTML = `<span class="badge" style="background:${w.bg};color:#fff">${w.label} · ${w.faseLabel}</span>
-    <span class="hint" style="color:var(--muted)">Progresión individual por ejercicio según MEV/MRV</span><button id="saveSessionBtn" onclick="saveSession()" style="margin-left:auto;background:var(--gold);color:#000;border:none;border-radius:8px;padding:7px 16px;font-size:13px;font-weight:700;cursor:pointer;transition:background .2s,color .2s">Guardar sesión</button>`;
+    <span class="hint" style="color:var(--muted)">Anota el peso de cada serie</span><button id="saveSessionBtn" onclick="saveSession()" style="margin-left:auto;background:var(--gold);color:#000;border:none;border-radius:8px;padding:7px 16px;font-size:13px;font-weight:700;cursor:pointer;transition:background .2s,color .2s">Guardar sesión</button>`;
 }
 
 function setWeek(n, btn) {
@@ -672,6 +719,7 @@ function buildThumb(ex) {
 }
 
 function rirLabel(rir) {
+  if (rir === null || rir === undefined) return { text: null, cls: '' };
   if (rir === 'F') return { text: 'A fallo', cls: 'rir-f' };
   if (rir === 0)   return { text: 'RIR 0', cls: 'rir' };
   return { text: `RIR ${rir}`, cls: '' };
@@ -694,8 +742,8 @@ function buildSessions(week) {
           <div class="nm">${ex.nombre}${notaHtml}</div>
           <div class="meta">
             <span class="mpill"><b>${series}×${ex.reps}</b></span>
-            <span class="mpill ${rl.cls}"><b>${rl.text}</b></span>
-            <span class="mpill rest">Descanso <b>${ex.descanso}</b></span>
+            ${rl.text ? `<span class="mpill ${rl.cls}"><b>${rl.text}</b></span>` : ''}
+            ${ex.descanso ? `<span class="mpill rest">Descanso <b>${ex.descanso}</b></span>` : ''}
           </div>
           <div class="sets">${sets}</div>
         </div></div>`;
