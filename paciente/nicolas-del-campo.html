@@ -419,7 +419,85 @@ const PATIENT = {
 
   notaSpecs: 'Plan base = 1 955 kcal. El pre entreno se agrega los días de entrenamiento.',
 
-  entrenamiento: null,
+  entrenamiento: {
+    fases: [
+      { label:'Semana 1', semanas:1, color:'var(--cyan)',   bg:'#0d3d50' },
+      { label:'Semana 2', semanas:1, color:'#4fc3f7',      bg:'#0d3d50' },
+      { label:'Semana 3', semanas:1, color:'var(--coral)', bg:'#5c2020' },
+      { label:'Semana 4', semanas:1, color:'#ef5350',      bg:'#5c2020' },
+    ],
+    sesiones: [
+      { id:'s1', icon:'🦵', label:'Sesión 1 — Lower', nota:'Pierna · Core', ejercicios:[
+        { nombre:'Hack squat', img:'anim', s1:'Hack_Squat/0.jpg', s2:'Hack_Squat/1.jpg',
+          reps:'10', descanso:'2:30',
+          prog:[[2,2],[2,1],[2,1],[2,0]] },
+        { nombre:'Flexión de rodilla en máquina sentado (isquios)', img:'anim', s1:'Seated_Leg_Curl/0.jpg', s2:'Seated_Leg_Curl/1.jpg',
+          reps:'10', descanso:'2:00',
+          prog:[[2,2],[2,1],[2,1],[2,0]] },
+        { nombre:'Hip thrust', img:'anim', s1:'Barbell_Hip_Thrust/0.jpg', s2:'Barbell_Hip_Thrust/1.jpg',
+          reps:'10', descanso:'2:00',
+          prog:[[2,2],[2,1],[2,1],[2,0]] },
+        { nombre:'Búlgaras con mancuernas', img:'anim', s1:'Split_Squat_with_Dumbbells/0.jpg', s2:'Split_Squat_with_Dumbbells/1.jpg',
+          reps:'10', descanso:'2:00',
+          prog:[[2,2],[2,1],[2,1],[2,0]] },
+        { nombre:'Pantorrilla unipodal', img:'anim', s1:'Standing_Calf_Raises/0.jpg', s2:'Standing_Calf_Raises/1.jpg',
+          reps:'15', descanso:'1:00',
+          prog:[[3,1],[3,1],[3,0],[3,0]] },
+        { nombre:'Elevación de piernas en banco declinado con elevación pélvica', img:'local', s1:'img/elevacion-piernas-banco-declinado.jpg',
+          reps:'10', descanso:'1:00',
+          prog:[[3,1],[3,1],[3,0],[3,0]] },
+      ]},
+      { id:'s2', icon:'💪', label:'Sesión 2 — Upper', nota:'Pecho · Espalda · Hombro · Bíceps', ejercicios:[
+        { nombre:'Rotación externa de hombro', img:'local', s1:'img/rotacion-externa-hombro.webp',
+          reps:'12', descanso:'1:00',
+          nota:'Cada lado. Codo a 90°.',
+          prog:[[2,2],[2,1],[2,1],[2,0]] },
+        { nombre:'Jalón al pecho en polea (asistido)', img:'anim', s1:'Lat_Pulldown/0.jpg', s2:'Lat_Pulldown/1.jpg',
+          reps:'10', descanso:'2:00',
+          prog:[[2,2],[2,1],[2,1],[2,0]] },
+        { nombre:'Press convergente en Hammer (alto)', img:'anim', s1:'Leverage_Chest_Press/0.jpg', s2:'Leverage_Chest_Press/1.jpg',
+          reps:'10', descanso:'2:00',
+          prog:[[2,2],[2,1],[2,1],[2,0]] },
+        { nombre:'Remo en máquina T', img:'anim', s1:'T-Bar_Row_with_Handle/0.jpg', s2:'T-Bar_Row_with_Handle/1.jpg',
+          reps:'10', descanso:'2:00',
+          prog:[[2,2],[2,1],[2,1],[2,0]] },
+        { nombre:'Aducción de pecho en máquina pec dec', img:'anim', s1:'Butterfly/0.jpg', s2:'Butterfly/1.jpg',
+          reps:'12', descanso:'1:30',
+          prog:[[2,1],[2,1],[2,1],[2,0]] },
+        { nombre:'Elevaciones laterales con mancuernas', img:'anim', s1:'Side_Lateral_Raise/0.jpg', s2:'Side_Lateral_Raise/1.jpg',
+          reps:'12', descanso:'1:30',
+          prog:[[2,2],[2,1],[3,1],[3,0]] },
+        { nombre:'Curl de bícep con barra', img:'anim', s1:'Barbell_Curl/0.jpg', s2:'Barbell_Curl/1.jpg',
+          reps:'10', descanso:'1:30',
+          prog:[[2,2],[2,1],[2,1],[2,0]] },
+      ]},
+      { id:'s3', icon:'⚡', label:'Sesión 3 — Full Body', nota:'Cuerpo completo · Core', ejercicios:[
+        { nombre:'Rotación externa de hombro', img:'local', s1:'img/rotacion-externa-hombro.webp',
+          reps:'12', descanso:'1:00',
+          nota:'Cada lado. Codo a 90°.',
+          prog:[[2,2],[2,1],[2,1],[2,0]] },
+        { nombre:'Hack squat', img:'anim', s1:'Hack_Squat/0.jpg', s2:'Hack_Squat/1.jpg',
+          reps:'8', descanso:'2:30',
+          prog:[[2,2],[2,2],[2,1],[2,1]] },
+        { nombre:'RDL', img:'anim', s1:'Romanian_Deadlift/0.jpg', s2:'Romanian_Deadlift/1.jpg',
+          reps:'8', descanso:'2:30',
+          prog:[[2,2],[2,2],[2,1],[2,1]] },
+        { nombre:'Press banca plano inclinado con barra', img:'anim', s1:'Barbell_Incline_Bench_Press_-_Medium_Grip/0.jpg', s2:'Barbell_Incline_Bench_Press_-_Medium_Grip/1.jpg',
+          reps:'8', descanso:'2:30',
+          prog:[[2,2],[2,2],[2,1],[2,1]] },
+        { nombre:'Elevaciones laterales con mancuernas', img:'anim', s1:'Side_Lateral_Raise/0.jpg', s2:'Side_Lateral_Raise/1.jpg',
+          reps:'12', descanso:'1:30',
+          prog:[[2,1],[2,1],[2,1],[2,0]] },
+        { nombre:'Rotación torácica desde polea alta (core rotacional)', img:'anim', s1:'Standing_Cable_Wood_Chop/0.jpg', s2:'Standing_Cable_Wood_Chop/1.jpg',
+          reps:'12', descanso:'1:30',
+          nota:'Cada lado.',
+          prog:[[2,1],[2,1],[2,1],[2,0]] },
+        { nombre:'Elevación de piernas en banco declinado con elevación pélvica', img:'local', s1:'img/elevacion-piernas-banco-declinado.jpg',
+          reps:'10', descanso:'1:00',
+          prog:[[3,1],[3,1],[3,0],[3,0]] },
+      ]},
+    ],
+  },
 };
 
 // ════════════════════════════════════════════════════════════════════════════
@@ -595,8 +673,8 @@ function renderTrain() {
   WEEKS = buildWeeks();
   $('tab-train').innerHTML = `<div class="wrap">
     <section style="padding-top:24px">
-      <div class="sec-h"><span class="ix">01</span><h2>Mesociclo 1 · 6 Semanas</h2><div class="rule"></div></div>
-      <p class="train-intro">Progresión basada en Israetel et al. (MEV/MRV). Volumen incrementa semana a semana en músculos de alta tolerancia: deltoides, bíceps, tríceps, espalda (isolaciones), pantorrilla y core. Compuestos pesados progresan via RIR. <b>Anota el peso de cada serie</b> — se guarda automáticamente.</p>
+      <div class="sec-h"><span class="ix">01</span><h2>Mesociclo · 4 Semanas</h2><div class="rule"></div></div>
+      <p class="train-intro">Mesociclo de reintroducción al entrenamiento de fuerza. 3 sesiones semanales (Lower / Upper / Full Body) con 2 series efectivas por ejercicio y duración máxima de 60 minutos. <b>Anota el peso de cada serie</b> — se guarda automáticamente.</p>
       <div class="weeksel" id="weeksel"></div>
     </section>
     <section style="padding-top:6px">
