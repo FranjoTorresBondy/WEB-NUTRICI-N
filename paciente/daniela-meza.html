@@ -236,7 +236,7 @@ const PATIENT = {
   nombre:    'Daniela\nMeza',
   fecha:     '30.01.2026',
   tipoPlan:  'Hipocalórico · Hiperprotéico',
-  macros:    { kcal: 1536, p: 104, c: 182, g: 47 },
+  macros:    { kcal: 1394, p: 103, c: 150, g: 45 },
   hidratacion: [
     { label:'💧 Entrenamiento', valor:'3.5' },
     { label:'💧 Descanso',      valor:'2.5' },
@@ -302,9 +302,9 @@ const PATIENT = {
         ]},
     ], nota:'1 vaso de agua (500 ml) + café con 100 ml de leche Slim.' },
 
-    // Almuerzo: 452 kcal · 33P · 60C · 9G
-    { id:'alm', nombre:'🥗 Almuerzo', kcal:452, p:33, c:60, g:9, grupos:[
-        { label:'Escoge 03 · Carbohidrato (peso cocido)', max:3, ops:[
+    // Almuerzo: 380 kcal · 33P · 40C · 9G
+    { id:'alm', nombre:'🥗 Almuerzo', kcal:380, p:33, c:40, g:9, grupos:[
+        { label:'Escoge 02 · Carbohidrato (peso cocido)', max:2, ops:[
           '90 g de papa, camote o beterraga',
           '60 g de arroz',
           '100 g de menestra',
@@ -328,8 +328,8 @@ const PATIENT = {
         ]},
     ], nota:'* Puedes consumir 1 porción de mayonesa light Hellmanns (15 g). Si eliges esta opción, no consumir la porción de grasas.' },
 
-    // Snack MT: 270 kcal · 16P · 42C · 6G
-    { id:'snk-mt', nombre:'🍎 Snack', kcal:270, p:16, c:42, g:6, grupos:[
+    // Snack MT: 200 kcal · 15P · 30C · 5G
+    { id:'snk-mt', nombre:'🍎 Snack', kcal:200, p:15, c:30, g:5, grupos:[
         { label:'Escoge 01 · Fruta', max:1, ops:[
           '1 manzana',
           '1 mandarina',
@@ -339,12 +339,6 @@ const PATIENT = {
         { label:'Escoge 01 · Lácteo / Proteína', max:1, ops:[
           '150 g de yogurt vakimú + pro',
           '60 g de queso mozzarella light CuisineCo',
-        ]},
-        { label:'Escoge 01 · Cereal', max:1, ops:[
-          '20 g de cereales de Dyfferent, Mamalama o Nutrico',
-          '20 g de granola',
-          '1 rebanada de pan de molde integral o masa madre (30 g)',
-          '15 g de popcorn sin reventar, cocinar sin aceite',
         ]},
     ]},
 
