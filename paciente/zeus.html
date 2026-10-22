@@ -230,9 +230,9 @@ var NOTA_ALM = '* Consumir pescado 1 a 2 veces por semana y menestras 1 vez a la
 var NOTA_CENA = '* 2 de las grasas de la cena puedes cubrirlas con 2 cdas de linaza o chía molida, y la otra la eliges de las opciones.';
 
 // ── LUNES / MIÉRCOLES / VIERNES ─────────────────────────────────────────────
-var DES_LMV = { id:'des-lmv', nombre:'☀️ Desayuno · Pre Lucha', kcal:416, p:4, c:106, g:2, grupos:[
+var DES_LMV = { id:'des-lmv', nombre:'☀️ Desayuno · Pre Lucha', kcal:394, p:4, c:90, g:2, grupos:[
   { label:'Escoge 01 · Fruta + miel', max:1, ops:[
-    '2 porciones de fruta (ver especificaciones) + 2 cdas de miel (20 g c/u)',
+    '2 porciones de fruta (ver especificaciones) + 1 cda de miel (20 g)',
   ]},
   { label:'Escoge 01 · Bebida', max:1, ops:[
     '250 ml de jugo de naranja',
@@ -245,7 +245,7 @@ var DES_LMV = { id:'des-lmv', nombre:'☀️ Desayuno · Pre Lucha', kcal:416, p
   ]},
 ]};
 
-var SNK_PF = { id:'snk-pf', nombre:'🥪 Snack · Pre Preparación Física', kcal:300, p:22, c:52, g:2, grupos:[
+var SNK_PF = { id:'snk-pf', nombre:'🥪 Snack · Pre Preparación Física', kcal:314, p:22, c:52, g:2, grupos:[
   { label:'Escoge 01 · Carbohidrato', max:1, ops:CARBO_BLANCO },
   { label:'Escoge 02 · Fruta o dulce', max:2, ops:[
     '1 porción de fruta (ver especificaciones)',
@@ -255,14 +255,14 @@ var SNK_PF = { id:'snk-pf', nombre:'🥪 Snack · Pre Preparación Física', kca
   { label:'Escoge 01 · Proteína', max:1, ops:PROTE_SNACK },
 ]};
 
-var ALM_LMV = { id:'alm-lmv', nombre:'🥗 Almuerzo', kcal:825, p:55, c:96, g:23, grupos:[
+var ALM_LMV = { id:'alm-lmv', nombre:'🥗 Almuerzo', kcal:739, p:55, c:96, g:15, grupos:[
   { label:'Escoge 05 · Carbohidrato', max:5, ops:CARBO_ALM },
   { label:'Escoge 01 · Proteína (200 g, peso crudo)', max:1, ops:PROTE_ALM },
   { label:'Escoge 01 · Verduras', max:1, ops:['150 g de verduras a tu preferencia (crudas o cocidas)'] },
-  { label:'Escoge 03 · Grasa', max:3, ops:GRASA_3 },
+  { label:'Escoge 02 · Grasa', max:2, ops:GRASA_3 },
 ], nota:NOTA_ALM };
 
-var SNK_ST = { id:'snk-st', nombre:'🥊 Snack · Pre Striking', kcal:250, p:21, c:39, g:2, grupos:[
+var SNK_ST = { id:'snk-st', nombre:'🥊 Snack · Pre Striking', kcal:258, p:21, c:39, g:2, grupos:[
   { label:'Escoge 01 · Carbohidrato', max:1, ops:CARBO_BLANCO },
   { label:'Escoge 01 · Fruta o dulce', max:1, ops:[
     '1 porción de fruta (ver especificaciones)',
@@ -272,7 +272,7 @@ var SNK_ST = { id:'snk-st', nombre:'🥊 Snack · Pre Striking', kcal:250, p:21,
   { label:'Escoge 01 · Proteína', max:1, ops:PROTE_SNACK },
 ]};
 
-var CEN = { id:'cen', nombre:'🌙 Cena', kcal:825, p:55, c:96, g:23, grupos:[
+var CEN = { id:'cen', nombre:'🌙 Cena', kcal:811, p:55, c:96, g:23, grupos:[
   { label:'Escoge 05 · Carbohidrato', max:5, ops:CARBO_CENA },
   { label:'Escoge 01 · Proteína (200 g, peso crudo)', max:1, ops:PROTE_CENA },
   { label:'Escoge 03 · Grasa', max:3, ops:GRASA_3 },
@@ -283,7 +283,7 @@ var CEN = { id:'cen', nombre:'🌙 Cena', kcal:825, p:55, c:96, g:23, grupos:[
 ], nota:NOTA_CENA };
 
 // ── MARTES / JUEVES ─────────────────────────────────────────────────────────
-var DES_MJ = { id:'des-mj', nombre:'☀️ Desayuno · Pre Striking', kcal:290, p:5, c:71, g:1, grupos:[
+var DES_MJ = { id:'des-mj', nombre:'☀️ Desayuno · Pre Striking', kcal:313, p:5, c:71, g:1, grupos:[
   { label:'Escoge 01 · Fruta + miel', max:1, ops:[
     '2 porciones de fruta (ver especificaciones) + 1 cda de miel (20 g)',
   ]},
@@ -295,19 +295,19 @@ var DES_MJ = { id:'des-mj', nombre:'☀️ Desayuno · Pre Striking', kcal:290, 
   ]},
 ]};
 
-var ALM_MJ = { id:'alm-mj', nombre:'🥗 Almuerzo', kcal:885, p:66, c:96, g:25, grupos:[
+var ALM_MJ = { id:'alm-mj', nombre:'🥗 Almuerzo', kcal:801, p:66, c:96, g:17, grupos:[
   { label:'Escoge 05 · Carbohidrato', max:5, ops:CARBO_ALM },
   { label:'Escoge 01 · Proteína (250 g, peso crudo)', max:1, ops:PROTE_ALM },
   { label:'Escoge 01 · Verduras', max:1, ops:['150 g de verduras a tu preferencia (crudas o cocidas)'] },
-  { label:'Escoge 03 · Grasa', max:3, ops:GRASA_3 },
+  { label:'Escoge 02 · Grasa', max:2, ops:GRASA_3 },
 ], nota:NOTA_ALM };
 
-var SNK_PADS = { id:'snk-pads', nombre:'🥊 Snack · Pre Pads', kcal:205, p:20, c:27, g:2, grupos:[
+var SNK_PADS = { id:'snk-pads', nombre:'🥊 Snack · Pre Pads', kcal:206, p:20, c:27, g:2, grupos:[
   { label:'Escoge 01 · Carbohidrato', max:1, ops:CARBO_BLANCO },
   { label:'Escoge 01 · Proteína', max:1, ops:PROTE_SNACK },
 ]};
 
-var SNK_BJJ = { id:'snk-bjj', nombre:'🥋 Snack · Pre BJJ', kcal:220, p:1, c:58, g:1, grupos:[
+var SNK_BJJ = { id:'snk-bjj', nombre:'🥋 Snack · Pre BJJ', kcal:245, p:1, c:58, g:1, grupos:[
   { label:'Escoge 01', max:1, ops:[
     '2 porciones de fruta (ver especificaciones) + 2 cdas de miel',
     '40 g de corn flakes',
@@ -315,7 +315,7 @@ var SNK_BJJ = { id:'snk-bjj', nombre:'🥋 Snack · Pre BJJ', kcal:220, p:1, c:5
 ]};
 
 // ── DÍA DE DESCANSO ─────────────────────────────────────────────────────────
-var DES_D = { id:'des-d', nombre:'☀️ Desayuno', kcal:215, p:2, c:56, g:1, grupos:[
+var DES_D = { id:'des-d', nombre:'☀️ Desayuno', kcal:389, p:17, c:60, g:9, grupos:[
   { label:'Escoge 01 · Fruta', max:1, ops:[
     '2 porciones de fruta (ver especificaciones)',
   ]},
@@ -332,17 +332,18 @@ var DES_D = { id:'des-d', nombre:'☀️ Desayuno', kcal:215, p:2, c:56, g:1, gr
     '½ lata de atún + 40 g de palta',
     '110 g de Vakimú Quark + 1 porción de frutos secos',
     '2 huevos',
+    '½ scoop de proteína + 1 porción de frutos secos',
   ]},
 ]};
 
-var ALM_D = { id:'alm-d', nombre:'🥗 Almuerzo', kcal:745, p:53, c:79, g:23, grupos:[
+var ALM_D = { id:'alm-d', nombre:'🥗 Almuerzo', kcal:663, p:53, c:79, g:15, grupos:[
   { label:'Escoge 04 · Carbohidrato', max:4, ops:CARBO_ALM },
   { label:'Escoge 01 · Proteína (200 g, peso crudo)', max:1, ops:PROTE_ALM },
   { label:'Escoge 01 · Verduras', max:1, ops:['150 g de verduras a tu preferencia (crudas o cocidas)'] },
-  { label:'Escoge 03 · Grasa', max:3, ops:GRASA_3 },
+  { label:'Escoge 02 · Grasa', max:2, ops:GRASA_3 },
 ], nota:NOTA_ALM };
 
-var CEN_D = { id:'cen-d', nombre:'🌙 Cena', kcal:745, p:53, c:79, g:23, grupos:[
+var CEN_D = { id:'cen-d', nombre:'🌙 Cena', kcal:735, p:53, c:79, g:23, grupos:[
   { label:'Escoge 04 · Carbohidrato', max:4, ops:CARBO_CENA },
   { label:'Escoge 01 · Proteína (200 g, peso crudo)', max:1, ops:PROTE_CENA },
   { label:'Escoge 03 · Grasa', max:3, ops:GRASA_3 },
@@ -362,7 +363,7 @@ const PATIENT = {
   slug:     'zeus',
   sexo:     'm',
   nombre:   'Zeus',
-  fecha:    '05.10.2026',
+  fecha:    '22.10.2026',
   tipoPlan: 'Hipocalórico · Hiperprotéico',
   hidratacion: [
     { label:'💧 Entrenamiento', valor:'3.5' },
@@ -371,17 +372,21 @@ const PATIENT = {
   semanas: 1,
 
   antro: {
-    fecha:'05.10.2026', peso:72.0, talla:165.5, imc:26.3,
-    tri:4.0, bi:2.0, sub:7.0, cresta:8.0, supra:6.0, abd:9.0, pierna:6.0, pant:5.0,
-    s6:37.0, s8:47.0,
-    brazRelaj:34.8, brazFlex:37.4, abdom:81.0, cadera:94.5, muslo:54.3, pantPer:36.5,
-    icc:0.86,
+    fecha:'22.10.2026', peso:68.5, talla:165.5, imc:25.0,
+    tri:4.0, bi:2.0, sub:6.0, cresta:6.0, supra:4.5, abd:6.5, pierna:4.0, pant:4.0,
+    s6:29.0, s8:37.0,
+    brazRelaj:33.3, brazFlex:37.0, abdom:77.0, cadera:93.0, muslo:54.5, pantPer:36.5,
+    icc:0.83,
   },
   antroHistorial: [
     { fecha:'05.10.2026', peso:72.0, talla:165.5, imc:26.3,
       tri:4.0, bi:2.0, sub:7.0, cresta:8.0, supra:6.0, abd:9.0, pierna:6.0, pant:5.0,
       brazRelaj:34.8, brazFlex:37.4, abdom:81.0, cadera:94.5, muslo:54.3, pantPer:36.5,
       s6:37.0, s8:47.0 },
+    { fecha:'22.10.2026', peso:68.5, talla:165.5, imc:25.0,
+      tri:4.0, bi:2.0, sub:6.0, cresta:6.0, supra:4.5, abd:6.5, pierna:4.0, pant:4.0,
+      brazRelaj:33.3, brazFlex:37.0, abdom:77.0, cadera:93.0, muslo:54.5, pantPer:36.5,
+      s6:29.0, s8:37.0 },
   ],
 
   objetivos: [
@@ -390,16 +395,16 @@ const PATIENT = {
   ],
 
   planes: [
-    { id:'lmv', label:'Lunes / Miércoles / Viernes', sub:'2616 kcal',
-      macros:{ kcal:2616, p:157, c:389, g:52 },
+    { id:'lmv', label:'Lunes / Miércoles / Viernes', sub:'2516 kcal',
+      macros:{ kcal:2516, p:157, c:373, g:44 },
       comidas:[ DES_LMV, SNK_PF, ALM_LMV, SNK_ST, CEN ] },
 
-    { id:'mj', label:'Martes / Jueves', sub:'2425 kcal',
-      macros:{ kcal:2425, p:147, c:348, g:52 },
+    { id:'mj', label:'Martes / Jueves', sub:'2376 kcal',
+      macros:{ kcal:2376, p:147, c:348, g:44 },
       comidas:[ DES_MJ, ALM_MJ, SNK_PADS, SNK_BJJ, CEN ] },
 
-    { id:'descanso', label:'Día de descanso', sub:'1705 kcal',
-      macros:{ kcal:1705, p:108, c:214, g:47 },
+    { id:'descanso', label:'Día de descanso', sub:'1787 kcal',
+      macros:{ kcal:1787, p:123, c:218, g:47 },
       comidas:[ DES_D, ALM_D, CEN_D, PRE_SPAR ] },
   ],
 
