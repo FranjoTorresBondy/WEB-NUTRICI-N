@@ -328,30 +328,22 @@ const PATIENT = {
         ]},
     ], nota:'* Puedes consumir 1 porción de mayonesa light Hellmanns (15 g). Si eliges esta opción, no consumir la porción de grasas.' },
 
-    // Snack MT: 200 kcal · 15P · 30C · 5G
-    { id:'snk-mt', nombre:'🍎 Snack', kcal:200, p:15, c:30, g:5, grupos:[
-        { label:'Escoge 01 · Fruta', max:1, ops:[
-          '1 manzana',
-          '1 mandarina',
-          '10 uvas',
-          '150 g de berries',
+    // Snack MT: 200 kcal · 12P · 28C · 5G
+    { id:'snk-mt', nombre:'🍎 Snack', kcal:200, p:12, c:28, g:5, grupos:[
+        { label:'Escoge 01 · Opción', max:1, ops:[
+          '150 g de yogurt vakimú + pro + 150 g de berries',
+          '150 g de yogurt vakimú + pro + 1 manzana',
+          '150 g de yogurt vakimú + pro + 1 mandarina',
+          '150 g de yogurt vakimú + pro + 10 uvas',
+          '60 g de queso mozzarella light CuisineCo + 30 g de galletas de arroz',
+          '60 g de queso mozzarella light CuisineCo + 1 rapidita',
+          'Waffles de avena: 20 g avena + ½ plátano pequeño (40 g, pelado) + 1 huevo + canela + Stevia (ver toping ↓)',
         ]},
-        { label:'Escoge 01 · Lácteo / Proteína', max:1, ops:[
-          '150 g de yogurt vakimú + pro',
-          '60 g de queso mozzarella light CuisineCo',
-        ]},
-    ]},
-
-    // Snack alternativo – Waffles de avena: 200 kcal · 9P · 27C · 7G
-    { id:'snk-waffle', nombre:'🧇 Snack · Waffles de Avena', kcal:200, p:9, c:27, g:7, grupos:[
-        { label:'Ingredientes (waflera o sartén)', max:1, ops:[
-          '20 g de avena (peso seco) + ½ plátano pequeño (40 g, pelado) + 1 huevo + canela + Stevia + esencia de vainilla',
-        ]},
-        { label:'Escoge 01 · Toping', max:1, ops:[
+        { label:'Escoge 01 · Toping (solo waffles)', max:1, ops:[
           '1 cda de miel sin azúcar Essential',
           '1 cda de mermelada sin azúcar Spread',
         ]},
-    ], nota:'Licuar o chancar los ingredientes en un bowl y llevar a waflera o sartén. Si usas sartén, solo con aceite en spray. * Puedes hacer varios de una vez, congelarlos y recalentarlos en el airfryer u hornito.' },
+    ], nota:'Waffles: licuar o chancar en un bowl y llevar a waflera o sartén con aceite en spray. * Puedes hacer varios, congelarlos y recalentarlos en el airfryer u hornito.' },
 
     // Cena: 370 kcal · 33P · 34C · 13G
     { id:'cen', nombre:'🌙 Cena', kcal:370, p:33, c:34, g:13, grupos:[
