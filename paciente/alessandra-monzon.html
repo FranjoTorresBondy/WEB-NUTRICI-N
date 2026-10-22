@@ -264,8 +264,22 @@ const PATIENT = {
   ],
   semanas: 1,
 
-  antro: null,
-  antroHistorial: [],
+  antro: {
+    fecha:'19.10.2026', peso:73.9, talla:151.0, imc:32.4,
+    tri:23.0, bi:13.0, sub:25.0, cresta:30.0, supra:24.0, abd:25.0, pierna:30.0, pant:15.0,
+    s6:142.0, s8:185.0,
+    brazRelaj:32.8, brazFlex:32.8, abdom:86.0, cadera:111.0, muslo:58.5, pantPer:37.5,
+    diam: { humero:6.0, biEstiloideo:5.0, femur:9.5 },
+    // Masa muscular (Lee) pendiente: falta la fecha de nacimiento.
+    pctGrasa:28.6, fatKg:21.1, pctOseo:11.6, oseoKg:8.6, icc:0.77,
+    somato:{ endo:7.3, meso:7.1, ecto:0.1 },
+  },
+  antroHistorial: [
+    { fecha:'19.10.2026', peso:73.9, talla:151.0, imc:32.4,
+      tri:23.0, bi:13.0, sub:25.0, cresta:30.0, supra:24.0, abd:25.0, pierna:30.0, pant:15.0,
+      brazRelaj:32.8, brazFlex:32.8, abdom:86.0, cadera:111.0, muslo:58.5, pantPer:37.5,
+      s6:142.0, s8:185.0, pctGrasa:28.6, fatKg:21.1, pctOseo:11.6, oseoKg:8.6, icc:0.77 },
+  ],
 
   objetivos: [
     'Disminución de sumatoria de 8 pliegues',
