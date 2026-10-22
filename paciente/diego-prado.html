@@ -172,7 +172,7 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 const PATIENT = {
   slug:     'diego-prado',
   nombre:   'Diego\nPrado',
-  fecha:    '23.09.2026',
+  fecha:    '22.10.2026',
   tipoPlan: 'Hipocalórico · Hiperprotéico',
   macros:   { kcal:2150, p:148, c:251, g:60 },
 
@@ -182,10 +182,11 @@ const PATIENT = {
   ],
 
   antro: {
-    fecha:'05.10.2026', peso:95.0, talla:192.0, imc:25.8,
-    tri:6.0, bi:2.5, sub:6.0, cresta:22.0, supra:5.0, abd:10.0, pierna:20.0, pant:6.0,
-    s6:53.0, s8:77.5,
-    brazRelaj:33.0, brazFlex:36.8, abdom:85.0, cadera:111.0, muslo:60.8, pantPer:40.5,
+    fecha:'22.10.2026', peso:96.0, talla:192.0, imc:26.0,
+    tri:7.0, bi:2.0, sub:8.0, cresta:21.0, supra:6.0, abd:16.0, pierna:19.0, pant:9.0,
+    s6:64.0, s8:88.0,
+    brazRelaj:33.3, brazFlex:36.1, abdom:85.0, cadera:109.0, muslo:59.0, pantPer:39.5,
+    diam:{ humero:5.7, biEstiloideo:6.5, femur:10.0 },
   },
   antroHistorial: [
     { fecha:'15.09.2026', peso:89.0, talla:185, imc:26.0,
@@ -196,6 +197,10 @@ const PATIENT = {
       tri:6.0, bi:2.0, sub:7.0, cresta:22.0, supra:5.0, abd:19.0, pierna:21.0, pant:6.0,
       s6:64.0, s8:88.0,
       brazRelaj:33.0, brazFlex:35.8, abdom:86.0, cadera:109.0, muslo:58.5, pantPer:40.0 },
+    { fecha:'05.10.2026', peso:95.0, talla:192.0, imc:25.8,
+      tri:6.0, bi:2.5, sub:6.0, cresta:22.0, supra:5.0, abd:10.0, pierna:20.0, pant:6.0,
+      s6:53.0, s8:77.5,
+      brazRelaj:33.0, brazFlex:36.8, abdom:85.0, cadera:111.0, muslo:60.8, pantPer:40.5 },
   ],
 
   objetivos: [
@@ -229,8 +234,8 @@ const PATIENT = {
       ]},
     ]},
 
-    { id:'col-rec1', nombre:'🏫 Recreo 1', kcal:200, p:20, c:14, g:6, grupos:[
-      { label:'Escoge 01 · Grasa', max:1, ops:[
+    { id:'col-rec1', nombre:'🏫 Recreo 1', kcal:260, p:20, c:14, g:11, grupos:[
+      { label:'Escoge 02 · Grasa', max:2, ops:[
         '8 aceitunas',
         '1 porción de frutos secos (ver especificaciones)',
         '40 g de palta',
@@ -241,6 +246,9 @@ const PATIENT = {
         '1 pan pita (30 g)',
         '3 salmas',
         '8 galletas de arroz',
+        '1 cereal bar',
+        '1 pudding snack pack sin azúcar',
+        '20 g de pop corn',
       ]},
       { label:'Escoge 01 · Proteína', max:1, ops:[
         '60 g de pollo',
@@ -248,7 +256,7 @@ const PATIENT = {
         '40 g de queso mozzarella light',
         '140 g de Quark',
       ]},
-    ], nota:'*Puedes reemplazar por 20 g de almendras bañadas en chocolate + 140 g de Quark\n*Puedes reemplazar por las bolitas de 120 kcal' },
+    ], nota:'*Puedes reemplazar por 20 g de almendras bañadas en chocolate + 140 g de Quark\n*Puedes reemplazar por las bolitas de 120 kcal\n*Puedes reemplazar ocasionalmente por un brownie light + 1 porción de frutas' },
 
     { id:'col-rec2', nombre:'🏫 Recreo 2', kcal:330, p:30, c:30, g:10, grupos:[
       { label:'Escoge 02 · Carbohidrato', max:2, ops:[
@@ -271,8 +279,8 @@ const PATIENT = {
       ]},
     ], nota:'*Puedes reemplazar por 1 paquete de galleta de soda + 1 lata de atún en agua' },
 
-    { id:'col-alm', nombre:'🥗 Almuerzo', kcal:560, p:30, c:75, g:15, grupos:[
-      { label:'Escoge 04 · Carbohidrato', max:4, ops:[
+    { id:'col-alm', nombre:'🥗 Almuerzo', kcal:430, p:30, c:60, g:10, grupos:[
+      { label:'Escoge 03 · Carbohidrato', max:3, ops:[
         '60 g de arroz',
         '90 g de papa, camote o betarraga',
         '60 g de quinua',
@@ -293,7 +301,7 @@ const PATIENT = {
       { label:'Escoge 01 · Verduras', max:1, ops:[
         '150–170 g de verduras a tu preferencia',
       ]},
-      { label:'Escoge 02 · Grasa', max:2, ops:[
+      { label:'Escoge 01 · Grasa', max:1, ops:[
         '40 g de palta',
         '8 aceitunas',
         '1 cdta de aceite de oliva',
@@ -302,14 +310,17 @@ const PATIENT = {
       ]},
     ]},
 
-    { id:'col-snk', nombre:'🍎 Snack', kcal:231, p:22, c:17, g:9, grupos:[
-      { label:'Escoge 01 · Carbohidrato', max:1, ops:[
+    { id:'col-snk', nombre:'🍎 Snack', kcal:300, p:22, c:32, g:9, grupos:[
+      { label:'Escoge 02 · Carbohidrato', max:2, ops:[
         '1 tortilla rapidita integral',
         '1 rebanada de pan de molde integral (30 g)',
         'Pan de masa madre (30 g)',
         '20 g de avena (peso crudo)',
         '20 g de cereales Dyfferent o NutriCo',
         '20 g de granola',
+        '1 cereal bar',
+        '1 pudding snack pack sin azúcar',
+        '20 g de pop corn',
       ]},
       { label:'Escoge 01 · Proteína', max:1, ops:[
         '60 g de pollo',
@@ -358,11 +369,41 @@ const PATIENT = {
       ]},
     ]},
 
-    { id:'col-post', nombre:'💪 Post Entreno (+170 kcal)', kcal:150, p:20, c:15, g:1, grupos:[
+    { id:'col-pre', nombre:'⚡ Pre Entreno', kcal:100, p:1, c:25, g:1, grupos:[
       { label:'Escoge 01', max:1, ops:[
-        '30 g proteína Provide Gold + 2 porciones de frutas (ver especificaciones)',
+        '2 porciones de frutas (ver especificaciones)',
       ]},
     ], nota:'* Solo días de entrenamiento. Puedes hacerlo batido.' },
+
+    { id:'col-post', nombre:'💪 Post Entreno', kcal:205, p:25, c:27, g:1, grupos:[
+      { label:'Escoge 01', max:1, ops:[
+        '200 g de Quark + 2 porciones de frutas (ver especificaciones)',
+      ]},
+    ], nota:'* Solo días de entrenamiento. Puedes hacerlo batido.' },
+
+    { id:'col-postcena', nombre:'🌙 Snack Post Cena', kcal:285, p:16, c:30, g:9, grupos:[
+      { label:'Escoge 02 · Carbohidrato', max:2, ops:[
+        '1 tortilla rapidita integral',
+        '1 rebanada de pan de molde integral (30 g)',
+        'Pan de masa madre (30 g)',
+        '20 g de avena (peso crudo)',
+        '20 g de cereales Dyfferent o NutriCo',
+        '20 g de granola',
+      ]},
+      { label:'Escoge 01 · Proteína', max:1, ops:[
+        '60 g de pollo',
+        '½ lata de atún',
+        '40 g de queso mozzarella light',
+        '140 g de Quark',
+      ]},
+      { label:'Escoge 01 · Grasa', max:1, ops:[
+        '40 g de palta',
+        '8 aceitunas',
+        '1 cdta de aceite de oliva',
+        '1 porción de frutos secos (ver especificaciones)',
+        '5 g de mantequilla',
+      ]},
+    ], nota:'* Solo días de tennis.' },
   ],
 
   comidasFinde: [
@@ -480,11 +521,41 @@ const PATIENT = {
       ]},
     ]},
 
-    { id:'fin-post', nombre:'💪 Post Entreno (+170 kcal)', kcal:150, p:20, c:15, g:1, grupos:[
+    { id:'fin-pre', nombre:'⚡ Pre Entreno', kcal:100, p:1, c:25, g:1, grupos:[
       { label:'Escoge 01', max:1, ops:[
-        '30 g proteína Provide Gold + 2 porciones de frutas (ver especificaciones)',
+        '2 porciones de frutas (ver especificaciones)',
       ]},
     ], nota:'* Solo días de entrenamiento. Puedes hacerlo batido.' },
+
+    { id:'fin-post', nombre:'💪 Post Entreno', kcal:205, p:25, c:27, g:1, grupos:[
+      { label:'Escoge 01', max:1, ops:[
+        '200 g de Quark + 2 porciones de frutas (ver especificaciones)',
+      ]},
+    ], nota:'* Solo días de entrenamiento. Puedes hacerlo batido.' },
+
+    { id:'fin-postcena', nombre:'🌙 Snack Post Cena', kcal:285, p:16, c:30, g:9, grupos:[
+      { label:'Escoge 02 · Carbohidrato', max:2, ops:[
+        '1 tortilla rapidita integral',
+        '1 rebanada de pan de molde integral (30 g)',
+        'Pan de masa madre (30 g)',
+        '20 g de avena (peso crudo)',
+        '20 g de cereales Dyfferent o NutriCo',
+        '20 g de granola',
+      ]},
+      { label:'Escoge 01 · Proteína', max:1, ops:[
+        '60 g de pollo',
+        '½ lata de atún',
+        '40 g de queso mozzarella light',
+        '140 g de Quark',
+      ]},
+      { label:'Escoge 01 · Grasa', max:1, ops:[
+        '40 g de palta',
+        '8 aceitunas',
+        '1 cdta de aceite de oliva',
+        '1 porción de frutos secos (ver especificaciones)',
+        '5 g de mantequilla',
+      ]},
+    ], nota:'* Solo días de tennis.' },
   ],
 
   specs: [
