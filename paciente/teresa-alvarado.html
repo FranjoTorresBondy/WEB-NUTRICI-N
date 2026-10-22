@@ -194,32 +194,32 @@ const PATIENT = {
   nombre:    'Teresa\nAlvarado',
   fecha:     '23.09.2026',
   tipoPlan:  'Hipocalórico · Hiperprotéico',
-  macros:    { kcal: 1360, p: 100, c: 146, g: 44 },
+  macros:    { kcal: 1420, p: 100, c: 155, g: 44 },
   hidratacion: [
     { label:'💧 Entrenamiento', valor:'2.5' },
     { label:'💧 Descanso',      valor:'2.0' },
   ],
   semanas: 1,
   antro: {
-    fecha:    '23.09.2026',
-    peso:     52.9,
+    fecha:    '22.10.2026',
+    peso:     54.0,
     talla:    152,
-    imc:      22.9,
+    imc:      23.5,
     tri:      12.0,
     bi:       3.0,
-    sub:      10.0,
-    cresta:   12.0,
-    supra:    7.0,
-    abd:      13.0,
-    pierna:   10.0,
-    pant:     9.0,
-    brazRelaj: 28.5,
-    brazFlex:  29.7,
+    sub:      14.0,
+    cresta:   13.0,
+    supra:    8.0,
+    abd:      11.0,
+    pierna:   8.0,
+    pant:     7.0,
+    brazRelaj: 29.3,
+    brazFlex:  30.0,
     abdom:     70.0,
-    cadera:    95.0,
-    muslo:     47.5,
-    pantPer:   34.0,
-    s6: 61.0,
+    cadera:    92.0,
+    muslo:     48.5,
+    pantPer:   34.6,
+    s6: 60.0,
     s8: 76.0,
   },
 
@@ -286,15 +286,17 @@ const PATIENT = {
         ]},
     ], nota:'* Si comes fuera revisa las especificaciones.' },
 
-    // Snack MT: 200 kcal · 21P · 15C · 6G
-    { id:'snk', nombre:'🧀 Snack', kcal:200, p:21, c:15, g:6, grupos:[
+    // Snack MT: 265 kcal · 25P · 30C · 7G
+    { id:'snk', nombre:'🧀 Snack', kcal:265, p:25, c:30, g:7, grupos:[
         { label:'Escoge 01 · Proteína', max:1, ops:[
           '160 g de Quark',
           '60 g de mozzarella light',
           '85 g de pechuga de pollo',
         ]},
-        { label:'Escoge 01 · Carbohidrato', max:1, ops:[
+        { label:'Escoge 01 · Fruta', max:1, ops:[
           '1 porción de fruta* (ver especificaciones)',
+        ]},
+        { label:'Escoge 01 · Carbohidrato', max:1, ops:[
           '1 rapidita',
           '20 g de granola',
           '3 unidades de salmas',
@@ -414,13 +416,17 @@ const PATIENT = {
     { nombre:'Salsa roja',   desc:'Tomate, cebolla, ajo, albahaca, poro + Lakanto o Stevia al gusto + sal, pimienta y tomillo + 1 cda aceite oliva' },
   ],
 
-  notaSpecs: 'Plan base = días de descanso (1360 kcal). Días de entrenamiento: agregar Pre Entreno (+~60 kcal ≈ 1420 kcal total).',
+  notaSpecs: 'Plan base = 1420 kcal (incluye días de descanso y entrenamiento). Días de entrenamiento: agregar Pre Entreno (1 porción de fruta, ~60 kcal).',
 
   antroHistorial: [
     { fecha:'28.08.2026', peso:54.3, talla:152, imc:23.5,
       tri:16.0, bi:7.0, sub:13.0, cresta:16.0, supra:11.0, abd:15.0, pierna:10.0, pant:9.0,
       brazRelaj:29.0, brazFlex:29.0, abdom:72.0, cadera:94.0, muslo:47.2, pantPer:34.0,
       s6:74.0, s8:97.0 },
+    { fecha:'23.09.2026', peso:52.9, talla:152, imc:22.9,
+      tri:12.0, bi:3.0, sub:10.0, cresta:12.0, supra:7.0, abd:13.0, pierna:10.0, pant:9.0,
+      brazRelaj:28.5, brazFlex:29.7, abdom:70.0, cadera:95.0, muslo:47.5, pantPer:34.0,
+      s6:61.0, s8:76.0 },
   ],
 
   entrenamiento: null,
