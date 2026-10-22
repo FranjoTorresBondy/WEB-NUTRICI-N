@@ -194,34 +194,43 @@ const PATIENT = {
   nombre:    'Brayan\nMontalvo',
   fecha:     '25.09.2026',
   tipoPlan:  'Corte · Pre-Pelea MMA',
-  macros:    { kcal: 1958, p: 164, c: 218, g: 52 },
+  macros:    { kcal: 2105, p: 164, c: 252, g: 52 },
   hidratacion: [
     { label:'💧 Entrenamiento', valor:'4.5' },
     { label:'💧 Descanso',      valor:'3.5' },
   ],
   semanas:   1,
   antro: {
-    fecha:    '23.09.2026',
-    peso:     71.3,
+    fecha:    '22.10.2026',
+    peso:     72.6,
     talla:    172.0,
-    imc:      24.1,
-    tri:      5.0,
-    bi:       1.5,
-    sub:      5.0,
-    cresta:   7.0,
-    supra:    5.0,
-    abd:      5.0,
-    pierna:   5.5,
-    pant:     3.5,
-    brazRelaj: 30.5,
-    brazFlex:  34.0,
-    abdom:     79.0,
-    cadera:    95.5,
-    muslo:     53.8,
-    pantPer:   37.5,
+    imc:      24.5,
+    tri:       5.0,
+    bi:        2.0,
+    sub:       5.0,
+    cresta:    6.0,
+    supra:     5.0,
+    abd:       6.0,
+    pierna:    5.5,
+    pant:      3.0,
+    brazRelaj: 31.3,
+    brazFlex:  35.0,
+    abdom:     81.0,
+    cadera:    97.0,
+    muslo:     54.8,
+    pantPer:   37.8,
     diam: { humero: 6.0, biEstiloideo: 7.0, femur: 9.0 },
+    s6:  29.5,
+    s8:  37.5,
+    icc:      0.84,
+    somato:   '1.3·5.0·1.6',
+    pctGrasa: 10.0, fatKg:  7.3,
+    pctMusc:  46.4, muscKg: 33.7,
+    pctOseo:  17.4, oseoKg: 12.6,
   },
-  antroHistorial: [],
+  antroHistorial: [
+    { fecha:'23.09.2026', peso:71.3, tri:5.0, bi:1.5, sub:5.0, cresta:7.0, supra:5.0, abd:5.0, pierna:5.5, pant:3.5, brazRelaj:30.5, brazFlex:34.0, abdom:79.0, cadera:95.5, muslo:53.8, pantPer:37.5, s6:29.0, s8:37.5 },
+  ],
 
   objetivos: [
     'Llegar a 67–68 kg para el 07/10/2026 (inicio de fightweek)',
@@ -243,7 +252,7 @@ const PATIENT = {
         { label:'Adicional · va con cualquier opción', max:0, ops:[
           '10 g de chispas de chocolate — 50 kcal · 6 C',
         ]},
-    ], nota:'Consumir 15–20 min antes de salir a entrenar. Si no hay tiempo, solo el plátano + miel.<br>⚡ Cada opción ya incluye su miel o mermelada: no le sumes otra encima. Todas rondan los 38 g de carbohidrato, que es lo que buscamos antes de entrenar.' },
+    ], nota:'Consumir 15–20 min antes de salir a entrenar. Si no hay tiempo, solo el plátano + miel.<br>⚡ Cada opción ya incluye su miel o mermelada: no le sumes otra encima. Todas rondan los 38 g de carbohidrato, que es lo que buscamos antes de entrenar.<br>⚠️ Domingo (descanso): no consumir este pre-entreno.' },
 
     { id:'des', nombre:'☀️ Post-Entreno / Desayuno', kcal:545, p:50, c:60, g:13, grupos:[
         { label:'Escoge 01 · Proteína', max:1, ops:[
@@ -270,10 +279,10 @@ const PATIENT = {
         ]},
     ]},
 
-    { id:'alm', nombre:'🥗 Almuerzo', kcal:455, p:55, c:32, g:13, grupos:[
+    { id:'alm', nombre:'🥗 Almuerzo', kcal:535, p:55, c:52, g:13, grupos:[
         { label:'Escoge 01 · Carbohidrato (peso cocido)', max:1, ops:[
-          '100 g de arroz cocido — 28 C',
-          '180 g de papa sancochada — 36 C',
+          '180 g de arroz cocido',
+          '270 g de papa sancochada',
         ]},
         { label:'Escoge 01 · Proteína (180 g, peso crudo)', max:1, ops:[
           'Pechuga de pollo',
@@ -283,13 +292,15 @@ const PATIENT = {
         ]},
         { label:'Escoge 01 · Verduras', max:1, ops:[
           '100–150 g de verduras de tu preferencia',
+          '4 cdas de salsa roja',
         ]},
         { label:'Escoge 01 · Grasa', max:1, ops:[
           '30 g de palta (en guacamole)',
           '8 aceitunas',
           '15 g de maní tostado sin sal o mantequilla de maní',
+          '2 cdas de salsa verde',
         ]},
-    ]},
+    ], nota:'⚠️ Los domingos aplica este mismo plan.' },
 
     { id:'pre2', nombre:'🥊 Pre-Entreno Tarde', kcal:315, p:16, c:49, g:6, grupos:[
         { label:'Escoge 01 · Carbohidrato', max:1, ops:[
@@ -305,9 +316,9 @@ const PATIENT = {
         { label:'Adicional · va con cualquier opción', max:0, ops:[
           '10 g de chispas de chocolate — 50 kcal · 6 C',
         ]},
-    ], nota:'Consumir 30–45 min antes del boxeo de la tarde. Si el entreno es muy cercano, solo el carbo.<br>🧀 Para dar la misma proteína que el atún o el Quark, el edam necesita 50 g, y ahí aporta 13 g de grasa frente a 1 g de los otros dos. Déjalo para los días que entrenas más tarde.' },
+    ], nota:'Consumir 30–45 min antes del boxeo de la tarde. Si el entreno es muy cercano, solo el carbo.<br>🧀 Para dar la misma proteína que el atún o el Quark, el edam necesita 50 g, y ahí aporta 13 g de grasa frente a 1 g de los otros dos. Déjalo para los días que entrenas más tarde.<br>⚠️ Domingo (descanso): este card es tu snack de media tarde — quita las chispas de chocolate.' },
 
-    { id:'cen', nombre:'🌙 Cena', kcal:433, p:40, c:33, g:16, grupos:[
+    { id:'cen', nombre:'🌙 Cena', kcal:500, p:40, c:47, g:16, grupos:[
         { label:'Escoge 01 · Proteína', max:1, ops:[
           '150 g de pechuga de pollo cocida',
           '150 g de tilapia cocida',
@@ -316,18 +327,23 @@ const PATIENT = {
           '8 claras de huevo (≈ 265 g) — 29 g de proteína',
         ]},
         { label:'Escoge 01 · Carbohidrato', max:1, ops:[
-          '120 g de arroz cocido — 34 C',
-          '2 rapiditas integrales — 31 C',
-          '1 plátano (140 g pelado) — 32 C',
-          '2 rebanadas de pan Bimbo blanco (50 g)',
+          '180 g de arroz cocido',
+          '3 rapiditas integrales',
+          '180 g de plátano (pelado)',
+          '3 rebanadas de pan Bimbo blanco (75 g)',
+        ]},
+        { label:'Escoge 01 · Verduras', max:1, ops:[
+          '100–150 g de verduras de tu preferencia',
+          '4 cdas de salsa roja',
         ]},
         { label:'Escoge 01 · Grasa', max:1, ops:[
           '30 g de palta (en guacamole)',
           '8 aceitunas',
           '15 g de mantequilla de maní',
           '30 g de queso edam',
+          '2 cdas de salsa verde',
         ]},
-    ], nota:'Al menos 1 hora antes de acostarse.' },
+    ], nota:'Al menos 1 hora antes de acostarse.<br>⚠️ Los domingos aplica este mismo plan.' },
   ],
 
   specs: [
@@ -376,10 +392,12 @@ const PATIENT = {
   vinagretas: [
     { nombre:'Guacamole rápido',       desc:'½ palta + 1 limón + sal + pimienta + pizca de ajo en polvo (opcional: cebolla picada fina o tomate)' },
     { nombre:'Salsa de limón y soya',  desc:'1 cda de soya baja en sodio + jugo de 1 limón + ajo rallado + pizca de pimienta → ideal para tilapia y pollo' },
+    { nombre:'Salsa verde',            desc:'1 molde de queso fresco light + 1 atado de albahaca (puedes agregar espinaca) + 2 dientes de ajo soazados + sal, pimienta + 1 cda de aceite de olivo + leche evaporada light (100–150 ml) + leche fresca Slim hasta lograr textura' },
+    { nombre:'Salsa roja',             desc:'Tomate, cebolla, ajo, albahaca, poro + Lakanto o Stevia (opcional) + sal, pimienta y tomillo + 1 cda de aceite de olivo. Puedes añadir cualquier otra verdura de tu preferencia.' },
     { nombre:'Cocoa post-entreno',     desc:'1 cda de cocoa en polvo + 200 ml de agua tibia + 1 cdta de miel de abeja + pizca de canela' },
   ],
 
-  notaSpecs: 'Plan de corte = 2 000 kcal / día (días de entrenamiento doble). Día de descanso (domingo): eliminar pre-entreno mañana y reducir 1 porción de carbohidrato en almuerzo y cena → 1 500–1 600 kcal. Creatina 5 g POST entrenamiento todos los días, entrenes o no.',
+  notaSpecs: 'Días de entrenamiento: ~2 105 kcal. Domingo (descanso): no consumir el pre-entreno mañana; el pre-entreno media tarde se convierte en snack de media tarde sin chispas de chocolate. Almuerzo y cena del domingo aplican igual al plan diario. Creatina 5 g POST entrenamiento todos los días, entrenes o no.',
 
   entrenamiento: null,
 };
