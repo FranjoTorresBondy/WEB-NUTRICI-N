@@ -283,6 +283,16 @@ var CEN = { id:'cen', nombre:'🌙 Cena', kcal:743, p:53, c:81, g:23, grupos:[
 ], nota:NOTA_CENA };
 
 // ── MARTES / JUEVES ─────────────────────────────────────────────────────────
+var CEN_MJ = { id:'cen-mj', nombre:'🌙 Cena', kcal:675, p:51, c:66, g:23, grupos:[
+  { label:'Escoge 03 · Carbohidrato', max:3, ops:CARBO_CENA },
+  { label:'Escoge 01 · Proteína (200 g, peso crudo)', max:1, ops:PROTE_CENA },
+  { label:'Escoge 03 · Grasa', max:3, ops:GRASA_3 },
+  { label:'Escoge 01 · Verduras / Berries', max:1, ops:[
+    '150 g de verduras cocidas',
+    '1 puñado de berries',
+  ]},
+], nota:NOTA_CENA };
+
 var DES_MJ = { id:'des-mj', nombre:'☀️ Desayuno · Pre Striking', kcal:313, p:5, c:71, g:1, grupos:[
   { label:'Escoge 01 · Fruta + miel', max:1, ops:[
     '2 porciones de fruta (ver especificaciones) + 1 cda de miel (20 g)',
@@ -406,9 +416,9 @@ const PATIENT = {
       macros:{ kcal:2380, p:153, c:343, g:44 },
       comidas:[ DES_LMV, SNK_PF, ALM_LMV, SNK_ST, CEN ] },
 
-    { id:'mj', label:'Martes / Jueves', sub:'2240 kcal',
-      macros:{ kcal:2240, p:143, c:318, g:44 },
-      comidas:[ DES_MJ, ALM_MJ, SNK_PADS, SNK_BJJ, CEN ] },
+    { id:'mj', label:'Martes / Jueves', sub:'2172 kcal',
+      macros:{ kcal:2172, p:141, c:303, g:44 },
+      comidas:[ DES_MJ, ALM_MJ, SNK_PADS, SNK_BJJ, CEN_MJ ] },
 
     { id:'descanso', label:'Día de descanso', sub:'1787 kcal',
       macros:{ kcal:1787, p:123, c:218, g:47 },
