@@ -228,7 +228,11 @@ const PATIENT = {
         '60 g de choclo cocido',
         '90 g de papa cocida',
       ]},
-      { label:'Escoge 02 · Proteína', max:2, ops:[
+      { label:'Escoge 01 · Bebida proteica (reemplaza las 2 proteínas)', max:1, ops:[
+        '1 botella Gloria Pro Day (320 ml) · ~171 kcal · 20P / 15C / 2G',
+        '1 botella Vakimú Pro (350 ml) · ~161 kcal · 21P / 15C / 2G',
+      ]},
+      { label:'Escoge 02 · Proteína sólida', max:2, ops:[
         '1 huevo',
         '30 g de queso mozzarella light CuisineCo + 40 g palta',
         '50 g de pollo + 40 g palta',
@@ -724,6 +728,8 @@ init();
 <script>(function(){function _inj(){document.querySelectorAll('.meal[data-mealid]').forEach(function(el){if(typeof injectMealLog==='function')injectMealLog(el);});if(typeof injectGuardarBtn==='function')document.querySelectorAll('.meals').forEach(injectGuardarBtn);}  _inj();setTimeout(_inj,300);setTimeout(_inj,800);})();</script>
 <script src="guia-data.js"></script>
 <script src="comer-fuera.js"></script>
+<script src="recetario-data.js"></script>
+<script src="recetario-plan.js"></script>
 <script src="plan-pdf.js"></script>
 <script src="peso-tracker.js?v=3"></script>
 </body>
