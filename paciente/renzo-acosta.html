@@ -163,14 +163,15 @@ const PATIENT = {
      pctGrasa:15.4,fatKg:12.2,muscKg:31.4},
   ],
   objetivos:[
-    'Recomposición corporal: mantener peso, reducir grasa y aumentar masa muscular.',
-    'Mejorar el rendimiento deportivo y la recuperación.',
+    'Recomposición corporal: reducir grasa y mantener masa muscular.',
+    'Mejorar adherencia al plan.',
+    'Meta a 30 días: reducir 20 mm de pliegues — Σ8 objetivo: 46 mm.',
   ],
   comidas:[
     {id:'des',nombre:'☀️ Desayuno',kcal:281,p:17,c:29,g:11,
      nota:'🥤 <b>Opción rápida:</b> Batido de 1 scoop proteína + 300 ml bebida de almendras + 1 porción de fruta + 40 g avena + 1 cda de linaza molida o chía.',
      grupos:[
-      {label:'Escoge 01 · Carbohidrato',max:1,ops:['20 g de avena (peso crudo)','1 rebanada de pan de molde integral (30 g)','20 g de corn flakes Dyfferent o NutriCo','20 g de granola','1 rapidita integral o cero']},
+      {label:'Escoge 01 · Carbohidrato',max:1,ops:['20 g de avena (peso crudo)','1 rebanada de pan de molde integral (30 g)','20 g de corn flakes Dyfferent o NutriCo','20 g de granola','1 rapidita integral, cero o full']},
       {label:'Escoge 01 · Fruta',max:1,ops:['1 porción de fruta (ver especificaciones) + 1 cda de linaza molida o chía remojada desde la noche anterior']},
       {label:'Escoge 01 · Proteína / Grasa',max:1,ops:['2 huevos enteros (fritos o revueltos, con poquito aceite pam)','40 g de queso mozzarella light CuisineCo + 1 huevo','50 g de pechuga de pollo + 40 g de palta','½ lata de atún + 40 g de palta','120 g de Vakimu Pro + 6 almendras','½ scoop de proteína + 6 almendras']},
     ]},
@@ -184,14 +185,14 @@ const PATIENT = {
       {label:'Escoge 01 · Fruta de postre',max:1,ops:['1 porción de fruta (ver especificaciones)']},
     ]},
     {id:'snk',nombre:'🍎 Snack Media Tarde',kcal:255,p:26,c:17,g:9,grupos:[
-      {label:'Escoge 01 · Carbohidrato',max:1,ops:['1 rebanada de pan de molde integral (30 g)','1 rapidita integral o cero','1 pan pita Bimbo integral','1 pan francés (30 g)']},
+      {label:'Escoge 01 · Carbohidrato',max:1,ops:['1 rebanada de pan de molde integral (30 g)','1 rapidita integral, cero o full','1 pan pita Bimbo integral','1 pan francés (30 g)']},
       {label:'Escoge 01 · Proteína (100 g crudo)',max:1,ops:['Pechuga de pollo','Pescado','Lomo o bistec (80 g, crudo)','60 g de queso mozzarella light','65 g de queso fresco light']},
       {label:'Escoge 01 · Grasa',max:1,ops:['40 g de palta','1 cdta de aceite de olivo','5 aceitunas']},
     ]},
     {id:'cen',nombre:'🌙 Cena',kcal:647,p:43,c:82,g:17,
      nota:'*<b>7 deditos de pollo Avinka (161 g, solo fines de semana):</b> eliminar 01 porción de carbohidrato y las 02 porciones de grasa, cocinar sin aceite en la freidora de aire.<br>*Atún en aceite: exprimir bien el aceite y eliminar 01 porción de grasa.<br>*Si vas a cocinar en la freidora de aire, usar aceite de oliva con pulverizador.<br>🥣 <b>Opción reemplazo completo:</b> 60 g cereales + 200 g yogurt Sbelt o Slim + 200 g yogurt Vakimu griego + 1 scoop proteína aislada + 2 porciones de frutos secos.',
      grupos:[
-      {label:'Escoge 03 · Carbohidrato',max:3,ops:['60 g de arroz (cocido)','90 g de papa o camote (cocido)','60 g de quinua (cocida)','60 g de choclo','1 rebanada de pan de molde integral (30 g)','50 g de fideos (cocidos)','1 rapidita integral o cero','20 g de granola','20 g de cereales a tu elección','40 g de ravioles de verdura Don Italio (peso crudo)','1 pan pita Bimbo integral','1 pan francés (30 g)','2 galletas cream crackers doraditas']},
+      {label:'Escoge 03 · Carbohidrato',max:3,ops:['60 g de arroz (cocido)','90 g de papa o camote (cocido)','60 g de quinua (cocida)','60 g de choclo','1 rebanada de pan de molde integral (30 g)','50 g de fideos (cocidos)','1 rapidita integral, cero o full','20 g de granola','20 g de cereales a tu elección','40 g de ravioles de verdura Don Italio (peso crudo)','1 pan pita Bimbo integral','1 pan francés (30 g)','2 galletas cream crackers doraditas']},
       {label:'Escoge 01 · Verduras',max:1,ops:['150 g de mix de verduras frescas o cocidas']},
       {label:'Escoge 01 · Proteína (150 g crudo)',max:1,ops:['Pechuga de pollo','Pescado','Lomo o bistec (120 g, crudo)','Pavita','90 g de mozzarella light + 1 huevo','1 milanesa de Avinka (sin aceite, freidora de aire)','7 deditos de pollo Avinka (161 g, solo fines de semana — ver nota)','1 lata de atún en aceite (exprimir aceite — ver nota)']},
       {label:'Escoge 02 · Grasa',max:2,ops:['40 g de palta','1 cdta de aceite de olivo','5 aceitunas']},
@@ -205,8 +206,8 @@ const PATIENT = {
     {titulo:'🥝 Porciones de fruta',items:['1 kiwi / ½ taza mango picado (80 g) / 1 manzana','1 plátano pequeño (60 g, pelado) / ½ grande (120 g, pelado) / 1 taza papaya (160 g)','Berries (150 g) / ¾ taza piña picada (165 g) / 1 granadilla / 1 mandarina mediana','1 pera / 1 durazno / 10 uvas','##Berries: arándanos, fresas, aguaymanto, moras, frambuesas.']},
     {titulo:'🥜 Frutos secos (1 porción)',items:['6 cashews / 6 almendras / 4 pecanas / 4 nueces / 15 pistachos / 10 maní / 1 cdta de mantequilla de frutos secos (10 g).']},
     {titulo:'🍽️ Opciones si comes fuera',items:['Poke bowl: sin salsas acevichada o dulces (taré, anguila), solo soya. Proteína + palta + arroz + verduras + fruta (si deseas).','Bowl de San Antonio, Don Mamino, Delicass, Freshii — con arroz, verduras, pollo y palta si es posible.','Wrap de Insólito.','Pollo a la brasa: pechuga sin pellejo + ensalada + papa al horno o sancochada.','Ceviche o tiradito con camote y choclo.']},
-    {titulo:'🫙 Salsas bajas en calorías',items:['<b>Mermelada:</b> 200 g berries + 2 cdas chía + 4 cdas monkfruit → microondas u olla.','<b>Leche condensada light:</b> leche en polvo descremada + Stevia + leche evaporada descremada.','<b>Tzatziki:</b> 2 cdas yogurt descremado + sal y pimienta + 1 diente ajo + pepino en trozos + 1 cdta aceite oliva + eneldo, perejil, orégano y menta al gusto.','<b>Honey mustard:</b> 1 cda mostaza + 1 cda yogurt descremado + sal, pimienta + Stevia al gusto.','<b>Salsa verde:</b> queso fresco light + albahaca + 2 dientes ajo soazados + sal y pimienta + 1 cda aceite olivo + leche evaporada light (100–150 ml) + leche fresca Slim hasta lograr textura.','<b>Salsa roja:</b> tomate + cebolla + ajo + albahaca + poro + Stevia opcional + sal, pimienta y tomillo + 1 cda aceite olivo.']},
-    {titulo:'📋 Lineamientos generales',items:['Evitar café y alcohol por dos semanas.','Evitar el consumo de chicles.','Mantenerse lo más estricto posible con las porciones.','Intentar consumir los alimentos a la misma hora cada día.','Puedes hacerte helados con fruta congelada, yogurt skyr o quark y Stevia. Para chocolate: cocoa + plátano congelado + esencia de vainilla + canela.','<a href="../guia-restaurante.html" target="_blank" style="color:var(--navy);text-decoration:none;font-weight:600">Ver guía de restaurantes →</a>']},
+    {titulo:'🫙 Salsas bajas en calorías',items:['<b>Mermelada:</b> 200 g berries + 2 cdas chía + 4 cdas monkfruit → microondas u olla.','<b>Leche condensada light:</b> leche en polvo descremada + Stevia + leche evaporada descremada.','<b>Tzatziki:</b> 2 cdas yogurt descremado + sal y pimienta + 1 diente ajo + pepino en trozos + 1 cdta aceite oliva + eneldo, perejil, orégano y menta al gusto.','<b>Honey mustard:</b> 2 cdas yogurt griego + 1 cda mostaza + sal y pimienta al gusto.','<b>Yogurt con sriracha:</b> yogurt griego + sriracha al gusto + sal y pimienta. Ideal para dipear o bañar proteínas.','<b>Sriracha para milanesas (airfryer):</b> 1 cdta mantequilla + sriracha al gusto + 1 cdta sillao + 1 cdta miel de abeja → calentar y mezclar. Bañar la milanesa de Avinka al salir de la freidora.','<b>Salsa verde:</b> queso fresco light + albahaca + 2 dientes ajo soazados + sal y pimienta + 1 cda aceite olivo + leche evaporada light (100–150 ml) + leche fresca Slim hasta lograr textura.','<b>Salsa roja:</b> tomate + cebolla + ajo + albahaca + poro + Stevia opcional + sal, pimienta y tomillo + 1 cda aceite olivo.']},
+    {titulo:'📋 Lineamientos generales',items:['Evitar café y alcohol por dos semanas.','Evitar el consumo de chicles.','Mantenerse lo más estricto posible con las porciones.','Intentar consumir los alimentos a la misma hora cada día.','🍦 <b>Helados bajos en calorías:</b> fruta congelada (berries, mango, plátano) + yogurt skyr o quark + Stevia → procesar y congelar. Para helado de chocolate: cocoa + plátano congelado + esencia de vainilla + canela. También puedes usar paletas de fruta natural sin azúcar.','<a href="../guia-restaurante.html" target="_blank" style="color:var(--navy);text-decoration:none;font-weight:600">Ver guía de restaurantes →</a>']},
   ],
 };
 const $ = id => document.getElementById(id);
