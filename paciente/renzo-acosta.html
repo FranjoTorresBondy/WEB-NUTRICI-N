@@ -137,18 +137,18 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 <footer><div class="wrap"><div class="foot-inner"><div class="foot-brand">FRANJO TORRES BONDY · NUTRICIÓN</div><div class="foot-contact">franjo.torres.b@gmail.com · +51 992 832 991</div></div></div></footer>
 <script>
 const PATIENT = {
-  slug:'renzo-acosta', nombre:'Renzo\nAcosta', fecha:'31.08.2026', sexo:'m',
+  slug:'renzo-acosta', nombre:'Renzo\nAcosta', fecha:'21.10.2026', sexo:'m',
   tipoPlan:'Hipocalórico · Hiperprotéico',
   macros:{kcal:1830,p:129,c:210,g:54},
   hidratacion:[{label:'Entrenamiento',valor:'3.0'},{label:'Descanso',valor:'2.6'}],
   antro:{
-    fecha:'31.08.2026',peso:78.4,talla:171.6,imc:26.6,
-    tri:8.0,bi:2.0,sub:10.0,cresta:12.0,supra:6.0,abd:12.0,pierna:8.0,pant:6.0,
-    s6:50.0,s8:64.0,
-    brazRelaj:35.3,brazFlex:38.1,abdom:78.0,cadera:100.0,muslo:60.5,pantPer:38.9,
+    fecha:'21.10.2026',peso:79.0,talla:171.2,imc:27.0,
+    tri:7.0,bi:2.0,sub:10.0,cresta:15.0,supra:6.0,abd:12.0,pierna:7.0,pant:7.0,
+    s6:49.0,s8:66.0,
+    brazRelaj:35.8,brazFlex:38.6,abdom:82.0,cadera:102.0,muslo:60.5,pantPer:39.0,
     diam:{humero:7.0,biEstiloideo:5.9,femur:10.0},
-    pctGrasa:15.6,fatKg:12.2,pctMusc:47.2,muscKg:37.0,pctOseo:15.3,oseoKg:12.0,imo:3.08,icc:0.78,
-    somato:{endo:2.4,meso:7.2,ecto:0.9},
+    pctGrasa:15.4,fatKg:12.2,pctMusc:39.8,muscKg:31.4,pctOseo:15.1,oseoKg:11.9,imo:2.64,icc:0.80,
+    somato:{endo:2.3,meso:7.4,ecto:0.8},
   },
   antroHistorial:[
     {fecha:'08.07.2026',peso:79.8,tri:11.0,bi:3.0,sub:12.0,cresta:18.0,supra:9.0,abd:20.0,pierna:12.0,pant:7.0,
@@ -158,6 +158,9 @@ const PATIENT = {
     {fecha:'31.08.2026',peso:78.4,tri:8.0,bi:2.0,sub:10.0,cresta:12.0,supra:6.0,abd:12.0,pierna:8.0,pant:6.0,
      brazRelaj:35.3,brazFlex:38.1,abdom:78.0,cadera:100.0,muslo:60.5,pantPer:38.9,s6:50.0,s8:64.0,
      pctGrasa:15.6,fatKg:12.2,muscKg:37.0},
+    {fecha:'21.10.2026',peso:79.0,tri:7.0,bi:2.0,sub:10.0,cresta:15.0,supra:6.0,abd:12.0,pierna:7.0,pant:7.0,
+     brazRelaj:35.8,brazFlex:38.6,abdom:82.0,cadera:102.0,muslo:60.5,pantPer:39.0,s6:49.0,s8:66.0,
+     pctGrasa:15.4,fatKg:12.2,muscKg:31.4},
   ],
   objetivos:[
     'Recomposición corporal: mantener peso, reducir grasa y aumentar masa muscular.',
@@ -262,6 +265,8 @@ init();
 <script>(function(){function _inj(){document.querySelectorAll('.meal[data-mealid]').forEach(function(el){if(typeof injectMealLog==='function')injectMealLog(el);});if(typeof injectGuardarBtn==='function')document.querySelectorAll('.meals').forEach(injectGuardarBtn);}_inj();setTimeout(_inj,300);setTimeout(_inj,800);})();</script>
 <script src="guia-data.js"></script>
 <script src="comer-fuera.js"></script>
+<script src="recetario-data.js"></script>
+<script src="recetario-plan.js"></script>
 <script src="plan-pdf.js"></script>
 <script src="peso-tracker.js?v=3"></script>
 </body>
