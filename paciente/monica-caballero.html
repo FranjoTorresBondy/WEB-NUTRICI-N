@@ -280,10 +280,11 @@ const PATIENT = {
     brazRelaj:26.8, brazFlex:27.9, abdom:62.5, cadera:91.0, muslo:49.5, pantPer:30.8,
     diam:{ humero:6.0, biEstiloideo:5.2, femur:8.4 },
     // Edad a la fecha de medición: 35.4 años (nac. 22.06.1991).
-    // Σ8 = 36 mm (< 50) → % grasa con Jackson-Pollock 4 pliegues:
-    // abdominal 6.5 + supraespinal 4.0 + tríceps 5.0 + muslo 4.5 = Σ 20.0 mm
-    metodoGrasa:'Jackson-Pollock', sinRangoGrasa:true,
-    pctGrasa:8.2, fatKg:4.4, pctMusc:42.5, muscKg:22.7, pctOseo:15.5, oseoKg:8.3, imo:2.73, icc:0.69,
+    // Faulkner femenina sobre Σ4 = tri 5 + sub 7 + supra 4 + abd 6.5 = 22.5 mm.
+    // Jackson-Pollock daría 8.2 %, pero acá Faulkner no está pegado a su piso
+    // de ~5.8 %, que es el motivo por el que se usa JP en atletas muy magros.
+    metodoGrasa:'Faulkner', sinRangoGrasa:true,
+    pctGrasa:12.7, fatKg:6.8, pctMusc:42.5, muscKg:22.7, pctOseo:15.5, oseoKg:8.3, imo:2.73, icc:0.69,
     somato:{ endo:1.6, meso:4.1, ecto:1.3 },
   },
   antroHistorial: [],
