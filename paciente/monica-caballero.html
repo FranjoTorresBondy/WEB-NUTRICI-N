@@ -314,7 +314,7 @@ const PATIENT = {
         '60 g de arroz',
         '90 g de papa o camote',
       ]},
-      { label:'Escoge 01 · Proteína (100 g, peso crudo)', max:1, ops:PROTE_100 },
+      { label:'Escoge 01 · Proteína (100 g, peso crudo)', max:1, ops:PROTE_100.filter(function(p){ return p !== 'Bistec o lomo'; }) },
       { label:'Escoge 01 · Verduras', max:1, ops:[
         '150 g de verduras a tu preferencia (crudas o cocidas)',
       ]},
