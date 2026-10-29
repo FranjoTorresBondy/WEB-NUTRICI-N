@@ -316,6 +316,10 @@ function injectGuardarBtn(mealsContainer) {
       // Qué ecuación de grasa se usó. Por defecto Faulkner, pero en niños y
       // adolescentes corresponde Slaughter, que es la validada en 8–18 años.
       metodoGrasa: a.metodoGrasa || 'Faulkner',
+      // Silencia el mensaje de rango de grasa en la interpretación. Para
+      // atletas en bajada de peso a categoría, donde el valor bajo es
+      // buscado y revisado aparte en consulta.
+      sinRangoGrasa: !!a.sinRangoGrasa,
       s6: s6, s8: s8, pctG: pctG, pctGEstim: pctGEstim,
       pctMusc: num(a.pctMusc), pctOseo: num(a.pctOseo),
       fat: fat, mus: mus, ose: ose, imo: imo,
@@ -381,7 +385,7 @@ function injectGuardarBtn(mealsContainer) {
     // van con Slaughter) no aplican: un 19 % a los 13 años es normal, y decirle
     // que "le faltan 2 kg de grasa" sería un mensaje equivocado.
     var esPediatrico = /slaughter/i.test(d.metodoGrasa || '');
-    if (sexo && d.pctG != null && !d.pctGEstim && !esPediatrico) {
+    if (sexo && d.pctG != null && !d.pctGEstim && !esPediatrico && !d.sinRangoGrasa) {
       var meta = META_GRASA[sexo];
       if (d.pctG > meta[1]) {
         var faltan = ((d.pctG - meta[1]) / 100 * d.peso).toFixed(1);
