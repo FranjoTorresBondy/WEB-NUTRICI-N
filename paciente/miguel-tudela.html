@@ -217,11 +217,11 @@ var NOTA_ALM = '* Consumir pescado 1 a 2 veces por semana y menestras 1 vez a la
 var NOTA_CENA = '* 2 de las grasas de la cena puedes cubrirlas con 2 cdas de linaza o chía molida, y la otra la eliges de las opciones.';
 
 // ── COMIDAS BASE (las 4 van en los tres tipos de día) ───────────────────────
-var DES = { id:'des', nombre:'☀️ Desayuno', kcal:570, p:34, c:70, g:17, grupos:[
+var DES = { id:'des', nombre:'☀️ Desayuno', kcal:637, p:36, c:85, g:17, grupos:[
   { label:'Escoge 01 · Fruta', max:1, ops:[
     '1 porción de fruta (ver especificaciones)',
   ]},
-  { label:'Escoge 03 · Carbohidrato', max:3, ops:[
+  { label:'Escoge 04 · Carbohidrato', max:4, ops:[
     '1 rebanada de pan de camote (30 g)',
     '1 tortilla rapidita integral',
     '1 rebanada de pan de molde integral (30 g)',
@@ -237,7 +237,7 @@ var DES = { id:'des', nombre:'☀️ Desayuno', kcal:570, p:34, c:70, g:17, grup
   ]},
 ], nota:'☕ El café negro va libre, hasta 3 al día.' };
 
-var SNK = { id:'snk', nombre:'🥪 Snack', kcal:290, p:17, c:50, g:3, grupos:[
+var SNK = { id:'snk', nombre:'🥪 Snack', kcal:295, p:17, c:50, g:3, grupos:[
   { label:'Escoge 01 · Carbohidrato', max:1, ops:CARBO_BLANCO },
   { label:'Escoge 01 · Fruta', max:1, ops:[
     '1 porción de fruta (ver especificaciones)',
@@ -247,28 +247,28 @@ var SNK = { id:'snk', nombre:'🥪 Snack', kcal:290, p:17, c:50, g:3, grupos:[
   { label:'Escoge 01 · Proteína', max:1, ops:PROTE_SNACK },
 ]};
 
-var ALM = { id:'alm', nombre:'🥗 Almuerzo', kcal:770, p:48, c:99, g:21, grupos:[
-  { label:'Escoge 05 · Carbohidrato', max:5, ops:CARBO_ALM },
+var ALM = { id:'alm', nombre:'🥗 Almuerzo', kcal:845, p:50, c:114, g:21, grupos:[
+  { label:'Escoge 06 · Carbohidrato', max:6, ops:CARBO_ALM },
   { label:'Escoge 01 · Proteína (150 g, peso crudo)', max:1, ops:PROTE_ALM },
   { label:'Escoge 01 · Verduras', max:1, ops:VERDURAS },
   { label:'Escoge 03 · Grasa', max:3, ops:GRASA_3 },
 ], nota:NOTA_ALM };
 
-var CEN = { id:'cen', nombre:'🌙 Cena', kcal:770, p:48, c:99, g:21, grupos:[
-  { label:'Escoge 05 · Carbohidrato', max:5, ops:CARBO_ALM },
+var CEN = { id:'cen', nombre:'🌙 Cena', kcal:845, p:50, c:114, g:21, grupos:[
+  { label:'Escoge 06 · Carbohidrato', max:6, ops:CARBO_ALM },
   { label:'Escoge 01 · Proteína (150 g, peso crudo)', max:1, ops:PROTE_ALM },
   { label:'Escoge 01 · Verduras', max:1, ops:VERDURAS },
   { label:'Escoge 03 · Grasa', max:3, ops:GRASA_3 },
 ], nota:NOTA_CENA };
 
 // ── PRE ENTRENOS ────────────────────────────────────────────────────────────
-var PRE_BET = { id:'pre-bet', nombre:'🥤 Pre Entreno · Extracto de beterraga', kcal:235, p:5, c:57, g:1, grupos:[
+var PRE_BET = { id:'pre-bet', nombre:'🥤 Pre Entreno · Extracto de beterraga', kcal:257, p:5, c:57, g:1, grupos:[
   { label:'Escoge 01 · Tomar 20–30 min antes', max:1, ops:[
     'Extracto de 2 beterragas + zumo de 2 naranjas + 1 cda de miel de abeja + kión + canela',
   ]},
 ], nota:'⚡ Es casi todo carbohidrato de absorción rápida. Úsalo para la sesión de tabla o la más exigente del día.' };
 
-var PRE_PAN = { id:'pre-pan', nombre:'🍞 Pre Entreno · Pan o Nestum con miel', kcal:190, p:5, c:40, g:2, grupos:[
+var PRE_PAN = { id:'pre-pan', nombre:'🍞 Pre Entreno · Pan o Nestum con miel', kcal:198, p:5, c:40, g:2, grupos:[
   { label:'Escoge 01 · Tomar 30–45 min antes', max:1, ops:[
     '2 rebanadas de pan de molde blanco + 1 cda de miel de abeja o mermelada',
     '30 g de Nestum + 1 cda de miel de abeja o mermelada',
@@ -314,19 +314,20 @@ const PATIENT = {
   objetivos: [
     'Llegar al mundial con el mejor rendimiento posible',
     'Sostener masa muscular y mejorar recuperación entre heats',
+    'Pesarse todos los días en ayunas y registrarlo en la pestaña "Mi Peso"',
   ],
 
   planes: [
-    { id:'doble', label:'Doble sesión', sub:'2825 kcal',
-      macros:{ kcal:2825, p:157, c:415, g:65 },
+    { id:'doble', label:'Doble sesión', sub:'3077 kcal',
+      macros:{ kcal:3077, p:163, c:460, g:65 },
       comidas:[ PRE_BET, DES, SNK, PRE_PAN, ALM, CEN ] },
 
-    { id:'simple', label:'Una sesión', sub:'2635 kcal',
-      macros:{ kcal:2635, p:152, c:375, g:63 },
+    { id:'simple', label:'Una sesión', sub:'2879 kcal',
+      macros:{ kcal:2879, p:158, c:420, g:63 },
       comidas:[ PRE_BET, DES, SNK, ALM, CEN ] },
 
-    { id:'descanso', label:'Día de descanso', sub:'2400 kcal',
-      macros:{ kcal:2400, p:147, c:318, g:62 },
+    { id:'descanso', label:'Día de descanso', sub:'2622 kcal',
+      macros:{ kcal:2622, p:153, c:363, g:62 },
       comidas:[ DES, SNK, ALM, CEN ] },
   ],
 
@@ -376,7 +377,7 @@ const PATIENT = {
     ]},
   ],
 
-  notaSpecs: 'Plan base = 2 400 kcal (día de descanso). Los días de entrenamiento se suman los pre entrenos: una sesión ≈ 2 635 kcal, doble sesión ≈ 2 825 kcal.',
+  notaSpecs: 'Plan base = 2 622 kcal (día de descanso). Los días de entrenamiento se suman los pre entrenos: una sesión ≈ 2 879 kcal, doble sesión ≈ 3 077 kcal.',
 
   entrenamiento: null,
 };
