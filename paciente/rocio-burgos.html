@@ -184,7 +184,7 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 const PATIENT = {
   slug:     'rocio-burgos',
   nombre:   'Rocío\nBurgos',
-  fecha:    '22.09.2026',
+  fecha:    '29.10.2026',
   sexo:     'f',
   tipoPlan: 'Hipocalórico · Hiperproteico',
   macros:   { kcal: 1540, p: 124, c: 176, g: 42 },
@@ -193,12 +193,12 @@ const PATIENT = {
     { label:'💧 Descanso',      valor:'3.1' },
   ],
   antro: {
-    fecha:'22.09.2026', peso:58.5, talla:159.0, imc:23.1,
-    tri:18, bi:6.5, sub:20, cresta:15, supra:16, abd:15, pierna:25, pant:15,
-    s6:109.0, s8:130.5,
-    brazRelaj:30.0, brazFlex:30.6, abdom:73.5, cadera:99.5, muslo:50.5, pantPer:34.5,
+    fecha:'29.10.2026', peso:58.5, talla:159.0, imc:23.1,
+    tri:18, bi:4, sub:18, cresta:13, supra:12, abd:12, pierna:21, pant:14,
+    s6:95.0, s8:112.0,
+    brazRelaj:30.0, brazFlex:30.5, abdom:73.0, cadera:98.0, muslo:49.0, pantPer:34.0,
     diam: { humero:6.0, biEstiloideo:5.0, femur:9.2 },
-    pctGrasa:22.6, fatKg:13.2, pctMusc:37.8, muscKg:22.1, pctOseo:15.4, oseoKg:9.0, imo:2.46, icc:0.74,
+    pctGrasa:15.0, fatKg:8.8, pctMusc:37.8, muscKg:22.1, pctOseo:15.4, oseoKg:9.0, imo:2.46, icc:0.74,
     somato:'5.7 · 5.1 · 1.4',
   },
   antroHistorial: [
@@ -206,6 +206,10 @@ const PATIENT = {
       s6:138.0, s8:170.0,
       brazRelaj:32.0, brazFlex:31.0, abdom:77.0, cadera:99.0, muslo:50.0, pantPer:34.8,
       pctGrasa:26.6, fatKg:16.2, pctMusc:35.0, muscKg:21.3, pctOseo:14.9, oseoKg:9.0, imo:2.37, icc:0.78 },
+    { fecha:'22.09.2026', peso:58.5, tri:18, bi:6.5, sub:20, cresta:15, supra:16, abd:15, pierna:25, pant:15,
+      s6:109.0, s8:130.5,
+      brazRelaj:30.0, brazFlex:30.6, abdom:73.5, cadera:99.5, muslo:50.5, pantPer:34.5,
+      pctGrasa:22.6, fatKg:13.2, pctMusc:37.8, muscKg:22.1, pctOseo:15.4, oseoKg:9.0, imo:2.46, icc:0.74 },
   ],
 
   suplementacion: [
@@ -214,7 +218,7 @@ const PATIENT = {
   ],
 
   objetivos: [
-    'Disminución de grasa corporal (Σ8 = 170 mm → objetivo: reducir progresivamente)',
+    'Disminución de grasa corporal (Σ8 = 112 mm → objetivo: reducir progresivamente)',
     'Preservación y desarrollo de masa muscular',
     'Mejorar hábito de hidratación (objetivo: 2.5–3 L/día)',
     'Reemplazar snack de máquina por colación planificada (control del bajón post-almuerzo)',
@@ -721,6 +725,8 @@ init();
 <script>(function(){function _inj(){document.querySelectorAll('.meal[data-mealid]').forEach(function(el){if(typeof injectMealLog==='function')injectMealLog(el);});if(typeof injectGuardarBtn==='function')document.querySelectorAll('.meals').forEach(injectGuardarBtn);}  _inj();setTimeout(_inj,300);setTimeout(_inj,800);})();</script>
 <script src="guia-data.js"></script>
 <script src="comer-fuera.js"></script>
+<script src="recetario-data.js"></script>
+<script src="recetario-plan.js"></script>
 <script src="plan-pdf.js"></script>
 <script src="peso-tracker.js?v=3"></script>
 </body>
