@@ -256,7 +256,7 @@ const PATIENT = {
   sexo:      'f',
   nacimiento:'16.10.1993',
   nombre:    'Nicole',
-  fecha:     '28.09.2026',
+  fecha:     '29.10.2026',
   tipoPlan:  'Hipocalórico · Hiperprotéico',
   macros:    { kcal: 1462, p: 110, c: 167, g: 40 },
   hidratacion: [
@@ -266,17 +266,14 @@ const PATIENT = {
   semanas: 1,
 
   antro: {
-    fecha:'28.09.2026', peso:55.2, talla:156.0, imc:22.7,
-    tri:10.0, bi:4.0, sub:8.0, cresta:12.0, supra:8.0, abd:13.0, pierna:14.0, pant:7.0,
-    s6:60.0, s8:76.0,
-    brazRelaj:28.0, brazFlex:28.5, abdom:66.5, cadera:96.0, muslo:52.8, pantPer:32.6,
+    fecha:'29.10.2026', peso:56.2, talla:156.0, imc:23.1,
+    tri:8.0, bi:1.5, sub:7.0, cresta:10.0, supra:7.0, abd:9.0, pierna:13.0, pant:7.5,
+    s6:51.5, s8:63.0,
+    brazRelaj:27.4, brazFlex:28.8, abdom:65.0, cadera:96.0, muslo:53.7, pantPer:34.0,
     diam: { humero:5.5, biEstiloideo:5.1, femur:8.7 },
-    // Lee recalculado con su edad real (32.9 años a la fecha de medición).
-    // La hoja imprimió 33.4% porque la fecha de nacimiento estaba vacía y el
-    // Excel tomó la edad como 127 años, restando ~4.6 kg de músculo de más.
-    pctGrasa:16.2, fatKg:8.9, pctMusc:41.6, muscKg:23.0, pctOseo:15.5, oseoKg:8.6,
-    imo:2.68, icc:0.69,
-    somato:{ endo:2.9, meso:4.3, ecto:1.4 },
+    pctGrasa:14.5, fatKg:8.1, pctMusc:34.1, muscKg:19.2, pctOseo:15.2, oseoKg:8.5,
+    imo:2.26, icc:0.68,
+    somato:{ endo:2.4, meso:4.6, ecto:1.2 },
   },
   antroHistorial: [
     { fecha:'28.09.2026', peso:55.2, talla:156.0, imc:22.7,
@@ -284,6 +281,11 @@ const PATIENT = {
       brazRelaj:28.0, brazFlex:28.5, abdom:66.5, cadera:96.0, muslo:52.8, pantPer:32.6,
       s6:60.0, s8:76.0, pctGrasa:16.2, fatKg:8.9, pctMusc:41.6, muscKg:23.0,
       pctOseo:15.5, oseoKg:8.6, imo:2.68, icc:0.69 },
+    { fecha:'29.10.2026', peso:56.2, talla:156.0, imc:23.1,
+      tri:8.0, bi:1.5, sub:7.0, cresta:10.0, supra:7.0, abd:9.0, pierna:13.0, pant:7.5,
+      brazRelaj:27.4, brazFlex:28.8, abdom:65.0, cadera:96.0, muslo:53.7, pantPer:34.0,
+      s6:51.5, s8:63.0, pctGrasa:14.5, fatKg:8.1, pctMusc:34.1, muscKg:19.2,
+      pctOseo:15.2, oseoKg:8.5, imo:2.26, icc:0.68 },
   ],
 
   objetivos: [
@@ -1022,6 +1024,8 @@ init();
 <script>(function(){function _inj(){document.querySelectorAll('.meal[data-mealid]').forEach(function(el){if(typeof injectMealLog==='function')injectMealLog(el);});if(typeof injectGuardarBtn==='function')document.querySelectorAll('.meals').forEach(injectGuardarBtn);}  _inj();setTimeout(_inj,300);setTimeout(_inj,800);})();</script>
 <script src="guia-data.js"></script>
 <script src="comer-fuera.js"></script>
+<script src="recetario-data.js"></script>
+<script src="recetario-plan.js"></script>
 <script src="plan-pdf.js"></script>
 <script src="peso-tracker.js?v=3"></script>
 </body>
