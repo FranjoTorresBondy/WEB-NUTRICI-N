@@ -363,7 +363,7 @@ const PATIENT = {
   slug:     'aurelio',
   sexo:     'm',
   nombre:   'Aurelio\nMoreyra',
-  fecha:    '05.08.2026',
+  fecha:    '29.10.2026',
   tipoPlan: 'Hipercalórico · Hiperprotéico',
   macros:   { kcal: 2368, p: 153, c: 315, g: 54 },
 
@@ -373,14 +373,14 @@ const PATIENT = {
   ],
 
   antro: {
-    fecha: '05.08.2026',
-    peso: 78.5, talla: 181.0, imc: 24.0,
-    tri: 6.0, bi: 2.0, sub: 5.0, cresta: 15.0, supra: 6.0,
-    abd: 8.0, pierna: 10.6, pant: 5.0,
-    s6: 40.6, s8: 57.6,
-    brazRelaj: 34.0, brazFlex: 37.5, abdom: 78.5, cadera: 103.0, muslo: 55.0, pantPer: 37.5,
+    fecha: '29.10.2026',
+    peso: 76.5, talla: 181.5, imc: 23.2,
+    tri: 4.0, bi: 1.5, sub: 6.0, cresta: 12.0, supra: 3.0,
+    abd: 7.0, pierna: 10.0, pant: 6.0,
+    s6: 36.0, s8: 49.5,
+    brazRelaj: 34.0, brazFlex: 37.0, abdom: 75.0, cadera: 105.0, muslo: 53.5, pantPer: 34.5,
     diam: { humero: 6.6, biEstiloideo: 5.5, femur: 9.6 },
-    icc: 0.76,
+    icc: 0.71,
   },
   antroHistorial: [
     { fecha:'25.05.2026', peso:78.6, talla:181.0, imc:24.0,
@@ -391,6 +391,10 @@ const PATIENT = {
       tri:6.0, bi:2.0, sub:5.0, cresta:15.0, supra:6.0, abd:8.0, pierna:10.6, pant:5.0,
       brazRelaj:34.0, brazFlex:37.5, abdom:78.5, cadera:103.0, muslo:55.0, pantPer:37.5,
       s6:40.6, s8:57.6 },
+    { fecha:'29.10.2026', peso:76.5, talla:181.5, imc:23.2,
+      tri:4.0, bi:1.5, sub:6.0, cresta:12.0, supra:3.0, abd:7.0, pierna:10.0, pant:6.0,
+      brazRelaj:34.0, brazFlex:37.0, abdom:75.0, cadera:105.0, muslo:53.5, pantPer:34.5,
+      s6:36.0, s8:49.5 },
   ],
 
   objetivos: [
@@ -1329,6 +1333,8 @@ init();
 <script>(function(){function _inj(){document.querySelectorAll('.meal[data-mealid]').forEach(function(el){if(typeof injectMealLog==='function')injectMealLog(el);});if(typeof injectGuardarBtn==='function')document.querySelectorAll('.meals').forEach(injectGuardarBtn);}  _inj();setTimeout(_inj,300);setTimeout(_inj,800);})();</script>
 <script src="guia-data.js"></script>
 <script src="comer-fuera.js"></script>
+<script src="recetario-data.js"></script>
+<script src="recetario-plan.js"></script>
 <script src="plan-pdf.js"></script>
 <script src="peso-tracker.js?v=3"></script>
 </body>
