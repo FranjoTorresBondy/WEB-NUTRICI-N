@@ -254,7 +254,7 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 const PATIENT = {
   slug:      'ioanis-patsias',
   nombre:    'Ioanis\nPatsias',
-  fecha:     '15.07.2026',
+  fecha:     '30.10.2026',
   tipoPlan:  'Hipocalórico · Hiperprotéico',
   macros:    { kcal: 2000, p: 166, c: 162, g: 69 },
   hidratacion: [
@@ -264,10 +264,13 @@ const PATIENT = {
   ],
   semanas: 1,
   antro: {
-    fecha:'15.07.2026', peso:105.5, talla:184, imc:31.2,
-    tri:8, bi:3, sub:26, cresta:26, supra:14, abd:25, pierna:12, pant:7,
-    brazRelaj:40.2, brazFlex:42.8, abdom:99, cadera:111.5, muslo:60.5, pantPer:40.2,
+    fecha:'30.10.2026', peso:105.0, talla:184, imc:31.0,
+    tri:12, bi:2, sub:10, cresta:25, supra:13, abd:23, pierna:8, pant:8,
+    s6:74.0, s8:101.0,
+    brazRelaj:40.8, brazFlex:43.0, abdom:98.5, cadera:111.5, muslo:60.0, pantPer:40.5,
     diam: { humero:7.2, biEstiloideo:6.0, femur:10.5 },
+    pctGrasa:20.3, fatKg:21.3, pctOseo:13.2, oseoKg:13.9, icc:0.88,
+    somato:{ endo:3.3, meso:7.1, ecto:0.4 },
   },
 
   antroHistorial: [
@@ -279,11 +282,15 @@ const PATIENT = {
       tri:8, bi:3, sub:26, cresta:26, supra:14, abd:25, pierna:12, pant:7,
       brazRelaj:40.2, brazFlex:42.8, abdom:99, cadera:111.5, muslo:60.5, pantPer:40.2,
       s6:92, s8:121 },
+    { fecha:'30.10.2026', peso:105.0,
+      tri:12, bi:2, sub:10, cresta:25, supra:13, abd:23, pierna:8, pant:8,
+      brazRelaj:40.8, brazFlex:43.0, abdom:98.5, cadera:111.5, muslo:60.0, pantPer:40.5,
+      s6:74.0, s8:101.0 },
   ],
 
   objetivos: [
-    'Σ8: 141 mm → 121 mm (−20 mm en 2.5 semanas) ✓ · Peso: 107.3 kg → 105.5 kg (−1.8 kg)',
-    'Objetivo siguiente: Σ8 = 106 mm · Objetivo a largo plazo: Σ8 = 80 mm',
+    'Σ8: 141 mm → 121 mm → 101 mm ✓ · Peso: 107.3 kg → 105.5 kg → 105.0 kg',
+    'Objetivo siguiente: Σ8 = 85 mm · Objetivo a largo plazo: Σ8 = 80 mm',
     'Mejorar sensibilidad a la insulina mediante timing de carbohidratos peri-entreno',
     'Aumentar masa muscular manteniendo déficit calórico controlado',
     '% grasa actual: 14.3% (Slaughter) · Objetivo: 10–11%',
@@ -1152,6 +1159,8 @@ init();
 <script>(function(){function _inj(){document.querySelectorAll('.meal[data-mealid]').forEach(function(el){if(typeof injectMealLog==='function')injectMealLog(el);});if(typeof injectGuardarBtn==='function')document.querySelectorAll('.meals').forEach(injectGuardarBtn);}  _inj();setTimeout(_inj,300);setTimeout(_inj,800);})();</script>
 <script src="guia-data.js"></script>
 <script src="comer-fuera.js"></script>
+<script src="recetario-data.js"></script>
+<script src="recetario-plan.js"></script>
 <script src="plan-pdf.js"></script>
 <script src="peso-tracker.js?v=3"></script>
 </body>
