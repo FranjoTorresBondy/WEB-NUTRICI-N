@@ -184,9 +184,9 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 const PATIENT = {
   slug:      'joaquin-llona',
   nombre:    'Joaquín\nLlona',
-  fecha:     '31.08.2026',
+  fecha:     '29.10.2026',
   tipoPlan:  'Hipercalórico · Hiperprotéico',
-  macros:    { kcal: 2700, p: 199, c: 327, g: 65 },
+  macros:    { kcal: 2910, p: 199, c: 378, g: 65 },
   hidratacion: [
     { label:'💧 BJJ + Fuerza', valor:'5.0' },
     { label:'💧 BJJ',          valor:'4.3' },
@@ -194,27 +194,31 @@ const PATIENT = {
   ],
   semanas: 1,
   antro: {
-    fecha:    '31.08.2026',
-    peso:     97.8,
+    fecha:    '29.10.2026',
+    peso:     96.1,
     talla:    197.0,
-    imc:      25.2,
-    tri:      7.0,
+    imc:      24.8,
+    tri:      5.0,
     bi:       2.0,
-    sub:      9.0,
-    cresta:   18.0,
-    supra:    7.0,
-    abd:      11.0,
+    sub:      7.0,
+    cresta:   11.0,
+    supra:    5.0,
+    abd:      7.0,
     pierna:   12.0,
-    pant:     7.0,
-    brazRelaj: 37.4,
-    brazFlex:  40.1,
-    abdom:     82.5,
-    cadera:   108.0,
+    pant:     6.0,
+    brazRelaj: 37.0,
+    brazFlex:  39.7,
+    abdom:     83.0,
+    cadera:   104.0,
     muslo:     56.0,
     pantPer:   38.0,
     diam:{ humero:7.2, biEstiloideo:6.5, femur:10.7 },
-    s6:  53.0,
-    s8:  73.0,
+    s6:  42.0,
+    s8:  55.0,
+    icc:     0.80,
+    pctGrasa: 9.5,  fatKg: 9.1,
+    pctMusc: 47.0,  muscKg: 45.2,
+    pctOseo:  6.9,  oseoKg: 6.6,
   },
 
   objetivos: [
@@ -222,9 +226,9 @@ const PATIENT = {
   ],
 
   comidas: [
-    // Desayuno: 818 kcal · 53P · 112C · 20G
-    { id:'des', nombre:'☀️ Desayuno', kcal:818, p:53, c:112, g:20, grupos:[
-        { label:'Escoge 05 · Carbohidrato', max:5, ops:[
+    // Desayuno: 888 kcal · 53P · 130C · 20G
+    { id:'des', nombre:'☀️ Desayuno', kcal:888, p:53, c:130, g:20, grupos:[
+        { label:'Escoge 06 · Carbohidrato', max:6, ops:[
           '20 g de avena (peso crudo)',
           '20 g de Gorilla Munch',
           '1 rebanada de pan de La Chola (25 g) o molde (30 g)',
@@ -244,9 +248,9 @@ const PATIENT = {
         ]},
     ]},
 
-    // Almuerzo: 820 kcal · 65P · 93C · 19G
-    { id:'alm', nombre:'🥗 Almuerzo', kcal:820, p:65, c:93, g:19, grupos:[
-        { label:'Escoge 05 · Carbohidrato (peso cocido)', max:5, ops:[
+    // Almuerzo: 890 kcal · 65P · 110C · 19G
+    { id:'alm', nombre:'🥗 Almuerzo', kcal:890, p:65, c:110, g:19, grupos:[
+        { label:'Escoge 06 · Carbohidrato (peso cocido)', max:6, ops:[
           '60 g de arroz blanco o integral',
           '60 g de quinua',
           '50 g de pasta cocida sin relleno',
@@ -272,9 +276,9 @@ const PATIENT = {
         ]},
     ], nota:'* Un alfajor de Biosunqu de postre (+40 kcal).' },
 
-    // Snack: 235 kcal · 16P · 29C · 7G
-    { id:'snk', nombre:'🍎 Snack', kcal:235, p:16, c:29, g:7, grupos:[
-        { label:'Escoge 02 · Carbohidrato', max:2, ops:[
+    // Snack: 305 kcal · 16P · 45C · 7G
+    { id:'snk', nombre:'🍎 Snack', kcal:305, p:16, c:45, g:7, grupos:[
+        { label:'Escoge 03 · Carbohidrato', max:3, ops:[
           '20 g de avena (peso crudo)',
           '20 g de Gorilla Munch',
           '1 rebanada de pan de La Chola (25 g) o molde (30 g)',
@@ -429,9 +433,20 @@ const PATIENT = {
     { nombre:'Salsa roja',             desc:'Tomate, cebolla, ajo, albahaca, poro + Lakanto o Stevia al gusto + sal, pimienta y tomillo + 1 cda aceite oliva' },
   ],
 
-  notaSpecs: 'Plan base = días de descanso (2700 kcal). Entrenamiento fuerza: +300 kcal (≈3000 kcal). Entrenamiento BJJ: +440 kcal (≈3140 kcal).',
+  notaSpecs: 'Plan base = días de descanso (2910 kcal). Entrenamiento fuerza: +300 kcal (≈3210 kcal). Entrenamiento BJJ: +440 kcal (≈3350 kcal).',
 
-  antroHistorial: [],
+  antroHistorial: [
+    { fecha:'31.08.2026', peso:97.8, talla:197.0, imc:25.2,
+      tri:7.0, bi:2.0, sub:9.0, cresta:18.0, supra:7.0, abd:11.0, pierna:12.0, pant:7.0,
+      brazRelaj:37.4, brazFlex:40.1, abdom:82.5, cadera:108.0, muslo:56.0, pantPer:38.0,
+      diam:{ humero:7.2, biEstiloideo:6.5, femur:10.7 },
+      s6:53.0, s8:73.0,
+      icc:0.76,
+      pctGrasa:11.0, fatKg:10.8,
+      pctMusc:45.7, muscKg:44.7,
+      pctOseo: 6.7, oseoKg: 6.6,
+    },
+  ],
 
   entrenamiento: null,
 };
@@ -754,6 +769,8 @@ renderSpecs();
 <script>(function(){function _inj(){document.querySelectorAll('.meal[data-mealid]').forEach(function(el){if(typeof injectMealLog==='function')injectMealLog(el);});if(typeof injectGuardarBtn==='function')document.querySelectorAll('.meals').forEach(injectGuardarBtn);}  _inj();setTimeout(_inj,300);setTimeout(_inj,800);})();</script>
 <script src="guia-data.js"></script>
 <script src="comer-fuera.js"></script>
+<script src="recetario-data.js"></script>
+<script src="recetario-plan.js"></script>
 <script src="plan-pdf.js"></script>
 <script src="peso-tracker.js?v=3"></script>
 </body>
