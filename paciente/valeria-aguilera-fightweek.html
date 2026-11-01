@@ -9,8 +9,7 @@
 :root{
   --bg:#080808;--bg2:#111111;--panel:#141414;--panel2:#1c1c1c;
   --line:#2a2a2a;--ink:#f0f0f0;--muted:#888;--faint:#555;
-  --gold:#C4973A;--amber:#C4973A;--coral:#ef9a9a;--coral2:#ef5350;
-  --cyan:#4fc3f7;--green:#a5d6a7;--red:#ef5350;
+  --gold:#C4973A;--cyan:#4fc3f7;--coral:#ef9a9a;--red:#ef5350;--green:#a5d6a7;
   --shadow:0 1px 4px rgba(0,0,0,.5),0 1px 2px rgba(0,0,0,.4);
 }
 *{box-sizing:border-box;margin:0;padding:0}
@@ -19,7 +18,7 @@ body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;line-h
   background-image:radial-gradient(1100px 520px at 50% -12%,rgba(196,151,58,.06),transparent 62%);background-attachment:fixed}
 body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.03;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
-.wrap{max-width:900px;margin:0 auto;padding:0 28px;position:relative;z-index:2}
+.wrap{max-width:960px;margin:0 auto;padding:0 28px;position:relative;z-index:2}
 .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);font-weight:600;display:flex;align-items:center;gap:12px}
 .eyebrow::before{content:"";width:30px;height:1px;background:var(--gold)}
 h1{font-family:'Chakra Petch',sans-serif;font-weight:700;line-height:1.02;font-size:clamp(38px,7vw,78px);margin:14px 0 6px;color:#fff;letter-spacing:.02em;text-transform:uppercase}
@@ -32,50 +31,66 @@ section{padding:36px 0}
 .sec-h h2{font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:22px}
 .sec-h .ix{font-family:'IBM Plex Mono';color:var(--gold);font-size:13px;font-weight:600}
 .sec-h .rule{flex:1;height:1px;background:var(--line)}
-/* Timeline */
-.timeline{display:flex;flex-direction:column;gap:0}
-.day{display:grid;grid-template-columns:120px 80px 1fr;align-items:stretch;border-bottom:1px solid var(--line)}
-.day:first-child{border-top:1px solid var(--line)}
-.day .d-label{padding:16px 16px;font-family:'IBM Plex Mono';font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center}
-.day .d-vol{padding:16px 12px;font-family:'Libre Franklin',sans-serif;font-weight:700;font-size:22px;color:var(--cyan);display:flex;align-items:center;border-left:1px solid var(--line);border-right:1px solid var(--line)}
-.day .d-vol small{font-size:12px;color:var(--muted);font-family:'Inter';font-weight:400;margin-left:4px;margin-top:4px}
-.day .d-note{padding:16px 18px;font-size:13px;color:var(--muted);display:flex;align-items:center}
-.day.danger .d-label{color:var(--coral)}
-.day.danger .d-vol{color:var(--red)}
-.day.pesaje{background:rgba(239,83,80,.04)}
-.day.pesaje .d-label{color:var(--red);font-weight:700}
-.day.pesaje .d-vol{color:var(--red)}
-.day.carga .d-label{color:var(--gold)}
+.back-link{display:inline-flex;align-items:center;gap:6px;font-family:'IBM Plex Mono';font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-decoration:none;margin-bottom:24px;transition:.2s}
+.back-link:hover{color:var(--gold)}
+
+/* Day cards */
+.days{display:flex;flex-direction:column;gap:20px}
+.daycard{background:var(--panel);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:var(--shadow)}
+.daycard.danger{border-color:rgba(239,83,80,.25)}
+.daycard.pesaje{border-color:rgba(239,83,80,.4);background:rgba(239,83,80,.04)}
+.daycard .dc-head{display:flex;align-items:center;gap:0;background:var(--panel2);border-bottom:1px solid var(--line)}
+.daycard.danger .dc-head{background:rgba(239,83,80,.07)}
+.daycard.pesaje .dc-head{background:rgba(239,83,80,.12)}
+.daycard .dc-day{padding:14px 20px;border-right:1px solid var(--line);min-width:110px}
+.daycard .dc-day .dn{font-family:'Chakra Petch',sans-serif;font-size:13px;color:var(--gold);text-transform:uppercase;letter-spacing:.05em}
+.daycard.danger .dc-day .dn{color:var(--coral)}
+.daycard.pesaje .dc-day .dn{color:var(--red)}
+.daycard .dc-day .dd{font-family:'IBM Plex Mono';font-size:12px;color:var(--muted);margin-top:2px}
+.daycard .dc-water{padding:14px 18px;border-right:1px solid var(--line);display:flex;align-items:center;gap:8px;min-width:120px}
+.dc-water .wv{font-family:'Libre Franklin',sans-serif;font-weight:700;font-size:26px;color:var(--cyan);line-height:1}
+.daycard.danger .dc-water .wv{color:var(--coral)}
+.daycard.pesaje .dc-water .wv{color:var(--red)}
+.dc-water .wu{font-size:11px;color:var(--muted);margin-top:6px;font-family:'IBM Plex Mono'}
+.daycard .dc-note{padding:14px 18px;font-size:12.5px;color:var(--muted);flex:1}
+.daycard .dc-meals{padding:16px 20px}
+.meal-row{display:grid;grid-template-columns:110px 1fr;gap:10px;padding:8px 0;border-bottom:1px solid var(--line)}
+.meal-row:last-child{border-bottom:none}
+.meal-row .mr-label{font-family:'IBM Plex Mono';font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);font-weight:600;padding-top:2px}
+.meal-row .mr-items{font-size:13px;color:var(--muted);line-height:1.5}
+.meal-row .mr-items b{color:var(--ink)}
+.meal-row .mr-items span{display:block}
+.dc-empty{padding:16px 20px;font-size:13px;color:var(--red);font-family:'IBM Plex Mono';font-weight:600;letter-spacing:.05em;text-transform:uppercase}
+.dc-note-block{margin:0 20px 16px;background:var(--bg2);border:1px dashed var(--line);border-radius:10px;padding:10px 14px;font-size:12px;color:var(--faint)}
+
 /* Rehidratación */
 .rehid-steps{display:flex;flex-direction:column;gap:14px}
 .step{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow)}
-.step .st-head{display:flex;align-items:center;gap:14px;padding:14px 18px;background:var(--panel2);border-bottom:1px solid var(--line)}
+.step .st-head{display:flex;align-items:center;gap:14px;padding:13px 18px;background:var(--panel2);border-bottom:1px solid var(--line)}
 .step .st-time{font-family:'IBM Plex Mono';font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:600;white-space:nowrap}
-.step .st-title{font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:15px;color:var(--ink)}
-.step .st-body{padding:14px 18px}
+.step .st-title{font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:14px;color:var(--ink)}
+.step .st-body{padding:12px 18px}
 .step .st-body ul{list-style:none}
 .step .st-body li{font-size:13px;color:var(--muted);padding:5px 0 5px 18px;position:relative;border-bottom:1px solid var(--line)}
 .step .st-body li:last-child{border-bottom:none}
 .step .st-body li::before{content:"→";position:absolute;left:0;color:var(--gold);font-weight:700;font-size:11px;top:7px}
 .step .st-body li b{color:var(--ink)}
-.step .st-body li em{color:var(--cyan);font-style:normal;font-family:'IBM Plex Mono';font-size:12px}
-.water-bar{display:flex;align-items:center;gap:12px;margin-bottom:20px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 18px}
-.water-bar .wb-label{font-family:'IBM Plex Mono';font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);flex-shrink:0}
-.water-bar .wb-val{font-family:'Libre Franklin',sans-serif;font-weight:700;font-size:28px;color:var(--cyan)}
-.water-bar .wb-note{font-size:12px;color:var(--muted)}
-.alert-box{background:rgba(239,83,80,.07);border:1px solid rgba(239,83,80,.25);border-radius:12px;padding:14px 18px;font-size:13px;color:var(--coral);margin-bottom:20px}
-.alert-box b{color:#fff}
+.step .st-body li.green{color:var(--green)}
+.water-banner{display:flex;align-items:center;gap:16px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 20px;margin-bottom:20px}
+.water-banner .wbv{font-family:'Libre Franklin',sans-serif;font-weight:700;font-size:30px;color:var(--cyan)}
+.water-banner .wbt{font-size:12px;color:var(--muted)}
+.water-banner .wbl{font-family:'IBM Plex Mono';font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
+
 footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 .foot-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
 .foot-brand{font-family:'IBM Plex Mono';font-size:11px;color:var(--faint);letter-spacing:.1em}
 .foot-contact{font-size:12px;color:var(--faint)}
-.back-link{display:inline-flex;align-items:center;gap:6px;font-family:'IBM Plex Mono';font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-decoration:none;margin-bottom:24px;transition:.2s}
-.back-link:hover{color:var(--gold)}
 @media(max-width:640px){
   .wrap{padding:0 16px}
   header.hero{padding:32px 0 24px}
-  .day{grid-template-columns:90px 70px 1fr}
-  .day .d-vol{font-size:18px}
+  .daycard .dc-head{flex-wrap:wrap}
+  .daycard .dc-water{border-right:none}
+  .meal-row{grid-template-columns:90px 1fr}
   .foot-inner{flex-direction:column;align-items:flex-start}
 }
 </style>
@@ -94,73 +109,170 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
   </header>
 
   <section>
-    <div class="sec-h"><span class="ix">01</span><h2>Protocolo Hídrico</h2><div class="rule"></div></div>
+    <div class="sec-h"><span class="ix">01</span><h2>Plan Día a Día</h2><div class="rule"></div></div>
+    <div class="days">
 
-    <div class="timeline">
-      <div class="day">
-        <div class="d-label">Día 1<br>3 NOV</div>
-        <div class="d-vol">5.5<small>L</small></div>
-        <div class="d-note">Distribuye bien a lo largo del día. No tomes todo de una.</div>
+      <!-- DÍAS 1-3: misma comida -->
+      <div class="daycard">
+        <div class="dc-head">
+          <div class="dc-day"><div class="dn">Días 1 · 2 · 3</div><div class="dd">3 — 5 NOV</div></div>
+          <div class="dc-water"><div><div class="wv">5.5</div><div class="wu">L / día</div></div></div>
+          <div class="dc-note">Distribuye bien a lo largo del día. No tomes todo de una.</div>
+        </div>
+        <div class="dc-meals">
+          <div class="meal-row">
+            <div class="mr-label">☀️ Desayuno</div>
+            <div class="mr-items">
+              <span><b>180 g de papa</b> + <b>3 huevos</b> + <b>1 cdta de aceite de oliva</b></span>
+              <span><b>50 g de arándanos</b></span>
+            </div>
+          </div>
+          <div class="meal-row">
+            <div class="mr-label">🍎 Media Mañana</div>
+            <div class="mr-items"><span><b>1 porción de fruta</b></span></div>
+          </div>
+          <div class="meal-row">
+            <div class="mr-label">🥗 Almuerzo</div>
+            <div class="mr-items">
+              <span><b>180 g de papa</b> + <b>90 g de pechuga de pollo</b> (peso crudo)</span>
+              <span><b>150 g de verduras</b></span>
+            </div>
+          </div>
+          <div class="meal-row">
+            <div class="mr-label">🥪 Snack MT</div>
+            <div class="mr-items"><span><b>150 g de quark</b> (cualquier sabor) + <b>50 g de berries</b></span></div>
+          </div>
+          <div class="meal-row">
+            <div class="mr-label">🌙 Cena</div>
+            <div class="mr-items">
+              <span><b>180 g de papa</b> + <b>90 g de pechuga de pollo</b> (peso crudo)</span>
+              <span><b>150 g de verduras</b></span>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="day">
-        <div class="d-label">Día 2<br>4 NOV</div>
-        <div class="d-vol">5.5<small>L</small></div>
-        <div class="d-note">Distribuye bien a lo largo del día. No tomes todo de una.</div>
+
+      <!-- DÍA 4: 6 NOV - reducción carbo -->
+      <div class="daycard">
+        <div class="dc-head">
+          <div class="dc-day"><div class="dn">Día 4</div><div class="dd">6 NOV</div></div>
+          <div class="dc-water"><div><div class="wv">5.5</div><div class="wu">L</div></div></div>
+          <div class="dc-note">Sin papa ni arroz. Solo proteína, grasa y mínimo carbo.</div>
+        </div>
+        <div class="dc-meals">
+          <div class="meal-row">
+            <div class="mr-label">☀️ Desayuno</div>
+            <div class="mr-items">
+              <span><b>3 huevos</b> + <b>2 galletas de arroz</b> con <b>10 g de mantequilla de frutos secos</b> + <b>10 g de mermelada</b></span>
+            </div>
+          </div>
+          <div class="meal-row">
+            <div class="mr-label">🍎 Snack</div>
+            <div class="mr-items"><span><b>1 dátil</b> + <b>10 g de mantequilla de frutos secos</b></span></div>
+          </div>
+          <div class="meal-row">
+            <div class="mr-label">🥗 Almuerzo</div>
+            <div class="mr-items">
+              <span><b>150 g de pechuga de pollo</b> (peso crudo) + <b>5 g de aceite de oliva</b> + <b>5 g de mantequilla</b></span>
+              <span><b>100 g</b> de zapallo / zuccini pelado / champiñones</span>
+            </div>
+          </div>
+          <div class="meal-row">
+            <div class="mr-label">🥪 Snack</div>
+            <div class="mr-items">
+              <span><b>150 g de quark</b> (cualquier sabor) + <b>10 g de mantequilla de frutos secos</b></span>
+              <span><b>20 g de chocolate 70% cacao</b></span>
+            </div>
+          </div>
+          <div class="meal-row">
+            <div class="mr-label">🌙 Cena</div>
+            <div class="mr-items">
+              <span><b>150 g de pechuga de pollo</b> (peso crudo) + <b>5 g de aceite de oliva</b> + <b>5 g de mantequilla</b></span>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="day">
-        <div class="d-label">Día 3<br>5 NOV</div>
-        <div class="d-vol">5.5<small>L</small></div>
-        <div class="d-note">Distribuye bien a lo largo del día. No tomes todo de una.</div>
+
+      <!-- DÍA 5: 7 NOV - restricción hídrica + mínima comida -->
+      <div class="daycard danger">
+        <div class="dc-head">
+          <div class="dc-day"><div class="dn">Día 5</div><div class="dd">7 NOV</div></div>
+          <div class="dc-water"><div><div class="wv">500</div><div class="wu">mL</div></div></div>
+          <div class="dc-note">Restricción hídrica fuerte. Dosifica bien los 500 mL durante el día.</div>
+        </div>
+        <div class="dc-meals">
+          <div class="meal-row">
+            <div class="mr-label">☀️ Desayuno</div>
+            <div class="mr-items">
+              <span><b>3 huevos</b> + <b>2 galletas de arroz</b> con <b>10 g de mantequilla de frutos secos</b> + <b>10 g de mermelada</b></span>
+            </div>
+          </div>
+          <div class="meal-row">
+            <div class="mr-label">🍎 Snack</div>
+            <div class="mr-items"><span><b>1 dátil</b> + <b>10 g de mantequilla de frutos secos</b></span></div>
+          </div>
+          <div class="meal-row">
+            <div class="mr-label">🥗 Almuerzo</div>
+            <div class="mr-items">
+              <span><b>150 g de pechuga de pollo</b> (peso crudo) + <b>5 g de aceite de oliva</b> + <b>5 g de mantequilla</b></span>
+            </div>
+          </div>
+          <div class="meal-row">
+            <div class="mr-label">🥪 Snack</div>
+            <div class="mr-items">
+              <span><b>150 g de quark</b> (cualquier sabor) + <b>10 g de mantequilla de frutos secos</b></span>
+              <span><b>20 g de chocolate</b></span>
+            </div>
+          </div>
+          <div class="meal-row">
+            <div class="mr-label">🌙 Cena</div>
+            <div class="mr-items"><span>Dependerá del peso en el que estés.</span></div>
+          </div>
+        </div>
       </div>
-      <div class="day">
-        <div class="d-label">Día 4<br>6 NOV</div>
-        <div class="d-vol">5.5<small>L</small></div>
-        <div class="d-note">Distribuye bien a lo largo del día. No tomes todo de una.</div>
+
+      <!-- DÍA 6: PESAJE -->
+      <div class="daycard pesaje">
+        <div class="dc-head">
+          <div class="dc-day"><div class="dn">⚖️ Pesaje</div><div class="dd">8 NOV</div></div>
+          <div class="dc-water"><div><div class="wv">0</div><div class="wu">L</div></div></div>
+          <div class="dc-note">Sin líquidos. Puedes tomar un café ristretto, muy cargado y en mínima cantidad — puede ayudar a eliminar el líquido restante.</div>
+        </div>
+        <div class="dc-empty">Nada hasta el pesaje</div>
       </div>
-      <div class="day danger">
-        <div class="d-label">Día 5<br>7 NOV</div>
-        <div class="d-vol">500<small>mL</small></div>
-        <div class="d-note">Dosificar muy bien. Solo los 500 mL durante todo el día.</div>
-      </div>
-      <div class="day pesaje">
-        <div class="d-label">⚖️ Pesaje<br>8 NOV</div>
-        <div class="d-vol">0<small>L</small></div>
-        <div class="d-note">Sin líquidos. Puedes tomar un café tipo ristretto, muy cargado y en mínima cantidad — puede ayudar a eliminar el líquido restante.</div>
-      </div>
+
     </div>
   </section>
 
   <section style="padding-top:0">
-    <div class="sec-h"><span class="ix">02</span><h2>Rehidratación · Post Pesaje</h2><div class="rule"></div></div>
+    <div class="sec-h"><span class="ix">02</span><h2>Post Pesaje · Rehidratación y Reposición</h2><div class="rule"></div></div>
 
-    <div class="water-bar">
-      <div class="wb-label">Meta primera hora</div>
-      <div class="wb-val">1.2–1.8 L</div>
-      <div class="wb-note">Comienza inmediatamente después del pesaje. Ve tomando de a sorbos pequeños y constantes.</div>
+    <div class="water-banner">
+      <div><div class="wbl">Meta primera hora</div><div class="wbv">1.2 – 1.8 L</div></div>
+      <div class="wbt">Comienza inmediatamente post pesaje. Ve tomando de a sorbos pequeños y constantes.</div>
     </div>
 
     <div class="rehid-steps">
-
       <div class="step">
         <div class="st-head">
-          <div class="st-time">Primera hora post pesaje</div>
+          <div class="st-time">Primera hora</div>
           <div class="st-title">Suero oral + Carbohidratos rápidos</div>
         </div>
         <div class="st-body"><ul>
-          <li><b>1 000 mL de suero oral</b> — lo más pronto posible, sorbos pequeños pero constantes</li>
+          <li><b>1 000 mL de suero oral</b> — lo más pronto posible, sorbos pequeños y constantes</li>
           <li><b>2 rebanadas de pan blanco</b> + <b>1 cda de mermelada</b></li>
         </ul></div>
       </div>
 
       <div class="step">
         <div class="st-head">
-          <div class="st-time">Segunda hora post pesaje</div>
-          <div class="st-title">Comida + Hidratación</div>
+          <div class="st-time">Segunda hora</div>
+          <div class="st-title">Comida principal + Hidratación</div>
         </div>
         <div class="st-body"><ul>
-          <li><b>300 g de arroz</b> o <b>250 g de pasta</b> — puedes agregar salsa de tomate o 2 cdtas de aceite de oliva + 100 g de verduras cocidas</li>
+          <li><b>300 g de arroz</b> o <b>250 g de pasta</b> — con salsa de tomate o 2 cdtas de aceite de oliva + 100 g de verduras cocidas</li>
           <li><b>150 g de pechuga de pollo</b> a la plancha</li>
-          <li><b>1 000 mL de Gatorade</b> — una vez que acabes el suero, ve tomando en sorbos pequeños y constantes</li>
+          <li><b>1 000 mL de Gatorade</b> — una vez que acabes el suero, en sorbos pequeños y constantes</li>
         </ul></div>
       </div>
 
@@ -180,10 +292,10 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
           <div class="st-title">Recarga de glucógeno</div>
         </div>
         <div class="st-body"><ul>
-          <li><b>80 g de cereales</b> preferiblemente azucarados — Chocapic, Copix, Captain Crunch, etc.</li>
+          <li><b>80 g de cereales</b> azucarados — Chocapic, Copix, Captain Crunch, etc.</li>
           <li><b>Yogurt descremado</b> o leche vegetal</li>
           <li><b>2 porciones de fruta</b></li>
-          <li style="color:var(--green)">Puedes repetir el snack completo si todavía tienes hambre ✓</li>
+          <li class="green">Puedes repetir el snack completo si todavía tienes hambre ✓</li>
         </ul></div>
       </div>
 
@@ -197,7 +309,6 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
           <li><b>150 g de pechuga de pollo</b> a la plancha</li>
         </ul></div>
       </div>
-
     </div>
   </section>
 
