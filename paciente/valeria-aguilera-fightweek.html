@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valeria Aguilera — Fight Week</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Libre+Franklin:wght@500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&family=Chakra+Petch:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#080808;--bg2:#111111;--panel:#141414;--panel2:#1c1c1c;
+  --line:#2a2a2a;--ink:#f0f0f0;--muted:#888;--faint:#555;
+  --gold:#C4973A;--amber:#C4973A;--coral:#ef9a9a;--coral2:#ef5350;
+  --cyan:#4fc3f7;--green:#a5d6a7;--red:#ef5350;
+  --shadow:0 1px 4px rgba(0,0,0,.5),0 1px 2px rgba(0,0,0,.4);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased;
+  background-image:radial-gradient(1100px 520px at 50% -12%,rgba(196,151,58,.06),transparent 62%);background-attachment:fixed}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.03;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.wrap{max-width:900px;margin:0 auto;padding:0 28px;position:relative;z-index:2}
+.eyebrow{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);font-weight:600;display:flex;align-items:center;gap:12px}
+.eyebrow::before{content:"";width:30px;height:1px;background:var(--gold)}
+h1{font-family:'Chakra Petch',sans-serif;font-weight:700;line-height:1.02;font-size:clamp(38px,7vw,78px);margin:14px 0 6px;color:#fff;letter-spacing:.02em;text-transform:uppercase}
+header.hero{padding:60px 0 36px}
+.subhead{display:flex;flex-wrap:wrap;gap:8px 26px;color:var(--muted);font-size:14px;margin-top:12px}
+.subhead b{color:var(--ink);font-weight:600}
+.tag{display:inline-block;font-family:'IBM Plex Mono';font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#000;background:var(--gold);padding:5px 12px;border-radius:999px;font-weight:700}
+section{padding:36px 0}
+.sec-h{display:flex;align-items:baseline;gap:16px;margin:0 0 24px}
+.sec-h h2{font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:22px}
+.sec-h .ix{font-family:'IBM Plex Mono';color:var(--gold);font-size:13px;font-weight:600}
+.sec-h .rule{flex:1;height:1px;background:var(--line)}
+/* Timeline */
+.timeline{display:flex;flex-direction:column;gap:0}
+.day{display:grid;grid-template-columns:120px 80px 1fr;align-items:stretch;border-bottom:1px solid var(--line)}
+.day:first-child{border-top:1px solid var(--line)}
+.day .d-label{padding:16px 16px;font-family:'IBM Plex Mono';font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center}
+.day .d-vol{padding:16px 12px;font-family:'Libre Franklin',sans-serif;font-weight:700;font-size:22px;color:var(--cyan);display:flex;align-items:center;border-left:1px solid var(--line);border-right:1px solid var(--line)}
+.day .d-vol small{font-size:12px;color:var(--muted);font-family:'Inter';font-weight:400;margin-left:4px;margin-top:4px}
+.day .d-note{padding:16px 18px;font-size:13px;color:var(--muted);display:flex;align-items:center}
+.day.danger .d-label{color:var(--coral)}
+.day.danger .d-vol{color:var(--red)}
+.day.pesaje{background:rgba(239,83,80,.04)}
+.day.pesaje .d-label{color:var(--red);font-weight:700}
+.day.pesaje .d-vol{color:var(--red)}
+.day.carga .d-label{color:var(--gold)}
+/* Rehidratación */
+.rehid-steps{display:flex;flex-direction:column;gap:14px}
+.step{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow)}
+.step .st-head{display:flex;align-items:center;gap:14px;padding:14px 18px;background:var(--panel2);border-bottom:1px solid var(--line)}
+.step .st-time{font-family:'IBM Plex Mono';font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:600;white-space:nowrap}
+.step .st-title{font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:15px;color:var(--ink)}
+.step .st-body{padding:14px 18px}
+.step .st-body ul{list-style:none}
+.step .st-body li{font-size:13px;color:var(--muted);padding:5px 0 5px 18px;position:relative;border-bottom:1px solid var(--line)}
+.step .st-body li:last-child{border-bottom:none}
+.step .st-body li::before{content:"→";position:absolute;left:0;color:var(--gold);font-weight:700;font-size:11px;top:7px}
+.step .st-body li b{color:var(--ink)}
+.step .st-body li em{color:var(--cyan);font-style:normal;font-family:'IBM Plex Mono';font-size:12px}
+.water-bar{display:flex;align-items:center;gap:12px;margin-bottom:20px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 18px}
+.water-bar .wb-label{font-family:'IBM Plex Mono';font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);flex-shrink:0}
+.water-bar .wb-val{font-family:'Libre Franklin',sans-serif;font-weight:700;font-size:28px;color:var(--cyan)}
+.water-bar .wb-note{font-size:12px;color:var(--muted)}
+.alert-box{background:rgba(239,83,80,.07);border:1px solid rgba(239,83,80,.25);border-radius:12px;padding:14px 18px;font-size:13px;color:var(--coral);margin-bottom:20px}
+.alert-box b{color:#fff}
+footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
+.foot-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.foot-brand{font-family:'IBM Plex Mono';font-size:11px;color:var(--faint);letter-spacing:.1em}
+.foot-contact{font-size:12px;color:var(--faint)}
+.back-link{display:inline-flex;align-items:center;gap:6px;font-family:'IBM Plex Mono';font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-decoration:none;margin-bottom:24px;transition:.2s}
+.back-link:hover{color:var(--gold)}
+@media(max-width:640px){
+  .wrap{padding:0 16px}
+  header.hero{padding:32px 0 24px}
+  .day{grid-template-columns:90px 70px 1fr}
+  .day .d-vol{font-size:18px}
+  .foot-inner{flex-direction:column;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <a class="back-link" href="valeria-aguilera.html">← Plan nutricional</a>
+    <div class="eyebrow">Fight Week &nbsp;·&nbsp; Noviembre 2026</div>
+    <h1>Valeria<br>Aguilera</h1>
+    <div class="subhead">
+      <span><b>Pesaje:</b> 8 NOV 2026</span>
+      <span><b>Competencia:</b> 9 NOV 2026</span>
+      <span class="tag">Protocolo Oficial</span>
+    </div>
+  </header>
+
+  <section>
+    <div class="sec-h"><span class="ix">01</span><h2>Protocolo Hídrico</h2><div class="rule"></div></div>
+
+    <div class="timeline">
+      <div class="day">
+        <div class="d-label">Día 1<br>3 NOV</div>
+        <div class="d-vol">5.5<small>L</small></div>
+        <div class="d-note">Distribuye bien a lo largo del día. No tomes todo de una.</div>
+      </div>
+      <div class="day">
+        <div class="d-label">Día 2<br>4 NOV</div>
+        <div class="d-vol">5.5<small>L</small></div>
+        <div class="d-note">Distribuye bien a lo largo del día. No tomes todo de una.</div>
+      </div>
+      <div class="day">
+        <div class="d-label">Día 3<br>5 NOV</div>
+        <div class="d-vol">5.5<small>L</small></div>
+        <div class="d-note">Distribuye bien a lo largo del día. No tomes todo de una.</div>
+      </div>
+      <div class="day">
+        <div class="d-label">Día 4<br>6 NOV</div>
+        <div class="d-vol">5.5<small>L</small></div>
+        <div class="d-note">Distribuye bien a lo largo del día. No tomes todo de una.</div>
+      </div>
+      <div class="day danger">
+        <div class="d-label">Día 5<br>7 NOV</div>
+        <div class="d-vol">500<small>mL</small></div>
+        <div class="d-note">Dosificar muy bien. Solo los 500 mL durante todo el día.</div>
+      </div>
+      <div class="day pesaje">
+        <div class="d-label">⚖️ Pesaje<br>8 NOV</div>
+        <div class="d-vol">0<small>L</small></div>
+        <div class="d-note">Sin líquidos. Puedes tomar un café tipo ristretto, muy cargado y en mínima cantidad — puede ayudar a eliminar el líquido restante.</div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="sec-h"><span class="ix">02</span><h2>Rehidratación · Post Pesaje</h2><div class="rule"></div></div>
+
+    <div class="water-bar">
+      <div class="wb-label">Meta primera hora</div>
+      <div class="wb-val">1.2–1.8 L</div>
+      <div class="wb-note">Comienza inmediatamente después del pesaje. Ve tomando de a sorbos pequeños y constantes.</div>
+    </div>
+
+    <div class="rehid-steps">
+
+      <div class="step">
+        <div class="st-head">
+          <div class="st-time">Primera hora post pesaje</div>
+          <div class="st-title">Suero oral + Carbohidratos rápidos</div>
+        </div>
+        <div class="st-body"><ul>
+          <li><b>1 000 mL de suero oral</b> — lo más pronto posible, sorbos pequeños pero constantes</li>
+          <li><b>2 rebanadas de pan blanco</b> + <b>1 cda de mermelada</b></li>
+        </ul></div>
+      </div>
+
+      <div class="step">
+        <div class="st-head">
+          <div class="st-time">Segunda hora post pesaje</div>
+          <div class="st-title">Comida + Hidratación</div>
+        </div>
+        <div class="st-body"><ul>
+          <li><b>300 g de arroz</b> o <b>250 g de pasta</b> — puedes agregar salsa de tomate o 2 cdtas de aceite de oliva + 100 g de verduras cocidas</li>
+          <li><b>150 g de pechuga de pollo</b> a la plancha</li>
+          <li><b>1 000 mL de Gatorade</b> — una vez que acabes el suero, ve tomando en sorbos pequeños y constantes</li>
+        </ul></div>
+      </div>
+
+      <div class="step">
+        <div class="st-head">
+          <div class="st-time">Siguientes 4 horas</div>
+          <div class="st-title">Reposición hídrica adicional</div>
+        </div>
+        <div class="st-body"><ul>
+          <li>Reponer <b>1.8 litros adicionales</b> (pueden ser líquidos variados)</li>
+        </ul></div>
+      </div>
+
+      <div class="step">
+        <div class="st-head">
+          <div class="st-time">Snack</div>
+          <div class="st-title">Recarga de glucógeno</div>
+        </div>
+        <div class="st-body"><ul>
+          <li><b>80 g de cereales</b> preferiblemente azucarados — Chocapic, Copix, Captain Crunch, etc.</li>
+          <li><b>Yogurt descremado</b> o leche vegetal</li>
+          <li><b>2 porciones de fruta</b></li>
+          <li style="color:var(--green)">Puedes repetir el snack completo si todavía tienes hambre ✓</li>
+        </ul></div>
+      </div>
+
+      <div class="step">
+        <div class="st-head">
+          <div class="st-time">Cena</div>
+          <div class="st-title">Comida final del día</div>
+        </div>
+        <div class="st-body"><ul>
+          <li><b>300 g de arroz</b> o <b>250 g de pasta</b></li>
+          <li><b>150 g de pechuga de pollo</b> a la plancha</li>
+        </ul></div>
+      </div>
+
+    </div>
+  </section>
+
+</div>
+<footer><div class="wrap"><div class="foot-inner">
+  <div class="foot-brand">FRANJO TORRES BONDY · NUTRICIÓN</div>
+  <div class="foot-contact">franjo.torres.b@gmail.com &nbsp;·&nbsp; +51 992 832 991</div>
+</div></div></footer>
+</body>
+</html>
