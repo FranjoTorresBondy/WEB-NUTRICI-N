@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Miguel Tudela — Día de Competencia</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Libre+Franklin:wght@500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&family=Chakra+Petch:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#080808;--bg2:#111111;--panel:#141414;--panel2:#1c1c1c;
+  --line:#2a2a2a;--ink:#f0f0f0;--muted:#888;--faint:#555;
+  --gold:#C4973A;--cyan:#4fc3f7;--green:#a5d6a7;--amber:#FFB74D;--blue:#90CAF9;--coral:#ef9a9a;
+  --shadow:0 1px 4px rgba(0,0,0,.5),0 1px 2px rgba(0,0,0,.4);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased;
+  background-image:radial-gradient(1100px 520px at 50% -12%,rgba(196,151,58,.06),transparent 62%);background-attachment:fixed}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.03;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.wrap{max-width:960px;margin:0 auto;padding:0 28px;position:relative;z-index:2}
+.eyebrow{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);font-weight:600;display:flex;align-items:center;gap:12px}
+.eyebrow::before{content:"";width:30px;height:1px;background:var(--gold)}
+h1{font-family:'Chakra Petch',sans-serif;font-weight:700;line-height:1.02;font-size:clamp(38px,7vw,78px);margin:14px 0 6px;color:#fff;letter-spacing:.02em;text-transform:uppercase}
+header.hero{padding:60px 0 36px}
+.subhead{display:flex;flex-wrap:wrap;gap:8px 26px;color:var(--muted);font-size:14px;margin-top:12px}
+.subhead b{color:var(--ink);font-weight:600}
+.tag{display:inline-block;font-family:'IBM Plex Mono';font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#000;background:var(--gold);padding:5px 12px;border-radius:999px;font-weight:700}
+.back-link{display:inline-flex;align-items:center;gap:6px;font-family:'IBM Plex Mono';font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-decoration:none;margin-bottom:24px;transition:.2s}
+.back-link:hover{color:var(--gold)}
+section{padding:36px 0}
+.sec-h{display:flex;align-items:baseline;gap:16px;margin:0 0 24px}
+.sec-h h2{font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:22px}
+.sec-h .ix{font-family:'IBM Plex Mono';color:var(--gold);font-size:13px;font-weight:600}
+.sec-h .rule{flex:1;height:1px;background:var(--line)}
+
+/* Macros banner */
+.macro-bar{display:flex;align-items:center;flex-wrap:wrap;gap:12px 24px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 22px;margin-bottom:28px;box-shadow:var(--shadow)}
+.macro-bar .kcal{font-family:'Libre Franklin',sans-serif;font-weight:700;font-size:34px;color:var(--amber);line-height:1}
+.macro-bar .kcal small{font-size:14px;color:var(--muted);font-weight:500;font-family:'Inter'}
+.macro-bar .sep{flex:1}
+.macro-bar .mtag{font-family:'IBM Plex Mono';font-size:12px;border:1px solid var(--line);border-radius:8px;padding:6px 11px;color:var(--ink)}
+.macro-bar .mtag b{color:var(--amber)}
+
+/* Timeline */
+.timeline{display:flex;flex-direction:column;gap:0}
+.tl-item{display:grid;grid-template-columns:90px 1fr;gap:0}
+.tl-time-col{display:flex;flex-direction:column;align-items:center;padding-top:2px}
+.tl-time{font-family:'IBM Plex Mono';font-size:11px;color:var(--gold);font-weight:600;letter-spacing:.05em;white-space:nowrap}
+.tl-dot{width:10px;height:10px;border-radius:50%;background:var(--gold);border:2px solid var(--bg);margin:6px 0 0;flex-shrink:0}
+.tl-dot.cyan{background:var(--cyan)}
+.tl-dot.green{background:var(--green)}
+.tl-dot.blue{background:var(--blue)}
+.tl-dot.amber{background:var(--amber)}
+.tl-dot.coral{background:var(--coral)}
+.tl-line{width:2px;background:var(--line);flex:1;margin-top:4px;min-height:20px}
+.tl-item:last-child .tl-line{display:none}
+.tl-card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin:0 0 16px 16px;box-shadow:var(--shadow)}
+.tl-card.highlight{border-color:rgba(196,151,58,.3);background:rgba(196,151,58,.04)}
+.tl-card.cyan{border-color:rgba(79,195,247,.25);background:rgba(79,195,247,.03)}
+.tl-card.green{border-color:rgba(165,214,167,.2);background:rgba(165,214,167,.03)}
+.tl-card.amber{border-color:rgba(255,183,77,.25);background:rgba(255,183,77,.04)}
+.tl-card .tc-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px;flex-wrap:wrap}
+.tl-card .tc-nombre{font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:15px}
+.tl-card .tc-mac{font-family:'IBM Plex Mono';font-size:11px;color:var(--muted);white-space:nowrap}
+.tl-card .tc-mac b{color:var(--ink)}
+.meal-item{font-size:13px;color:var(--muted);padding:6px 0;border-bottom:1px solid var(--line);display:flex;align-items:baseline;gap:8px}
+.meal-item:last-child{border-bottom:none}
+.meal-item::before{content:"·";color:var(--gold);font-weight:700;flex-shrink:0}
+.meal-item b{color:var(--ink)}
+.note-box{margin-top:10px;background:var(--bg2);border:1px dashed var(--line);border-radius:8px;padding:9px 12px;font-size:12px;color:var(--faint)}
+.alts{margin-top:8px;padding:8px 12px;background:var(--bg2);border-radius:8px;border:1px solid var(--line)}
+.alts .alt-label{font-family:'IBM Plex Mono';font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin-bottom:4px}
+.alts .alt-item{font-size:12px;color:var(--muted);padding:3px 0}
+.alts .alt-item::before{content:"→ ";color:var(--faint)}
+
+/* Hidratación */
+.hidro-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-bottom:20px}
+.hcard{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 18px;box-shadow:var(--shadow)}
+.hcard .hl{font-size:12px;color:var(--muted);margin-bottom:4px}
+.hcard .hv{font-family:'Libre Franklin',sans-serif;font-weight:700;font-size:28px;color:var(--cyan)}
+.hcard .hs{font-family:'IBM Plex Mono';font-size:10px;color:var(--faint)}
+.hidro-nota{font-size:13px;color:var(--muted);line-height:1.6}
+.hidro-nota li{list-style:none;padding:5px 0 5px 16px;position:relative;border-bottom:1px solid var(--line)}
+.hidro-nota li:last-child{border-bottom:none}
+.hidro-nota li::before{content:"→";position:absolute;left:0;color:var(--cyan);font-size:11px;top:7px}
+.hidro-nota b{color:var(--ink)}
+
+footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
+.foot-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.foot-brand{font-family:'IBM Plex Mono';font-size:11px;color:var(--faint);letter-spacing:.1em}
+.foot-contact{font-size:12px;color:var(--faint)}
+@media(max-width:640px){
+  .wrap{padding:0 16px}
+  header.hero{padding:32px 0 24px}
+  .tl-item{grid-template-columns:72px 1fr}
+  .macro-bar{flex-direction:column;align-items:flex-start}
+  .macro-bar .sep{display:none}
+  .foot-inner{flex-direction:column;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <a class="back-link" href="miguel-tudela.html">← Plan nutricional</a>
+    <div class="eyebrow">Protocolo · Día de Competencia</div>
+    <h1>Miguel<br>Tudela</h1>
+    <div class="subhead">
+      <span><b>Mundial Punta Rocas</b></span>
+      <span>Heats de 20 min · hasta 3–4 por día</span>
+      <span class="tag">3 077 kcal</span>
+    </div>
+  </header>
+
+  <section>
+    <div class="sec-h"><span class="ix">01</span><h2>Plan Alimentario</h2><div class="rule"></div></div>
+
+    <div class="macro-bar">
+      <span class="kcal">3 077 <small>kcal</small></span>
+      <span class="sep"></span>
+      <span class="mtag"><b>163</b> P</span>
+      <span class="mtag"><b>460</b> C</span>
+      <span class="mtag"><b>65</b> G</span>
+    </div>
+
+    <div class="timeline">
+
+      <!-- DESAYUNO -->
+      <div class="tl-item">
+        <div class="tl-time-col">
+          <div class="tl-time">~6:00 AM</div>
+          <div class="tl-dot amber"></div>
+          <div class="tl-line"></div>
+        </div>
+        <div class="tl-card amber">
+          <div class="tc-head">
+            <span class="tc-nombre">☀️ Desayuno</span>
+            <span class="tc-mac"><b>637</b> kcal · 36P / 85C / 17G</span>
+          </div>
+          <div class="meal-item"><b>4 rebanadas de pan de camote</b> (30 g c/u)</div>
+          <div class="meal-item"><b>2 huevos</b> revueltos o sancochados</div>
+          <div class="meal-item"><b>150 g de arándanos</b></div>
+          <div class="alts">
+            <div class="alt-label">Alternativas de carbohidrato (elige 1 set)</div>
+            <div class="alt-item">4 tortillas rapiditas integrales</div>
+            <div class="alt-item">4 rebanadas de pan de molde integral</div>
+            <div class="alt-item">80 g de avena cocida</div>
+          </div>
+          <div class="note-box">☕ Café negro libre. Termina de desayunar con al menos 2 h antes del primer heat.</div>
+        </div>
+      </div>
+
+      <!-- PRE HEAT 1 -->
+      <div class="tl-item">
+        <div class="tl-time-col">
+          <div class="tl-time">~7:30 AM</div>
+          <div class="tl-dot cyan"></div>
+          <div class="tl-line"></div>
+        </div>
+        <div class="tl-card cyan">
+          <div class="tc-head">
+            <span class="tc-nombre">🥤 Pre Heat 1 · Extracto de beterraga</span>
+            <span class="tc-mac"><b>257</b> kcal · 5P / 57C / 1G</span>
+          </div>
+          <div class="meal-item"><b>Extracto de 2 beterragas</b> + zumo de <b>2 naranjas</b></div>
+          <div class="meal-item"><b>1 cda de miel de abeja</b> + kión + canela</div>
+          <div class="note-box">⚡ Tomar <b>20–30 min antes</b> del primer heat. Absorción rápida — es el mejor combustible para arrancaar el día.</div>
+        </div>
+      </div>
+
+      <!-- ENTRE HEATS -->
+      <div class="tl-item">
+        <div class="tl-time-col">
+          <div class="tl-time">Entre heats</div>
+          <div class="tl-dot"></div>
+          <div class="tl-line"></div>
+        </div>
+        <div class="tl-card highlight">
+          <div class="tc-head">
+            <span class="tc-nombre">⏱ Entre heats · Recarga rápida</span>
+          </div>
+          <div class="meal-item">Si pasan <b>más de 90 min</b> entre heats: <b>1 dátil Medjool (24 g)</b> + agua con electrolitos</div>
+          <div class="meal-item">Alternativa: <b>1 porción de fruta</b> (kiwi, arándanos, manzana)</div>
+          <div class="meal-item">Si pasan <b>menos de 90 min</b>: solo hidratación, no comer nada sólido</div>
+          <div class="note-box">💧 <b>500 mL por hora de espera en playa</b>, siempre con electrolitos. Llega bien hidratado desde la noche anterior.</div>
+        </div>
+      </div>
+
+      <!-- SNACK -->
+      <div class="tl-item">
+        <div class="tl-time-col">
+          <div class="tl-time">~11:00 AM</div>
+          <div class="tl-dot amber"></div>
+          <div class="tl-line"></div>
+        </div>
+        <div class="tl-card">
+          <div class="tc-head">
+            <span class="tc-nombre">🥪 Snack</span>
+            <span class="tc-mac"><b>295</b> kcal · 17P / 50C / 3G</span>
+          </div>
+          <div class="meal-item"><b>2 rebanadas de pan de molde blanco</b></div>
+          <div class="meal-item"><b>120 g de yogurt Quark</b> (cualquier sabor)</div>
+          <div class="meal-item"><b>1 dátil Medjool</b> o 1 porción de fruta</div>
+          <div class="alts">
+            <div class="alt-label">Alternativa de carbohidrato</div>
+            <div class="alt-item">2 rapiditas blancas</div>
+            <div class="alt-item">40 g de corn flakes</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PRE HEAT 2 -->
+      <div class="tl-item">
+        <div class="tl-time-col">
+          <div class="tl-time">~12:30 PM</div>
+          <div class="tl-dot cyan"></div>
+          <div class="tl-line"></div>
+        </div>
+        <div class="tl-card cyan">
+          <div class="tc-head">
+            <span class="tc-nombre">🍞 Pre Heat 2 · Pan con miel</span>
+            <span class="tc-mac"><b>198</b> kcal · 5P / 40C / 2G</span>
+          </div>
+          <div class="meal-item"><b>2 rebanadas de pan de molde blanco</b> + <b>1 cda de miel de abeja</b></div>
+          <div class="alts">
+            <div class="alt-label">Alternativa</div>
+            <div class="alt-item">30 g de Nestum + 1 cda de miel o mermelada</div>
+          </div>
+          <div class="note-box">⚡ Tomar <b>30–45 min antes</b> del heat de tarde. Aguanta más que el extracto.</div>
+        </div>
+      </div>
+
+      <!-- ALMUERZO -->
+      <div class="tl-item">
+        <div class="tl-time-col">
+          <div class="tl-time">~3:00 PM</div>
+          <div class="tl-dot green"></div>
+          <div class="tl-line"></div>
+        </div>
+        <div class="tl-card green">
+          <div class="tc-head">
+            <span class="tc-nombre">🥗 Almuerzo · Post sesión</span>
+            <span class="tc-mac"><b>845</b> kcal · 50P / 114C / 21G</span>
+          </div>
+          <div class="meal-item"><b>360 g de arroz cocido</b> (≈ 6 porciones)</div>
+          <div class="meal-item"><b>150 g de pechuga de pollo</b> (peso crudo)</div>
+          <div class="meal-item"><b>150 g de verduras</b> cocidas (espárragos, brócoli, zucchini)</div>
+          <div class="meal-item"><b>3 cdas de aceite de oliva</b> para cocinar o aderezar</div>
+          <div class="alts">
+            <div class="alt-label">Alternativas de carbohidrato (misma cantidad de porciones)</div>
+            <div class="alt-item">540 g de papa o camote cocido</div>
+            <div class="alt-item">360 g de quinua cocida</div>
+            <div class="alt-item">50 g de fideos (peso crudo) + 90 g de papa</div>
+          </div>
+          <div class="alts" style="margin-top:8px">
+            <div class="alt-label">Alternativas de proteína</div>
+            <div class="alt-item">150 g de pierna de pollo sin piel (peso crudo)</div>
+            <div class="alt-item">150 g de pescado</div>
+            <div class="alt-item">150 g de bistec o lomo</div>
+          </div>
+          <div class="note-box">* Consumir pescado 1–2 veces por semana y menestras 1 vez a la semana.</div>
+        </div>
+      </div>
+
+      <!-- CENA -->
+      <div class="tl-item">
+        <div class="tl-time-col">
+          <div class="tl-time">~8:00 PM</div>
+          <div class="tl-dot green"></div>
+          <div class="tl-line"></div>
+        </div>
+        <div class="tl-card green">
+          <div class="tc-head">
+            <span class="tc-nombre">🌙 Cena</span>
+            <span class="tc-mac"><b>845</b> kcal · 50P / 114C / 21G</span>
+          </div>
+          <div class="meal-item"><b>360 g de arroz cocido</b> (≈ 6 porciones)</div>
+          <div class="meal-item"><b>150 g de pechuga de pollo</b> (peso crudo)</div>
+          <div class="meal-item"><b>150 g de verduras</b> cocidas</div>
+          <div class="meal-item"><b>3 cdas de aceite de oliva</b> — o 2 cdas de <b>linaza/chía molida</b> + 1 cda aceite</div>
+          <div class="note-box">* 2 de las 3 grasas puedes cubrirlas con 2 cdas de linaza o chía molida. La otra la eliges de las opciones del almuerzo.</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="sec-h"><span class="ix">02</span><h2>Hidratación en Competencia</h2><div class="rule"></div></div>
+    <div class="hidro-grid">
+      <div class="hcard">
+        <div class="hl">Días de competencia</div>
+        <div class="hv">3.5 L</div>
+        <div class="hs">Mínimo · ajusta según calor</div>
+      </div>
+      <div class="hcard">
+        <div class="hl">En playa · por hora de espera</div>
+        <div class="hv">500 mL</div>
+        <div class="hs">Siempre con electrolitos</div>
+      </div>
+    </div>
+    <ul class="hidro-nota">
+      <li>Llega bien hidratado desde la noche anterior. No empieces a tomar recién en la playa.</li>
+      <li>Que tus orinas sean <b>claras</b> antes del primer heat.</li>
+      <li>Usa bebida con electrolitos durante la espera — no solo agua pura.</li>
+    </ul>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="sec-h"><span class="ix">03</span><h2>Notas de Competencia</h2><div class="rule"></div></div>
+    <ul class="hidro-nota">
+      <li><b>WADA te testea:</b> todo suplemento debe ser <b>Informed Sport</b> o <b>NSF Certified for Sport</b>. Sin excepción, aunque sea marca conocida.</li>
+      <li><b>Creatina:</b> 10 g al día, todos los días, compitas o no. Certificada.</li>
+      <li><b>Magnesio:</b> L-treonato o bisglicinato en la noche, 30–40 min antes de acostarte.</li>
+      <li><b>Café negro</b> libre, hasta 3 al día. Sin azúcar.</li>
+      <li>Heats de <b>20 minutos</b> — entre heats no necesitas recarga sólida si pasan menos de 90 min.</li>
+    </ul>
+  </section>
+
+</div>
+<footer><div class="wrap"><div class="foot-inner">
+  <div class="foot-brand">FRANJO TORRES BONDY · NUTRICIÓN</div>
+  <div class="foot-contact">franjo.torres.b@gmail.com &nbsp;·&nbsp; +51 992 832 991</div>
+</div></div></footer>
+</body>
+</html>
