@@ -251,9 +251,9 @@ const PATIENT = {
   slug:     'diego-cornejo',
   sexo:     'm',
   nombre:   'Diego Cornejo',
-  fecha:    '18.09.2026',
+  fecha:    '02.10.2026',
   tipoPlan: 'Hipocalórico · Hiperprotéico',
-  macros:   { kcal: 1995, p: 147, c: 234, g: 55 },
+  macros:   { kcal: 2100, p: 150, c: 250, g: 18 },
   hidratacion: [
     { label:'💧 Entrenamiento', valor:'2.8' },
     { label:'💧 Descanso',      valor:'2.5' },
@@ -274,6 +274,7 @@ const PATIENT = {
     { fecha:'06.07.2026', peso:70.2, tri:8.0, bi:4.5, sub:10.0, cresta:22.0, supra:11.0, abd:27.0, pierna:18.0, pant:5.5, s6:79.5, s8:106.0, brazRelaj:32.2, brazFlex:34.0, abdom:79.0, cadera:97.5, muslo:49.0, pantPer:33.0 },
     { fecha:'27.07.2026', peso:70.0, tri:7.0, bi:4.0, sub:9.0,  cresta:17.0, supra:9.0,  abd:23.0, pierna:16.0, pant:6.0,  s6:70.0, s8:91.0,  brazRelaj:32.0, brazFlex:34.4, abdom:78.0, cadera:98.0, muslo:49.8, pantPer:34.0 },
     { fecha:'18.09.2026', peso:67.5, tri:6.0, bi:2.0, sub:6.0,  cresta:15.0, supra:8.0,  abd:20.0, pierna:14.0, pant:5.5,  s6:59.5, s8:76.5, brazRelaj:31.5, brazFlex:35.0, abdom:75.5, cadera:94.0, muslo:48.3, pantPer:33.3, pctGrasa:11.9, fatKg:8.0, muscKg:31.9 },
+    { fecha:'02.10.2026', peso:65.6, tri:4.5, bi:1.5, sub:5.0, cresta:13.0, supra:5.0, abd:15.0, pierna:11.0, pant:5.0, s6:70.0, s8:91.0, brazRelaj:31.5, brazFlex:34.0, abdom:70.0, cadera:95.0, muslo:48.5, pantPer:33.5, icc:0.74 },
     { fecha:'16.10.2026', peso:67.5, tri:5.0, bi:2.0, sub:6.0,  cresta:14.0, supra:6.0,  abd:17.0, pierna:14.0, pant:5.0,  s6:53.0, s8:69.0, brazRelaj:32.5, brazFlex:35.5, abdom:72.0, cadera:95.0, muslo:49.0, pantPer:33.5, pctGrasa:11.0, fatKg:7.4, muscKg:33.2 },
   ],
 
@@ -342,8 +343,8 @@ const PATIENT = {
       ]},
     ], nota:'*Fines de semana si comes fuera, eliminamos este snack.' },
 
-    { id:'cen', nombre:'🌙 Cena', kcal:540, p:39, c:60, g:15, grupos:[
-      { label:'Escoge 01 · Carbohidrato', max:1, ops:[
+    { id:'cen', nombre:'🌙 Cena', kcal:620, p:41, c:75, g:16, grupos:[
+      { label:'Escoge 02 · Carbohidrato', max:2, ops:[
         '90 g de papa o camote',
         '60 g de arroz',
         '60 g de quinua',
@@ -367,6 +368,20 @@ const PATIENT = {
       { label:'Escoge 01 · Verduras o berries', max:1, ops:[
         '150 g de verduras cocidas',
         '1 puñado de berries',
+      ]},
+    ]},
+
+    { id:'pre', nombre:'⚡ Pre Entreno · Gym y Fútbol', kcal:0, p:0, c:0, g:0, grupos:[
+      { label:'Escoge 01', max:1, ops:[
+        '1 plátano + 1 cda de miel',
+        '1 rebanada de pan blanco + 1 cda de mermelada',
+      ]},
+    ]},
+
+    { id:'post', nombre:'💪 Post Entreno · Gym y Fútbol', kcal:0, p:0, c:0, g:0, grupos:[
+      { label:'Escoge 01', max:1, ops:[
+        '100 g de Quark + 1 porción de fruta (ver especificaciones)',
+        '1 rapidita + 30 g de queso mozzarella light (Cuisine&Co) — puedes agregarle verduras',
       ]},
     ]},
   ],
@@ -1040,6 +1055,8 @@ init();
 <script>(function(){function _inj(){document.querySelectorAll('.meal[data-mealid]').forEach(function(el){if(typeof injectMealLog==='function')injectMealLog(el);});if(typeof injectGuardarBtn==='function')document.querySelectorAll('.meals').forEach(injectGuardarBtn);}  _inj();setTimeout(_inj,300);setTimeout(_inj,800);})();</script>
 <script src="guia-data.js"></script>
 <script src="comer-fuera.js"></script>
+<script src="recetario-data.js"></script>
+<script src="recetario-plan.js"></script>
 <script src="plan-pdf.js"></script>
 <script src="peso-tracker.js?v=3"></script>
 </body>
