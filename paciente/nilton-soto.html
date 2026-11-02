@@ -155,6 +155,42 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
   h1{font-size:clamp(32px,10vw,56px)}
   .tab{padding:12px 10px;font-size:11px}
 }
+/* ── Entrenamiento ── */
+.weeksel{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:20px}
+.wbtn{appearance:none;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 16px;cursor:pointer;display:flex;align-items:center;gap:8px;transition:.2s;color:var(--ink)}
+.wbtn.active{border-color:var(--navy);background:rgba(196,151,58,.08)}
+.wbtn .wdot{width:9px;height:9px;border-radius:50%}
+.wbtn .wn{font-family:'IBM Plex Mono';font-size:12px;font-weight:700}
+.wbtn .wp{font-family:'IBM Plex Mono';font-size:10px}
+.train-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:20px;min-height:40px}
+.sess{background:var(--panel);border:1px solid var(--line);border-radius:14px;margin-bottom:14px;overflow:hidden;box-shadow:var(--shadow)}
+.sh{display:flex;align-items:center;gap:12px;padding:16px 20px;cursor:pointer;user-select:none;background:var(--panel2)}
+.sh h3{font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:17px;flex:1}
+.snum{font-family:'IBM Plex Mono';font-size:11px;color:var(--navy);font-weight:700;flex-shrink:0}
+.scount{font-family:'IBM Plex Mono';font-size:10px;color:var(--muted);flex-shrink:0}
+.chev{color:var(--faint);font-size:20px;transition:transform .25s}
+.sess.open .chev{transform:rotate(90deg)}
+.sbody{display:none;padding:12px 16px 16px}
+.sess.open .sbody{display:block}
+.exq{display:flex;gap:14px;padding:10px 0;border-top:1px solid var(--line)}
+.exq:first-child{border-top:none}
+.thumb{width:80px;height:80px;flex-shrink:0;border-radius:10px;overflow:hidden;background:var(--panel2);border:1px solid var(--line)}
+.ebody{flex:1;min-width:0}
+.ebody .nm{font-size:13.5px;font-weight:600;color:var(--ink);margin-bottom:6px;line-height:1.3}
+.meta{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+.mpill{font-family:'IBM Plex Mono';font-size:10.5px;padding:3px 9px;border-radius:6px;border:1px solid var(--line);color:var(--muted)}
+.mpill b{color:var(--navy)}
+.mpill.rir{border-color:var(--coral);color:var(--coral)}
+.mpill.rir-f{border-color:var(--coral2);color:var(--coral2)}
+.mpill.rest{color:var(--faint)}
+.sets{display:flex;flex-wrap:wrap;gap:8px}
+.setbox{background:var(--panel2);border:1px solid var(--line);border-radius:9px;padding:8px 10px;min-width:80px;text-align:center}
+.setbox.filled{border-color:rgba(196,151,58,.4);background:rgba(196,151,58,.06)}
+.sl{font-family:'IBM Plex Mono';font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin-bottom:4px}
+.un{font-family:'IBM Plex Mono';font-size:10px;color:var(--faint);margin-top:2px}
+.setbox input{width:52px;background:none;border:none;text-align:center;font-family:'Libre Franklin',sans-serif;font-size:16px;font-weight:700;color:var(--ink);outline:none}
+.setbox input::placeholder{color:var(--faint);font-weight:400}
+.gold{color:var(--navy)}
 </style>
 <link rel="stylesheet" href="paciente.css">
 </head>
@@ -206,6 +242,7 @@ const PATIENT = {
     'Disminución de sumatoria de 8 pliegues (Σ8 actual = 61 mm)',
     'Realizar mínimo 10 mil pasos al día',
     'Mejora en rendimiento deportivo',
+    'Entrenamiento de hipertrofia: 8 series semanales de deltoides laterales y posteriores, 8 series de bíceps y 8 series de tríceps — dividido en 2 sesiones',
   ],
 
   comidas: [
@@ -362,7 +399,28 @@ const PATIENT = {
   ],
 
   notaSpecs: 'Mantenerse lo más estricto posible con las porciones. Pre-entrenamiento adicional según el tipo de entrenamiento del día.',
-  entrenamiento: null,
+
+  entrenamiento: {
+    fases: [
+      { label:'Micro 1', semanas:1, color:'#4fc3f7', bg:'#0d3d50' },
+      { label:'Micro 2', semanas:1, color:'#29b6f6', bg:'#0d3d50' },
+      { label:'Micro 3', semanas:1, color:'#C4973A', bg:'#4d3a0d' },
+    ],
+    sesiones: [
+      { id:'s1', icon:'💪', label:'Sesión 1 — Deltoides · Bíceps · Tríceps', nota:'Deltoides · Bíceps · Tríceps', ejercicios:[
+        { nombre:'Elevaciones laterales con mancuernas',   img:'gif',  s1:'img/elevaciones-laterales-mancuerna.jpg',                                              s2:'',                                                                              reps:'12', prog:[[2,2],[2,1],[2,null]], descanso:'2:00' },
+        { nombre:'Deltoide posterior con mancuernas',      img:'anim', s1:'Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench/0.jpg',                         s2:'Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench/1.jpg',                   reps:'12', prog:[[2,2],[2,1],[2,null]], descanso:'2:00' },
+        { nombre:'Curl de bícep en banco Scott',           img:'anim', s1:'Preacher_Curl/0.jpg',                                                                  s2:'Preacher_Curl/1.jpg',                                                           reps:'10', prog:[[4,2],[4,1],[4,null]], descanso:'2:00' },
+        { nombre:'Extensión de trícep en polea alta',      img:'anim', s1:'Triceps_Pushdown/0.jpg',                                                               s2:'Triceps_Pushdown/1.jpg',                                                        reps:'10', prog:[[4,2],[4,1],[4,null]], descanso:'2:00' },
+      ]},
+      { id:'s2', icon:'🔥', label:'Sesión 2 — Deltoides · Bíceps · Tríceps', nota:'Deltoides · Bíceps · Tríceps', ejercicios:[
+        { nombre:'Elevaciones laterales con mancuernas',   img:'gif',  s1:'img/elevaciones-laterales-mancuerna.jpg',                                              s2:'',                                                                              reps:'12', prog:[[2,2],[2,1],[2,null]], descanso:'2:00' },
+        { nombre:'Deltoide posterior con mancuernas',      img:'anim', s1:'Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench/0.jpg',                         s2:'Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench/1.jpg',                   reps:'12', prog:[[2,2],[2,1],[2,null]], descanso:'2:00' },
+        { nombre:'Curl de bícep en banco Scott',           img:'anim', s1:'Preacher_Curl/0.jpg',                                                                  s2:'Preacher_Curl/1.jpg',                                                           reps:'10', prog:[[4,2],[4,1],[4,null]], descanso:'2:00' },
+        { nombre:'Extensión de trícep en polea alta',      img:'anim', s1:'Triceps_Pushdown/0.jpg',                                                               s2:'Triceps_Pushdown/1.jpg',                                                        reps:'10', prog:[[4,2],[4,1],[4,null]], descanso:'2:00' },
+      ]},
+    ],
+  },
 };
 
 // ════════════════════════════════════════════════════════════════════════════
@@ -383,8 +441,10 @@ function renderTabs() {
     {id:'plan',       label:'Plan Nutricional'},
     {id:'eval',       label:'Evaluación'},
     {id:'specs',      label:'Especificaciones'},
-    {id:'evol-antro', label:'Evolución Física'},
   ];
+  if (PATIENT.entrenamiento) tabs.push({id:'train', label:'Entrenamiento'});
+  tabs.push({id:'evol-antro', label:'Evolución Física'});
+
   $('tabNav').innerHTML = tabs.map((t,i) => {
     const extra = t.id==='evol-antro' ? ";initAntro()" : "";
     return `<button class="tab${i===0?' active':''}" onclick="showTab('${t.id}',this)${extra}">
@@ -695,6 +755,132 @@ function addAntroEntry() {
   flashSave();
 }
 
+// ── Entrenamiento ──────────────────────────────────────────────────────────
+const BASE_IMG = 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/';
+let currentWeek = 1;
+let WEEKS = [];
+
+function buildWEEKS() {
+  WEEKS = [];
+  PATIENT.entrenamiento.fases.forEach(f => {
+    for (let w = 0; w < f.semanas; w++) {
+      WEEKS.push({ n: WEEKS.length + 1, label: `Semana ${WEEKS.length + 1}`, faseLabel: f.label, color: f.color, bg: f.bg });
+    }
+  });
+}
+
+function renderTrain() {
+  if (!PATIENT.entrenamiento) return;
+  buildWEEKS();
+  const el = $('tab-train'); if (!el) return;
+  el.innerHTML = `<div class="wrap"><section style="padding-top:24px">
+    <div class="sec-h"><span class="ix">01</span><h2>Programa de Entrenamiento</h2><div class="rule"></div></div>
+    <div id="weeksel" class="weeksel"></div>
+    <div id="trainHead" class="train-head"></div>
+    <div id="sessions"></div>
+  </section></div>`;
+  buildWeekSel();
+  buildTrainHead(WEEKS[0]);
+  $('sessions').innerHTML = buildSessions(1);
+  loadTrainValues();
+}
+
+function buildWeekSel() {
+  $('weeksel').innerHTML = WEEKS.map(w =>
+    `<button class="wbtn${w.n===1?' active':''}" onclick="setWeek(${w.n},this)">
+      <span class="wdot" style="background:${w.color}"></span>
+      <span class="wn">${w.label}</span>
+      <span class="wp" style="color:${w.color}">${w.faseLabel}</span>
+    </button>`
+  ).join('');
+}
+
+function buildTrainHead(w) {
+  $('trainHead').innerHTML = `<span class="badge" style="background:${w.bg};color:#fff;font-family:'IBM Plex Mono';font-size:11px;font-weight:700;padding:5px 12px;border-radius:8px;">${w.label} · ${w.faseLabel}</span>
+    <button id="saveSessionBtn" onclick="saveSession()" style="margin-left:auto;background:var(--navy);color:#000;border:none;border-radius:8px;padding:7px 16px;font-size:13px;font-weight:700;cursor:pointer;transition:background .2s,color .2s">Guardar sesión</button>`;
+}
+
+function setWeek(n, btn) {
+  document.querySelectorAll('#sessions input[data-key]').forEach(function(inp){if(inp.value!=='')localStorage.setItem(inp.dataset.key,inp.value);});
+  currentWeek = n;
+  document.querySelectorAll('.wbtn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const w = WEEKS.find(x=>x.n===n);
+  buildTrainHead(w);
+  $('sessions').innerHTML = buildSessions(n);
+  loadTrainValues();
+}
+
+function saveSession(){document.querySelectorAll('#sessions input[data-key]').forEach(function(inp){if(inp.value!=='')localStorage.setItem(inp.dataset.key,inp.value);});var btn=document.getElementById('saveSessionBtn');if(btn){btn.textContent='✓ Guardado';btn.style.background='#26a69a';setTimeout(function(){btn.textContent='Guardar sesión';btn.style.background='';},2000);}}
+
+function buildThumb(ex) {
+  if (ex.img === 'anim') {
+    return `<div class="thumb" style="position:relative">
+      <img src="${BASE_IMG}${ex.s1}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .3s" onmouseover="this.style.opacity=0;this.nextElementSibling.style.opacity=1" onmouseout="this.style.opacity=1;this.nextElementSibling.style.opacity=0" loading="lazy">
+      <img src="${BASE_IMG}${ex.s2}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .3s" loading="lazy">
+    </div>`;
+  }
+  return `<div class="thumb"><img src="${ex.gif||ex.s1}" loading="lazy" style="width:100%;height:100%;object-fit:cover"></div>`;
+}
+
+function rirLabel(rir) {
+  if (rir === null || rir === undefined) return { text:null, cls:'' };
+  if (rir === 'F') return { text:'A fallo', cls:'rir-f' };
+  if (rir === 0)   return { text:'RIR 0', cls:'rir' };
+  return { text:`RIR ${rir}`, cls:'' };
+}
+
+function buildSessions(week) {
+  return PATIENT.entrenamiento.sesiones.map((sess, si) => {
+    const exRows = sess.ejercicios.map((ex, ei) => {
+      const [series, rir] = ex.prog[week-1];
+      const rl = rirLabel(rir);
+      const sets = Array.from({length:series},(_,si2) => {
+        const k = trainKey(sess.id, ei, si2);
+        return `<div class="setbox"><div class="sl">Serie ${si2+1}</div>
+          <input type="number" inputmode="decimal" placeholder="—" data-key="${k}" oninput="saveTrainInput(this)" onchange="saveTrainInput(this)" onblur="saveTrainInput(this)">
+          <div class="un">kg</div></div>`;
+      }).join('');
+      const notaHtml = ex.nota ? `<span style="font-size:11px;color:var(--faint);display:block;margin-top:3px">${ex.nota}</span>` : '';
+      return `<div class="exq">${buildThumb(ex)}
+        <div class="ebody">
+          <div class="nm">${ex.nombre}${notaHtml}</div>
+          <div class="meta">
+            <span class="mpill"><b>${series}×${ex.reps}</b></span>
+            ${rl.text ? `<span class="mpill ${rl.cls}"><b>${rl.text}</b></span>` : ''}
+            <span class="mpill rest">Descanso <b>${ex.descanso}</b></span>
+          </div>
+          <div class="sets">${sets}</div>
+        </div></div>`;
+    }).join('');
+    return `<div class="sess open">
+      <div class="sh" onclick="this.closest('.sess').classList.toggle('open')">
+        <span class="snum">0${si+1}</span><span style="font-size:20px">${sess.icon}</span>
+        <h3>${sess.label}</h3>
+        <span class="scount">${sess.ejercicios.length} ejercicios · ${sess.nota}</span>
+        <span class="chev">›</span>
+      </div>
+      <div class="sbody">${exRows}</div>
+    </div>`;
+  }).join('');
+}
+
+function trainKey(sessId, exIdx, setIdx) { return `${PATIENT.slug}-train-s${currentWeek}-${sessId}-${exIdx}-s${setIdx}`; }
+
+function saveTrainInput(input) {
+  localStorage.setItem(input.dataset.key, input.value);
+  input.closest('.setbox').classList.toggle('filled', input.value !== '');
+  flashSave();
+}
+
+function loadTrainValues() {
+  document.querySelectorAll('#sessions input[data-key]').forEach(inp => {
+    const val = localStorage.getItem(inp.dataset.key) || '';
+    inp.value = val;
+    inp.closest('.setbox').classList.toggle('filled', val !== '');
+  });
+}
+
 // ── Utils ──────────────────────────────────────────────────────────────────
 function flashSave() {
   clearTimeout(saveTimer);
@@ -708,6 +894,7 @@ function init() {
   renderNutr();
   renderEval();
   renderSpecs();
+  renderTrain();
 }
 
 init();
