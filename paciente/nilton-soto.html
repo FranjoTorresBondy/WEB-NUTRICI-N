@@ -222,7 +222,7 @@ const PATIENT = {
   fecha:    '02.11.2026',
   sexo:     'm',
   tipoPlan: 'Hipocalórico · Hiperproteico',
-  macros:   { kcal: 1900, p: 130, c: 226, g: 55 },
+  macros:   { kcal: 2060, p: 134, c: 256, g: 57 },
   hidratacion: [
     { label:'💧 Entrenamiento', valor:'3.0' },
     { label:'💧 Descanso',      valor:'2.5' },
@@ -246,8 +246,8 @@ const PATIENT = {
   ],
 
   comidas: [
-    { id:'des', nombre:'☀️ Desayuno', kcal:315, p:19, c:42, g:9, grupos:[
-      { label:'Escoge 02 · Carbohidrato', max:2, ops:[
+    { id:'des', nombre:'☀️ Desayuno', kcal:475, p:23, c:72, g:11, grupos:[
+      { label:'Escoge 04 · Carbohidrato', max:4, ops:[
         '1 tortilla rapidita',
         '1 rebanada de pan de molde (30 g)',
         '20 g de avena (peso crudo)',
@@ -337,14 +337,14 @@ const PATIENT = {
       ]},
     ], nota:'*Tener en cuenta como porción de grasa el aceite usado en las preparaciones.' },
 
-    { id:'pre1', nombre:'⚡ Pre-entreno · Prep. Física', kcal:80, p:1, c:20, g:1, grupos:[
+    { id:'pre1', nombre:'⚡ Pre-entreno · Prep. Física', kcal:93, p:1, c:20, g:1, grupos:[
       { label:'Escoge 01', max:1, ops:[
         '1 plátano pequeño + 1 cdta de miel',
         '1 rebanada de pan blanco + 1 cda de mermelada',
       ]},
     ], nota:'Consumir 30–45 min antes del entrenamiento de preparación física.' },
 
-    { id:'pre2', nombre:'🥊 Pre-entreno · Lucha', kcal:150, p:2, c:38, g:1, grupos:[
+    { id:'pre2', nombre:'🥊 Pre-entreno · Lucha', kcal:169, p:2, c:38, g:1, grupos:[
       { label:'Escoge 01', max:1, ops:[
         '1 plátano mediano + 2 cdas de miel',
         '2 rebanadas de pan blanco + 2 cdas de mermelada',
