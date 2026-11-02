@@ -245,21 +245,27 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 const PATIENT = {
   slug:     'nicolas-holz',
   nombre:   'Nicolás\nHolz',
-  fecha:    '22.07.2026',
+  fecha:    '02.10.2026',
   tipoPlan: 'Normocalórico · Hiperprotéico',
-  macros:   { kcal: 2156, p: 135, c: 264, g: 60 },
+  macros:   { kcal: 2100, p: 135, c: 254, g: 60 },
   hidratacion: [
     { label:'💧 Entrenamiento', valor:'3.2' },
     { label:'💧 Descanso',      valor:'3.0' },
   ],
   antro: {
-    fecha:'22.07.2026', peso:88.0, talla:180.0, imc:27.2,
-    tri:13.0, bi:5.0, sub:13.0, cresta:31.0, supra:14.0, abd:27.0, pierna:21.0, pant:13.0,
-    brazRelaj:35.3, brazFlex:39.0, abdom:83.0, cadera:104.5, muslo:58.0, pantPer:39.6,
+    fecha:'02.10.2026', peso:92.0, talla:180.0, imc:28.4,
+    tri:8.0, bi:3.0, sub:14.0, cresta:33.0, supra:17.0, abd:34.0, pierna:27.0, pant:15.0,
+    s6:115.0, s8:151.0,
+    brazRelaj:38.0, brazFlex:39.0, abdom:86.0, cadera:108.0, muslo:59.5, pantPer:40.0,
     diam: { humero:7.0, biEstiloideo:5.6, femur:10.5 },
   },
+  antroHistorial: [
+    { fecha:'22.07.2026', peso:88.0, talla:180.0, imc:27.2,
+      tri:13.0, bi:5.0, sub:13.0, cresta:31.0, supra:14.0, abd:27.0, pierna:21.0, pant:13.0,
+      brazRelaj:35.3, brazFlex:39.0, abdom:83.0, cadera:104.5, muslo:58.0, pantPer:39.6 },
+  ],
   objetivos: [
-    'Déficit calórico: disminuir Σ8 pliegues a 130 mm para el próximo control.',
+    'Déficit calórico: disminuir sumatoria de pliegues en 10–15 mm para el próximo control.',
     'Cumplir requerimientos hídricos diarios.',
     'Llegar bien hidratado a los entrenamientos.',
   ],
@@ -274,15 +280,15 @@ const PATIENT = {
         '1 rebanada de pan de molde (30 g)',
       ]},
       { label:'Escoge 01 · Fruta', max:1, ops:[
-        '2 porciones de fruta (ver especificaciones)',
-        '1 plátano mediano',
-        '200 g de berries',
+        '1 porción de fruta (ver especificaciones)',
+        '1 plátano pequeño',
+        '100 g de berries',
       ]},
       { label:'Escoge 01 · Proteína', max:1, ops:[
-        '2 huevos enteros',
-        '1 scoop de proteína aislada + 1 porción de frutos secos (ver especificaciones)',
-        '80 g de pollo + 40 g de palta',
-        '1 lata de atún en agua + 30 g de palta',
+        '100 g de pollo + 40 g de palta',
+        '1 lata de atún en agua + 40 g de palta',
+        '60 g de queso mozzarella light (Cuisine & Co) + 1 huevo',
+        '3 huevos',
         '200 g de yogurt Vakimu Quark + 1 porción de frutos secos (ver especificaciones)',
       ]},
       { label:'Opción Batido 01', max:1, ops:[
@@ -302,7 +308,7 @@ const PATIENT = {
         '50 g de fideos',
       ]},
       { label:'Escoge 01 · Verdura', max:1, ops:[
-        '150 g de mix de verduras cocidas',
+        '150 g de mix de verduras (consumir más crudas para mayor saciedad)',
       ]},
       { label:'Escoge 01 · Proteína', max:1, ops:[
         '200 g de pollo',
@@ -320,7 +326,7 @@ const PATIENT = {
         '3 unidades de kisses milk chocolate',
         '6 aceitunas',
       ]},
-    ], nota:'*Si estás en la universidad: 1 bowl o 1 wrap de Lifegreen, o 1 wrap o bowl de Pickadeli.' },
+    ], nota:'*Si estás en la universidad: 1 bowl o 1 wrap de Lifegreen, o 1 wrap o bowl de Pickadeli.<br>**Puedes reemplazar tu cena por 1 ajinomen + 200 g de proteína + 1 porción de grasas.' },
 
     { id:'cen', nombre:'🌙 Cena', kcal:825, p:55, c:96, g:23, grupos:[
       { label:'Escoge 05 · Carbohidrato', max:5, ops:[
@@ -334,7 +340,7 @@ const PATIENT = {
         '20 g de granola',
       ]},
       { label:'Escoge 01 · Verdura', max:1, ops:[
-        '150 g de mix de verduras cocidas',
+        '150 g de mix de verduras (consumir más crudas para mayor saciedad)',
       ]},
       { label:'Escoge 01 · Proteína', max:1, ops:[
         '200 g de pollo',
@@ -344,6 +350,7 @@ const PATIENT = {
         '2 latas de atún en agua',
         '1 milanesa de Avinka',
         '1 ramen Konjac&Co',
+        '1 huevo + 8 claras (320 g)',
       ]},
       { label:'Escoge 02 · Grasa', max:2, ops:[
         '60 g de palta',
@@ -351,9 +358,9 @@ const PATIENT = {
         '1 porción de frutos secos (ver especificaciones)',
         '6 aceitunas',
       ]},
-    ], nota:'*Si estás en la universidad: 1 bowl o 1 wrap de Lifegreen, o 1 wrap o bowl de Pickadeli. · Puedes hacerte hamburguesas con la carne molida.' },
+    ], nota:'*Si estás en la universidad: 1 bowl o 1 wrap de Lifegreen, o 1 wrap o bowl de Pickadeli.<br>*Puedes hacerte hamburguesas con la carne molida.<br>*Puedes reemplazar tu cena por 1 ajinomen + 200 g de proteína + 1 porción de grasas.' },
   ],
-  preEntreno: '1 plátano o 2 porciones de fruta (ver especificaciones).',
+  preEntreno: '1 plátano / 2 porciones de fruta (ver especificaciones).',
   specs: [
     { titulo:'🥤 Bebidas', items:[
       'Agua, infusiones (manzanilla, anís, té, muña, hierba luisa, flor de Jamaica)',
@@ -395,7 +402,7 @@ const PATIENT = {
     { nombre:'Salsa verde',            desc:'1 molde queso fresco light + 1 atado albahaca + 2 dientes ajo soazados + sal y pimienta + 1 cda aceite olivo + leche evaporada light (100–150 ml) hasta lograr textura' },
     { nombre:'Salsa roja',             desc:'Tomate, cebolla, ajo, albahaca, poro + Lakanto o Stevia + sal, pimienta y tomillo + 1 cda aceite olivo' },
   ],
-  notaSpecs: 'Plan base = 2 156 kcal (día de descanso). Días de entrenamiento: agregar pre entreno (+80–100 kcal). Hidratación entreno: 3.2 L · descanso: 3.0 L. Procura que tus orinas sean siempre claras.',
+  notaSpecs: 'Plan base = 2 100 kcal (día de descanso). Días de entrenamiento: agregar pre entreno (+80–100 kcal). Hidratación entreno: 3.2 L · descanso: 3.0 L. Procura que tus orinas sean siempre claras.',
   entrenamiento: {
     fases: [
       { label:'Acumulación',     semanas:4, color:'#4fc3f7', bg:'#0d47a1' },
@@ -966,6 +973,8 @@ renderTrain();
 <script>(function(){function _inj(){document.querySelectorAll('.meal[data-mealid]').forEach(function(el){if(typeof injectMealLog==='function')injectMealLog(el);});if(typeof injectGuardarBtn==='function')document.querySelectorAll('.meals').forEach(injectGuardarBtn);}  _inj();setTimeout(_inj,300);setTimeout(_inj,800);})();</script>
 <script src="guia-data.js"></script>
 <script src="comer-fuera.js"></script>
+<script src="recetario-data.js"></script>
+<script src="recetario-plan.js"></script>
 <script src="plan-pdf.js"></script>
 <script src="peso-tracker.js?v=3"></script>
 </body>
