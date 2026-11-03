@@ -151,6 +151,38 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
   h1{font-size:clamp(32px,10vw,56px)}
   .tab{padding:12px 10px;font-size:11px}
 }
+.weeksel{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+.wbtn{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:8px 14px;cursor:pointer;display:flex;align-items:center;gap:8px;transition:.15s;color:var(--ink)}
+.wbtn:hover,.wbtn.active{border-color:var(--navy);background:rgba(196,151,58,.08)}
+.wdot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.wn{font-family:'IBM Plex Mono';font-size:11px;font-weight:600}
+.wp{font-size:10px;font-family:'IBM Plex Mono'}
+.train-head{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.sess{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:14px;box-shadow:var(--shadow)}
+.sh{display:flex;align-items:center;gap:12px;padding:16px 20px;cursor:pointer;background:var(--panel2)}
+.snum{font-family:'IBM Plex Mono';font-size:11px;color:var(--faint)}
+.sh h3{font-family:'Libre Franklin';font-size:18px;font-weight:600}
+.scount{font-size:12px;color:var(--muted);margin-left:auto}
+.chev{color:var(--faint);font-size:20px;transition:.2s;margin-left:8px}
+.sess.open .chev{transform:rotate(90deg)}
+.sbody{display:none;padding:16px 20px}
+.sess.open .sbody{display:block}
+.exq{display:flex;gap:14px;margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid var(--line)}
+.exq:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.thumb{width:90px;height:90px;border-radius:10px;overflow:hidden;flex-shrink:0;background:var(--panel2)}
+.ebody{flex:1;min-width:0}
+.nm{font-family:'Libre Franklin';font-size:14px;font-weight:600;margin-bottom:6px}
+.meta{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.mpill{font-family:'IBM Plex Mono';font-size:11px;background:var(--panel2);border:1px solid var(--line);border-radius:6px;padding:3px 8px}
+.mpill.rir{background:rgba(239,154,154,.12);border-color:rgba(239,154,154,.3);color:var(--coral)}
+.mpill.rir-f{background:rgba(239,83,80,.15);border-color:rgba(239,83,80,.4);color:#ef5350}
+.mpill.rest{color:var(--cyan)}
+.sets{display:flex;flex-wrap:wrap;gap:8px}
+.setbox{display:flex;align-items:center;gap:6px;background:var(--panel2);border:1px solid var(--line);border-radius:9px;padding:6px 10px;transition:.15s}
+.setbox.filled{border-color:rgba(196,151,58,.4);background:rgba(196,151,58,.06)}
+.sl{font-family:'IBM Plex Mono';font-size:10px;color:var(--faint);white-space:nowrap}
+.setbox input{width:52px;background:transparent;border:none;color:var(--ink);font-family:'IBM Plex Mono';font-size:14px;font-weight:700;text-align:center;outline:none}
+.un{font-family:'IBM Plex Mono';font-size:10px;color:var(--faint)}
 </style>
 <link rel="stylesheet" href="paciente.css">
 </head>
@@ -352,7 +384,145 @@ const PATIENT = {
     ]},
   ],
   notaSpecs: 'Plan base = 1 610 kcal (día de descanso). Agregar pre-entreno los días de entrenamiento. Hidratación: entreno 3.9 L · descanso 2.9 L. Procura que tus orinas sean siempre claras.',
-  entrenamiento: null,
+  entrenamiento: {
+    fases: [
+      { label:'Semana 1',  semanas:1, color:'var(--cyan)',  bg:'#0d3d50' },
+      { label:'Semana 2',  semanas:1, color:'#4fc3f7',     bg:'#0d3d50' },
+      { label:'Semana 3',  semanas:1, color:'var(--coral)', bg:'#5c2020' },
+      { label:'Semana 4',  semanas:1, color:'#ef5350',     bg:'#5c2020' },
+      { label:'Semana 5',  semanas:1, color:'var(--cyan)',  bg:'#0d3d50' },
+      { label:'Semana 6',  semanas:1, color:'#4fc3f7',     bg:'#0d3d50' },
+      { label:'Semana 7',  semanas:1, color:'var(--coral)', bg:'#5c2020' },
+      { label:'Semana 8',  semanas:1, color:'#ef5350',     bg:'#5c2020' },
+      { label:'Semana 9',  semanas:1, color:'var(--cyan)',  bg:'#0d3d50' },
+      { label:'Semana 10', semanas:1, color:'#4fc3f7',     bg:'#0d3d50' },
+      { label:'Semana 11', semanas:1, color:'var(--coral)', bg:'#5c2020' },
+      { label:'Semana 12', semanas:1, color:'#ef5350',     bg:'#5c2020' },
+    ],
+    sesiones: [
+      { id:'s1', icon:'🦵', label:'Sesión 1 — Lower 1', nota:'Pierna · Glúteo · Core', ejercicios:[
+        { nombre:'Hack squat', img:'anim', s1:'Hack_Squat/0.jpg', s2:'Hack_Squat/1.jpg',
+          reps:'6', descanso:'3:00', nota:'Movimiento controlado y con full ROM.',
+          prog:[[2,1],[2,1],[2,1],[2,1],[2,1],[2,1],[2,1],[2,1],[2,1],[2,1],[2,1],[2,1]] },
+        { nombre:'Hip thrust', img:'anim', s1:'Barbell_Hip_Thrust/0.jpg', s2:'Barbell_Hip_Thrust/1.jpg',
+          reps:'8', descanso:'2:00', nota:'Mantener espalda recta, movimiento de pura bisagra de cadera.',
+          prog:[[2,1],[2,1],[2,1],[2,1],[2,1],[2,1],[2,1],[2,1],[2,1],[2,1],[2,1],[2,1]] },
+        { nombre:'Flexión de rodilla en máquina sentado (isquios)', img:'anim', s1:'Seated_Leg_Curl/0.jpg', s2:'Seated_Leg_Curl/1.jpg',
+          reps:'10', descanso:'2:00',
+          prog:[[3,0],[3,0],[3,0],[3,0],[3,0],[3,0],[3,0],[3,0],[3,0],[3,0],[3,0],[3,0]] },
+        { nombre:'Búlgaras', img:'anim', s1:'Split_Squat_with_Dumbbells/0.jpg', s2:'Split_Squat_with_Dumbbells/1.jpg',
+          reps:'8', descanso:'2:00',
+          prog:[[4,1],[4,1],[4,1],[4,1],[4,1],[4,1],[4,1],[4,1],[4,1],[4,1],[4,1],[4,1]] },
+        { nombre:'Aducción de cadera', img:'anim', s1:'Thigh_Adductor/0.jpg', s2:'Thigh_Adductor/1.jpg',
+          reps:'10', descanso:'2:00',
+          prog:[[2,0],[2,0],[2,0],[2,0],[2,0],[2,0],[2,0],[2,0],[2,0],[2,0],[2,0],[2,0]] },
+        { nombre:'Leg raises en banco declinado', img:'anim', s1:'Flat_Bench_Lying_Leg_Raise/0.jpg', s2:'Flat_Bench_Lying_Leg_Raise/1.jpg',
+          reps:'10', descanso:'1:00',
+          prog:[[4,0],[4,0],[4,0],[4,0],[4,0],[4,0],[4,0],[4,0],[4,0],[4,0],[4,0],[4,0]] },
+        { nombre:'Pantorrilla en máquina o multipower', img:'anim', s1:'Standing_Calf_Raises/0.jpg', s2:'Standing_Calf_Raises/1.jpg',
+          reps:'10', descanso:'1:00',
+          prog:[[4,'F'],[4,'F'],[4,'F'],[4,'F'],[4,'F'],[4,'F'],[4,'F'],[4,'F'],[4,'F'],[4,'F'],[4,'F'],[4,'F']] },
+      ]},
+      { id:'s2', icon:'💪', label:'Sesión 2 — Upper 1', nota:'Espalda · Pecho · Hombro · Bíceps · Tríceps', ejercicios:[
+        { nombre:'Reverse curl en banco scott con barra', img:'anim', s1:'Reverse_Barbell_Preacher_Curls/0.jpg', s2:'Reverse_Barbell_Preacher_Curls/1.jpg',
+          reps:'10', descanso:'1:00',
+          prog:[[3,0],[3,0],[3,0],[3,0],[3,0],[3,0],[3,0],[3,0],[3,0],[3,0],[3,0],[3,0]] },
+        { nombre:'Barras con lastre con agarre prono', img:'anim', s1:'Weighted_Pull_Ups/0.jpg', s2:'Weighted_Pull_Ups/1.jpg',
+          reps:'6', descanso:'2:30',
+          prog:[[3,1],[3,1],[3,1],[3,1],[3,1],[3,1],[3,1],[3,1],[3,1],[3,1],[3,1],[3,1]] },
+        { nombre:'Máquina de pectoral convergente', img:'anim', s1:'Leverage_Chest_Press/0.jpg', s2:'Leverage_Chest_Press/1.jpg',
+          reps:'6', descanso:'2:30',
+          prog:[[2,1],[2,1],[2,1],[2,1],[2,1],[2,1],[2,1],[2,1],[2,1],[2,1],[2,1],[2,1]] },
+        { nombre:'Remo con barra tipo Pendlay', img:'anim', s1:'Bent_Over_Barbell_Row/0.jpg', s2:'Bent_Over_Barbell_Row/1.jpg',
+          reps:'6', descanso:'2:00',
+          prog:[[2,1],[2,1],[2,1],[2,1],[2,1],[2,1],[2,1],[2,1],[2,1],[2,1],[2,1],[2,1]] },
+        { nombre:'Aducción de pecho en máquina', img:'anim', s1:'Butterfly/0.jpg', s2:'Butterfly/1.jpg',
+          reps:'10', descanso:'2:00',
+          prog:[[2,1],[2,1],[2,1],[2,1],[2,1],[2,1],[2,1],[2,1],[2,1],[2,1],[2,1],[2,1]] },
+        { nombre:'Jalón unilateral desde polea alta', img:'anim', s1:'One_Arm_Lat_Pulldown/0.jpg', s2:'One_Arm_Lat_Pulldown/1.jpg',
+          reps:'10', descanso:'1:30', nota:'Meter elongación máxima con buen peso.',
+          prog:[[2,0],[2,0],[2,0],[2,0],[2,0],[2,0],[2,0],[2,0],[2,0],[2,0],[2,0],[2,0]] },
+        { nombre:'Press francés o Kaz press', img:'anim', s1:'EZ-Bar_Skullcrusher/0.jpg', s2:'EZ-Bar_Skullcrusher/1.jpg',
+          reps:'10', descanso:'2:00', nota:'Puedes combinar con siguiente.',
+          prog:[[5,1],[5,1],[5,1],[5,1],[5,1],[5,1],[5,1],[5,1],[5,1],[5,1],[5,1],[5,1]] },
+        { nombre:'Curl de bícep con mancuernas sentado', img:'anim', s1:'Dumbbell_Alternate_Bicep_Curl/0.jpg', s2:'Dumbbell_Alternate_Bicep_Curl/1.jpg',
+          reps:'10', descanso:'2:00', nota:'Puedes combinar con anterior.',
+          prog:[[5,0],[5,0],[5,0],[5,0],[5,0],[5,0],[5,0],[5,0],[5,0],[5,0],[5,0],[5,0]] },
+      ]},
+      { id:'s3', icon:'⚡', label:'Sesión 3 — Full Body', nota:'Compuestos · Deltoides · Core', ejercicios:[
+        { nombre:'Hack squat', img:'anim', s1:'Hack_Squat/0.jpg', s2:'Hack_Squat/1.jpg',
+          reps:'5', descanso:'3:30', nota:'Movimiento controlado y con full ROM.',
+          prog:[[2,1],[2,1],[2,1],[2,1],[2,1],[2,1],[2,1],[2,1],[2,1],[2,1],[2,1],[2,1]] },
+        { nombre:'RDL', img:'anim', s1:'Romanian_Deadlift/0.jpg', s2:'Romanian_Deadlift/1.jpg',
+          reps:'5', descanso:'3:30', nota:'Superset con siguiente.',
+          prog:[[2,1],[2,1],[2,1],[2,1],[2,1],[2,1],[2,1],[2,1],[2,1],[2,1],[2,1],[2,1]] },
+        { nombre:'Press con barra a 45°', img:'anim', s1:'Barbell_Incline_Bench_Press_-_Medium_Grip/0.jpg', s2:'Barbell_Incline_Bench_Press_-_Medium_Grip/1.jpg',
+          reps:'5', descanso:'3:30',
+          prog:[[2,1],[2,1],[2,1],[2,1],[2,1],[2,1],[2,1],[2,1],[2,1],[2,1],[2,1],[2,1]] },
+        { nombre:'Pantorrilla en multipower', img:'anim', s1:'Standing_Calf_Raises/0.jpg', s2:'Standing_Calf_Raises/1.jpg',
+          reps:'10', descanso:'2:00',
+          prog:[[5,'F'],[5,'F'],[5,'F'],[5,'F'],[5,'F'],[5,'F'],[5,'F'],[5,'F'],[5,'F'],[5,'F'],[5,'F'],[5,'F']] },
+        { nombre:'Abducciones de cadera en máquina', img:'anim', s1:'Thigh_Abductor/0.jpg', s2:'Thigh_Abductor/1.jpg',
+          reps:'10', descanso:'2:00',
+          prog:[[3,0],[3,0],[3,0],[3,0],[3,0],[3,0],[3,0],[3,0],[3,0],[3,0],[3,0],[3,0]] },
+        { nombre:'Deltoide posterior con mancuernas', img:'anim', s1:'Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench/0.jpg', s2:'Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench/1.jpg',
+          reps:'15', descanso:'1:00', nota:'Superset con siguiente.',
+          prog:[[4,0],[4,0],[4,0],[4,0],[4,0],[4,0],[4,0],[4,0],[4,0],[4,0],[4,0],[4,0]] },
+        { nombre:'Elevaciones laterales con mancuernas', img:'anim', s1:'Side_Lateral_Raise/0.jpg', s2:'Side_Lateral_Raise/1.jpg',
+          reps:'10', descanso:'1:30', nota:'Superset con anterior.',
+          prog:[[4,0],[4,0],[4,0],[4,0],[4,0],[4,0],[4,0],[4,0],[4,0],[4,0],[4,0],[4,0]] },
+        { nombre:'Curl de antebrazos con barra, apoyo en banco', img:'anim', s1:'Palms-Up_Barbell_Wrist_Curl_Over_A_Bench/0.jpg', s2:'Palms-Up_Barbell_Wrist_Curl_Over_A_Bench/1.jpg',
+          reps:'10', descanso:'2:00',
+          prog:[[4,0],[4,0],[4,0],[4,0],[4,0],[4,0],[4,0],[4,0],[4,0],[4,0],[4,0],[4,0]] },
+      ]},
+      { id:'s4', icon:'🥊', label:'Sesión 4 — Brazo', nota:'Tríceps · Bíceps · Core · Tibiales', ejercicios:[
+        { nombre:'Extensión de trícep desde polea alta con agarre prono', img:'anim', s1:'Triceps_Pushdown/0.jpg', s2:'Triceps_Pushdown/1.jpg',
+          reps:'5', descanso:'3:30',
+          prog:[[3,0],[3,0],[3,0],[3,0],[3,0],[3,0],[3,0],[3,0],[3,0],[3,0],[3,0],[3,0]] },
+        { nombre:'Curl de bícep en banco scott', img:'anim', s1:'Preacher_Curl/0.jpg', s2:'Preacher_Curl/1.jpg',
+          reps:'5', descanso:'3:30',
+          prog:[[3,0],[3,0],[3,0],[3,0],[3,0],[3,0],[3,0],[3,0],[3,0],[3,0],[3,0],[3,0]] },
+        { nombre:'Extensión de trícep katana a una mano', img:'anim', s1:'Cable_Rope_Overhead_Triceps_Extension/0.jpg', s2:'Cable_Rope_Overhead_Triceps_Extension/1.jpg',
+          reps:'5', descanso:'3:30',
+          prog:[[3,0],[3,0],[3,0],[3,0],[3,0],[3,0],[3,0],[3,0],[3,0],[3,0],[3,0],[3,0]] },
+        { nombre:'Curl de bícep bayesian a una mano', img:'anim', s1:'Standing_One-Arm_Cable_Curl/0.jpg', s2:'Standing_One-Arm_Cable_Curl/1.jpg',
+          reps:'10', descanso:'1:00', nota:'Mantener codos detrás del cuerpo.',
+          prog:[[4,0],[4,0],[4,0],[4,0],[4,0],[4,0],[4,0],[4,0],[4,0],[4,0],[4,0],[4,0]] },
+        { nombre:'Rotación de tronco desde polea alta con cadera a 90°', img:'anim', s1:'Standing_Cable_Wood_Chop/0.jpg', s2:'Standing_Cable_Wood_Chop/1.jpg',
+          reps:'10', descanso:'1:00',
+          prog:[[4,0],[4,0],[4,0],[4,0],[4,0],[4,0],[4,0],[4,0],[4,0],[4,0],[4,0],[4,0]] },
+        { nombre:'Tibiales con mancuerna en banco', img:null,
+          reps:'10', descanso:'1:30',
+          prog:[[4,'F'],[4,'F'],[4,'F'],[4,'F'],[4,'F'],[4,'F'],[4,'F'],[4,'F'],[4,'F'],[4,'F'],[4,'F'],[4,'F']] },
+        { nombre:'Reverse curl en banco scott con barra', img:'anim', s1:'Reverse_Barbell_Preacher_Curls/0.jpg', s2:'Reverse_Barbell_Preacher_Curls/1.jpg',
+          reps:'10', descanso:'2:00',
+          prog:[[4,0],[4,0],[4,0],[4,0],[4,0],[4,0],[4,0],[4,0],[4,0],[4,0],[4,0],[4,0]] },
+      ]},
+      { id:'s5', icon:'🎯', label:'Sesión 5 — Accesorios', nota:'Trapecios · Deltoides · Abdomen', ejercicios:[
+        { nombre:'Remo al mentón con anchura biacromial', img:'anim', s1:'Upright_Barbell_Row/0.jpg', s2:'Upright_Barbell_Row/1.jpg',
+          reps:'10', descanso:'2:00', nota:'Superset con siguiente.',
+          prog:[[2,0],[2,0],[2,0],[2,0],[2,0],[2,0],[2,0],[2,0],[2,0],[2,0],[2,0],[2,0]] },
+        { nombre:'Encogimiento de trapecio en banca a 75°', img:'anim', s1:'Middle_Back_Shrug/0.jpg', s2:'Middle_Back_Shrug/1.jpg',
+          reps:'10', descanso:'2:00', nota:'Superset con anterior.',
+          prog:[[3,0],[3,0],[3,0],[3,0],[3,0],[3,0],[3,0],[3,0],[3,0],[3,0],[3,0],[3,0]] },
+        { nombre:'Remo enfocado en deltoide posterior unilateral con mancuerna', img:'anim', s1:'Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench/0.jpg', s2:'Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench/1.jpg',
+          reps:'10', descanso:'2:00',
+          prog:[[3,0],[3,0],[3,0],[3,0],[3,0],[3,0],[3,0],[3,0],[3,0],[3,0],[3,0],[3,0]] },
+        { nombre:'Deltoide lateral en banco a 45° cruzado con poleas', img:'anim', s1:'Bent_Over_Low-Pulley_Side_Lateral/0.jpg', s2:'Bent_Over_Low-Pulley_Side_Lateral/1.jpg',
+          reps:'10', descanso:'2:00',
+          prog:[[3,0],[3,0],[3,0],[3,0],[3,0],[3,0],[3,0],[3,0],[3,0],[3,0],[3,0],[3,0]] },
+        { nombre:'Crunches en banco declinado con peso', img:'anim', s1:'Decline_Crunch/0.jpg', s2:'Decline_Crunch/1.jpg',
+          reps:'10', descanso:'1:00',
+          prog:[[4,0],[4,0],[4,0],[4,0],[4,0],[4,0],[4,0],[4,0],[4,0],[4,0],[4,0],[4,0]] },
+        { nombre:'Leg raises', img:'anim', s1:'Flat_Bench_Lying_Leg_Raise/0.jpg', s2:'Flat_Bench_Lying_Leg_Raise/1.jpg',
+          reps:'10', descanso:'1:00',
+          prog:[[4,0],[4,0],[4,0],[4,0],[4,0],[4,0],[4,0],[4,0],[4,0],[4,0],[4,0],[4,0]] },
+        { nombre:'Deltoide lateral desde polea media con muñequera', img:'anim', s1:'Bent_Over_Low-Pulley_Side_Lateral/0.jpg', s2:'Bent_Over_Low-Pulley_Side_Lateral/1.jpg',
+          reps:'10', descanso:'1:00',
+          prog:[[4,0],[4,0],[4,0],[4,0],[4,0],[4,0],[4,0],[4,0],[4,0],[4,0],[4,0],[4,0]] },
+      ]},
+    ],
+  },
 };
 
 const $ = id => document.getElementById(id);
@@ -370,6 +540,7 @@ function renderTabs() {
     {id:'plan',       label:'Plan Nutricional'},
     {id:'eval',       label:'Evaluación'},
     {id:'specs',      label:'Especificaciones'},
+    {id:'train',      label:'Entrenamiento'},
     {id:'evol-antro', label:'Evolución Física'},
   ];
   $('tabNav').innerHTML = tabs.map((t,i) => {
@@ -485,6 +656,132 @@ function renderSpecs() {
       <a href="../guia-restaurante.html" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:var(--navy);color:#000;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:10px 20px;border-radius:10px;text-decoration:none;flex-shrink:0;">Ver guía →</a>
     </div>
   </section></div>`;
+}
+
+// ── Entrenamiento ──────────────────────────────────────────────────────────
+const BASE_IMG = 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/';
+let currentWeek = 1;
+let WEEKS = [];
+
+function buildWEEKS() {
+  WEEKS = [];
+  PATIENT.entrenamiento.fases.forEach(f => {
+    for (let w = 0; w < f.semanas; w++) {
+      WEEKS.push({ n: WEEKS.length + 1, label: `Semana ${WEEKS.length + 1}`, faseLabel: f.label, color: f.color, bg: f.bg });
+    }
+  });
+}
+
+function renderTrain() {
+  if (!PATIENT.entrenamiento) return;
+  buildWEEKS();
+  const el = $('tab-train'); if (!el) return;
+  el.innerHTML = `<div class="wrap"><section style="padding-top:24px">
+    <div class="sec-h"><span class="ix">01</span><h2>Programa de Entrenamiento</h2><div class="rule"></div></div>
+    <div id="weeksel" class="weeksel"></div>
+    <div id="trainHead" class="train-head"></div>
+    <div id="sessions"></div>
+  </section></div>`;
+  buildWeekSel();
+  buildTrainHead(WEEKS[0]);
+  $('sessions').innerHTML = buildSessions(1);
+  loadTrainValues();
+}
+
+function buildWeekSel() {
+  $('weeksel').innerHTML = WEEKS.map(w =>
+    `<button class="wbtn${w.n===1?' active':''}" onclick="setWeek(${w.n},this)">
+      <span class="wdot" style="background:${w.color}"></span>
+      <span class="wn">${w.label}</span>
+      <span class="wp" style="color:${w.color}">${w.faseLabel}</span>
+    </button>`
+  ).join('');
+}
+
+function buildTrainHead(w) {
+  $('trainHead').innerHTML = `<span class="badge" style="background:${w.bg};color:#fff;font-family:'IBM Plex Mono';font-size:11px;font-weight:700;padding:5px 12px;border-radius:8px;">${w.label} · ${w.faseLabel}</span>
+    <button id="saveSessionBtn" onclick="saveSession()" style="margin-left:auto;background:var(--navy);color:#000;border:none;border-radius:8px;padding:7px 16px;font-size:13px;font-weight:700;cursor:pointer;transition:background .2s,color .2s">Guardar sesión</button>`;
+}
+
+function setWeek(n, btn) {
+  document.querySelectorAll('#sessions input[data-key]').forEach(function(inp){if(inp.value!=='')localStorage.setItem(inp.dataset.key,inp.value);});
+  currentWeek = n;
+  document.querySelectorAll('.wbtn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const w = WEEKS.find(x=>x.n===n);
+  buildTrainHead(w);
+  $('sessions').innerHTML = buildSessions(n);
+  loadTrainValues();
+}
+
+function saveSession(){document.querySelectorAll('#sessions input[data-key]').forEach(function(inp){if(inp.value!=='')localStorage.setItem(inp.dataset.key,inp.value);});var btn=document.getElementById('saveSessionBtn');if(btn){btn.textContent='✓ Guardado';btn.style.background='#26a69a';setTimeout(function(){btn.textContent='Guardar sesión';btn.style.background='';},2000);}}
+
+function buildThumb(ex) {
+  if (ex.img === 'anim') {
+    return `<div class="thumb" style="position:relative">
+      <img src="${BASE_IMG}${ex.s1}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .3s" onmouseover="this.style.opacity=0;this.nextElementSibling.style.opacity=1" onmouseout="this.style.opacity=1;this.nextElementSibling.style.opacity=0" loading="lazy">
+      <img src="${BASE_IMG}${ex.s2}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .3s" loading="lazy">
+    </div>`;
+  }
+  return `<div class="thumb"><img src="${ex.gif||ex.s1||''}" loading="lazy" style="width:100%;height:100%;object-fit:cover"></div>`;
+}
+
+function rirLabel(rir) {
+  if (rir === null || rir === undefined) return { text:null, cls:'' };
+  if (rir === 'F') return { text:'A fallo', cls:'rir-f' };
+  if (rir === 0)   return { text:'RIR 0', cls:'rir' };
+  return { text:`RIR ${rir}`, cls:'' };
+}
+
+function buildSessions(week) {
+  return PATIENT.entrenamiento.sesiones.map((sess, si) => {
+    const exRows = sess.ejercicios.map((ex, ei) => {
+      const [series, rir] = ex.prog[week-1];
+      const rl = rirLabel(rir);
+      const sets = Array.from({length:series},(_,si2) => {
+        const k = trainKey(sess.id, ei, si2);
+        return `<div class="setbox"><div class="sl">Serie ${si2+1}</div>
+          <input type="number" inputmode="decimal" placeholder="—" data-key="${k}" oninput="saveTrainInput(this)" onchange="saveTrainInput(this)" onblur="saveTrainInput(this)">
+          <div class="un">kg</div></div>`;
+      }).join('');
+      const notaHtml = ex.nota ? `<span style="font-size:11px;color:var(--faint);display:block;margin-top:3px">${ex.nota}</span>` : '';
+      return `<div class="exq">${buildThumb(ex)}
+        <div class="ebody">
+          <div class="nm">${ex.nombre}${notaHtml}</div>
+          <div class="meta">
+            <span class="mpill"><b>${series}×${ex.reps}</b></span>
+            ${rl.text ? `<span class="mpill ${rl.cls}"><b>${rl.text}</b></span>` : ''}
+            <span class="mpill rest">Descanso <b>${ex.descanso}</b></span>
+          </div>
+          <div class="sets">${sets}</div>
+        </div></div>`;
+    }).join('');
+    return `<div class="sess open">
+      <div class="sh" onclick="this.closest('.sess').classList.toggle('open')">
+        <span class="snum">0${si+1}</span><span style="font-size:20px">${sess.icon}</span>
+        <h3>${sess.label}</h3>
+        <span class="scount">${sess.ejercicios.length} ejercicios · ${sess.nota}</span>
+        <span class="chev">›</span>
+      </div>
+      <div class="sbody">${exRows}</div>
+    </div>`;
+  }).join('');
+}
+
+function trainKey(sessId, exIdx, setIdx) { return `${PATIENT.slug}-train-s${currentWeek}-${sessId}-${exIdx}-s${setIdx}`; }
+
+function saveTrainInput(input) {
+  localStorage.setItem(input.dataset.key, input.value);
+  input.closest('.setbox').classList.toggle('filled', input.value !== '');
+  flashSave();
+}
+
+function loadTrainValues() {
+  document.querySelectorAll('#sessions input[data-key]').forEach(inp => {
+    const val = localStorage.getItem(inp.dataset.key) || '';
+    inp.value = val;
+    inp.closest('.setbox').classList.toggle('filled', val !== '');
+  });
 }
 
 // ── Evolución Física ──────────────────────────────────────────────────────
@@ -645,6 +942,7 @@ renderTabs();
 renderPlan();
 renderEval();
 renderSpecs();
+renderTrain();
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="paciente.js"></script>
