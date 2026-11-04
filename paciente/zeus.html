@@ -256,7 +256,7 @@ var SNK_PF = { id:'snk-pf', nombre:'🥪 Snack · Pre Preparación Física', kca
 ]};
 
 var ALM_LMV = { id:'alm-lmv', nombre:'🥗 Almuerzo', kcal:671, p:53, c:81, g:15, grupos:[
-  { label:'Escoge 04 · Carbohidrato', max:4, ops:CARBO_ALM },
+  { label:'Escoge 03 · Carbohidrato', max:3, ops:CARBO_ALM },
   { label:'Escoge 01 · Proteína (200 g, peso crudo)', max:1, ops:PROTE_ALM },
   { label:'Escoge 01 · Verduras', max:1, ops:['150 g de verduras a tu preferencia (crudas o cocidas)'] },
   { label:'Escoge 02 · Grasa', max:2, ops:GRASA_3 },
@@ -273,7 +273,7 @@ var SNK_ST = { id:'snk-st', nombre:'🥊 Snack · Pre Striking', kcal:258, p:21,
 ]};
 
 var CEN = { id:'cen', nombre:'🌙 Cena', kcal:743, p:53, c:81, g:23, grupos:[
-  { label:'Escoge 04 · Carbohidrato', max:4, ops:CARBO_CENA },
+  { label:'Escoge 03 · Carbohidrato', max:3, ops:CARBO_CENA },
   { label:'Escoge 01 · Proteína (200 g, peso crudo)', max:1, ops:PROTE_CENA },
   { label:'Escoge 03 · Grasa', max:3, ops:GRASA_3 },
   { label:'Escoge 01 · Verduras / Berries', max:1, ops:[
@@ -284,7 +284,7 @@ var CEN = { id:'cen', nombre:'🌙 Cena', kcal:743, p:53, c:81, g:23, grupos:[
 
 // ── MARTES / JUEVES ─────────────────────────────────────────────────────────
 var CEN_MJ = { id:'cen-mj', nombre:'🌙 Cena', kcal:675, p:51, c:66, g:23, grupos:[
-  { label:'Escoge 03 · Carbohidrato', max:3, ops:CARBO_CENA },
+  { label:'Escoge 02 · Carbohidrato', max:2, ops:CARBO_CENA },
   { label:'Escoge 01 · Proteína (200 g, peso crudo)', max:1, ops:PROTE_CENA },
   { label:'Escoge 03 · Grasa', max:3, ops:GRASA_3 },
   { label:'Escoge 01 · Verduras / Berries', max:1, ops:[
@@ -306,7 +306,7 @@ var DES_MJ = { id:'des-mj', nombre:'☀️ Desayuno · Pre Striking', kcal:313, 
 ]};
 
 var ALM_MJ = { id:'alm-mj', nombre:'🥗 Almuerzo', kcal:733, p:64, c:81, g:17, grupos:[
-  { label:'Escoge 04 · Carbohidrato', max:4, ops:CARBO_ALM },
+  { label:'Escoge 03 · Carbohidrato', max:3, ops:CARBO_ALM },
   { label:'Escoge 01 · Proteína (250 g, peso crudo)', max:1, ops:PROTE_ALM },
   { label:'Escoge 01 · Verduras', max:1, ops:['150 g de verduras a tu preferencia (crudas o cocidas)'] },
   { label:'Escoge 02 · Grasa', max:2, ops:GRASA_3 },
@@ -347,14 +347,14 @@ var DES_D = { id:'des-d', nombre:'☀️ Desayuno', kcal:389, p:17, c:60, g:9, g
 ]};
 
 var ALM_D = { id:'alm-d', nombre:'🥗 Almuerzo', kcal:663, p:53, c:79, g:15, grupos:[
-  { label:'Escoge 04 · Carbohidrato', max:4, ops:CARBO_ALM },
+  { label:'Escoge 03 · Carbohidrato', max:3, ops:CARBO_ALM },
   { label:'Escoge 01 · Proteína (200 g, peso crudo)', max:1, ops:PROTE_ALM },
   { label:'Escoge 01 · Verduras', max:1, ops:['150 g de verduras a tu preferencia (crudas o cocidas)'] },
   { label:'Escoge 02 · Grasa', max:2, ops:GRASA_3 },
 ], nota:NOTA_ALM };
 
 var CEN_D = { id:'cen-d', nombre:'🌙 Cena', kcal:735, p:53, c:79, g:23, grupos:[
-  { label:'Escoge 04 · Carbohidrato', max:4, ops:CARBO_CENA },
+  { label:'Escoge 03 · Carbohidrato', max:3, ops:CARBO_CENA },
   { label:'Escoge 01 · Proteína (200 g, peso crudo)', max:1, ops:PROTE_CENA },
   { label:'Escoge 03 · Grasa', max:3, ops:GRASA_3 },
   { label:'Escoge 01 · Verduras / Berries', max:1, ops:[
@@ -829,6 +829,8 @@ init();
 <script src="paciente.js"></script>
 <script src="guia-data.js"></script>
 <script src="comer-fuera.js"></script>
+<script src="recetario-data.js"></script>
+<script src="recetario-plan.js"></script>
 <script src="plan-pdf.js"></script>
 <script src="peso-tracker.js?v=3"></script>
 </body>
