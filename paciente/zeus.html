@@ -255,7 +255,7 @@ var SNK_PF = { id:'snk-pf', nombre:'🥪 Snack · Pre Preparación Física', kca
   { label:'Escoge 01 · Proteína', max:1, ops:PROTE_SNACK },
 ]};
 
-var ALM_LMV = { id:'alm-lmv', nombre:'🥗 Almuerzo', kcal:671, p:53, c:81, g:15, grupos:[
+var ALM_LMV = { id:'alm-lmv', nombre:'🥗 Almuerzo', kcal:601, p:53, c:66, g:15, grupos:[
   { label:'Escoge 03 · Carbohidrato', max:3, ops:CARBO_ALM },
   { label:'Escoge 01 · Proteína (200 g, peso crudo)', max:1, ops:PROTE_ALM },
   { label:'Escoge 01 · Verduras', max:1, ops:['150 g de verduras a tu preferencia (crudas o cocidas)'] },
@@ -272,7 +272,7 @@ var SNK_ST = { id:'snk-st', nombre:'🥊 Snack · Pre Striking', kcal:258, p:21,
   { label:'Escoge 01 · Proteína', max:1, ops:PROTE_SNACK },
 ]};
 
-var CEN = { id:'cen', nombre:'🌙 Cena', kcal:743, p:53, c:81, g:23, grupos:[
+var CEN = { id:'cen', nombre:'🌙 Cena', kcal:673, p:53, c:66, g:23, grupos:[
   { label:'Escoge 03 · Carbohidrato', max:3, ops:CARBO_CENA },
   { label:'Escoge 01 · Proteína (200 g, peso crudo)', max:1, ops:PROTE_CENA },
   { label:'Escoge 03 · Grasa', max:3, ops:GRASA_3 },
@@ -283,7 +283,7 @@ var CEN = { id:'cen', nombre:'🌙 Cena', kcal:743, p:53, c:81, g:23, grupos:[
 ], nota:NOTA_CENA };
 
 // ── MARTES / JUEVES ─────────────────────────────────────────────────────────
-var CEN_MJ = { id:'cen-mj', nombre:'🌙 Cena', kcal:675, p:51, c:66, g:23, grupos:[
+var CEN_MJ = { id:'cen-mj', nombre:'🌙 Cena', kcal:605, p:51, c:51, g:23, grupos:[
   { label:'Escoge 02 · Carbohidrato', max:2, ops:CARBO_CENA },
   { label:'Escoge 01 · Proteína (200 g, peso crudo)', max:1, ops:PROTE_CENA },
   { label:'Escoge 03 · Grasa', max:3, ops:GRASA_3 },
@@ -305,7 +305,7 @@ var DES_MJ = { id:'des-mj', nombre:'☀️ Desayuno · Pre Striking', kcal:313, 
   ]},
 ]};
 
-var ALM_MJ = { id:'alm-mj', nombre:'🥗 Almuerzo', kcal:733, p:64, c:81, g:17, grupos:[
+var ALM_MJ = { id:'alm-mj', nombre:'🥗 Almuerzo', kcal:663, p:64, c:66, g:17, grupos:[
   { label:'Escoge 03 · Carbohidrato', max:3, ops:CARBO_ALM },
   { label:'Escoge 01 · Proteína (250 g, peso crudo)', max:1, ops:PROTE_ALM },
   { label:'Escoge 01 · Verduras', max:1, ops:['150 g de verduras a tu preferencia (crudas o cocidas)'] },
@@ -346,14 +346,14 @@ var DES_D = { id:'des-d', nombre:'☀️ Desayuno', kcal:389, p:17, c:60, g:9, g
   ]},
 ]};
 
-var ALM_D = { id:'alm-d', nombre:'🥗 Almuerzo', kcal:663, p:53, c:79, g:15, grupos:[
+var ALM_D = { id:'alm-d', nombre:'🥗 Almuerzo', kcal:593, p:53, c:64, g:15, grupos:[
   { label:'Escoge 03 · Carbohidrato', max:3, ops:CARBO_ALM },
   { label:'Escoge 01 · Proteína (200 g, peso crudo)', max:1, ops:PROTE_ALM },
   { label:'Escoge 01 · Verduras', max:1, ops:['150 g de verduras a tu preferencia (crudas o cocidas)'] },
   { label:'Escoge 02 · Grasa', max:2, ops:GRASA_3 },
 ], nota:NOTA_ALM };
 
-var CEN_D = { id:'cen-d', nombre:'🌙 Cena', kcal:735, p:53, c:79, g:23, grupos:[
+var CEN_D = { id:'cen-d', nombre:'🌙 Cena', kcal:665, p:53, c:64, g:23, grupos:[
   { label:'Escoge 03 · Carbohidrato', max:3, ops:CARBO_CENA },
   { label:'Escoge 01 · Proteína (200 g, peso crudo)', max:1, ops:PROTE_CENA },
   { label:'Escoge 03 · Grasa', max:3, ops:GRASA_3 },
@@ -412,16 +412,16 @@ const PATIENT = {
   ],
 
   planes: [
-    { id:'lmv', label:'Lunes / Miércoles / Viernes', sub:'2380 kcal',
-      macros:{ kcal:2380, p:153, c:343, g:44 },
+    { id:'lmv', label:'Lunes / Miércoles / Viernes', sub:'2240 kcal',
+      macros:{ kcal:2240, p:153, c:313, g:44 },
       comidas:[ DES_LMV, SNK_PF, ALM_LMV, SNK_ST, CEN ] },
 
-    { id:'mj', label:'Martes / Jueves', sub:'2172 kcal',
-      macros:{ kcal:2172, p:141, c:303, g:44 },
+    { id:'mj', label:'Martes / Jueves', sub:'2032 kcal',
+      macros:{ kcal:2032, p:141, c:273, g:44 },
       comidas:[ DES_MJ, ALM_MJ, SNK_PADS, SNK_BJJ, CEN_MJ ] },
 
-    { id:'descanso', label:'Día de descanso', sub:'1787 kcal',
-      macros:{ kcal:1787, p:123, c:218, g:47 },
+    { id:'descanso', label:'Día de descanso', sub:'1647 kcal',
+      macros:{ kcal:1647, p:123, c:188, g:47 },
       comidas:[ DES_D, ALM_D, CEN_D, PRE_SPAR ] },
   ],
 
