@@ -194,7 +194,7 @@ const PATIENT = {
   nombre:    'Brayan\nMontalvo',
   fecha:     '25.09.2026',
   tipoPlan:  'Corte · Pre-Pelea MMA',
-  macros:    { kcal: 2105, p: 164, c: 252, g: 52 },
+  macros:    { kcal: 2284, p: 168, c: 286, g: 52 },
   hidratacion: [
     { label:'💧 Entrenamiento', valor:'4.5' },
     { label:'💧 Descanso',      valor:'3.5' },
@@ -240,7 +240,7 @@ const PATIENT = {
   ],
 
   comidas: [
-    { id:'pre', nombre:'⚡ Pre-Entreno Mañana', kcal:210, p:3, c:44, g:4, grupos:[
+    { id:'pre', nombre:'⚡ Pre-Entreno Mañana', kcal:224, p:3, c:44, g:4, grupos:[
         { label:'Escoge 01 · Opción completa', max:1, ops:[
           '2 rebanadas de pan de molde blanco (50 g) + 15 g de miel de abeja o mermelada — 180 kcal · 37 C',
           '50 g de dátiles (6 pequeños o 2 Medjool) — 140 kcal · 38 C',
@@ -248,13 +248,15 @@ const PATIENT = {
           '30 g de avena instantánea con agua caliente + 20 g de miel de abeja — 175 kcal · 37 C',
           'Jugo: 100 g de betarraga + 1 naranja mediana + 15 g de miel de abeja + agua al gusto — 150 kcal · 37 C',
           '1 plátano mediano (120 g pelado) + 13 g de miel de abeja — 145 kcal · 38 C',
+          '1 rebanada de pan de molde blanco (25 g) + 4 dátiles pequeños (≈ 32 g) + 5 g de mantequilla de maní — ≈ 190 kcal · 38 C',
+          '10 galletas de arroz Costeño + 1 cda de miel de abeja + 5 g de mantequilla de maní',
         ]},
         { label:'Adicional · va con cualquier opción', max:0, ops:[
           '10 g de chispas de chocolate — 50 kcal · 6 C',
         ]},
     ], nota:'Consumir 15–20 min antes de salir a entrenar. Si no hay tiempo, solo el plátano + miel.<br>⚡ Cada opción ya incluye su miel o mermelada: no le sumes otra encima. Todas rondan los 38 g de carbohidrato, que es lo que buscamos antes de entrenar.<br>⚠️ Domingo (descanso): no consumir este pre-entreno.' },
 
-    { id:'des', nombre:'☀️ Post-Entreno / Desayuno', kcal:545, p:50, c:60, g:13, grupos:[
+    { id:'des', nombre:'☀️ Post-Entreno / Desayuno', kcal:557, p:50, c:60, g:13, grupos:[
         { label:'Escoge 01 · Proteína', max:1, ops:[
           '160 g de pechuga de pollo cocida',
           '160 g de tilapia cocida',
@@ -267,6 +269,8 @@ const PATIENT = {
           '1 rebanada de pan Bimbo blanco (25 g)',
           '30 g de avena preparada con agua',
           '1 plátano pequeño (60 g pelado)',
+          '25 g de pan campesino o de semillas de Pan de la Chola',
+          '1 rebanada de pan Unión avena y miel',
         ]},
         { label:'Escoge 01 · Fruta', max:1, ops:[
           '1 porción de fruta (Ver especificaciones)',
@@ -279,10 +283,11 @@ const PATIENT = {
         ]},
     ]},
 
-    { id:'alm', nombre:'🥗 Almuerzo', kcal:535, p:55, c:52, g:13, grupos:[
+    { id:'alm', nombre:'🥗 Almuerzo', kcal:621, p:57, c:69, g:13, grupos:[
         { label:'Escoge 01 · Carbohidrato (peso cocido)', max:1, ops:[
-          '180 g de arroz cocido',
-          '270 g de papa sancochada',
+          '240 g de arroz cocido',
+          '360 g de papa sancochada',
+          '200 g de fideos (peso cocido)',
         ]},
         { label:'Escoge 01 · Proteína (180 g, peso crudo)', max:1, ops:[
           'Pechuga de pollo',
@@ -302,7 +307,7 @@ const PATIENT = {
         ]},
     ], nota:'⚠️ Los domingos aplica este mismo plan.' },
 
-    { id:'pre2', nombre:'🥊 Pre-Entreno Tarde', kcal:315, p:16, c:49, g:6, grupos:[
+    { id:'pre2', nombre:'🥊 Pre-Entreno Tarde', kcal:314, p:16, c:49, g:6, grupos:[
         { label:'Escoge 01 · Carbohidrato', max:1, ops:[
           '2 rebanadas de pan Bimbo blanco (50 g) + 1 cda de miel de abeja (21 g) — 195 kcal · 42 C',
           '3 galletas de arroz (45 g) + 1 cdta de miel de abeja (7 g) — 195 kcal · 43 C',
@@ -318,7 +323,7 @@ const PATIENT = {
         ]},
     ], nota:'Consumir 30–45 min antes del boxeo de la tarde. Si el entreno es muy cercano, solo el carbo.<br>🧀 Para dar la misma proteína que el atún o el Quark, el edam necesita 50 g, y ahí aporta 13 g de grasa frente a 1 g de los otros dos. Déjalo para los días que entrenas más tarde.<br>⚠️ Domingo (descanso): este card es tu snack de media tarde — quita las chispas de chocolate.' },
 
-    { id:'cen', nombre:'🌙 Cena', kcal:500, p:40, c:47, g:16, grupos:[
+    { id:'cen', nombre:'🌙 Cena', kcal:568, p:42, c:64, g:16, grupos:[
         { label:'Escoge 01 · Proteína', max:1, ops:[
           '150 g de pechuga de pollo cocida',
           '150 g de tilapia cocida',
@@ -327,10 +332,14 @@ const PATIENT = {
           '8 claras de huevo (≈ 265 g) — 29 g de proteína',
         ]},
         { label:'Escoge 01 · Carbohidrato', max:1, ops:[
-          '180 g de arroz cocido',
-          '3 rapiditas integrales',
-          '180 g de plátano (pelado)',
-          '3 rebanadas de pan Bimbo blanco (75 g)',
+          '240 g de arroz cocido',
+          '360 g de papa sancochada',
+          '200 g de fideos (peso cocido)',
+          '4 rapiditas integrales',
+          '240 g de plátano (pelado)',
+          '4 rebanadas de pan Bimbo blanco (100 g)',
+          '100 g de pan campesino o de semillas de Pan de la Chola',
+          '4 rebanadas de pan Unión avena y miel',
         ]},
         { label:'Escoge 01 · Verduras', max:1, ops:[
           '100–150 g de verduras de tu preferencia',
@@ -397,7 +406,7 @@ const PATIENT = {
     { nombre:'Cocoa post-entreno',     desc:'1 cda de cocoa en polvo + 200 ml de agua tibia + 1 cdta de miel de abeja + pizca de canela' },
   ],
 
-  notaSpecs: 'Días de entrenamiento: ~2 105 kcal. Domingo (descanso): no consumir el pre-entreno mañana; el pre-entreno media tarde se convierte en snack de media tarde sin chispas de chocolate. Almuerzo y cena del domingo aplican igual al plan diario. Creatina 5 g POST entrenamiento todos los días, entrenes o no.',
+  notaSpecs: 'Días de entrenamiento: ~2 284 kcal. Domingo (descanso): no consumir el pre-entreno mañana; el pre-entreno media tarde se convierte en snack de media tarde sin chispas de chocolate. Almuerzo y cena del domingo aplican igual al plan diario. Creatina 5 g POST entrenamiento todos los días, entrenes o no.',
 
   entrenamiento: null,
 };
