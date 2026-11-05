@@ -190,16 +190,26 @@ const PATIENT = {
   ],
 
   antro: {
-    fecha:'20.09.2026', peso:103, talla:187, imc:29.5,
-    tri:13.0, bi:7.0, sub:15.0, cresta:35.0, supra:18.0, abd:36.0, pierna:18.0, pant:8.0,
-    s6:108.0, s8:150.0,
-    brazRelaj:38.0, brazFlex:38.5, abdom:97.0, cadera:114.5, muslo:57.5, pantPer:38.5,
+    fecha:'05.11.2026', peso:99.0, talla:187, imc:28.3,
+    tri:7.0, bi:2.0, sub:10.0, cresta:27.0, supra:12.0, abd:26.0, pierna:8.0, pant:6.0,
+    s6:69.0, s8:98.0,
+    brazRelaj:38.0, brazFlex:39.8, abdom:93.0, cadera:111.0, muslo:59.5, pantPer:39.5,
     diam:{ humero:7.5, biEstiloideo:6.2, femur:10.1 },
-    pctGrasa:18.3, fatKg:18.8,
-    pctMusc:39.2, muscKg:40.4,
-    icc:0.85,
+    pctGrasa:19.6, fatKg:19.4,
+    pctMusc:43.1, muscKg:42.7,
+    icc:0.84,
   },
-  antroHistorial: [],
+  antroHistorial: [
+    { fecha:'20.09.2026', peso:103, talla:187, imc:29.5,
+      tri:13.0, bi:7.0, sub:15.0, cresta:35.0, supra:18.0, abd:36.0, pierna:18.0, pant:8.0,
+      s6:108.0, s8:150.0,
+      brazRelaj:38.0, brazFlex:38.5, abdom:97.0, cadera:114.5, muslo:57.5, pantPer:38.5,
+      diam:{ humero:7.5, biEstiloideo:6.2, femur:10.1 },
+      pctGrasa:18.3, fatKg:18.8,
+      pctMusc:39.2, muscKg:40.4,
+      icc:0.85,
+    },
+  ],
 
   objetivos: [
     'Mejorar composición corporal — reducir grasa y mantener músculo',
@@ -682,6 +692,8 @@ renderTabs();renderNutr();renderEval();renderSpecs();
 <script>(function(){function _inj(){document.querySelectorAll('.meal[data-mealid]').forEach(function(el){if(typeof injectMealLog==='function')injectMealLog(el);});if(typeof injectGuardarBtn==='function')document.querySelectorAll('.meals').forEach(injectGuardarBtn);}_inj();setTimeout(_inj,300);setTimeout(_inj,800);})();</script>
 <script src="guia-data.js"></script>
 <script src="comer-fuera.js"></script>
+<script src="recetario-data.js"></script>
+<script src="recetario-plan.js"></script>
 <script src="plan-pdf.js"></script>
 <script src="peso-tracker.js?v=3"></script>
 </body>
