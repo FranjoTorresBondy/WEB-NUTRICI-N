@@ -165,6 +165,27 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
   h1{font-size:clamp(32px,10vw,56px)}
   .tab{padding:12px 10px;font-size:11px}
 }
+.sess{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:14px;box-shadow:var(--shadow)}
+.sh{display:flex;align-items:center;gap:12px;padding:16px 20px;cursor:pointer;background:var(--panel2)}
+.snum{font-family:'IBM Plex Mono';font-size:11px;color:var(--faint)}
+.sh h3{font-family:'Libre Franklin';font-size:18px;font-weight:600}
+.scount{font-size:12px;color:var(--muted);margin-left:auto}
+.chev{color:var(--faint);font-size:20px;transition:.2s;margin-left:8px}
+.sess.open .chev{transform:rotate(90deg)}
+.sbody{display:none;padding:16px 20px}
+.sess.open .sbody{display:block}
+.exq{display:flex;gap:14px;margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid var(--line)}
+.exq:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.thumb{width:90px;height:90px;border-radius:10px;overflow:hidden;flex-shrink:0;background:var(--panel2)}
+.ebody{flex:1;min-width:0}
+.meta{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.mpill{font-family:'IBM Plex Mono';font-size:11px;background:var(--panel2);border:1px solid var(--line);border-radius:6px;padding:3px 8px}
+.mpill.rest{color:var(--cyan)}
+.sets{display:flex;flex-wrap:wrap;gap:8px}
+.setbox{display:flex;align-items:center;gap:6px;background:var(--panel2);border:1px solid var(--line);border-radius:9px;padding:6px 10px;transition:.15s}
+.setbox.filled{border-color:rgba(196,151,58,.4);background:rgba(196,151,58,.06)}
+.sl{font-family:'IBM Plex Mono';font-size:10px;color:var(--faint);white-space:nowrap}
+.un{font-family:'IBM Plex Mono';font-size:10px;color:var(--faint)}
 </style>
 <link rel="stylesheet" href="paciente.css">
 </head>
@@ -234,6 +255,7 @@ const PATIENT = {
 
   objetivos: [
     'Disminución de sumatoria de 8 pliegues hasta 45 mm',
+    'Incorporar rutina de core 2 veces por semana',
     'Cumplir requerimientos hídricos',
     'Monitoreo de peso diario en ayunas (app Happy Scale)',
     'Reporte semanal con peso y fotos (frontal + perfil posterior)',
@@ -426,7 +448,19 @@ const PATIENT = {
       brazRelaj:32.4, brazFlex:34.8, abdom:77.0, cadera:100.5, muslo:53.5, pantPer:36.8, s6:52.0, s8:68.5 },
   ],
 
-  entrenamiento: null,
+  entrenamiento: {
+    nota: '2 veces por semana — puede distribuirse en 2 ó 3 días de entrenamiento',
+    sesiones: [
+      { id:'s1', icon:'🔥', label:'Core', nota:'Abdomen · Oblicuos', ejercicios:[
+        { nombre:'Elevación de piernas en banco declinado', img:'static', gif:'../img/leg-raises-banco-declinado.jpg',
+          series:4, reps:'15', descanso:'1:00' },
+        { nombre:'Crunches desde polea alta', img:'anim', s1:'Cable_Crunch/0.jpg', s2:'Cable_Crunch/1.jpg',
+          series:4, reps:'15', descanso:'1:00' },
+        { nombre:'Rotación de tronco desde polea con cadera a 90°', img:'anim', s1:'Standing_Cable_Wood_Chop/0.jpg', s2:'Standing_Cable_Wood_Chop/1.jpg',
+          series:4, reps:'12', descanso:'1:00', nota:'Por lado' },
+      ]},
+    ],
+  },
 };
 // ════════════════════════════════════════════════════════════════════════════
 //  FIN DATOS — motor de renderizado
@@ -749,11 +783,63 @@ function loadSelections(){const raw=localStorage.getItem(planKey());document.que
 
 function flashSave(){const ind=$('saveind');if(!ind)return;$('saveTxt').textContent='Guardado';ind.classList.add('show');clearTimeout(saveTimer);saveTimer=setTimeout(()=>ind.classList.remove('show'),1800);}
 
+const BASE_IMG = 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/';
+
+function renderTrain() {
+  if (!PATIENT.entrenamiento) return;
+  const el = $('tab-train'); if (!el) return;
+  const sessions = PATIENT.entrenamiento.sesiones.map((sess, si) => {
+    const exRows = sess.ejercicios.map((ex, ei) => {
+      const thumb = ex.img === 'anim'
+        ? `<div class="thumb" style="position:relative">
+            <img src="${BASE_IMG}${ex.s1}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .3s" onmouseover="this.style.opacity=0;this.nextElementSibling.style.opacity=1" onmouseout="this.style.opacity=1;this.nextElementSibling.style.opacity=0" loading="lazy">
+            <img src="${BASE_IMG}${ex.s2}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .3s" loading="lazy">
+          </div>`
+        : `<div class="thumb"><img src="${ex.gif||''}" loading="lazy" style="width:100%;height:100%;object-fit:cover"></div>`;
+      const notaHtml = ex.nota ? `<span style="font-size:11px;color:var(--faint);display:block;margin-top:3px">${ex.nota}</span>` : '';
+      const sets = Array.from({length: ex.series}, (_,si2) => {
+        const k = `${PATIENT.slug}-core-${sess.id}-${ei}-s${si2}`;
+        return `<div class="setbox"><div class="sl">Serie ${si2+1}</div>
+          <input type="number" inputmode="decimal" placeholder="—" data-key="${k}" oninput="saveCoreInput(this)">
+          <div class="un">kg</div></div>`;
+      }).join('');
+      return `<div class="exq">${thumb}
+        <div class="ebody">
+          <div class="nm">${ex.nombre}${notaHtml}</div>
+          <div class="meta">
+            <span class="mpill"><b>${ex.series}×${ex.reps}</b></span>
+            <span class="mpill rest">Descanso <b>${ex.descanso}</b></span>
+          </div>
+          <div class="sets">${sets}</div>
+        </div></div>`;
+    }).join('');
+    return `<div class="sess open">
+      <div class="sh" onclick="this.closest('.sess').classList.toggle('open')">
+        <span class="snum">0${si+1}</span><span style="font-size:20px">${sess.icon}</span>
+        <h3>${sess.label}</h3>
+        <span class="scount">${sess.ejercicios.length} ejercicios · ${sess.nota}</span>
+        <span class="chev">›</span>
+      </div>
+      <div class="sbody">${exRows}</div>
+    </div>`;
+  }).join('');
+  el.innerHTML = `<div class="wrap"><section style="padding-top:24px">
+    <div class="sec-h"><span class="ix">01</span><h2>Programa de Core</h2><div class="rule"></div></div>
+    <div class="note" style="margin-bottom:20px"><b>Frecuencia:</b> ${PATIENT.entrenamiento.nota}</div>
+    ${sessions}
+  </section></div>`;
+  loadCoreValues();
+}
+function saveCoreInput(input){localStorage.setItem(input.dataset.key,input.value);input.closest('.setbox').classList.toggle('filled',input.value!=='');flashSave();}
+function loadCoreValues(){document.querySelectorAll('#tab-train input[data-key]').forEach(inp=>{const val=localStorage.getItem(inp.dataset.key)||'';inp.value=val;inp.closest('.setbox').classList.toggle('filled',val!=='');});}
+function initEvolTrain(){}
+
 renderHero();
 renderTabs();
 renderPlan();
 renderEval();
 renderSpecs();
+renderTrain();
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="paciente.js"></script>
