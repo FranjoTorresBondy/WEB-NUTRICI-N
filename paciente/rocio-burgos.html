@@ -193,23 +193,31 @@ const PATIENT = {
     { label:'💧 Descanso',      valor:'3.1' },
   ],
   antro: {
-    fecha:'29.10.2026', peso:58.5, talla:159.0, imc:23.1,
-    tri:18, bi:4, sub:18, cresta:13, supra:12, abd:12, pierna:21, pant:14,
-    s6:95.0, s8:112.0,
-    brazRelaj:30.0, brazFlex:30.5, abdom:73.0, cadera:98.0, muslo:49.0, pantPer:34.0,
+    fecha:'10.11.2026', peso:58.2, talla:159.5, imc:22.9,
+    tri:18, bi:4, sub:18, cresta:12, supra:10, abd:12, pierna:22, pant:12,
+    s6:92.0, s8:108.0,
+    brazRelaj:28.0, brazFlex:29.5, abdom:74.0, cadera:98.0, muslo:65.0, pantPer:34.0,
     diam: { humero:6.0, biEstiloideo:5.0, femur:9.2 },
-    pctGrasa:15.0, fatKg:8.8, pctMusc:37.8, muscKg:22.1, pctOseo:15.4, oseoKg:9.0, imo:2.46, icc:0.74,
-    somato:'5.7 · 5.1 · 1.4',
+    // Faulkner (mujer) y Lee con su edad (57 años según su historia clínica).
+    pctGrasa:20.3, fatKg:11.8, pctMusc:38.1, muscKg:22.2, pctOseo:15.6, oseoKg:9.1, imo:2.44, icc:0.76,
+    somato:'4.9 · 4.8 · 1.6',
   },
   antroHistorial: [
+    // Lee recalculado con 57 años en todas las mediciones (antes se había usado ~28).
     { fecha:'19.08.2026', peso:60.7, tri:25, bi:10, sub:23, cresta:22, supra:18, abd:22, pierna:30, pant:20,
       s6:138.0, s8:170.0,
       brazRelaj:32.0, brazFlex:31.0, abdom:77.0, cadera:99.0, muslo:50.0, pantPer:34.8,
-      pctGrasa:26.6, fatKg:16.2, pctMusc:35.0, muscKg:21.3, pctOseo:14.9, oseoKg:9.0, imo:2.37, icc:0.78 },
+      pctGrasa:26.6, fatKg:16.2, pctMusc:32.9, muscKg:20.0, pctOseo:14.9, oseoKg:9.0, imo:2.22, icc:0.78 },
     { fecha:'22.09.2026', peso:58.5, tri:18, bi:6.5, sub:20, cresta:15, supra:16, abd:15, pierna:25, pant:15,
       s6:109.0, s8:130.5,
       brazRelaj:30.0, brazFlex:30.6, abdom:73.5, cadera:99.5, muslo:50.5, pantPer:34.5,
-      pctGrasa:22.6, fatKg:13.2, pctMusc:37.8, muscKg:22.1, pctOseo:15.4, oseoKg:9.0, imo:2.46, icc:0.74 },
+      pctGrasa:22.6, fatKg:13.2, pctMusc:35.6, muscKg:20.8, pctOseo:15.4, oseoKg:9.0, imo:2.31, icc:0.74 },
+    // 29.10: grasa recalculada con la ecuación de mujer (antes 15.0 %, ecuación de hombre).
+    { fecha:'29.10.2026', peso:58.5, talla:159.0, imc:23.1,
+      tri:18, bi:4, sub:18, cresta:13, supra:12, abd:12, pierna:21, pant:14,
+      s6:95.0, s8:112.0,
+      brazRelaj:30.0, brazFlex:30.5, abdom:73.0, cadera:98.0, muslo:49.0, pantPer:34.0,
+      pctGrasa:20.7, fatKg:12.1, pctMusc:35.4, muscKg:20.7, pctOseo:15.4, oseoKg:9.0, imo:2.30, icc:0.74 },
   ],
 
   suplementacion: [
