@@ -162,6 +162,8 @@ footer{border-top:1px solid var(--line);margin-top:60px}
 // ════════════════════════════════════════════════════════════════════════════
 const PATIENT = {
   slug:      'ximena-espino',
+  sexo:      'f',
+  nacimiento:'26.09.1999',
   nombre:    'Ximena\nEspino',
   fecha:     '22.10.2026',
   tipoPlan:  'Hipocalórico · Hiperprotéico',
@@ -172,33 +174,26 @@ const PATIENT = {
   ],
   semanas: 1,
   antro: {
-    fecha:    '22.10.2026',
-    peso:     53.7,
-    talla:    153.8,
-    imc:      22.7,
-    tri:      13.0,
-    bi:        5.0,
-    sub:      14.0,
-    cresta:   22.0,
-    supra:    12.0,
-    abd:      25.0,
-    pierna:   17.0,
-    pant:     13.0,
-    brazRelaj: 25.8,
-    brazFlex:  26.5,
-    abdom:     71.0,
-    cadera:    96.0,
-    muslo:     50.8,
-    pantPer:   34.0,
+    fecha:'06.11.2026', peso:53.0, talla:153.8, imc:22.4,
+    tri:12.0, bi:3.0, sub:12.0, cresta:16.0, supra:10.0, abd:18.0, pierna:17.0, pant:10.0,
+    brazRelaj:25.0, brazFlex:27.5, abdom:69.0, cadera:96.0, muslo:50.0, pantPer:34.0,
     diam:{ humero:5.5, biEstiloideo:4.5, femur:9.0 },
-    s6:  94.0,
-    s8: 121.0,
-    icc:      0.74,
-    somato:   '4.4·4.5·1.2',
-    pctGrasa: 15.6, fatKg:   8.4,
-    pctMusc:  41.2, muscKg: 22.1,
-    pctOseo:  11.9, oseoKg:  6.4,
+    s6:79.0, s8:98.0,
+    icc:0.72,
+    somato:'3.9·4.7·1.4',
+    // Faulkner (mujer) y Lee con su edad real (27.1 años, nac. 26.09.1999).
+    pctGrasa:19.0, fatKg:10.1,
+    pctMusc: 39.3, muscKg:20.8,
+    pctOseo: 14.8, oseoKg: 7.9,
   },
+  antroHistorial: [
+    // 22.10 recalculado: antes 15.6 % de grasa (ecuación de hombre) y 6.4 kg de óseo.
+    { fecha:'22.10.2026', peso:53.7, talla:153.8, imc:22.7,
+      tri:13.0, bi:5.0, sub:14.0, cresta:22.0, supra:12.0, abd:25.0, pierna:17.0, pant:13.0,
+      brazRelaj:25.8, brazFlex:26.5, abdom:71.0, cadera:96.0, muslo:50.8, pantPer:34.0,
+      s6:94.0, s8:121.0, pctGrasa:21.5, fatKg:11.6, pctMusc:38.7, muscKg:20.8,
+      pctOseo:14.6, oseoKg:7.9, icc:0.74 },
+  ],
 
   objetivos: [
     'Disminución de sumatoria de 8 pliegues',
@@ -379,7 +374,6 @@ const PATIENT = {
 
   notaSpecs: 'Día de descanso (sin entrenamiento): sin pre-entreno → 1 400 kcal / 95P / 170C / 40G.',
 
-  antroHistorial: [],
 
   entrenamiento: null,
 };
