@@ -190,6 +190,14 @@ async function guardarDia() {
     if (typeof mealState !== 'undefined') {
       Object.keys(mealState).forEach(k => delete mealState[k]);
     }
+    // Planes que guardan la selección con planKey() (`<slug>-plan-…`): borrar
+    // todas sus variantes (días, microciclos) y dejar las opciones en cero.
+    try {
+      Object.keys(localStorage)
+        .filter(k => k.indexOf(slug + '-plan-') === 0)
+        .forEach(k => localStorage.removeItem(k));
+    } catch (e) {}
+    if (typeof loadSelections === 'function') loadSelections();
 
     // Limpiar notas y fotos del día
     document.querySelectorAll('.meal[data-mealid]').forEach(mealEl => {
