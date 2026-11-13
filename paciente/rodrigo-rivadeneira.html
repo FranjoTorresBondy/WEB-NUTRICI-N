@@ -182,7 +182,7 @@ var DES = { id:'des', nombre:'☀️ Desayuno', kcal:126, p:25, c:2, g:2, grupos
   ]},
 ]};
 
-var ALM = { id:'alm', nombre:'🥗 Almuerzo', kcal:706, p:43, c:75, g:26, grupos:[
+var ALM = { id:'alm', nombre:'🥗 Almuerzo', kcal:871, p:73, c:75, g:31, grupos:[
   { label:'Escoge 04 · Carbohidrato', max:4, ops:[
     '⅓ taza de arroz blanco o integral (60 g, cocido)',
     '90 g de papa, camote o betarraga (cocido)',
@@ -192,7 +192,7 @@ var ALM = { id:'alm', nombre:'🥗 Almuerzo', kcal:706, p:43, c:75, g:26, grupos
     '⅓ taza de pasta cocida sin relleno (50 g)',
     '½ Rapidita XL',
   ]},
-  { label:'Escoge · Proteína (150 g, peso crudo)', max:1, ops:[
+  { label:'Escoge · Proteína (300 g, peso crudo)', max:1, ops:[
     'Langostinos',
     '1 filete de pierna, a la parrilla o en freidora de aire (si lo eliges, corta 1 porción de grasa)',
     'Lomo de res',
@@ -322,13 +322,13 @@ const PATIENT = {
   ],
 
   planes: [
-    { id:'descanso', label:'Día de descanso', sub:'1972 kcal', macros:{ kcal:1972, p:144, c:232, g:52 }, comidas:[
+    { id:'descanso', label:'Día de descanso', sub:'2137 kcal', macros:{ kcal:2137, p:174, c:232, g:57 }, comidas:[
       DES, ALM, SNK, CEN,
     ]},
-    { id:'entreno', label:'Día de entrenamiento', sub:'+201 kcal', macros:{ kcal:2173, p:147, c:277, g:53 }, comidas:[
+    { id:'entreno', label:'Día de entrenamiento', sub:'+201 kcal', macros:{ kcal:2338, p:177, c:277, g:58 }, comidas:[
       PRE_ENTRENO, DES, ALM, SNK, CEN,
     ]},
-    { id:'fondo', label:'Día de fondo', sub:'+398 kcal', macros:{ kcal:2370, p:149, c:322, g:54 }, comidas:[
+    { id:'fondo', label:'Día de fondo', sub:'+398 kcal', macros:{ kcal:2535, p:179, c:322, g:59 }, comidas:[
       PRE_FONDO, DES, ALM, SNK, CEN,
     ]},
   ],
