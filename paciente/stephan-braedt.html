@@ -256,7 +256,7 @@ const PATIENT = {
   nombre:    'Stephan\nBraedt',
   fecha:     '14.09.2026',
   tipoPlan:  'Hipocalórico · Hiperprotéico',
-  macros:    { kcal: 1758, p: 136, c: 191, g: 50 },
+  macros:    { kcal: 1818, p: 136, c: 206, g: 50 },
   hidratacion: [
     { label:'💧 2 entrenamientos', valor:'5.5' },
     { label:'💧 1 entrenamiento',  valor:'4.5' },
@@ -264,16 +264,15 @@ const PATIENT = {
   ],
   semanas: 1,
   antro: {
-    fecha:'15.10.2026', peso:99.5, talla:184.5, imc:29.2,
-    tri:10.0, bi:4.0, sub:15.0, cresta:31.0, supra:11.0, abd:22.0, pierna:14.0, pant:5.0,
-    s6:77.0, s8:112.0,
-    brazRelaj:38.0, brazFlex:40.7, abdom:94.0, cadera:110.0, muslo:62.0, pantPer:41.0,
+    fecha:'13.11.2026', peso:100.5, talla:184.5, imc:29.5,
+    tri:11.0, bi:6.0, sub:18.0, cresta:28.0, supra:14.0, abd:29.0, pierna:20.0, pant:7.0,
+    s6:99.0, s8:133.0,
+    brazRelaj:36.8, brazFlex:41.3, abdom:97.0, cadera:101.0, muslo:61.8, pantPer:41.5,
     diam:{ humero:7.2, biEstiloideo:5.8, femur:10.8 },
-    // Faulkner y Lee con ecuaciones de hombre y su edad real (30.6 años, nac. 22.02.1996).
-    pctGrasa:14.7, fatKg:14.6, pctMusc:43.7, muscKg:43.4, pctOseo:14.0, oseoKg:13.9,
-    icc:0.85, somato:'3.4 · 7.0 · 0.8',
+    // Faulkner y Lee con ecuaciones de hombre y su edad real (30.7 años, nac. 22.02.1996).
+    pctGrasa:16.8, fatKg:16.9, pctMusc:41.4, muscKg:41.6, pctOseo:13.8, oseoKg:13.9,
+    icc:0.96, somato:'4.1 · 7.1 · 0.7',
   },
-
   antroHistorial: [
     // Medidas de la hoja ISAK (hojas 1 a 7). La hoja 6 no tiene fecha: se asume 11.08 (monitoreo).
     { fecha:'05.03.2026', peso:100.5, tri:12.0, bi:7.0, sub:20.0, cresta:43.0, supra:20.0, abd:37.0, pierna:27.0, pant:8.0, s6:124.0, s8:174.0, brazRelaj:37.0, brazFlex:40.0, abdom:101.0, cadera:115.0, muslo:60.5, pantPer:41.5 },
@@ -284,6 +283,8 @@ const PATIENT = {
     { fecha:'14.07.2026', peso:97.5, tri:9.0, bi:5.5, sub:10.0, cresta:29.0, supra:15.0, abd:28.0, pierna:20.0, pant:6.5, s6:88.5, s8:123.0, brazRelaj:39.5, brazFlex:41.8, abdom:88.0, cadera:109.0, muslo:60.0, pantPer:40.5 },
     { fecha:'11.08.2026', peso:99.9, tri:12.0, bi:4.0, sub:16.0, cresta:35.0, supra:15.0, abd:31.0, pierna:22.0, pant:8.0, s6:104.0, s8:143.0, brazRelaj:37.3, brazFlex:40.5, abdom:98.0, cadera:112.0, muslo:61.0, pantPer:41.0 },
     { fecha:'14.09.2026', peso:100.1, tri:13.0, bi:6.0, sub:18.0, cresta:32.0, supra:15.0, abd:25.0, pierna:20.0, pant:8.0, s6:99.0, s8:137.0, brazRelaj:38.0, brazFlex:40.5, abdom:97.5, cadera:112.0, muslo:61.0, pantPer:41.0, pctGrasa:16.7, fatKg:16.7, muscKg:41.3 },
+    { fecha:'15.10.2026', peso:99.5, tri:10.0, bi:4.0, sub:15.0, cresta:31.0, supra:11.0, abd:22.0, pierna:14.0, pant:5.0, s6:77.0, s8:112.0, brazRelaj:38.0, brazFlex:40.7, abdom:94.0, cadera:110.0, muslo:62.0, pantPer:41.0, pctGrasa:14.7, fatKg:14.6, muscKg:43.4 },
+    { fecha:'13.11.2026', peso:100.5, tri:11.0, bi:6.0, sub:18.0, cresta:28.0, supra:14.0, abd:29.0, pierna:20.0, pant:7.0, s6:99.0, s8:133.0, brazRelaj:36.8, brazFlex:41.3, abdom:97.0, cadera:101.0, muslo:61.8, pantPer:41.5, pctGrasa:16.8, fatKg:16.9, muscKg:41.6 },
   ],
 
   objetivos: [
@@ -308,10 +309,10 @@ const PATIENT = {
       { label:'Escoge 01 · Grasa', max:1, ops:['80 g de palta','2 porciones de frutos secos','8 aceitunas'] },
     ]},
 
-    { id:'c4', nombre:'🌿 Snack', kcal:272, p:16, c:43, g:4, grupos:[
+    { id:'c4', nombre:'🌿 Snack', kcal:332, p:16, c:58, g:4, grupos:[
       { label:'Escoge 02 · Carbohidrato', max:2, ops:['1 rapidita cero','1 rebanada de pan de molde integral','20 g de granola'] },
       { label:'Escoge 01 · Proteína láctea', max:1, ops:['200 g de yogurt Vakimú + Pro','60 g de queso mozzarella light'] },
-      { label:'Escoge 01 · Fruta', max:1, ops:['1 porción de fruta (ver especificaciones)'] },
+      { label:'Escoge 01 · Fruta', max:1, ops:['2 porciones de fruta (ver especificaciones)'] },
     ], nota:'Puedes reemplazar por: 1 chocolate de mantequilla de maní de La Purita + 1 plátano + 1 scoop de proteína con agua o leche de almendras.' },
 
     { id:'c5', nombre:'🌙 Cena', kcal:500, p:47, c:42, g:16, grupos:[
@@ -324,7 +325,7 @@ const PATIENT = {
     { id:'pre', nombre:'⚡ Pre Entreno Fuerza', kcal:299, p:23, c:45, g:3, grupos:[
       { label:'Opción A', max:1, ops:['1 plátano + 1 cda de miel de abeja + ½ scoop de proteína'] },
       { label:'Opción B', max:1, ops:['100 g de quark o skyr'] },
-    ], nota:'* Solo días de entrenamiento de fuerza. Sumar al total del día (+299 kcal = 2 057 kcal).' },
+    ], nota:'* Solo días de entrenamiento de fuerza. Sumar al total del día (+299 kcal = 2 117 kcal).' },
   ],
 
   specs: [
@@ -365,7 +366,7 @@ const PATIENT = {
     { nombre:'Salsa roja',             desc:'Tomate, cebolla, ajo, albahaca, poro + Lakanto o Stevia al gusto + sal, pimienta y tomillo + 1 cda aceite de oliva' },
   ],
 
-  notaSpecs: 'Plan base = días de descanso (1 758 kcal). Días de entrenamiento de fuerza: agregar Pre Entreno (+299 kcal = 2 057 kcal).',
+  notaSpecs: 'Plan base = días de descanso (1 818 kcal). Días de entrenamiento de fuerza: agregar Pre Entreno (+299 kcal = 2 117 kcal).',
 };
 
 // ════════════════════════════════════════════════════════════════════════════
