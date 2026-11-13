@@ -359,5 +359,109 @@
   </div>
 
 </div>
+<style>
+  /* SELECCIÓN DE OPCIONES */
+  .pick .k{display:flex;align-items:center;justify-content:space-between;gap:10px}
+  .pick .k .gcount{font-family:'Chakra Petch',sans-serif;color:var(--muted);letter-spacing:.04em;flex-shrink:0}
+  .pick .k .gcount.full{color:var(--orange)}
+  .pick .opts li{display:flex;align-items:center;gap:9px;cursor:pointer;transition:background .15s,border-color .15s,color .15s;user-select:none}
+  .pick .opts li:hover{border-color:var(--accent-border)}
+  .pick .opts li .cb{width:18px;height:18px;border-radius:5px;border:1.5px solid var(--border);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;background:var(--bg2);color:transparent;transition:.15s}
+  .pick .opts li.on{background:var(--orange-dim);border-color:var(--orange-border);color:var(--text)}
+  .pick .opts li.on .cb{background:var(--orange);border-color:var(--orange);color:#111}
+  .pick .opts li .txt{flex:1;min-width:0}
+  .pick .opts li .stp{display:flex;align-items:center;gap:6px;flex-shrink:0}
+  .pick .opts li .stp b{width:22px;height:22px;border-radius:6px;border:1px solid var(--border);background:var(--bg2);color:var(--text);font-size:14px;font-weight:400;line-height:20px;text-align:center;cursor:pointer;transition:.15s}
+  .pick .opts li .stp b:hover{background:var(--bg4)}
+  .pick .opts li .stp .n{min-width:14px;text-align:center;font-family:'Chakra Petch',sans-serif;font-size:13px;font-weight:700;color:var(--text)}
+  .reset-bar{display:flex;justify-content:flex-end;margin:-8px 0 20px}
+  .reset-bar button{background:none;border:1px solid var(--border);color:var(--muted);font-family:'Inter',sans-serif;font-size:11px;padding:6px 12px;border-radius:7px;cursor:pointer;transition:.15s}
+  .reset-bar button:hover{color:var(--text);border-color:var(--accent-border)}
+</style>
+<script>
+(function(){
+  var KEY = 'nicolas-mitterhofer-carbload-v1';
+  var state = {};
+  try { state = JSON.parse(localStorage.getItem(KEY)) || {}; } catch(e) { state = {}; }
+  var save = function(){ try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e){} };
+
+  var picks = [].slice.call(document.querySelectorAll('.pick'));
+
+  picks.forEach(function(pick, gi){
+    var k = pick.querySelector('.k');
+    var m = /escoge\s*0*(\d+)/i.exec(k.textContent);
+    var max = m ? parseInt(m[1], 10) : 1;
+    pick.dataset.max = max;
+
+    var count = document.createElement('span');
+    count.className = 'gcount';
+    k.appendChild(count);
+
+    var lis = [].slice.call(pick.querySelectorAll('.opts li'));
+
+    lis.forEach(function(li, oi){
+      var html = li.innerHTML;
+      li.innerHTML = '<span class="cb">✓</span><span class="txt">' + html + '</span>';
+      li.dataset.g = gi; li.dataset.o = oi;
+      if (state[gi + '-' + oi] == null) state[gi + '-' + oi] = 0;
+
+      if (max > 1) {
+        var stp = document.createElement('span');
+        stp.className = 'stp';
+        stp.innerHTML = '<b data-d="-1">−</b><span class="n">0</span><b data-d="1">+</b>';
+        li.appendChild(stp);
+        stp.addEventListener('click', function(ev){
+          var btn = ev.target.closest('b'); if (!btn) return;
+          ev.stopPropagation();
+          step(gi, oi, parseInt(btn.dataset.d, 10));
+        });
+      } else {
+        li.addEventListener('click', function(){
+          var on = state[gi + '-' + oi] > 0;
+          lis.forEach(function(_, j){ state[gi + '-' + j] = 0; });
+          state[gi + '-' + oi] = on ? 0 : 1;
+          render(gi); save();
+        });
+      }
+    });
+
+    function step(g, o, d){
+      var total = lis.reduce(function(a, _, j){ return a + state[g + '-' + j]; }, 0);
+      var v = state[g + '-' + o] + d;
+      if (v < 0) return;
+      if (d > 0 && total >= max) return;
+      state[g + '-' + o] = v;
+      render(g); save();
+    }
+
+    function render(g){
+      var total = 0;
+      lis.forEach(function(li, j){
+        var v = state[g + '-' + j];
+        total += v;
+        li.classList.toggle('on', v > 0);
+        var n = li.querySelector('.stp .n');
+        if (n) n.textContent = v;
+      });
+      count.textContent = total + '/' + max;
+      count.classList.toggle('full', total >= max);
+    }
+
+    pick._render = render.bind(null, gi);
+    render(gi);
+  });
+
+  var bar = document.createElement('div');
+  bar.className = 'reset-bar';
+  bar.innerHTML = '<button type="button">Limpiar selección</button>';
+  bar.querySelector('button').addEventListener('click', function(){
+    Object.keys(state).forEach(function(kk){ state[kk] = 0; });
+    picks.forEach(function(p){ p._render(); });
+    save();
+  });
+  var ft = document.querySelector('.footer');
+  ft.parentNode.insertBefore(bar, ft);
+})();
+</script>
 </body>
 </html>
