@@ -242,9 +242,9 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 const PATIENT = {
   slug:     'tomas-ruiz',
   nombre:   'Tomás\nRuiz de Somocurcio',
-  fecha:    '15.07.2026',
+  fecha:    '13.11.2026',
   tipoPlan: 'Hipocalórico · Hiperprotéico',
-  macros:   { kcal: 1721, p: 121, c: 195, g: 52 },
+  macros:   { kcal: 1521, p: 155, c: 124, g: 45 },
 
   hidratacion: [
     { label: 'Entrenamiento', valor: '4.5' },
@@ -268,45 +268,46 @@ const PATIENT = {
   ],
 
   comidas: [
-    { id:'alm', nombre:'🍛 Almuerzo', kcal:1287, p:84, c:138, g:44, grupos:[
-      { label:'Escoge 06 · Carbohidrato', max:6, ops:[
-        '60 g de arroz',
-        '60 g de quinua',
-        '50 g de pasta',
-        '90 g de papa o camote',
-        '100 g de menestras (lentejas, frijoles, garbanzos)',
-      ]},
-      { label:'Escoge 01 · Proteína (300 g peso crudo)', max:1, ops:[
+    // Macros por intercambio: 1 porción de carbo = 2P/15C · 1 porción de grasa = 5G · 150 g de berries = 1P/15C.
+    { id:'des', nombre:'☀️ Desayuno', kcal:466, p:47, c:29, g:18, grupos:[
+      { label:'Proteína', max:1, ops:['3 huevos enteros + 2 claras'] },
+      { label:'Verduras a elección', max:1, ops:['Espinaca, champiñones, tomate, etc.'] },
+      { label:'Lácteo', max:1, ops:['200 g de yogurt griego Vakimú'] },
+      { label:'Fruta', max:1, ops:['150 g de berries'] },
+    ], nota:'Agrega cúrcuma y pimienta negra a los huevos. Puedes prepararlos revueltos, en tortilla, etc.\nPuedes agregar canela en polvo a tu yogurt o a las frutas, y también 1 cda de semillas enteras de chía o linaza.' },
+    { id:'alm', nombre:'🍛 Almuerzo', kcal:611, p:64, c:55, g:15, grupos:[
+      { label:'Escoge 01 · Proteína (250 g, peso crudo)', max:1, ops:[
         'Pollo',
-        'Pavo',
-        'Pescado blanco (corvina, lenguado, etc.)',
         'Bistec',
-        'Lomo de res',
-        'Lomo de cerdo',
+        'Pescado blanco',
+      ]},
+      { label:'Escoge 03 · Carbohidrato', max:3, ops:[
+        '60 g de arroz',
+        '90 g de papa o camote',
+        '50 g de fideos',
+        '60 g de quinua',
       ]},
       { label:'Escoge 01 · Verduras', max:1, ops:[
         '250–300 g de verduras (cualquier tipo)',
       ]},
-      { label:'Escoge 06 · Grasa', max:6, ops:[
-        '5 g de aceite de oliva (1 cdta)',
+      { label:'Escoge 02 · Grasa', max:2, ops:[
         '40 g de palta',
-        '1 porción de frutos secos (ver especificaciones)',
+        '1 cdta de aceite de oliva (5 g)',
         '8 aceitunas',
-        '10 g de mantequilla de maní',
+        '1 porción de frutos secos (ver especificaciones)',
       ]},
     ], nota:'Café hasta las 3 pm. Electrolitos: Liquid IV con el almuerzo. Consumir multivitamínico Thorne con esta comida.' },
-
-    { id:'pos', nombre:'🍮 Postres', kcal:434, p:37, c:57, g:8, grupos:[
-      { label:'Escoge 01 · Postre del día', max:1, ops:[
-        'Bowl: Yogurt Vakimu Quark 250 g + 60 g de cereales + 2 porciones de frutos secos',
-        'Pudín: 2 servings Snack Pack + 1 scoop de proteína aislada + 2 porciones de fruta',
-        'Bowl: 200 g yogurt Vakimu Quark + 30 g avena + 1 plátano mediano + 15 g de mantequilla de maní',
-        'Pancake: 40 g avena + 2 huevos + 150 ml leche descremada + 100 g de berries + 20 g de miel o maple',
-        'Postre Alquimia: 200 g mini cheesecake de frutos rojos',
-        'Helado +Pro: 1 paleta Vakimu +Pro + 60 g de cereales + 1 porción de frutos secos',
+    { id:'mt', nombre:'🕔 Media Tarde', kcal:72, p:3, c:15, g:0, grupos:[
+      { label:'Snack', max:1, ops:['2 tazas de gelatina light + 150 g de berries'] },
+    ], nota:'Puedes agregar canela en polvo a las frutas, y también 1 cda de semillas enteras de chía o linaza.' },
+    { id:'cen', nombre:'🌙 Cena', kcal:372, p:41, c:25, g:12, grupos:[
+      { label:'Base', max:1, ops:['1 Rapidita XL + 60 g de queso mozzarella light Cuisine & Co'] },
+      { label:'Escoge 01 · Proteína', max:1, ops:[
+        '100 g de pollo (peso crudo)',
+        '100 g de bistec (peso crudo)',
+        '1 lata de atún en agua',
       ]},
     ]},
-
     { id:'bjj', nombre:'🥊 BJJ Pre + Post (+330 kcal)', kcal:null, p:null, c:null, g:null, grupos:[
       { label:'Pre Entreno · Escoge 01 (+180 kcal)', max:1, ops:[
         '1 plátano',
@@ -320,7 +321,7 @@ const PATIENT = {
         '1 scoop de proteína aislada + 100 g de berries',
         '1 Pro Day Gloria',
       ]},
-    ], nota:'Solo días de BJJ. Pre: +180 kcal · Post: +150 kcal. Total días BJJ ≈ 2 051 kcal.' },
+    ], nota:'Solo días de BJJ. Pre: +180 kcal · Post: +150 kcal. Total días BJJ ≈ 1 851 kcal.' },
   ],
 
   specs: [
@@ -406,7 +407,7 @@ const PATIENT = {
     { nombre:'Salsa roja',             desc:'Tomate, cebolla, ajo, albahaca, poro + Lakanto o Stevia al gusto + sal, pimienta y tomillo + 1 cda aceite de oliva' },
   ],
 
-  notaSpecs: 'Plan base: 1 721 kcal/día. Días de BJJ: sumar Pre (+180 kcal) y Post (+150 kcal) entreno = +330 kcal ≈ 2 051 kcal total.',
+  notaSpecs: 'Plan base: 1 521 kcal/día. Días de BJJ: sumar Pre (+180 kcal) y Post (+150 kcal) entreno = +330 kcal ≈ 1 851 kcal total.',
 
   entrenamiento: {
     fases: [
@@ -622,7 +623,7 @@ function buildMeal(meal) {
     return `<div class="pick"><div class="k">${g.label}</div><div class="options">${opts}</div></div>`;
   }).join('');
 
-  const nota = meal.nota ? `<div class="note2">${meal.nota}</div>` : '';
+  const nota = meal.nota ? `<div class="note2">${meal.nota.replace(/\n/g,"<br>")}</div>` : '';
   return `<div class="meal" data-mealid="${meal.id}"><div class="top">
     <span class="nm">${meal.nombre}</span>
     ${macStr ? `<span class="mac">${macStr}</span>` : ''}
