@@ -123,6 +123,17 @@
   .rv-body strong{color:var(--text)}
   .rv-ref{font-size:10px;color:var(--muted);font-style:italic;margin-top:6px}
 
+  /* GRUPOS ESCOGE — mismo formato que los planes nutricionales */
+  .pick{margin:11px 0 0}
+  .pick:first-child{margin-top:0}
+  .pick .k{font-family:'Chakra Petch',sans-serif;font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--orange);font-weight:700;margin-bottom:5px}
+  .pick .opts{list-style:none;display:flex;flex-direction:column;gap:3px}
+  .pick .opts li{font-size:12.5px;color:#ccc;line-height:1.45;padding:5px 10px;background:var(--bg3);border:1px solid var(--border);border-radius:7px}
+  .pick .opts li strong{color:var(--text);font-weight:600}
+  .fixed-item{font-size:12.5px;color:#ccc;line-height:1.45;padding:6px 10px;background:var(--accent-dim);border-left:2px solid var(--accent-border);border-radius:0 6px 6px 0;margin-bottom:4px}
+  .fixed-item strong{color:var(--text);font-weight:600}
+  .intake-note{font-size:11px;color:var(--muted);line-height:1.5;margin-top:9px;font-style:italic}
+
   /* FOOTER */
   .footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
   .footer .logo{font-family:'Chakra Petch',sans-serif;font-size:14px;color:var(--accent);letter-spacing:.04em}
@@ -157,13 +168,17 @@
       <div class="intake-label">Desayuno</div>
     </div>
     <div class="intake-body">
-      <ul class="intake-foods">
-        <li><strong>2 cdas de tocosh</strong> + 1 vaso de agua (500 ml)</li>
-        <li><strong>3 porciones de fruta</strong> — ver especificaciones</li>
-        <li><strong>80g</strong> de avena <strong>+ 4 rebanadas</strong> de pan de molde blanco</li>
+      <div class="fixed-item"><strong>2 cdas de tocosh</strong> + 1 vaso de agua (500 ml)</div>
+      <div class="pick"><div class="k">Escoge 03 · Fruta</div><ul class="opts">
+        <li>1 porción de fruta (ver especificaciones)</li>
+      </ul></div>
+      <div class="pick"><div class="k">Escoge 01 · Carbohidrato</div><ul class="opts">
+        <li><strong>80 g</strong> de avena + <strong>4 rebanadas</strong> de pan de molde blanco</li>
+      </ul></div>
+      <div class="pick"><div class="k">Escoge 01 · Proteína</div><ul class="opts">
         <li><strong>2 huevos</strong></li>
-        <li class="alt">↳ Agregar canela con las frutas. Puedes usarlas para hacer jugo sin problema.</li>
-      </ul>
+      </ul></div>
+      <div class="intake-note">*Agregar canela con las frutas. Puedes usarlas para hacer jugo sin problema.</div>
       <div class="macro-row">
         <div class="mr cho"><div class="mv">176g</div><div class="ml">CHO</div></div>
         <div class="mr pro"><div class="mv">36g</div><div class="ml">PROT</div></div>
@@ -180,10 +195,12 @@
       <div class="intake-label">Snack 1</div>
     </div>
     <div class="intake-body">
-      <ul class="intake-foods">
+      <div class="pick"><div class="k">Escoge 01 · Carbohidrato</div><ul class="opts">
         <li><strong>2 rebanadas</strong> de pan de molde + <strong>1 cda</strong> de miel de abeja o mermelada</li>
+      </ul></div>
+      <div class="pick"><div class="k">Escoge 01 · Fruta</div><ul class="opts">
         <li><strong>1 plátano</strong></li>
-      </ul>
+      </ul></div>
       <div class="macro-row">
         <div class="mr cho"><div class="mv">74g</div><div class="ml">CHO</div></div>
         <div class="mr pro"><div class="mv">6g</div><div class="ml">PROT</div></div>
@@ -200,13 +217,17 @@
       <div class="intake-label">Almuerzo</div>
     </div>
     <div class="intake-body">
-      <ul class="intake-foods">
-        <li><strong>1 cda de vinagre de manzana</strong> + 1 vaso de agua (500 ml)</li>
-        <li><strong>420g</strong> de arroz cocido</li>
-        <li class="alt">↳ Opción B: 350g de pasta sin relleno</li>
-        <li><strong>100g</strong> (peso crudo) de pechuga de pollo, pechuga de pavo o pescado</li>
-        <li class="alt">↳ Bistec: tratar de evitar</li>
-      </ul>
+      <div class="fixed-item"><strong>1 cda de vinagre de manzana</strong> + 1 vaso de agua (500 ml)</div>
+      <div class="pick"><div class="k">Escoge 01 · Carbohidrato</div><ul class="opts">
+        <li><strong>420 g</strong> de arroz</li>
+        <li><strong>350 g</strong> de pasta sin relleno</li>
+      </ul></div>
+      <div class="pick"><div class="k">Escoge 01 · Proteína (100 g, peso crudo)</div><ul class="opts">
+        <li>Pechuga de pollo</li>
+        <li>Pechuga de pavo</li>
+        <li>Pescado</li>
+        <li>Bistec (tratar de evitar)</li>
+      </ul></div>
       <div class="macro-row">
         <div class="mr cho"><div class="mv">118g</div><div class="ml">CHO</div></div>
         <div class="mr pro"><div class="mv">32g</div><div class="ml">PROT</div></div>
@@ -223,12 +244,17 @@
       <div class="intake-label">Snack 2</div>
     </div>
     <div class="intake-body">
-      <ul class="intake-foods">
-        <li><strong>60g</strong> de Nestum, Cerelac o cornflakes — pueden ser azucarados, los que prefieras</li>
-        <li class="alt">↳ Opción B: 1 rebanada de pan de molde &nbsp;·&nbsp; Opción C: 7 galletas de arroz Costeño</li>
-        <li><strong>300ml</strong> de leche de almendra (opcional)</li>
+      <div class="pick"><div class="k">Escoge 01 · Carbohidrato</div><ul class="opts">
+        <li><strong>60 g</strong> de Nestum, Cerelac o cornflakes — pueden ser azucarados, los que prefieras</li>
+        <li><strong>1 rebanada</strong> de pan de molde</li>
+        <li><strong>7 galletas</strong> de arroz Costeño</li>
+      </ul></div>
+      <div class="pick"><div class="k">Escoge 01 · Lácteo (opcional)</div><ul class="opts">
+        <li><strong>300 ml</strong> de leche de almendra</li>
+      </ul></div>
+      <div class="pick"><div class="k">Escoge 01 · Fruta</div><ul class="opts">
         <li><strong>1 plátano</strong></li>
-      </ul>
+      </ul></div>
       <div class="macro-row">
         <div class="mr cho"><div class="mv">76g</div><div class="ml">CHO</div></div>
         <div class="mr pro"><div class="mv">7g</div><div class="ml">PROT</div></div>
@@ -245,13 +271,17 @@
       <div class="intake-label">Cena</div>
     </div>
     <div class="intake-body">
-      <ul class="intake-foods">
-        <li><strong>1 cda de vinagre de manzana</strong> + 1 vaso de agua (500 ml)</li>
-        <li><strong>420g</strong> de arroz cocido</li>
-        <li class="alt">↳ Opción B: 350g de pasta sin relleno</li>
-        <li><strong>120g</strong> (peso crudo) de pechuga de pollo, pechuga de pavo o pescado</li>
-        <li class="alt">↳ Bistec: tratar de evitar</li>
-      </ul>
+      <div class="fixed-item"><strong>1 cda de vinagre de manzana</strong> + 1 vaso de agua (500 ml)</div>
+      <div class="pick"><div class="k">Escoge 01 · Carbohidrato</div><ul class="opts">
+        <li><strong>420 g</strong> de arroz</li>
+        <li><strong>350 g</strong> de pasta sin relleno</li>
+      </ul></div>
+      <div class="pick"><div class="k">Escoge 01 · Proteína (120 g, peso crudo)</div><ul class="opts">
+        <li>Pechuga de pollo</li>
+        <li>Pechuga de pavo</li>
+        <li>Pescado</li>
+        <li>Bistec (tratar de evitar)</li>
+      </ul></div>
       <div class="macro-row">
         <div class="mr cho"><div class="mv">118g</div><div class="ml">CHO</div></div>
         <div class="mr pro"><div class="mv">36g</div><div class="ml">PROT</div></div>
@@ -283,12 +313,12 @@
       <div class="ft-dot"><div class="dot orange"></div><div class="line"></div></div>
       <div class="ft-content">
         <div class="ft-label orange">Desayuno Pre-Competencia</div>
-        <div class="ft-desc">
-          <strong>60g de Nestum o Cerelac</strong><br>
-          <span style="color:var(--muted)">Opción B: 60g de cream of rice &nbsp;·&nbsp; Opción C: 3 rebanadas de pan blanco</span><br>
-          <strong>+ 1 plátano + 2 cdas de miel de abeja + 200ml de jugo de naranja</strong><br>
-          <span style="color:var(--muted)">El jugo puede ser de botella cold press.</span>
-        </div>
+        <div class="pick"><div class="k">Escoge 01 · Carbohidrato</div><ul class="opts">
+          <li><strong>60 g</strong> de Nestum o Cerelac</li>
+          <li><strong>60 g</strong> de cream of rice</li>
+          <li><strong>3 rebanadas</strong> de pan blanco</li>
+        </ul></div>
+        <div class="fixed-item" style="margin-top:8px">+ <strong>1 plátano</strong> + <strong>2 cdas</strong> de miel de abeja + <strong>200 ml</strong> de jugo de naranja (puede ser de botella cold press)</div>
         <div class="ft-nums" style="margin-top:10px">
           <div class="ft-num"><span style="color:var(--orange)">130g</span> CHO</div>
           <div class="ft-num"><span style="color:var(--green)">8g</span> PROT</div>
