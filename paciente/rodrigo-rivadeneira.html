@@ -175,9 +175,10 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 // ════════════════════════════════════════════════════════════════════════════
 //  DATOS DEL PACIENTE
 // ════════════════════════════════════════════════════════════════════════════
-var DES = { id:'des', nombre:'☀️ Desayuno', kcal:null, p:null, c:null, g:null, grupos:[
+var DES = { id:'des', nombre:'☀️ Desayuno', kcal:126, p:25, c:2, g:2, grupos:[
   { label:'Desayuno', max:0, ops:[
     '500 ml de café (puedes usar Stevia)',
+    '1 scoop de proteína en polvo (ISOXP)',
   ]},
 ]};
 
@@ -324,13 +325,13 @@ const PATIENT = {
   ],
 
   planes: [
-    { id:'descanso', label:'Día de descanso', sub:'1835 kcal', macros:{ kcal:1835, p:123, c:230, g:47 }, comidas:[
+    { id:'descanso', label:'Día de descanso', sub:'1961 kcal', macros:{ kcal:1961, p:148, c:232, g:49 }, comidas:[
       DES, ALM, SNK, CEN,
     ]},
-    { id:'entreno', label:'Día de entrenamiento', sub:'+201 kcal', macros:{ kcal:2036, p:126, c:275, g:48 }, comidas:[
+    { id:'entreno', label:'Día de entrenamiento', sub:'+201 kcal', macros:{ kcal:2162, p:151, c:277, g:50 }, comidas:[
       PRE_ENTRENO, DES, ALM, SNK, CEN,
     ]},
-    { id:'fondo', label:'Día de fondo', sub:'+398 kcal', macros:{ kcal:2233, p:128, c:320, g:49 }, comidas:[
+    { id:'fondo', label:'Día de fondo', sub:'+398 kcal', macros:{ kcal:2359, p:153, c:322, g:51 }, comidas:[
       PRE_FONDO, DES, ALM, SNK, CEN,
     ]},
   ],
