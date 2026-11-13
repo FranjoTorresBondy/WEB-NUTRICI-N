@@ -211,6 +211,7 @@ const PATIENT = {
   slug:     'santiago-prado',
   nombre:   'Santiago\nPrado',
   sexo:     'm',
+  nacimiento:'22.02.2012',
   fecha:    '09.10.2026',
   tipoPlan: 'Hipercalórico · Hiperprotéico',
   hidratacion: [
@@ -223,14 +224,14 @@ const PATIENT = {
     s6:20.0, s8:26.0,
     brazRelaj:25.7, brazFlex:29.0, abdom:72.5, cadera:89.0, muslo:49.2, pantPer:34.0,
     diam:{ humero:7.0, biEstiloideo:5.5, femur:9.1 },
-    // Faulkner (hombre) y Rocha. Masa muscular (Lee) pendiente: falta fecha de nacimiento.
-    pctGrasa:7.6, fatKg:4.6, pctOseo:18.5, oseoKg:11.1, icc:0.81,
+    // Faulkner (hombre), Lee con su edad real (14.7 años, nac. 22.02.2012) y Rocha.
+    pctGrasa:7.6, fatKg:4.6, pctMusc:49.1, muscKg:29.5, pctOseo:18.5, oseoKg:11.1, imo:2.65, icc:0.81,
     somato:{ endo:0.6, meso:3.7, ecto:4.4 },
   },
   antroHistorial: [
     // 09.10: fecha corregida (decía 2025), IMC recalculado (decía 25.9) y Σ6/Σ8 = suma de los pliegues registrados.
     { fecha:'09.10.2026', peso:58.3, tri:4.0, bi:1.0, sub:4.0, cresta:7.0, supra:3.0, abd:4.0, pierna:5.0, pant:4.0, s6:24.0, s8:32.0, brazRelaj:24.8, brazFlex:28.1, abdom:72.8, cadera:84.0, muslo:48.2, pantPer:33.8 },
-    { fecha:'12.11.2026', peso:60.0, tri:3.5, bi:1.0, sub:3.5, cresta:5.0, supra:2.5, abd:2.5, pierna:5.0, pant:3.0, s6:20.0, s8:26.0, brazRelaj:25.7, brazFlex:29.0, abdom:72.5, cadera:89.0, muslo:49.2, pantPer:34.0, pctGrasa:7.6, fatKg:4.6 },
+    { fecha:'12.11.2026', peso:60.0, tri:3.5, bi:1.0, sub:3.5, cresta:5.0, supra:2.5, abd:2.5, pierna:5.0, pant:3.0, s6:20.0, s8:26.0, brazRelaj:25.7, brazFlex:29.0, abdom:72.5, cadera:89.0, muslo:49.2, pantPer:34.0, pctGrasa:7.6, fatKg:4.6, muscKg:29.5 },
   ],
   objetivos: [
     'Aumento de masa muscular',
