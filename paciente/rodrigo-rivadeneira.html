@@ -175,15 +175,14 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 // ════════════════════════════════════════════════════════════════════════════
 //  DATOS DEL PACIENTE
 // ════════════════════════════════════════════════════════════════════════════
-var DES = { id:'des', nombre:'☀️ Desayuno', kcal:186, p:25, c:17, g:2, grupos:[
+var DES = { id:'des', nombre:'☀️ Desayuno', kcal:126, p:25, c:2, g:2, grupos:[
   { label:'Desayuno', max:0, ops:[
-    '1 scoop de proteína',
-    '1 porción de fruta (ver especificaciones)',
-    '1 café (sin azúcar: usa Stevia o fruto del monje)',
+    '500 ml de café (puedes usar Stevia)',
+    '1 scoop de proteína en polvo (ISOXP)',
   ]},
-], nota:'Puedes agregarle 200 ml de bebida de almendras.' };
+]};
 
-var ALM = { id:'alm', nombre:'🥗 Almuerzo', kcal:650, p:47, c:75, g:18, grupos:[
+var ALM = { id:'alm', nombre:'🥗 Almuerzo', kcal:695, p:47, c:75, g:23, grupos:[
   { label:'Escoge 04 · Carbohidrato', max:4, ops:[
     '⅓ taza de arroz blanco o integral (60 g, cocido)',
     '90 g de papa, camote o betarraga (cocido)',
@@ -191,24 +190,22 @@ var ALM = { id:'alm', nombre:'🥗 Almuerzo', kcal:650, p:47, c:75, g:18, grupos
     '½ taza de menestras (100 g, cocida)',
     '60 g de choclo',
     '⅓ taza de pasta cocida sin relleno (50 g)',
+    '½ Rapidita XL',
   ]},
   { label:'Escoge · Proteína (150 g, peso crudo)', max:1, ops:[
-    'Pechuga de pollo',
-    'Pechuga de pavita',
-    'Pescado blanco',
     '1 lata de atún en agua',
     'Langostinos',
-    '1 presa de pierna con encuentro, con piel, en freidora de aire (si la eliges, cortar la porción de grasa)',
-    'Lomo de res (máximo 1 vez por semana — ver nota)',
+    '1 filete de pierna, a la parrilla o en freidora de aire (si lo eliges, corta 1 porción de grasa)',
+    'Lomo de res',
   ]},
   { label:'Escoge 01 · Verduras', max:1, ops:[
     '150 a 180 g de verduras de tu preferencia',
   ]},
-  { label:'Escoge 01 · Grasa', max:1, ops:[
+  { label:'Escoge 02 · Grasa', max:2, ops:[
     '40 g de palta',
     '1 cdta de aceite de oliva',
     '1 porción de frutos secos (ver especificaciones)',
-    '20 g de queso cheddar',
+    '1 slice de queso cheddar',
   ]},
   { label:'O si almuerzas fuera · Escoge 01', max:1, ops:[
     '🥙 Wrap de Subway de pollo rostizado: pan integral, doble carne, lechuga, tomate, pepino, pimiento y ají. Sin salsas cremosas (mayonesa, ranch, chipotle) — solo mostaza, vinagre o ají',
@@ -243,7 +240,7 @@ var SNK = { id:'snk', nombre:'🍎 Snack', kcal:514, p:36, c:70, g:10, grupos:[
   ]},
 ], nota:'🍿 <b>Antojo de canchita:</b> 20 g de maíz para cancha reventado en olla sin aceite (o en air fryer) reemplaza la porción de carbohidrato del snack.<br>🥤 <b>Milkshake de lúcuma:</b> 200 ml de leche Slim + 60 g de pulpa de lúcuma + ½ scoop de proteína en polvo + Stevia + hielo. Reemplaza la proteína y la fruta del snack (los 60 g de lúcuma son tu porción de fruta).<br>🥛 Puedes reemplazar este snack por 1 Gloria Pro Power + 1 paquete de 4 galletas Oreo.<br>🥣 <b>Overnight oats:</b> 50 g de avena + 200 ml de leche Slim + 200 g de Quark + 3 cdas de chía + 1 cda de miel + 1 porción de fruta.' };
 
-var CEN = { id:'cen', nombre:'🌙 Cena', kcal:671, p:40, c:85, g:19, grupos:[
+var CEN = { id:'cen', nombre:'🌙 Cena', kcal:626, p:40, c:85, g:14, grupos:[
   { label:'Escoge 04 · Carbohidrato', max:4, ops:[
     '⅓ taza de arroz blanco o integral (60 g, cocido)',
     '90 g de papa o camote (cocido, no frito)',
@@ -258,21 +255,16 @@ var CEN = { id:'cen', nombre:'🌙 Cena', kcal:671, p:40, c:85, g:19, grupos:[
     'Pechuga de pollo',
     'Pechuga de pavita',
     'Pescado blanco',
-    'Salmón o atún fresco (si lo eliges, cortar la porción de grasa)',
+    'Salmón o atún fresco (si lo eliges, corta 1 porción de grasa del almuerzo)',
     '1 lata de atún en agua',
     'Langostinos',
-    '1 presa de pierna con encuentro, con piel, en freidora de aire (si la eliges, cortar la porción de grasa)',
+    '1 filete de pierna, a la parrilla o en freidora de aire (si lo eliges, corta 1 porción de grasa del almuerzo)',
     '90 g de queso mozzarella light Cuisine&Co + 1 huevo',
   ]},
   { label:'Escoge 01 · Verduras', max:1, ops:[
     '150 a 180 g de verduras de tu preferencia',
   ]},
-  { label:'Escoge 01 · Grasa', max:1, ops:[
-    '40 g de palta',
-    '1 cdta de aceite de oliva',
-    '1 porción de frutos secos (ver especificaciones)',
-  ]},
-], nota:'🍟 <b>Papas fritas:</b> si las comes, que sean <b>110 g</b> y reemplazan tus porciones de carbohidrato <b>y</b> la de grasa de la cena. Fuera de ese cambio, pide la papa sancochada, al horno o en air fryer.<br>🍺 <b>Si tomas cerveza:</b> hasta 4 de 330 ml. Ese día reemplaza el snack de media tarde por solo 1 scoop de proteína, y en la cena corta 1 porción de carbohidrato y la de grasa.<br>🫒 Que en casa cocinen con <b>aceite de oliva</b> en vez de aceite vegetal.<br>🍲 Si te provoca sopa, entra sin problema: cuenta como la porción de verduras.' };
+], nota:'🍟 <b>Papas fritas:</b> si las comes, que sean <b>110 g</b> y reemplazan tus porciones de carbohidrato de la cena <b>y</b> 1 porción de grasa del almuerzo. Fuera de ese cambio, pide la papa sancochada, al horno o en air fryer.<br>🍺 <b>Si tomas cerveza:</b> hasta 4 de 330 ml. Ese día reemplaza el snack de media tarde por solo 1 scoop de proteína, en la cena corta 1 porción de carbohidrato y quita 1 porción de grasa del almuerzo.<br>🫒 Que en casa cocinen con <b>aceite de oliva</b> en vez de aceite vegetal.<br>🍲 Si te provoca sopa, entra sin problema: cuenta como la porción de verduras.' };
 
 var PRE_ENTRENO = { id:'pre', nombre:'⚡ Pre Entreno', kcal:201, p:3, c:45, g:1, grupos:[
   { label:'Escoge 01 · Tomar 45–30 min antes', max:1, ops:[
@@ -325,20 +317,19 @@ const PATIENT = {
   objetivos: [
     'Disminución de grasa corporal',
     'Mejorar el rendimiento en bici, carrera y natación',
-    'Subir la proteína diaria: hoy consumes ~65 g y la meta son 150 g',
     'Llegar a 3 litros de agua al día (hoy estás en 1.5)',
     'Capuccinos sin azúcar: cambiar los sachets por Stevia',
     'Dormir antes de las 11 pm para llegar a 8 horas',
   ],
 
   planes: [
-    { id:'descanso', label:'Día de descanso', sub:'2021 kcal', macros:{ kcal:2021, p:148, c:247, g:49 }, comidas:[
+    { id:'descanso', label:'Día de descanso', sub:'1961 kcal', macros:{ kcal:1961, p:148, c:232, g:49 }, comidas:[
       DES, ALM, SNK, CEN,
     ]},
-    { id:'entreno', label:'Día de entrenamiento', sub:'+201 kcal', macros:{ kcal:2222, p:151, c:292, g:50 }, comidas:[
+    { id:'entreno', label:'Día de entrenamiento', sub:'+201 kcal', macros:{ kcal:2162, p:151, c:277, g:50 }, comidas:[
       PRE_ENTRENO, DES, ALM, SNK, CEN,
     ]},
-    { id:'fondo', label:'Día de fondo', sub:'+398 kcal', macros:{ kcal:2419, p:153, c:337, g:51 }, comidas:[
+    { id:'fondo', label:'Día de fondo', sub:'+398 kcal', macros:{ kcal:2359, p:153, c:322, g:51 }, comidas:[
       PRE_FONDO, DES, ALM, SNK, CEN,
     ]},
   ],
