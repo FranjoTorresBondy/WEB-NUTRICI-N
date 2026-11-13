@@ -254,6 +254,7 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 const PATIENT = {
   slug:      'alexandra-lossio',
   sexo:      'f',
+  nacimiento:'08.04.1997',
   nombre:    'Alexandra\nLossio',
   fecha:     '09.11.2026',
   tipoPlan:  'Hipocalórico · Hiperprotéico',
@@ -268,18 +269,19 @@ const PATIENT = {
     fecha:'09.11.2026', peso:50.0, talla:152.0, imc:21.6,
     tri:12.0, bi:5.0, sub:12.0, cresta:13.0, supra:8.0, abd:12.0, pierna:12.0, pant:11.5,
     s6:67.5, s8:85.5,
-    brazRelaj:26.5, brazFlex:24.7, abdom:67.0, cadera:90.8, muslo:47.0, pantPer:31.0,
+    brazRelaj:24.7, brazFlex:26.5, abdom:67.0, cadera:90.8, muslo:47.0, pantPer:31.0,
     diam: { humero:5.7, biEstiloideo:4.7, femur:8.5 },
-    // Faulkner (mujer) y Rocha. Sin masa muscular (Lee): falta la fecha de nacimiento.
-    pctGrasa:17.3, fatKg:8.6, pctOseo:15.3, oseoKg:7.7,
-    icc:0.74,
-    somato:{ endo:3.7, meso:3.8, ecto:1.6 },
+    // Faulkner (mujer), Lee con su edad real (29.6 años, nac. 08.04.1997) y Rocha.
+    pctGrasa:17.3, fatKg:8.6, pctMusc:37.7, muscKg:18.9, pctOseo:15.3, oseoKg:7.7,
+    imo:2.46, icc:0.74,
+    somato:{ endo:3.7, meso:4.1, ecto:1.6 },
   },
   antroHistorial: [
     { fecha:'09.11.2026', peso:50.0, talla:152.0, imc:21.6,
       tri:12.0, bi:5.0, sub:12.0, cresta:13.0, supra:8.0, abd:12.0, pierna:12.0, pant:11.5,
-      brazRelaj:26.5, brazFlex:24.7, abdom:67.0, cadera:90.8, muslo:47.0, pantPer:31.0,
-      s6:67.5, s8:85.5, pctGrasa:17.3, fatKg:8.6, pctOseo:15.3, oseoKg:7.7, icc:0.74 },
+      brazRelaj:24.7, brazFlex:26.5, abdom:67.0, cadera:90.8, muslo:47.0, pantPer:31.0,
+      s6:67.5, s8:85.5, pctGrasa:17.3, fatKg:8.6, pctMusc:37.7, muscKg:18.9,
+      pctOseo:15.3, oseoKg:7.7, imo:2.46, icc:0.74 },
   ],
 
   objetivos: [
