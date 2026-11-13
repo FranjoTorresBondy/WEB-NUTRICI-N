@@ -193,23 +193,21 @@ const PATIENT = {
   ],
 
   antro: {
-    fecha:    '29.10.2026',
-    peso:     86.3,
+    fecha:    '12.11.2026',
+    peso:     85.0,
     talla:    175.0,
-    imc:      28.2,
-    tri:      5.0,  bi:2.0,    sub:9.0,   cresta:12.0, supra:8.0,
-    abd:      15.0, pierna:12.0, pant:9.0,
-    s6:       58.0, s8:72.0,
-    brazRelaj: 37.8, brazFlex:41.8,
-    abdom:     86.0, cadera:102.5, muslo:57.5, pantPer:39.7,
+    imc:      27.8,
+    tri:      5.0,  bi:1.5,    sub:9.0,   cresta:11.0, supra:7.0,
+    abd:      15.0, pierna:9.0, pant:9.0,
+    s6:       54.0, s8:66.5,
+    brazRelaj: 38.3, brazFlex:41.8,
+    abdom:     84.5, cadera:102.0, muslo:57.0, pantPer:39.5,
     diam: { humero:6.4, biEstiloideo:5.1, femur:9.5 },
-    icc:      0.84, somato: { endo:2.1, meso:6.8, ecto:0.7 },
-    pctGrasa: 15.8, fatKg: 13.6,
-    pctOseo:  12.4, oseoKg: 10.7,
-    pctMusc:  46.2, muscKg: 39.9,
-    imo: 3.73,
+    icc:      0.83, somato: { endo:2.0, meso:6.8, ecto:0.8 },
+    // Faulkner (hombre) y Rocha. Masa muscular (Lee) pendiente: falta fecha de nacimiento.
+    pctGrasa: 11.3, fatKg: 9.6,
+    pctOseo:  12.6, oseoKg: 10.7,
   },
-
   antroHistorial: [
     { fecha:'15.09.2026', peso:90.5, talla:175.0, imc:29.6,
       tri:7.0, bi:2.5, sub:13.0, cresta:18.0, supra:10.0, abd:18.0, pierna:12.0, pant:12.0,
@@ -621,7 +619,7 @@ function renderEval() {
         ${row('IMC', a.imc, ' kg/m²')}
         <div class="gh" style="margin-top:0;border-top:1px solid var(--line)">Diámetros (cm)</div>
         ${row('Húmero', d.humero)}
-        ${row('Biestiloideo', d.biestiloideo)}
+        ${row('Biestiloideo', d.biestiloideo ?? d.biEstiloideo)}
         ${row('Fémur', d.femur)}
       </div>
       <div class="evgroup"><div class="gh">Pliegues (mm) · ISAK</div>
