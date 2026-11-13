@@ -462,7 +462,9 @@ const PATIENT = {
 
   notaSpecs: 'Plan base = días de descanso (2010 kcal). Días de entrenamiento: agregar Pre Entreno Fuerza / Hyrox.',
 
-  antroHistorial: [],
+  antroHistorial: [
+    { fecha:'13.11.2026', peso:70.7 },
+  ],
 
   entrenamiento: {
     fases: [
@@ -670,8 +672,12 @@ function getAntroBase() {
   const a = PATIENT.antro;
   const s6 = a.s6 ?? +(a.tri+a.sub+a.supra+a.abd+a.pierna+a.pant).toFixed(1);
   const s8 = a.s8 ?? +(s6+a.bi+a.cresta).toFixed(1);
-  const current = { fecha:a.fecha, peso:a.peso, tri:a.tri, bi:a.bi, sub:a.sub, cresta:a.cresta, supra:a.supra, abd:a.abd, pierna:a.pierna, pant:a.pant, brazRelaj:a.brazRelaj, brazFlex:a.brazFlex, abdom:a.abdom, cadera:a.cadera, muslo:a.muslo, pantPer:a.pantPer, s6, s8 };
-  return [...(PATIENT.antroHistorial || []), current];
+  const current = { ...a, s6, s8 };
+  const out = [...(PATIENT.antroHistorial || []), current];
+  // Ordenar por fecha: el historial puede traer pesajes sueltos posteriores
+  // a la última medición ISAK completa.
+  const ts = f => { const [d,m,y] = String(f).split('.').map(Number); return new Date(y, m-1, d).getTime(); };
+  return out.sort((x,y) => ts(x.fecha) - ts(y.fecha));
 }
 function getAntroData() {
   const base = getAntroBase();
@@ -755,13 +761,17 @@ function renderAntro() {
 
 function drawAntroCharts() {
   const data=getAntroData(); const lbl=data.map(d=>d.fecha);
-  const first=data[0],last=data[data.length-1];
+  // Cada KPI usa la primera y la última medición que traigan ese dato: un
+  // pesaje suelto no tiene pliegues ni perímetros y dejaría los demás en NaN.
+  const fw=k=>data.find(d=>d[k]!=null), lw=k=>[...data].reverse().find(d=>d[k]!=null);
+  const kpi=(k,u,l,good)=>{ const f=fw(k),p=lw(k); if(!p)return null;
+    return {v:p[k],u,l,good,d:f&&f!==p?+(p[k]-f[k]).toFixed(1):0}; };
   const kpis=[
-    {v:last.peso,u:'kg',l:'Peso actual',d:+(last.peso-first.peso).toFixed(1),good:'down'},
-    {v:last.s8,u:'mm',l:'Σ8 pliegues',d:+(last.s8-first.s8).toFixed(1),good:'down'},
-    {v:last.brazFlex,u:'cm',l:'Brazo flex.',d:+(last.brazFlex-first.brazFlex).toFixed(1),good:'up'},
-    {v:last.abdom,u:'cm',l:'Cintura',d:+(last.abdom-first.abdom).toFixed(1),good:'down'},
-  ];
+    kpi('peso','kg','Peso actual','down'),
+    kpi('s8','mm','Σ8 pliegues','down'),
+    kpi('brazFlex','cm','Brazo flex.','up'),
+    kpi('abdom','cm','Cintura','down'),
+  ].filter(Boolean);
   $('antroKpis').innerHTML=kpis.map(k=>{
     const sign=k.d>0?'+':''; const cls=(k.good==='down'?k.d<0:k.d>0)?'up':(k.d<0?'down':'');
     const arr=k.d>0?'▲':(k.d<0?'▼':'—');
