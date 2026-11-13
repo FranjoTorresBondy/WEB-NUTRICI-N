@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nicholas Mitterhofer — Protocolo Carbload</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Chakra+Petch:wght@600;700&display=swap');
+  :root {
+    --bg:#080808; --bg2:#111111; --bg3:#1a1a1a; --bg4:#222;
+    --accent:#e8e8e8; --accent-dim:rgba(255,255,255,.05); --accent-border:rgba(255,255,255,.13);
+    --red:#ef5350; --red-dim:rgba(239,83,80,.12); --red-border:rgba(239,83,80,.28);
+    --blue:#4fc3f7; --blue-dim:rgba(79,195,247,.1); --blue-border:rgba(79,195,247,.25);
+    --green:#a5d6a7; --green-dim:rgba(165,214,167,.1); --green-border:rgba(165,214,167,.25);
+    --purple:#ce93d8; --purple-dim:rgba(206,147,216,.1); --purple-border:rgba(206,147,216,.25);
+    --orange:#ffb74d; --orange-dim:rgba(255,183,77,.1); --orange-border:rgba(255,183,77,.25);
+    --teal:#4db6ac; --teal-dim:rgba(77,182,172,.1); --teal-border:rgba(77,182,172,.25);
+    --text:#f0f0f0; --muted:#666; --border:#222;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-size:13px;padding:32px 24px 80px;min-height:100vh}
+  .wrap{max-width:1100px;margin:0 auto}
+
+  /* HEADER */
+  .header{border-bottom:1px solid var(--accent-border);padding-bottom:22px;margin-bottom:28px}
+  h1{font-family:'Chakra Petch',sans-serif;font-size:24px;color:var(--accent);letter-spacing:.05em;text-transform:uppercase;line-height:1.1}
+  .sub{color:var(--muted);font-size:11px;margin-top:5px;letter-spacing:.06em;text-transform:uppercase}
+  .stats-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:20px}
+  .stat-box{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:10px 18px;text-align:center}
+  .stat-box .sv{font-family:'Chakra Petch',sans-serif;font-size:22px;line-height:1}
+  .stat-box .sl{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-top:4px}
+  .sv.grey{color:#aaa} .sv.green{color:var(--green)} .sv.blue{color:var(--blue)} .sv.orange{color:var(--orange)} .sv.purple{color:var(--purple)}
+
+  /* SECTION TITLE */
+  .section-title{font-family:'Chakra Petch',sans-serif;font-size:13px;color:var(--accent);text-transform:uppercase;letter-spacing:.08em;margin:28px 0 16px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+  .section-title.purple{color:var(--purple);border-color:rgba(206,147,216,.25)}
+  .section-title.teal{color:var(--teal);border-color:rgba(77,182,172,.25)}
+  .section-title.red{color:var(--red);border-color:rgba(239,83,80,.28)}
+
+  /* INTAKE TIMELINE */
+  .intake{display:grid;grid-template-columns:80px 1fr;gap:0;margin-bottom:12px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+  .intake-time{background:var(--bg3);padding:16px 12px;display:flex;flex-direction:column;align-items:center;justify-content:center;border-right:1px solid var(--border);text-align:center}
+  .intake-num{font-family:'Chakra Petch',sans-serif;font-size:20px;color:var(--accent);line-height:1}
+  .intake-label{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-top:3px}
+  .intake-body{padding:14px 16px}
+  .intake-foods{list-style:none;display:flex;flex-direction:column;gap:5px;margin-bottom:12px}
+  .intake-foods li{font-size:12px;color:#ccc;padding-left:14px;position:relative;line-height:1.4}
+  .intake-foods li::before{content:'·';position:absolute;left:0;color:var(--muted);font-size:16px;line-height:.9}
+  .intake-foods li strong{color:var(--text);font-weight:600}
+  .intake-foods li.note{color:var(--muted);font-size:11px;font-style:italic;padding-left:0}
+  .intake-foods li.note::before{display:none}
+  .intake-foods li.alt{color:#9e9e9e;font-size:11px}
+  .intake-foods li.alt::before{content:'↳';color:var(--muted);font-size:11px;line-height:1.2}
+  .macro-row{display:flex;gap:0;border-top:1px solid var(--border);margin:0 -16px -14px;padding:0}
+  .mr{flex:1;padding:8px 4px;text-align:center;border-right:1px solid var(--border)}
+  .mr:last-child{border-right:none}
+  .mr .mv{font-family:'Chakra Petch',sans-serif;font-size:13px;font-weight:700}
+  .mr .ml{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-top:2px}
+  .mr.cho .mv{color:var(--orange)}
+  .mr.pro .mv{color:var(--green)}
+  .mr.fat .mv{color:#90caf9}
+  .mr.kca .mv{color:var(--accent)}
+
+  /* FIGHT DAY TIMELINE */
+  .fight-tl{display:flex;flex-direction:column;gap:0}
+  .ft{display:flex;gap:16px;padding:14px 0;border-bottom:1px solid var(--border)}
+  .ft:last-child{border-bottom:none}
+  .ft-time{min-width:90px;font-family:'Chakra Petch',sans-serif;font-size:11px;color:var(--muted);padding-top:2px;text-align:right}
+  .ft-dot{width:12px;min-width:12px;display:flex;flex-direction:column;align-items:center;padding-top:4px}
+  .ft-dot .dot{width:8px;height:8px;border-radius:50%;border:2px solid}
+  .ft-dot .line{flex:1;width:1px;background:var(--border);margin-top:4px}
+  .ft:last-child .ft-dot .line{display:none}
+  .dot.orange{border-color:var(--orange);background:var(--orange-dim)}
+  .dot.green{border-color:var(--green);background:var(--green-dim)}
+  .dot.blue{border-color:var(--blue);background:var(--blue-dim)}
+  .dot.purple{border-color:var(--purple);background:var(--purple-dim)}
+  .dot.teal{border-color:var(--teal);background:var(--teal-dim)}
+  .dot.red{border-color:var(--red);background:var(--red-dim)}
+  .ft-content .ft-label{font-family:'Chakra Petch',sans-serif;font-size:12px;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+  .ft-label.orange{color:var(--orange)} .ft-label.green{color:var(--green)}
+  .ft-label.blue{color:var(--blue)} .ft-label.purple{color:var(--purple)} .ft-label.teal{color:var(--teal)} .ft-label.red{color:var(--red)}
+  .ft-content .ft-desc{font-size:12px;color:#bbb;line-height:1.6}
+  .ft-content .ft-desc strong{color:var(--text)}
+  .ft-nums{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+  .ft-num{background:var(--bg2);border:1px solid var(--border);border-radius:5px;padding:4px 10px;font-size:11px;color:var(--muted)}
+  .ft-num span{font-family:'Chakra Petch',sans-serif;color:var(--text);font-size:12px;margin-right:3px}
+
+  /* SUMMARY TABLE */
+  .tbl-wrap{background:var(--bg2);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:24px}
+  .tbl-title{padding:12px 16px;font-family:'Chakra Petch',sans-serif;font-size:12px;color:var(--accent);text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid var(--border)}
+  table{width:100%;border-collapse:collapse}
+  thead th{background:var(--bg3);padding:8px 12px;font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;text-align:left;border-bottom:1px solid var(--border)}
+  tbody td{padding:9px 12px;font-size:12px;border-bottom:1px solid var(--border)}
+  tbody tr:last-child td{border-bottom:none}
+  tbody tr:hover td{background:rgba(255,255,255,.02)}
+  .td-num{font-family:'Chakra Petch',sans-serif;font-size:12px}
+  .td-num.cho{color:var(--orange)} .td-num.pro{color:var(--green)} .td-num.kca{color:var(--accent)}
+  .tr-total td{background:var(--bg3);font-weight:700}
+  .tr-total .td-num{font-size:13px}
+  .progress-bar{height:4px;background:var(--border);border-radius:2px;margin-top:4px;overflow:hidden}
+  .progress-fill{height:100%;border-radius:2px}
+  .progress-fill.cho{background:var(--orange)}
+  .progress-fill.pro{background:var(--green)}
+
+  /* REVIEW CARDS */
+  .review-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:10px;margin-bottom:20px}
+  .review-card{border-radius:10px;padding:14px 16px}
+  .review-card.ok{background:var(--green-dim);border:1px solid var(--green-border)}
+  .review-card.warn{background:var(--orange-dim);border:1px solid var(--orange-border)}
+  .review-card.alert{background:var(--red-dim);border:1px solid var(--red-border)}
+  .review-card.info{background:var(--blue-dim);border:1px solid var(--blue-border)}
+  .review-card.tip{background:var(--purple-dim);border:1px solid var(--purple-border)}
+  .rv-header{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+  .rv-badge{font-family:'Chakra Petch',sans-serif;font-size:9px;text-transform:uppercase;letter-spacing:.07em;padding:3px 8px;border-radius:4px;font-weight:700}
+  .rv-badge.ok{background:rgba(165,214,167,.2);color:var(--green)}
+  .rv-badge.warn{background:rgba(255,183,77,.2);color:var(--orange)}
+  .rv-badge.alert{background:rgba(239,83,80,.2);color:var(--red)}
+  .rv-badge.info{background:rgba(79,195,247,.15);color:var(--blue)}
+  .rv-badge.tip{background:rgba(206,147,216,.15);color:var(--purple)}
+  .rv-title{font-family:'Chakra Petch',sans-serif;font-size:12px}
+  .rv-title.ok{color:var(--green)} .rv-title.warn{color:var(--orange)} .rv-title.alert{color:var(--red)} .rv-title.info{color:var(--blue)} .rv-title.tip{color:var(--purple)}
+  .rv-body{font-size:11px;color:#bbb;line-height:1.6}
+  .rv-body strong{color:var(--text)}
+  .rv-ref{font-size:10px;color:var(--muted);font-style:italic;margin-top:6px}
+
+  /* FOOTER */
+  .footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+  .footer .logo{font-family:'Chakra Petch',sans-serif;font-size:14px;color:var(--accent);letter-spacing:.04em}
+  .footer .meta{font-size:10px;color:var(--muted);text-align:right;line-height:1.6}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HEADER -->
+  <div class="header">
+    <h1>PROTOCOLO CARBLOAD<br>HYROX</h1>
+    <div class="sub">Nicholas Mitterhofer &nbsp;·&nbsp; Competencia domingo 15 de noviembre &nbsp;·&nbsp; Supercompensación de Glucógeno</div>
+    <div class="stats-row">
+      <div class="stat-box"><div class="sv grey">71.5</div><div class="sl">Peso (kg)</div></div>
+      <div class="stat-box"><div class="sv orange">562g</div><div class="sl">CHO día de carga</div></div>
+      <div class="stat-box"><div class="sv orange">7.9</div><div class="sl">g CHO / kg</div></div>
+      <div class="stat-box"><div class="sv green">117g</div><div class="sl">Proteína total</div></div>
+      <div class="stat-box"><div class="sv grey">35g</div><div class="sl">Grasa total</div></div>
+      <div class="stat-box"><div class="sv grey">3,064</div><div class="sl">kcal día de carga</div></div>
+      <div class="stat-box"><div class="sv purple">130g</div><div class="sl">CHO pre-competencia</div></div>
+    </div>
+  </div>
+
+  <!-- DÍA DE CARGA -->
+  <div class="section-title">Sábado 14 — Día de Carga · 5 Ingestas</div>
+
+  <!-- INGESTA 1 -->
+  <div class="intake">
+    <div class="intake-time">
+      <div class="intake-num">1</div>
+      <div class="intake-label">Desayuno</div>
+    </div>
+    <div class="intake-body">
+      <ul class="intake-foods">
+        <li><strong>2 cdas de tocosh</strong> + 1 vaso de agua (500 ml)</li>
+        <li><strong>3 porciones de fruta</strong> — ver especificaciones</li>
+        <li><strong>80g</strong> de avena <strong>+ 4 rebanadas</strong> de pan de molde blanco</li>
+        <li><strong>2 huevos</strong></li>
+        <li class="alt">↳ Agregar canela con las frutas. Puedes usarlas para hacer jugo sin problema.</li>
+      </ul>
+      <div class="macro-row">
+        <div class="mr cho"><div class="mv">176g</div><div class="ml">CHO</div></div>
+        <div class="mr pro"><div class="mv">36g</div><div class="ml">PROT</div></div>
+        <div class="mr fat"><div class="mv">19g</div><div class="ml">GRASA</div></div>
+        <div class="mr kca"><div class="mv">1,018</div><div class="ml">KCAL</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INGESTA 2 -->
+  <div class="intake">
+    <div class="intake-time">
+      <div class="intake-num">2</div>
+      <div class="intake-label">Snack 1</div>
+    </div>
+    <div class="intake-body">
+      <ul class="intake-foods">
+        <li><strong>2 rebanadas</strong> de pan de molde + <strong>1 cda</strong> de miel de abeja o mermelada</li>
+        <li><strong>1 plátano</strong></li>
+      </ul>
+      <div class="macro-row">
+        <div class="mr cho"><div class="mv">74g</div><div class="ml">CHO</div></div>
+        <div class="mr pro"><div class="mv">6g</div><div class="ml">PROT</div></div>
+        <div class="mr fat"><div class="mv">2g</div><div class="ml">GRASA</div></div>
+        <div class="mr kca"><div class="mv">329</div><div class="ml">KCAL</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INGESTA 3 -->
+  <div class="intake">
+    <div class="intake-time">
+      <div class="intake-num">3</div>
+      <div class="intake-label">Almuerzo</div>
+    </div>
+    <div class="intake-body">
+      <ul class="intake-foods">
+        <li><strong>1 cda de vinagre de manzana</strong> + 1 vaso de agua (500 ml)</li>
+        <li><strong>420g</strong> de arroz cocido</li>
+        <li class="alt">↳ Opción B: 350g de pasta sin relleno</li>
+        <li><strong>100g</strong> (peso crudo) de pechuga de pollo, pechuga de pavo o pescado</li>
+        <li class="alt">↳ Bistec: tratar de evitar</li>
+      </ul>
+      <div class="macro-row">
+        <div class="mr cho"><div class="mv">118g</div><div class="ml">CHO</div></div>
+        <div class="mr pro"><div class="mv">32g</div><div class="ml">PROT</div></div>
+        <div class="mr fat"><div class="mv">4g</div><div class="ml">GRASA</div></div>
+        <div class="mr kca"><div class="mv">660</div><div class="ml">KCAL</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INGESTA 4 -->
+  <div class="intake">
+    <div class="intake-time">
+      <div class="intake-num">4</div>
+      <div class="intake-label">Snack 2</div>
+    </div>
+    <div class="intake-body">
+      <ul class="intake-foods">
+        <li><strong>60g</strong> de Nestum, Cerelac o cornflakes — pueden ser azucarados, los que prefieras</li>
+        <li class="alt">↳ Opción B: 1 rebanada de pan de molde &nbsp;·&nbsp; Opción C: 7 galletas de arroz Costeño</li>
+        <li><strong>300ml</strong> de leche de almendra (opcional)</li>
+        <li><strong>1 plátano</strong></li>
+      </ul>
+      <div class="macro-row">
+        <div class="mr cho"><div class="mv">76g</div><div class="ml">CHO</div></div>
+        <div class="mr pro"><div class="mv">7g</div><div class="ml">PROT</div></div>
+        <div class="mr fat"><div class="mv">6g</div><div class="ml">GRASA</div></div>
+        <div class="mr kca"><div class="mv">374</div><div class="ml">KCAL</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INGESTA 5 -->
+  <div class="intake">
+    <div class="intake-time">
+      <div class="intake-num">5</div>
+      <div class="intake-label">Cena</div>
+    </div>
+    <div class="intake-body">
+      <ul class="intake-foods">
+        <li><strong>1 cda de vinagre de manzana</strong> + 1 vaso de agua (500 ml)</li>
+        <li><strong>420g</strong> de arroz cocido</li>
+        <li class="alt">↳ Opción B: 350g de pasta sin relleno</li>
+        <li><strong>120g</strong> (peso crudo) de pechuga de pollo, pechuga de pavo o pescado</li>
+        <li class="alt">↳ Bistec: tratar de evitar</li>
+      </ul>
+      <div class="macro-row">
+        <div class="mr cho"><div class="mv">118g</div><div class="ml">CHO</div></div>
+        <div class="mr pro"><div class="mv">36g</div><div class="ml">PROT</div></div>
+        <div class="mr fat"><div class="mv">4g</div><div class="ml">GRASA</div></div>
+        <div class="mr kca"><div class="mv">683</div><div class="ml">KCAL</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOTALES -->
+  <div style="background:var(--bg2);border:1px solid var(--orange-border);border-radius:10px;padding:16px 18px;margin:20px 0 28px">
+    <span style="font-family:'Chakra Petch',sans-serif;font-size:10px;color:var(--orange);text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:12px">Totales del día de carga</span>
+    <div class="macro-row">
+      <div class="mr cho"><div class="mv">562g</div><div class="ml">CHO &nbsp;·&nbsp; 7.9 g/kg</div></div>
+      <div class="mr pro"><div class="mv">117g</div><div class="ml">PROT &nbsp;·&nbsp; 1.6 g/kg</div></div>
+      <div class="mr fat"><div class="mv">35g</div><div class="ml">GRASA</div></div>
+      <div class="mr kca"><div class="mv">3,064</div><div class="ml">KCAL</div></div>
+    </div>
+  </div>
+
+  <!-- DÍA DE COMPETENCIA -->
+  <div class="section-title purple">Domingo 15 — Día de Competencia</div>
+
+  <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:28px">
+    <div class="fight-tl" style="padding:0 20px">
+
+    <div class="ft">
+      <div class="ft-time">PRE<br>COMPETENCIA</div>
+      <div class="ft-dot"><div class="dot orange"></div><div class="line"></div></div>
+      <div class="ft-content">
+        <div class="ft-label orange">Desayuno Pre-Competencia</div>
+        <div class="ft-desc">
+          <strong>60g de Nestum o Cerelac</strong><br>
+          <span style="color:var(--muted)">Opción B: 60g de cream of rice &nbsp;·&nbsp; Opción C: 3 rebanadas de pan blanco</span><br>
+          <strong>+ 1 plátano + 2 cdas de miel de abeja + 200ml de jugo de naranja</strong><br>
+          <span style="color:var(--muted)">El jugo puede ser de botella cold press.</span>
+        </div>
+        <div class="ft-nums" style="margin-top:10px">
+          <div class="ft-num"><span style="color:var(--orange)">130g</span> CHO</div>
+          <div class="ft-num"><span style="color:var(--green)">8g</span> PROT</div>
+          <div class="ft-num"><span>553</span> kcal</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ft">
+      <div class="ft-time">DURANTE<br>COMPETENCIA</div>
+      <div class="ft-dot"><div class="dot purple"></div><div class="line"></div></div>
+      <div class="ft-content">
+        <div class="ft-label purple">Carbohidrato en competencia</div>
+        <div class="ft-desc">
+          <strong>1 gel de 22g de CHO</strong> o <strong>1 cda colmada de miel de abeja</strong>, cada vez que necesites boost de energía y/o al iniciar actividad.
+        </div>
+      </div>
+    </div>
+
+    <div class="ft">
+      <div class="ft-time">DURANTE<br>COMPETENCIA</div>
+      <div class="ft-dot"><div class="dot teal"></div></div>
+      <div class="ft-content">
+        <div class="ft-label teal">Hidratación en competencia</div>
+        <div class="ft-desc">
+          <strong>Intercalar Gatorade y agua</strong>, priorizando Gatorade, a demanda.
+        </div>
+      </div>
+    </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="logo">Franjo Torres Bondy<br><span style="font-size:10px;color:var(--muted);font-family:'Inter',sans-serif;font-weight:400">Nutricionista Deportivo · @el_nutricionistafranjo</span></div>
+    <div class="meta">Nicholas Mitterhofer · Protocolo Carbload Hyrox<br>Competencia 15.11.26 · Documento confidencial</div>
+  </div>
+
+</div>
+</body>
+</html>
