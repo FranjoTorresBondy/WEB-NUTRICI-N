@@ -244,7 +244,7 @@ const PATIENT = {
   nombre:   'Tomás\nRuiz de Somocurcio',
   fecha:    '13.11.2026',
   tipoPlan: 'Hipocalórico · Hiperprotéico',
-  macros:   { kcal: 1566, p: 155, c: 124, g: 50 },
+  macros:   { kcal: 1668, p: 159, c: 132, g: 56 },
 
   hidratacion: [
     { label: 'Entrenamiento', valor: '4.5' },
@@ -268,13 +268,14 @@ const PATIENT = {
   ],
 
   comidas: [
-    // Macros por intercambio: 1 porción de carbo = 2P/15C · 1 porción de grasa = 5G · 150 g de berries = 1P/15C.
-    { id:'des', nombre:'☀️ Desayuno', kcal:466, p:47, c:29, g:18, grupos:[
+    // Macros por intercambio: 1 porción de carbo = 2P/15C · 1 porción de grasa = 5G · 150 g de berries = 1P/15C · 1 cda de chía/linaza = 2P/4C/3G.
+    { id:'des', nombre:'☀️ Desayuno', kcal:517, p:49, c:33, g:21, grupos:[
       { label:'Proteína', max:1, ops:['3 huevos enteros + 2 claras'] },
       { label:'Verduras a elección', max:1, ops:['Espinaca, champiñones, tomate, etc.'] },
       { label:'Lácteo', max:1, ops:['200 g de yogurt griego Vakimú'] },
       { label:'Fruta', max:1, ops:['150 g de berries'] },
-    ], nota:'Agrega cúrcuma y pimienta negra a los huevos. Puedes prepararlos revueltos, en tortilla, etc.\nPuedes agregar canela en polvo a tu yogurt o a las frutas, y también 1 cda de semillas enteras de chía o linaza.' },
+      { label:'Semillas', max:1, ops:['1 cda de semillas enteras de chía o linaza'] },
+    ], nota:'Agrega cúrcuma y pimienta negra a los huevos (puedes prepararlos revueltos, en tortilla, etc.).\nAgrega canela en polvo a tu yogurt o a las frutas.' },
     { id:'alm', nombre:'🍛 Almuerzo', kcal:611, p:64, c:55, g:15, grupos:[
       { label:'Escoge 01 · Proteína (250 g, peso crudo)', max:1, ops:[
         'Pollo',
@@ -297,9 +298,10 @@ const PATIENT = {
         '1 porción de frutos secos (ver especificaciones)',
       ]},
     ], nota:'Café hasta las 3 pm. Electrolitos: Liquid IV con el almuerzo. Consumir multivitamínico Thorne con esta comida.' },
-    { id:'mt', nombre:'🕔 Media Tarde', kcal:72, p:3, c:15, g:0, grupos:[
+    { id:'mt', nombre:'🕔 Media Tarde', kcal:123, p:5, c:19, g:3, grupos:[
       { label:'Snack', max:1, ops:['2 tazas de gelatina light + 150 g de berries'] },
-    ], nota:'Puedes agregar canela en polvo a las frutas, y también 1 cda de semillas enteras de chía o linaza.' },
+      { label:'Semillas', max:1, ops:['1 cda de semillas enteras de chía o linaza'] },
+    ], nota:'Agrega canela en polvo a las frutas.' },
     { id:'cen', nombre:'🌙 Cena', kcal:417, p:41, c:25, g:17, grupos:[
       { label:'Base', max:1, ops:['1 Rapidita XL + 60 g de queso mozzarella light Cuisine & Co'] },
       { label:'Escoge 01 · Proteína', max:1, ops:[
@@ -327,7 +329,7 @@ const PATIENT = {
         '1 scoop de proteína aislada + 100 g de berries',
         '1 Pro Day Gloria',
       ]},
-    ], nota:'Solo días de BJJ. Pre: +180 kcal · Post: +150 kcal. Total días BJJ ≈ 1 896 kcal.' },
+    ], nota:'Solo días de BJJ. Pre: +180 kcal · Post: +150 kcal. Total días BJJ ≈ 1 998 kcal.' },
   ],
 
   specs: [
@@ -413,7 +415,7 @@ const PATIENT = {
     { nombre:'Salsa roja',             desc:'Tomate, cebolla, ajo, albahaca, poro + Lakanto o Stevia al gusto + sal, pimienta y tomillo + 1 cda aceite de oliva' },
   ],
 
-  notaSpecs: 'Plan base: 1 566 kcal/día. Días de BJJ: sumar Pre (+180 kcal) y Post (+150 kcal) entreno = +330 kcal ≈ 1 896 kcal total.',
+  notaSpecs: 'Plan base: 1 668 kcal/día. Días de BJJ: sumar Pre (+180 kcal) y Post (+150 kcal) entreno = +330 kcal ≈ 1 998 kcal total.',
 
   entrenamiento: {
     fases: [
