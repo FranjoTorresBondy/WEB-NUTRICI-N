@@ -202,17 +202,18 @@ const PATIENT = {
   semanas:   1,
 
   antro: {
-    fecha: '01.10.2026',
-    peso: 68.6, talla: 165.3, imc: 25.1,
-    tri: 8.0, bi: 2.0, sub: 14.0, cresta: 15.0, supra: 7.0, abd: 19.0, pierna: 9.0, pant: 6.0,
-    s6: 63.0, s8: 80.0,
-    brazRelaj: 31.5, brazFlex: 33.0, abdom: 82.0, cadera: 100.0, muslo: 50.5, pantPer: 34.0,
-    hombros: 114.0, pecho: 99.0,
+    fecha: '13.11.2026',
+    peso: 69.8, talla: 165.3, imc: 25.5,
+    tri: 8.0, bi: 1.5, sub: 14.0, cresta: 16.0, supra: 7.0, abd: 18.0, pierna: 9.0, pant: 6.0,
+    s6: 62.0, s8: 79.5,
+    brazRelaj: 31.8, brazFlex: 33.6, abdom: 83.0, cadera: 100.0, muslo: 51.5, pantPer: 34.5,
     diam: { humero: 6.3, biEstiloideo: 5.3, femur: 9.5 },
   },
   antroHistorial: [
     { fecha:'05.08.2026', peso:67.0, tri:8.0, bi:3.0, sub:10.0, cresta:14.0, supra:9.0, abd:18.0, pierna:9.0, pant:6.0,
       s6:62.0, s8:78.5, brazRelaj:31.5, brazFlex:32.5, abdom:82.5, cadera:99.0, muslo:50.0, pantPer:34.0 },
+    { fecha:'01.10.2026', peso:68.6, tri:8.0, bi:2.0, sub:14.0, cresta:15.0, supra:7.0, abd:19.0, pierna:9.0, pant:6.0,
+      s6:63.0, s8:80.0, brazRelaj:31.5, brazFlex:33.0, abdom:82.0, cadera:100.0, muslo:50.5, pantPer:34.0 },
   ],
 
   objetivos: [
@@ -434,6 +435,7 @@ function getAntroBase() {
   const s6 = a.s6!=null ? a.s6 : +(a.tri+a.sub+a.supra+a.abd+a.pierna+a.pant).toFixed(1);
   const s8 = a.s8!=null ? a.s8 : +(s6+a.bi+a.cresta).toFixed(1);
   return [
+    ...(PATIENT.antroHistorial||[]),
     { fecha:a.fecha, peso:a.peso, tri:a.tri, bi:a.bi, sub:a.sub, cresta:a.cresta, supra:a.supra, abd:a.abd, pierna:a.pierna, pant:a.pant, brazRelaj:a.brazRelaj, brazFlex:a.brazFlex, abdom:a.abdom, cadera:a.cadera, muslo:a.muslo, pantPer:a.pantPer, s6, s8 },
   ];
 }
@@ -603,6 +605,8 @@ renderSpecs();
 <script>(function(){function _inj(){document.querySelectorAll('.meal[data-mealid]').forEach(function(el){if(typeof injectMealLog==='function')injectMealLog(el);});if(typeof injectGuardarBtn==='function')document.querySelectorAll('.meals').forEach(injectGuardarBtn);}  _inj();setTimeout(_inj,300);setTimeout(_inj,800);})();</script>
 <script src="guia-data.js"></script>
 <script src="comer-fuera.js"></script>
+<script src="recetario-data.js"></script>
+<script src="recetario-plan.js"></script>
 <script src="plan-pdf.js"></script>
 <script src="peso-tracker.js?v=3"></script>
 </body>
