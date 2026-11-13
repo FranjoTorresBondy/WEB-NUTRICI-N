@@ -239,8 +239,8 @@ var SNK = { id:'snk', nombre:'🍎 Snack', kcal:514, p:36, c:70, g:10, grupos:[
   ]},
 ], nota:'🍿 <b>Antojo de canchita:</b> 20 g de maíz para cancha reventado en olla sin aceite (o en air fryer) reemplaza la porción de carbohidrato del snack.<br>🥤 <b>Milkshake de lúcuma:</b> 200 ml de leche Slim + 60 g de pulpa de lúcuma + ½ scoop de proteína en polvo + Stevia + hielo. Reemplaza la proteína y la fruta del snack (los 60 g de lúcuma son tu porción de fruta).<br>🥛 Puedes reemplazar este snack por 1 Gloria Pro Power + 1 paquete de 4 galletas Oreo.<br>🥣 <b>Overnight oats:</b> 50 g de avena + 200 ml de leche Slim + 200 g de Quark + 3 cdas de chía + 1 cda de miel + 1 porción de fruta.' };
 
-var CEN = { id:'cen', nombre:'🌙 Cena', kcal:626, p:40, c:85, g:14, grupos:[
-  { label:'Escoge 04 · Carbohidrato', max:4, ops:[
+var CEN = { id:'cen', nombre:'🌙 Cena', kcal:490, p:36, c:55, g:14, grupos:[
+  { label:'Escoge 02 · Carbohidrato', max:2, ops:[
     '⅓ taza de arroz blanco o integral (60 g, cocido)',
     '90 g de papa o camote (cocido, no frito)',
     '⅓ taza de quinua (60 g, cocida)',
@@ -322,13 +322,13 @@ const PATIENT = {
   ],
 
   planes: [
-    { id:'descanso', label:'Día de descanso', sub:'2137 kcal', macros:{ kcal:2137, p:174, c:232, g:57 }, comidas:[
+    { id:'descanso', label:'Día de descanso', sub:'2001 kcal', macros:{ kcal:2001, p:170, c:202, g:57 }, comidas:[
       DES, ALM, SNK, CEN,
     ]},
-    { id:'entreno', label:'Día de entrenamiento', sub:'+201 kcal', macros:{ kcal:2338, p:177, c:277, g:58 }, comidas:[
+    { id:'entreno', label:'Día de entrenamiento', sub:'+201 kcal', macros:{ kcal:2202, p:173, c:247, g:58 }, comidas:[
       PRE_ENTRENO, DES, ALM, SNK, CEN,
     ]},
-    { id:'fondo', label:'Día de fondo', sub:'+398 kcal', macros:{ kcal:2535, p:179, c:322, g:59 }, comidas:[
+    { id:'fondo', label:'Día de fondo', sub:'+398 kcal', macros:{ kcal:2399, p:175, c:292, g:59 }, comidas:[
       PRE_FONDO, DES, ALM, SNK, CEN,
     ]},
   ],
