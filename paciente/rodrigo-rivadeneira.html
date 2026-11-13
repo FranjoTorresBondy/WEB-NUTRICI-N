@@ -183,8 +183,8 @@ var DES = { id:'des', nombre:'☀️ Desayuno', kcal:186, p:25, c:17, g:2, grupo
   ]},
 ], nota:'Puedes agregarle 200 ml de bebida de almendras.' };
 
-var ALM = { id:'alm', nombre:'🥗 Almuerzo', kcal:582, p:45, c:60, g:18, grupos:[
-  { label:'Escoge 03 · Carbohidrato', max:3, ops:[
+var ALM = { id:'alm', nombre:'🥗 Almuerzo', kcal:650, p:47, c:75, g:18, grupos:[
+  { label:'Escoge 04 · Carbohidrato', max:4, ops:[
     '⅓ taza de arroz blanco o integral (60 g, cocido)',
     '90 g de papa, camote o betarraga (cocido)',
     '⅓ taza de quinua (60 g, cocida)',
@@ -230,7 +230,8 @@ var SNK = { id:'snk', nombre:'🍎 Snack', kcal:514, p:36, c:70, g:10, grupos:[
     '20 g de avena',
     '20 g de granola',
     '20 g de cereal',
-    '1 Rapidita o 1 ½ Rapidita XL',
+    '1 Rapidita',
+    '1 Rapidita XL',
   ]},
   { label:'Escoge 02 · Fruta', max:2, ops:[
     '1 porción de fruta (ver especificaciones)',
@@ -331,13 +332,13 @@ const PATIENT = {
   ],
 
   planes: [
-    { id:'descanso', label:'Día de descanso', sub:'1953 kcal', macros:{ kcal:1953, p:146, c:232, g:49 }, comidas:[
+    { id:'descanso', label:'Día de descanso', sub:'2021 kcal', macros:{ kcal:2021, p:148, c:247, g:49 }, comidas:[
       DES, ALM, SNK, CEN,
     ]},
-    { id:'entreno', label:'Día de entrenamiento', sub:'+201 kcal', macros:{ kcal:2154, p:149, c:277, g:50 }, comidas:[
+    { id:'entreno', label:'Día de entrenamiento', sub:'+201 kcal', macros:{ kcal:2222, p:151, c:292, g:50 }, comidas:[
       PRE_ENTRENO, DES, ALM, SNK, CEN,
     ]},
-    { id:'fondo', label:'Día de fondo', sub:'+398 kcal', macros:{ kcal:2351, p:151, c:322, g:51 }, comidas:[
+    { id:'fondo', label:'Día de fondo', sub:'+398 kcal', macros:{ kcal:2419, p:153, c:337, g:51 }, comidas:[
       PRE_FONDO, DES, ALM, SNK, CEN,
     ]},
   ],
