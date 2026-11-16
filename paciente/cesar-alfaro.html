@@ -234,11 +234,11 @@ const PATIENT = {
     'Realizar mínimo 10 000 pasos al día',
     'Mejora en rendimiento deportivo',
   ],
-  // Plan 1 (16.11.26). kcal de cada comida = 4P + 4C + 9G con los macros del documento; total = suma.
+  // Plan 1 (16.11.26). kcal y macros de cada comida según el documento; total = suma.
   planBase: {
     macros: { kcal:1795, p:107, c:236, g:47 },
     comidas: [
-      { id:'des', nombre:'☀️ Desayuno', kcal:399, p:20, c:46, g:15, grupos:[
+      { id:'des', nombre:'☀️ Desayuno', kcal:380, p:20, c:46, g:15, grupos:[
         { label:'Fijo', max:1, ops:[
           '1 vaso de agua + 1 cda de chía o linaza, hidratada desde la noche anterior',
         ]},
@@ -269,7 +269,7 @@ const PATIENT = {
           '10 g de chocolate +70% cacao',
         ]},
       ] },
-      { id:'alm', nombre:'🥗 Almuerzo', kcal:571, p:34, c:75, g:15, grupos:[
+      { id:'alm', nombre:'🥗 Almuerzo', kcal:585, p:34, c:75, g:15, grupos:[
         { label:'Escoge 04 · Carbohidrato (peso cocido)', max:4, ops:[
           '60 g de arroz',
           '90 g de papa, camote o betarraga',
@@ -296,7 +296,7 @@ const PATIENT = {
           '10 g de chocolate +70% cacao',
         ]},
       ] },
-      { id:'snk', nombre:'🍎 Snack', kcal:254, p:19, c:40, g:2, grupos:[
+      { id:'snk', nombre:'🍎 Snack', kcal:245, p:19, c:40, g:2, grupos:[
         { label:'Escoge 01 · Carbohidrato', max:1, ops:[
           '20 g de cereal corn flakes',
           '20 g de granola',
@@ -314,7 +314,7 @@ const PATIENT = {
           '1 porción de fruta (ver especificaciones)',
         ]},
       ] },
-      { id:'cen', nombre:'🌙 Cena', kcal:571, p:34, c:75, g:15, grupos:[
+      { id:'cen', nombre:'🌙 Cena', kcal:585, p:34, c:75, g:15, grupos:[
         { label:'Escoge 04 · Carbohidrato', max:4, ops:[
           '90 g de papa o camote',
           '60 g de arroz',
