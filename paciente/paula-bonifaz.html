@@ -172,7 +172,7 @@ const PATIENT = {
   nombre:    'Paula\nBonifaz',
   fecha:     '19.10.2026',
   tipoPlan:  'Hipocalórico · Hiperproteico',
-  macros:    { kcal:1420, p:115, c:165, g:32 },
+  macros:    { kcal:1408, p:118, c:144, g:40 },
   hidratacion: [
     { label:'💧 Día de entrenamiento', valor:'3.5' },
     { label:'💧 Día de descanso',      valor:'2.5' },
@@ -217,7 +217,7 @@ const PATIENT = {
         ]},
     ]},
 
-    { id:'alm', nombre:'🥗 Almuerzo', kcal:420, p:50, c:31, g:11, grupos:[
+    { id:'alm', nombre:'🥗 Almuerzo', kcal:423, p:50, c:31, g:11, grupos:[
         { label:'Escoge 01 · Fibra', max:1, ops:[
           '1 tazón de fideos Konjac',
           '1 tazón de arroz Zero Carbo Konjac',
@@ -246,7 +246,7 @@ const PATIENT = {
         ]},
     ], nota:'Puedes tomar agua con gas y limón, agua de flor de Jamaica o infusiones. Le puedes agregar Stevia. · Puedes intercambiar tu porción de grasa por 1 cuadradito de chocolate 70% cacao (15 g aprox). · Puedes comer 200 g de gelatina light del sabor a tu elección.' },
 
-    { id:'snk', nombre:'🍎 Snack', kcal:257, p:16, c:38, g:5, grupos:[
+    { id:'snk', nombre:'🍎 Snack', kcal:261, p:16, c:38, g:5, grupos:[
         { label:'Escoge 01 · Fruta', max:1, ops:[
           '100 g de berries (Ver especificaciones)',
         ]},
@@ -269,7 +269,7 @@ const PATIENT = {
         ]},
     ], nota:'Puedes cambiar esta ingesta por una barrita de proteína Fitrex o Twentys. · También puedes reemplazarla por 1 Alaska de hielo o 1 Bebe de chicha + 150 g de berries + 150 g de Vakimú +Pro. · También puedes reemplazarla por 3 conitos de dulce de leche de Creamer. · Puedes mezclar el yogurt con gelatina light.' },
 
-    { id:'cen', nombre:'🌙 Cena', kcal:373, p:29, c:32, g:9, grupos:[
+    { id:'cen', nombre:'🌙 Cena', kcal:354, p:32, c:25, g:14, grupos:[
         { label:'Escoge 01 · Carbohidrato (peso cocido)', max:1, ops:[
           '90 g de papa, camote o betarraga',
           '60 g de arroz',
@@ -282,6 +282,7 @@ const PATIENT = {
           '2 huevos + 2 claras',
           '100 g de salmón',
           '100 g de pollo deshilachado + 80 g de palta',
+          '1 lata de atún en agua + 80 g de palta',
           '1 milanesa de Avinka (sin aceite, en freidora de aire)',
         ]},
         { label:'Fijo · Lácteo', max:1, ops:[
@@ -291,7 +292,7 @@ const PATIENT = {
           '150 g de verduras de tu preferencia',
           '100 g de berries',
         ]},
-    ], nota:'Si escoges los 2 huevos o el salmón, no comer la porción de frutos secos. · Puedes reemplazar tu cena por una ensalada Padovana o César de San Antonio. · Puedes comer 200 g de gelatina light del sabor a tu elección.' },
+    ], nota:'Puedes reemplazar tu cena por una ensalada Padovana o César de San Antonio. · Puedes comer 200 g de gelatina light del sabor a tu elección.' },
   ],
 
   specs: [
@@ -353,7 +354,7 @@ const PATIENT = {
     ]},
   ],
 
-  notaSpecs: 'Plan base = 1 420 kcal · 165C / 115P / 32G. Días de entrenamiento: agregar Pre entreno (170 kcal) + Post entreno (150 kcal) → total aprox. 1 740 kcal.',
+  notaSpecs: 'Plan base = 1 408 kcal · 144C / 118P / 40G. Días de entrenamiento: agregar Pre entreno (170 kcal) + Post entreno (150 kcal) → total aprox. 1 728 kcal.',
 };
 
 const $ = id => document.getElementById(id);
