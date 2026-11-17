@@ -14,6 +14,8 @@
   var SETS = [];
   if (P.comidasColegio && P.comidasColegio.length) SETS.push({ titulo: 'Días de colegio', comidas: P.comidasColegio, macros: P.macros });
   if (P.comidasFinde && P.comidasFinde.length) SETS.push({ titulo: 'Fin de semana', comidas: P.comidasFinde, macros: P.macrosFinde });
+  // Planes con varios tipos de día (P.planes: [{label, macros, comidas}]).
+  if (!SETS.length && P.planes && P.planes.length) P.planes.forEach(function (pl) { SETS.push({ titulo: String(pl.label).replace(/ · ~?[0-9.,  ]+ kcal$/, ''), comidas: pl.comidas, macros: pl.macros }); });
   if ((!P.comidas || !P.comidas.length) && !SETS.length) return;
 
   var $id = function (i) { return document.getElementById(i); };

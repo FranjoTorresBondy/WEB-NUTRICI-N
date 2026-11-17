@@ -192,9 +192,9 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 const PATIENT = {
   slug:      'brayan-montalvo',
   nombre:    'Brayan\nMontalvo',
-  fecha:     '25.09.2026',
-  tipoPlan:  'Corte · Pre-Pelea MMA',
-  macros:    { kcal: 2284, p: 168, c: 286, g: 52 },
+  fecha:     '17.11.2026',
+  tipoPlan:  'Corte estricto · Pre-Pelea MMA',
+  macros:    { kcal: 1867, p: 160, c: 201, g: 47 },
   hidratacion: [
     { label:'💧 Entrenamiento', valor:'4.5' },
     { label:'💧 Descanso',      valor:'3.5' },
@@ -240,120 +240,60 @@ const PATIENT = {
     'Registrar peso en ayunas todos los días y reportar por WhatsApp',
   ],
 
-  comidas: [
-    { id:'pre', nombre:'⚡ Pre-Entreno Mañana', kcal:224, p:3, c:44, g:4, grupos:[
-        { label:'Escoge 01 · Opción completa', max:1, ops:[
-          '2 rebanadas de pan de molde blanco (50 g) + 15 g de miel de abeja o mermelada — 180 kcal · 37 C',
-          '50 g de dátiles (6 pequeños o 2 Medjool) — 140 kcal · 38 C',
-          '4 galletas de arroz (36 g) + 10 g de miel de abeja o mermelada — 170 kcal · 37 C',
-          '30 g de avena instantánea con agua caliente + 20 g de miel de abeja — 175 kcal · 37 C',
-          'Jugo: 100 g de betarraga + 1 naranja mediana + 15 g de miel de abeja + agua al gusto — 150 kcal · 37 C',
-          '1 plátano mediano (120 g pelado) + 13 g de miel de abeja — 145 kcal · 38 C',
-          '1 rebanada de pan de molde blanco (25 g) + 4 dátiles pequeños (≈ 32 g) + 5 g de mantequilla de maní — ≈ 190 kcal · 38 C',
-          '10 galletas de arroz Costeño + 1 cda de miel de abeja + 5 g de mantequilla de maní',
-        ]},
-        { label:'Adicional · va con cualquier opción', max:0, ops:[
-          '10 g de chispas de chocolate — 50 kcal · 6 C',
-        ]},
-    ], nota:'Consumir 15–20 min antes de salir a entrenar. Si no hay tiempo, solo el plátano + miel.<br>⚡ Cada opción ya incluye su miel o mermelada: no le sumes otra encima. Todas rondan los 38 g de carbohidrato, que es lo que buscamos antes de entrenar.<br>⚠️ Domingo (descanso): no consumir este pre-entreno.' },
-
-    { id:'des', nombre:'☀️ Post-Entreno / Desayuno', kcal:557, p:50, c:60, g:13, grupos:[
-        { label:'Escoge 01 · Proteína', max:1, ops:[
-          '160 g de pechuga de pollo cocida',
-          '160 g de tilapia cocida',
-          '1 lata de atún en agua (180 g) + 20 g de queso edam',
-          '2 huevos + 1 scoop de proteína en polvo (30 g)',
-          '200 g de Vakimú Quark + 30 g de queso edam',
-        ]},
-        { label:'Escoge 02 · Carbohidrato', max:2, ops:[
-          '100 g de arroz cocido',
-          '1 rebanada de pan Bimbo blanco (25 g)',
-          '30 g de avena preparada con agua',
-          '1 plátano pequeño (60 g pelado)',
-          '25 g de pan campesino o de semillas de Pan de la Chola',
-          '1 rebanada de pan Unión avena y miel',
-        ]},
-        { label:'Escoge 01 · Fruta', max:1, ops:[
-          '1 porción de fruta (Ver especificaciones)',
-        ]},
-        { label:'Escoge 01 · Grasa', max:1, ops:[
-          '30 g de palta (en guacamole)',
-          '8 aceitunas',
-          '15 g de mantequilla de maní',
-          '30 g de queso edam',
-        ]},
-    ]},
-
-    { id:'alm', nombre:'🥗 Almuerzo', kcal:621, p:57, c:69, g:13, grupos:[
-        { label:'Escoge 01 · Carbohidrato (peso cocido)', max:1, ops:[
-          '240 g de arroz cocido',
-          '360 g de papa sancochada',
-          '200 g de fideos (peso cocido)',
-        ]},
-        { label:'Escoge 01 · Proteína (180 g, peso crudo)', max:1, ops:[
-          'Pechuga de pollo',
-          'Tilapia',
-          '1½ latas de atún en agua',
-          '200 g de langostinos',
-        ]},
-        { label:'Escoge 01 · Verduras', max:1, ops:[
-          '100–150 g de verduras de tu preferencia',
-          '4 cdas de salsa roja',
-        ]},
-        { label:'Escoge 01 · Grasa', max:1, ops:[
-          '30 g de palta (en guacamole)',
-          '8 aceitunas',
-          '15 g de maní tostado sin sal o mantequilla de maní',
-          '2 cdas de salsa verde',
-        ]},
-    ], nota:'⚠️ Los domingos aplica este mismo plan.' },
-
-    { id:'pre2', nombre:'🥊 Pre-Entreno Tarde', kcal:314, p:16, c:49, g:6, grupos:[
-        { label:'Escoge 01 · Carbohidrato', max:1, ops:[
-          '2 rebanadas de pan Bimbo blanco (50 g) + 1 cda de miel de abeja (21 g) — 195 kcal · 42 C',
-          '3 galletas de arroz (45 g) + 1 cdta de miel de abeja (7 g) — 195 kcal · 43 C',
-          '30 g de avena con agua + ½ plátano (60 g) + 11 g de miel de abeja — 200 kcal · 43 C',
-        ]},
-        { label:'Escoge 01 · Proteína', max:1, ops:[
-          '½ lata de atún en agua (90 g) — 13 P · 60 kcal',
-          '120 g de Vakimú Quark — 12 P · 70 kcal',
-          '50 g de queso edam — 12 P · 180 kcal (ver nota)',
-        ]},
-        { label:'Adicional · va con cualquier opción', max:0, ops:[
-          '10 g de chispas de chocolate — 50 kcal · 6 C',
-        ]},
-    ], nota:'Consumir 30–45 min antes del boxeo de la tarde. Si el entreno es muy cercano, solo el carbo.<br>🧀 Para dar la misma proteína que el atún o el Quark, el edam necesita 50 g, y ahí aporta 13 g de grasa frente a 1 g de los otros dos. Déjalo para los días que entrenas más tarde.<br>⚠️ Domingo (descanso): este card es tu snack de media tarde — quita las chispas de chocolate.' },
-
-    { id:'cen', nombre:'🌙 Cena', kcal:568, p:42, c:64, g:16, grupos:[
-        { label:'Escoge 01 · Proteína', max:1, ops:[
-          '150 g de pechuga de pollo cocida',
-          '150 g de tilapia cocida',
-          '1 lata de atún en agua (180 g)',
-          '1 scoop de proteína en polvo (30 g) + 2 huevos',
-          '8 claras de huevo (≈ 265 g) — 29 g de proteína',
-        ]},
-        { label:'Escoge 01 · Carbohidrato', max:1, ops:[
-          '240 g de arroz cocido',
-          '360 g de papa sancochada',
-          '200 g de fideos (peso cocido)',
-          '4 rapiditas integrales',
-          '240 g de plátano (pelado)',
-          '4 rebanadas de pan Bimbo blanco (100 g)',
-          '100 g de pan campesino o de semillas de Pan de la Chola',
-          '4 rebanadas de pan Unión avena y miel',
-        ]},
-        { label:'Escoge 01 · Verduras', max:1, ops:[
-          '100–150 g de verduras de tu preferencia',
-          '4 cdas de salsa roja',
-        ]},
-        { label:'Escoge 01 · Grasa', max:1, ops:[
-          '30 g de palta (en guacamole)',
-          '8 aceitunas',
-          '15 g de mantequilla de maní',
-          '30 g de queso edam',
-          '2 cdas de salsa verde',
-        ]},
-    ], nota:'Al menos 1 hora antes de acostarse.<br>⚠️ Los domingos aplica este mismo plan.' },
+  // Corte estricto 17.11 → 09.12. kcal = 4P + 4C + 9G; total de cada día = suma de comidas.
+  planes: [
+  { id:'entreno', label:'Lunes a sábado (doble sesión) · 1867 kcal', macros:{ kcal:1867, p:160, c:201, g:47 }, comidas:[
+    { id:'pre-m', nombre:'⚡ Pre Entreno Mañana · 15 min antes', kcal:156, p:1, c:38, g:0, grupos:[
+      { label:'Fijo', max:1, ops:['1 plátano mediano (120 g pelado) + 10 g de miel de abeja'] },
+    ], nota:'Si no hay tiempo, igual cómelo de camino: no entrenes en ayunas.' },
+    { id:'des', nombre:'☀️ Desayuno · después del entreno de la mañana', kcal:478, p:35, c:44, g:18, grupos:[
+      { label:'Proteína · fija', max:1, ops:['2 huevos enteros + 4 claras (revueltos, en tortilla, duros o pochados)'] },
+      { label:'Carbohidrato · fijo', max:1, ops:['40 g de avena (peso seco) preparada con agua'] },
+      { label:'Fruta · Escoge 01', max:1, ops:['1 porción de fruta (ver especificaciones)'] },
+      { label:'Grasa · fija', max:1, ops:['10 g de mantequilla de maní'] },
+    ], nota:'Puedes agregar canela y Stevia a la avena. Café negro permitido.' },
+    { id:'alm', nombre:'🥗 Almuerzo · 13:00', kcal:501, p:52, c:44, g:13, grupos:[
+      { label:'Proteína (200 g, peso crudo) · Escoge 01', max:1, ops:['Pechuga de pollo', 'Pescado blanco (tilapia, corvina, lenguado)', '1½ latas de atún en agua'] },
+      { label:'Carbohidrato (peso cocido) · Escoge 01', max:1, ops:['120 g de arroz', '180 g de papa o camote'] },
+      { label:'Verduras · fijo', max:1, ops:['200 g de verduras de tu preferencia'] },
+      { label:'Grasa · fija', max:1, ops:['10 g de aceite de oliva (2 cdtas)'] },
+    ], nota:'Pesa todo en la balanza. Nada a ojo.' },
+    { id:'pre-t', nombre:'🥊 Pre Entreno Tarde · 30–45 min antes', kcal:151, p:2, c:29, g:3, grupos:[
+      { label:'Fijo', max:1, ops:['3 galletas de arroz Rice Up + 10 g de miel de abeja + 5 g de mantequilla de maní'] },
+    ] },
+    { id:'post', nombre:'💪 Post Entreno Tarde', kcal:137, p:24, c:8, g:1, grupos:[
+      { label:'Fijo', max:1, ops:['1 scoop de proteína en polvo con agua + 5 g de creatina + 50 g de berries'] },
+    ] },
+    { id:'cen', nombre:'🌙 Cena · 20:30', kcal:444, p:46, c:38, g:12, grupos:[
+      { label:'Proteína (180 g, peso crudo) · Escoge 01', max:1, ops:['Pescado blanco', 'Pechuga de pollo', '1 lata de atún en agua + 2 claras'] },
+      { label:'Carbohidrato (peso cocido) · Escoge 01', max:1, ops:['150 g de papa o camote', '90 g de arroz'] },
+      { label:'Verduras · fijo', max:1, ops:['150 g de verduras de tu preferencia'] },
+      { label:'Grasa · fija', max:1, ops:['60 g de palta'] },
+    ], nota:'Mínimo 1 hora antes de dormir. Después de la cena, la cocina se cierra.' },
+  ]},
+  { id:'domingo', label:'Domingo (descanso) · 1600 kcal', macros:{ kcal:1600, p:157, c:144, g:44 }, comidas:[
+    { id:'des', nombre:'☀️ Desayuno · después del entreno de la mañana', kcal:478, p:35, c:44, g:18, grupos:[
+      { label:'Proteína · fija', max:1, ops:['2 huevos enteros + 4 claras (revueltos, en tortilla, duros o pochados)'] },
+      { label:'Carbohidrato · fijo', max:1, ops:['40 g de avena (peso seco) preparada con agua'] },
+      { label:'Fruta · Escoge 01', max:1, ops:['1 porción de fruta (ver especificaciones)'] },
+      { label:'Grasa · fija', max:1, ops:['10 g de mantequilla de maní'] },
+    ], nota:'Puedes agregar canela y Stevia a la avena. Café negro permitido.' },
+    { id:'alm', nombre:'🥗 Almuerzo · 13:00', kcal:501, p:52, c:44, g:13, grupos:[
+      { label:'Proteína (200 g, peso crudo) · Escoge 01', max:1, ops:['Pechuga de pollo', 'Pescado blanco (tilapia, corvina, lenguado)', '1½ latas de atún en agua'] },
+      { label:'Carbohidrato (peso cocido) · Escoge 01', max:1, ops:['120 g de arroz', '180 g de papa o camote'] },
+      { label:'Verduras · fijo', max:1, ops:['200 g de verduras de tu preferencia'] },
+      { label:'Grasa · fija', max:1, ops:['10 g de aceite de oliva (2 cdtas)'] },
+    ], nota:'Pesa todo en la balanza. Nada a ojo.' },
+    { id:'snk', nombre:'🍎 Snack Media Tarde', kcal:177, p:24, c:18, g:1, grupos:[
+      { label:'Fijo', max:1, ops:['1 scoop de proteína en polvo con agua + 1 porción de fruta (ver especificaciones) + 5 g de creatina'] },
+    ] },
+    { id:'cen', nombre:'🌙 Cena · 20:30', kcal:444, p:46, c:38, g:12, grupos:[
+      { label:'Proteína (180 g, peso crudo) · Escoge 01', max:1, ops:['Pescado blanco', 'Pechuga de pollo', '1 lata de atún en agua + 2 claras'] },
+      { label:'Carbohidrato (peso cocido) · Escoge 01', max:1, ops:['150 g de papa o camote', '90 g de arroz'] },
+      { label:'Verduras · fijo', max:1, ops:['150 g de verduras de tu preferencia'] },
+      { label:'Grasa · fija', max:1, ops:['60 g de palta'] },
+    ], nota:'Mínimo 1 hora antes de dormir. Después de la cena, la cocina se cierra.' },
+  ]},
   ],
 
   specs: [
@@ -394,8 +334,17 @@ const PATIENT = {
       'Evitar sal extra en las comidas durante todo el corte',
       'Consumir mínimo 4.5 L de agua en días de entrenamiento',
       'Pesarse todas las mañanas en ayunas y reportar',
-      'Día de descanso (domingo): eliminar C1 pre-entreno y reducir carbos → apuntar a 1 500–1 600 kcal',
-      'Pelea: 13/10/2026 · Pesaje: 12/10/2026 · Objetivo pesaje: 62 kg',
+      'Pelea: 16/12/2026 · Pesaje: 15/12/2026 · Objetivo pesaje: 62 kg · Inicio fightweek: 10/12/2026 (llegar con 67–68 kg)',
+    ]},
+    { titulo:'📏 Reglas del corte', items:[
+      'Pesarse todos los días en ayunas, después de ir al baño, y reportar por WhatsApp',
+      'Todo se pesa en la balanza (crudo o cocido según se indica). Nada a ojo',
+      'Sin comidas libres, sin alcohol y sin picoteos fuera de horario',
+      'Respetar los horarios: si una comida se retrasa, no se junta con la siguiente',
+      '##Ajuste semanal (según el promedio de peso de la semana)',
+      'Si baja menos de 0.7 kg por semana: quitar 20 g de carbohidrato de la cena',
+      'Si baja más de 1.2 kg por semana o rinde mal en el sparring: devolver 20 g de carbohidrato al almuerzo',
+      'Sal normal por ahora. La manipulación de agua y sodio es solo en el fightweek',
     ]},
   ],
 
@@ -407,7 +356,7 @@ const PATIENT = {
     { nombre:'Cocoa post-entreno',     desc:'1 cda de cocoa en polvo + 200 ml de agua tibia + 1 cdta de miel de abeja + pizca de canela' },
   ],
 
-  notaSpecs: 'Días de entrenamiento: ~2 284 kcal. Domingo (descanso): no consumir el pre-entreno mañana; el pre-entreno media tarde se convierte en snack de media tarde sin chispas de chocolate. Almuerzo y cena del domingo aplican igual al plan diario. Creatina 5 g POST entrenamiento todos los días, entrenes o no.',
+  notaSpecs: 'Lunes a sábado (doble sesión): 1867 kcal. Domingo (descanso): 1600 kcal. Creatina 5 g todos los días, entrenes o no.',
 
   entrenamiento: null,
 };
@@ -446,15 +395,20 @@ function renderTabs() {
   ).join('');
 }
 
+let activePlanIdx = 0;
+function getActivePlan(){ return PATIENT.planes ? PATIENT.planes[activePlanIdx] : { macros:PATIENT.macros, comidas:PATIENT.comidas }; }
+function switchPlanType(i){ saveSelections(); activePlanIdx=i; renderPlan(); }
 function renderPlan() {
   const el = $('tab-plan');
+  const plan = getActivePlan();
+  const planBtns = PATIENT.planes ? PATIENT.planes.map((p,i)=>`<button class="micro-btn${i===activePlanIdx?' active':''}" onclick="switchPlanType(${i})">${p.label}</button>`).join('') : '';
   const microBtns = PATIENT.semanas > 1
     ? Array.from({length:PATIENT.semanas},(_,i)=>
         `<button class="micro-btn${i===0?' active':''}" onclick="setMicro(${i+1},this)">S${i+1}</button>`
       ).join('')
     : '';
 
-  const meals = PATIENT.comidas.map(m => {
+  const meals = plan.comidas.map(m => {
     const grupos = m.grupos.map((g,gi) => {
       const ops = g.ops.map(o =>
         `<div class="opt"><span class="cb"></span><span class="opt-text">${o}</span></div>`
@@ -475,11 +429,12 @@ function renderPlan() {
   el.innerHTML = `<div class="wrap"><section>
     <div class="sec-h"><span class="ix">01</span><h2>Plan diario</h2><div class="rule"></div></div>
     ${microBtns ? `<div class="micro-bar"><span class="mlabel">Semana</span>${microBtns}<span class="micro-note">Tus selecciones se guardan automáticamente</span></div>` : ''}
+    ${planBtns ? `<div class="micro-bar"><span class="mlabel">Tipo de día</span>${planBtns}</div>` : ''}
     <div class="macros">
-      <div class="kcal">${PATIENT.macros.kcal.toLocaleString('es')} <small>kcal / día base</small></div>
-      <div class="mtag"><b>${PATIENT.macros.p}</b> g Proteína</div>
-      <div class="mtag"><b>${PATIENT.macros.c}</b> g Carbohidratos</div>
-      <div class="mtag"><b>${PATIENT.macros.g}</b> g Grasas</div>
+      <div class="kcal">${plan.macros.kcal.toLocaleString('es')} <small>kcal / día</small></div>
+      <div class="mtag"><b>${plan.macros.p}</b> g Proteína</div>
+      <div class="mtag"><b>${plan.macros.c}</b> g Carbohidratos</div>
+      <div class="mtag"><b>${plan.macros.g}</b> g Grasas</div>
       <div class="sep"></div>
       <span class="tag">${PATIENT.tipoPlan}</span>
     </div>
@@ -724,7 +679,7 @@ function incrOpt(opt){const g=opt.closest('.options');const max=parseInt(g.datas
 function decrOpt(opt){const c=parseInt(opt.dataset.count||0);if(c<=0)return;opt.dataset.count=c-1;updateOpt(opt);saveSelections();}
 function updateOpt(opt){const c=parseInt(opt.dataset.count||0);opt.classList.toggle('selected',c>0);const cb=opt.querySelector('.cb');if(cb)cb.textContent=c>0?c:'';const cnt=opt.querySelector('.opt-cnt');if(cnt)cnt.textContent=c;const dec=opt.querySelector('.opt-dec');if(dec)dec.disabled=c<=0;}
 
-function planKey(){return `${PATIENT.slug}-plan-s${currentMicro}`;}
+function planKey(){return `${PATIENT.slug}-plan-${PATIENT.planes?PATIENT.planes[activePlanIdx].id:'s'+currentMicro}`;}
 function saveSelections(){const data={};document.querySelectorAll('.options').forEach(g=>{const gid=g.dataset.group;data[gid]={};g.querySelectorAll('.opt').forEach((o,i)=>{const c=parseInt(o.dataset.count||0);if(c>0)data[gid][i]=c;});});localStorage.setItem(planKey(),JSON.stringify(data));}
 function loadSelections(){const raw=localStorage.getItem(planKey());document.querySelectorAll('.opt').forEach(o=>{o.dataset.count='0';updateOpt(o);});if(!raw)return;try{const data=JSON.parse(raw);document.querySelectorAll('.options').forEach(g=>{const gid=g.dataset.group;if(!data[gid])return;const opts=g.querySelectorAll('.opt');Object.entries(data[gid]).forEach(([idx,count])=>{if(opts[idx]){opts[idx].dataset.count=count;updateOpt(opts[idx]);}});});}catch(e){}}
 
