@@ -446,7 +446,67 @@ const PATIENT = {
 
   notaSpecs: 'Las cantidades de agua pueden ser variables; siempre intenta que tus orinas sean claras, sobre todo antes de los entrenamientos, donde debes estar bien hidratada. Es normal que la primera orina sea un poco más oscura por todas las horas que no has tomado agua: apenas te levantes, comienza a hidratarte.',
 
-  entrenamiento: null,
+  entrenamiento: {
+    fases: [
+      { label:'Semana 1', semanas:1, color:'var(--cyan)',  bg:'#0d3d50' },
+      { label:'Semana 2', semanas:1, color:'#4fc3f7',     bg:'#0d3d50' },
+      { label:'Semana 3', semanas:1, color:'var(--coral)', bg:'#5c2020' },
+      { label:'Semana 4', semanas:1, color:'#ef5350',     bg:'#5c2020' },
+    ],
+    sesiones: [
+      { id:'s1', icon:'🍑', label:'Sesión 1 — Lower', nota:'Glúteo · Pierna', ejercicios:[
+        { nombre:'Sentadilla búlgara con mancuernas de 10 kg', img:'anim', s1:'Split_Squat_with_Dumbbells/0.jpg', s2:'Split_Squat_with_Dumbbells/1.jpg',
+          reps:'10 c/pierna', descanso:'1:30', nota:'Pie de atrás apoyado en la banca. Baja en 3 segundos.',
+          prog:[[2,3],[3,2],[3,2],[3,'1-2']] },
+        { nombre:'Hip thrust con mancuerna de 10 kg', img:'anim', s1:'Barbell_Hip_Thrust/0.jpg', s2:'Barbell_Hip_Thrust/1.jpg',
+          reps:'12', descanso:'1:30', nota:'Espalda apoyada en la banca y la mancuerna sobre la cadera. Pausa de 1 segundo arriba.',
+          prog:[[2,3],[3,2],[3,2],[3,'1-2']] },
+        { nombre:'Peso muerto rumano con mancuernas de 10 kg', img:'anim', s1:'Stiff-Legged_Dumbbell_Deadlift/0.jpg', s2:'Stiff-Legged_Dumbbell_Deadlift/1.jpg',
+          reps:'12', descanso:'1:30', nota:'Rodillas semiflexionadas, cadera atrás y espalda recta.',
+          prog:[[2,3],[3,2],[3,2],[3,'1-2']] },
+        { nombre:'Patada de glúteo con liga', img:'anim', s1:'Glute_Kickback/0.jpg', s2:'Glute_Kickback/1.jpg',
+          reps:'15 c/pierna', descanso:'1:00',
+          prog:[[2,3],[3,2],[3,2],[3,'1-2']] },
+        { nombre:'Caminata lateral con liga', img:'anim', s1:'Monster_Walk/0.jpg', s2:'Monster_Walk/1.jpg',
+          reps:'15 pasos c/lado', descanso:'1:00', nota:'Liga sobre las rodillas, semisentadilla todo el tiempo.',
+          prog:[[2,3],[3,2],[3,2],[3,'1-2']] },
+      ]},
+      { id:'s2', icon:'💪', label:'Sesión 2 — Upper', nota:'Espalda · Pecho · Hombro', ejercicios:[
+        { nombre:'Dominadas asistidas con liga', img:'anim', s1:'Band_Assisted_Pull-Up/0.jpg', s2:'Band_Assisted_Pull-Up/1.jpg',
+          reps:'6-8', descanso:'2:00', nota:'Cuando hagas 8 limpias, usa una liga más delgada. Anota las repeticiones.',
+          prog:[[2,3],[3,2],[3,2],[3,'1-2']] },
+        { nombre:'Fondos en paralelas', img:'anim', s1:'Dips_-_Chest_Version/0.jpg', s2:'Dips_-_Chest_Version/1.jpg',
+          reps:'6-10', descanso:'2:00', nota:'Si aún no salen, asístelos con liga. Anota las repeticiones.',
+          prog:[[2,3],[3,2],[3,2],[3,'1-2']] },
+        { nombre:'Remo a un brazo con mancuerna de 10 kg', img:'anim', s1:'One-Arm_Dumbbell_Row/0.jpg', s2:'One-Arm_Dumbbell_Row/1.jpg',
+          reps:'12 c/brazo', descanso:'1:30', nota:'Rodilla y mano apoyadas en la banca. Lleva el codo hacia la cadera.',
+          prog:[[2,3],[3,2],[3,2],[3,'1-2']] },
+        { nombre:'Flexiones de pecho', img:'anim', s1:'Pushups/0.jpg', s2:'Pushups/1.jpg',
+          reps:'8-12', descanso:'1:30', nota:'Con rodillas apoyadas si hace falta. Anota las repeticiones.',
+          prog:[[2,3],[3,2],[3,2],[3,'1-2']] },
+        { nombre:'Elevaciones laterales con mancuernas de 3 kg', img:'anim', s1:'Side_Lateral_Raise/0.jpg', s2:'Side_Lateral_Raise/1.jpg',
+          reps:'15-20', descanso:'1:00',
+          prog:[[2,3],[3,2],[3,2],[3,'1-2']] },
+      ]},
+      { id:'s3', icon:'⚡', label:'Sesión 3 — Full Body', nota:'Pierna · Espalda · Hombro · Core', ejercicios:[
+        { nombre:'Zancada reversa con mancuernas de 10 kg', img:'anim', s1:'Dumbbell_Rear_Lunge/0.jpg', s2:'Dumbbell_Rear_Lunge/1.jpg',
+          reps:'10 c/pierna', descanso:'1:30',
+          prog:[[2,3],[3,2],[3,2],[3,'1-2']] },
+        { nombre:'Puente de glúteo a una pierna en la banca', img:'anim', s1:'Single_Leg_Glute_Bridge/0.jpg', s2:'Single_Leg_Glute_Bridge/1.jpg',
+          reps:'12 c/pierna', descanso:'1:00', nota:'Talón sobre la banca. Pausa de 1 segundo arriba.',
+          prog:[[2,3],[3,2],[3,2],[3,'1-2']] },
+        { nombre:'Dominadas supinas asistidas con liga', img:'anim', s1:'Chin-Up/0.jpg', s2:'Chin-Up/1.jpg',
+          reps:'6-8', descanso:'2:00', nota:'Palmas hacia ti. Anota las repeticiones.',
+          prog:[[2,3],[3,2],[3,2],[3,'1-2']] },
+        { nombre:'Press de hombro con mancuernas de 10 kg', img:'anim', s1:'Dumbbell_Shoulder_Press/0.jpg', s2:'Dumbbell_Shoulder_Press/1.jpg',
+          reps:'8-12', descanso:'1:30', nota:'Sentada en la banca. Si aún no llegas a 8, usa las de 3 kg a 20 repeticiones.',
+          prog:[[2,3],[3,2],[3,2],[3,'1-2']] },
+        { nombre:'Elevación de rodillas en paralelas', img:'anim', s1:'Knee_Hip_Raise_On_Parallel_Bars/0.jpg', s2:'Knee_Hip_Raise_On_Parallel_Bars/1.jpg',
+          reps:'12', descanso:'1:00',
+          prog:[[2,3],[3,2],[3,2],[3,'1-2']] },
+      ]},
+    ],
+  },
 };
 
 // ════════════════════════════════════════════════════════════════════════════
@@ -622,8 +682,8 @@ function renderTrain() {
   WEEKS = buildWeeks();
   $('tab-train').innerHTML = `<div class="wrap">
     <section style="padding-top:24px">
-      <div class="sec-h"><span class="ix">01</span><h2>Mesociclo 1 · 6 Semanas</h2><div class="rule"></div></div>
-      <p class="train-intro">Progresión basada en Israetel et al. (MEV/MRV). Volumen incrementa semana a semana en músculos de alta tolerancia: deltoides, bíceps, tríceps, espalda (isolaciones), pantorrilla y core. Compuestos pesados progresan via RIR. <b>Anota el peso de cada serie</b> — se guarda automáticamente.</p>
+      <div class="sec-h"><span class="ix">01</span><h2>Mesociclo · ${WEEKS.length} Semanas</h2><div class="rule"></div></div>
+      <p class="train-intro">Mesociclo de ${WEEKS.length} semanas · ${PATIENT.entrenamiento.sesiones.length} sesiones de hipertrofia en casa. <b>Anota el peso de cada serie</b> (en dominadas, fondos y flexiones, las repeticiones) — se guarda automáticamente.</p>
       <div class="weeksel" id="weeksel"></div>
     </section>
     <section style="padding-top:6px">
