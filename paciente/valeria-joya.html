@@ -157,6 +157,12 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
   h1{font-size:clamp(32px,10vw,56px)}
   .tab{padding:12px 10px;font-size:11px}
 }
+.micro-bar{display:flex;align-items:center;gap:12px;margin:0 0 24px;flex-wrap:wrap}
+.micro-bar .mlabel{font-family:'IBM Plex Mono';font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
+.micro-btn{appearance:none;border:1.5px solid var(--line);background:var(--panel);border-radius:999px;padding:7px 16px;font-family:'IBM Plex Mono';font-size:12px;font-weight:600;color:var(--muted);cursor:pointer;transition:.2s}
+.micro-btn:hover{border-color:var(--navy);color:var(--navy)}
+.micro-btn.active{background:var(--navy);border-color:var(--navy);color:#000}
+.micro-note{font-size:12px;color:var(--faint);font-style:italic}
 </style>
 <link rel="stylesheet" href="paciente.css">
 </head>
@@ -380,6 +386,46 @@ const PATIENT = {
     ], nota:'Agregar a la dieta de descanso · Solo días de natación, Hyrox o bici. · Para días que entrenes después de natación o Hyrox: usar el intra.' },
   ],
 
+  // Carga de carbohidratos (≈ 9 g/kg de CHO). kcal y macros según el documento; total = suma (sin el pre Hyrox).
+  carbload: {
+    macros: { kcal:3155, p:133, c:605, g:24 },
+    comidas: [
+      { id:'cl-des', nombre:'☀️ Desayuno', kcal:775, p:21, c:167, g:6, grupos:[
+        { label:'Incluye todo', max:5, ops:[
+          '1 cdta de glutamina (5 g) + 1 vaso grande de agua (500 ml)',
+          '2 tazas de corn flakes azucarados (60 g) + 1 cda de miel de abeja o maple (20 g)',
+          '1 cajita de leche chocolatada Laive (250 ml)',
+          '2 rebanadas de pan de molde con ⅓ taza de pechuga de pollo deshilachada (50 g) y 1½ cdas de mayonesa de yogurt griego (20 g)',
+          '1¼ tazas de jugo de naranja (300 ml)',
+        ]},
+      ], nota:'Mayonesa de yogurt griego: yogurt + ½ cdta de mostaza + sal y pimienta al gusto.' },
+      { id:'cl-snk1', nombre:'🍞 Snack 1', kcal:500, p:27, c:84, g:6, grupos:[
+        { label:'Incluye todo', max:1, ops:[
+          '4 rebanadas de pan de molde blanco + 2 tajadas de queso Sbelt (60 g) + 2½ cdas de mermelada (40 g)',
+        ]},
+      ] },
+      { id:'cl-alm', nombre:'🍝 Almuerzo', kcal:650, p:38, c:108, g:5, grupos:[
+        { label:'Incluye todo', max:1, ops:[
+          '2½ tazas de spaghetti cocido (350 g) + ½ taza de salsa de tomate (8 cdas) + 1 filete pequeño de pechuga de pollo, del tamaño de la palma (80 g)',
+        ]},
+      ], nota:'Antes de comer: 1 cda de vinagre de manzana + 1 vaso grande de agua (500 ml).' },
+      { id:'cl-snk2', nombre:'🥞 Snack 2', kcal:580, p:9, c:138, g:2, grupos:[
+        { label:'Incluye todo', max:1, ops:[
+          '¾ taza + 2 cdas de pancake mix Hungry Jack (100 g) + 1½ cdas de miel de maple (30 g) + ⅔ taza de mix de berries (100 g)',
+        ]},
+      ] },
+      { id:'cl-cen', nombre:'🌙 Cena', kcal:650, p:38, c:108, g:5, grupos:[
+        { label:'Incluye todo', max:1, ops:[
+          '2½ tazas de spaghetti cocido (350 g) + 1 filete pequeño de pechuga de pollo, del tamaño de la palma (80 g) + 1 tajada de mozzarella light (30 g) + 1 tomate + albahaca',
+        ]},
+      ], nota:'Antes de comer: 1 cda de vinagre de manzana + 1 vaso grande de agua (500 ml).' },
+      { id:'cl-pre', nombre:'🏃 Pre Hyrox', kcal:null, p:null, c:null, g:null, grupos:[
+        { label:'Incluye todo', max:1, ops:[
+          '2 tazas de corn flakes azucarados (60 g) + 1 plátano + 1 cda de miel de abeja',
+        ]},
+      ], nota:'Solo antes del Hyrox.' },
+    ],
+  },
   specs: [
     { titulo:'🥤 Bebidas', items:[
       'Agua, infusiones (manzanilla, anís, té, muña, hierba luisa, flor de Jamaica)',
@@ -445,6 +491,11 @@ const PATIENT = {
 
   entrenamiento: null,
 };
+PATIENT.planes = [
+  { id:'base', label:'Plan diario', macros:PATIENT.macros, comidas:PATIENT.comidas },
+  { id:'carbload', label:'Carga de carbohidratos', macros:PATIENT.carbload.macros, comidas:PATIENT.carbload.comidas },
+];
+
 // ════════════════════════════════════════════════════════════════════════════
 //  FIN DATOS — motor de renderizado
 // ════════════════════════════════════════════════════════════════════════════
@@ -479,9 +530,13 @@ function renderTabs() {
   ).join('');
 }
 
+let currentPlanIdx = 0;
+function switchPlanType(i){ saveSelections(); currentPlanIdx=i; renderPlan(); }
 function renderPlan() {
   const el = $('tab-plan');
-  const meals = PATIENT.comidas.map(m => {
+  const plan = PATIENT.planes[currentPlanIdx];
+  const planBtns = PATIENT.planes.map((p,i)=>`<button class="micro-btn${i===currentPlanIdx?' active':''}" onclick="switchPlanType(${i})">${p.label}</button>`).join('');
+  const meals = plan.comidas.map(m => {
     const grupos = m.grupos.map((g,gi) => {
       const ops = g.ops.map(o =>
         `<div class="opt"><span class="cb"></span><span class="opt-text">${o}</span></div>`
@@ -491,7 +546,7 @@ function renderPlan() {
     }).join('');
     return `<div class="meal" data-mealid="${m.id}"><div class="top">
         <div class="nm">${m.nombre}</div>
-        <div class="mac"><b>${m.kcal}</b> kcal<br>${m.p}P · ${m.c}C · ${m.g}G</div>
+        <div class="mac">${m.kcal!=null?`<b>${m.kcal}</b> kcal<br>${m.p}P · ${m.c}C · ${m.g}G`:'Fuera del total'}</div>
       </div><div class="body">${grupos}${m.nota?`<div class="note2">${m.nota}</div>`:''}</div></div>`;
   }).join('');
 
@@ -501,13 +556,14 @@ function renderPlan() {
 
   el.innerHTML = `<div class="wrap"><section>
     <div class="sec-h"><span class="ix">01</span><h2>Plan diario</h2><div class="rule"></div></div>
+    <div class="micro-bar"><span class="mlabel">Tipo de día</span>${planBtns}</div>
     <div class="macros">
-      <div class="kcal">${PATIENT.macros.kcal.toLocaleString('es')} <small>kcal / día base</small></div>
-      <div class="mtag"><b>${PATIENT.macros.p}</b> g Proteína</div>
-      <div class="mtag"><b>${PATIENT.macros.c}</b> g Carbohidratos</div>
-      <div class="mtag"><b>${PATIENT.macros.g}</b> g Grasas</div>
+      <div class="kcal">${plan.macros.kcal.toLocaleString('es')} <small>kcal / día</small></div>
+      <div class="mtag"><b>${plan.macros.p}</b> g Proteína</div>
+      <div class="mtag"><b>${plan.macros.c}</b> g Carbohidratos</div>
+      <div class="mtag"><b>${plan.macros.g}</b> g Grasas</div>
       <div class="sep"></div>
-      <span class="tag">${PATIENT.tipoPlan}</span>
+      <span class="tag">${plan.id==='carbload'?'Carga de carbohidratos · ≈ 9 g/kg':PATIENT.tipoPlan}</span>
     </div>
     <div class="meals">${meals}</div>
     <div class="sec-h" style="margin-top:32px"><span class="ix">02</span><h2>Requerimientos hídricos</h2><div class="rule"></div></div>
@@ -747,7 +803,7 @@ function incrOpt(opt){const g=opt.closest('.options');const max=parseInt(g.datas
 function decrOpt(opt){const c=parseInt(opt.dataset.count||0);if(c<=0)return;opt.dataset.count=c-1;updateOpt(opt);saveSelections();}
 function updateOpt(opt){const c=parseInt(opt.dataset.count||0);opt.classList.toggle('selected',c>0);const cb=opt.querySelector('.cb');if(cb)cb.textContent=c>0?c:'';const cnt=opt.querySelector('.opt-cnt');if(cnt)cnt.textContent=c;const dec=opt.querySelector('.opt-dec');if(dec)dec.disabled=c<=0;}
 
-function planKey(){return `${PATIENT.slug}-plan-s${currentMicro}`;}
+function planKey(){return `${PATIENT.slug}-plan-${PATIENT.planes[currentPlanIdx].id}`;}
 function saveSelections(){const data={};document.querySelectorAll('.options').forEach(g=>{const gid=g.dataset.group;data[gid]={};g.querySelectorAll('.opt').forEach((o,i)=>{const c=parseInt(o.dataset.count||0);if(c>0)data[gid][i]=c;});});localStorage.setItem(planKey(),JSON.stringify(data));}
 function loadSelections(){const raw=localStorage.getItem(planKey());document.querySelectorAll('.opt').forEach(o=>{o.dataset.count='0';updateOpt(o);});if(!raw)return;try{const data=JSON.parse(raw);document.querySelectorAll('.options').forEach(g=>{const gid=g.dataset.group;if(!data[gid])return;const opts=g.querySelectorAll('.opt');Object.entries(data[gid]).forEach(([idx,count])=>{if(opts[idx]){opts[idx].dataset.count=count;updateOpt(opts[idx]);}});});}catch(e){}}
 

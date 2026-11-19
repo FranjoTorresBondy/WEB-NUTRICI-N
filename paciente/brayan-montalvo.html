@@ -395,13 +395,13 @@ function renderTabs() {
   ).join('');
 }
 
-let activePlanIdx = 0;
-function getActivePlan(){ return PATIENT.planes ? PATIENT.planes[activePlanIdx] : { macros:PATIENT.macros, comidas:PATIENT.comidas }; }
-function switchPlanType(i){ saveSelections(); activePlanIdx=i; renderPlan(); }
+let currentPlanIdx = 0;
+function getActivePlan(){ return PATIENT.planes ? PATIENT.planes[currentPlanIdx] : { macros:PATIENT.macros, comidas:PATIENT.comidas }; }
+function switchPlanType(i){ saveSelections(); currentPlanIdx=i; renderPlan(); }
 function renderPlan() {
   const el = $('tab-plan');
   const plan = getActivePlan();
-  const planBtns = PATIENT.planes ? PATIENT.planes.map((p,i)=>`<button class="micro-btn${i===activePlanIdx?' active':''}" onclick="switchPlanType(${i})">${p.label}</button>`).join('') : '';
+  const planBtns = PATIENT.planes ? PATIENT.planes.map((p,i)=>`<button class="micro-btn${i===currentPlanIdx?' active':''}" onclick="switchPlanType(${i})">${p.label}</button>`).join('') : '';
   const microBtns = PATIENT.semanas > 1
     ? Array.from({length:PATIENT.semanas},(_,i)=>
         `<button class="micro-btn${i===0?' active':''}" onclick="setMicro(${i+1},this)">S${i+1}</button>`
@@ -679,7 +679,7 @@ function incrOpt(opt){const g=opt.closest('.options');const max=parseInt(g.datas
 function decrOpt(opt){const c=parseInt(opt.dataset.count||0);if(c<=0)return;opt.dataset.count=c-1;updateOpt(opt);saveSelections();}
 function updateOpt(opt){const c=parseInt(opt.dataset.count||0);opt.classList.toggle('selected',c>0);const cb=opt.querySelector('.cb');if(cb)cb.textContent=c>0?c:'';const cnt=opt.querySelector('.opt-cnt');if(cnt)cnt.textContent=c;const dec=opt.querySelector('.opt-dec');if(dec)dec.disabled=c<=0;}
 
-function planKey(){return `${PATIENT.slug}-plan-${PATIENT.planes?PATIENT.planes[activePlanIdx].id:'s'+currentMicro}`;}
+function planKey(){return `${PATIENT.slug}-plan-${PATIENT.planes?PATIENT.planes[currentPlanIdx].id:'s'+currentMicro}`;}
 function saveSelections(){const data={};document.querySelectorAll('.options').forEach(g=>{const gid=g.dataset.group;data[gid]={};g.querySelectorAll('.opt').forEach((o,i)=>{const c=parseInt(o.dataset.count||0);if(c>0)data[gid][i]=c;});});localStorage.setItem(planKey(),JSON.stringify(data));}
 function loadSelections(){const raw=localStorage.getItem(planKey());document.querySelectorAll('.opt').forEach(o=>{o.dataset.count='0';updateOpt(o);});if(!raw)return;try{const data=JSON.parse(raw);document.querySelectorAll('.options').forEach(g=>{const gid=g.dataset.group;if(!data[gid])return;const opts=g.querySelectorAll('.opt');Object.entries(data[gid]).forEach(([idx,count])=>{if(opts[idx]){opts[idx].dataset.count=count;updateOpt(opts[idx]);}});});}catch(e){}}
 
