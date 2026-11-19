@@ -258,7 +258,7 @@ const PATIENT = {
   nombre:    'Margarita\nMucha',
   fecha:     '09.11.2026',
   tipoPlan:  'Hipocalórico · Hiperprotéico',
-  macros:    { kcal: 1400, p: null, c: null, g: null },
+  macros:    { kcal: 1294, p: 118, c: 147, g: 26 },
   hidratacion: [
     { label:'💧 Entrenamiento', valor:'3.0' },
     { label:'💧 Descanso',      valor:'2.0' },
@@ -301,7 +301,7 @@ const PATIENT = {
   ],
 
   comidas: [
-    { id:'des', nombre:'☀️ Desayuno', kcal:null, p:null, c:null, g:null, grupos:[
+    { id:'des', nombre:'☀️ Desayuno', kcal:320, p:24, c:38, g:8, grupos:[
       { label:'Escoge 01 · Lácteo', max:1, ops:[
         '90 g de kéfir',
         '100 g de yogurt griego Vakimú',
@@ -329,7 +329,7 @@ const PATIENT = {
       ]},
     ], nota:'Puedes hacer los huevos como omelette con verduras (champiñones, tomate, espinaca, albahaca, etc.).<br>Puedes hacerte una chocolatada con 30 ml de leche evaporada light Triple Zero de Gloria + 1 cda de cacao en polvo + stevia + canela al gusto.' },
 
-    { id:'alm', nombre:'🥗 Almuerzo', kcal:null, p:null, c:null, g:null, grupos:[
+    { id:'alm', nombre:'🥗 Almuerzo', kcal:343, p:33, c:37, g:7, grupos:[
       { label:'Escoge 02 · Carbohidrato (peso cocido)', max:2, ops:[
         '90 g de papa, camote o beterraga',
         '60 g de arroz',
@@ -357,7 +357,7 @@ const PATIENT = {
       ]},
     ], nota:'Puedes comer un bizcochito de 100 kcal (ver especificaciones).<br>Agrega condimentos al gusto a la porción de papas en airfryer, sin aceite.<br>Puedes encontrar opciones de ensalada en especificaciones.<br>Puedes comer 1 moneda de chocolate La Ibérica o 1 pudding Snack Pack sin azúcar (evitar esta opción).' },
 
-    { id:'snk', nombre:'🍎 Snack', kcal:null, p:null, c:null, g:null, grupos:[
+    { id:'snk', nombre:'🍎 Snack', kcal:175, p:17, c:20, g:3, grupos:[
       { label:'Escoge 01 · Fruta o carbohidrato', max:1, ops:[
         '1 porción de fruta (ver especificaciones)',
         '1 rebanada de pan de molde integral',
@@ -373,7 +373,7 @@ const PATIENT = {
       ]},
     ], nota:'Puedes reemplazar la porción de carbohidratos por 20 g de canchita (peso crudo).<br>Puedes reemplazar tu snack por 1 taza de chocolate caliente con 20 g de chocolate Innato + 200 ml de leche fresca Slim o 30 ml de leche evaporada light Triple Zero de Gloria.<br>Puedes agregar a tu snack 1 taza de gelatina light.' },
 
-    { id:'cen', nombre:'🌙 Cena', kcal:null, p:null, c:null, g:null, grupos:[
+    { id:'cen', nombre:'🌙 Cena', kcal:267, p:30, c:21, g:7, grupos:[
       { label:'Escoge 01 · Carbohidrato (peso cocido)', max:1, ops:[
         '90 g de papa, camote o beterraga',
         '60 g de arroz',
@@ -410,13 +410,13 @@ const PATIENT = {
       ]},
     ], nota:'Puedes usar salsas cero calorías de Delga-C o de la marca En Línea, o las salsas bajas en calorías de las especificaciones (máx. 2 cdas).<br>Puedes hacerte sopas con las porciones de alimentos que te toquen.<br>Agrega condimentos al gusto a la porción de papas en airfryer, sin aceite.<br>Puedes comer 1 taza de gelatina light.' },
 
-    { id:'pre', nombre:'⚡ Pre Entreno', kcal:null, p:null, c:null, g:null, grupos:[
+    { id:'pre', nombre:'⚡ Pre Entreno', kcal:124, p:1, c:30, g:0, grupos:[
       { label:'Escoge 01', max:1, ops:[
         '1 plátano + 1 cdta de miel',
       ]},
     ]},
 
-    { id:'post', nombre:'💪 Post Entreno', kcal:null, p:null, c:null, g:null, grupos:[
+    { id:'post', nombre:'💪 Post Entreno', kcal:65, p:13, c:1, g:1, grupos:[
       { label:'Escoge 01', max:1, ops:[
         '½ scoop de proteína en polvo aislada + agua',
         '½ scoop de proteína en polvo aislada + 150 ml de leche de almendra',
