@@ -212,7 +212,7 @@ const PATIENT = {
   nombre:   'Rodrigo\nOrbegoso Anbesur',
   sexo:     'm',
   fecha:    '19.11.2026',
-  tipoPlan: 'Hipocalórico · Hiperprotéico',
+  tipoPlan: 'Normocalórico · Hiperprotéico',
   hidratacion: [
     { label:'💧 Días de entrenamiento', valor:'3.0' },
     { label:'💧 Días de descanso',      valor:'2.0' },
@@ -231,7 +231,7 @@ const PATIENT = {
   objetivos: [
     'Mejora en rendimiento deportivo',
   ],
-  // Plan 1 (19.11.26) · Días de colegio. kcal y macros de cada comida según el documento; total = suma.
+  // Plan 1 (19.11.26) · Plan base. kcal y macros de cada comida según el documento; total = suma.
   planBase: {
     macros: { kcal:2543, p:133, c:354, g:73 },
     comidas: [
@@ -311,7 +311,7 @@ const PATIENT = {
           '40 g de palta',
           '1 porción de frutos secos (ver especificaciones)',
         ]},
-      ], nota:'*Puedes hacerte hamburguesas con la carne molida.' },
+      ], nota:'*Si almuerzas en el comedor, consume porciones semejantes a las del plan. Presta atención cuando peses los alimentos en casa para que aprendas a reconocer las porciones de forma visual.<br>*Puedes hacerte hamburguesas con la carne molida.' },
       { id:'snk', nombre:'🍎 Snack', kcal:355, p:22, c:55, g:7, grupos:[
         { label:'Escoge 01 · Fruta', max:1, ops:[
           '2 porciones de fruta (ver especificaciones)',
