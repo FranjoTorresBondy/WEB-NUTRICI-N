@@ -236,7 +236,7 @@ const PATIENT = {
   nombre:    'Daniela\nMeza',
   fecha:     '29.10.2026',
   tipoPlan:  'Hipocalórico · Hiperprotéico',
-  macros:    { kcal: 1394, p: 103, c: 150, g: 45 },
+  macros:    { kcal: 1530, p: 104, c: 178, g: 45 },
   hidratacion: [
     { label:'💧 Entrenamiento', valor:'3.5' },
     { label:'💧 Descanso',      valor:'2.5' },
@@ -285,8 +285,8 @@ const PATIENT = {
     ], nota:'1 vaso de agua (500 ml) + café con 100 ml de leche Slim.<br>1 porción de fruta de plátano = 60 g (pelado).<br>Puedes reemplazar el desayuno por: batido de 1 scoop de proteína + 200 ml de leche de almendras + 2 porciones de fruta (ver especificaciones) y 1 rebanada de pan de molde o tostada + 80 g de palta (puedes agregarle verduras: rodajas de tomate, espinaca, albahaca, etc.).' },
 
     // Almuerzo: 380 kcal · 33P · 40C · 9G
-    { id:'alm', nombre:'🥗 Almuerzo', kcal:380, p:33, c:40, g:9, grupos:[
-        { label:'Escoge 02 · Carbohidrato (peso cocido)', max:2, ops:[
+    { id:'alm', nombre:'🥗 Almuerzo', kcal:448, p:35, c:55, g:9, grupos:[
+        { label:'Escoge 03 · Carbohidrato (peso cocido)', max:3, ops:[
           '90 g de papa, camote o beterraga',
           '60 g de arroz',
           '100 g de menestra',
@@ -308,7 +308,7 @@ const PATIENT = {
           '40 g de palta',
           '1 porción de frutos secos* (ver especificaciones)',
         ]},
-    ], nota:'* Puedes consumir 1 porción de mayonesa light Hellmanns (15 g). Si eliges esta opción, no consumir la porción de grasas.' },
+    ], nota:'* Puedes consumir 1 porción de mayonesa light Hellmanns (15 g). Si eliges esta opción, no consumir la porción de grasas.<br>* Come carne (bistec o carne molida de bistec) 1 vez a la semana.<br>* Los días que comas menestra, la porción es de 200 g.' },
 
     // Snack MT: 200 kcal · 12P · 28C · 5G
     { id:'snk-mt', nombre:'🍎 Snack', kcal:200, p:12, c:28, g:5, grupos:[
@@ -320,7 +320,7 @@ const PATIENT = {
           '60 g de queso mozzarella light CuisineCo + 30 g de galletas de arroz',
           '60 g de queso mozzarella light CuisineCo + 1 rapidita',
           '60 g de queso mozzarella light CuisineCo + 20 g de pop corn (peso crudo)',
-          '100 g de plátano + 10 g de mantequilla de maní + 10 g de chocolate',
+          '100 g de plátano + 100 g de yogurt Vakimú +Pro + 10 g de mantequilla de maní o 10 g de chocolate +70%',
           'Waffles de avena: 20 g avena + ½ plátano pequeño (40 g, pelado) + 1 huevo + canela + Stevia (ver toping ↓)',
         ]},
         { label:'Escoge 01 · Toping (solo waffles)', max:1, ops:[
@@ -330,15 +330,15 @@ const PATIENT = {
     ], nota:'Waffles: licuar o chancar en un bowl y llevar a waflera o sartén con aceite en spray. * Puedes hacer varios, congelarlos y recalentarlos en el airfryer u hornito.' },
 
     // Cena: 370 kcal · 33P · 34C · 13G
-    { id:'cen', nombre:'🌙 Cena', kcal:370, p:33, c:34, g:13, grupos:[
-        { label:'Escoge 01 · Carbohidrato', max:1, ops:[
+    { id:'cen', nombre:'🌙 Cena', kcal:438, p:35, c:49, g:13, grupos:[
+        { label:'Escoge 02 · Carbohidrato', max:2, ops:[
           '90 g de papa, camote o beterraga',
           '60 g de arroz',
           '1 tortilla de "El Taco" (30 g)',
           '4 galletas Salmas',
           '1 pan pita (30 g)',
           '1 rebanada de pan de molde (30 g)',
-          '1 rapidita',
+          '½ rapidita XL o 1 rapidita normal',
           '20 g de pop corn (peso crudo)',
         ]},
         { label:'Escoge 01 · Proteína (120 g, peso crudo)', max:1, ops:[
