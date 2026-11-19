@@ -21,7 +21,29 @@
     return P.planes[i] || P.planes[0];
   }
   function COMIDAS() { var pl = planActivo(); return (pl ? pl.comidas : P.comidas) || []; }
-  function MACROS() { var pl = planActivo(); return pl ? pl.macros : P.macros; }
+  function MACROS() {
+    var pl = planActivo();
+    if (pl) return pl.macros;
+    // Páginas con pre entrenos que se activan aparte (César Alfaro, Santiago
+    // Prado): la meta del día es el plan base + los pre entrenos activos, que
+    // la propia página calcula en calcMacros().
+    if (P.preEntrenos && typeof calcMacros === 'function') { try { return calcMacros(); } catch (e) {} }
+    return P.macros;
+  }
+
+  // Pre entrenos activos con alguna opción marcada: cuentan como comida hecha.
+  function preTotals(out) {
+    if (!P.preEntrenos || typeof toggleState === 'undefined') return;
+    P.preEntrenos.forEach(function (pe) {
+      if (!pe.comidas || !toggleState[pe.id]) return;
+      var blk = $id('eb-' + pe.id); if (!blk) return;
+      var ms = blk.querySelectorAll('.eb-meal');
+      pe.comidas.forEach(function (c, i) {
+        if (!ms[i] || !ms[i].querySelector('.eb-opt.selected') || c.kcal == null) return;
+        out.kcal += c.kcal; out.p += c.p || 0; out.c += c.c || 0; out.g += c.g || 0;
+      });
+    });
+  }
 
   if (!COMIDAS().length) return;                                  // no aplica
 
@@ -278,6 +300,7 @@
       out.c += (data.c || 0) * f;
       out.g += (data.g || 0) * f;
     }
+    preTotals(out);
     out.kcal = Math.round(out.kcal); out.p = Math.round(out.p);
     out.c = Math.round(out.c); out.g = Math.round(out.g);
     return out;

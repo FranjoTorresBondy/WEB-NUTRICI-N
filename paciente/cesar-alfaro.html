@@ -524,6 +524,8 @@ function toggleEntreno(id) {
 function toggleEbOpt(el, key) {
   var cur = mealState[key]||0;
   mealState[key] = cur>0 ? 0 : 1;
+  var peId = key.split("-")[0];
+  if (mealState[key] && !toggleState[peId]) { toggleState[peId] = true; saveToggles(toggleState); }
   saveMealState(mealState);
   renderNutr();
 }
