@@ -87,6 +87,17 @@
         }).join('')
       : '<div class="pblock"><h2>Plan alimentario diario</h2><div class="pmeals">' + mealsOf(P.comidas) + '</div></div>';
 
+    // Pre entrenos que se suman al plan base (P.preEntrenos): bloques con
+    // comidas propias ({label, comidas}) o listas simples ({tipo, ops}).
+    if (P.preEntrenos && P.preEntrenos.length) {
+      var preMeals = [];
+      P.preEntrenos.forEach(function (pe) {
+        if (pe.comidas && pe.comidas.length) preMeals = preMeals.concat(pe.comidas);
+        else if (pe.ops && pe.ops.length) preMeals.push({ nombre: pe.tipo || pe.label || 'Pre entreno', kcal: pe.kcal, p: pe.p, c: pe.c, g: pe.g, grupos: [{ label: 'Escoge 01', ops: pe.ops }], nota: pe.nota });
+      });
+      if (preMeals.length) planHtml += '<div class="pblock"><h2>Pre entreno · se suma al plan los días que entrenas</h2><div class="pmeals">' + mealsOf(preMeals) + '</div></div>';
+    }
+
     var hidro = '';
     if (P.hidratacion && P.hidratacion.length) {
       hidro = '<div class="pblock"><h2>Hidratación</h2><div class="phydro">' +
