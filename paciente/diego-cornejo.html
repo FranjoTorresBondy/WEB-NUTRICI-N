@@ -253,20 +253,21 @@ const PATIENT = {
   nombre:   'Diego Cornejo',
   fecha:    '02.10.2026',
   tipoPlan: 'Hipocalórico · Hiperprotéico',
-  macros:   { kcal: 2100, p: 150, c: 250, g: 18 },
+  macros:   { kcal: 2211, p: 153, c: 279, g: 56 },
   hidratacion: [
     { label:'💧 Entrenamiento', valor:'2.8' },
     { label:'💧 Descanso',      valor:'2.5' },
   ],
   semanas: 1,
   antro: {
-    fecha:'16.10.2026', peso:67.5, talla:183.0, imc:20.2,
-    tri:5.0, bi:2.0, sub:6.0, cresta:14.0, supra:6.0, abd:17.0, pierna:14.0, pant:5.0,
-    s6:53.0, s8:69.0,
-    brazRelaj:32.5, brazFlex:35.5, abdom:72.0, cadera:95.0, muslo:49.0, pantPer:33.5,
+    fecha:'20.11.2026', peso:64.0, talla:183.0, imc:19.1,
+    tri:4.0, bi:1.0, sub:5.0, cresta:12.0, supra:4.0, abd:12.0, pierna:8.0, pant:4.0,
+    s6:37.0, s8:50.0,
+    brazRelaj:31.6, brazFlex:34.3, abdom:68.0, cadera:89.0, muslo:48.5, pantPer:33.0,
     diam:{ humero:6.1, biEstiloideo:5.5, femur:9.5 },
-    pctGrasa:11.0, fatKg:7.4, pctMusc:49.2, muscKg:33.2, pctOseo:17.9, oseoKg:12.1, imo:2.75, icc:0.76,
-    somato:{ endo:1.4, meso:3.4, ecto:4.3 },
+    // Faulkner (hombre), Lee con la misma edad de su medición previa (~30.4 años) y Rocha.
+    pctGrasa:9.6, fatKg:6.1, pctMusc:51.3, muscKg:32.8, pctOseo:18.9, oseoKg:12.1, imo:2.71, icc:0.76,
+    somato:{ endo:0.9, meso:3.1, ecto:4.9 },
   },
 
   antroHistorial: [
@@ -276,6 +277,7 @@ const PATIENT = {
     { fecha:'18.09.2026', peso:67.5, tri:6.0, bi:2.0, sub:6.0,  cresta:15.0, supra:8.0,  abd:20.0, pierna:14.0, pant:5.5,  s6:59.5, s8:76.5, brazRelaj:31.5, brazFlex:35.0, abdom:75.5, cadera:94.0, muslo:48.3, pantPer:33.3, pctGrasa:11.9, fatKg:8.0, muscKg:31.9 },
     { fecha:'02.10.2026', peso:65.6, tri:4.5, bi:1.5, sub:5.0, cresta:13.0, supra:5.0, abd:15.0, pierna:11.0, pant:5.0, s6:70.0, s8:91.0, brazRelaj:31.5, brazFlex:34.0, abdom:70.0, cadera:95.0, muslo:48.5, pantPer:33.5, icc:0.74 },
     { fecha:'16.10.2026', peso:67.5, tri:5.0, bi:2.0, sub:6.0,  cresta:14.0, supra:6.0,  abd:17.0, pierna:14.0, pant:5.0,  s6:53.0, s8:69.0, brazRelaj:32.5, brazFlex:35.5, abdom:72.0, cadera:95.0, muslo:49.0, pantPer:33.5, pctGrasa:11.0, fatKg:7.4, muscKg:33.2 },
+    { fecha:'20.11.2026', peso:64.0, tri:4.0, bi:1.0, sub:5.0,  cresta:12.0, supra:4.0, abd:12.0, pierna:8.0, pant:4.0, s6:37.0, s8:50.0, brazRelaj:31.6, brazFlex:34.3, abdom:68.0, cadera:89.0, muslo:48.5, pantPer:33.0, pctGrasa:9.6, fatKg:6.1, muscKg:32.8 },
   ],
 
   objetivos: [
@@ -286,8 +288,8 @@ const PATIENT = {
   ],
 
   comidas: [
-    { id:'des', nombre:'☀️ Desayuno', kcal:510, p:33, c:59, g:18, grupos:[
-      { label:'Escoge 02 · Carbohidrato', max:2, ops:[
+    { id:'des', nombre:'☀️ Desayuno', kcal:578, p:35, c:74, g:18, grupos:[
+      { label:'Escoge 03 · Carbohidrato', max:3, ops:[
         '1 tortilla rapidita integral',
         '1 rebanada de pan de molde integral (30 g)',
         '20 g de avena (peso crudo)',
@@ -330,7 +332,16 @@ const PATIENT = {
       ]},
     ]},
 
-    { id:'snk', nombre:'🥤 Snack MT', kcal:325, p:34, c:40, g:6, grupos:[
+    { id:'snk', nombre:'🥤 Snack MT', kcal:393, p:36, c:55, g:6, grupos:[
+      { label:'Escoge 01 · Carbohidrato', max:1, ops:[
+        '1 tortilla rapidita integral',
+        '1 rebanada de pan de molde integral (30 g)',
+        '20 g de avena (peso crudo)',
+        '1 pan pita integral (30 g)',
+        '20 g de cereales Dyfferent o NutriCo',
+        '20 g de granola',
+        '3 unidades de salmas',
+      ]},
       { label:'Escoge 01 · Proteína', max:1, ops:[
         '250 g de Quark',
         '1 Gloria Pro Day',
@@ -344,7 +355,7 @@ const PATIENT = {
     ], nota:'*Fines de semana si comes fuera, eliminamos este snack.' },
 
     { id:'cen', nombre:'🌙 Cena', kcal:620, p:41, c:75, g:16, grupos:[
-      { label:'Escoge 02 · Carbohidrato', max:2, ops:[
+      { label:'Escoge 04 · Carbohidrato', max:4, ops:[
         '90 g de papa o camote',
         '60 g de arroz',
         '60 g de quinua',
