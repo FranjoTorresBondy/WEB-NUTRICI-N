@@ -303,7 +303,7 @@ const PATIENT = {
         '2 cdtas de mayonesa light',
       ]},
       { label:'Escoge 01 · Fruta', max:1, ops:['1 porción de fruta (ver especificaciones)'] },
-    ]},
+    ], nota:'Puedes reemplazar tu almuerzo por 300 g de ají de gallina + 250 g de arroz.' },
 
     { id:'snk', nombre:'🕔 Snack', kcal:440, p:31, c:46, g:16, grupos:[
       { label:'Escoge 02 · Carbohidrato', max:2, ops:[
@@ -583,7 +583,7 @@ function renderNutr() {
 
   const trainHtml = `
   <section style="padding-top:0">
-    <div class="sec-h"><span class="ix">02</span><h2>Pre-entreno · Días de tenis</h2><div class="rule"></div></div>
+    <div class="sec-h"><span class="ix">02</span><h2>Entrenamiento · Pre e intra</h2><div class="rule"></div></div>
     <div class="meals">
       <div class="meal">
         <div class="top">
@@ -594,6 +594,19 @@ function renderNutr() {
           <div class="pick"><div class="k">Pre entreno · Escoge 01</div>
             <div class="options" data-group="train-tenis" data-max="1">
               <div class="opt" onclick="toggleOpt(this)"><span class="cb"></span><span class="opt-text">1 plátano + 1 cdta de miel de abeja</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="meal">
+        <div class="top">
+          <div class="nm">💧 Intra Entreno</div>
+          <div class="mac">Durante el entrenamiento</div>
+        </div>
+        <div class="body">
+          <div class="pick"><div class="k">Intra entreno</div>
+            <div class="options" data-group="train-intra" data-max="1">
+              <div class="opt" onclick="toggleOpt(this)"><span class="cb"></span><span class="opt-text">500 ml de agua + 1 scoop de electrolitos Flooxe + agua a libre demanda</span></div>
             </div>
           </div>
         </div>
