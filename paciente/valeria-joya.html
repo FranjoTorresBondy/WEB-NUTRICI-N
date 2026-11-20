@@ -384,6 +384,14 @@ const PATIENT = {
           '1 dátil',
         ]},
     ], nota:'Agregar a la dieta de descanso · Solo días de natación, Hyrox o bici. · Para días que entrenes después de natación o Hyrox: usar el intra.' },
+
+    // Intra entreno Hyrox
+    { id:'intra-hyrox', nombre:'🏋️ Intra Entreno · Hyrox', kcal:0, p:0, c:0, g:0, grupos:[
+        { label:'Durante la sesión', max:0, ops:[
+          '1 gel SIS GO Isotonic en cada break (máximo 3 por hora)',
+          '500 ml de Gatorade a sorbos durante la sesión',
+        ]},
+    ], nota:'Agregar a la dieta de descanso · Solo días de Hyrox.' },
   ],
 
   // Carga de carbohidratos (≈ 9 g/kg de CHO). kcal y macros según el documento; total del documento.
@@ -820,6 +828,8 @@ renderSpecs();
 <script>(function(){function _inj(){document.querySelectorAll('.meal[data-mealid]').forEach(function(el){if(typeof injectMealLog==='function')injectMealLog(el);});if(typeof injectGuardarBtn==='function')document.querySelectorAll('.meals').forEach(injectGuardarBtn);}  _inj();setTimeout(_inj,300);setTimeout(_inj,800);})();</script>
 <script src="guia-data.js"></script>
 <script src="comer-fuera.js"></script>
+<script src="recetario-data.js"></script>
+<script src="recetario-plan.js"></script>
 <script src="plan-pdf.js"></script>
 <script src="peso-tracker.js?v=3"></script>
 </body>
