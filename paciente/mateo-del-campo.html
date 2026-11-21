@@ -604,42 +604,12 @@ function renderNutr() {
 
   const mealsHtml = PATIENT.comidas.map(meal => buildMeal(meal)).join('');
 
-  const trainHtml = `
-  <section style="padding-top:0">
-    <div class="sec-h"><span class="ix">02</span><h2>Entrenamiento · Pre e intra</h2><div class="rule"></div></div>
-    <div class="meals">
-      <div class="meal">
-        <div class="top">
-          <div class="nm">🎾 Tenis</div>
-          <div class="mac">Agregar antes del partido</div>
-        </div>
-        <div class="body">
-          <div class="pick"><div class="k">Pre entreno · Escoge 01</div>
-            <div class="options" data-group="train-tenis" data-max="1">
-              <div class="opt" onclick="toggleOpt(this)"><span class="cb"></span><span class="opt-text">1 plátano + 1 cdta de miel de abeja</span></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="meal">
-        <div class="top">
-          <div class="nm">💧 Intra Entreno</div>
-          <div class="mac">Durante el entrenamiento</div>
-        </div>
-        <div class="body">
-          <div class="pick"><div class="k">Intra entreno</div>
-            <div class="options" data-group="train-intra" data-max="1">
-              <div class="opt" onclick="toggleOpt(this)"><span class="cb"></span><span class="opt-text">500 ml de agua + 1 scoop de electrolitos Flooxe + agua a libre demanda</span></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>`;
+  // Sin apartado de entrenamiento por ahora.
+  const trainHtml = '';
 
   const hydroHtml = `
   <section style="padding-top:0">
-    <div class="sec-h"><span class="ix">03</span><h2>Requerimientos hídricos</h2><div class="rule"></div></div>
+    <div class="sec-h"><span class="ix">02</span><h2>Requerimientos hídricos</h2><div class="rule"></div></div>
     <div class="hydro">${PATIENT.hidratacion.map(h=>`<div class="hcard"><div class="l">${h.label}</div><div class="b">${h.valor} L</div></div>`).join('')}</div>
   </section>`;
 
