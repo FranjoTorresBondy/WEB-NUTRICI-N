@@ -246,7 +246,7 @@ const PATIENT = {
   nombre:   'Mateo\ndel Campo',
   fecha:    '21.11.2026',
   tipoPlan: 'Hipocalórico · Hiperprotéico',
-  macros:   { kcal: 1888, p: 135, c: 198, g: 64 },
+  macros:   { kcal: 2057, p: 160, c: 213, g: 65 },
   hidratacion: [
     { label:'💧 Entrenamiento', valor:'3.5' },
     { label:'💧 Descanso',      valor:'3.0' },
@@ -267,6 +267,12 @@ const PATIENT = {
   ],
 
   comidas: [
+    { id:'des', nombre:'☀️ Desayuno rápido', kcal:169, p:25, c:15, g:1, grupos:[
+      { label:'Escoge 01', max:1, ops:[
+        '1 scoop de proteína + 1 porción de fruta (ver especificaciones)',
+        '1 Vakimú +Pro bebible',
+      ]},
+    ]},
     { id:'alm', nombre:'🥗 Almuerzo', kcal:724, p:52, c:76, g:24, grupos:[
       { label:'Escoge 03 · Carbohidrato (pesos cocidos)', max:3, ops:[
         '60 g de arroz blanco o integral',
@@ -445,7 +451,7 @@ const PATIENT = {
     { nombre:'Salsa roja',               desc:'Tomate, cebolla, ajo, albahaca, poro + Lakanto o Stevia al gusto + sal, pimienta y tomillo + 1 cda aceite de oliva' },
   ],
 
-  notaSpecs: 'Plan base: 1 888 kcal.',
+  notaSpecs: 'Plan base: 2 057 kcal.',
   entrenamiento: null, // sin rutina por ahora
 };
 
