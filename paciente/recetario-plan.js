@@ -23,7 +23,29 @@
     var i = (typeof currentPlanIdx !== 'undefined' && currentPlanIdx != null) ? currentPlanIdx : 0;
     return P.planes[i] || P.planes[0];
   }
-  function COMIDAS() { var pl = planActivo(); return (pl ? pl.comidas : P.comidas) || []; }
+  // Páginas con otros formatos de tipo de día (comidasColegio / comidasFinde,
+  // comidas_entreno / comidas_descanso, planLV / planFDS…): si no hay `comidas`,
+  // se juntan todas las comidas que encuentre en PATIENT (sin repetir).
+  function esComida(m) { return m && typeof m === 'object' && m.grupos && m.nombre; }
+  function comidasSueltas() {
+    var out = [], vistos = {};
+    Object.keys(P).forEach(function (k) {
+      var v = P[k], lista = null;
+      if (Array.isArray(v) && v.length && esComida(v[0])) lista = v;
+      else if (v && typeof v === 'object' && !Array.isArray(v) && Array.isArray(v.comidas) && v.comidas.length && esComida(v.comidas[0])) lista = v.comidas;
+      if (!lista) return;
+      lista.forEach(function (m) {
+        var key = (m.id || '') + '|' + m.nombre + '|' + m.kcal;
+        if (esComida(m) && !vistos[key]) { vistos[key] = 1; out.push(m); }
+      });
+    });
+    return out;
+  }
+  function COMIDAS() {
+    var pl = planActivo();
+    var c = (pl ? pl.comidas : P.comidas) || [];
+    return c.length ? c : comidasSueltas();
+  }
   if (!COMIDAS().length) return;
 
   var R   = RECETARIO_CATALOG;
