@@ -173,6 +173,8 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 
 <script>
 const PATIENT = {
+  sexo:     'f',
+  nacimiento:'22.11.1997',
   slug:     'carolina-carbajal',
   nombre:   'Carolina\nCarbajal',
   fecha:    '09.11.2026',
@@ -183,13 +185,20 @@ const PATIENT = {
     { label:'💧 Descanso',      valor:'2.2' },
   ],
   antro: {
-    fecha:'09.11.2026', peso:60.6, talla:160.0, imc:23.7,
-    tri:18.0, bi:8.5, sub:17.0, cresta:27.0, supra:14.0, abd:23.0, pierna:23.0, pant:15.0,
-    s6:110.0, s8:145.5, faul:16.8,
-    brazRelaj:29.8, brazFlex:29.5, abdom:74.0, cadera:96.0, muslo:50.5, pantPer:36.3,
+    fecha:'23.11.2026', peso:60.3, talla:160.0, imc:23.6,
+    tri:13.0, bi:6.5, sub:13.0, cresta:17.0, supra:12.0, abd:15.0, pierna:20.5, pant:13.0,
+    s6:86.5, s8:110.0, faul:19.2,
+    brazRelaj:29.0, brazFlex:30.0, abdom:72.0, cadera:98.5, muslo:51.8, pantPer:36.8,
     diam:{ humero:6.0, biEstiloideo:5.0, femur:9.3 },
+    // Faulkner (mujer), Lee con su edad real (29.0 años, nac. 22.11.1997) y Rocha.
+    pctGrasa:19.2, fatKg:11.6, pctMusc:40.2, muscKg:24.2, pctOseo:15.2, oseoKg:9.2, imo:2.63, icc:0.73,
+    somato:{ endo:4.1, meso:5.4, ecto:1.3 },
   },
-  antroHistorial: [],
+  antroHistorial: [
+    // 09.11: % grasa corregido a la fórmula de mujer (antes 16.8%, calculado con la de hombre).
+    { fecha:'09.11.2026', peso:60.6, tri:18.0, bi:8.5, sub:17.0, cresta:27.0, supra:14.0, abd:23.0, pierna:23.0, pant:15.0,
+      s6:110.0, s8:145.5, brazRelaj:29.8, brazFlex:29.5, abdom:74.0, cadera:96.0, muslo:50.5, pantPer:36.3, pctGrasa:23.2, fatKg:14.1 },
+  ],
   objetivos: [
     'Disminución de sumatoria de 8 pliegues',
     'Cumplir 8.000 pasos al día, aumentar fines de semana',
@@ -302,6 +311,11 @@ const PATIENT = {
         '1 puñado de berries',
       ]},
     ], nota:null },
+    { id:'intra', nombre:'💧 Intra Entreno', kcal:null, p:null, c:null, g:null, grupos:[
+      { label:'Durante el entrenamiento', max:1, ops:[
+        '500 ml de agua + 1 tab de electrolitos SIS Hydro + agua a libre demanda',
+      ]},
+    ], nota:'Solo días de entrenamiento.' },
   ],
   specs: [
     { titulo:'🥤 Bebidas', items:[
