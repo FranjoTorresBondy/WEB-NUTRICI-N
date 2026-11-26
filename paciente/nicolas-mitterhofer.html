@@ -234,7 +234,7 @@ footer{padding:40px 0;border-top:1px solid var(--line);margin-top:20px}
 const PATIENT = {
   slug:      'nicolas-mitterhofer',
   nombre:    'Nicolas\nMitterhofer',
-  fecha:     '19.10.2026',
+  fecha:     '26.11.2026',
   tipoPlan:  'Hipocalórico · Hiperprotéico',
   macros:    { kcal: 2010, p: 130, c: 280, g: 50 },
   hidratacion: [
@@ -243,27 +243,11 @@ const PATIENT = {
   ],
   semanas: 1,
   antro: {
-    fecha:    '19.10.2026',
-    peso:     71.5,
-    talla:    166.0,
-    imc:      25.9,
-    tri:       5.0,
-    bi:        2.0,
-    sub:       7.0,
-    cresta:   17.0,
-    supra:     7.0,
-    abd:      18.0,
-    pierna:    7.0,
-    pant:      5.5,
-    brazRelaj: 35.0,
-    brazFlex:  36.8,
-    abdom:     83.0,
-    cadera:    97.5,
-    muslo:     57.5,
-    pantPer:   35.0,
+    fecha:'13.11.2026', peso:70.7, talla:166.0, imc:25.7,
+    tri:4.0, bi:1.5, sub:6.5, cresta:15.0, supra:5.0, abd:10.5, pierna:6.0, pant:5.0,
+    s6:37.0, s8:53.5,
+    brazRelaj:35.3, brazFlex:37.0, abdom:80.0, cadera:96.0, muslo:57.5, pantPer:35.7,
     diam:{ humero:6.8, biEstiloideo:5.5, femur:9.4 },
-    s6:  49.5,
-    s8:  68.5,
   },
 
   objetivos: [
@@ -273,14 +257,15 @@ const PATIENT = {
   ],
 
   comidas: [
-    // Desayuno: 430 kcal · 21P · 58C · 15G
-    { id:'des', nombre:'☀️ Desayuno', kcal:430, p:21, c:58, g:15, grupos:[
-        { label:'Escoge 02 · Carbohidrato', max:2, ops:[
+    // Desayuno: 570 kcal · 21P · 88C · 15G (+2 porciones de carbo, pasadas desde la cena)
+    { id:'des', nombre:'☀️ Desayuno', kcal:570, p:21, c:88, g:15, grupos:[
+        { label:'Escoge 04 · Carbohidrato', max:4, ops:[
           '1 tortilla rapidita integral',
           '1 rebanada de pan de molde integral (30 g)',
           '20 g de avena (peso crudo)',
           '20 g de cereales de Dyfferent, Mamalama o NutriCo',
           '20 g de granola',
+          '1 cda de miel (10 g)',
         ]},
         { label:'Escoge 01 · Fruta', max:1, ops:[
           '2 porciones de fruta* (ver especificaciones)',
@@ -304,8 +289,9 @@ const PATIENT = {
 
     // Snack Media Mañana: 254 kcal · 23P · 39C · 2G
     { id:'snk-mm', nombre:'🍎 Snack', kcal:254, p:23, c:39, g:2, grupos:[
-        { label:'Escoge 01 · Fruta', max:1, ops:[
-          '2 porciones de fruta* (ver especificaciones)',
+        { label:'Escoge 02 · Fruta o carbohidrato', max:2, ops:[
+          '1 porción de fruta* (ver especificaciones)',
+          '1 cda de miel (10 g)',
         ]},
         { label:'Escoge 01 · Proteína', max:1, ops:[
           '1 Vakimu Pro bebible',
@@ -325,13 +311,13 @@ const PATIENT = {
           '60 g de puré',
         ]},
         { label:'Escoge · Proteína (150 g peso crudo)', max:1, ops:[
-          'Pechuga de pollo',
+          'Pechuga de pollo (≈ 110 g en cocido)',
           'Pechuga de pavo',
-          'Pescado',
-          'Bistec',
-          'Carne molida de bistec o light',
+          'Pescado (≈ 120 g en cocido)',
+          'Bistec (≈ 105 g en cocido)',
+          'Carne molida de bistec o light (≈ 105 g en cocido)',
           '1 lata de atún en agua + 3 claras, o 1½ lata de atún',
-          'Lomo de cerdo',
+          'Lomo de cerdo (≈ 105 g en cocido)',
         ]},
         { label:'Escoge 01 · Verduras', max:1, ops:[
           '150 g de verduras a tu preferencia (crudas o cocidas)',
@@ -351,9 +337,9 @@ const PATIENT = {
         ]},
     ]},
 
-    // Cena: 542 kcal · 40P · 58C · 16G
-    { id:'cen', nombre:'🌙 Cena', kcal:622, p:40, c:78, g:16, grupos:[
-        { label:'Escoge 04 · Carbohidrato', max:4, ops:[
+    // Cena: 482 kcal · 40P · 48C · 16G (−2 porciones de carbo, pasadas al desayuno)
+    { id:'cen', nombre:'🌙 Cena', kcal:482, p:40, c:48, g:16, grupos:[
+        { label:'Escoge 02 · Carbohidrato', max:2, ops:[
           '90 g de papa o camote',
           '60 g de arroz',
           '60 g de quinua',
@@ -364,13 +350,13 @@ const PATIENT = {
           '20 g de granola',
         ]},
         { label:'Escoge · Proteína (150 g peso crudo)', max:1, ops:[
-          'Pechuga de pollo',
+          'Pechuga de pollo (≈ 110 g en cocido)',
           'Pechuga de pavo',
-          'Pescado',
-          'Bistec',
-          'Carne molida de bistec o light',
+          'Pescado (≈ 120 g en cocido)',
+          'Bistec (≈ 105 g en cocido)',
+          'Carne molida de bistec o light (≈ 105 g en cocido)',
           '1 lata de atún en agua + 3 claras',
-          'Lomo de cerdo',
+          'Lomo de cerdo (≈ 105 g en cocido)',
           '1 milanesa de Avinka',
         ]},
         { label:'Escoge 02 · Grasa', max:2, ops:[
@@ -463,7 +449,10 @@ const PATIENT = {
   notaSpecs: 'Plan base = días de descanso (2010 kcal). Días de entrenamiento: agregar Pre Entreno Fuerza / Hyrox.',
 
   antroHistorial: [
-    { fecha:'13.11.2026', peso:70.7 },
+    { fecha:'19.10.2026', peso:71.5, talla:166.0, imc:25.9,
+      tri:5.0, bi:2.0, sub:7.0, cresta:17.0, supra:7.0, abd:18.0, pierna:7.0, pant:5.5,
+      brazRelaj:35.0, brazFlex:36.8, abdom:83.0, cadera:97.5, muslo:57.5, pantPer:35.0,
+      s6:49.5, s8:68.5 },
   ],
 
   entrenamiento: {
