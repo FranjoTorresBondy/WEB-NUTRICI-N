@@ -211,6 +211,7 @@ const PATIENT = {
   slug:     'juanfra',
   nombre:   'Juanfra',
   sexo:     'm',
+  edad:     37.5, // estimada (35–40 años)
   fecha:    '26.11.2026',
   tipoPlan: 'Hipocalórico · Hiperprotéico',
   hidratacion: [
@@ -218,12 +219,14 @@ const PATIENT = {
     { label:'💧 Días de descanso',      valor:'3.5' },
   ],
   antro: {
-    // Sin evaluación ISAK todavía.
-    fecha:'26.11.2026', peso:null, talla:null, imc:null,
-    tri:null, bi:null, sub:null, cresta:null, supra:null, abd:null, pierna:null, pant:null,
-    s6:null, s8:null,
-    brazRelaj:null, brazFlex:null, abdom:null, cadera:null, muslo:null, pantPer:null,
-    diam:null,
+    fecha:'26.11.2026', peso:131.0, talla:176.0, imc:42.3,
+    tri:17.0, bi:8.0, sub:40.0, cresta:37.0, supra:27.0, abd:45.0, pierna:27.0, pant:10.0,
+    s6:166.0, s8:211.0,
+    brazRelaj:42.0, brazFlex:43.5, abdom:127.0, cadera:131.0, muslo:67.3, pantPer:42.0,
+    // Fémur corregido a 11.0 cm (la hoja decía 110.0). Faulkner (hombre), Lee con edad estimada de 37.5 años y Rocha.
+    diam:{ humero:8.0, biEstiloideo:6.0, femur:11.0 },
+    pctGrasa:25.5, fatKg:33.4, pctMusc:32.9, muscKg:43.1, pctOseo:10.3, oseoKg:13.5, imo:3.19, icc:0.97,
+    somato:{ endo:7.3, meso:9.4, ecto:0.1 },
   },
   antroHistorial: [],
   objetivos: [
