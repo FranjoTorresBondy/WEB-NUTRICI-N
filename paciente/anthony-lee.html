@@ -263,14 +263,17 @@ const PATIENT = {
   ],
   semanas: 1,
   antroHistorial: [
-    { fecha:'02.07.2026', peso:60.3, talla:166.0, imc:21.9,
+    { fecha:'02.07.2026', peso:60.3, talla:166.0, imc:21.9, grasa:13.4,
       tri:8.0, bi:3.0, sub:10.0, cresta:18.0, supra:12.0, abd:20.0, pierna:7.0, pant:4.0,
       brazRelaj:26.5, brazFlex:28.5, abdom:77.5, cadera:91.5, muslo:45.5, pantPer:32.0 },
+    { fecha:'20.08.2026', peso:60.0, talla:166.0, imc:21.9, grasa:12.4,
+      tri:7.0, bi:2.0, sub:7.0, cresta:16.0, supra:11.0, abd:18.0, pierna:7.0, pant:3.0,
+      brazRelaj:26.8, brazFlex:28.8, abdom:76.0, cadera:90.5, muslo:46.5, pantPer:32.5 },
   ],
   antro: {
-    fecha:'20.08.2026', peso:60.0, talla:166.0, imc:21.9,
-    tri:7.0, bi:2.0, sub:7.0, cresta:16.0, supra:11.0, abd:18.0, pierna:7.0, pant:3.0,
-    brazRelaj:26.8, brazFlex:28.8, abdom:76.0, cadera:90.5, muslo:46.5, pantPer:32.5,
+    fecha:'31.10.2026', peso:60.0, talla:166.0, imc:21.8, grasa:11.3,
+    tri:5.0, bi:1.0, sub:6.0, cresta:12.0, supra:10.0, abd:15.0, pierna:6.0, pant:3.0,
+    brazRelaj:26.8, brazFlex:30.0, abdom:75.0, cadera:93.5, muslo:47.0, pantPer:33.0,
     diam:{ humero:6.0, biEstiloideo:5.2, femur:9.5 },
   },
 
@@ -709,10 +712,11 @@ function loadTrainValues() {
 // ── Evolución Física ───────────────────────────────────────────────────────
 const ANTRO_KEY = () => `${PATIENT.slug}-antro-v1`;
 function getAntroBase() {
-  const a = PATIENT.antro;
-  const s6 = +(a.tri+a.sub+a.supra+a.abd+a.pierna+a.pant).toFixed(1);
-  const s8 = +(s6+a.bi+a.cresta).toFixed(1);
-  return [{ fecha:a.fecha, peso:a.peso, tri:a.tri, bi:a.bi, sub:a.sub, cresta:a.cresta, supra:a.supra, abd:a.abd, pierna:a.pierna, pant:a.pant, brazRelaj:a.brazRelaj, brazFlex:a.brazFlex, abdom:a.abdom, cadera:a.cadera, muslo:a.muslo, pantPer:a.pantPer, s6, s8 }];
+  return [...(PATIENT.antroHistorial||[]), PATIENT.antro].map(a => {
+    const s6 = +(a.tri+a.sub+a.supra+a.abd+a.pierna+a.pant).toFixed(1);
+    const s8 = +(s6+a.bi+a.cresta).toFixed(1);
+    return { fecha:a.fecha, peso:a.peso, tri:a.tri, bi:a.bi, sub:a.sub, cresta:a.cresta, supra:a.supra, abd:a.abd, pierna:a.pierna, pant:a.pant, brazRelaj:a.brazRelaj, brazFlex:a.brazFlex, abdom:a.abdom, cadera:a.cadera, muslo:a.muslo, pantPer:a.pantPer, s6, s8 };
+  });
 }
 function getAntroData() {
   const base = getAntroBase();
