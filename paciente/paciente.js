@@ -53,8 +53,9 @@ async function logout() {
 // ══════════════════════════════════════════
 //  REGISTRO DIARIO — nota + foto por comida
 // ══════════════════════════════════════════
-const _photoFiles = {};   // mealId → File
+const _photoFiles = {};   // mealId → File[]  (hasta 10 por comida)
 const _notesDraft = {};   // mealId → string
+const _PHOTO_MAX = 10;
 
 function _todayStr() {
   return new Date().toISOString().slice(0, 10);
@@ -77,14 +78,13 @@ function injectMealLog(mealEl) {
     <div class="meal-log-label">📋 ¿Comiste algo diferente hoy?</div>
     <textarea class="meal-note-input" placeholder="Ej: comí pizza en un cumpleaños, tomé jugo de naranja...">${savedNote}</textarea>
     <div class="meal-photo-row">
-      <button class="meal-photo-btn" onclick="triggerPhotoInput('${mealId}')">
+      <button class="meal-photo-btn" id="photo-btn-${mealId}" onclick="triggerPhotoInput('${mealId}')">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
-        Adjuntar foto
+        Adjuntar fotos
       </button>
-      <input type="file" id="photo-input-${mealId}" accept="image/*" style="display:none" onchange="onPhotoSelected('${mealId}', this)">
-      <img class="meal-photo-preview" id="photo-preview-${mealId}" src="" alt="foto">
-      <button class="meal-photo-remove" id="photo-remove-${mealId}" onclick="removePhoto('${mealId}')">×</button>
-    </div>`;
+      <input type="file" id="photo-input-${mealId}" accept="image/*" multiple style="display:none" onchange="onPhotoSelected('${mealId}', this)">
+    </div>
+    <div class="meal-photo-grid" id="photo-grid-${mealId}"></div>`;
 
   const textarea = log.querySelector('.meal-note-input');
   textarea.addEventListener('input', () => {
@@ -98,27 +98,39 @@ function triggerPhotoInput(mealId) {
   document.getElementById(`photo-input-${mealId}`)?.click();
 }
 
-function onPhotoSelected(mealId, input) {
-  const file = input.files[0];
-  if (!file) return;
-  _photoFiles[mealId] = file;
-  const url = URL.createObjectURL(file);
-  const preview = document.getElementById(`photo-preview-${mealId}`);
-  const removeBtn = document.getElementById(`photo-remove-${mealId}`);
-  preview.src = url;
-  preview.classList.add('visible');
-  removeBtn.classList.add('visible');
+function _renderPhotoGrid(mealId) {
+  const grid = document.getElementById(`photo-grid-${mealId}`);
+  const btn  = document.getElementById(`photo-btn-${mealId}`);
+  if (!grid) return;
+  const files = _photoFiles[mealId] || [];
+  grid.innerHTML = files.map((f, i) => {
+    const url = URL.createObjectURL(f);
+    return `<div class="meal-photo-thumb">
+      <img src="${url}" alt="foto ${i+1}">
+      <button class="meal-photo-remove" onclick="removePhoto('${mealId}',${i})">×</button>
+    </div>`;
+  }).join('');
+  if (btn) btn.style.display = files.length >= _PHOTO_MAX ? 'none' : '';
 }
 
-function removePhoto(mealId) {
-  delete _photoFiles[mealId];
-  const preview = document.getElementById(`photo-preview-${mealId}`);
-  const removeBtn = document.getElementById(`photo-remove-${mealId}`);
-  const input = document.getElementById(`photo-input-${mealId}`);
-  preview.src = '';
-  preview.classList.remove('visible');
-  removeBtn.classList.remove('visible');
-  if (input) input.value = '';
+function onPhotoSelected(mealId, input) {
+  const incoming = Array.from(input.files);
+  if (!incoming.length) return;
+  if (!_photoFiles[mealId]) _photoFiles[mealId] = [];
+  const remaining = _PHOTO_MAX - _photoFiles[mealId].length;
+  _photoFiles[mealId].push(...incoming.slice(0, remaining));
+  input.value = '';
+  _renderPhotoGrid(mealId);
+}
+
+function removePhoto(mealId, idx) {
+  if (!_photoFiles[mealId]) return;
+  if (idx === undefined) {
+    _photoFiles[mealId] = [];
+  } else {
+    _photoFiles[mealId].splice(idx, 1);
+  }
+  _renderPhotoGrid(mealId);
 }
 
 async function guardarDia() {
@@ -161,18 +173,24 @@ async function guardarDia() {
       }
     });
 
-    // Upload photos
+    // Upload photos (hasta 10 por comida)
     const photoUrls = {};
-    for (const [mealId, file] of Object.entries(_photoFiles)) {
-      const ext = file.name.split('.').pop() || 'jpg';
-      const path = `${slug}/${fecha}/${mealId}.${ext}`;
-      const { error: upErr } = await _supabase.storage
-        .from('fotos-comidas')
-        .upload(path, file, { upsert: true, contentType: file.type });
-      if (!upErr) {
-        const { data: urlData } = _supabase.storage.from('fotos-comidas').getPublicUrl(path);
-        photoUrls[mealId] = urlData.publicUrl;
+    for (const [mealId, files] of Object.entries(_photoFiles)) {
+      if (!files || !files.length) continue;
+      const urls = [];
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const ext = file.name.split('.').pop() || 'jpg';
+        const path = `${slug}/${fecha}/${mealId}-${i}.${ext}`;
+        const { error: upErr } = await _supabase.storage
+          .from('fotos-comidas')
+          .upload(path, file, { upsert: true, contentType: file.type });
+        if (!upErr) {
+          const { data: urlData } = _supabase.storage.from('fotos-comidas').getPublicUrl(path);
+          urls.push(urlData.publicUrl);
+        }
       }
+      if (urls.length) photoUrls[mealId] = urls;
     }
     if (Object.keys(photoUrls).length) datos.fotos = photoUrls;
 
@@ -205,7 +223,7 @@ async function guardarDia() {
       localStorage.removeItem(_noteKey(slug, mid));
       const ta = mealEl.querySelector('.meal-note-input');
       if (ta) ta.value = '';
-      removePhoto(mid);
+      removePhoto(mid, undefined);
     });
 
     // Re-renderizar el plan con estado limpio
