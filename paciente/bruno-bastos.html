@@ -184,7 +184,7 @@ const PATIENT = {
   slug:     'bruno-bastos',
   sexo:     'm',
   nombre:   'Bruno\nBastos',
-  fecha:    '29.10.2026',
+  fecha:    '27.11.2026',
   tipoPlan: 'Hipocalórico · Hiperprotéico',
 
   hidratacion: [
@@ -193,20 +193,20 @@ const PATIENT = {
   ],
 
   antro: {
-    fecha:    '12.11.2026',
-    peso:     85.0,
+    fecha:    '27.11.2026',
+    peso:     84.6,
     talla:    175.0,
-    imc:      27.8,
-    tri:      5.0,  bi:1.5,    sub:9.0,   cresta:11.0, supra:7.0,
-    abd:      15.0, pierna:9.0, pant:9.0,
-    s6:       54.0, s8:66.5,
-    brazRelaj: 38.3, brazFlex:41.8,
-    abdom:     84.5, cadera:102.0, muslo:57.0, pantPer:39.5,
+    imc:      27.6,
+    tri:      4.0,  bi:1.5,    sub:8.0,   cresta:11.0, supra:7.0,
+    abd:      14.0, pierna:7.0, pant:9.0,
+    s6:       49.0, s8:61.5,
+    brazRelaj: 38.0, brazFlex:41.6,
+    abdom:     83.0, cadera:101.0, muslo:56.5, pantPer:39.0,
     diam: { humero:6.4, biEstiloideo:5.1, femur:9.5 },
-    icc:      0.83, somato: { endo:2.0, meso:6.8, ecto:0.8 },
-    // Faulkner (hombre) y Rocha. Masa muscular (Lee) pendiente: falta fecha de nacimiento.
-    pctGrasa: 11.3, fatKg: 9.6,
-    pctOseo:  12.6, oseoKg: 10.7,
+    icc:      0.82, somato: { endo:1.7, meso:6.7, ecto:0.8 },
+    pctGrasa: 14.9, fatKg: 12.6,
+    pctMusc:  47.3, muscKg: 40.0,
+    pctOseo:  12.7, oseoKg: 10.7,
   },
   antroHistorial: [
     { fecha:'15.09.2026', peso:90.5, talla:175.0, imc:29.6,
@@ -229,6 +229,11 @@ const PATIENT = {
       s6:58.0, s8:72.0,
       brazRelaj:37.8, brazFlex:41.8, abdom:86.0, cadera:102.5, muslo:57.5, pantPer:39.7,
       pctGrasa:15.8, fatKg:13.6, pctMusc:46.2, muscKg:39.9, pctOseo:12.4, oseoKg:10.7, imo:3.73, icc:0.84 },
+    { fecha:'12.11.2026', peso:85.0, talla:175.0, imc:27.8,
+      tri:5.0, bi:1.5, sub:9.0, cresta:11.0, supra:7.0, abd:15.0, pierna:9.0, pant:9.0,
+      s6:54.0, s8:66.5,
+      brazRelaj:38.3, brazFlex:41.8, abdom:84.5, cadera:102.0, muslo:57.0, pantPer:39.5,
+      pctGrasa:11.3, fatKg:9.6, pctOseo:12.6, oseoKg:10.7, icc:0.83 },
   ],
 
   objetivos: [
@@ -246,8 +251,8 @@ const PATIENT = {
     // ── DÍAS DE DESCANSO ─────────────────────────────────────────────────────
     {
       id: 'descanso',
-      label: 'Días de descanso · 1914 kcal',
-      macros: { kcal:1914 },
+      label: 'Días de descanso · 1824 kcal',
+      macros: { kcal:1824 },
       comidas: [
         { id:'des', nombre:'☀️ Desayuno', kcal:null, grupos:[
           { label:'Escoge 01 · Fruta', max:1, ops:[
@@ -317,11 +322,6 @@ const PATIENT = {
             'Lomo de cerdo',
             'Langostinos',
             '100 g de carne molida de bistec*',
-          ]},
-          { label:'Escoge 02 · Grasa', max:2, ops:[
-            '1 cdta de aceite de oliva',
-            '40 g de palta',
-            '10 g de mantequilla de maní',
           ]},
           { label:'Escoge 01 · Verduras', max:1, ops:[
             '120–150 g de verduras de tu preferencia (cebolla, tomate, lechuga, albahaca)',
